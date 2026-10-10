@@ -1,0 +1,17 @@
+[Unit]
+Description=Local bounded VLM model controller
+After=opi-vlm-model.service
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/opi-vlm/app/control.py
+Restart=on-failure
+StateDirectory=opi-vlm-control
+NoNewPrivileges=true
+ProtectHome=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/etc/systemd/system/opi-vlm-model.service.d
+MemoryMax=128M
+
+[Install]
+WantedBy=multi-user.target

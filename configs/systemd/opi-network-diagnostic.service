@@ -1,0 +1,12 @@
+[Unit]
+Description=Record boot Wi-Fi diagnosis to persistent storage
+After=NetworkManager.service
+Wants=NetworkManager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/opi-network-diagnostic
+TimeoutStartSec=360
+
+[Install]
+WantedBy=multi-user.target

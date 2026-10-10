@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f6f5f1"><title>橙语 · SmolVLM</title><link rel="stylesheet" href="/style.css"><script defer src="/app.js"></script></head>
+<body>
+<aside id="sidebar">
+ <a class="brand" href="/" aria-label="橙语主页"><span class="brand-icon">◒</span><span>橙语 <small>ORANGE PI</small></span></a>
+ <button id="new-chat" class="new-chat"><span>＋</span> 新建对话</button>
+ <div class="section-label">你的对话 <span id="chat-count">0</span></div>
+ <nav id="conversations" aria-label="历史会话"></nav>
+ <div class="side-bottom"><div class="local-badge"><span class="dot"></span> 运行在你的设备上</div><p>图片与对话在本地处理。<br>历史保存在此浏览器，可随时删除。</p></div>
+</aside>
+<main>
+ <header><div class="header-left"><button id="menu" class="icon-button" aria-label="切换侧栏">☰</button><div><strong id="model-name">本地视觉模型</strong><div class="model-sub">视觉语言模型 · Orange Pi Zero 3W</div></div></div><div class="header-right"><span id="status" role="status"><i class="dot"></i>连接中</span><button id="delete-chat" class="delete-current" title="删除当前对话" aria-label="删除当前对话">删除对话</button></div></header>
+ <section id="scroll-area" aria-label="对话内容">
+  <div id="welcome"><div class="hero-symbol">◒</div><div class="eyebrow">SMALL MODEL. A NEW PERSPECTIVE.</div><h1>从一张图片，开始对话。</h1><p>让小小的香橙派，看看你眼中的世界。</p><div class="suggestions"><button data-prompt="Describe this image in a few sentences."><span>▧</span><strong>描述一张图片</strong><small>上传照片，看看画面里有什么</small></button><button data-prompt="What are the main objects and their colors?"><span>◉</span><strong>发现画面细节</strong><small>辨认物体、颜色与位置</small></button><button data-prompt="Compare the objects in this image."><span>⇄</span><strong>接着问下去</strong><small>围绕同一张图片继续探索</small></button></div><p class="model-note">这是一个轻量实验模型，英文提问通常更可靠。<br>它可能看错细节，回答仅供参考。</p></div>
+  <div id="messages" aria-live="polite" aria-relevant="additions"></div>
+ </section>
+ <div class="composer-area"><div id="notice" role="status" hidden></div>
+ <div class="model-controls" id="model-controls" hidden><label>模型<select id="model-select" aria-label="选择模型"></select></label><label class="context-control">上下文 <output id="context-value">4096</output> tokens<input id="context-range" type="range" min="0" max="3" step="1" value="2" aria-label="上下文窗口"></label><button id="apply-settings" type="button">应用并加载</button></div>
+ <div id="settings-status" class="settings-status" role="status"></div><div id="context-hint" class="settings-status"></div>
+ <details class="runtime-panel"><summary>系统负载与存储</summary><div id="runtime-metrics">正在读取…</div></details>
+ <form id="composer"><div id="attachment" hidden><img id="attachment-preview" alt="待发送图片"><span id="attachment-name"></span><button id="remove-image" type="button" aria-label="移除图片">×</button></div><textarea id="prompt" rows="1" maxlength="4000" placeholder="发送消息，或上传一张图片…" aria-label="消息输入框"></textarea><div class="composer-toolbar"><div><button type="button" id="upload" class="attach-button">＋ <span>添加图片</span></button><span class="input-hint">Enter 发送 · Shift + Enter 换行</span><input id="file" type="file" accept="image/jpeg,image/png,image/webp" hidden></div><button id="send" type="submit" aria-label="发送消息">↑</button><button id="stop" type="button" hidden>■ 停止</button></div></form><div class="footer-note">本地视觉模型 · 本地推理 <span>单次回复最多 256 tokens · 超窗自动移出最早问答</span></div></div>
+</main>
+<dialog id="delete-dialog"><h2>删除这段对话？</h2><p id="delete-target"></p><p>将删除此浏览器中保存的消息和图片，无法撤销。</p><div><button id="cancel-delete">取消</button><button id="confirm-delete">删除对话</button></div></dialog>
+</body></html>

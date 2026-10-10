@@ -1,0 +1,108 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage:
+  opi-npu-test status
+  opi-npu-test smoke [loops]
+  opi-npu-test yolo [image] [model]
+
+Commands:
+  status  Show the A733 NPU driver/runtime state.
+  smoke   Run the vendor VIPLite sample (default: 1 loop).
+  yolo    Run the vendor YOLOv5 image detector. It writes result.png to the
+          current directory.
+EOF
+}
+
+require_file() {
+  if [[ ! -e "$1" ]]; then
+    printf 'Missing required file: %s\n' "$1" >&2
+    exit 1
+  fi
+}
+
+show_status() {
+  printf '%s\n' '=== NPU driver ==='
+  uname -r
+  modinfo vipcore 2>/dev/null | grep -E '^(filename|version|vermagic):' || true
+  lsmod | grep -E '^vipcore\b' || true
+  ls -l /dev/vipcore 2>/dev/null || true
+
+  printf '%s\n' '=== VIPLite runtime ==='
+  ls -l /lib/libVIPhal.so /lib/libNBGlinker.so 2>/dev/null || true
+
+  printf '%s\n' '=== NPU clock ==='
+  local devfreq='/sys/devices/platform/soc@3000000/3600000.npu/devfreq/3600000.npu'
+  for name in governor available_frequencies cur_freq; do
+    if [[ -r "$devfreq/$name" ]]; then
+      printf '%s=' "$name"
+      cat "$devfreq/$name"
+    fi
+  done
+
+  printf '%s\n' '=== NPU temperature ==='
+  for zone in /sys/class/thermal/thermal_zone*; do
+    [[ -r "$zone/type" && -r "$zone/temp" ]] || continue
+    if [[ "$(<"$zone/type")" == 'npu_thermal_zone' ]]; then
+      awk -v value="$(<"$zone/temp")" 'BEGIN { printf "%.1f C\n", value / 1000 }'
+    fi
+  done
+}
+
+run_smoke() {
+  local loops="${1:-1}"
+  [[ "$loops" =~ ^[1-9][0-9]*$ ]] || {
+    printf 'loops must be a positive integer\n' >&2
+    exit 2
+  }
+  require_file /dev/vipcore
+  require_file /opt/vpm_run/vpm_run
+  require_file /opt/vpm_run/sample.txt
+  (
+    cd /opt/vpm_run
+    ./vpm_run -s sample.txt -l "$loops"
+  )
+}
+
+run_yolo() {
+  local image="${1:-/opt/yolov5/input_data/dog_640_640.jpg}"
+  local model="${2:-/opt/yolov5/model/yolov5.nb}"
+  local demo='/opt/yolov5/yolov5'
+  local compat='/opt/yolov5/compat-lib'
+
+  require_file /dev/vipcore
+  require_file "$demo"
+  require_file "$image"
+  require_file "$model"
+  require_file "$compat/libopencv_core.so.4.5"
+  require_file "$compat/libopencv_imgproc.so.4.5"
+  require_file "$compat/libopencv_imgcodecs.so.4.5"
+
+  LD_LIBRARY_PATH="$compat${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" \
+    "$demo" "$model" "$image"
+  printf 'Result: %s/result.png\n' "$PWD"
+}
+
+case "${1:-}" in
+  status)
+    show_status
+    ;;
+  smoke)
+    shift
+    run_smoke "${1:-1}"
+    ;;
+  yolo)
+    shift
+    run_yolo "${1:-}" "${2:-}"
+    ;;
+  -h|--help|help|'')
+    usage
+    ;;
+  *)
+    printf 'Unknown command: %s\n' "$1" >&2
+    usage >&2
+    exit 2
+    ;;
+esac

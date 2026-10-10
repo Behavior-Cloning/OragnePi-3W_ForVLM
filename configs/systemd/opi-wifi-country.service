@@ -1,0 +1,12 @@
+[Unit]
+Description=Set Wi-Fi regulatory domain for operation in China
+After=systemd-udev-trigger.service
+Before=NetworkManager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/iw reg set CN
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

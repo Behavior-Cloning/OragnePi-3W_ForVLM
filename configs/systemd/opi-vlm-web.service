@@ -1,0 +1,20 @@
+[Unit]
+Description=Orange Pi visual chat web UI
+After=network.target opi-vlm-model.service
+Wants=opi-vlm-model.service
+
+[Service]
+User=opi-vlm
+Group=opi-vlm
+WorkingDirectory=/opt/opi-vlm
+ExecStart=/usr/bin/python3 /opt/opi-vlm/app/server.py --host 0.0.0.0 --port 8080
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+MemoryMax=256M
+
+[Install]
+WantedBy=multi-user.target

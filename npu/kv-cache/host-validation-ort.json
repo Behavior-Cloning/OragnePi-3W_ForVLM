@@ -1,0 +1,47 @@
+{
+  "status": "HOST_VALIDATION_ONLY",
+  "npu_tested": false,
+  "weights": "deterministic random two-layer decoder; not a trained LLM",
+  "features": [
+    "incremental KV",
+    "RoPE absolute positions",
+    "GQA",
+    "RMSNorm",
+    "SwiGLU",
+    "fixed cache buffers",
+    "delta-only KV outputs"
+  ],
+  "cases": [
+    {
+      "capacity": 32,
+      "tokens_checked": 32,
+      "max_abs_error": 4.76837158203125e-07,
+      "poison_mask_check": "PASS",
+      "overflow_check": "PASS",
+      "reset_check": "PASS",
+      "cache_bytes_two_layers_fp32": 16384,
+      "host_delta_write_bytes_per_token": 512
+    },
+    {
+      "capacity": 128,
+      "tokens_checked": 128,
+      "max_abs_error": 4.76837158203125e-07,
+      "poison_mask_check": "PASS",
+      "overflow_check": "PASS",
+      "reset_check": "PASS",
+      "cache_bytes_two_layers_fp32": 65536,
+      "host_delta_write_bytes_per_token": 512
+    },
+    {
+      "capacity": 512,
+      "tokens_checked": 512,
+      "max_abs_error": 4.76837158203125e-07,
+      "poison_mask_check": "PASS",
+      "overflow_check": "PASS",
+      "reset_check": "PASS",
+      "cache_bytes_two_layers_fp32": 262144,
+      "host_delta_write_bytes_per_token": 512
+    }
+  ],
+  "onnx_backend": "onnxruntime CPU"
+}

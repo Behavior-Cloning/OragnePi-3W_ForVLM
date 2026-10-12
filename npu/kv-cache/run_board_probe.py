@@ -41,7 +41,8 @@ command = (f'cd {shlex.quote(remote)} && cc -O2 -Wall -Wextra -Werror '
            '-o board_probe board_probe.c -lNBGlinker -lVIPhal -lm && '
            f'for i in $(seq 1 {args.repeats}); do timeout 180 ./board_probe layer0.nb layer1.nb {args.capacity} {tokens} '
            'hidden.f32 reference.f32 output.f32 || exit $?; done')
-result = subprocess.run(ssh + [command], capture_output=True, text=True, timeout=200*args.repeats)
+command='flock -w 1800 /run/opi-npu-kv-benchmark.lock sh -c '+shlex.quote(command)
+result = subprocess.run(ssh + [command], capture_output=True, text=True, timeout=1800+200*args.repeats)
 (result_dir/'run.log').write_text(result.stdout)
 (result_dir/'run.stderr').write_text(result.stderr)
 records = [json.loads(line) for line in result.stdout.splitlines() if line.startswith('{')]

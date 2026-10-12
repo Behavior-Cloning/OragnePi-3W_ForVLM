@@ -46,6 +46,8 @@ static long long npu_bytes(void) {
 static float get(Tensor *t,unsigned i) {
     if(t->p.data_format==VIP_BUFFER_FORMAT_FP16) return ((const __fp16 *)t->data)[i];
     if(t->p.data_format==VIP_BUFFER_FORMAT_FP32) return ((const float *)t->data)[i];
+    if(t->p.data_format==VIP_BUFFER_FORMAT_INT8 && t->p.quant_format==VIP_BUFFER_QUANTIZE_DYNAMIC_FIXED_POINT)
+        return ldexpf(((const int8_t *)t->data)[i],-t->p.quant_data.dfp.fixed_point_pos);
     if(t->p.data_format==VIP_BUFFER_FORMAT_INT16 && t->p.quant_format==VIP_BUFFER_QUANTIZE_DYNAMIC_FIXED_POINT)
         return ldexpf(((const int16_t *)t->data)[i],-t->p.quant_data.dfp.fixed_point_pos);
     fprintf(stderr,"unsupported dtype/quant %d/%d\n",t->p.data_format,t->p.quant_format); exit(2);
@@ -54,6 +56,10 @@ static void put(Tensor *t,unsigned i,float x) {
     if(i>=t->count) {fprintf(stderr,"tensor index overflow\n");exit(2);}
     if(t->p.data_format==VIP_BUFFER_FORMAT_FP16) {((__fp16 *)t->data)[i]=x;return;}
     if(t->p.data_format==VIP_BUFFER_FORMAT_FP32) {((float *)t->data)[i]=x;return;}
+    if(t->p.data_format==VIP_BUFFER_FORMAT_INT8 && t->p.quant_format==VIP_BUFFER_QUANTIZE_DYNAMIC_FIXED_POINT) {
+        float y=roundf(ldexpf(x,t->p.quant_data.dfp.fixed_point_pos));
+        ((int8_t *)t->data)[i]=(int8_t)fmaxf(-128,fminf(127,y));return;
+    }
     if(t->p.data_format==VIP_BUFFER_FORMAT_INT16 && t->p.quant_format==VIP_BUFFER_QUANTIZE_DYNAMIC_FIXED_POINT) {
         float y=roundf(ldexpf(x,t->p.quant_data.dfp.fixed_point_pos));
         ((int16_t *)t->data)[i]=(int16_t)fmaxf(-32768,fminf(32767,y));return;

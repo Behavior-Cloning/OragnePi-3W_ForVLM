@@ -1,6 +1,6 @@
 # Orange Pi Zero 3W NPU 适配记录
 
-最新研发状态（2026-10-12）：[增量Transformer板端实测及CPU对照](kv-cache/NPU增量Transformer实测.md)。SDK编译链路已跑通，随机decoder及真实SmolVLM前两层已在NPU复用KV运行，INT16/FP16分别记录精度与开销；完整LLM加速尚未完成。下面保留先前的驱动和预装模型验证记录。
+最新研发状态（2026-10-12）：[全深度生成、算子核对与INT8尝试](kv-cache/全深度生成与算子核对.md)。SmolVLM-500M完整语言部分32层＋输出头已用FP16在NPU持续复用KV并生成连贯英语；约2.3 token/s，慢于CPU Q8约27.5 token/s。极小值RMSNorm仍有FP16数值边界，INT8混合路径尚未通过精度门槛。六模型前两层结果见[层级报告](kv-cache/六模型NPU层级实测.md)。网页继续使用CPU。下面保留先前的驱动和预装模型验证记录。
 
 ## 已验证状态（2026-10-08）
 

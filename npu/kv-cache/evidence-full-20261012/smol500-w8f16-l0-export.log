@@ -1,0 +1,838 @@
+[32mI 11:29:17 Namespace(batch_size=None, build_platform='make', customer_lids=None, customer_ops=None, dtype='quantized', export='ovxlib', force_remove_permute=False, model='decoder.json', model_data='decoder.data', model_quantize='decoder.quantize', optimize='VIP9000NANODI_PLUS_PID0X1000003B', output_path='export/decoder', pack_nbg_unify=True, postprocess_file=None, save_fused_graph=False, save_trace_db=False, target_ide_project='linux64', viv_sdk='/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools', which='export', with_input_meta='tensor-inputmeta.yml')[0m
+[32mI 11:29:17 Set vsinn project dir to /work/smol500-w8f16-l0[0m
+[32mI 11:29:17 Load model in /work/smol500-w8f16-l0/decoder.json[0m
+[32mI 11:29:17 Load data in /work/smol500-w8f16-l0/decoder.data[0m
+[32mI 11:29:17 Load input meta /work/smol500-w8f16-l0/tensor-inputmeta.yml[0m
+[32mI 11:29:17 Load quantization tensor table /work/smol500-w8f16-l0/decoder.quantize[0m
+[32mI 11:29:17 Start exporting ovxlib case...[0m
+[36mD 11:29:17 Process norm1_29 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 960)[0m
+[36mD 11:29:17 Tensor @norm1_29:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Constant_2_output_0_39 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Constant_2_output_0_39:out0 type: float32[0m
+[36mD 11:29:17 Process norm2_46 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 960)[0m
+[36mD 11:29:17 Tensor @norm2_46:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Constant_44_output_0_54 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Constant_44_output_0_54:out0 type: float32[0m
+[36mD 11:29:17 Process Constant_1_output_0_59 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Constant_1_output_0_59:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Reciprocal_output_0_68 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Reciprocal_output_0_68:out0 type: float32[0m
+[36mD 11:29:17 Process Constant_40_output_0_71 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 1 1)[0m
+[36mD 11:29:17 Tensor @Constant_40_output_0_71:out0 type: float32[0m
+[36mD 11:29:17 Process Reciprocal_1_output_0_74 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Reciprocal_1_output_0_74:out0 type: float32[0m
+[36mD 11:29:17 Process Constant_43_output_0_76 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Constant_43_output_0_76:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process hidden_95 ...[0m
+[36mD 11:29:17 Acuity output shape(input): (1 1 960)[0m
+[36mD 11:29:17 Tensor @hidden_95:out0 type: float32[0m
+[36mD 11:29:17 Process past_k_96 ...[0m
+[36mD 11:29:17 Acuity output shape(input): (1 5 128 64)[0m
+[36mD 11:29:17 Tensor @past_k_96:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process past_v_97 ...[0m
+[36mD 11:29:17 Acuity output shape(input): (1 5 128 64)[0m
+[36mD 11:29:17 Tensor @past_v_97:out0 type: float32[0m
+[36mD 11:29:17 Process mask_98 ...[0m
+[36mD 11:29:17 Acuity output shape(input): (1 1 1 129)[0m
+[36mD 11:29:17 Tensor @mask_98:out0 type: float32[0m
+[36mD 11:29:17 Process rope_cos_99 ...[0m
+[36mD 11:29:17 Acuity output shape(input): (1 1 1 64)[0m
+[36mD 11:29:17 Tensor @rope_cos_99:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process rope_sin_100 ...[0m
+[36mD 11:29:17 Acuity output shape(input): (1 1 1 64)[0m
+[36mD 11:29:17 Tensor @rope_sin_100:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Abs_output_0_65_acuity_mark_perm_108 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 960 1)[0m
+[36mD 11:29:17 Tensor @Abs_output_0_65_acuity_mark_perm_108:out0 type: float32[0m
+[36mD 11:29:17 Process Abs_output_0_65 ...[0m
+[36mD 11:29:17 Acuity output shape(abs): (1 960 1)[0m
+[36mD 11:29:17 Tensor @Abs_output_0_65:out0 type: float32[0m
+[36mD 11:29:17 Process ReduceMax_output_0_56 ...[0m
+[36mD 11:29:17 Acuity output shape(reducemax): (1 1 1)[0m
+[36mD 11:29:17 Tensor @ReduceMax_output_0_56:out0 type: float32[0m
+[36mD 11:29:17 Process Clip_output_0_48 ...[0m
+[36mD 11:29:17 Acuity output shape(clipbyvalue): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Clip_output_0_48:out0 type: float32[0m
+[36mD 11:29:17 Process Divide_69 ...[0m
+[36mD 11:29:17 Acuity output shape(Divide): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Divide_69:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Div_output_0_38_acuity_mark_perm_105 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Div_output_0_38_acuity_mark_perm_105:out0 type: float32[0m
+[36mD 11:29:17 Process Mul_output_0_58 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Mul_output_0_58:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Div_output_0_38 ...[0m
+[36mD 11:29:17 Acuity output shape(real_div): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Div_output_0_38:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Div_1_output_0_50 ...[0m
+[36mD 11:29:17 Acuity output shape(real_div): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Div_1_output_0_50:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_1_output_0_57_acuity_mark_perm_103 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 960 1)[0m
+[36mD 11:29:17 Tensor @Mul_1_output_0_57_acuity_mark_perm_103:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_1_output_0_57 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 960 1)[0m
+[36mD 11:29:17 Tensor @Mul_1_output_0_57:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process ReduceMean_output_0_49 ...[0m
+[36mD 11:29:17 Acuity output shape(reducemean): (1 1 1)[0m
+[36mD 11:29:17 Tensor @ReduceMean_output_0_49:out0 type: float32[0m
+[36mD 11:29:17 Process Add_output_0_40 ...[0m
+[36mD 11:29:17 Acuity output shape(add): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Add_output_0_40:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Sqrt_output_0_32 ...[0m
+[36mD 11:29:17 Acuity output shape(sqrt): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Sqrt_output_0_32:out0 type: float32[0m
+[36mD 11:29:17 Process Div_2_output_0_30 ...[0m
+[36mD 11:29:17 Acuity output shape(real_div): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Div_2_output_0_30:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_2_output_0_28_acuity_mark_perm_102 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Mul_2_output_0_28_acuity_mark_perm_102:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_2_output_0_28 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Mul_2_output_0_28:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_3_output_0_20 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Mul_3_output_0_20:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_112 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:29:17 Tensor @reshape_112:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_118 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:29:17 Tensor @reshape_118:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_127 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:29:17 Tensor @reshape_127:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process fullconnect_113 ...[0m
+[36mD 11:29:17 Acuity output shape(fullconnect): (1 320)[0m
+[36mD 11:29:17 Tensor @fullconnect_113:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process fullconnect_119 ...[0m
+[36mD 11:29:17 Acuity output shape(fullconnect): (1 320)[0m
+[36mD 11:29:17 Tensor @fullconnect_119:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process fullconnect_128 ...[0m
+[36mD 11:29:17 Acuity output shape(fullconnect): (1 960)[0m
+[36mD 11:29:17 Tensor @fullconnect_128:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_114 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 320)[0m
+[36mD 11:29:17 Tensor @reshape_114:out0 type: float32[0m
+[36mD 11:29:17 Process reshape_120 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 320)[0m
+[36mD 11:29:17 Tensor @reshape_120:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_129 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 960)[0m
+[36mD 11:29:17 Tensor @reshape_129:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Reshape_2_output_0_6 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 5 64)[0m
+[36mD 11:29:17 Tensor @Reshape_2_output_0_6:out0 type: float32[0m
+[36mD 11:29:17 Process Reshape_1_output_0_13 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 5 64)[0m
+[36mD 11:29:17 Tensor @Reshape_1_output_0_13:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Reshape_output_0_87 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 15 64)[0m
+[36mD 11:29:17 Tensor @Reshape_output_0_87:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process new_v_3 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 5 1 64)[0m
+[36mD 11:29:17 Tensor @new_v_3:out0 type: float32[0m
+[36mD 11:29:17 Process Transpose_1_output_0_12 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 5 1 64)[0m
+[36mD 11:29:17 Tensor @Transpose_1_output_0_12:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Transpose_output_0_86 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 15 1 64)[0m
+[36mD 11:29:17 Tensor @Transpose_output_0_86:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Concat_4_output_0_61 ...[0m
+[36mD 11:29:17 Acuity output shape(concat): (1 5 129 64)[0m
+[36mD 11:29:17 Tensor @Concat_4_output_0_61:out0 type: float32[0m
+[36mD 11:29:17 Process Mul_6_output_0_7 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 5 1 64)[0m
+[36mD 11:29:17 Tensor @Mul_6_output_0_7:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_4_output_0_83 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 15 1 64)[0m
+[36mD 11:29:17 Tensor @Mul_4_output_0_83:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process attach_new_v/out0_2 ...[0m
+[36mD 11:29:17 Acuity output shape(output): (1 5 1 64)[0m
+[36mD 11:29:17 Tensor @attach_new_v/out0_2:out0 type: float32[0m
+[36mD 11:29:17 Process Slice_3_output_0_15 ...[0m
+[36mD 11:29:17 Acuity output shape(slice): (1 5 1 32)[0m
+[36mD 11:29:17 Tensor @Slice_3_output_0_15:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Slice_2_output_0_23 ...[0m
+[36mD 11:29:17 Acuity output shape(slice): (1 5 1 32)[0m
+[36mD 11:29:17 Tensor @Slice_2_output_0_23:out0 type: float32[0m
+[36mD 11:29:17 Process Slice_1_output_0_89 ...[0m
+[36mD 11:29:17 Acuity output shape(slice): (1 15 1 32)[0m
+[36mD 11:29:17 Tensor @Slice_1_output_0_89:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Slice_output_0_93 ...[0m
+[36mD 11:29:17 Acuity output shape(slice): (1 15 1 32)[0m
+[36mD 11:29:17 Tensor @Slice_output_0_93:out0 type: float32[0m
+[36mD 11:29:17 Process Unsqueeze_1_output_0_52 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 5 1 129 64)[0m
+[36mD 11:29:17 Tensor @Unsqueeze_1_output_0_52:out0 type: float32[0m
+[36mD 11:29:17 Process Neg_1_output_0_16 ...[0m
+[36mD 11:29:17 Acuity output shape(neg): (1 5 1 32)[0m
+[36mD 11:29:17 Tensor @Neg_1_output_0_16:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Neg_output_0_92 ...[0m
+[36mD 11:29:17 Acuity output shape(neg): (1 15 1 32)[0m
+[36mD 11:29:17 Tensor @Neg_output_0_92:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Tile_1_output_0_44 ...[0m
+[36mD 11:29:17 Acuity output shape(tile): (1 5 3 129 64)[0m
+[36mD 11:29:17 Tensor @Tile_1_output_0_44:out0 type: float32[0m
+[36mD 11:29:17 Process Concat_1_output_0_14 ...[0m
+[36mD 11:29:17 Acuity output shape(concat): (1 5 1 64)[0m
+[36mD 11:29:17 Tensor @Concat_1_output_0_14:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Concat_output_0_88 ...[0m
+[36mD 11:29:17 Acuity output shape(concat): (1 15 1 64)[0m
+[36mD 11:29:17 Tensor @Concat_output_0_88:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Reshape_4_output_0_42 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 15 129 64)[0m
+[36mD 11:29:17 Tensor @Reshape_4_output_0_42:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_7_output_0_8 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 5 1 64)[0m
+[36mD 11:29:17 Tensor @Mul_7_output_0_8:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_5_output_0_84 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 15 1 64)[0m
+[36mD 11:29:17 Tensor @Mul_5_output_0_84:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process new_k_4 ...[0m
+[36mD 11:29:17 Acuity output shape(add): (1 5 1 64)[0m
+[36mD 11:29:17 Tensor @new_k_4:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Add_1_output_0_78 ...[0m
+[36mD 11:29:17 Acuity output shape(add): (1 15 1 64)[0m
+[36mD 11:29:17 Tensor @Add_1_output_0_78:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Concat_2_output_0_90 ...[0m
+[36mD 11:29:17 Acuity output shape(concat): (1 5 129 64)[0m
+[36mD 11:29:17 Tensor @Concat_2_output_0_90:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process attach_new_k/out0_1 ...[0m
+[36mD 11:29:17 Acuity output shape(output): (1 5 1 64)[0m
+[36mD 11:29:17 Tensor @attach_new_k/out0_1:out0 type: float32[0m
+[36mD 11:29:17 Process Unsqueeze_output_0_85 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 5 1 129 64)[0m
+[36mD 11:29:17 Tensor @Unsqueeze_output_0_85:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Tile_output_0_82 ...[0m
+[36mD 11:29:17 Acuity output shape(tile): (1 5 3 129 64)[0m
+[36mD 11:29:17 Tensor @Tile_output_0_82:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Reshape_3_output_0_81 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 15 129 64)[0m
+[36mD 11:29:17 Tensor @Reshape_3_output_0_81:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Transpose_3_output_0_79 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 15 64 129)[0m
+[36mD 11:29:17 Tensor @Transpose_3_output_0_79:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process MatMul_3_output_0_70 ...[0m
+[36mD 11:29:17 Acuity output shape(matmul): (1 15 1 129)[0m
+[36mD 11:29:17 Tensor @MatMul_3_output_0_70:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Div_3_output_0_62 ...[0m
+[36mD 11:29:17 Acuity output shape(real_div): (1 15 1 129)[0m
+[36mD 11:29:17 Tensor @Div_3_output_0_62:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Add_3_output_0_60 ...[0m
+[36mD 11:29:17 Acuity output shape(add): (1 15 1 129)[0m
+[36mD 11:29:17 Tensor @Add_3_output_0_60:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Softmax_output_0_51 ...[0m
+[36mD 11:29:17 Acuity output shape(softmax): (1 15 1 129)[0m
+[36mD 11:29:17 Tensor @Softmax_output_0_51:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process MatMul_4_output_0_41 ...[0m
+[36mD 11:29:17 Acuity output shape(matmul): (1 15 1 64)[0m
+[36mD 11:29:17 Tensor @MatMul_4_output_0_41:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Transpose_4_output_0_33 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 1 15 64)[0m
+[36mD 11:29:17 Tensor @Transpose_4_output_0_33:out0 type: float32[0m
+[36mD 11:29:17 Process Reshape_5_output_0_24 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Reshape_5_output_0_24:out0 type: float32[0m
+[36mD 11:29:17 Process reshape_115 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:29:17 Tensor @reshape_115:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process fullconnect_116 ...[0m
+[36mD 11:29:17 Acuity output shape(fullconnect): (1 960)[0m
+[36mD 11:29:17 Tensor @fullconnect_116:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_117 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 960)[0m
+[36mD 11:29:17 Tensor @reshape_117:out0 type: float32[0m
+[36mD 11:29:17 Process Add_4_output_0_9 ...[0m
+[36mD 11:29:17 Acuity output shape(add): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Add_4_output_0_9:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Abs_1_output_0_80_acuity_mark_perm_101 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 960 1)[0m
+[36mD 11:29:17 Tensor @Abs_1_output_0_80_acuity_mark_perm_101:out0 type: float32[0m
+[36mD 11:29:17 Process Abs_1_output_0_80 ...[0m
+[36mD 11:29:17 Acuity output shape(abs): (1 960 1)[0m
+[36mD 11:29:17 Tensor @Abs_1_output_0_80:out0 type: float32[0m
+[36mD 11:29:17 Process ReduceMax_1_output_0_72 ...[0m
+[36mD 11:29:17 Acuity output shape(reducemax): (1 1 1)[0m
+[36mD 11:29:17 Tensor @ReduceMax_1_output_0_72:out0 type: float32[0m
+[36mD 11:29:17 Process Clip_1_output_0_63 ...[0m
+[36mD 11:29:17 Acuity output shape(clipbyvalue): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Clip_1_output_0_63:out0 type: float32[0m
+[36mD 11:29:17 Process Divide_75 ...[0m
+[36mD 11:29:17 Acuity output shape(Divide): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Divide_75:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_8_output_0_67 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Mul_8_output_0_67:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Div_5_output_0_66 ...[0m
+[36mD 11:29:17 Acuity output shape(real_div): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Div_5_output_0_66:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Div_4_output_0_53_acuity_mark_perm_107 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Div_4_output_0_53_acuity_mark_perm_107:out0 type: float32[0m
+[36mD 11:29:17 Process Div_4_output_0_53 ...[0m
+[36mD 11:29:17 Acuity output shape(real_div): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Div_4_output_0_53:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_9_output_0_77_acuity_mark_perm_106 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 960 1)[0m
+[36mD 11:29:17 Tensor @Mul_9_output_0_77_acuity_mark_perm_106:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_9_output_0_77 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 960 1)[0m
+[36mD 11:29:17 Tensor @Mul_9_output_0_77:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process ReduceMean_1_output_0_73 ...[0m
+[36mD 11:29:17 Acuity output shape(reducemean): (1 1 1)[0m
+[36mD 11:29:17 Tensor @ReduceMean_1_output_0_73:out0 type: float32[0m
+[36mD 11:29:17 Process Add_5_output_0_64 ...[0m
+[36mD 11:29:17 Acuity output shape(add): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Add_5_output_0_64:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Sqrt_1_output_0_55 ...[0m
+[36mD 11:29:17 Acuity output shape(sqrt): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Sqrt_1_output_0_55:out0 type: float32[0m
+[36mD 11:29:17 Process Div_6_output_0_47 ...[0m
+[36mD 11:29:17 Acuity output shape(real_div): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Div_6_output_0_47:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_10_output_0_45_acuity_mark_perm_104 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Mul_10_output_0_45_acuity_mark_perm_104:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_10_output_0_45 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Mul_10_output_0_45:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_11_output_0_36 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Mul_11_output_0_36:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_121 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:29:17 Tensor @reshape_121:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_124 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:29:17 Tensor @reshape_124:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process fullconnect_122 ...[0m
+[36mD 11:29:17 Acuity output shape(fullconnect): (1 2560)[0m
+[36mD 11:29:17 Tensor @fullconnect_122:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process fullconnect_125 ...[0m
+[36mD 11:29:17 Acuity output shape(fullconnect): (1 2560)[0m
+[36mD 11:29:17 Tensor @fullconnect_125:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_123 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 2560)[0m
+[36mD 11:29:17 Tensor @reshape_123:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_126 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 2560)[0m
+[36mD 11:29:17 Tensor @reshape_126:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Sigmoid_output_0_35_Mul_12_output_0_26 ...[0m
+[36mD 11:29:17 Acuity output shape(swish): (1 1 2560)[0m
+[36mD 11:29:17 Tensor @Sigmoid_output_0_35_Mul_12_output_0_26:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_13_output_0_18 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 1 2560)[0m
+[36mD 11:29:17 Tensor @Mul_13_output_0_18:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_109 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 2560)[0m
+[36mD 11:29:17 Tensor @reshape_109:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process fullconnect_110 ...[0m
+[36mD 11:29:17 Acuity output shape(fullconnect): (1 960)[0m
+[36mD 11:29:17 Tensor @fullconnect_110:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_111 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 960)[0m
+[36mD 11:29:17 Tensor @reshape_111:out0 type: float32[0m
+[36mD 11:29:17 Process hidden_out_5 ...[0m
+[36mD 11:29:17 Acuity output shape(add): (1 1 960)[0m
+[36mD 11:29:17 Tensor @hidden_out_5:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process attach_hidden_out/out0_0 ...[0m
+[36mD 11:29:17 Acuity output shape(output): (1 1 960)[0m
+[36mD 11:29:17 Tensor @attach_hidden_out/out0_0:out0 type: float32[0m
+[32mI 11:29:17 Build main_graph complete.[0m
+[32mI 11:29:17 Initialzing network optimizer by VIP9000NANODI_PLUS_PID0X1000003B ...[0m
+[32mI 11:29:17 Optimize config VIP9000NANODI_PLUS_PID0X1000003B with 'Default' optimization rules.[0m
+[36mD 11:29:17 Optimizing network with split_squared_difference, merge_ximum, qnt_adjust_coef, adjust_qnt_reshape, multiply_transform, add_extra_io, format_input_ops, auto_fill_zero_bias, conv_kernel_transform, auto_fill_reshape_zero, strip_op, extend_unstack_split, convert_matmul_trans_ab, merge_layer, transform_layer, broadcast_op, strip_op, adjust_output_attrs, insert_dtype_converter, layernorm_to_moments_bnsingle, pow_to_square, average_to_add_divide, optimize_einsum[0m
+[36mD 11:29:17 Strip layer Reshape_5_output_0_24(reshape)[0m
+[36mD 11:29:17 Strip layer reshape_114(reshape)[0m
+[36mD 11:29:17 Strip layer reshape_120(reshape)[0m
+[36mD 11:29:17 Strip layer reshape_129(reshape)[0m
+[36mD 11:29:17 Align variable norm1_29 shape [1, 1, 960] to [1, 1, 960][0m
+[36mD 11:29:17 Align variable Constant_2_output_0_39 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:29:17 Align variable norm2_46 shape [1, 1, 960] to [1, 1, 960][0m
+[36mD 11:29:17 Align variable Constant_44_output_0_54 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:29:17 Align variable Constant_1_output_0_59 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:29:17 Align variable Constant_40_output_0_71 shape [1, 1, 1, 1] to [1, 1, 1, 1][0m
+[36mD 11:29:17 Align variable Constant_43_output_0_76 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:29:17 Align variable Reciprocal_output_0_68 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:29:17 Align variable Reciprocal_1_output_0_74 shape [1, 1, 1] to [1, 1, 1][0m
+[32mI 11:29:17 Start T2C Switcher...[0m
+[36mD 11:29:17 Optimizing network with broadcast_op, t2c_fc[0m
+[36mD 11:29:17 Align variable norm1_29 shape [1, 1, 960] to [1, 1, 960][0m
+[36mD 11:29:17 Align variable Constant_2_output_0_39 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:29:17 Align variable norm2_46 shape [1, 1, 960] to [1, 1, 960][0m
+[36mD 11:29:17 Align variable Constant_44_output_0_54 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:29:17 Align variable Constant_1_output_0_59 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:29:17 Align variable Constant_40_output_0_71 shape [1, 1, 1, 1] to [1, 1, 1, 1][0m
+[36mD 11:29:17 Align variable Constant_43_output_0_76 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:29:17 Align variable Reciprocal_output_0_68 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:29:17 Align variable Reciprocal_1_output_0_74 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:29:17 convert ReduceMax_output_0_56(reducemax) axes [1] to [2][0m
+[36mD 11:29:17 convert ReduceMean_output_0_49(reducemean) axes [1] to [2][0m
+[36mD 11:29:17 convert ReduceMax_1_output_0_72(reducemax) axes [1] to [2][0m
+[36mD 11:29:17 convert ReduceMean_1_output_0_73(reducemean) axes [1] to [2][0m
+[36mD 11:29:17 convert Mul_output_0_58(multiply) axis 2 to 1[0m
+[36mD 11:29:17 convert Mul_8_output_0_67(multiply) axis 2 to 1[0m
+[36mD 11:29:17 convert Mul_9_output_0_77(multiply) axis 2 to 1[0m
+[36mD 11:29:17 convert Mul_1_output_0_57(multiply) axis 2 to 1[0m
+[36mD 11:29:17 insert permute Mul_2_output_0_28_acuity_mark_perm_102_acuity_mark_perm_130 before Mul_2_output_0_28_acuity_mark_perm_102[0m
+[36mD 11:29:17 insert permute Mul_10_output_0_45_acuity_mark_perm_104_acuity_mark_perm_131 before Mul_10_output_0_45_acuity_mark_perm_104[0m
+[36mD 11:29:17 insert permute Div_output_0_38_acuity_mark_perm_105_acuity_mark_perm_132 before Div_output_0_38_acuity_mark_perm_105[0m
+[36mD 11:29:17 insert permute Div_4_output_0_53_acuity_mark_perm_107_acuity_mark_perm_133 before Div_4_output_0_53_acuity_mark_perm_107[0m
+[36mD 11:29:17 insert permute Abs_1_output_0_80_acuity_mark_perm_134 before Abs_1_output_0_80[0m
+[36mD 11:29:17 insert permute Mul_1_output_0_57_acuity_mark_perm_103_acuity_mark_perm_135 after Mul_1_output_0_57_acuity_mark_perm_103[0m
+[36mD 11:29:17 insert permute Mul_9_output_0_77_acuity_mark_perm_106_acuity_mark_perm_136 after Mul_9_output_0_77_acuity_mark_perm_106[0m
+[36mD 11:29:17 insert permute Abs_output_0_65_acuity_mark_perm_137 before Abs_output_0_65[0m
+[36mD 11:29:17 remove permute Abs_output_0_65_acuity_mark_perm_108[0m
+[36mD 11:29:17 remove permute Abs_output_0_65_acuity_mark_perm_137[0m
+[36mD 11:29:17 remove permute Div_output_0_38_acuity_mark_perm_105_acuity_mark_perm_132[0m
+[36mD 11:29:17 remove permute Div_output_0_38_acuity_mark_perm_105[0m
+[36mD 11:29:17 remove permute Mul_1_output_0_57_acuity_mark_perm_103[0m
+[36mD 11:29:17 remove permute Mul_1_output_0_57_acuity_mark_perm_103_acuity_mark_perm_135[0m
+[36mD 11:29:17 remove permute Mul_2_output_0_28_acuity_mark_perm_102_acuity_mark_perm_130[0m
+[36mD 11:29:17 remove permute Mul_2_output_0_28_acuity_mark_perm_102[0m
+[36mD 11:29:17 remove permute Abs_1_output_0_80_acuity_mark_perm_101[0m
+[36mD 11:29:17 remove permute Abs_1_output_0_80_acuity_mark_perm_134[0m
+[36mD 11:29:17 remove permute Div_4_output_0_53_acuity_mark_perm_107_acuity_mark_perm_133[0m
+[36mD 11:29:17 remove permute Div_4_output_0_53_acuity_mark_perm_107[0m
+[36mD 11:29:17 remove permute Mul_9_output_0_77_acuity_mark_perm_106[0m
+[36mD 11:29:17 remove permute Mul_9_output_0_77_acuity_mark_perm_106_acuity_mark_perm_136[0m
+[36mD 11:29:17 remove permute Mul_10_output_0_45_acuity_mark_perm_104_acuity_mark_perm_131[0m
+[36mD 11:29:17 remove permute Mul_10_output_0_45_acuity_mark_perm_104[0m
+[32mI 11:29:17 End T2C Switcher...[0m
+[36mD 11:29:17 Optimizing network with strip_op_layout_sensitive[0m
+[36mD 11:29:17 Process norm1_29 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 960)[0m
+[36mD 11:29:17 Tensor @norm1_29:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Constant_2_output_0_39 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Constant_2_output_0_39:out0 type: float32[0m
+[36mD 11:29:17 Process norm2_46 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 960)[0m
+[36mD 11:29:17 Tensor @norm2_46:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Constant_44_output_0_54 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Constant_44_output_0_54:out0 type: float32[0m
+[36mD 11:29:17 Process Constant_1_output_0_59 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Constant_1_output_0_59:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Reciprocal_output_0_68 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Reciprocal_output_0_68:out0 type: float32[0m
+[36mD 11:29:17 Process Constant_40_output_0_71 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 1 1)[0m
+[36mD 11:29:17 Tensor @Constant_40_output_0_71:out0 type: float32[0m
+[36mD 11:29:17 Process Reciprocal_1_output_0_74 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Reciprocal_1_output_0_74:out0 type: float32[0m
+[36mD 11:29:17 Process Constant_43_output_0_76 ...[0m
+[36mD 11:29:17 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Constant_43_output_0_76:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process hidden_95 ...[0m
+[36mD 11:29:17 Acuity output shape(input): (1 1 960)[0m
+[36mD 11:29:17 Tensor @hidden_95:out0 type: float32[0m
+[36mD 11:29:17 Process past_k_96 ...[0m
+[36mD 11:29:17 Acuity output shape(input): (1 5 128 64)[0m
+[36mD 11:29:17 Tensor @past_k_96:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process past_v_97 ...[0m
+[36mD 11:29:17 Acuity output shape(input): (1 5 128 64)[0m
+[36mD 11:29:17 Tensor @past_v_97:out0 type: float32[0m
+[36mD 11:29:17 Process mask_98 ...[0m
+[36mD 11:29:17 Acuity output shape(input): (1 1 1 129)[0m
+[36mD 11:29:17 Tensor @mask_98:out0 type: float32[0m
+[36mD 11:29:17 Process rope_cos_99 ...[0m
+[36mD 11:29:17 Acuity output shape(input): (1 1 1 64)[0m
+[36mD 11:29:17 Tensor @rope_cos_99:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process rope_sin_100 ...[0m
+[36mD 11:29:17 Acuity output shape(input): (1 1 1 64)[0m
+[36mD 11:29:17 Tensor @rope_sin_100:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Abs_output_0_65 ...[0m
+[36mD 11:29:17 Acuity output shape(abs): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Abs_output_0_65:out0 type: float32[0m
+[36mD 11:29:17 Process ReduceMax_output_0_56 ...[0m
+[36mD 11:29:17 Acuity output shape(reducemax): (1 1 1)[0m
+[36mD 11:29:17 Tensor @ReduceMax_output_0_56:out0 type: float32[0m
+[36mD 11:29:17 Process Clip_output_0_48 ...[0m
+[36mD 11:29:17 Acuity output shape(clipbyvalue): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Clip_output_0_48:out0 type: float32[0m
+[36mD 11:29:17 Process Divide_69 ...[0m
+[36mD 11:29:17 Acuity output shape(Divide): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Divide_69:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Div_output_0_38 ...[0m
+[36mD 11:29:17 Acuity output shape(real_div): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Div_output_0_38:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_output_0_58 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Mul_output_0_58:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_1_output_0_57 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Mul_1_output_0_57:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Div_1_output_0_50 ...[0m
+[36mD 11:29:17 Acuity output shape(real_div): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Div_1_output_0_50:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process ReduceMean_output_0_49 ...[0m
+[36mD 11:29:17 Acuity output shape(reducemean): (1 1 1)[0m
+[36mD 11:29:17 Tensor @ReduceMean_output_0_49:out0 type: float32[0m
+[36mD 11:29:17 Process Add_output_0_40 ...[0m
+[36mD 11:29:17 Acuity output shape(add): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Add_output_0_40:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Sqrt_output_0_32 ...[0m
+[36mD 11:29:17 Acuity output shape(sqrt): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Sqrt_output_0_32:out0 type: float32[0m
+[36mD 11:29:17 Process Div_2_output_0_30 ...[0m
+[36mD 11:29:17 Acuity output shape(real_div): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Div_2_output_0_30:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_2_output_0_28 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Mul_2_output_0_28:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_3_output_0_20 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Mul_3_output_0_20:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_112 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:29:17 Tensor @reshape_112:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_118 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:29:17 Tensor @reshape_118:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_127 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:29:17 Tensor @reshape_127:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process fullconnect_113 ...[0m
+[36mD 11:29:17 Acuity output shape(fullconnect): (1 320)[0m
+[36mD 11:29:17 Tensor @fullconnect_113:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process fullconnect_119 ...[0m
+[36mD 11:29:17 Acuity output shape(fullconnect): (1 320)[0m
+[36mD 11:29:17 Tensor @fullconnect_119:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process fullconnect_128 ...[0m
+[36mD 11:29:17 Acuity output shape(fullconnect): (1 960)[0m
+[36mD 11:29:17 Tensor @fullconnect_128:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Reshape_2_output_0_6 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 5 64)[0m
+[36mD 11:29:17 Tensor @Reshape_2_output_0_6:out0 type: float32[0m
+[36mD 11:29:17 Process Reshape_1_output_0_13 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 5 64)[0m
+[36mD 11:29:17 Tensor @Reshape_1_output_0_13:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Reshape_output_0_87 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 15 64)[0m
+[36mD 11:29:17 Tensor @Reshape_output_0_87:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process new_v_3 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 5 1 64)[0m
+[36mD 11:29:17 Tensor @new_v_3:out0 type: float32[0m
+[36mD 11:29:17 Process Transpose_1_output_0_12 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 5 1 64)[0m
+[36mD 11:29:17 Tensor @Transpose_1_output_0_12:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Transpose_output_0_86 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 15 1 64)[0m
+[36mD 11:29:17 Tensor @Transpose_output_0_86:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Concat_4_output_0_61 ...[0m
+[36mD 11:29:17 Acuity output shape(concat): (1 5 129 64)[0m
+[36mD 11:29:17 Tensor @Concat_4_output_0_61:out0 type: float32[0m
+[36mD 11:29:17 Process Mul_6_output_0_7 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 5 1 64)[0m
+[36mD 11:29:17 Tensor @Mul_6_output_0_7:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_4_output_0_83 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 15 1 64)[0m
+[36mD 11:29:17 Tensor @Mul_4_output_0_83:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process attach_new_v/out0_2 ...[0m
+[36mD 11:29:17 Acuity output shape(output): (1 5 1 64)[0m
+[36mD 11:29:17 Tensor @attach_new_v/out0_2:out0 type: float32[0m
+[36mD 11:29:17 Process Slice_3_output_0_15 ...[0m
+[36mD 11:29:17 Acuity output shape(slice): (1 5 1 32)[0m
+[36mD 11:29:17 Tensor @Slice_3_output_0_15:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Slice_2_output_0_23 ...[0m
+[36mD 11:29:17 Acuity output shape(slice): (1 5 1 32)[0m
+[36mD 11:29:17 Tensor @Slice_2_output_0_23:out0 type: float32[0m
+[36mD 11:29:17 Process Slice_1_output_0_89 ...[0m
+[36mD 11:29:17 Acuity output shape(slice): (1 15 1 32)[0m
+[36mD 11:29:17 Tensor @Slice_1_output_0_89:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Slice_output_0_93 ...[0m
+[36mD 11:29:17 Acuity output shape(slice): (1 15 1 32)[0m
+[36mD 11:29:17 Tensor @Slice_output_0_93:out0 type: float32[0m
+[36mD 11:29:17 Process Unsqueeze_1_output_0_52 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 5 1 129 64)[0m
+[36mD 11:29:17 Tensor @Unsqueeze_1_output_0_52:out0 type: float32[0m
+[36mD 11:29:17 Process Neg_1_output_0_16 ...[0m
+[36mD 11:29:17 Acuity output shape(neg): (1 5 1 32)[0m
+[36mD 11:29:17 Tensor @Neg_1_output_0_16:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Neg_output_0_92 ...[0m
+[36mD 11:29:17 Acuity output shape(neg): (1 15 1 32)[0m
+[36mD 11:29:17 Tensor @Neg_output_0_92:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Tile_1_output_0_44 ...[0m
+[36mD 11:29:17 Acuity output shape(tile): (1 5 3 129 64)[0m
+[36mD 11:29:17 Tensor @Tile_1_output_0_44:out0 type: float32[0m
+[36mD 11:29:17 Process Concat_1_output_0_14 ...[0m
+[36mD 11:29:17 Acuity output shape(concat): (1 5 1 64)[0m
+[36mD 11:29:17 Tensor @Concat_1_output_0_14:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Concat_output_0_88 ...[0m
+[36mD 11:29:17 Acuity output shape(concat): (1 15 1 64)[0m
+[36mD 11:29:17 Tensor @Concat_output_0_88:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Reshape_4_output_0_42 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 15 129 64)[0m
+[36mD 11:29:17 Tensor @Reshape_4_output_0_42:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_7_output_0_8 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 5 1 64)[0m
+[36mD 11:29:17 Tensor @Mul_7_output_0_8:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_5_output_0_84 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 15 1 64)[0m
+[36mD 11:29:17 Tensor @Mul_5_output_0_84:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process new_k_4 ...[0m
+[36mD 11:29:17 Acuity output shape(add): (1 5 1 64)[0m
+[36mD 11:29:17 Tensor @new_k_4:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Add_1_output_0_78 ...[0m
+[36mD 11:29:17 Acuity output shape(add): (1 15 1 64)[0m
+[36mD 11:29:17 Tensor @Add_1_output_0_78:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Concat_2_output_0_90 ...[0m
+[36mD 11:29:17 Acuity output shape(concat): (1 5 129 64)[0m
+[36mD 11:29:17 Tensor @Concat_2_output_0_90:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process attach_new_k/out0_1 ...[0m
+[36mD 11:29:17 Acuity output shape(output): (1 5 1 64)[0m
+[36mD 11:29:17 Tensor @attach_new_k/out0_1:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Unsqueeze_output_0_85 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 5 1 129 64)[0m
+[36mD 11:29:17 Tensor @Unsqueeze_output_0_85:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Tile_output_0_82 ...[0m
+[36mD 11:29:17 Acuity output shape(tile): (1 5 3 129 64)[0m
+[36mD 11:29:17 Tensor @Tile_output_0_82:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Reshape_3_output_0_81 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 15 129 64)[0m
+[36mD 11:29:17 Tensor @Reshape_3_output_0_81:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Transpose_3_output_0_79 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 15 64 129)[0m
+[36mD 11:29:17 Tensor @Transpose_3_output_0_79:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process MatMul_3_output_0_70 ...[0m
+[36mD 11:29:17 Acuity output shape(matmul): (1 15 1 129)[0m
+[36mD 11:29:17 Tensor @MatMul_3_output_0_70:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Div_3_output_0_62 ...[0m
+[36mD 11:29:17 Acuity output shape(real_div): (1 15 1 129)[0m
+[36mD 11:29:17 Tensor @Div_3_output_0_62:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Add_3_output_0_60 ...[0m
+[36mD 11:29:17 Acuity output shape(add): (1 15 1 129)[0m
+[36mD 11:29:17 Tensor @Add_3_output_0_60:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Softmax_output_0_51 ...[0m
+[36mD 11:29:17 Acuity output shape(softmax): (1 15 1 129)[0m
+[36mD 11:29:17 Tensor @Softmax_output_0_51:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process MatMul_4_output_0_41 ...[0m
+[36mD 11:29:17 Acuity output shape(matmul): (1 15 1 64)[0m
+[36mD 11:29:17 Tensor @MatMul_4_output_0_41:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Transpose_4_output_0_33 ...[0m
+[36mD 11:29:17 Acuity output shape(permute): (1 1 15 64)[0m
+[36mD 11:29:17 Tensor @Transpose_4_output_0_33:out0 type: float32[0m
+[36mD 11:29:17 Process reshape_115 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:29:17 Tensor @reshape_115:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process fullconnect_116 ...[0m
+[36mD 11:29:17 Acuity output shape(fullconnect): (1 960)[0m
+[36mD 11:29:17 Tensor @fullconnect_116:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_117 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 960)[0m
+[36mD 11:29:17 Tensor @reshape_117:out0 type: float32[0m
+[36mD 11:29:17 Process Add_4_output_0_9 ...[0m
+[36mD 11:29:17 Acuity output shape(add): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Add_4_output_0_9:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Abs_1_output_0_80 ...[0m
+[36mD 11:29:17 Acuity output shape(abs): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Abs_1_output_0_80:out0 type: float32[0m
+[36mD 11:29:17 Process ReduceMax_1_output_0_72 ...[0m
+[36mD 11:29:17 Acuity output shape(reducemax): (1 1 1)[0m
+[36mD 11:29:17 Tensor @ReduceMax_1_output_0_72:out0 type: float32[0m
+[36mD 11:29:17 Process Clip_1_output_0_63 ...[0m
+[36mD 11:29:17 Acuity output shape(clipbyvalue): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Clip_1_output_0_63:out0 type: float32[0m
+[36mD 11:29:17 Process Divide_75 ...[0m
+[36mD 11:29:17 Acuity output shape(Divide): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Divide_75:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_8_output_0_67 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Mul_8_output_0_67:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Div_4_output_0_53 ...[0m
+[36mD 11:29:17 Acuity output shape(real_div): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Div_4_output_0_53:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Div_5_output_0_66 ...[0m
+[36mD 11:29:17 Acuity output shape(real_div): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Div_5_output_0_66:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_9_output_0_77 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Mul_9_output_0_77:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process ReduceMean_1_output_0_73 ...[0m
+[36mD 11:29:17 Acuity output shape(reducemean): (1 1 1)[0m
+[36mD 11:29:17 Tensor @ReduceMean_1_output_0_73:out0 type: float32[0m
+[36mD 11:29:17 Process Add_5_output_0_64 ...[0m
+[36mD 11:29:17 Acuity output shape(add): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Add_5_output_0_64:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Sqrt_1_output_0_55 ...[0m
+[36mD 11:29:17 Acuity output shape(sqrt): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Sqrt_1_output_0_55:out0 type: float32[0m
+[36mD 11:29:17 Process Div_6_output_0_47 ...[0m
+[36mD 11:29:17 Acuity output shape(real_div): (1 1 1)[0m
+[36mD 11:29:17 Tensor @Div_6_output_0_47:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_10_output_0_45 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Mul_10_output_0_45:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_11_output_0_36 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:29:17 Tensor @Mul_11_output_0_36:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_121 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:29:17 Tensor @reshape_121:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_124 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:29:17 Tensor @reshape_124:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process fullconnect_122 ...[0m
+[36mD 11:29:17 Acuity output shape(fullconnect): (1 2560)[0m
+[36mD 11:29:17 Tensor @fullconnect_122:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process fullconnect_125 ...[0m
+[36mD 11:29:17 Acuity output shape(fullconnect): (1 2560)[0m
+[36mD 11:29:17 Tensor @fullconnect_125:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_123 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 2560)[0m
+[36mD 11:29:17 Tensor @reshape_123:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_126 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 2560)[0m
+[36mD 11:29:17 Tensor @reshape_126:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Sigmoid_output_0_35_Mul_12_output_0_26 ...[0m
+[36mD 11:29:17 Acuity output shape(swish): (1 1 2560)[0m
+[36mD 11:29:17 Tensor @Sigmoid_output_0_35_Mul_12_output_0_26:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process Mul_13_output_0_18 ...[0m
+[36mD 11:29:17 Acuity output shape(multiply): (1 1 2560)[0m
+[36mD 11:29:17 Tensor @Mul_13_output_0_18:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_109 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 2560)[0m
+[36mD 11:29:17 Tensor @reshape_109:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process fullconnect_110 ...[0m
+[36mD 11:29:17 Acuity output shape(fullconnect): (1 960)[0m
+[36mD 11:29:17 Tensor @fullconnect_110:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process reshape_111 ...[0m
+[36mD 11:29:17 Acuity output shape(reshape): (1 1 960)[0m
+[36mD 11:29:17 Tensor @reshape_111:out0 type: float32[0m
+[36mD 11:29:17 Process hidden_out_5 ...[0m
+[36mD 11:29:17 Acuity output shape(add): (1 1 960)[0m
+[36mD 11:29:17 Tensor @hidden_out_5:out0 type: float32(fake float16)[0m
+[36mD 11:29:17 Process attach_hidden_out/out0_0 ...[0m
+[36mD 11:29:17 Acuity output shape(output): (1 1 960)[0m
+[36mD 11:29:17 Tensor @attach_hidden_out/out0_0:out0 type: float32(fake float16)[0m
+[32mI 11:29:17 Build main_graph complete.[0m
+[36mD 11:29:17 Optimizing network with merge_mark_permute[0m
+[36mD 11:29:17 Optimizing network with insert_reshape_for_layernorm, c2drv_adjust_extra_io, c2drv_nhwc_resize, conv_1xn_transform, proposal_opt, c2drv_convert_axis, c2drv_convert_shape, c2drv_convert_array, c2drv_cast_dtype, c2drv_trans_data, c2drv_custom_opt[0m
+[32mI 11:29:17 Building data ...[0m
+[32mI 11:29:18 Packing data ...[0m
+[36mD 11:29:18 Packing Constant_1_output_0_59 ...[0m
+[36mD 11:29:18 Packing Constant_2_output_0_39 ...[0m
+[36mD 11:29:18 Packing Constant_40_output_0_71 ...[0m
+[36mD 11:29:18 Packing Constant_43_output_0_76 ...[0m
+[36mD 11:29:18 Packing Constant_44_output_0_54 ...[0m
+[36mD 11:29:18 Packing Reciprocal_1_output_0_74 ...[0m
+[36mD 11:29:18 Packing Reciprocal_output_0_68 ...[0m
+[36mD 11:29:18 Packing fullconnect_110 ...[0m
+[36mD 11:29:18 Quantize @fullconnect_110:weight to perchannel_symmetric_affine.[0m
+[36mD 11:29:18 Packing fullconnect_113 ...[0m
+[36mD 11:29:18 Quantize @fullconnect_113:weight to perchannel_symmetric_affine.[0m
+[36mD 11:29:18 Packing fullconnect_116 ...[0m
+[36mD 11:29:18 Quantize @fullconnect_116:weight to perchannel_symmetric_affine.[0m
+[36mD 11:29:18 Packing fullconnect_119 ...[0m
+[36mD 11:29:18 Quantize @fullconnect_119:weight to perchannel_symmetric_affine.[0m
+[36mD 11:29:18 Packing fullconnect_122 ...[0m
+[36mD 11:29:18 Quantize @fullconnect_122:weight to perchannel_symmetric_affine.[0m
+[36mD 11:29:18 Packing fullconnect_125 ...[0m
+[36mD 11:29:18 Quantize @fullconnect_125:weight to perchannel_symmetric_affine.[0m
+[36mD 11:29:18 Packing fullconnect_128 ...[0m
+[36mD 11:29:18 Quantize @fullconnect_128:weight to perchannel_symmetric_affine.[0m
+[36mD 11:29:18 Packing norm1_29 ...[0m
+[36mD 11:29:18 Packing norm2_46 ...[0m
+[32mI 11:29:18 Saving data to /work/smol500-w8f16-l0/export/decoder.export.data[0m
+[32mI 11:29:18 Export ovxlib case with version 1.1.83[0m
+[32mI 11:29:18 Save vx network source file to /work/smol500-w8f16-l0/export/vnn_decoder.c[0m
+[32mI 11:29:18 Save vx network source file to /work/smol500-w8f16-l0/export/vnn_decoder.h[0m
+[32mI 11:29:18 Save vx network source file to /work/smol500-w8f16-l0/export/vnn_post_process.c[0m
+[32mI 11:29:18 Save vx network source file to /work/smol500-w8f16-l0/export/vnn_post_process.h[0m
+[32mI 11:29:18 Save vx network source file to /work/smol500-w8f16-l0/export/vnn_pre_process.c[0m
+[32mI 11:29:18 Save vx network source file to /work/smol500-w8f16-l0/export/vnn_pre_process.h[0m
+[32mI 11:29:18 Save vx network source file to /work/smol500-w8f16-l0/export/vnn_global.h[0m
+[32mI 11:29:18 Save vx network source file to /work/smol500-w8f16-l0/export/main.c[0m
+[32mI 11:29:18 Save vx network source file to /work/smol500-w8f16-l0/export/BUILD[0m
+[32mI 11:29:18 Save vx network source file to /work/smol500-w8f16-l0/export/decoder.vcxproj[0m
+[32mI 11:29:18 Save vx network source file to /work/smol500-w8f16-l0/export/decoder.2012.vcxproj[0m
+[32mI 11:29:18 Save vx network source file to /work/smol500-w8f16-l0/export/makefile.linux[0m
+[32mI 11:29:18 Save vx network source file to /work/smol500-w8f16-l0/export/.cproject[0m
+[32mI 11:29:18 Save vx network source file to /work/smol500-w8f16-l0/export/.project[0m
+[36mD 11:29:18 Generate fake input /work/smol500-w8f16-l0/export/hidden_95_0.tensor[0m
+[36mD 11:29:18 Generate fake input /work/smol500-w8f16-l0/export/past_k_96_0.tensor[0m
+[36mD 11:29:18 Generate fake input /work/smol500-w8f16-l0/export/past_v_97_0.tensor[0m
+[36mD 11:29:18 Generate fake input /work/smol500-w8f16-l0/export/mask_98_0.tensor[0m
+[36mD 11:29:18 Generate fake input /work/smol500-w8f16-l0/export/rope_cos_99_0.tensor[0m
+[36mD 11:29:18 Generate fake input /work/smol500-w8f16-l0/export/rope_sin_100_0.tensor[0m
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_decoder.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+vnn_decoder.c: In function ‘vnn_CreateDecoder’:
+vnn_decoder.c:325:36: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+  325 |     node[2]->nn_param.clip.max = *((float*)&_infinity);
+      |                                   ~^~~~~~~~~~~~~~~~~~~
+vnn_decoder.c:393:35: warning: pointer targets in assignment from ‘uint32_t *’ {aka ‘unsigned int *’} to ‘const int32_t *’ {aka ‘const int *’} differ in signedness [-Wpointer-sign]
+  393 |     node[7]->nn_param.reduce.axis = axis_list_1;
+      |                                   ^
+vnn_decoder.c:760:39: warning: pointer targets in assignment from ‘uint32_t *’ {aka ‘unsigned int *’} to ‘const int32_t *’ {aka ‘const int *’} differ in signedness [-Wpointer-sign]
+  760 |     node[36]->nn_param.tile.multiples = multiples_1;
+      |                                       ^
+vnn_decoder.c:882:39: warning: pointer targets in assignment from ‘uint32_t *’ {aka ‘unsigned int *’} to ‘const int32_t *’ {aka ‘const int *’} differ in signedness [-Wpointer-sign]
+  882 |     node[46]->nn_param.tile.multiples = multiples_2;
+      |                                       ^
+vnn_decoder.c:1068:37: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ 1068 |     node[61]->nn_param.clip.max = *((float*)&_infinity);
+      |                                    ~^~~~~~~~~~~~~~~~~~~
+vnn_decoder.c:1136:36: warning: pointer targets in assignment from ‘uint32_t *’ {aka ‘unsigned int *’} to ‘const int32_t *’ {aka ‘const int *’} differ in signedness [-Wpointer-sign]
+ 1136 |     node[66]->nn_param.reduce.axis = axis_list_2;
+      |                                    ^
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_pre_process.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+vnn_pre_process.c: In function ‘_handle_multiple_inputs’:
+vnn_pre_process.c:667:11: warning: variable ‘p1’ set but not used [-Wunused-but-set-variable]
+  667 |     char *p1 = NULL;
+      |           ^~
+At top level:
+vnn_pre_process.c:627:13: warning: ‘_get_image_handle_buffer’ defined but not used [-Wunused-function]
+  627 | static void _get_image_handle_buffer
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c main.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_post_process.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -O3  vnn_decoder.o vnn_pre_process.o main.o vnn_post_process.o -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/../common/lib/ -lvdtproxy /root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/../common/lib/libjpeg.a -o gen_nbg
+E [main.c:vnn_VerifyGraph:93]CHECK STATUS(-3:The requested set of parameters produce a configuration that cannot be supported. )
+E [main.c:main:236]CHECK STATUS(-3:The requested set of parameters produce a configuration that cannot be supported. )
+Create Neural Network: 8ms or 8624us
+Verify...
+[31mE 11:29:26 Fatal model generation error: 64768[0m
+[33mW 11:29:26 ----------------Error(1),Warning(0)----------------[0m
+[31mE 11:29:26 ('Fatal model generation error: 64768', 'nbg_generate')[0m
+[33mW 11:29:26 ----------------Error(1),Warning(0)----------------[0m
+Traceback (most recent call last):
+  File "acuitylib/app/exporter/ovxlib_case/casegenerator.py", line 327, in acuitylib.app.exporter.ovxlib_case.casegenerator.CaseGenerator._gen_nb_file
+  File "acuitylib/acuitylog.py", line 264, in acuitylib.acuitylog.AcuityLog.e
+acuitylib.acuityerror.AcuityError: ('Fatal model generation error: 64768', 'nbg_generate')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/acuity-toolkit-whl-6.30.22/bin/pegasus.py", line 131, in <module>
+    main(args)
+  File "/root/acuity-toolkit-whl-6.30.22/bin/pegasus.py", line 116, in main
+    ret = exporter.execute(args)
+  File "acuitylib/app/exporter/commands.py", line 220, in acuitylib.app.exporter.commands.execute
+  File "acuitylib/vsi_nn.py", line 738, in acuitylib.vsi_nn.VSInn.export_ovxlib
+  File "acuitylib/interface/exporter.py", line 84, in acuitylib.interface.exporter.OvxlibExporter.export
+  File "acuitylib/app/exporter/ovxlib_case/export_ovxlib.py", line 113, in acuitylib.app.exporter.ovxlib_case.export_ovxlib.ExportOvxlib.run
+  File "acuitylib/app/exporter/ovxlib_case/casegenerator.py", line 409, in acuitylib.app.exporter.ovxlib_case.casegenerator.CaseGenerator.generate
+  File "acuitylib/app/exporter/ovxlib_case/casegenerator.py", line 359, in acuitylib.app.exporter.ovxlib_case.casegenerator.CaseGenerator._gen_special_case
+  File "acuitylib/app/exporter/ovxlib_case/casegenerator.py", line 338, in acuitylib.app.exporter.ovxlib_case.casegenerator.CaseGenerator._gen_nb_file
+  File "acuitylib/acuitylog.py", line 260, in acuitylib.acuitylog.AcuityLog.e
+acuitylib.acuityerror.AcuityError: (AcuityError('Fatal model generation error: 64768', 'nbg_generate'), None)

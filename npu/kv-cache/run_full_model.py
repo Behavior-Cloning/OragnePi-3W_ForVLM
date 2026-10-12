@@ -1,0 +1,60 @@
+"""Deploy and run every decoder layer plus NPU LM head with real token feedback."""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import shlex
+import subprocess
+
+p=argparse.ArgumentParser();p.add_argument('--source',type=Path,required=True)
+p.add_argument('--dtype',default='fp16');p.add_argument('--tag',required=True)
+p.add_argument('--max-new',type=int,default=32);p.add_argument('--deploy-only',action='store_true')
+p.add_argument('--skip-deploy',action='store_true',help='reuse deployed weights; still update prompt and runner')
+p.add_argument('--case',help='unique result directory suffix, preserving earlier cases')
+p.add_argument('--prompt-folder',type=Path,help='case-specific prompt directory');args=p.parse_args()
+if not args.tag.replace('-','').isalnum():raise ValueError('invalid tag')
+if args.case and not args.case.replace('-','').isalnum():raise ValueError('invalid case')
+manifest=json.loads((args.source/'trained-manifest.json').read_text())
+records=json.loads((args.source/args.dtype/'stack-conversion.json').read_text())
+assert len(records)==len(manifest['layers'])+1 and not any(r['exit_code'] for r in records)
+remote='/opt/opi-vlm/npu-kv-probe/'+args.tag
+prefix=[str(Path.home()/'.local/bin/sshpass'),'-e'] if 'SSHPASS' in os.environ else []
+ssh=prefix+['ssh','-o','ForwardX11=no','-o','ConnectTimeout=8','root@192.168.88.29']
+scp=prefix+['scp','-o','ForwardX11=no','-o','ConnectTimeout=8']
+scripts=Path(__file__).resolve().parent
+result_name='board'+('-'+args.case if args.case else '')
+result_dir=args.source/args.dtype/result_name;result_dir.mkdir(exist_ok=True)
+prompt_folder=args.prompt_folder or args.source
+files=[(args.source/'embeddings.f32','embeddings.f32'),(prompt_folder/'prompt.i32','prompt.i32'),
+       (scripts/'full_model.c','full_model.c'),(scripts/'board_probe.c','board_probe.c')]
+files.extend((Path(r['path']),f"layer{r['layer']}.nb") for r in records)
+if args.skip_deploy:
+    files=[(src,name) for src,name in files if name in ('prompt.i32','full_model.c','board_probe.c')]
+if files:
+    subprocess.run(ssh+['mkdir -p '+remote],check=True,timeout=30)
+    hashes=[]
+    for source,name in files:
+        subprocess.run(scp+[str(source),'root@192.168.88.29:'+remote+'/'+name],check=True,timeout=600)
+        hashes.append(hashlib.file_digest(source.open('rb'),'sha256').hexdigest()+'  '+name)
+        print('uploaded',name,flush=True)
+    verification='cd '+remote+' && sha256sum -c -'
+    subprocess.run(ssh+[verification],input='\n'.join(hashes)+'\n',text=True,check=True,timeout=120)
+    (result_dir/'deployed-sha256.txt').write_text('\n'.join(hashes)+'\n')
+    compile_command=(f'cd {remote} && cc -O2 -Wall -Wextra -Werror -DMODEL_DIM={manifest["dim"]} '
+        f'-DMODEL_KV={manifest["kv_heads"]} -DMODEL_HD={manifest["head_dim"]} -DROPE_BASE={manifest["rope_base"]} '
+        'full_model.c -lNBGlinker -lVIPhal -lm -o full_model')
+    subprocess.run(ssh+[compile_command],check=True,timeout=30)
+if args.deploy_only:raise SystemExit(0)
+for name in ('prompt.json','prompt.i32'):
+    (result_dir/name).write_bytes((prompt_folder/name).read_bytes())
+command=(f'cd {remote} && mkdir -p {result_name} && timeout 600 ./full_model . {len(manifest["layers"])} {manifest["capacity"]} '
+         f'{manifest["vocab_size"]} embeddings.f32 prompt.i32 {args.max_new} {result_name}/tokens.json {result_name}/logits.f32 {manifest["eos_token_ids"][0]}')
+command='flock -w 1800 /run/opi-npu-kv-benchmark.lock sh -c '+shlex.quote(command)
+with (result_dir/'run.stdout').open('w') as out,(result_dir/'run.stderr').open('w') as err:
+    result=subprocess.run(ssh+[command],stdout=out,stderr=err,timeout=2500)
+(result_dir/'exit.json').write_text(json.dumps({'exit_code':result.returncode})+'\n')
+if result.returncode:raise SystemExit(result.returncode)
+for name in ('tokens.json','logits.f32'):
+    subprocess.run(scp+['root@192.168.88.29:'+remote+'/'+result_name+'/'+name,str(result_dir/name)],check=True,timeout=120)
+print((result_dir/'tokens.json').read_text())

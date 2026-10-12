@@ -1,0 +1,82 @@
+{
+  "model": "qwen2.5-1.5b-instruct-q4_k_m.gguf",
+  "sha256": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e",
+  "architecture": "qwen2",
+  "language_layers_total": 28,
+  "gguf_tensor_elements": 1777088000,
+  "tested_layer_parameters": 93595648,
+  "layers": [
+    0,
+    1
+  ],
+  "capacity": 128,
+  "tokens": 128,
+  "dim": 1536,
+  "heads": 12,
+  "kv_heads": 2,
+  "head_dim": 128,
+  "rope_base": 1000000.0,
+  "scope": "2 trained decoder layers, no final norm/logits or language generation",
+  "host_tolerance": {
+    "atol": 0.0001,
+    "rtol": 0.0003,
+    "relative_l2": 0.0001
+  },
+  "cases": [
+    {
+      "case": 0,
+      "bpe_pieces": [
+        "Hello",
+        ",",
+        "\u0120how",
+        "\u0120are",
+        "\u0120you",
+        "?",
+        "\u0120I",
+        "\u0120am",
+        "\u0120here",
+        "\u0120to",
+        "\u0120help",
+        ".",
+        "\u0120We",
+        "\u0120can",
+        "\u0120talk",
+        "\u0120about",
+        "\u0120your",
+        "\u0120day",
+        "."
+      ],
+      "tokens": 128,
+      "max_abs_error": 0.00146484375,
+      "host_ort_check": "PASS"
+    },
+    {
+      "case": 1,
+      "bpe_pieces": [
+        "Today",
+        "\u0120I",
+        "\u0120feel",
+        "\u0120a",
+        "\u0120little",
+        "\u0120sad",
+        ".",
+        "\u0120Can",
+        "\u0120you",
+        "\u0120stay",
+        "\u0120with",
+        "\u0120me",
+        "?",
+        "\u0120Of",
+        "\u0120course",
+        ",",
+        "\u0120I",
+        "\u0120will",
+        "\u0120listen",
+        "."
+      ],
+      "tokens": 128,
+      "max_abs_error": 0.002197265625,
+      "host_ort_check": "PASS"
+    }
+  ]
+}

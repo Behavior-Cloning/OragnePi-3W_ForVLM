@@ -17,7 +17,7 @@ def main():
     p.add_argument('--source', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--layer', type=int, default=0)
-    p.add_argument('--dtype', choices=['int16', 'fp16', 'bf16'], default='int16')
+    p.add_argument('--dtype', choices=['int8', 'int16', 'fp16', 'bf16'], default='int16')
     p.add_argument('--timeout', type=int, default=600)
     args = p.parse_args()
     source = args.source.resolve()
@@ -68,7 +68,7 @@ def main():
     (out / 'tensor-inputmeta.yml').write_text(yaml.safe_dump(meta, sort_keys=False))
     dataset = (source / f'layer{args.layer}-dataset.txt').read_text().splitlines()
     (out / 'dataset.txt').write_text('\n'.join(' '.join(f'/work/{source_rel}/{v}' for v in line.split()) for line in dataset) + '\n')
-    quantizer, qtype = {'int16': ('dynamic_fixed_point', 'int16'), 'fp16': ('float16', 'float16'),
+    quantizer, qtype = {'int8': ('dynamic_fixed_point', 'int8'), 'int16': ('dynamic_fixed_point', 'int16'), 'fp16': ('float16', 'float16'),
                         'bf16': ('bfloat16', 'bfloat16')}[args.dtype]
     run('quantize', ['quantize', '--model', 'decoder.json', '--model-data', 'decoder.data',
                      '--model-quantize', 'decoder.quantize', '--device', 'CPU', '--iterations', str(len(dataset)),

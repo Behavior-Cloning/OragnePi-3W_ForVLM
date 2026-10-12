@@ -1,0 +1,23 @@
+[0;93m2026-10-12 03:10:13.763781405 [W:onnxruntime:Default, device_discovery.cc:164 DiscoverDevicesForPlatform] GPU device discovery failed: device_discovery.cc:89 ReadFileContents Failed to open file: "/sys/class/drm/card0/device/vendor"[m
+Traceback (most recent call last):
+  File "/opt/opi-vlm/npu-kv-probe/cpu-qwen3b-c128/cpu_board_probe.py", line 51, in <module>
+    np.testing.assert_allclose(output,ref,atol=manifest.get('host_tolerance',{}).get('atol',1e-4),rtol=4e-4)
+  File "/opt/opi-vlm/npu-kv-probe/venv/lib/python3.10/site-packages/numpy/testing/_private/utils.py", line 1504, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+  File "/usr/lib/python3.10/contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "/opt/opi-vlm/npu-kv-probe/venv/lib/python3.10/site-packages/numpy/testing/_private/utils.py", line 797, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=0.0004, atol=0.0005
+
+Mismatched elements: 1 / 262144 (0.000381%)
+Max absolute difference: 0.00098467
+Max relative difference: 23.48819
+ x: array([[ 1.086584, -0.132099,  0.02108 , ..., -0.300552, -3.36354 ,
+         0.662189],
+       [ 0.195835, -0.185449,  0.445478, ..., -0.01381 ,  1.036918,...
+ y: array([[ 1.086599, -0.132099,  0.021118, ..., -0.30056 , -3.363506,
+         0.662171],
+       [ 0.195803, -0.185421,  0.445409, ..., -0.013798,  1.036874,...
+

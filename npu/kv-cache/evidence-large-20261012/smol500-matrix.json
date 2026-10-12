@@ -1,0 +1,97 @@
+{
+  "tag": "smol500",
+  "model": "models/smolvlm-500m/SmolVLM-500M-Instruct-Q8_0.gguf",
+  "scope": "two trained decoder layers, not full generation",
+  "cases": [
+    {
+      "capacity": 128,
+      "stages": [
+        {
+          "stage": "export",
+          "exit_code": 0,
+          "reused_verified_manifest": true
+        },
+        {
+          "stage": "compile-int16-l0",
+          "exit_code": 0,
+          "seconds": 14.190626866009552
+        },
+        {
+          "stage": "compile-int16-l1",
+          "exit_code": 0,
+          "seconds": 14.297222602996044
+        },
+        {
+          "stage": "board-int16",
+          "exit_code": 0,
+          "seconds": 14.939161754969973
+        },
+        {
+          "stage": "compile-fp16-l0",
+          "exit_code": 0,
+          "seconds": 16.103593528969213
+        },
+        {
+          "stage": "compile-fp16-l1",
+          "exit_code": 0,
+          "seconds": 16.093834187020548
+        },
+        {
+          "stage": "board-fp16",
+          "exit_code": 0,
+          "seconds": 26.514326807984617
+        },
+        {
+          "stage": "cpu",
+          "exit_code": 0,
+          "seconds": 39.88022843899671
+        }
+      ]
+    },
+    {
+      "capacity": 512,
+      "stages": [
+        {
+          "stage": "export",
+          "exit_code": 0,
+          "reused_verified_manifest": true
+        },
+        {
+          "stage": "compile-int16-l0",
+          "exit_code": 0,
+          "seconds": 14.242728638986591
+        },
+        {
+          "stage": "compile-int16-l1",
+          "exit_code": 0,
+          "seconds": 14.49029360304121
+        },
+        {
+          "stage": "board-int16",
+          "exit_code": 0,
+          "seconds": 46.75173815898597
+        },
+        {
+          "stage": "compile-fp16-l0",
+          "exit_code": 0,
+          "seconds": 16.143966174975503
+        },
+        {
+          "stage": "compile-fp16-l1",
+          "exit_code": 0,
+          "seconds": 16.101313604973257
+        },
+        {
+          "stage": "board-fp16",
+          "exit_code": 0,
+          "seconds": 131.25043020601152
+        },
+        {
+          "stage": "cpu",
+          "exit_code": 0,
+          "seconds": 142.10085832996992
+        }
+      ]
+    }
+  ]
+}

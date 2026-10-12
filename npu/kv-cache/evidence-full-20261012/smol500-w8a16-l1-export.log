@@ -1,0 +1,714 @@
+[32mI 11:31:51 Namespace(batch_size=None, build_platform='make', customer_lids=None, customer_ops=None, dtype='quantized', export='ovxlib', force_remove_permute=False, model='decoder.json', model_data='decoder.data', model_quantize='decoder.quantize', optimize='VIP9000NANODI_PLUS_PID0X1000003B', output_path='export/decoder', pack_nbg_unify=True, postprocess_file=None, save_fused_graph=False, save_trace_db=False, target_ide_project='linux64', viv_sdk='/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools', which='export', with_input_meta='tensor-inputmeta.yml')[0m
+[32mI 11:31:51 Set vsinn project dir to /work/smol500-w8a16-l1[0m
+[32mI 11:31:51 Load model in /work/smol500-w8a16-l1/decoder.json[0m
+[32mI 11:31:51 Load data in /work/smol500-w8a16-l1/decoder.data[0m
+[32mI 11:31:51 Load input meta /work/smol500-w8a16-l1/tensor-inputmeta.yml[0m
+[32mI 11:31:51 Load quantization tensor table /work/smol500-w8a16-l1/decoder.quantize[0m
+[32mI 11:31:52 Start exporting ovxlib case...[0m
+[36mD 11:31:52 Process norm1_29 ...[0m
+[36mD 11:31:52 Acuity output shape(variable): (1 1 960)[0m
+[36mD 11:31:52 Tensor @norm1_29:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process norm2_38 ...[0m
+[36mD 11:31:52 Acuity output shape(variable): (1 1 960)[0m
+[36mD 11:31:52 Tensor @norm2_38:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Constant_1_output_0_39 ...[0m
+[36mD 11:31:52 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Constant_1_output_0_39:out0 type: float32[0m
+[36mD 11:31:52 Process Constant_output_0_47 ...[0m
+[36mD 11:31:52 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Constant_output_0_47:out0 type: float32[0m
+[36mD 11:31:52 Process Constant_39_output_0_55 ...[0m
+[36mD 11:31:52 Acuity output shape(variable): (1 1 1 1)[0m
+[36mD 11:31:52 Tensor @Constant_39_output_0_55:out0 type: float32[0m
+[36mD 11:31:52 Process Constant_42_output_0_56 ...[0m
+[36mD 11:31:52 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Constant_42_output_0_56:out0 type: float32[0m
+[36mD 11:31:52 Process Constant_41_output_0_59 ...[0m
+[36mD 11:31:52 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Constant_41_output_0_59:out0 type: float32[0m
+[36mD 11:31:52 Process hidden_79 ...[0m
+[36mD 11:31:52 Acuity output shape(input): (1 1 960)[0m
+[36mD 11:31:52 Tensor @hidden_79:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process past_k_80 ...[0m
+[36mD 11:31:52 Acuity output shape(input): (1 5 128 64)[0m
+[36mD 11:31:52 Tensor @past_k_80:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process past_v_81 ...[0m
+[36mD 11:31:52 Acuity output shape(input): (1 5 128 64)[0m
+[36mD 11:31:52 Tensor @past_v_81:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process mask_82 ...[0m
+[36mD 11:31:52 Acuity output shape(input): (1 1 1 129)[0m
+[36mD 11:31:52 Tensor @mask_82:out0 type: float32[0m
+[36mD 11:31:52 Process rope_cos_83 ...[0m
+[36mD 11:31:52 Acuity output shape(input): (1 1 1 64)[0m
+[36mD 11:31:52 Tensor @rope_cos_83:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process rope_sin_84 ...[0m
+[36mD 11:31:52 Acuity output shape(input): (1 1 1 64)[0m
+[36mD 11:31:52 Tensor @rope_sin_84:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_output_0_52_acuity_mark_perm_88 ...[0m
+[36mD 11:31:52 Acuity output shape(permute): (1 960 1)[0m
+[36mD 11:31:52 Tensor @Mul_output_0_52_acuity_mark_perm_88:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_output_0_52 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 960 1)[0m
+[36mD 11:31:52 Tensor @Mul_output_0_52:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process ReduceMean_output_0_46 ...[0m
+[36mD 11:31:52 Acuity output shape(reducemean): (1 1 1)[0m
+[36mD 11:31:52 Tensor @ReduceMean_output_0_46:out0 type: float32[0m
+[36mD 11:31:52 Process Add_output_0_40 ...[0m
+[36mD 11:31:52 Acuity output shape(add): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Add_output_0_40:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Sqrt_output_0_32 ...[0m
+[36mD 11:31:52 Acuity output shape(sqrt): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Sqrt_output_0_32:out0 type: float32[0m
+[36mD 11:31:52 Process Div_output_0_30 ...[0m
+[36mD 11:31:52 Acuity output shape(real_div): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Div_output_0_30:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_1_output_0_28_acuity_mark_perm_86 ...[0m
+[36mD 11:31:52 Acuity output shape(permute): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Mul_1_output_0_28_acuity_mark_perm_86:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_1_output_0_28 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:31:52 Tensor @Mul_1_output_0_28:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_2_output_0_20 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:31:52 Tensor @Mul_2_output_0_20:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_92 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:31:52 Tensor @reshape_92:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_98 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:31:52 Tensor @reshape_98:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_107 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:31:52 Tensor @reshape_107:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process fullconnect_93 ...[0m
+[36mD 11:31:52 Acuity output shape(fullconnect): (1 320)[0m
+[36mD 11:31:52 Tensor @fullconnect_93:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process fullconnect_99 ...[0m
+[36mD 11:31:52 Acuity output shape(fullconnect): (1 320)[0m
+[36mD 11:31:52 Tensor @fullconnect_99:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process fullconnect_108 ...[0m
+[36mD 11:31:52 Acuity output shape(fullconnect): (1 960)[0m
+[36mD 11:31:52 Tensor @fullconnect_108:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_94 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 320)[0m
+[36mD 11:31:52 Tensor @reshape_94:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_100 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 320)[0m
+[36mD 11:31:52 Tensor @reshape_100:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_109 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 960)[0m
+[36mD 11:31:52 Tensor @reshape_109:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Reshape_2_output_0_6 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 5 64)[0m
+[36mD 11:31:52 Tensor @Reshape_2_output_0_6:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Reshape_1_output_0_13 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 5 64)[0m
+[36mD 11:31:52 Tensor @Reshape_1_output_0_13:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Reshape_output_0_71 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 15 64)[0m
+[36mD 11:31:52 Tensor @Reshape_output_0_71:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process new_v_3 ...[0m
+[36mD 11:31:52 Acuity output shape(permute): (1 5 1 64)[0m
+[36mD 11:31:52 Tensor @new_v_3:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Transpose_1_output_0_12 ...[0m
+[36mD 11:31:52 Acuity output shape(permute): (1 5 1 64)[0m
+[36mD 11:31:52 Tensor @Transpose_1_output_0_12:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Transpose_output_0_70 ...[0m
+[36mD 11:31:52 Acuity output shape(permute): (1 15 1 64)[0m
+[36mD 11:31:52 Tensor @Transpose_output_0_70:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Concat_4_output_0_50 ...[0m
+[36mD 11:31:52 Acuity output shape(concat): (1 5 129 64)[0m
+[36mD 11:31:52 Tensor @Concat_4_output_0_50:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_5_output_0_7 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 5 1 64)[0m
+[36mD 11:31:52 Tensor @Mul_5_output_0_7:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_3_output_0_65 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 15 1 64)[0m
+[36mD 11:31:52 Tensor @Mul_3_output_0_65:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process attach_new_v/out0_2 ...[0m
+[36mD 11:31:52 Acuity output shape(output): (1 5 1 64)[0m
+[36mD 11:31:52 Tensor @attach_new_v/out0_2:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Slice_3_output_0_15 ...[0m
+[36mD 11:31:52 Acuity output shape(slice): (1 5 1 32)[0m
+[36mD 11:31:52 Tensor @Slice_3_output_0_15:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Slice_2_output_0_23 ...[0m
+[36mD 11:31:52 Acuity output shape(slice): (1 5 1 32)[0m
+[36mD 11:31:52 Tensor @Slice_2_output_0_23:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Slice_1_output_0_73 ...[0m
+[36mD 11:31:52 Acuity output shape(slice): (1 15 1 32)[0m
+[36mD 11:31:52 Tensor @Slice_1_output_0_73:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Slice_output_0_77 ...[0m
+[36mD 11:31:52 Acuity output shape(slice): (1 15 1 32)[0m
+[36mD 11:31:52 Tensor @Slice_output_0_77:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Unsqueeze_1_output_0_49 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 5 1 129 64)[0m
+[36mD 11:31:52 Tensor @Unsqueeze_1_output_0_49:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Neg_1_output_0_16 ...[0m
+[36mD 11:31:52 Acuity output shape(neg): (1 5 1 32)[0m
+[36mD 11:31:52 Tensor @Neg_1_output_0_16:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Neg_output_0_76 ...[0m
+[36mD 11:31:52 Acuity output shape(neg): (1 15 1 32)[0m
+[36mD 11:31:52 Tensor @Neg_output_0_76:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Tile_1_output_0_44 ...[0m
+[36mD 11:31:52 Acuity output shape(tile): (1 5 3 129 64)[0m
+[36mD 11:31:52 Tensor @Tile_1_output_0_44:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Concat_1_output_0_14 ...[0m
+[36mD 11:31:52 Acuity output shape(concat): (1 5 1 64)[0m
+[36mD 11:31:52 Tensor @Concat_1_output_0_14:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Concat_output_0_72 ...[0m
+[36mD 11:31:52 Acuity output shape(concat): (1 15 1 64)[0m
+[36mD 11:31:52 Tensor @Concat_output_0_72:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Reshape_4_output_0_42 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 15 129 64)[0m
+[36mD 11:31:52 Tensor @Reshape_4_output_0_42:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_6_output_0_8 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 5 1 64)[0m
+[36mD 11:31:52 Tensor @Mul_6_output_0_8:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_4_output_0_66 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 15 1 64)[0m
+[36mD 11:31:52 Tensor @Mul_4_output_0_66:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process new_k_4 ...[0m
+[36mD 11:31:52 Acuity output shape(add): (1 5 1 64)[0m
+[36mD 11:31:52 Tensor @new_k_4:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Add_1_output_0_62 ...[0m
+[36mD 11:31:52 Acuity output shape(add): (1 15 1 64)[0m
+[36mD 11:31:52 Tensor @Add_1_output_0_62:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Concat_2_output_0_74 ...[0m
+[36mD 11:31:52 Acuity output shape(concat): (1 5 129 64)[0m
+[36mD 11:31:52 Tensor @Concat_2_output_0_74:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process attach_new_k/out0_1 ...[0m
+[36mD 11:31:52 Acuity output shape(output): (1 5 1 64)[0m
+[36mD 11:31:52 Tensor @attach_new_k/out0_1:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Unsqueeze_output_0_69 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 5 1 129 64)[0m
+[36mD 11:31:52 Tensor @Unsqueeze_output_0_69:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Tile_output_0_68 ...[0m
+[36mD 11:31:52 Acuity output shape(tile): (1 5 3 129 64)[0m
+[36mD 11:31:52 Tensor @Tile_output_0_68:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Reshape_3_output_0_67 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 15 129 64)[0m
+[36mD 11:31:52 Tensor @Reshape_3_output_0_67:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Transpose_3_output_0_63 ...[0m
+[36mD 11:31:52 Acuity output shape(permute): (1 15 64 129)[0m
+[36mD 11:31:52 Tensor @Transpose_3_output_0_63:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process MatMul_3_output_0_60 ...[0m
+[36mD 11:31:52 Acuity output shape(matmul): (1 15 1 129)[0m
+[36mD 11:31:52 Tensor @MatMul_3_output_0_60:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Div_1_output_0_54 ...[0m
+[36mD 11:31:52 Acuity output shape(real_div): (1 15 1 129)[0m
+[36mD 11:31:52 Tensor @Div_1_output_0_54:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Add_3_output_0_53 ...[0m
+[36mD 11:31:52 Acuity output shape(add): (1 15 1 129)[0m
+[36mD 11:31:52 Tensor @Add_3_output_0_53:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Softmax_output_0_48 ...[0m
+[36mD 11:31:52 Acuity output shape(softmax): (1 15 1 129)[0m
+[36mD 11:31:52 Tensor @Softmax_output_0_48:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process MatMul_4_output_0_41 ...[0m
+[36mD 11:31:52 Acuity output shape(matmul): (1 15 1 64)[0m
+[36mD 11:31:52 Tensor @MatMul_4_output_0_41:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Transpose_4_output_0_33 ...[0m
+[36mD 11:31:52 Acuity output shape(permute): (1 1 15 64)[0m
+[36mD 11:31:52 Tensor @Transpose_4_output_0_33:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Reshape_5_output_0_24 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 960)[0m
+[36mD 11:31:52 Tensor @Reshape_5_output_0_24:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_95 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:31:52 Tensor @reshape_95:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process fullconnect_96 ...[0m
+[36mD 11:31:52 Acuity output shape(fullconnect): (1 960)[0m
+[36mD 11:31:52 Tensor @fullconnect_96:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_97 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 960)[0m
+[36mD 11:31:52 Tensor @reshape_97:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Add_4_output_0_9 ...[0m
+[36mD 11:31:52 Acuity output shape(add): (1 1 960)[0m
+[36mD 11:31:52 Tensor @Add_4_output_0_9:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_7_output_0_64_acuity_mark_perm_85 ...[0m
+[36mD 11:31:52 Acuity output shape(permute): (1 960 1)[0m
+[36mD 11:31:52 Tensor @Mul_7_output_0_64_acuity_mark_perm_85:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_7_output_0_64 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 960 1)[0m
+[36mD 11:31:52 Tensor @Mul_7_output_0_64:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process ReduceMean_1_output_0_61 ...[0m
+[36mD 11:31:52 Acuity output shape(reducemean): (1 1 1)[0m
+[36mD 11:31:52 Tensor @ReduceMean_1_output_0_61:out0 type: float32[0m
+[36mD 11:31:52 Process Add_5_output_0_58 ...[0m
+[36mD 11:31:52 Acuity output shape(add): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Add_5_output_0_58:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Sqrt_1_output_0_57 ...[0m
+[36mD 11:31:52 Acuity output shape(sqrt): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Sqrt_1_output_0_57:out0 type: float32[0m
+[36mD 11:31:52 Process Div_2_output_0_51 ...[0m
+[36mD 11:31:52 Acuity output shape(real_div): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Div_2_output_0_51:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_8_output_0_45_acuity_mark_perm_87 ...[0m
+[36mD 11:31:52 Acuity output shape(permute): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Mul_8_output_0_45_acuity_mark_perm_87:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_8_output_0_45 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:31:52 Tensor @Mul_8_output_0_45:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_9_output_0_36 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:31:52 Tensor @Mul_9_output_0_36:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_101 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:31:52 Tensor @reshape_101:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_104 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:31:52 Tensor @reshape_104:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process fullconnect_102 ...[0m
+[36mD 11:31:52 Acuity output shape(fullconnect): (1 2560)[0m
+[36mD 11:31:52 Tensor @fullconnect_102:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process fullconnect_105 ...[0m
+[36mD 11:31:52 Acuity output shape(fullconnect): (1 2560)[0m
+[36mD 11:31:52 Tensor @fullconnect_105:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_103 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 2560)[0m
+[36mD 11:31:52 Tensor @reshape_103:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_106 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 2560)[0m
+[36mD 11:31:52 Tensor @reshape_106:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Sigmoid_output_0_35_Mul_10_output_0_26 ...[0m
+[36mD 11:31:52 Acuity output shape(swish): (1 1 2560)[0m
+[36mD 11:31:52 Tensor @Sigmoid_output_0_35_Mul_10_output_0_26:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_11_output_0_18 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 1 2560)[0m
+[36mD 11:31:52 Tensor @Mul_11_output_0_18:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_89 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 2560)[0m
+[36mD 11:31:52 Tensor @reshape_89:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process fullconnect_90 ...[0m
+[36mD 11:31:52 Acuity output shape(fullconnect): (1 960)[0m
+[36mD 11:31:52 Tensor @fullconnect_90:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_91 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 960)[0m
+[36mD 11:31:52 Tensor @reshape_91:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process hidden_out_5 ...[0m
+[36mD 11:31:52 Acuity output shape(add): (1 1 960)[0m
+[36mD 11:31:52 Tensor @hidden_out_5:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process attach_hidden_out/out0_0 ...[0m
+[36mD 11:31:52 Acuity output shape(output): (1 1 960)[0m
+[36mD 11:31:52 Tensor @attach_hidden_out/out0_0:out0 type: float32(fake dynamic_fixed_point)[0m
+[32mI 11:31:52 Build main_graph complete.[0m
+[32mI 11:31:52 Initialzing network optimizer by VIP9000NANODI_PLUS_PID0X1000003B ...[0m
+[32mI 11:31:52 Optimize config VIP9000NANODI_PLUS_PID0X1000003B with 'Default' optimization rules.[0m
+[36mD 11:31:52 Optimizing network with split_squared_difference, merge_ximum, qnt_adjust_coef, adjust_qnt_reshape, multiply_transform, add_extra_io, format_input_ops, auto_fill_zero_bias, conv_kernel_transform, auto_fill_reshape_zero, strip_op, extend_unstack_split, convert_matmul_trans_ab, merge_layer, transform_layer, broadcast_op, strip_op, adjust_output_attrs, insert_dtype_converter, layernorm_to_moments_bnsingle, pow_to_square, average_to_add_divide, optimize_einsum[0m
+[36mD 11:31:52 Strip layer Reshape_5_output_0_24(reshape)[0m
+[36mD 11:31:52 Strip layer reshape_94(reshape)[0m
+[36mD 11:31:52 Strip layer reshape_100(reshape)[0m
+[36mD 11:31:52 Strip layer reshape_109(reshape)[0m
+[36mD 11:31:52 Align variable norm1_29 shape [1, 1, 960] to [1, 1, 960][0m
+[36mD 11:31:52 Align variable Constant_1_output_0_39 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:31:52 Align variable norm2_38 shape [1, 1, 960] to [1, 1, 960][0m
+[36mD 11:31:52 Align variable Constant_output_0_47 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:31:52 Align variable Constant_42_output_0_56 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:31:52 Align variable Constant_39_output_0_55 shape [1, 1, 1, 1] to [1, 1, 1, 1][0m
+[36mD 11:31:52 Align variable Constant_41_output_0_59 shape [1, 1, 1] to [1, 1, 1][0m
+[32mI 11:31:52 Start T2C Switcher...[0m
+[36mD 11:31:52 Optimizing network with broadcast_op, t2c_fc[0m
+[36mD 11:31:52 Align variable norm1_29 shape [1, 1, 960] to [1, 1, 960][0m
+[36mD 11:31:52 Align variable Constant_1_output_0_39 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:31:52 Align variable norm2_38 shape [1, 1, 960] to [1, 1, 960][0m
+[36mD 11:31:52 Align variable Constant_output_0_47 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:31:52 Align variable Constant_42_output_0_56 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:31:52 Align variable Constant_39_output_0_55 shape [1, 1, 1, 1] to [1, 1, 1, 1][0m
+[36mD 11:31:52 Align variable Constant_41_output_0_59 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 11:31:52 convert ReduceMean_output_0_46(reducemean) axes [1] to [2][0m
+[36mD 11:31:52 convert ReduceMean_1_output_0_61(reducemean) axes [1] to [2][0m
+[36mD 11:31:52 convert Mul_7_output_0_64(multiply) axis 2 to 1[0m
+[36mD 11:31:52 convert Mul_output_0_52(multiply) axis 2 to 1[0m
+[36mD 11:31:52 insert permute Mul_1_output_0_28_acuity_mark_perm_86_acuity_mark_perm_110 before Mul_1_output_0_28_acuity_mark_perm_86[0m
+[36mD 11:31:52 insert permute Mul_8_output_0_45_acuity_mark_perm_87_acuity_mark_perm_111 before Mul_8_output_0_45_acuity_mark_perm_87[0m
+[36mD 11:31:52 insert permute Mul_7_output_0_64_acuity_mark_perm_85_acuity_mark_perm_112 after Mul_7_output_0_64_acuity_mark_perm_85[0m
+[36mD 11:31:52 insert permute Mul_output_0_52_acuity_mark_perm_88_acuity_mark_perm_113 after Mul_output_0_52_acuity_mark_perm_88[0m
+[36mD 11:31:52 remove permute Mul_output_0_52_acuity_mark_perm_88[0m
+[36mD 11:31:52 remove permute Mul_output_0_52_acuity_mark_perm_88_acuity_mark_perm_113[0m
+[36mD 11:31:52 remove permute Mul_1_output_0_28_acuity_mark_perm_86_acuity_mark_perm_110[0m
+[36mD 11:31:52 remove permute Mul_1_output_0_28_acuity_mark_perm_86[0m
+[36mD 11:31:52 remove permute Mul_7_output_0_64_acuity_mark_perm_85[0m
+[36mD 11:31:52 remove permute Mul_7_output_0_64_acuity_mark_perm_85_acuity_mark_perm_112[0m
+[36mD 11:31:52 remove permute Mul_8_output_0_45_acuity_mark_perm_87_acuity_mark_perm_111[0m
+[36mD 11:31:52 remove permute Mul_8_output_0_45_acuity_mark_perm_87[0m
+[32mI 11:31:52 End T2C Switcher...[0m
+[36mD 11:31:52 Optimizing network with strip_op_layout_sensitive[0m
+[36mD 11:31:52 Process norm1_29 ...[0m
+[36mD 11:31:52 Acuity output shape(variable): (1 1 960)[0m
+[36mD 11:31:52 Tensor @norm1_29:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process norm2_38 ...[0m
+[36mD 11:31:52 Acuity output shape(variable): (1 1 960)[0m
+[36mD 11:31:52 Tensor @norm2_38:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Constant_1_output_0_39 ...[0m
+[36mD 11:31:52 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Constant_1_output_0_39:out0 type: float32[0m
+[36mD 11:31:52 Process Constant_output_0_47 ...[0m
+[36mD 11:31:52 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Constant_output_0_47:out0 type: float32[0m
+[36mD 11:31:52 Process Constant_39_output_0_55 ...[0m
+[36mD 11:31:52 Acuity output shape(variable): (1 1 1 1)[0m
+[36mD 11:31:52 Tensor @Constant_39_output_0_55:out0 type: float32[0m
+[36mD 11:31:52 Process Constant_42_output_0_56 ...[0m
+[36mD 11:31:52 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Constant_42_output_0_56:out0 type: float32[0m
+[36mD 11:31:52 Process Constant_41_output_0_59 ...[0m
+[36mD 11:31:52 Acuity output shape(variable): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Constant_41_output_0_59:out0 type: float32[0m
+[36mD 11:31:52 Process hidden_79 ...[0m
+[36mD 11:31:52 Acuity output shape(input): (1 1 960)[0m
+[36mD 11:31:52 Tensor @hidden_79:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process past_k_80 ...[0m
+[36mD 11:31:52 Acuity output shape(input): (1 5 128 64)[0m
+[36mD 11:31:52 Tensor @past_k_80:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process past_v_81 ...[0m
+[36mD 11:31:52 Acuity output shape(input): (1 5 128 64)[0m
+[36mD 11:31:52 Tensor @past_v_81:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process mask_82 ...[0m
+[36mD 11:31:52 Acuity output shape(input): (1 1 1 129)[0m
+[36mD 11:31:52 Tensor @mask_82:out0 type: float32[0m
+[36mD 11:31:52 Process rope_cos_83 ...[0m
+[36mD 11:31:52 Acuity output shape(input): (1 1 1 64)[0m
+[36mD 11:31:52 Tensor @rope_cos_83:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process rope_sin_84 ...[0m
+[36mD 11:31:52 Acuity output shape(input): (1 1 1 64)[0m
+[36mD 11:31:52 Tensor @rope_sin_84:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_output_0_52 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:31:52 Tensor @Mul_output_0_52:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process ReduceMean_output_0_46 ...[0m
+[36mD 11:31:52 Acuity output shape(reducemean): (1 1 1)[0m
+[36mD 11:31:52 Tensor @ReduceMean_output_0_46:out0 type: float32[0m
+[36mD 11:31:52 Process Add_output_0_40 ...[0m
+[36mD 11:31:52 Acuity output shape(add): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Add_output_0_40:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Sqrt_output_0_32 ...[0m
+[36mD 11:31:52 Acuity output shape(sqrt): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Sqrt_output_0_32:out0 type: float32[0m
+[36mD 11:31:52 Process Div_output_0_30 ...[0m
+[36mD 11:31:52 Acuity output shape(real_div): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Div_output_0_30:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_1_output_0_28 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:31:52 Tensor @Mul_1_output_0_28:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_2_output_0_20 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:31:52 Tensor @Mul_2_output_0_20:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_92 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:31:52 Tensor @reshape_92:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_98 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:31:52 Tensor @reshape_98:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_107 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:31:52 Tensor @reshape_107:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process fullconnect_93 ...[0m
+[36mD 11:31:52 Acuity output shape(fullconnect): (1 320)[0m
+[36mD 11:31:52 Tensor @fullconnect_93:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process fullconnect_99 ...[0m
+[36mD 11:31:52 Acuity output shape(fullconnect): (1 320)[0m
+[36mD 11:31:52 Tensor @fullconnect_99:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process fullconnect_108 ...[0m
+[36mD 11:31:52 Acuity output shape(fullconnect): (1 960)[0m
+[36mD 11:31:52 Tensor @fullconnect_108:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Reshape_2_output_0_6 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 5 64)[0m
+[36mD 11:31:52 Tensor @Reshape_2_output_0_6:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Reshape_1_output_0_13 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 5 64)[0m
+[36mD 11:31:52 Tensor @Reshape_1_output_0_13:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Reshape_output_0_71 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 15 64)[0m
+[36mD 11:31:52 Tensor @Reshape_output_0_71:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process new_v_3 ...[0m
+[36mD 11:31:52 Acuity output shape(permute): (1 5 1 64)[0m
+[36mD 11:31:52 Tensor @new_v_3:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Transpose_1_output_0_12 ...[0m
+[36mD 11:31:52 Acuity output shape(permute): (1 5 1 64)[0m
+[36mD 11:31:52 Tensor @Transpose_1_output_0_12:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Transpose_output_0_70 ...[0m
+[36mD 11:31:52 Acuity output shape(permute): (1 15 1 64)[0m
+[36mD 11:31:52 Tensor @Transpose_output_0_70:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Concat_4_output_0_50 ...[0m
+[36mD 11:31:52 Acuity output shape(concat): (1 5 129 64)[0m
+[36mD 11:31:52 Tensor @Concat_4_output_0_50:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_5_output_0_7 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 5 1 64)[0m
+[36mD 11:31:52 Tensor @Mul_5_output_0_7:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_3_output_0_65 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 15 1 64)[0m
+[36mD 11:31:52 Tensor @Mul_3_output_0_65:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process attach_new_v/out0_2 ...[0m
+[36mD 11:31:52 Acuity output shape(output): (1 5 1 64)[0m
+[36mD 11:31:52 Tensor @attach_new_v/out0_2:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Slice_3_output_0_15 ...[0m
+[36mD 11:31:52 Acuity output shape(slice): (1 5 1 32)[0m
+[36mD 11:31:52 Tensor @Slice_3_output_0_15:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Slice_2_output_0_23 ...[0m
+[36mD 11:31:52 Acuity output shape(slice): (1 5 1 32)[0m
+[36mD 11:31:52 Tensor @Slice_2_output_0_23:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Slice_1_output_0_73 ...[0m
+[36mD 11:31:52 Acuity output shape(slice): (1 15 1 32)[0m
+[36mD 11:31:52 Tensor @Slice_1_output_0_73:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Slice_output_0_77 ...[0m
+[36mD 11:31:52 Acuity output shape(slice): (1 15 1 32)[0m
+[36mD 11:31:52 Tensor @Slice_output_0_77:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Unsqueeze_1_output_0_49 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 5 1 129 64)[0m
+[36mD 11:31:52 Tensor @Unsqueeze_1_output_0_49:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Neg_1_output_0_16 ...[0m
+[36mD 11:31:52 Acuity output shape(neg): (1 5 1 32)[0m
+[36mD 11:31:52 Tensor @Neg_1_output_0_16:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Neg_output_0_76 ...[0m
+[36mD 11:31:52 Acuity output shape(neg): (1 15 1 32)[0m
+[36mD 11:31:52 Tensor @Neg_output_0_76:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Tile_1_output_0_44 ...[0m
+[36mD 11:31:52 Acuity output shape(tile): (1 5 3 129 64)[0m
+[36mD 11:31:52 Tensor @Tile_1_output_0_44:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Concat_1_output_0_14 ...[0m
+[36mD 11:31:52 Acuity output shape(concat): (1 5 1 64)[0m
+[36mD 11:31:52 Tensor @Concat_1_output_0_14:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Concat_output_0_72 ...[0m
+[36mD 11:31:52 Acuity output shape(concat): (1 15 1 64)[0m
+[36mD 11:31:52 Tensor @Concat_output_0_72:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Reshape_4_output_0_42 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 15 129 64)[0m
+[36mD 11:31:52 Tensor @Reshape_4_output_0_42:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_6_output_0_8 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 5 1 64)[0m
+[36mD 11:31:52 Tensor @Mul_6_output_0_8:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_4_output_0_66 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 15 1 64)[0m
+[36mD 11:31:52 Tensor @Mul_4_output_0_66:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process new_k_4 ...[0m
+[36mD 11:31:52 Acuity output shape(add): (1 5 1 64)[0m
+[36mD 11:31:52 Tensor @new_k_4:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Add_1_output_0_62 ...[0m
+[36mD 11:31:52 Acuity output shape(add): (1 15 1 64)[0m
+[36mD 11:31:52 Tensor @Add_1_output_0_62:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Concat_2_output_0_74 ...[0m
+[36mD 11:31:52 Acuity output shape(concat): (1 5 129 64)[0m
+[36mD 11:31:52 Tensor @Concat_2_output_0_74:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process attach_new_k/out0_1 ...[0m
+[36mD 11:31:52 Acuity output shape(output): (1 5 1 64)[0m
+[36mD 11:31:52 Tensor @attach_new_k/out0_1:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Unsqueeze_output_0_69 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 5 1 129 64)[0m
+[36mD 11:31:52 Tensor @Unsqueeze_output_0_69:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Tile_output_0_68 ...[0m
+[36mD 11:31:52 Acuity output shape(tile): (1 5 3 129 64)[0m
+[36mD 11:31:52 Tensor @Tile_output_0_68:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Reshape_3_output_0_67 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 15 129 64)[0m
+[36mD 11:31:52 Tensor @Reshape_3_output_0_67:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Transpose_3_output_0_63 ...[0m
+[36mD 11:31:52 Acuity output shape(permute): (1 15 64 129)[0m
+[36mD 11:31:52 Tensor @Transpose_3_output_0_63:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process MatMul_3_output_0_60 ...[0m
+[36mD 11:31:52 Acuity output shape(matmul): (1 15 1 129)[0m
+[36mD 11:31:52 Tensor @MatMul_3_output_0_60:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Div_1_output_0_54 ...[0m
+[36mD 11:31:52 Acuity output shape(real_div): (1 15 1 129)[0m
+[36mD 11:31:52 Tensor @Div_1_output_0_54:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Add_3_output_0_53 ...[0m
+[36mD 11:31:52 Acuity output shape(add): (1 15 1 129)[0m
+[36mD 11:31:52 Tensor @Add_3_output_0_53:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Softmax_output_0_48 ...[0m
+[36mD 11:31:52 Acuity output shape(softmax): (1 15 1 129)[0m
+[36mD 11:31:52 Tensor @Softmax_output_0_48:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process MatMul_4_output_0_41 ...[0m
+[36mD 11:31:52 Acuity output shape(matmul): (1 15 1 64)[0m
+[36mD 11:31:52 Tensor @MatMul_4_output_0_41:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Transpose_4_output_0_33 ...[0m
+[36mD 11:31:52 Acuity output shape(permute): (1 1 15 64)[0m
+[36mD 11:31:52 Tensor @Transpose_4_output_0_33:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_95 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:31:52 Tensor @reshape_95:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process fullconnect_96 ...[0m
+[36mD 11:31:52 Acuity output shape(fullconnect): (1 960)[0m
+[36mD 11:31:52 Tensor @fullconnect_96:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_97 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 960)[0m
+[36mD 11:31:52 Tensor @reshape_97:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Add_4_output_0_9 ...[0m
+[36mD 11:31:52 Acuity output shape(add): (1 1 960)[0m
+[36mD 11:31:52 Tensor @Add_4_output_0_9:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_7_output_0_64 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:31:52 Tensor @Mul_7_output_0_64:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process ReduceMean_1_output_0_61 ...[0m
+[36mD 11:31:52 Acuity output shape(reducemean): (1 1 1)[0m
+[36mD 11:31:52 Tensor @ReduceMean_1_output_0_61:out0 type: float32[0m
+[36mD 11:31:52 Process Add_5_output_0_58 ...[0m
+[36mD 11:31:52 Acuity output shape(add): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Add_5_output_0_58:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Sqrt_1_output_0_57 ...[0m
+[36mD 11:31:52 Acuity output shape(sqrt): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Sqrt_1_output_0_57:out0 type: float32[0m
+[36mD 11:31:52 Process Div_2_output_0_51 ...[0m
+[36mD 11:31:52 Acuity output shape(real_div): (1 1 1)[0m
+[36mD 11:31:52 Tensor @Div_2_output_0_51:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_8_output_0_45 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:31:52 Tensor @Mul_8_output_0_45:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_9_output_0_36 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 11:31:52 Tensor @Mul_9_output_0_36:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_101 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:31:52 Tensor @reshape_101:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_104 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 960)[0m
+[36mD 11:31:52 Tensor @reshape_104:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process fullconnect_102 ...[0m
+[36mD 11:31:52 Acuity output shape(fullconnect): (1 2560)[0m
+[36mD 11:31:52 Tensor @fullconnect_102:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process fullconnect_105 ...[0m
+[36mD 11:31:52 Acuity output shape(fullconnect): (1 2560)[0m
+[36mD 11:31:52 Tensor @fullconnect_105:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_103 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 2560)[0m
+[36mD 11:31:52 Tensor @reshape_103:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_106 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 2560)[0m
+[36mD 11:31:52 Tensor @reshape_106:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Sigmoid_output_0_35_Mul_10_output_0_26 ...[0m
+[36mD 11:31:52 Acuity output shape(swish): (1 1 2560)[0m
+[36mD 11:31:52 Tensor @Sigmoid_output_0_35_Mul_10_output_0_26:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process Mul_11_output_0_18 ...[0m
+[36mD 11:31:52 Acuity output shape(multiply): (1 1 2560)[0m
+[36mD 11:31:52 Tensor @Mul_11_output_0_18:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_89 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 2560)[0m
+[36mD 11:31:52 Tensor @reshape_89:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process fullconnect_90 ...[0m
+[36mD 11:31:52 Acuity output shape(fullconnect): (1 960)[0m
+[36mD 11:31:52 Tensor @fullconnect_90:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process reshape_91 ...[0m
+[36mD 11:31:52 Acuity output shape(reshape): (1 1 960)[0m
+[36mD 11:31:52 Tensor @reshape_91:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process hidden_out_5 ...[0m
+[36mD 11:31:52 Acuity output shape(add): (1 1 960)[0m
+[36mD 11:31:52 Tensor @hidden_out_5:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 11:31:52 Process attach_hidden_out/out0_0 ...[0m
+[36mD 11:31:52 Acuity output shape(output): (1 1 960)[0m
+[36mD 11:31:52 Tensor @attach_hidden_out/out0_0:out0 type: float32(fake dynamic_fixed_point)[0m
+[32mI 11:31:52 Build main_graph complete.[0m
+[36mD 11:31:52 Optimizing network with merge_mark_permute[0m
+[36mD 11:31:52 Optimizing network with insert_reshape_for_layernorm, c2drv_adjust_extra_io, c2drv_nhwc_resize, conv_1xn_transform, proposal_opt, c2drv_convert_axis, c2drv_convert_shape, c2drv_convert_array, c2drv_cast_dtype, c2drv_trans_data, c2drv_custom_opt[0m
+[32mI 11:31:52 Building data ...[0m
+[32mI 11:31:52 Packing data ...[0m
+[36mD 11:31:52 Packing Constant_1_output_0_39 ...[0m
+[36mD 11:31:52 Packing Constant_39_output_0_55 ...[0m
+[36mD 11:31:52 Packing Constant_41_output_0_59 ...[0m
+[36mD 11:31:52 Packing Constant_42_output_0_56 ...[0m
+[36mD 11:31:52 Packing Constant_output_0_47 ...[0m
+[36mD 11:31:52 Packing fullconnect_102 ...[0m
+[36mD 11:31:52 Quantize @fullconnect_102:bias to perchannel_symmetric_affine.[0m
+[36mD 11:31:52 Quantize @fullconnect_102:weight to perchannel_symmetric_affine.[0m
+[36mD 11:31:52 Packing fullconnect_105 ...[0m
+[36mD 11:31:52 Quantize @fullconnect_105:bias to perchannel_symmetric_affine.[0m
+[36mD 11:31:52 Quantize @fullconnect_105:weight to perchannel_symmetric_affine.[0m
+[36mD 11:31:52 Packing fullconnect_108 ...[0m
+[36mD 11:31:52 Quantize @fullconnect_108:bias to perchannel_symmetric_affine.[0m
+[36mD 11:31:52 Quantize @fullconnect_108:weight to perchannel_symmetric_affine.[0m
+[36mD 11:31:52 Packing fullconnect_90 ...[0m
+[36mD 11:31:52 Quantize @fullconnect_90:bias to perchannel_symmetric_affine.[0m
+[36mD 11:31:52 Quantize @fullconnect_90:weight to perchannel_symmetric_affine.[0m
+[36mD 11:31:52 Packing fullconnect_93 ...[0m
+[36mD 11:31:52 Quantize @fullconnect_93:bias to perchannel_symmetric_affine.[0m
+[36mD 11:31:52 Quantize @fullconnect_93:weight to perchannel_symmetric_affine.[0m
+[36mD 11:31:52 Packing fullconnect_96 ...[0m
+[36mD 11:31:52 Quantize @fullconnect_96:bias to perchannel_symmetric_affine.[0m
+[36mD 11:31:52 Quantize @fullconnect_96:weight to perchannel_symmetric_affine.[0m
+[36mD 11:31:52 Packing fullconnect_99 ...[0m
+[36mD 11:31:52 Quantize @fullconnect_99:bias to perchannel_symmetric_affine.[0m
+[36mD 11:31:52 Quantize @fullconnect_99:weight to perchannel_symmetric_affine.[0m
+[36mD 11:31:52 Packing norm1_29 ...[0m
+[36mD 11:31:52 Quantize @norm1_29:data to dynamic_fixed_point.[0m
+[36mD 11:31:52 Packing norm2_38 ...[0m
+[36mD 11:31:52 Quantize @norm2_38:data to dynamic_fixed_point.[0m
+[32mI 11:31:52 Saving data to /work/smol500-w8a16-l1/export/decoder.export.data[0m
+[32mI 11:31:52 Export ovxlib case with version 1.1.83[0m
+[32mI 11:31:52 Save vx network source file to /work/smol500-w8a16-l1/export/vnn_decoder.c[0m
+[32mI 11:31:52 Save vx network source file to /work/smol500-w8a16-l1/export/vnn_decoder.h[0m
+[32mI 11:31:52 Save vx network source file to /work/smol500-w8a16-l1/export/vnn_post_process.c[0m
+[32mI 11:31:52 Save vx network source file to /work/smol500-w8a16-l1/export/vnn_post_process.h[0m
+[32mI 11:31:52 Save vx network source file to /work/smol500-w8a16-l1/export/vnn_pre_process.c[0m
+[32mI 11:31:52 Save vx network source file to /work/smol500-w8a16-l1/export/vnn_pre_process.h[0m
+[32mI 11:31:52 Save vx network source file to /work/smol500-w8a16-l1/export/vnn_global.h[0m
+[32mI 11:31:52 Save vx network source file to /work/smol500-w8a16-l1/export/main.c[0m
+[32mI 11:31:52 Save vx network source file to /work/smol500-w8a16-l1/export/BUILD[0m
+[32mI 11:31:52 Save vx network source file to /work/smol500-w8a16-l1/export/decoder.vcxproj[0m
+[32mI 11:31:52 Save vx network source file to /work/smol500-w8a16-l1/export/decoder.2012.vcxproj[0m
+[32mI 11:31:52 Save vx network source file to /work/smol500-w8a16-l1/export/makefile.linux[0m
+[32mI 11:31:52 Save vx network source file to /work/smol500-w8a16-l1/export/.cproject[0m
+[32mI 11:31:52 Save vx network source file to /work/smol500-w8a16-l1/export/.project[0m
+[36mD 11:31:52 Generate fake input /work/smol500-w8a16-l1/export/hidden_79_0.tensor[0m
+[36mD 11:31:52 Generate fake input /work/smol500-w8a16-l1/export/past_k_80_0.tensor[0m
+[36mD 11:31:52 Generate fake input /work/smol500-w8a16-l1/export/past_v_81_0.tensor[0m
+[36mD 11:31:52 Generate fake input /work/smol500-w8a16-l1/export/mask_82_0.tensor[0m
+[36mD 11:31:52 Generate fake input /work/smol500-w8a16-l1/export/rope_cos_83_0.tensor[0m
+[36mD 11:31:52 Generate fake input /work/smol500-w8a16-l1/export/rope_sin_84_0.tensor[0m
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_decoder.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+vnn_decoder.c: In function ‘vnn_CreateDecoder’:
+vnn_decoder.c:327:35: warning: pointer targets in assignment from ‘uint32_t *’ {aka ‘unsigned int *’} to ‘const int32_t *’ {aka ‘const int *’} differ in signedness [-Wpointer-sign]
+  327 |     node[1]->nn_param.reduce.axis = axis_list_1;
+      |                                   ^
+vnn_decoder.c:680:39: warning: pointer targets in assignment from ‘uint32_t *’ {aka ‘unsigned int *’} to ‘const int32_t *’ {aka ‘const int *’} differ in signedness [-Wpointer-sign]
+  680 |     node[29]->nn_param.tile.multiples = multiples_1;
+      |                                       ^
+vnn_decoder.c:802:39: warning: pointer targets in assignment from ‘uint32_t *’ {aka ‘unsigned int *’} to ‘const int32_t *’ {aka ‘const int *’} differ in signedness [-Wpointer-sign]
+  802 |     node[39]->nn_param.tile.multiples = multiples_2;
+      |                                       ^
+vnn_decoder.c:978:36: warning: pointer targets in assignment from ‘uint32_t *’ {aka ‘unsigned int *’} to ‘const int32_t *’ {aka ‘const int *’} differ in signedness [-Wpointer-sign]
+  978 |     node[53]->nn_param.reduce.axis = axis_list_2;
+      |                                    ^
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_pre_process.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+vnn_pre_process.c: In function ‘_handle_multiple_inputs’:
+vnn_pre_process.c:667:11: warning: variable ‘p1’ set but not used [-Wunused-but-set-variable]
+  667 |     char *p1 = NULL;
+      |           ^~
+At top level:
+vnn_pre_process.c:627:13: warning: ‘_get_image_handle_buffer’ defined but not used [-Wunused-function]
+  627 | static void _get_image_handle_buffer
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c main.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_post_process.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -O3  vnn_decoder.o vnn_pre_process.o main.o vnn_post_process.o -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/../common/lib/ -lvdtproxy /root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/../common/lib/libjpeg.a -o gen_nbg
+Create Neural Network: 8ms or 8145us
+Verify...
+Verify Graph: 3551ms or 3551098us
+Start run graph [1] times...
+Run the 1 time: 31.06ms or 31061.56us
+vxProcessGraph execution time:
+Total   31.07ms or 31065.40us
+Average 31.07ms or 31065.40us
+ --- Top5 ---
+  0: 0.000000
+  1: 0.000000
+  2: 0.000000
+  3: 0.000000
+  4: 0.000000
+[32mI 11:31:58 Export ovxlib case with version 1.1.83[0m
+[32mI 11:31:58 Dump nbg input meta to /work/smol500-w8a16-l1/export_nbg_unify/nbg_meta.json[0m
+[32mI 11:31:58 Save vx network source file to /work/smol500-w8a16-l1/export_nbg_unify/vnn_decoder.c[0m
+[32mI 11:31:58 Save vx network source file to /work/smol500-w8a16-l1/export_nbg_unify/vnn_decoder.h[0m
+[32mI 11:31:58 Save vx network source file to /work/smol500-w8a16-l1/export_nbg_unify/vnn_post_process.c[0m
+[32mI 11:31:58 Save vx network source file to /work/smol500-w8a16-l1/export_nbg_unify/vnn_post_process.h[0m
+[32mI 11:31:58 Save vx network source file to /work/smol500-w8a16-l1/export_nbg_unify/vnn_pre_process.c[0m
+[32mI 11:31:58 Save vx network source file to /work/smol500-w8a16-l1/export_nbg_unify/vnn_pre_process.h[0m
+[32mI 11:31:58 Save vx network source file to /work/smol500-w8a16-l1/export_nbg_unify/vnn_global.h[0m
+[32mI 11:31:58 Save vx network source file to /work/smol500-w8a16-l1/export_nbg_unify/main.c[0m
+[32mI 11:31:58 Save vx network source file to /work/smol500-w8a16-l1/export_nbg_unify/BUILD[0m
+[32mI 11:31:58 Save vx network source file to /work/smol500-w8a16-l1/export_nbg_unify/decoder.vcxproj[0m
+[32mI 11:31:58 Save vx network source file to /work/smol500-w8a16-l1/export_nbg_unify/decoder.2012.vcxproj[0m
+[32mI 11:31:58 Save vx network source file to /work/smol500-w8a16-l1/export_nbg_unify/makefile.linux[0m
+[32mI 11:31:58 Save vx network source file to /work/smol500-w8a16-l1/export_nbg_unify/.cproject[0m
+[32mI 11:31:58 Save vx network source file to /work/smol500-w8a16-l1/export_nbg_unify/.project[0m
+[32mI 11:31:58 End exporting ovxlib case...[0m
+[32mI 11:31:58 ----------------Error(0),Warning(0)----------------[0m

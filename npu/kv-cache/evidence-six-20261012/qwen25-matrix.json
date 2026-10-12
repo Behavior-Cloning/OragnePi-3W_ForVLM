@@ -1,0 +1,52 @@
+{
+  "tag": "qwen25",
+  "model": "models/qwen25-15b-q4/qwen2.5-1.5b-instruct-q4_k_m.gguf",
+  "scope": "two trained decoder layers, not full generation",
+  "cases": [
+    {
+      "capacity": 128,
+      "stages": [
+        {
+          "stage": "export",
+          "exit_code": 0,
+          "reused_verified_manifest": true
+        },
+        {
+          "stage": "compile-int16-l0",
+          "exit_code": 0,
+          "seconds": 28.6799118029885
+        },
+        {
+          "stage": "compile-int16-l1",
+          "exit_code": 0,
+          "seconds": 28.370307165954728
+        },
+        {
+          "stage": "board-int16",
+          "exit_code": 3,
+          "seconds": 399.6208622260019
+        },
+        {
+          "stage": "compile-fp16-l0",
+          "exit_code": 0,
+          "seconds": 29.02708160999464
+        },
+        {
+          "stage": "compile-fp16-l1",
+          "exit_code": 0,
+          "seconds": 28.778098419017624
+        },
+        {
+          "stage": "board-fp16",
+          "exit_code": 3,
+          "seconds": 73.13628454500576
+        },
+        {
+          "stage": "cpu",
+          "exit_code": 0,
+          "seconds": 204.35885608103126
+        }
+      ]
+    }
+  ]
+}

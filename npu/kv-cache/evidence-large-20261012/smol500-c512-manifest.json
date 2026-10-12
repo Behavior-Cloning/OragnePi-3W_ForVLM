@@ -1,0 +1,76 @@
+{
+  "model": "SmolVLM-500M-Instruct-Q8_0.gguf",
+  "sha256": "9d4612de6a42214499e301494a3ecc2be0abdd9de44e663bda63f1152fad1bf4",
+  "architecture": "llama",
+  "language_layers_total": 32,
+  "gguf_tensor_elements": 409252800,
+  "tested_layer_parameters": 19664640,
+  "layers": [
+    0,
+    1
+  ],
+  "capacity": 512,
+  "dim": 960,
+  "heads": 15,
+  "kv_heads": 5,
+  "head_dim": 64,
+  "rope_base": 100000.0,
+  "scope": "first two trained layers only, no logits or language generation",
+  "cases": [
+    {
+      "case": 0,
+      "bpe_pieces": [
+        "Hello",
+        ",",
+        "\u0120how",
+        "\u0120are",
+        "\u0120you",
+        "?",
+        "\u0120I",
+        "\u0120am",
+        "\u0120here",
+        "\u0120to",
+        "\u0120help",
+        ".",
+        "\u0120We",
+        "\u0120can",
+        "\u0120talk",
+        "\u0120about",
+        "\u0120your",
+        "\u0120day",
+        "."
+      ],
+      "tokens": 512,
+      "max_abs_error": 4.1961669921875e-05,
+      "host_ort_check": "PASS"
+    },
+    {
+      "case": 1,
+      "bpe_pieces": [
+        "Today",
+        "\u0120I",
+        "\u0120feel",
+        "\u0120a",
+        "\u0120little",
+        "\u0120sad",
+        ".",
+        "\u0120Can",
+        "\u0120you",
+        "\u0120stay",
+        "\u0120with",
+        "\u0120me",
+        "?",
+        "\u0120Of",
+        "\u0120course",
+        ",",
+        "\u0120I",
+        "\u0120will",
+        "\u0120listen",
+        "."
+      ],
+      "tokens": 512,
+      "max_abs_error": 3.814697265625e-05,
+      "host_ort_check": "PASS"
+    }
+  ]
+}

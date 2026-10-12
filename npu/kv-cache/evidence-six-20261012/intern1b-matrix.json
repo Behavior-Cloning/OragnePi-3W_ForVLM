@@ -1,0 +1,97 @@
+{
+  "tag": "intern1b",
+  "model": "models/internvl3-1b/InternVL3-1B-Instruct-Q8_0.gguf",
+  "scope": "two trained decoder layers, not full generation",
+  "cases": [
+    {
+      "capacity": 128,
+      "stages": [
+        {
+          "stage": "export",
+          "exit_code": 0,
+          "seconds": 7.730406756047159
+        },
+        {
+          "stage": "compile-int16-l0",
+          "exit_code": 0,
+          "seconds": 16.29469099000562
+        },
+        {
+          "stage": "compile-int16-l1",
+          "exit_code": 0,
+          "seconds": 16.30565347900847
+        },
+        {
+          "stage": "board-int16",
+          "exit_code": 0,
+          "seconds": 17.093989006010816
+        },
+        {
+          "stage": "compile-fp16-l0",
+          "exit_code": 0,
+          "seconds": 17.15584555803798
+        },
+        {
+          "stage": "compile-fp16-l1",
+          "exit_code": 0,
+          "seconds": 17.204840557009447
+        },
+        {
+          "stage": "board-fp16",
+          "exit_code": 0,
+          "seconds": 32.81585685402388
+        },
+        {
+          "stage": "cpu",
+          "exit_code": 0,
+          "seconds": 56.50831233500503
+        }
+      ]
+    },
+    {
+      "capacity": 512,
+      "stages": [
+        {
+          "stage": "export",
+          "exit_code": 0,
+          "seconds": 16.39165399200283
+        },
+        {
+          "stage": "compile-int16-l0",
+          "exit_code": 0,
+          "seconds": 17.848927974991966
+        },
+        {
+          "stage": "compile-int16-l1",
+          "exit_code": 0,
+          "seconds": 17.854590340983123
+        },
+        {
+          "stage": "board-int16",
+          "exit_code": 0,
+          "seconds": 50.596859640965704
+        },
+        {
+          "stage": "compile-fp16-l0",
+          "exit_code": 0,
+          "seconds": 17.153193333011586
+        },
+        {
+          "stage": "compile-fp16-l1",
+          "exit_code": 0,
+          "seconds": 17.25555063202046
+        },
+        {
+          "stage": "board-fp16",
+          "exit_code": 0,
+          "seconds": 185.71082623896655
+        },
+        {
+          "stage": "cpu",
+          "exit_code": 0,
+          "seconds": 607.9881849180092
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,250 @@
+[
+  {
+    "name": "softmax",
+    "layer": 0,
+    "shape": [
+      1,
+      15,
+      1,
+      129
+    ],
+    "count": 1935,
+    "cases": 8,
+    "input_rounding": "FP16 then FP32 oracle",
+    "tolerance": {
+      "atol": 0.005,
+      "rtol": 0.01
+    },
+    "finite": true,
+    "max_abs_error": 7.42003321647644e-05,
+    "relative_l2": 0.00010074364399770275,
+    "max_probability_sum_error": 0.0008733272552490234,
+    "min_probability": 0.0,
+    "passed": true,
+    "per_case": [
+      {
+        "max_abs_error": 4.7925859689712524e-05,
+        "relative_l2": 0.0003744240093510598
+      },
+      {
+        "max_abs_error": 7.42003321647644e-05,
+        "relative_l2": 0.000594460463616997
+      },
+      {
+        "max_abs_error": 7.42003321647644e-05,
+        "relative_l2": 0.000594460463616997
+      },
+      {
+        "max_abs_error": 3.341585397720337e-06,
+        "relative_l2": 0.00043106399243697524
+      },
+      {
+        "max_abs_error": 3.341585397720337e-06,
+        "relative_l2": 0.00043106399243697524
+      },
+      {
+        "max_abs_error": 3.341585397720337e-06,
+        "relative_l2": 0.00043106399243697524
+      },
+      {
+        "max_abs_error": 0.0,
+        "relative_l2": 0.0
+      },
+      {
+        "max_abs_error": 0.0,
+        "relative_l2": 0.0
+      }
+    ]
+  },
+  {
+    "name": "softmax_explicit_max",
+    "layer": 1,
+    "shape": [
+      1,
+      15,
+      1,
+      129
+    ],
+    "count": 1935,
+    "cases": 8,
+    "input_rounding": "FP16 then FP32 oracle",
+    "tolerance": {
+      "atol": 0.005,
+      "rtol": 0.01
+    },
+    "finite": true,
+    "max_abs_error": 9.737163782119751e-05,
+    "relative_l2": 0.0001121504683396779,
+    "max_probability_sum_error": 0.0008676052093505859,
+    "min_probability": 0.0,
+    "passed": true,
+    "per_case": [
+      {
+        "max_abs_error": 7.08550214767456e-05,
+        "relative_l2": 0.0005332886939868331
+      },
+      {
+        "max_abs_error": 9.737163782119751e-05,
+        "relative_l2": 0.0006164535298012197
+      },
+      {
+        "max_abs_error": 9.737163782119751e-05,
+        "relative_l2": 0.0006164535298012197
+      },
+      {
+        "max_abs_error": 3.341585397720337e-06,
+        "relative_l2": 0.00043106399243697524
+      },
+      {
+        "max_abs_error": 3.341585397720337e-06,
+        "relative_l2": 0.00043106399243697524
+      },
+      {
+        "max_abs_error": 3.341585397720337e-06,
+        "relative_l2": 0.00043106399243697524
+      },
+      {
+        "max_abs_error": 0.0,
+        "relative_l2": 0.0
+      },
+      {
+        "max_abs_error": 0.0,
+        "relative_l2": 0.0
+      }
+    ]
+  },
+  {
+    "name": "silu",
+    "layer": 2,
+    "shape": [
+      1,
+      1,
+      2560
+    ],
+    "count": 2560,
+    "cases": 3,
+    "input_rounding": "FP16 then FP32 oracle",
+    "tolerance": {
+      "atol": 0.005,
+      "rtol": 0.01
+    },
+    "finite": true,
+    "max_abs_error": 0.0026645660400390625,
+    "relative_l2": 1.7152816056409392e-08,
+    "passed": true,
+    "per_case": [
+      {
+        "max_abs_error": 1.5298116107231863e-09,
+        "relative_l2": 1.2338780823421412e-15
+      },
+      {
+        "max_abs_error": 0.0026645660400390625,
+        "relative_l2": 3.253811883041635e-05
+      },
+      {
+        "max_abs_error": 0.0009462833404541016,
+        "relative_l2": 0.00021853850921615958
+      }
+    ]
+  },
+  {
+    "name": "stable_rmsnorm",
+    "layer": 3,
+    "shape": [
+      1,
+      1,
+      960
+    ],
+    "count": 960,
+    "cases": 7,
+    "input_rounding": "FP16 then FP32 oracle",
+    "tolerance": {
+      "atol": 0.005,
+      "rtol": 0.01
+    },
+    "finite": true,
+    "max_abs_error": 0.1983378529548645,
+    "relative_l2": 0.02918197214603424,
+    "passed": false,
+    "per_case": [
+      {
+        "max_abs_error": 0.0,
+        "relative_l2": 0.0
+      },
+      {
+        "max_abs_error": 0.001036675414070487,
+        "relative_l2": 1.0
+      },
+      {
+        "max_abs_error": 0.1983378529548645,
+        "relative_l2": 0.1993921548128128
+      },
+      {
+        "max_abs_error": 0.0018115043640136719,
+        "relative_l2": 0.00038635978125967085
+      },
+      {
+        "max_abs_error": 0.0021276473999023438,
+        "relative_l2": 0.00042674026917666197
+      },
+      {
+        "max_abs_error": 0.0020494461059570312,
+        "relative_l2": 0.0003835286188405007
+      },
+      {
+        "max_abs_error": 0.012973785400390625,
+        "relative_l2": 0.0006916950223967433
+      }
+    ]
+  },
+  {
+    "name": "stable_rmsnorm_v2",
+    "layer": 4,
+    "shape": [
+      1,
+      1,
+      960
+    ],
+    "count": 960,
+    "cases": 7,
+    "input_rounding": "FP16 then FP32 oracle",
+    "tolerance": {
+      "atol": 0.005,
+      "rtol": 0.01
+    },
+    "finite": true,
+    "max_abs_error": 2.848162889480591,
+    "relative_l2": 0.34686630964279175,
+    "passed": false,
+    "per_case": [
+      {
+        "max_abs_error": 0.0,
+        "relative_l2": 0.0
+      },
+      {
+        "max_abs_error": 0.0012817076640203595,
+        "relative_l2": 1.0
+      },
+      {
+        "max_abs_error": 2.848162889480591,
+        "relative_l2": 2.3439764976501465
+      },
+      {
+        "max_abs_error": 0.003173351287841797,
+        "relative_l2": 0.0005946916062384844
+      },
+      {
+        "max_abs_error": 0.002086162567138672,
+        "relative_l2": 0.0003099001187365502
+      },
+      {
+        "max_abs_error": 0.0019271373748779297,
+        "relative_l2": 0.0003135283768642694
+      },
+      {
+        "max_abs_error": 0.012973785400390625,
+        "relative_l2": 0.0006923552718944848
+      }
+    ]
+  }
+]

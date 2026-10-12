@@ -159,7 +159,9 @@ def main():
         ['Today', 'ĠI', 'Ġfeel', 'Ġa', 'Ġlittle', 'Ġsad', '.', 'ĠCan', 'Ġyou', 'Ġstay',
          'Ġwith', 'Ġme', '?', 'ĠOf', 'Ġcourse', ',', 'ĠI', 'Ġwill', 'Ġlisten', '.']]
     if count==total_layers:
-        sequences[0]=['<|im_start|>','User',':','ĠHello','!','<end_of_utterance>','Ċ','Ass','istant',':']+sequences[0]
+        prefix=(['<|im_start|>','User',':','ĠHello','!','<end_of_utterance>','Ċ','Ass','istant',':']
+                if layer.arch=='llama' else ['<|im_start|>','user','Ċ','Hello','!','<|im_end|>','Ċ','<|im_start|>','assistant','Ċ'])
+        sequences[0]=prefix+sequences[0]
     report = {'model':args.model.name,'sha256':hashlib.file_digest(args.model.open('rb'),'sha256').hexdigest(),
               'architecture':layer.arch,'stable_norm':args.stable_norm,'norm_version':args.norm_version if args.stable_norm else None,'language_layers_total':reader.fields[layer.arch+'.block_count'].contents(),
               'gguf_tensor_elements':sum(int(np.prod(t.shape)) for t in reader.tensors),

@@ -1,0 +1,656 @@
+{
+  "scope": "all decoder layers and final LM head; logits checked on actual NPU-generated history",
+  "reference_weights": "exported",
+  "model": "SmolVLM-500M-Instruct-Q8_0.gguf",
+  "decoder_layers": 32,
+  "npu_dtype": "w8-mixed-biasfix",
+  "prompt": "<|im_start|>User: Hello! Please introduce yourself in one short sentence.<end_of_utterance>\nAssistant:",
+  "npu_answer": " My name is Alex.<end_of_utterance>",
+  "generated_token_count": 6,
+  "max_abs_logit_error": 0.9376125335693359,
+  "relative_l2_all_logits": 0.044835399836301804,
+  "max_step_relative_l2": 0.06853007525205612,
+  "min_step_cosine": 0.9976564645767212,
+  "argmax_matches_fp32": 6,
+  "argmax_match_fraction": 1.0,
+  "mean_kl_nats": 0.006770660635083914,
+  "max_step_kl_nats": 0.021797120571136475,
+  "npu_tokens": [
+    3361,
+    1462,
+    314,
+    5325,
+    30,
+    49279
+  ],
+  "fp32_greedy_tokens_on_npu_history": [
+    3361,
+    1462,
+    314,
+    5325,
+    30,
+    49279
+  ],
+  "step_relative_l2": [
+    0.06767284125089645,
+    0.06853007525205612,
+    0.05187983810901642,
+    0.03089892864227295,
+    0.026228921487927437,
+    0.03624995797872543
+  ],
+  "runtime": {
+    "decoder_layers": 32,
+    "head_on_npu": true,
+    "capacity": 128,
+    "prompt_tokens": 18,
+    "generated_tokens": 6,
+    "load_seconds": 0.289409,
+    "ttft_seconds": 2.607595,
+    "total_seconds": 3.527977,
+    "decode_tokens_per_second": 5.432528,
+    "npu_api_seconds": 3.326199,
+    "cpu_seconds": 0.233325,
+    "cpu_percent_one_core": 6.614,
+    "max_rss_kib": 5504,
+    "driver_allocated_bytes": 428177800,
+    "driver_after_release_bytes": 0,
+    "temperature_before_mC": 45880,
+    "temperature_after_mC": 44082,
+    "tokens": [
+      3361,
+      1462,
+      314,
+      5325,
+      30,
+      49279
+    ],
+    "token_latencies_seconds": [
+      2.607595,
+      0.185267,
+      0.184627,
+      0.184923,
+      0.185233,
+      0.1803
+    ],
+    "head_api_seconds": 0.217256,
+    "decode_decoder_api_seconds": 0.681953,
+    "decode_head_api_seconds": 0.181055,
+    "layer_api_seconds": [
+      0.09244,
+      0.093029,
+      0.091736,
+      0.19903,
+      0.091519,
+      0.091061,
+      0.090996,
+      0.089914,
+      0.089462,
+      0.089409,
+      0.089267,
+      0.090374,
+      0.090106,
+      0.090105,
+      0.089989,
+      0.089553,
+      0.08939,
+      0.09034,
+      0.089968,
+      0.089807,
+      0.089355,
+      0.089506,
+      0.090078,
+      0.090327,
+      0.090541,
+      0.090975,
+      0.090109,
+      0.090376,
+      0.090944,
+      0.090123,
+      0.089744,
+      0.199372
+    ]
+  },
+  "execution_gate_v1": {
+    "applicable": true,
+    "relative_l2_limit": 0.05,
+    "min_cosine_limit": 0.99,
+    "argmax_match_min": 0.95,
+    "passed": true,
+    "scope": "execution on this trajectory only; not holdout quality acceptance"
+  },
+  "llama_cpu_reference": {
+    "backend": "llama.cpp CPU Q8_0",
+    "threads": 2,
+    "affinity": [
+      6,
+      7
+    ],
+    "tokenizer_exact_match": true,
+    "load_seconds": 6.6865982640001675,
+    "request_seconds": 0.361276873999941,
+    "command": [
+      "taskset",
+      "-c",
+      "6,7",
+      "/opt/opi-vlm/bin/llama-server",
+      "--model",
+      "/opt/opi-vlm/models/smolvlm-500m/SmolVLM-500M-Instruct-Q8_0.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "18083",
+      "--ctx-size",
+      "128",
+      "--threads",
+      "2",
+      "--threads-batch",
+      "2",
+      "--parallel",
+      "1",
+      "--n-gpu-layers",
+      "0",
+      "--no-warmup",
+      "--no-context-shift"
+    ],
+    "response": {
+      "index": 0,
+      "content": " My name is Alex.",
+      "tokens": [
+        3361,
+        1462,
+        314,
+        5325,
+        30,
+        49279
+      ],
+      "id_slot": 0,
+      "stop": true,
+      "model": "/opt/opi-vlm/models/smolvlm-500m/SmolVLM-500M-Instruct-Q8_0.gguf",
+      "tokens_predicted": 6,
+      "tokens_evaluated": 18,
+      "generation_settings": {
+        "seed": 42,
+        "temperature": 0.0,
+        "dynatemp_range": 0.0,
+        "dynatemp_exponent": 1.0,
+        "top_k": 40,
+        "top_p": 0.949999988079071,
+        "min_p": 0.05000000074505806,
+        "top_n_sigma": -1.0,
+        "xtc_probability": 0.0,
+        "xtc_threshold": 0.10000000149011612,
+        "typical_p": 1.0,
+        "repeat_last_n": 64,
+        "repeat_penalty": 1.0,
+        "presence_penalty": 0.0,
+        "frequency_penalty": 0.0,
+        "dry_multiplier": 0.0,
+        "dry_base": 1.75,
+        "dry_allowed_length": 2,
+        "dry_penalty_last_n": 64,
+        "dry_sequence_breakers": [
+          "\n",
+          ":",
+          "\"",
+          "*"
+        ],
+        "mirostat": 0,
+        "mirostat_tau": 5.0,
+        "mirostat_eta": 0.10000000149011612,
+        "adaptive_target": -1.0,
+        "adaptive_decay": 0.8999999761581421,
+        "stop": [],
+        "max_tokens": 32,
+        "n_predict": 32,
+        "n_keep": 0,
+        "n_discard": 0,
+        "ignore_eos": false,
+        "stream": false,
+        "logit_bias": [],
+        "n_probs": 5,
+        "min_keep": 0,
+        "grammar": "",
+        "grammar_lazy": false,
+        "grammar_triggers": [],
+        "preserved_tokens": [],
+        "chat_format": "Content-only",
+        "reasoning_format": "deepseek",
+        "reasoning_in_content": false,
+        "generation_prompt": "",
+        "samplers": [
+          "penalties",
+          "dry",
+          "top_n_sigma",
+          "top_k",
+          "typ_p",
+          "top_p",
+          "min_p",
+          "xtc",
+          "temperature"
+        ],
+        "speculative.types": "none",
+        "timings_per_token": false,
+        "post_sampling_probs": false,
+        "backend_sampling": false,
+        "lora": []
+      },
+      "prompt": "<|im_start|>User: Hello! Please introduce yourself in one short sentence.<end_of_utterance>\nAssistant:",
+      "has_new_line": false,
+      "truncated": false,
+      "stop_type": "eos",
+      "stopping_word": "",
+      "tokens_cached": 23,
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 18,
+        "prompt_ms": 156.268,
+        "prompt_per_token_ms": 8.681555555555555,
+        "prompt_per_second": 115.18673048864771,
+        "predicted_n": 6,
+        "predicted_ms": 182.031,
+        "predicted_per_token_ms": 36.4062,
+        "predicted_per_second": 27.467848882882585
+      },
+      "completion_probabilities": [
+        {
+          "id": 3361,
+          "token": " My",
+          "bytes": [
+            32,
+            77,
+            121
+          ],
+          "logprob": -0.43355125188827515,
+          "top_logprobs": [
+            {
+              "id": 3361,
+              "token": " My",
+              "bytes": [
+                32,
+                77,
+                121
+              ],
+              "logprob": -0.43355125188827515
+            },
+            {
+              "id": 339,
+              "token": " I",
+              "bytes": [
+                32,
+                73
+              ],
+              "logprob": -1.5665658712387085
+            },
+            {
+              "id": 38699,
+              "token": " Hello",
+              "bytes": [
+                32,
+                72,
+                101,
+                108,
+                108,
+                111
+              ],
+              "logprob": -2.7071032524108887
+            },
+            {
+              "id": 21041,
+              "token": " Hi",
+              "bytes": [
+                32,
+                72,
+                105
+              ],
+              "logprob": -4.052334308624268
+            },
+            {
+              "id": 8109,
+              "token": " Welcome",
+              "bytes": [
+                32,
+                87,
+                101,
+                108,
+                99,
+                111,
+                109,
+                101
+              ],
+              "logprob": -5.171249866485596
+            }
+          ]
+        },
+        {
+          "id": 1462,
+          "token": " name",
+          "bytes": [
+            32,
+            110,
+            97,
+            109,
+            101
+          ],
+          "logprob": -0.0077986037358641624,
+          "top_logprobs": [
+            {
+              "id": 1462,
+              "token": " name",
+              "bytes": [
+                32,
+                110,
+                97,
+                109,
+                101
+              ],
+              "logprob": -0.0077986037358641624
+            },
+            {
+              "id": 10181,
+              "token": " Name",
+              "bytes": [
+                32,
+                78,
+                97,
+                109,
+                101
+              ],
+              "logprob": -5.490302562713623
+            },
+            {
+              "id": 2073,
+              "token": " full",
+              "bytes": [
+                32,
+                102,
+                117,
+                108,
+                108
+              ],
+              "logprob": -6.873806476593018
+            },
+            {
+              "id": 808,
+              "token": " first",
+              "bytes": [
+                32,
+                102,
+                105,
+                114,
+                115,
+                116
+              ],
+              "logprob": -8.727312088012695
+            },
+            {
+              "id": 3289,
+              "token": " friend",
+              "bytes": [
+                32,
+                102,
+                114,
+                105,
+                101,
+                110,
+                100
+              ],
+              "logprob": -9.023022651672363
+            }
+          ]
+        },
+        {
+          "id": 314,
+          "token": " is",
+          "bytes": [
+            32,
+            105,
+            115
+          ],
+          "logprob": -0.0003455282130744308,
+          "top_logprobs": [
+            {
+              "id": 314,
+              "token": " is",
+              "bytes": [
+                32,
+                105,
+                115
+              ],
+              "logprob": -0.0003455282130744308
+            },
+            {
+              "id": 506,
+              "token": "'s",
+              "bytes": [
+                39,
+                115
+              ],
+              "logprob": -8.375057220458984
+            },
+            {
+              "id": 284,
+              "token": " and",
+              "bytes": [
+                32,
+                97,
+                110,
+                100
+              ],
+              "logprob": -10.508970260620117
+            },
+            {
+              "id": 3247,
+              "token": " isn",
+              "bytes": [
+                32,
+                105,
+                115,
+                110
+              ],
+              "logprob": -10.686744689941406
+            },
+            {
+              "id": 28,
+              "token": ",",
+              "bytes": [
+                44
+              ],
+              "logprob": -10.728442192077637
+            }
+          ]
+        },
+        {
+          "id": 5325,
+          "token": " Alex",
+          "bytes": [
+            32,
+            65,
+            108,
+            101,
+            120
+          ],
+          "logprob": -2.0751588344573975,
+          "top_logprobs": [
+            {
+              "id": 5325,
+              "token": " Alex",
+              "bytes": [
+                32,
+                65,
+                108,
+                101,
+                120
+              ],
+              "logprob": -2.0751588344573975
+            },
+            {
+              "id": 2322,
+              "token": " John",
+              "bytes": [
+                32,
+                74,
+                111,
+                104,
+                110
+              ],
+              "logprob": -2.707214117050171
+            },
+            {
+              "id": 10262,
+              "token": " Jack",
+              "bytes": [
+                32,
+                74,
+                97,
+                99,
+                107
+              ],
+              "logprob": -3.381751775741577
+            },
+            {
+              "id": 7625,
+              "token": " Max",
+              "bytes": [
+                32,
+                77,
+                97,
+                120
+              ],
+              "logprob": -3.695402145385742
+            },
+            {
+              "id": 933,
+              "token": " [",
+              "bytes": [
+                32,
+                91
+              ],
+              "logprob": -3.7527847290039062
+            }
+          ]
+        },
+        {
+          "id": 30,
+          "token": ".",
+          "bytes": [
+            46
+          ],
+          "logprob": -0.6104296445846558,
+          "top_logprobs": [
+            {
+              "id": 30,
+              "token": ".",
+              "bytes": [
+                46
+              ],
+              "logprob": -0.6104296445846558
+            },
+            {
+              "id": 28,
+              "token": ",",
+              "bytes": [
+                44
+              ],
+              "logprob": -2.0433788299560547
+            },
+            {
+              "id": 40865,
+              "token": " Rodriguez",
+              "bytes": [
+                32,
+                82,
+                111,
+                100,
+                114,
+                105,
+                103,
+                117,
+                101,
+                122
+              ],
+              "logprob": -3.7526817321777344
+            },
+            {
+              "id": 271,
+              "token": "is",
+              "bytes": [
+                105,
+                115
+              ],
+              "logprob": -3.9752578735351562
+            },
+            {
+              "id": 284,
+              "token": " and",
+              "bytes": [
+                32,
+                97,
+                110,
+                100
+              ],
+              "logprob": -4.12060546875
+            }
+          ]
+        },
+        {
+          "id": 49279,
+          "token": "",
+          "bytes": [],
+          "logprob": -0.15272267162799835,
+          "top_logprobs": [
+            {
+              "id": 49279,
+              "token": "",
+              "bytes": [],
+              "logprob": -0.15272267162799835
+            },
+            {
+              "id": 339,
+              "token": " I",
+              "bytes": [
+                32,
+                73
+              ],
+              "logprob": -2.0970566272735596
+            },
+            {
+              "id": 657,
+              "token": " It",
+              "bytes": [
+                32,
+                73,
+                116
+              ],
+              "logprob": -6.311861515045166
+            },
+            {
+              "id": 669,
+              "token": " This",
+              "bytes": [
+                32,
+                84,
+                104,
+                105,
+                115
+              ],
+              "logprob": -6.7754740715026855
+            },
+            {
+              "id": 3361,
+              "token": " My",
+              "bytes": [
+                32,
+                77,
+                121
+              ],
+              "logprob": -6.9509148597717285
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "llama_cpu_answer": " My name is Alex.",
+  "tokenizer_independent_match": true
+}

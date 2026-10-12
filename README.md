@@ -10,6 +10,8 @@
 ## 开发入口
 
 - [文档总导航](docs/README.md)：当前报告、部署手册、硬件选型与历史资料。
+- [NPU INT8误差修复](npu/kv-cache/INT8误差定位与修复.md)：500M混合精度完整生成复测、1B输出头修复与未达标项。
+- [完整模型验收计划](npu/kv-cache/完整模型验收计划.md)：500M/1B分别对比最优合格CPU，冻结精度与速度门槛。
 - [NPU全深度生成与算子核对](npu/kv-cache/全深度生成与算子核对.md)：500M语言部分32层＋输出头＋真实token回送，FP16生成、CPU对照及INT8失败证据。
 - [NPU KV cache适配进度](npu/kv-cache/README.md)：增量decoder、六模型层级验证、共享内存与实现边界。
 - [GitHub备份与恢复](docs/GitHub备份与恢复.md)：备份范围、恢复步骤及大文件排除规则。

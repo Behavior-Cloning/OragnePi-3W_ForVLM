@@ -141,6 +141,15 @@ int main(int argc,char **argv) {
             double t=now();check(vip_run_network(l->net),"run");run_seconds+=now()-t;
             vip_inference_profile_t profile={0};check(vip_query_network(l->net,VIP_NETWORK_PROP_PROFILING,&profile),"profile");profile_us+=profile.inference_time;
             for(int j=0;j<NO;j++)check(vip_flush_buffer(l->out[j].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"invalidate");
+            const char *trace=getenv("OPI_TRACE_PREFIX");
+            if(trace && pos==0){
+                char path[1024];snprintf(path,sizeof(path),"%s-layer%d.f32",trace,n);
+                FILE *f=fopen(path,"wb");if(!f)return 2;
+                for(unsigned o=0;o<NO;o++)for(unsigned j=0;j<l->out[o].count;j++){
+                    float value=get(&l->out[o],j);if(fwrite(&value,sizeof(value),1,f)!=1)return 2;
+                }
+                fclose(f);
+            }
             for(int j=0;j<DIM;j++)x[j]=get(&l->out[0],j);
             for(int head=0;head<KV;head++)for(int j=0;j<HD;j++) {
                 unsigned dst=(head*capacity+pos)*HD+j,src=head*HD+j;

@@ -9,6 +9,10 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#ifndef HEAD_SHARDS
+#define HEAD_SHARDS 1
+#define HEAD_CHUNK 0
+#endif
 
 static void load_net(Layer *layer,const char *path,unsigned ni,unsigned no,
                      const unsigned *ins,const unsigned *outs) {
@@ -46,7 +50,11 @@ int main(int argc,char **argv) {
     if(emb==MAP_FAILED||prompt==MAP_FAILED)return 2;
     for(int i=0;i<prompt_count;i++)if(prompt[i]<0||prompt[i]>=vocab)return 2;
     FILE *token_file=fopen(argv[8],"w"),*logits_file=fopen(argv[9],"wb");if(!token_file||!logits_file)return 2;
-    Layer *decoder=calloc(count,sizeof(*decoder)),head={0};
+    const char *trace_path=getenv("OPI_FULL_TRACE");
+    FILE *trace_file=trace_path?fopen(trace_path,"wb"):NULL;
+    if(trace_path&&!trace_file)return 2;
+    Layer *decoder=calloc(count,sizeof(*decoder)),head[HEAD_SHARDS];
+    memset(head,0,sizeof(head));
     float *x=calloc(DIM,sizeof(float)),*logits=calloc(vocab,sizeof(float));
     int *generated=calloc(max_new,sizeof(int));double *latencies=calloc(max_new,sizeof(double));
     double *layer_seconds=calloc(count,sizeof(double));
@@ -57,8 +65,13 @@ int main(int argc,char **argv) {
         char path[1024];snprintf(path,sizeof(path),"%s/layer%d.nb",argv[1],i);
         load_net(&decoder[i],path,6,3,ins,outs);
     }
-    char path[1024];snprintf(path,sizeof(path),"%s/layer%d.nb",argv[1],count);
-    unsigned head_in[]={DIM},head_out[]={(unsigned)vocab};load_net(&head,path,1,1,head_in,head_out);
+    int head_chunk=HEAD_SHARDS==1?vocab:HEAD_CHUNK;
+    if(head_chunk<1||(vocab+head_chunk-1)/head_chunk!=HEAD_SHARDS)return 2;
+    for(int s=0;s<HEAD_SHARDS;s++){
+        char path[1024];snprintf(path,sizeof(path),"%s/layer%d.nb",argv[1],count+s);
+        unsigned width=(unsigned)(vocab-s*head_chunk<head_chunk?vocab-s*head_chunk:head_chunk);
+        unsigned head_in[]={DIM},head_out[]={width};load_net(&head[s],path,1,1,head_in,head_out);
+    }
     double load_seconds=now()-load_start;long long allocated=npu_bytes();
     double start=now(),cpu_start=cpu_time(),run_seconds=0,first_token=0,previous_token=start;
     double head_seconds=0,decode_decoder_seconds=0,decode_head_seconds=0;
@@ -85,15 +98,18 @@ int main(int argc,char **argv) {
                 unsigned dst=(h*capacity+pos)*HD+j,src=h*HD+j;
                 put(&l->in[1],dst,get(&l->out[1],src));put(&l->in[2],dst,get(&l->out[2],src));
             }
+            if(trace_file&&fwrite(x,sizeof(float),DIM,trace_file)!=(size_t)DIM)return 2;
         }
         if(pos<prompt_count-1)continue;
-        for(int j=0;j<DIM;j++)put(&head.in[0],j,x[j]);
-        double prior=run_seconds;execute(&head,1,1,&run_seconds);
-        head_seconds+=run_seconds-prior;
-        if(pos>=prompt_count)decode_head_seconds+=run_seconds-prior;
+        for(int s=0;s<HEAD_SHARDS;s++){
+            for(int j=0;j<DIM;j++)put(&head[s].in[0],j,x[j]);
+            double prior=run_seconds;execute(&head[s],1,1,&run_seconds);
+            head_seconds+=run_seconds-prior;
+            if(pos>=prompt_count)decode_head_seconds+=run_seconds-prior;
+            for(unsigned j=0;j<head[s].out[0].count;j++)logits[s*head_chunk+j]=get(&head[s].out[0],j);
+        }
         int best=0;
         for(int j=0;j<vocab;j++){
-            logits[j]=get(&head.out[0],j);
             if(!isfinite(logits[j])){fprintf(stderr,"NONFINITE position=%d LM_HEAD token=%d value=%g\n",pos,j,logits[j]);return 3;}
             if(logits[j]>logits[best])best=j;
         }
@@ -105,7 +121,8 @@ int main(int argc,char **argv) {
     }
     double total=now()-start,cpu=cpu_time()-cpu_start;struct rusage usage;getrusage(RUSAGE_SELF,&usage);
     for(int i=0;i<count;i++){free_net(&decoder[i],6,3);}
-    free_net(&head,1,1);check(vip_destroy(),"release full model");
+    for(int s=0;s<HEAD_SHARDS;s++)free_net(&head[s],1,1);
+    check(vip_destroy(),"release full model");
     fprintf(token_file,"{\"decoder_layers\":%d,\"head_on_npu\":true,\"capacity\":%d,\"prompt_tokens\":%d,\"generated_tokens\":%d,\"load_seconds\":%.6f,\"ttft_seconds\":%.6f,\"total_seconds\":%.6f,\"decode_tokens_per_second\":%.6f,\"npu_api_seconds\":%.6f,\"cpu_seconds\":%.6f,\"cpu_percent_one_core\":%.3f,\"max_rss_kib\":%ld,\"driver_allocated_bytes\":%lld,\"driver_after_release_bytes\":%lld,\"temperature_before_mC\":%d,\"temperature_after_mC\":%d,\"tokens\":[",count,capacity,prompt_count,n_generated,load_seconds,first_token,total,n_generated>1?(n_generated-1)/(total-first_token):0,run_seconds,cpu,100*cpu/total,usage.ru_maxrss,allocated,npu_bytes(),temp_before,temperature());
     for(int i=0;i<n_generated;i++)fprintf(token_file,"%s%d",i?",":"",generated[i]);
     fprintf(token_file,"],\"token_latencies_seconds\":[");
@@ -113,6 +130,7 @@ int main(int argc,char **argv) {
     fprintf(token_file,"],\"head_api_seconds\":%.6f,\"decode_decoder_api_seconds\":%.6f,\"decode_head_api_seconds\":%.6f,\"layer_api_seconds\":[",head_seconds,decode_decoder_seconds,decode_head_seconds);
     for(int i=0;i<count;i++)fprintf(token_file,"%s%.6f",i?",":"",layer_seconds[i]);
     fprintf(token_file,"]}\n");
+    if(trace_file)fclose(trace_file);
     fclose(token_file);fclose(logits_file);munmap((void*)emb,emb_stat.st_size);munmap((void*)prompt,prompt_stat.st_size);
     close(emb_fd);close(prompt_fd);free(decoder);free(x);free(logits);free(generated);free(latencies);free(layer_seconds);return 0;
 }

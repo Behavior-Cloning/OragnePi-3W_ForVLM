@@ -1,0 +1,81 @@
+{
+  "scope": "one decoder; INT8 per-channel linear weights; other tensor precisions preserved from base",
+  "base": "full-smol500-stable-v3-c128/int16/l3",
+  "weights": [
+    {
+      "name": "fullconnect_110",
+      "shape": [
+        2560,
+        960
+      ],
+      "dtype": "float16"
+    },
+    {
+      "name": "fullconnect_113",
+      "shape": [
+        960,
+        320
+      ],
+      "dtype": "int8"
+    },
+    {
+      "name": "fullconnect_116",
+      "shape": [
+        960,
+        960
+      ],
+      "dtype": "int8"
+    },
+    {
+      "name": "fullconnect_119",
+      "shape": [
+        960,
+        320
+      ],
+      "dtype": "int8"
+    },
+    {
+      "name": "fullconnect_122",
+      "shape": [
+        960,
+        2560
+      ],
+      "dtype": "float16"
+    },
+    {
+      "name": "fullconnect_125",
+      "shape": [
+        960,
+        2560
+      ],
+      "dtype": "float16"
+    },
+    {
+      "name": "fullconnect_128",
+      "shape": [
+        960,
+        960
+      ],
+      "dtype": "int8"
+    }
+  ],
+  "weight_mode": "perchannel",
+  "dfp_linear": [
+    "fullconnect_113"
+  ],
+  "float_nonlinear": false,
+  "float_residual": true,
+  "float_sensitive": true,
+  "activation_headroom_bits": 4,
+  "float_down_output": false,
+  "float_mlp": true,
+  "source_quantize_sha256": "88d3241016c9815e5d6bfb3f44e507e78a962d106f829a526b5e4698915dc782",
+  "exit_code": 0,
+  "seconds": 11.285532156995032,
+  "binaries": [
+    {
+      "bytes": 17089744,
+      "path": "export_nbg_unify/network_binary.nb"
+    }
+  ]
+}

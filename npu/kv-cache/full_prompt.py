@@ -1,4 +1,4 @@
-"""Create a text-only SmolVLM chat prompt from its embedded GGUF tokenizer."""
+"""Create SmolVLM/InternVL text prompts; verify tokens independently on board."""
 import argparse
 import json
 from pathlib import Path
@@ -8,7 +8,8 @@ from jinja2 import Environment
 from tokenizers import AddedToken, Regex, Tokenizer, decoders, models, pre_tokenizers
 
 def tokenizer_from_gguf(reader):
-    assert reader.fields['tokenizer.ggml.pre'].contents()=='smollm'
+    pre=reader.fields['tokenizer.ggml.pre'].contents()
+    if pre not in ('smollm','qwen2'):raise ValueError('unsupported tokenizer pre: '+pre)
     vocab=reader.fields['tokenizer.ggml.tokens'].contents()
     merges=[tuple(v.split(' ',1)) for v in reader.fields['tokenizer.ggml.merges'].contents()]
     tokenizer=Tokenizer(models.BPE(vocab={v:i for i,v in enumerate(vocab)},merges=merges))
@@ -16,6 +17,10 @@ def tokenizer_from_gguf(reader):
         pre_tokenizers.Split(Regex(r'\p{N}'),behavior='isolated'),
         pre_tokenizers.Split(Regex(r"'s|'t|'re|'ve|'m|'ll|'d| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)"),behavior='isolated'),
         pre_tokenizers.ByteLevel(add_prefix_space=False,use_regex=False)])
+    if pre=='qwen2':
+        tokenizer.pre_tokenizer=pre_tokenizers.Sequence([
+            pre_tokenizers.Split(Regex(r"(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\r\n\p{L}\p{N}]?\p{L}+|\p{N}| ?[^\s\p{L}\p{N}]+[\r\n]*|\s*[\r\n]+|\s+(?!\S)|\s+"),behavior='isolated'),
+            pre_tokenizers.ByteLevel(add_prefix_space=False,use_regex=False)])
     tokenizer.decoder=decoders.ByteLevel()
     types=reader.fields['tokenizer.ggml.token_type'].contents()
     tokenizer.add_special_tokens([AddedToken(v,normalized=False,special=True) for v,t in zip(vocab,types) if t in (3,4)])
@@ -27,6 +32,7 @@ def main():
     p.add_argument('--text',default='Hello! Please introduce yourself in one short sentence.')
     args=p.parse_args();reader=gguf.GGUFReader(args.model);tokenizer=tokenizer_from_gguf(reader)
     messages=[{'role':'user','content':[{'type':'text','text':args.text}]}]
+    if reader.fields['tokenizer.ggml.pre'].contents()=='qwen2':messages=[{'role':'user','content':args.text}]
     template=reader.fields['tokenizer.chat_template'].contents()
     prompt=Environment().from_string(template).render(messages=messages,add_generation_prompt=True)
     encoded=tokenizer.encode(prompt,add_special_tokens=False)

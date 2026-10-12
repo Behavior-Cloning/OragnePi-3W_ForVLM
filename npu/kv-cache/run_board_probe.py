@@ -18,6 +18,7 @@ p.add_argument('--kv', type=int, default=2)
 p.add_argument('--head-dim', type=int, default=16)
 p.add_argument('--rope-base', type=float, default=10000)
 p.add_argument('--repeats', type=int, default=5)
+p.add_argument('--trace',action='store_true')
 args = p.parse_args()
 if not 1 <= args.repeats <= 20:
     raise ValueError('repeats must be 1..20')
@@ -41,6 +42,7 @@ command = (f'cd {shlex.quote(remote)} && cc -O2 -Wall -Wextra -Werror '
            '-o board_probe board_probe.c -lNBGlinker -lVIPhal -lm && '
            f'for i in $(seq 1 {args.repeats}); do timeout 180 ./board_probe layer0.nb layer1.nb {args.capacity} {tokens} '
            'hidden.f32 reference.f32 output.f32 || exit $?; done')
+if args.trace:command='export OPI_TRACE_PREFIX=trace; '+command
 command='flock -w 1800 /run/opi-npu-kv-benchmark.lock sh -c '+shlex.quote(command)
 result = subprocess.run(ssh + [command], capture_output=True, text=True, timeout=1800+200*args.repeats)
 (result_dir/'run.log').write_text(result.stdout)
@@ -53,4 +55,8 @@ print(json.dumps(summary, indent=2))
 if records:
     subprocess.run(scp + [args.host+':'+remote+'/output.f32', str(result_dir/'output.f32')],
                    check=True, timeout=30)
+if records and args.trace:
+    for i in range(2):
+        name=f'trace-layer{i}.f32'
+        subprocess.run(scp+[args.host+':'+remote+'/'+name,str(result_dir/name)],check=True,timeout=30)
 raise SystemExit(result.returncode)

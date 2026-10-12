@@ -24,13 +24,13 @@ embedding=gguf.dequantize(t.data,t.tensor_type)
 hidden=torch.from_numpy(embedding[tokens][None].copy())
 trace_path=board/'hidden-trace.f32'
 trace=np.fromfile(trace_path,np.float32).reshape(len(tokens),manifest['language_layers_total'],manifest['dim']) if trace_path.exists() else None
-trace_errors=[]
+trace_errors=[];constant_records=[]
 with torch.inference_mode():
     for index in range(manifest['language_layers_total']):
         layer=TrainedDecoder(reader,index).eval()
         if args.reference_weights!='original':
             from exported_int8 import apply_exported_int8
-            apply_exported_int8(layer,args.source/args.dtype/f'l{index}')
+            constant_records.append({'layer':index,'constants':apply_exported_int8(layer,args.source/args.dtype/f'l{index}')})
         hidden=layer.full(hidden)
         if trace is not None:
             ref=hidden.numpy()[0];actual_hidden=trace[:,index,:]
@@ -38,7 +38,11 @@ with torch.inference_mode():
             trace_errors.append({'layer':index,'relative_l2':float(np.linalg.norm(actual_hidden-ref)/np.linalg.norm(ref)),
                                  'max_step_relative_l2':float(relative_hidden.max()),'step_relative_l2':relative_hidden.tolist()})
         print('reference layer',index,flush=True)
-    expected=LMHead(reader,layer.eps).eval()(hidden[:,len(prompt['token_ids'])-1:]).numpy()[0]
+    head=LMHead(reader,layer.eps).eval()
+    if args.reference_weights!='original':
+        from exported_int8 import apply_exported_head
+        constant_records.append({'head':apply_exported_head(head,args.source,args.dtype,manifest)})
+    expected=head(hidden[:,len(prompt['token_ids'])-1:]).numpy()[0]
 actual=np.fromfile(board/'logits.f32',np.float32).reshape(-1,manifest['vocab_size'])
 assert actual.shape==expected.shape and len(actual)==result['generated_tokens']
 assert np.isfinite(actual).all() and np.isfinite(expected).all()
@@ -52,6 +56,9 @@ np.testing.assert_array_equal(predicted,result['tokens'])
 tokenizer=Tokenizer.from_file(str(args.source/'tokenizer.json'))
 summary={'scope':'all decoder layers and final LM head; logits checked on actual NPU-generated history',
          'reference_weights':args.reference_weights,
+         'exported_constant_scope':'decoder matrices, QKV biases, norm scales and all output-head shards; FP32 arithmetic' if args.reference_weights!='original' else None,
+         'constant_reconstruction_version':3 if args.reference_weights!='original' else None,
+         'constant_records':constant_records,
          'model':args.model.name,'decoder_layers':manifest['language_layers_total'],
          'npu_dtype':args.dtype,'prompt':prompt['rendered_prompt'],
          'npu_answer':tokenizer.decode(result['tokens'],skip_special_tokens=False),

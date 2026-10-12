@@ -14,11 +14,15 @@ p.add_argument('--float-residual',action='store_true')
 p.add_argument('--float-sensitive',action='store_true')
 p.add_argument('--activation-headroom-bits',type=int,default=0)
 p.add_argument('--fp16-head',action='store_true')
+p.add_argument('--base-source',type=Path,help='reuse calibrated decoder sources while retaining sharded head metadata')
+p.add_argument('--value-perchannel',action='store_true',help='test native per-channel V instead of assuming another model needs the DFP workaround')
+p.add_argument('--float-mlp-layers',type=int,nargs='*',default=[])
 args=p.parse_args();source=args.source;manifest=json.loads((source/'trained-manifest.json').read_text())
 out=source/args.dtype;out.mkdir(exist_ok=True)
 def compile_one(index):
-    base=source/'int16'/f'l{index}';deadline=time.monotonic()+args.wait_base
-    while True:
+    is_head=index>=len(manifest['layers'])
+    base=(args.base_source or source)/'int16'/f'l{index}';deadline=time.monotonic()+args.wait_base
+    while not (is_head and args.fp16_head):
         path=base/'conversion.json'
         if path.exists():
             state=json.loads(path.read_text())
@@ -27,7 +31,7 @@ def compile_one(index):
         if time.monotonic()>deadline:raise TimeoutError(f'base layer {index}')
         time.sleep(2)
     target=out/f'l{index}'
-    if index==len(manifest['layers']):
+    if is_head:
         (target/'export_nbg_unify').mkdir(parents=True,exist_ok=True)
         head_base=source/'fp16'/f'l{index}' if args.fp16_head else base
         shutil.copyfile(head_base/'export_nbg_unify/network_binary.nb',target/'export_nbg_unify/network_binary.nb')
@@ -35,16 +39,19 @@ def compile_one(index):
     else:
         with (out/f'layer{index}.log').open('w') as log:
             command=[sys.executable,str(Path(__file__).with_name('compile_weight_int8.py')),
-                '--base',str(base),'--output',str(target),'--value-dfp']
+                '--base',str(base),'--output',str(target)]
+            if not args.value_perchannel:command.append('--value-dfp')
             if args.float_residual:command.append('--float-residual')
             if args.float_sensitive:command.append('--float-sensitive')
+            if index in args.float_mlp_layers:command.append('--float-mlp')
             command+=['--activation-headroom-bits',str(args.activation_headroom_bits)]
             result=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT,timeout=240).returncode
     record={'layer':index,'exit_code':result,'path':str(target/'export_nbg_unify/network_binary.nb'),
-            'precision':('FP16 LM head' if args.fp16_head else 'INT16 LM head') if index==len(manifest['layers']) else 'W8 (V DFP, other linears per-channel), A16',
+            'precision':('FP16 LM head' if args.fp16_head else 'INT16 LM head') if is_head else ('W8 per-channel, A16' if args.value_perchannel else 'W8 (V DFP, other linears per-channel), A16'),
             'float_residual':args.float_residual,'float_sensitive':args.float_sensitive}
+    if index in args.float_mlp_layers:record['precision']='W8 attention, FP16 MLP'
     print(json.dumps(record),flush=True);return record
 with ThreadPoolExecutor(max_workers=2) as pool:
-    records=list(pool.map(compile_one,range(len(manifest['layers'])+1)))
+    records=list(pool.map(compile_one,range(len(manifest['layers'])+len(manifest.get('head_shards',[{}])))))
 (out/'stack-conversion.json').write_text(json.dumps(records,indent=2)+'\n')
 raise SystemExit(any(r['exit_code'] for r in records))

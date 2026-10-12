@@ -1,4 +1,4 @@
-"""Bounded weight-only INT8 export; successful export alone is not acceleration."""
+"""Bounded W8/W4 export; compilation alone is not proof of native acceleration."""
 import argparse
 import hashlib
 import json
@@ -13,6 +13,7 @@ import yaml
 p=argparse.ArgumentParser();p.add_argument('--base',type=Path,required=True)
 p.add_argument('--output',type=Path,required=True);p.add_argument('--timeout',type=int,default=180)
 p.add_argument('--weight-mode',choices=['perchannel','dfp'],default='perchannel')
+p.add_argument('--weight-bits',type=int,choices=[4,8],default=8)
 p.add_argument('--expected-linears',type=int,default=7)
 p.add_argument('--only-linear',nargs='+',help='quantize only these imported linear layer names')
 p.add_argument('--dfp-linear',nargs='+',default=[],help='use DFP INT8 for these names, retaining per-channel INT8 elsewhere')
@@ -23,6 +24,8 @@ p.add_argument('--float-sensitive',action='store_true',help='FP16 RMSNorm intern
 p.add_argument('--activation-headroom-bits',type=int,default=0,help='diagnostic expansion of INT16 activation ranges, excluding weights/constants')
 p.add_argument('--float-down-output',action='store_true',help='FP16 down-projection output to retain ordinary values next to BOS outliers')
 p.add_argument('--float-mlp',action='store_true',help='FP16 MLP only, for layers with exceptional BOS activation outliers')
+p.add_argument('--float-scores',action='store_true',help='FP16 QK product and score scaling, stopping before projection tensors')
+p.add_argument('--float-head-norm',action='store_true',help='FP16 internal head norm; retain calibrated matrix boundaries and external IO')
 args=p.parse_args();root=Path(__file__).resolve().parents[2]/'npu/results'
 base=args.base.resolve();out=args.output.resolve();relative=out.relative_to(root)
 out.mkdir(parents=True,exist_ok=True)
@@ -30,8 +33,26 @@ for name in ('decoder.json','decoder.data','tensor-inputmeta.yml'):
     shutil.copyfile(base/name,out/name)
 quant=yaml.safe_load((base/'decoder.quantize').read_text())
 graph=json.loads((base/'decoder.json').read_text())['Layers']
+if args.float_head_norm:
+    roots=[k for k,v in graph.items() if v.get('name')=='Mul_4_output_0']
+    assert len(roots)==1
+    visited=set()
+    def float_head_node(node):
+        if node in visited or graph[node]['op']=='input':return
+        assert graph[node]['op']!='fullconnect'
+        visited.add(node)
+        quant['quantize_parameters']['@'+node+':out0']={'qtype':'float16','quantizer':'float16'}
+        for value in graph[node].get('inputs',[]):
+            if value.startswith('@'):float_head_node(value[1:].split(':')[0])
+    for value in graph[roots[0]]['inputs']:float_head_node(value[1:].split(':')[0])
+if any((args.float_residual,args.float_sensitive,args.float_down_output,args.float_mlp)):
+    hidden_node=next(k for k,v in graph.items() if v.get('name')=='hidden')
+    hidden_out_node=next(k for k,v in graph.items() if v.get('name')=='hidden_out')
+    residual_nodes=[k for k,v in graph.items() if v['op']=='add' and '@'+hidden_node+':out0' in v.get('inputs',[])]
+    assert len(residual_nodes)==1, 'expected one attention residual addition'
+    residual_node=residual_nodes[0]
 if args.float_residual:
-    names={k for k,v in graph.items() if v.get('name') in ('hidden','hidden_out','Add_4_output_0','attach_hidden_out/out0')}
+    names={hidden_node,hidden_out_node,residual_node}|{k for k,v in graph.items() if v.get('name')=='attach_hidden_out/out0'}
     assert len(names)==4,names
     for name in names:
         key='@'+name+':out0'
@@ -39,7 +60,7 @@ if args.float_residual:
 if args.float_sensitive:
     # Keep the final normalized outputs INT16 for the W8A16 linear kernels.
     # Traverse only the two normalization subgraphs, stopping at residuals.
-    terminals={k for k,v in graph.items() if v.get('name') in ('hidden','Add_4_output_0')}
+    terminals={hidden_node,residual_node}
     roots=[k for k,v in graph.items() if v.get('name') in ('Mul_4_output_0','Mul_13_output_0')]
     assert len(terminals)==2 and len(roots)==2, 'unsupported normalization graph'
     floating=set()
@@ -52,9 +73,26 @@ if args.float_sensitive:
     for root_name in roots:
         for value in graph[root_name]['inputs']:
             if value.startswith('@'):visit_norm(value[1:].split(':')[0])
-    floating.update(k for k,v in graph.items() if v.get('name') in ('Add_3_output_0','Softmax_output_0'))
+    for k,v in graph.items():
+        if v['op']=='softmax':
+            floating.add(k)
+            floating.update(value[1:].split(':')[0] for value in v['inputs'])
     for name in floating:
         quant['quantize_parameters']['@'+name+':out0']={'qtype':'float16','quantizer':'float16'}
+if args.float_scores:
+    softmaxes=[k for k,v in graph.items() if v['op']=='softmax']
+    assert len(softmaxes)==1
+    score_nodes=set()
+    def visit_score(name):
+        if name in score_nodes or graph[name]['op'] in ('input','variable'):return
+        if graph[name]['op'] not in ('softmax','add','real_div','multiply','matmul'):
+            raise ValueError('unsupported score path '+name)
+        score_nodes.add(name)
+        if graph[name]['op']=='matmul':return
+        for value in graph[name].get('inputs',[]):
+            if value.startswith('@'):visit_score(value[1:].split(':')[0])
+    visit_score(softmaxes[0])
+    for name in score_nodes:quant['quantize_parameters']['@'+name+':out0']={'qtype':'float16','quantizer':'float16'}
 if args.value_dfp:
     values=[k for k,v in graph.items() if v.get('name')=='new_v']
     assert len(values)==1, 'expected a unique new_v graph node'
@@ -80,7 +118,7 @@ if args.activation_headroom_bits:
 if args.float_down_output:
     hidden_out=next(k for k,v in graph.items() if v.get('name')=='hidden_out')
     branches=[v[1:].split(':')[0] for v in graph[hidden_out]['inputs']]
-    branch=next(k for k in branches if graph[k].get('name')!='Add_4_output_0')
+    branch=next(k for k in branches if k!=residual_node)
     while True:
         quant['quantize_parameters']['@'+branch+':out0']={'qtype':'float16','quantizer':'float16'}
         if graph[branch]['op']=='fullconnect':break
@@ -88,7 +126,7 @@ if args.float_down_output:
         branch=graph[branch]['inputs'][0][1:].split(':')[0]
 float_linears=set()
 if args.float_mlp:
-    stop=next(k for k,v in graph.items() if v.get('name')=='Add_4_output_0')
+    stop=residual_node
     output=next(k for k,v in graph.items() if v.get('name')=='hidden_out')
     seen=set()
     def float_branch(node):
@@ -114,25 +152,31 @@ for name,parameters in data.items():
             quant['quantize_parameters'].pop('@'+name+':bias',None)
             changed.append({'name':name,'shape':list(weight.shape),'dtype':'float16'})
             continue
-        scales=np.maximum(np.max(np.abs(weight),axis=0)/127,np.finfo(np.float32).tiny)
+        limit=2**(args.weight_bits-1)-1
+        qtype=f'i{args.weight_bits}'
+        scales=np.maximum(np.max(np.abs(weight),axis=0)/limit,np.finfo(np.float32).tiny)
         if args.weight_mode=='perchannel' and name not in args.dfp_linear:
-            quant['quantize_parameters'][key]={'qtype':'i8','quantizer':'perchannel_symmetric_affine',
+            quant['quantize_parameters'][key]={'qtype':qtype,'quantizer':'perchannel_symmetric_affine',
                 'rounding':'rtne','scale':scales.tolist(),'channel_dim':-1}
         else:
-            fl=int(np.floor(np.log2(127/max(float(np.abs(weight).max()),1e-12))))
-            quant['quantize_parameters'][key]={'qtype':'i8','quantizer':'dynamic_fixed_point',
+            fl=int(np.floor(np.log2(limit/max(float(np.abs(weight).max()),1e-12))))
+            quant['quantize_parameters'][key]={'qtype':qtype,'quantizer':'dynamic_fixed_point',
                 'rounding':'rtne','fl':fl,'max_value':float(weight.max()),'min_value':float(weight.min())}
-        changed.append({'name':name,'shape':list(weight.shape),'dtype':'int8'})
+        changed.append({'name':name,'shape':list(weight.shape),'dtype':f'int{args.weight_bits}'})
 assert len(changed)==args.expected_linears, 'unexpected linear projection count'
 (out/'decoder.quantize').write_text(yaml.safe_dump(quant,sort_keys=False))
 report={'scope':'one decoder with explicit per-matrix weight and sensitive-activation precision overrides',
         'int8_matrices':sum(w['dtype']=='int8' for w in changed),
+        'int4_matrices':sum(w['dtype']=='int4' for w in changed),
+        'weight_bits_requested':args.weight_bits,
         'fp16_matrices':sum(w['dtype']=='float16' for w in changed),
         'base':str(base.relative_to(root)),'weights':changed,'weight_mode':args.weight_mode,'dfp_linear':args.dfp_linear,'float_nonlinear':args.float_nonlinear,'float_residual':args.float_residual,
         'float_sensitive':args.float_sensitive,
         'activation_headroom_bits':args.activation_headroom_bits,
         'float_down_output':args.float_down_output,
         'float_mlp':args.float_mlp,
+        'float_scores':args.float_scores,
+        'float_head_norm':args.float_head_norm,
         'source_quantize_sha256':hashlib.file_digest((base/'decoder.quantize').open('rb'),'sha256').hexdigest()}
 container='opi-w8-test-'+uuid.uuid4().hex[:12]
 command=['docker','run','--rm','--name',container,'--network','none','--cpus','4','--memory','8g',

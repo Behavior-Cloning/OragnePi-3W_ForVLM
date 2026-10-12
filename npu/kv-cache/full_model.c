@@ -36,6 +36,17 @@ static void execute(Layer *layer,unsigned ni,unsigned no,double *run_seconds) {
     double start=now();check(vip_run_network(layer->net),"full model inference");*run_seconds+=now()-start;
     for(unsigned i=0;i<no;i++)check(vip_flush_buffer(layer->out[i].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read full model");
 }
+static void copy_values(Tensor *dst,unsigned offset,Tensor *src,unsigned begin,unsigned count) {
+    if(offset+count>dst->count||begin+count>src->count){fprintf(stderr,"copy overflow\n");exit(2);}
+    int same=dst->p.data_format==src->p.data_format&&dst->p.quant_format==src->p.quant_format;
+    if(same&&dst->p.quant_format==VIP_BUFFER_QUANTIZE_DYNAMIC_FIXED_POINT)
+        same=dst->p.quant_data.dfp.fixed_point_pos==src->p.quant_data.dfp.fixed_point_pos;
+    unsigned size=dst->p.data_format==VIP_BUFFER_FORMAT_FP32?4:
+        (dst->p.data_format==VIP_BUFFER_FORMAT_FP16||dst->p.data_format==VIP_BUFFER_FORMAT_INT16?2:
+        (dst->p.data_format==VIP_BUFFER_FORMAT_INT8?1:0));
+    if(same&&size)memcpy((char*)dst->data+offset*size,(char*)src->data+begin*size,count*size);
+    else for(unsigned j=0;j<count;j++)put(dst,offset+j,get(src,begin+j));
+}
 int main(int argc,char **argv) {
     if(argc!=11){fprintf(stderr,"usage: full_model networks layers capacity vocab embeddings.f32 prompt.i32 max_new tokens.json logits.f32 eos_id\n");return 2;}
     int count=atoi(argv[2]),capacity=atoi(argv[3]),vocab=atoi(argv[4]),max_new=atoi(argv[7]),eos=atoi(argv[10]);
@@ -49,8 +60,13 @@ int main(int argc,char **argv) {
     const int32_t *prompt=mmap(NULL,prompt_stat.st_size,PROT_READ,MAP_PRIVATE,prompt_fd,0);
     if(emb==MAP_FAILED||prompt==MAP_FAILED)return 2;
     for(int i=0;i<prompt_count;i++)if(prompt[i]<0||prompt[i]>=vocab)return 2;
-    FILE *token_file=fopen(argv[8],"w"),*logits_file=fopen(argv[9],"wb");if(!token_file||!logits_file)return 2;
+    int performance=getenv("OPI_PERFORMANCE")!=NULL;
+    int group_size=getenv("OPI_DECODER_GROUP")?atoi(getenv("OPI_DECODER_GROUP")):0;
+    if(group_size<0||group_size>count)return 2;
+    FILE *token_file=fopen(argv[8],"w"),*logits_file=performance?NULL:fopen(argv[9],"wb");
+    if(!token_file||(!performance&&!logits_file))return 2;
     const char *trace_path=getenv("OPI_FULL_TRACE");
+    if(performance&&trace_path){fprintf(stderr,"performance and trace are exclusive\n");return 2;}
     FILE *trace_file=trace_path?fopen(trace_path,"wb"):NULL;
     if(trace_path&&!trace_file)return 2;
     Layer *decoder=calloc(count,sizeof(*decoder)),head[HEAD_SHARDS];
@@ -59,11 +75,42 @@ int main(int argc,char **argv) {
     int *generated=calloc(max_new,sizeof(int));double *latencies=calloc(max_new,sizeof(double));
     double *layer_seconds=calloc(count,sizeof(double));
     if(!decoder||!x||!logits||!generated||!latencies||!layer_seconds)return 2;
+    if(performance){
+        double deadline=now()+300;
+        while(temperature()>55000){
+            if(now()>deadline){fprintf(stderr,"cooldown timeout\n");return 2;}
+            struct timespec delay={1,0};nanosleep(&delay,NULL);
+        }
+        if(temperature()<0){fprintf(stderr,"temperature unavailable\n");return 2;}
+    }
     int temp_before=temperature();double load_start=now();check(vip_init(),"init full model");
     unsigned ins[]={DIM,KV*capacity*HD,KV*capacity*HD,capacity+1,HD,HD},outs[]={DIM,KV*HD,KV*HD};
     for(int i=0;i<count;i++){
         char path[1024];snprintf(path,sizeof(path),"%s/layer%d.nb",argv[1],i);
         load_net(&decoder[i],path,6,3,ins,outs);
+        for(int j=0;j<capacity;j++)put(&decoder[i].in[3],j,-10000);
+        put(&decoder[i].in[3],capacity,0);
+    }
+    /* A group batches submissions, not graph operators. Hidden stays in the
+     * device buffer; KV for each layer is updated after the whole stack. */
+    vip_group groups[80]={0};int group_count=group_size?(count+group_size-1)/group_size:0;
+    if(group_size){
+        for(int i=1;i<count;i++){
+            Tensor *src=&decoder[i-1].out[0],*dst=&decoder[i].in[0];
+            if(src->p.data_format!=VIP_BUFFER_FORMAT_FP16||dst->p.data_format!=VIP_BUFFER_FORMAT_FP16||
+               src->p.quant_format!=VIP_BUFFER_QUANTIZE_NONE||dst->p.quant_format!=VIP_BUFFER_QUANTIZE_NONE||
+               src->p.num_of_dims!=dst->p.num_of_dims||src->count!=dst->count||
+               memcmp(src->p.sizes,dst->p.sizes,src->p.num_of_dims*sizeof(src->p.sizes[0]))){
+                fprintf(stderr,"group hidden contract mismatch at %d\n",i);return 2;
+            }
+            check(vip_set_input(decoder[i].net,0,src->b),"link decoder hidden");
+        }
+        for(int g=0;g<group_count;g++){
+            unsigned n=(unsigned)(count-g*group_size<group_size?count-g*group_size:group_size),timeout=30000;
+            check(vip_create_group(n,&groups[g]),"create decoder group");
+            check(vip_set_group(groups[g],VIP_GROUP_PROP_SET_TIME_OUT,&timeout),"group timeout");
+            for(unsigned j=0;j<n;j++)check(vip_add_network(groups[g],decoder[g*group_size+j].net),"add decoder group");
+        }
     }
     int head_chunk=HEAD_SHARDS==1?vocab:HEAD_CHUNK;
     if(head_chunk<1||(vocab+head_chunk-1)/head_chunk!=HEAD_SHARDS)return 2;
@@ -79,24 +126,51 @@ int main(int argc,char **argv) {
     for(int pos=0;pos<prompt_count+max_new-1;pos++) {
         token=pos<prompt_count?prompt[pos]:generated[n_generated-1];
         memcpy(x,emb+(size_t)token*DIM,DIM*sizeof(float));
+        float rope_cos[HD],rope_sin[HD];
+        for(int j=0;j<HD;j++){
+            float a=pos/powf(ROPE_BASE,(j%(HD/2))/(float)(HD/2));
+            rope_cos[j]=cosf(a);rope_sin[j]=sinf(a);
+        }
+        if(group_size){
+            for(int j=0;j<DIM;j++)put(&decoder[0].in[0],j,x[j]);
+            for(int i=0;i<count;i++){
+                Layer *l=&decoder[i];
+                if(pos)put(&l->in[3],pos-1,0);
+                for(int j=0;j<HD;j++){
+                    put(&l->in[4],j,rope_cos[j]);put(&l->in[5],j,rope_sin[j]);
+                }
+                /* Never flush linked hidden from the CPU: it is produced by NPU. */
+                for(unsigned j=i?1:0;j<6;j++)check(vip_flush_buffer(l->in[j].b,VIP_BUFFER_OPER_TYPE_FLUSH),"flush grouped input");
+            }
+            double prior=run_seconds;
+            for(int g=0;g<group_count;g++){
+                unsigned n=(unsigned)(count-g*group_size<group_size?count-g*group_size:group_size);
+                double stamp=now();check(vip_run_group(groups[g],n),"run decoder group");run_seconds+=now()-stamp;
+            }
+            if(pos>=prompt_count)decode_decoder_seconds+=run_seconds-prior;
+        }
         for(int i=0;i<count;i++) {
             Layer *l=&decoder[i];
-            for(int j=0;j<DIM;j++)put(&l->in[0],j,x[j]);
-            for(int j=0;j<=capacity;j++)put(&l->in[3],j,(j<pos||j==capacity)?0:-10000);
-            for(int j=0;j<HD;j++){
-                float a=pos/powf(ROPE_BASE,(j%(HD/2))/(float)(HD/2));
-                put(&l->in[4],j,cosf(a));put(&l->in[5],j,sinf(a));
+            if(!group_size){
+                for(int j=0;j<DIM;j++)put(&l->in[0],j,x[j]);
+                if(pos)put(&l->in[3],pos-1,0);
+                for(int j=0;j<HD;j++){
+                    put(&l->in[4],j,rope_cos[j]);put(&l->in[5],j,rope_sin[j]);
+                }
+                double prior=run_seconds;execute(l,6,3,&run_seconds);
+                layer_seconds[i]+=run_seconds-prior;
+                if(pos>=prompt_count)decode_decoder_seconds+=run_seconds-prior;
+            }else{
+                for(unsigned j=0;j<3;j++)check(vip_flush_buffer(l->out[j].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read grouped output");
             }
-            double prior=run_seconds;execute(l,6,3,&run_seconds);
-            layer_seconds[i]+=run_seconds-prior;
-            if(pos>=prompt_count)decode_decoder_seconds+=run_seconds-prior;
             for(int j=0;j<DIM;j++){
                 x[j]=get(&l->out[0],j);
                 if(!isfinite(x[j])){fprintf(stderr,"NONFINITE position=%d layer=%d component=%d value=%g\n",pos,i,j,x[j]);return 3;}
             }
-            for(int h=0;h<KV;h++)for(int j=0;j<HD;j++){
-                unsigned dst=(h*capacity+pos)*HD+j,src=h*HD+j;
-                put(&l->in[1],dst,get(&l->out[1],src));put(&l->in[2],dst,get(&l->out[2],src));
+            for(int h=0;h<KV;h++){
+                unsigned dst=(h*capacity+pos)*HD,src=h*HD;
+                copy_values(&l->in[1],dst,&l->out[1],src,HD);
+                copy_values(&l->in[2],dst,&l->out[2],src,HD);
             }
             if(trace_file&&fwrite(x,sizeof(float),DIM,trace_file)!=(size_t)DIM)return 2;
         }
@@ -113,13 +187,14 @@ int main(int argc,char **argv) {
             if(!isfinite(logits[j])){fprintf(stderr,"NONFINITE position=%d LM_HEAD token=%d value=%g\n",pos,j,logits[j]);return 3;}
             if(logits[j]>logits[best])best=j;
         }
-        if(fwrite(logits,sizeof(float),vocab,logits_file)!=(size_t)vocab)return 2;
+        if(logits_file&&fwrite(logits,sizeof(float),vocab,logits_file)!=(size_t)vocab)return 2;
         double stamp=now();latencies[n_generated]=stamp-previous_token;previous_token=stamp;
         generated[n_generated++]=best;if(n_generated==1)first_token=stamp-start;
-        fprintf(stderr,"generated[%d]=%d elapsed=%.3f\n",n_generated-1,best,stamp-start);
+        if(!performance)fprintf(stderr,"generated[%d]=%d elapsed=%.3f\n",n_generated-1,best,stamp-start);
         if(best==eos)break;
     }
     double total=now()-start,cpu=cpu_time()-cpu_start;struct rusage usage;getrusage(RUSAGE_SELF,&usage);
+    for(int g=0;g<group_count;g++)check(vip_destroy_group(groups[g]),"destroy decoder group");
     for(int i=0;i<count;i++){free_net(&decoder[i],6,3);}
     for(int s=0;s<HEAD_SHARDS;s++)free_net(&head[s],1,1);
     check(vip_destroy(),"release full model");
@@ -128,9 +203,12 @@ int main(int argc,char **argv) {
     fprintf(token_file,"],\"token_latencies_seconds\":[");
     for(int i=0;i<n_generated;i++){fprintf(token_file,"%s%.6f",i?",":"",latencies[i]);}
     fprintf(token_file,"],\"head_api_seconds\":%.6f,\"decode_decoder_api_seconds\":%.6f,\"decode_head_api_seconds\":%.6f,\"layer_api_seconds\":[",head_seconds,decode_decoder_seconds,decode_head_seconds);
-    for(int i=0;i<count;i++)fprintf(token_file,"%s%.6f",i?",":"",layer_seconds[i]);
-    fprintf(token_file,"]}\n");
+    for(int i=0;i<count;i++){
+        if(group_size)fprintf(token_file,"%snull",i?",":"");
+        else fprintf(token_file,"%s%.6f",i?",":"",layer_seconds[i]);
+    }
+    fprintf(token_file,"],\"performance_mode\":%s,\"host_revision\":3,\"decoder_group_size\":%d}\n",performance?"true":"false",group_size);
     if(trace_file)fclose(trace_file);
-    fclose(token_file);fclose(logits_file);munmap((void*)emb,emb_stat.st_size);munmap((void*)prompt,prompt_stat.st_size);
+    fclose(token_file);if(logits_file)fclose(logits_file);munmap((void*)emb,emb_stat.st_size);munmap((void*)prompt,prompt_stat.st_size);
     close(emb_fd);close(prompt_fd);free(decoder);free(x);free(logits);free(generated);free(latencies);free(layer_seconds);return 0;
 }

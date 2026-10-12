@@ -7,7 +7,7 @@ import numpy as np
 import torch
 from tokenizers import Tokenizer
 from trained_probe import TrainedDecoder,LMHead
-from exported_int8 import apply_exported_int8
+from exported_int8 import apply_exported_int8,apply_exported_head
 
 p=argparse.ArgumentParser();p.add_argument('--model',type=Path,required=True)
 p.add_argument('--source',type=Path,required=True);p.add_argument('--dtype',default='w8-vdfp')
@@ -26,6 +26,7 @@ with torch.inference_mode():
         records=apply_exported_int8(layer,args.source/args.dtype/f'l{i}')
         layers.append(layer);weights.append({'layer':i,'weights':records})
     head=LMHead(reader,layers[0].eps).eval()
+    weights.append({'head':apply_exported_head(head,args.source,args.dtype,manifest)})
     cache=torch.zeros(len(layers),2,1,manifest['kv_heads'],capacity,manifest['head_dim'])
     generated=[];tokens=prompt['token_ids'];eos=manifest['eos_token_ids']
     for pos in range(min(capacity,len(tokens)+args.max_new-1)):
@@ -39,7 +40,7 @@ with torch.inference_mode():
         if pos>=len(tokens)-1:
             generated.append(int(head(x).argmax()))
             if generated[-1] in eos:break
-report={'scope':'host oracle, exact exported INT8 decoder weights, FP32 activations/KV/head; no board performance claim',
+report={'scope':'host oracle, exported decoder/head matrices, biases and norm scales, FP32 arithmetic/activations/KV; no board performance claim',
         'prompt':prompt,'tokens':generated,'answer':vocab.decode(generated,skip_special_tokens=False),
         'stopped_eos':generated[-1] in eos,'weights':weights}
 args.output.write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')

@@ -12,9 +12,9 @@ from trained_probe import TrainedDecoder,feed_for
 
 p=argparse.ArgumentParser();p.add_argument('--model',type=Path,required=True)
 p.add_argument('--source',type=Path,required=True);p.add_argument('--dtype',required=True)
-p.add_argument('--case',required=True);p.add_argument('--layer',type=int,default=0)
+p.add_argument('--case');p.add_argument('--layer',type=int,default=0)
 args=p.parse_args();torch.set_num_threads(2)
-board=args.source/args.dtype/('board-'+args.case)
+board=args.source/args.dtype/('board'+('-'+args.case if args.case else ''))
 prompt=json.loads((board/'prompt.json').read_text());result=json.loads((board/'tokens.json').read_text())
 tokens=prompt['token_ids']+result['tokens'][:-1]
 reader=gguf.GGUFReader(args.model)

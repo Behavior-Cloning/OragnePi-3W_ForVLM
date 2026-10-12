@@ -1,0 +1,276 @@
+[32mI 14:21:44 Namespace(batch_size=None, build_platform='make', customer_lids=None, customer_ops=None, dtype='quantized', export='ovxlib', force_remove_permute=False, model='decoder.json', model_data='decoder.data', model_quantize='decoder.quantize', optimize='VIP9000NANODI_PLUS_PID0X1000003B', output_path='export/decoder', pack_nbg_unify=True, postprocess_file=None, save_fused_graph=False, save_trace_db=False, target_ide_project='linux64', viv_sdk='/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools', which='export', with_input_meta='tensor-inputmeta.yml')[0m
+[32mI 14:21:44 Set vsinn project dir to /work/full-smol500-stable-v3-c128/w8-fasthead/l32[0m
+[32mI 14:21:44 Load model in /work/full-smol500-stable-v3-c128/w8-fasthead/l32/decoder.json[0m
+[32mI 14:21:44 Load data in /work/full-smol500-stable-v3-c128/w8-fasthead/l32/decoder.data[0m
+[32mI 14:21:44 Load input meta /work/full-smol500-stable-v3-c128/w8-fasthead/l32/tensor-inputmeta.yml[0m
+[32mI 14:21:44 Load quantization tensor table /work/full-smol500-stable-v3-c128/w8-fasthead/l32/decoder.quantize[0m
+[32mI 14:21:46 Start exporting ovxlib case...[0m
+[36mD 14:21:47 Process scale_5 ...[0m
+[36mD 14:21:47 Acuity output shape(variable): (1 1 960)[0m
+[36mD 14:21:47 Tensor @scale_5:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Constant_2_output_0_10 ...[0m
+[36mD 14:21:47 Acuity output shape(variable): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Constant_2_output_0_10:out0 type: float32[0m
+[36mD 14:21:47 Process Constant_1_output_0_18 ...[0m
+[36mD 14:21:47 Acuity output shape(variable): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Constant_1_output_0_18:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Reciprocal_output_0_19 ...[0m
+[36mD 14:21:47 Acuity output shape(variable): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Reciprocal_output_0_19:out0 type: float32[0m
+[36mD 14:21:47 Process hidden_21 ...[0m
+[36mD 14:21:47 Acuity output shape(input): (1 1 960)[0m
+[36mD 14:21:47 Tensor @hidden_21:out0 type: float32[0m
+[36mD 14:21:47 Process Abs_output_0_15_acuity_mark_perm_25 ...[0m
+[36mD 14:21:47 Acuity output shape(permute): (1 960 1)[0m
+[36mD 14:21:47 Tensor @Abs_output_0_15_acuity_mark_perm_25:out0 type: float32[0m
+[36mD 14:21:47 Process Abs_output_0_15 ...[0m
+[36mD 14:21:47 Acuity output shape(abs): (1 960 1)[0m
+[36mD 14:21:47 Tensor @Abs_output_0_15:out0 type: float32[0m
+[36mD 14:21:47 Process ReduceMax_output_0_12 ...[0m
+[36mD 14:21:47 Acuity output shape(reducemax): (1 1 1)[0m
+[36mD 14:21:47 Tensor @ReduceMax_output_0_12:out0 type: float32[0m
+[36mD 14:21:47 Process Clip_output_0_9 ...[0m
+[36mD 14:21:47 Acuity output shape(clipbyvalue): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Clip_output_0_9:out0 type: float32[0m
+[36mD 14:21:47 Process Divide_20 ...[0m
+[36mD 14:21:47 Acuity output shape(Divide): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Divide_20:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Div_output_0_6_acuity_mark_perm_24 ...[0m
+[36mD 14:21:47 Acuity output shape(permute): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Div_output_0_6_acuity_mark_perm_24:out0 type: float32[0m
+[36mD 14:21:47 Process Mul_output_0_17 ...[0m
+[36mD 14:21:47 Acuity output shape(multiply): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Mul_output_0_17:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Div_output_0_6 ...[0m
+[36mD 14:21:47 Acuity output shape(real_div): (1 1 960)[0m
+[36mD 14:21:47 Tensor @Div_output_0_6:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Mul_1_output_0_14 ...[0m
+[36mD 14:21:47 Acuity output shape(multiply): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Mul_1_output_0_14:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Mul_2_output_0_16_acuity_mark_perm_22 ...[0m
+[36mD 14:21:47 Acuity output shape(permute): (1 960 1)[0m
+[36mD 14:21:47 Tensor @Mul_2_output_0_16_acuity_mark_perm_22:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Mul_2_output_0_16 ...[0m
+[36mD 14:21:47 Acuity output shape(multiply): (1 960 1)[0m
+[36mD 14:21:47 Tensor @Mul_2_output_0_16:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process ReduceMean_output_0_13 ...[0m
+[36mD 14:21:47 Acuity output shape(reducemean): (1 1 1)[0m
+[36mD 14:21:47 Tensor @ReduceMean_output_0_13:out0 type: float32[0m
+[36mD 14:21:47 Process Add_output_0_11 ...[0m
+[36mD 14:21:47 Acuity output shape(add): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Add_output_0_11:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Sqrt_output_0_8 ...[0m
+[36mD 14:21:47 Acuity output shape(sqrt): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Sqrt_output_0_8:out0 type: float32[0m
+[36mD 14:21:47 Process Div_1_output_0_7 ...[0m
+[36mD 14:21:47 Acuity output shape(real_div): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Div_1_output_0_7:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Mul_3_output_0_4_acuity_mark_perm_23 ...[0m
+[36mD 14:21:47 Acuity output shape(permute): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Mul_3_output_0_4_acuity_mark_perm_23:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Mul_3_output_0_4 ...[0m
+[36mD 14:21:47 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 14:21:47 Tensor @Mul_3_output_0_4:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Mul_4_output_0_2 ...[0m
+[36mD 14:21:47 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 14:21:47 Tensor @Mul_4_output_0_2:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process reshape_26 ...[0m
+[36mD 14:21:47 Acuity output shape(reshape): (1 960)[0m
+[36mD 14:21:47 Tensor @reshape_26:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 14:21:47 Process fullconnect_27 ...[0m
+[36mD 14:21:47 Acuity output shape(fullconnect): (1 49280)[0m
+[36mD 14:21:47 Tensor @fullconnect_27:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 14:21:47 Process reshape_28 ...[0m
+[36mD 14:21:47 Acuity output shape(reshape): (1 1 49280)[0m
+[36mD 14:21:47 Tensor @reshape_28:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process attach_logits/out0_0 ...[0m
+[36mD 14:21:47 Acuity output shape(output): (1 1 49280)[0m
+[36mD 14:21:47 Tensor @attach_logits/out0_0:out0 type: float32(fake float16)[0m
+[32mI 14:21:47 Build main_graph complete.[0m
+[32mI 14:21:47 Initialzing network optimizer by VIP9000NANODI_PLUS_PID0X1000003B ...[0m
+[32mI 14:21:47 Optimize config VIP9000NANODI_PLUS_PID0X1000003B with 'Default' optimization rules.[0m
+[36mD 14:21:47 Optimizing network with split_squared_difference, merge_ximum, qnt_adjust_coef, adjust_qnt_reshape, multiply_transform, add_extra_io, format_input_ops, auto_fill_zero_bias, conv_kernel_transform, auto_fill_reshape_zero, strip_op, extend_unstack_split, convert_matmul_trans_ab, merge_layer, transform_layer, broadcast_op, strip_op, adjust_output_attrs, insert_dtype_converter, layernorm_to_moments_bnsingle, pow_to_square, average_to_add_divide, optimize_einsum[0m
+[32mI 14:21:47 Insert dtype_converter before reshape_28[0m
+[36mD 14:21:47 Align variable scale_5 shape [1, 1, 960] to [1, 1, 960][0m
+[36mD 14:21:47 Align variable Constant_2_output_0_10 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 14:21:47 Align variable Constant_1_output_0_18 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 14:21:47 Align variable Reciprocal_output_0_19 shape [1, 1, 1] to [1, 1, 1][0m
+[32mI 14:21:47 Start T2C Switcher...[0m
+[36mD 14:21:47 Optimizing network with broadcast_op, t2c_fc[0m
+[36mD 14:21:47 Align variable scale_5 shape [1, 1, 960] to [1, 1, 960][0m
+[36mD 14:21:47 Align variable Constant_2_output_0_10 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 14:21:47 Align variable Constant_1_output_0_18 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 14:21:47 Align variable Reciprocal_output_0_19 shape [1, 1, 1] to [1, 1, 1][0m
+[36mD 14:21:47 convert ReduceMax_output_0_12(reducemax) axes [1] to [2][0m
+[36mD 14:21:47 convert ReduceMean_output_0_13(reducemean) axes [1] to [2][0m
+[36mD 14:21:47 convert Mul_output_0_17(multiply) axis 2 to 1[0m
+[36mD 14:21:47 convert Mul_1_output_0_14(multiply) axis 2 to 1[0m
+[36mD 14:21:47 convert Mul_2_output_0_16(multiply) axis 2 to 1[0m
+[36mD 14:21:47 insert permute Mul_3_output_0_4_acuity_mark_perm_23_acuity_mark_perm_30 before Mul_3_output_0_4_acuity_mark_perm_23[0m
+[36mD 14:21:47 insert permute Div_output_0_6_acuity_mark_perm_24_acuity_mark_perm_31 before Div_output_0_6_acuity_mark_perm_24[0m
+[36mD 14:21:47 insert permute Mul_2_output_0_16_acuity_mark_perm_22_acuity_mark_perm_32 after Mul_2_output_0_16_acuity_mark_perm_22[0m
+[36mD 14:21:47 insert permute Abs_output_0_15_acuity_mark_perm_33 before Abs_output_0_15[0m
+[36mD 14:21:47 remove permute Abs_output_0_15_acuity_mark_perm_25[0m
+[36mD 14:21:47 remove permute Abs_output_0_15_acuity_mark_perm_33[0m
+[36mD 14:21:47 remove permute Div_output_0_6_acuity_mark_perm_24_acuity_mark_perm_31[0m
+[36mD 14:21:47 remove permute Div_output_0_6_acuity_mark_perm_24[0m
+[36mD 14:21:47 remove permute Mul_2_output_0_16_acuity_mark_perm_22[0m
+[36mD 14:21:47 remove permute Mul_2_output_0_16_acuity_mark_perm_22_acuity_mark_perm_32[0m
+[36mD 14:21:47 remove permute Mul_3_output_0_4_acuity_mark_perm_23_acuity_mark_perm_30[0m
+[36mD 14:21:47 remove permute Mul_3_output_0_4_acuity_mark_perm_23[0m
+[32mI 14:21:47 End T2C Switcher...[0m
+[36mD 14:21:47 Optimizing network with strip_op_layout_sensitive[0m
+[36mD 14:21:47 Process scale_5 ...[0m
+[36mD 14:21:47 Acuity output shape(variable): (1 1 960)[0m
+[36mD 14:21:47 Tensor @scale_5:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Constant_2_output_0_10 ...[0m
+[36mD 14:21:47 Acuity output shape(variable): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Constant_2_output_0_10:out0 type: float32[0m
+[36mD 14:21:47 Process Constant_1_output_0_18 ...[0m
+[36mD 14:21:47 Acuity output shape(variable): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Constant_1_output_0_18:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Reciprocal_output_0_19 ...[0m
+[36mD 14:21:47 Acuity output shape(variable): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Reciprocal_output_0_19:out0 type: float32[0m
+[36mD 14:21:47 Process hidden_21 ...[0m
+[36mD 14:21:47 Acuity output shape(input): (1 1 960)[0m
+[36mD 14:21:47 Tensor @hidden_21:out0 type: float32[0m
+[36mD 14:21:47 Process Abs_output_0_15 ...[0m
+[36mD 14:21:47 Acuity output shape(abs): (1 1 960)[0m
+[36mD 14:21:47 Tensor @Abs_output_0_15:out0 type: float32[0m
+[36mD 14:21:47 Process ReduceMax_output_0_12 ...[0m
+[36mD 14:21:47 Acuity output shape(reducemax): (1 1 1)[0m
+[36mD 14:21:47 Tensor @ReduceMax_output_0_12:out0 type: float32[0m
+[36mD 14:21:47 Process Clip_output_0_9 ...[0m
+[36mD 14:21:47 Acuity output shape(clipbyvalue): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Clip_output_0_9:out0 type: float32[0m
+[36mD 14:21:47 Process Divide_20 ...[0m
+[36mD 14:21:47 Acuity output shape(Divide): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Divide_20:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Div_output_0_6 ...[0m
+[36mD 14:21:47 Acuity output shape(real_div): (1 1 960)[0m
+[36mD 14:21:47 Tensor @Div_output_0_6:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Mul_output_0_17 ...[0m
+[36mD 14:21:47 Acuity output shape(multiply): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Mul_output_0_17:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Mul_2_output_0_16 ...[0m
+[36mD 14:21:47 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 14:21:47 Tensor @Mul_2_output_0_16:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Mul_1_output_0_14 ...[0m
+[36mD 14:21:47 Acuity output shape(multiply): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Mul_1_output_0_14:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process ReduceMean_output_0_13 ...[0m
+[36mD 14:21:47 Acuity output shape(reducemean): (1 1 1)[0m
+[36mD 14:21:47 Tensor @ReduceMean_output_0_13:out0 type: float32[0m
+[36mD 14:21:47 Process Add_output_0_11 ...[0m
+[36mD 14:21:47 Acuity output shape(add): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Add_output_0_11:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Sqrt_output_0_8 ...[0m
+[36mD 14:21:47 Acuity output shape(sqrt): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Sqrt_output_0_8:out0 type: float32[0m
+[36mD 14:21:47 Process Div_1_output_0_7 ...[0m
+[36mD 14:21:47 Acuity output shape(real_div): (1 1 1)[0m
+[36mD 14:21:47 Tensor @Div_1_output_0_7:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Mul_3_output_0_4 ...[0m
+[36mD 14:21:47 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 14:21:47 Tensor @Mul_3_output_0_4:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process Mul_4_output_0_2 ...[0m
+[36mD 14:21:47 Acuity output shape(multiply): (1 1 960)[0m
+[36mD 14:21:47 Tensor @Mul_4_output_0_2:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process reshape_26 ...[0m
+[36mD 14:21:47 Acuity output shape(reshape): (1 960)[0m
+[36mD 14:21:47 Tensor @reshape_26:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 14:21:47 Process fullconnect_27 ...[0m
+[36mD 14:21:47 Acuity output shape(fullconnect): (1 49280)[0m
+[36mD 14:21:47 Tensor @fullconnect_27:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 14:21:47 Process reshape_28_dtype_converter_29 ...[0m
+[36mD 14:21:47 Acuity output shape(dtype_converter): (1 49280)[0m
+[36mD 14:21:47 Tensor @reshape_28_dtype_converter_29:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process reshape_28 ...[0m
+[36mD 14:21:47 Acuity output shape(reshape): (1 1 49280)[0m
+[36mD 14:21:47 Tensor @reshape_28:out0 type: float32(fake float16)[0m
+[36mD 14:21:47 Process attach_logits/out0_0 ...[0m
+[36mD 14:21:47 Acuity output shape(output): (1 1 49280)[0m
+[36mD 14:21:47 Tensor @attach_logits/out0_0:out0 type: float32(fake float16)[0m
+[32mI 14:21:47 Build main_graph complete.[0m
+[36mD 14:21:47 Optimizing network with merge_mark_permute[0m
+[36mD 14:21:47 Optimizing network with insert_reshape_for_layernorm, c2drv_adjust_extra_io, c2drv_nhwc_resize, conv_1xn_transform, proposal_opt, c2drv_convert_axis, c2drv_convert_shape, c2drv_convert_array, c2drv_cast_dtype, c2drv_trans_data, c2drv_custom_opt[0m
+[32mI 14:21:47 Building data ...[0m
+[32mI 14:21:48 Packing data ...[0m
+[36mD 14:21:48 Packing Constant_1_output_0_18 ...[0m
+[36mD 14:21:48 Packing Constant_2_output_0_10 ...[0m
+[36mD 14:21:48 Packing Reciprocal_output_0_19 ...[0m
+[36mD 14:21:48 Packing fullconnect_27 ...[0m
+[36mD 14:21:48 Quantize @fullconnect_27:bias to perchannel_symmetric_affine.[0m
+[36mD 14:21:48 Quantize @fullconnect_27:weight to perchannel_symmetric_affine.[0m
+[36mD 14:21:48 Packing scale_5 ...[0m
+[32mI 14:21:48 Saving data to /work/full-smol500-stable-v3-c128/w8-fasthead/l32/export/decoder.export.data[0m
+[32mI 14:21:48 Export ovxlib case with version 1.1.83[0m
+[32mI 14:21:48 Save vx network source file to /work/full-smol500-stable-v3-c128/w8-fasthead/l32/export/vnn_decoder.c[0m
+[32mI 14:21:48 Save vx network source file to /work/full-smol500-stable-v3-c128/w8-fasthead/l32/export/vnn_decoder.h[0m
+[32mI 14:21:48 Save vx network source file to /work/full-smol500-stable-v3-c128/w8-fasthead/l32/export/vnn_post_process.c[0m
+[32mI 14:21:48 Save vx network source file to /work/full-smol500-stable-v3-c128/w8-fasthead/l32/export/vnn_post_process.h[0m
+[32mI 14:21:48 Save vx network source file to /work/full-smol500-stable-v3-c128/w8-fasthead/l32/export/vnn_pre_process.c[0m
+[32mI 14:21:48 Save vx network source file to /work/full-smol500-stable-v3-c128/w8-fasthead/l32/export/vnn_pre_process.h[0m
+[32mI 14:21:48 Save vx network source file to /work/full-smol500-stable-v3-c128/w8-fasthead/l32/export/vnn_global.h[0m
+[32mI 14:21:48 Save vx network source file to /work/full-smol500-stable-v3-c128/w8-fasthead/l32/export/main.c[0m
+[32mI 14:21:48 Save vx network source file to /work/full-smol500-stable-v3-c128/w8-fasthead/l32/export/BUILD[0m
+[32mI 14:21:48 Save vx network source file to /work/full-smol500-stable-v3-c128/w8-fasthead/l32/export/decoder.vcxproj[0m
+[32mI 14:21:48 Save vx network source file to /work/full-smol500-stable-v3-c128/w8-fasthead/l32/export/decoder.2012.vcxproj[0m
+[32mI 14:21:48 Save vx network source file to /work/full-smol500-stable-v3-c128/w8-fasthead/l32/export/makefile.linux[0m
+[32mI 14:21:48 Save vx network source file to /work/full-smol500-stable-v3-c128/w8-fasthead/l32/export/.cproject[0m
+[32mI 14:21:48 Save vx network source file to /work/full-smol500-stable-v3-c128/w8-fasthead/l32/export/.project[0m
+[36mD 14:21:48 Generate fake input /work/full-smol500-stable-v3-c128/w8-fasthead/l32/export/hidden_21_0.tensor[0m
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_decoder.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+vnn_decoder.c: In function ‘vnn_CreateDecoder’:
+vnn_decoder.c:282:36: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+  282 |     node[2]->nn_param.clip.max = *((float*)&_infinity);
+      |                                   ~^~~~~~~~~~~~~~~~~~~
+vnn_decoder.c:350:35: warning: pointer targets in assignment from ‘uint32_t *’ {aka ‘unsigned int *’} to ‘const int32_t *’ {aka ‘const int *’} differ in signedness [-Wpointer-sign]
+  350 |     node[7]->nn_param.reduce.axis = axis_list_1;
+      |                                   ^
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_pre_process.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+vnn_pre_process.c: In function ‘_handle_multiple_inputs’:
+vnn_pre_process.c:641:11: warning: variable ‘p1’ set but not used [-Wunused-but-set-variable]
+  641 |     char *p1 = NULL;
+      |           ^~
+At top level:
+vnn_pre_process.c:601:13: warning: ‘_get_image_handle_buffer’ defined but not used [-Wunused-function]
+  601 | static void _get_image_handle_buffer
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c main.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_post_process.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -O3  vnn_decoder.o vnn_pre_process.o main.o vnn_post_process.o -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/../common/lib/ -lvdtproxy /root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/../common/lib/libjpeg.a -o gen_nbg
+E [main.c:vnn_VerifyGraph:93]CHECK STATUS(-3:The requested set of parameters produce a configuration that cannot be supported. )
+E [main.c:main:236]CHECK STATUS(-3:The requested set of parameters produce a configuration that cannot be supported. )
+Create Neural Network: 31ms or 31634us
+Verify...
+[31mE 14:21:53 Fatal model generation error: 64768[0m
+[33mW 14:21:53 ----------------Error(1),Warning(0)----------------[0m
+[31mE 14:21:53 ('Fatal model generation error: 64768', 'nbg_generate')[0m
+[33mW 14:21:53 ----------------Error(1),Warning(0)----------------[0m
+Traceback (most recent call last):
+  File "acuitylib/app/exporter/ovxlib_case/casegenerator.py", line 327, in acuitylib.app.exporter.ovxlib_case.casegenerator.CaseGenerator._gen_nb_file
+  File "acuitylib/acuitylog.py", line 264, in acuitylib.acuitylog.AcuityLog.e
+acuitylib.acuityerror.AcuityError: ('Fatal model generation error: 64768', 'nbg_generate')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/acuity-toolkit-whl-6.30.22/bin/pegasus.py", line 131, in <module>
+    main(args)
+  File "/root/acuity-toolkit-whl-6.30.22/bin/pegasus.py", line 116, in main
+    ret = exporter.execute(args)
+  File "acuitylib/app/exporter/commands.py", line 220, in acuitylib.app.exporter.commands.execute
+  File "acuitylib/vsi_nn.py", line 738, in acuitylib.vsi_nn.VSInn.export_ovxlib
+  File "acuitylib/interface/exporter.py", line 84, in acuitylib.interface.exporter.OvxlibExporter.export
+  File "acuitylib/app/exporter/ovxlib_case/export_ovxlib.py", line 113, in acuitylib.app.exporter.ovxlib_case.export_ovxlib.ExportOvxlib.run
+  File "acuitylib/app/exporter/ovxlib_case/casegenerator.py", line 409, in acuitylib.app.exporter.ovxlib_case.casegenerator.CaseGenerator.generate
+  File "acuitylib/app/exporter/ovxlib_case/casegenerator.py", line 359, in acuitylib.app.exporter.ovxlib_case.casegenerator.CaseGenerator._gen_special_case
+  File "acuitylib/app/exporter/ovxlib_case/casegenerator.py", line 338, in acuitylib.app.exporter.ovxlib_case.casegenerator.CaseGenerator._gen_nb_file
+  File "acuitylib/acuitylog.py", line 260, in acuitylib.acuitylog.AcuityLog.e
+acuitylib.acuityerror.AcuityError: (AcuityError('Fatal model generation error: 64768', 'nbg_generate'), None)

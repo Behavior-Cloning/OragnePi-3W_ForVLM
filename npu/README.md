@@ -1,6 +1,6 @@
 # Orange Pi Zero 3W NPU 适配记录
 
-最新研发状态（2026-10-10）：[KV cache原型与共享内存实测](kv-cache/README.md)。主机逐token正确性和16/64/256MiB板端VIP缓冲分配通过；NPU decoder编译与完整LLM加速尚未完成。下面保留先前的驱动和预装模型验证记录。
+最新研发状态（2026-10-12）：[增量Transformer板端实测及CPU对照](kv-cache/NPU增量Transformer实测.md)。SDK编译链路已跑通，随机decoder及真实SmolVLM前两层已在NPU复用KV运行，INT16/FP16分别记录精度与开销；完整LLM加速尚未完成。下面保留先前的驱动和预装模型验证记录。
 
 ## 已验证状态（2026-10-08）
 

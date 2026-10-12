@@ -1,6 +1,8 @@
-# A733增量KV cache适配：第一阶段
+# A733增量KV cache适配
 
-2026-10-10。状态：**主机计算图正确性通过；板上共享内存分配通过；NPU decoder未编译、未运行，完整LLM适配未完成。** 不替换现有CPU网页服务。
+更新（2026-10-12）：SDK已加载，ONNX→NBG→板上VIPLite链路已跑通。随机两层decoder在32/128/512容量连续复用KV通过；真实SmolVLM语言模型前两层也已在NPU运行，包含INT16和FP16两条路径。详情、CPU对照和边界见[板端实验报告](NPU增量Transformer实测.md)，原始记录见[evidence-20261012](evidence-20261012/测量汇总.md)。
+
+当前状态：**NPU增量decoder层级验证通过；完整30层语言模型、最终logits/采样和聊天质量尚未验证。** 网页仍为原CPU后端。下面保留10月10日主机与共享内存验证，勿将其当成完整模型速度。
 
 ## 已实现
 
@@ -13,7 +15,7 @@
 - 图只输出hidden和单token的K/V，不输出整个历史缓冲；主机两层总计每token只写512字节FP32缓存数据。
 - 超出容量会明确报错；不会悄悄丢弃人设或用错误位置继续。重置会清空缓存和位置。
 
-这还不是PagedAttention、FlashAttention或高效批量prefill。固定容量attention每步仍访问完整容量（无效位置被mask）；图内Concat可能产生临时复制。真实NPU延迟、缓存刷写成本和长容量吞吐需编译后实测。后续容量分档可减少短历史访问量，但不能在没有KV迁移验证时宣称已支持。
+这还不是PagedAttention、FlashAttention或高效批量prefill。固定容量attention每步仍访问完整容量（无效位置被mask）；图内Concat可能产生临时复制。VIPLite运行器目前flush完整输入缓存，只有逻辑KV更新是单位置。后续容量分档可减少短历史访问量，但不能在没有KV迁移验证时宣称已支持。
 
 ## 正确性证据
 
@@ -24,7 +26,7 @@
 | 32 | 32 | 5.0664e-7 | 通过 | 通过 | 通过 |
 | 128 | 128 | 4.7684e-7 | 通过 | 通过 | 通过 |
 
-随后安装ONNX Runtime，在其CPU执行器独立复核32/128/512三个容量，共672步全部通过；各档最大绝对误差均4.7684e-7。记录见`host-validation-ort.json`。两种执行器均仅为主机验证，尚无NPU误差或速度结论。
+随后安装ONNX Runtime，在其CPU执行器独立复核32/128/512三个容量，共672步全部通过；各档最大绝对误差均4.7684e-7。记录见`host-validation-ort.json`。这些数据仅为主机验证；10月12日新增的NPU误差和速度独立记录在板端报告。
 
 参考计算一次处理完整序列并使用因果mask；增量计算由独立ONNX执行器运行，逐步累积两层KV。每步hidden与对应完整计算位置比较。特意将未写入缓存填入非零污染值，确保mask有效。误差门槛atol/rtol均2e-5。
 
@@ -67,17 +69,17 @@ timeout 30 ./memory_probe
 
 KV容量公式（每会话）：`2 × 层数 × KV头数 × head_dim × token容量 × 每元素字节数`。GQA减少KV头数可省内存；不能把“模型1B”直接换算成固定KV大小。
 
-## 当前阻塞及下一关
+## 编译环境与下一关
 
-Radxa官方A733说明要求ACUITY镜像`ubuntu-npu:v2.0.10.2`。本机尚未安装；官方Allwinner共享链接可访问说明页，但本次直链GET得到HTML、匿名Sharing API返回119而非可下载ZIP。没有绕过登录，也没有误把网页当模型工具包加载。
+Radxa官方A733说明要求ACUITY镜像`ubuntu-npu:v2.0.10.2`。10月10日共享下载受阻；10月12日经用户授权从同事电脑获取工具包并校验、加载成功，见[SDK获取记录](SDK获取记录.md)。
 
-因此没有可运行的NBG生成器，无法确认新图的NPU编译、量化准确性和加速效果。需要获得匹配的官方工具包，或另一个已授权下载地址。入口：<https://docs.radxa.com/en/cubie/a7a/app-dev/npu-dev/cubie-acuity-env>；共享：<https://netstorage.allwinnertech.com:5001/sharing/Mh23BhPHq>。
+已使用ACUITY 6.30.22和Vivante IDE 5.11.0，编译目标为`VIP9000NANODI_PLUS_PID0X1000003B`。无需升级板上驱动。工具文档：<https://docs.radxa.com/en/cubie/a7a/app-dev/npu-dev/cubie-acuity-env>。
 
-环境补齐后的顺序：
+当前验证范围及后续顺序：
 
-1. 编译这两个小decoder图，检查输出K/V和输入缓存的量化scale、布局；不同量化参数不能直接memcpy回缓存。
-2. 常驻VIP网络，持久映射缓存，只更新新槽，正确flush/invalidate；逐token与CPU对照，检验误差累积。
-3. 测量NPU算子、数据复制和端到端时间，确认确有收益再扩到真实小模型。
+1. 已完成小decoder和真实前两层编译，运行时查询布局及量化scale；以反量化/再量化写回KV，未直接假定scale相同。
+2. 已完成网络常驻、缓冲常驻、单位置更新、flush/invalidate与误差对照。尚未实现动态容量迁移和运行中缓存淘汰。
+3. 已扩到真实SmolVLM前两层，CPU/NPU测量单独汇总。后续必须核对完整模型logits、逐层误差及生成质量，不能凭两层余弦相似度认定聊天无损。
 4. 真实模型增加批量prefill与单token decode分图、容量分档、采样和多轮缓存管理；之后才考虑1B及更多模型。
 
 KV cache不会自动修复已有量化精度或编译器崩溃问题。现阶段不承诺3B上NPU、也没有NPU上的FlashAttention/PagedAttention结果。

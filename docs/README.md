@@ -12,7 +12,7 @@
 | 陪伴质量 | [六模型质量汇总](六模型陪伴质量汇总.md) | 单seed首轮已结束，含截断与失败案例 |
 | 评测规范 | [第一阶段场景与协议](陪伴机器人第一阶段评测.md) | 自然度、角色稳定；非人工盲评结论 |
 | 硬件选型 | [3B选型与AX650N](端侧3B选型与A733-NPU可行性.md) | 外部数据核查，非同条件板卡实测 |
-| NPU适配研发 | [KV cache原型、内存与阻塞](../npu/kv-cache/README.md) | 主机正确性通过，NBG编译/板端decoder尚未完成 |
+| NPU适配研发 | [增量Transformer与CPU对照](../npu/kv-cache/NPU增量Transformer实测.md) | 真实SmolVLM前两层已在NPU复用KV运行；不是完整LLM |
 | NPU基础验证 | [驱动与预装网络验证](../npu/README.md) | 硬件/运行时可用，不代表LLM已加速 |
 
 ## 使用、部署与维护

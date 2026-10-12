@@ -1,0 +1,115 @@
+{
+  "fixture": {
+    "history": 84,
+    "capacity": 256,
+    "query_tokens": 1,
+    "fp32_graph_errors": {
+      "b1_attach_hidden_out/out0": 2.0325246623542625e-06,
+      "b0_attach_new_k/out0": 6.541855412933728e-08,
+      "b0_attach_new_v/out0": 3.366973544416396e-07,
+      "b1_attach_new_k/out0": 1.7091099380195374e-07,
+      "b1_attach_new_v/out0": 1.2497666830313392e-06
+    },
+    "inputs": [
+      [
+        "b0_hidden",
+        896
+      ],
+      [
+        "b0_past_k",
+        32768
+      ],
+      [
+        "b1_past_k",
+        32768
+      ],
+      [
+        "b0_past_v",
+        32768
+      ],
+      [
+        "b1_past_v",
+        32768
+      ],
+      [
+        "b0_mask",
+        257
+      ],
+      [
+        "b1_mask",
+        257
+      ],
+      [
+        "b0_rope_cos",
+        64
+      ],
+      [
+        "b1_rope_cos",
+        64
+      ],
+      [
+        "b0_rope_sin",
+        64
+      ],
+      [
+        "b1_rope_sin",
+        64
+      ]
+    ],
+    "outputs": [
+      [
+        "b1_attach_hidden_out/out0",
+        896
+      ],
+      [
+        "b0_attach_new_k/out0",
+        128
+      ],
+      [
+        "b1_attach_new_k/out0",
+        128
+      ],
+      [
+        "b0_attach_new_v/out0",
+        128
+      ],
+      [
+        "b1_attach_new_v/out0",
+        128
+      ]
+    ]
+  },
+  "errors": [
+    {
+      "tensor": "b1_attach_hidden_out/out0",
+      "relative_l2": 0.0054620783776044846,
+      "cosine": 0.9999855160713196
+    },
+    {
+      "tensor": "b0_attach_new_k/out0",
+      "relative_l2": 0.00023690136731602252,
+      "cosine": 1.0000001192092896
+    },
+    {
+      "tensor": "b1_attach_new_k/out0",
+      "relative_l2": 0.0005280316690914333,
+      "cosine": 0.9999998807907104
+    },
+    {
+      "tensor": "b0_attach_new_v/out0",
+      "relative_l2": 0.0011507190065458417,
+      "cosine": 0.9999993443489075
+    },
+    {
+      "tensor": "b1_attach_new_v/out0",
+      "relative_l2": 0.0036030991468578577,
+      "cosine": 0.9999939203262329
+    }
+  ],
+  "timing": {
+    "repeats": 5,
+    "mean_api_seconds": 0.004557133,
+    "allocated_bytes": 28002640,
+    "released_bytes": 0
+  }
+}

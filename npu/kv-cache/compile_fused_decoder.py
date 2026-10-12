@@ -24,6 +24,12 @@ p.add_argument('--width', type=int, choices=(2, 4), default=2)
 p.add_argument('--output', type=Path, required=True)
 p.add_argument('--timeout', type=int, default=300)
 p.add_argument('--compact-gqa', action='store_true')
+p.add_argument('--capacity',type=int,help='resize KV capacity and retain calibrated tensor scales')
+p.add_argument('--tokens',type=int,default=1,help='query token count for a causal prefill block')
+p.add_argument('--value-output-fp16',action='store_true',help='diagnostic explicit FP16 conversion at external V output only')
+p.add_argument('--value-perchannel',action='store_true',help='diagnostic W8 per-channel V kernel for batched queries')
+p.add_argument('--value-layout-fp16',action='store_true',help='diagnostic FP16 V layout conversion with unchanged matrix weights')
+p.add_argument('--value-layout-sliced',action='store_true',help='replace V permute by equivalent per-KV-head slices')
 a = p.parse_args()
 root = Path(__file__).resolve().parents[2] / 'npu/results'
 out = a.output.resolve()
@@ -39,10 +45,40 @@ for offset in range(a.width):
     graph = json.loads((folder / 'decoder.json').read_text())
     q = yaml.safe_load((folder / 'decoder.quantize').read_text())
     data = np.load(folder / 'decoder.data', allow_pickle=True).item()
-    if a.compact_gqa:
+    if a.value_output_fp16:
+        for key,node in graph['Layers'].items():
+            if node['name']=='attach_new_v/out0':
+                q['quantize_parameters']['@'+key+':out0']={'qtype':'float16','quantizer':'float16'}
+    if a.value_perchannel:
+        original_nodes=graph['Layers']
+        key=next(k for k,v in original_nodes.items() if v['name']=='new_v')
+        while original_nodes[key]['op']!='fullconnect':
+            assert len(original_nodes[key]['inputs'])==1
+            key=original_nodes[key]['inputs'][0][1:].rsplit(':',1)[0]
+        weight=data[key]['weight']
+        scales=np.maximum(np.abs(weight).max(axis=0)/127,np.finfo(np.float32).tiny)
+        q['quantize_parameters']['@'+key+':weight']={'qtype':'i8','quantizer':'perchannel_symmetric_affine',
+            'rounding':'rtne','scale':scales.tolist(),'channel_dim':-1}
+    if a.value_layout_fp16:
+        original_nodes=graph['Layers']
+        key=next(k for k,v in original_nodes.items() if v['name']=='new_v')
+        while original_nodes[key]['op']!='fullconnect':
+            q['quantize_parameters']['@'+key+':out0']={'qtype':'float16','quantizer':'float16'}
+            assert len(original_nodes[key]['inputs'])==1
+            key=original_nodes[key]['inputs'][0][1:].rsplit(':',1)[0]
+    if a.capacity is not None or a.tokens!=1:
+        assert a.compact_gqa, 'resizing requires compact GQA'
+        from reshape_decoder import reshape_decoder
+        data,change=reshape_decoder(graph,q,data,manifest['heads'],manifest['kv_heads'],manifest['head_dim'],
+            a.capacity or manifest['capacity'],a.tokens)
+        layout_changes.append({'layer':a.first+offset,**change})
+    elif a.compact_gqa:
         from compact_gqa import compact_gqa
         data, change = compact_gqa(graph, q, data, manifest['heads'], manifest['kv_heads'], manifest['head_dim'])
         layout_changes.append({'layer': a.first + offset, **change})
+    if a.value_layout_sliced:
+        from reshape_decoder import slice_value_layout
+        slice_value_layout(graph,q,manifest['kv_heads'],manifest['head_dim'],a.tokens)
     assert not graph.get('quantize_info') and not q.get('customized_quantize_layers')
     original = graph['Layers']
     rename = {key: f'b{offset}_{key}' for key in original}
@@ -78,6 +114,7 @@ for offset in range(a.width):
         if offset and port['lid'] == hidden:
             continue
         port = copy.deepcopy(port)
+        port['shape']=original[port['lid']]['parameters']['shape']
         port['lid'] = rename[port['lid']]
         ports.append(port)
     sources.append({'layer': a.first + offset, 'folder': str(folder.resolve().relative_to(root)),
@@ -118,8 +155,12 @@ with (out / 'export.log').open('w') as log:
         subprocess.run(['docker', 'stop', '-t', '2', container], stdout=log, stderr=subprocess.STDOUT, timeout=15)
         status = 124
 report = {'first_layer': a.first, 'fusion_width': a.width, 'sources': sources,
+    'value_output_fp16':a.value_output_fp16,'value_perchannel':a.value_perchannel,
+    'value_layout_fp16':a.value_layout_fp16,
+    'value_layout_sliced':a.value_layout_sliced,
+    'capacity':a.capacity or manifest['capacity'],'query_tokens':a.tokens,
     'compact_gqa': a.compact_gqa, 'layout_changes': layout_changes,
-    'scope': 'concatenated calibrated graphs, unchanged per-tensor quantization; no recalibration',
+    'scope': 'calibrated graph fusion with explicit recorded layout/precision overrides; no recalibration',
     'input_order': [v['lid'] for v in ports], 'output_order': outputs,
     'exit_code': status, 'seconds': time.monotonic() - started,
     'binaries': [{'path': str(f.relative_to(out)), 'bytes': f.stat().st_size} for f in out.rglob('network_binary.nb')]}

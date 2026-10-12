@@ -15,6 +15,11 @@ p.add_argument('--variant', required=True)
 p.add_argument('--width', type=int, choices=(2, 4), default=2)
 p.add_argument('--jobs', type=int, choices=(1, 2), default=2)
 p.add_argument('--compact-gqa', action='store_true')
+p.add_argument('--capacity',type=int)
+p.add_argument('--tokens',type=int,default=1)
+p.add_argument('--value-output-fp16',action='store_true')
+p.add_argument('--value-perchannel',action='store_true')
+p.add_argument('--value-layout-sliced',action='store_true')
 p.add_argument('--reuse-blocks-from', help='reuse immutable blocks only when every source hash and graph option matches')
 a = p.parse_args()
 source = a.source.resolve()
@@ -28,6 +33,12 @@ def compatible(record, first):
     if record.get('fusion_width') != a.width or record.get('first_layer') != first:
         return False
     if record.get('compact_gqa', False) != a.compact_gqa:
+        return False
+    if record.get('capacity',m['capacity'])!=(a.capacity or m['capacity']) or record.get('query_tokens',1)!=a.tokens:
+        return False
+    if record.get('value_output_fp16',False)!=a.value_output_fp16 or record.get('value_perchannel',False)!=a.value_perchannel:
+        return False
+    if record.get('value_layout_fp16',False) or record.get('value_layout_sliced',False)!=a.value_layout_sliced:
         return False
     if {s['layer'] for s in record['sources']} != set(range(first,first+a.width)):
         return False
@@ -54,12 +65,18 @@ def compile_block(first):
         with (out / f'layer{first}.log').open('w') as log:
             subprocess.run([sys.executable, str(Path(__file__).with_name('compile_fused_decoder.py')),
                 '--source', str(source), '--variant', a.base, '--first', str(first), '--width', str(a.width),
-                '--output', str(folder)] + (['--compact-gqa'] if a.compact_gqa else []),
+                '--output', str(folder), '--tokens',str(a.tokens)] +
+                (['--capacity',str(a.capacity)] if a.capacity else []) +
+                (['--value-output-fp16'] if a.value_output_fp16 else []) +
+                (['--value-perchannel'] if a.value_perchannel else []) +
+                (['--value-layout-sliced'] if a.value_layout_sliced else []) +
+                (['--compact-gqa'] if a.compact_gqa else []),
                 stdout=log, stderr=subprocess.STDOUT, check=True, timeout=340)
         record = json.loads((folder / 'conversion.json').read_text())
     assert record['exit_code'] == 0 and record['binaries']
     verify_contract(folder, a.width)
     result = {'layer': first, 'fusion_width': a.width, 'exit_code': 0,
+              'capacity':a.capacity or m['capacity'],'query_tokens':a.tokens,
               'path': str(folder / 'export_nbg_unify/network_binary.nb'), 'base': a.base,
               'reused_from':str(folder.resolve()) if folder.is_symlink() else None}
     print(json.dumps(result), flush=True)

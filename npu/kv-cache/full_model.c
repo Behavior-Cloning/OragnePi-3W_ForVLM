@@ -69,7 +69,11 @@ static void copy_values(Tensor *dst,unsigned offset,Tensor *src,unsigned begin,u
     if(same&&size)memcpy((char*)dst->data+offset*size,(char*)src->data+begin*size,count*size);
     else for(unsigned j=0;j<count;j++)put(dst,offset+j,get(src,begin+j));
 }
-int main(int argc,char **argv) {
+#include "batch_prefill.h"
+#ifndef OPI_FULL_MODEL_ENTRY
+#define OPI_FULL_MODEL_ENTRY main
+#endif
+int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     if(argc!=11){fprintf(stderr,"usage: full_model networks layers capacity vocab embeddings.f32 prompt.i32 max_new tokens.json logits.f32 eos_id\n");return 2;}
     int count=atoi(argv[2]),capacity=atoi(argv[3]),vocab=atoi(argv[4]),max_new=atoi(argv[7]),eos=atoi(argv[10]);
     if(count<1||count>80||capacity<1||capacity>8192||vocab<1||max_new<1||max_new>capacity)return 2;
@@ -80,6 +84,11 @@ int main(int argc,char **argv) {
     if(emb_fd<0||prompt_fd<0||fstat(emb_fd,&emb_stat)||fstat(prompt_fd,&prompt_stat))return 2;
     if((size_t)emb_stat.st_size!=(size_t)vocab*DIM*sizeof(float)||prompt_stat.st_size<4||prompt_stat.st_size%4)return 2;
     int prompt_count=prompt_stat.st_size/4;
+    int prefill_tokens=getenv("OPI_PREFILL_TOKENS")?atoi(getenv("OPI_PREFILL_TOKENS")):0;
+    int cached_prefix=getenv("OPI_CACHED_PREFIX")?atoi(getenv("OPI_CACHED_PREFIX")):0;
+    int scalar_prefix=getenv("OPI_PREFILL_SCALAR_PREFIX")?atoi(getenv("OPI_PREFILL_SCALAR_PREFIX")):0;
+    if(prefill_tokens<0||prefill_tokens==1||prefill_tokens>256||prefill_tokens>capacity||
+       cached_prefix<0||cached_prefix>=prompt_count||scalar_prefix<0||scalar_prefix>prompt_count)return 2;
     if(prompt_count+max_new-1>capacity){fprintf(stderr,"prompt plus output exceeds KV capacity\n");return 2;}
     const float *emb=mmap(NULL,emb_stat.st_size,PROT_READ,MAP_PRIVATE,emb_fd,0);
     const int32_t *prompt=mmap(NULL,prompt_stat.st_size,PROT_READ,MAP_PRIVATE,prompt_fd,0);
@@ -106,6 +115,7 @@ int main(int argc,char **argv) {
     FILE *token_file=fopen(argv[8],"w"),*logits_file=performance?NULL:fopen(argv[9],"wb");
     if(!token_file||(!performance&&!logits_file))return 2;
     const char *trace_path=getenv("OPI_FULL_TRACE");
+    if(trace_path&&prefill_tokens){fprintf(stderr,"batch prefill trace unavailable\n");return 2;}
     if(trace_path&&FUSED_LAYERS!=1){fprintf(stderr,"per-layer hidden trace unavailable in fused graph\n");return 2;}
     if(performance&&trace_path){fprintf(stderr,"performance and trace are exclusive\n");return 2;}
     FILE *trace_file=trace_path?fopen(trace_path,"wb"):NULL;
@@ -115,7 +125,8 @@ int main(int argc,char **argv) {
     float *x=calloc(DIM,sizeof(float)),*logits=calloc(vocab,sizeof(float));
     int *generated=calloc(max_new,sizeof(int));double *latencies=calloc(max_new,sizeof(double));
     double *layer_seconds=calloc(count,sizeof(double));
-    if(!decoder||!x||!logits||!generated||!latencies||!layer_seconds)return 2;
+    double *decode_block_seconds=calloc(blocks,sizeof(double));
+    if(!decoder||!x||!logits||!generated||!latencies||!layer_seconds||!decode_block_seconds)return 2;
     if(performance){
         double deadline=now()+300;
         while(temperature()>max_start_temp){
@@ -166,13 +177,29 @@ int main(int argc,char **argv) {
         unsigned width=(unsigned)(vocab-s*head_chunk<head_chunk?vocab-s*head_chunk:head_chunk);
         unsigned head_in[]={DIM},head_out[]={width};load_net(&head[s],path,1,1,head_in,head_out);
     }
+    BatchPrefill batch=load_prefill(argv[1],prefill_tokens,blocks,capacity,decoder);
     double load_seconds=now()-load_start;long long allocated=npu_bytes();
     long long npu_freq_before=read_frequency("/sys/class/devfreq/3600000.npu/cur_freq");
     long long cpu_freq_before=read_frequency("/sys/devices/system/cpu/cpu6/cpufreq/scaling_cur_freq");
     double start=now(),cpu_start=cpu_time(),run_seconds=0,first_token=0,previous_token=start;
     double head_seconds=0,decode_decoder_seconds=0,decode_head_seconds=0;
+    double preparation_seconds=0,preparation_api_seconds=0,preparation_cpu_seconds=0,prefill_api_seconds=0;
+    int batched_prompt_tokens=0,prepared_batch_tokens=0;
     int n_generated=0,token=0;
     for(int pos=0;pos<prompt_count+max_new-1;pos++) {
+        if(cached_prefix&&pos==cached_prefix){
+            double stamp=now(),cpu_stamp=cpu_time();
+            preparation_seconds=stamp-start;preparation_cpu_seconds=cpu_stamp-cpu_start;
+            preparation_api_seconds=run_seconds;prepared_batch_tokens=batched_prompt_tokens;
+            run_seconds=0;prefill_api_seconds=0;start=previous_token=stamp;cpu_start=cpu_stamp;
+        }
+        int boundary=pos<cached_prefix?cached_prefix:prompt_count;
+        if(prefill_tokens&&pos>=scalar_prefix&&pos+prefill_tokens<=boundary){
+            double prior=run_seconds;
+            run_prefill(&batch,decoder,emb,prompt,pos,x,&run_seconds);
+            prefill_api_seconds+=run_seconds-prior;batched_prompt_tokens+=prefill_tokens;
+            pos+=prefill_tokens-1;
+        }else{
         token=pos<prompt_count?prompt[pos]:(feedback?feedback[n_generated-1]:generated[n_generated-1]);
         memcpy(x,emb+(size_t)token*DIM,DIM*sizeof(float));
         float rope_cos[HD],rope_sin[HD];
@@ -212,11 +239,13 @@ int main(int argc,char **argv) {
                 }
                 double prior=run_seconds;execute(l,ni,no,&run_seconds);
                 layer_seconds[i]+=run_seconds-prior;
-                if(pos>=prompt_count)decode_decoder_seconds+=run_seconds-prior;
+                if(pos>=prompt_count){
+                    decode_decoder_seconds+=run_seconds-prior;decode_block_seconds[i]+=run_seconds-prior;
+                }
             }else{
-                for(unsigned j=0;j<no;j++)check(vip_flush_buffer(l->out[j].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read grouped output");
+                for(unsigned j=(i==blocks-1||trace_file)?0:1;j<no;j++)check(vip_flush_buffer(l->out[j].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read grouped output");
             }
-            for(int j=0;j<DIM;j++){
+            for(int j=0;(!group_size||i==blocks-1||trace_file)&&j<DIM;j++){
                 x[j]=get(&l->out[0],j);
                 if(!isfinite(x[j])){fprintf(stderr,"NONFINITE position=%d layer=%d component=%d value=%g\n",pos,i,j,x[j]);return 3;}
             }
@@ -226,6 +255,7 @@ int main(int argc,char **argv) {
                 copy_values(&l->in[IN_V(k)],dst,&l->out[OUT_V(k)],src,HD);
             }
             if(trace_file&&fwrite(x,sizeof(float),DIM,trace_file)!=(size_t)DIM)return 2;
+        }
         }
         if(pos<prompt_count-1)continue;
         int fast_best=-1;float fast_value=-INFINITY;
@@ -279,6 +309,7 @@ int main(int argc,char **argv) {
     long long npu_freq_after=read_frequency("/sys/class/devfreq/3600000.npu/cur_freq");
     long long cpu_freq_after=read_frequency("/sys/devices/system/cpu/cpu6/cpufreq/scaling_cur_freq");
     for(int g=0;g<group_count;g++)check(vip_destroy_group(groups[g]),"destroy decoder group");
+    free_prefill(&batch);
     for(int i=0;i<blocks;i++){free_net(&decoder[i],ni,no);}
     for(int s=0;s<HEAD_SHARDS;s++)free_net(&head[s],1,1);
     check(vip_destroy(),"release full model");
@@ -296,10 +327,17 @@ int main(int argc,char **argv) {
         if(group_size)fprintf(token_file,"%snull",i?",":"");
         else fprintf(token_file,"%s%.6f",i?",":"",layer_seconds[i]);
     }
+    fprintf(token_file,"],\"decode_block_api_seconds\":[");
+    for(int i=0;i<blocks;i++){
+        if(group_size)fprintf(token_file,"%snull",i?",":"");
+        else fprintf(token_file,"%s%.6f",i?",":"",decode_block_seconds[i]);
+    }
     fprintf(token_file,"],\"fixed_feedback\":%s,\"feedback_tokens\":[",feedback?"true":"false");
     if(feedback)for(int i=0;i<max_new;i++)fprintf(token_file,"%s%d",i?",":"",feedback[i]);
-    fprintf(token_file,"],\"performance_mode\":%s,\"host_revision\":7,\"decoder_group_size\":%d,\"fusion_width\":%d,\"max_start_temperature_mC\":%d,\"npu_frequency_before_hz\":%lld,\"npu_frequency_after_hz\":%lld,\"cpu6_frequency_before_khz\":%lld,\"cpu6_frequency_after_khz\":%lld,\"fast_greedy\":%s,\"rss_after_inference_kib\":%ld}\n",performance?"true":"false",group_size,FUSED_LAYERS,max_start_temp,npu_freq_before,npu_freq_after,cpu_freq_before,cpu_freq_after,fast_greedy?"true":"false",rss_after_inference);
+    fprintf(token_file,"],\"prefill_batch_size\":%d,\"cached_prefix_tokens\":%d,\"new_prompt_tokens\":%d,\"batched_prompt_tokens\":%d,\"prepared_batch_tokens\":%d,\"preparation_seconds\":%.6f,\"preparation_api_seconds\":%.6f,\"preparation_cpu_seconds\":%.6f,\"prefill_api_seconds\":%.6f",prefill_tokens,cached_prefix,prompt_count-cached_prefix,batched_prompt_tokens,prepared_batch_tokens,preparation_seconds,preparation_api_seconds,preparation_cpu_seconds,prefill_api_seconds);
+    fprintf(token_file,",\"prefill_scalar_prefix\":%d,\"performance_mode\":%s,\"host_revision\":9,\"decoder_group_size\":%d,\"fusion_width\":%d,\"max_start_temperature_mC\":%d,\"npu_frequency_before_hz\":%lld,\"npu_frequency_after_hz\":%lld,\"cpu6_frequency_before_khz\":%lld,\"cpu6_frequency_after_khz\":%lld,\"fast_greedy\":%s,\"rss_after_inference_kib\":%ld}\n",scalar_prefix,performance?"true":"false",group_size,FUSED_LAYERS,max_start_temp,npu_freq_before,npu_freq_after,cpu_freq_before,cpu_freq_after,fast_greedy?"true":"false",rss_after_inference);
     if(trace_file)fclose(trace_file);
+    free(decode_block_seconds);
     fclose(token_file);if(logits_file)fclose(logits_file);munmap((void*)emb,emb_stat.st_size);munmap((void*)prompt,prompt_stat.st_size);
     close(emb_fd);close(prompt_fd);free(decoder);free(x);free(logits);free(generated);free(feedback);free(latencies);free(layer_seconds);return 0;
 }

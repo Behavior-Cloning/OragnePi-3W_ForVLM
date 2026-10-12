@@ -17,6 +17,9 @@ p.add_argument('--trace',action='store_true',help='diagnostic hidden states for 
 p.add_argument('--performance',action='store_true',help='no logits/hidden dumps or per-token logging; tokens and full-chain timing retained')
 p.add_argument('--decoder-group',type=int,default=0,help='batch N decoder submissions and share FP16 hidden buffers; 0 keeps host transfers')
 p.add_argument('--fusion-width',type=int,choices=(1,2,4),default=1,help='language layers per compiled decoder graph')
+p.add_argument('--prefill-variant',help='compatible batched graph stack, loaded alongside single-token decode')
+p.add_argument('--cached-prefix',type=int,default=0,help='prepare prefix KV before incremental TTFT timer starts')
+p.add_argument('--prefill-scalar-prefix',type=int,default=0,help='keep first N absolute positions on the proven single-token path')
 p.add_argument('--fast-greedy',action='store_true',help='compare shard integer maxima, checking against full FP32 argmax in diagnostic mode')
 p.add_argument('--feedback-from',type=Path,help='tokens.json of a frozen continuation; teacher forcing for matched work, not free generation')
 p.add_argument('--reuse-tag',help='reuse immutable binaries from this deployed tag, hash-checking all reused files')
@@ -32,6 +35,16 @@ count=len(manifest['layers'])
 if count%args.fusion_width or not 0<=args.decoder_group<=count//args.fusion_width:raise ValueError('invalid fusion/group size')
 if args.trace and args.fusion_width!=1:raise ValueError('fused graphs do not expose per-layer hidden traces')
 records=json.loads((args.source/args.dtype/'stack-conversion.json').read_text())
+capacity=records[0].get('capacity',manifest['capacity'])
+assert all(r.get('capacity',manifest['capacity'])==capacity and r.get('query_tokens',1)==1 for r in records if r['layer']<count)
+prefill_records=[];prefill_tokens=0
+if args.prefill_variant:
+    assert not args.trace
+    prefill_records=[r for r in json.loads((args.source/args.prefill_variant/'stack-conversion.json').read_text()) if r['layer']<count]
+    prefill_tokens=prefill_records[0]['query_tokens']
+    assert len(prefill_records)==count//args.fusion_width and prefill_tokens>1
+    assert {r['layer'] for r in prefill_records}==set(range(0,count,args.fusion_width))
+    assert all(r['query_tokens']==prefill_tokens and r['capacity']==capacity and r['fusion_width']==args.fusion_width and not r['exit_code'] for r in prefill_records)
 head_shards=manifest.get('head_shards',[{'vocab_count':manifest['vocab_size']}])
 assert len(records)==count//args.fusion_width+len(head_shards) and not any(r['exit_code'] for r in records)
 assert {r['layer'] for r in records}==set(range(0,count,args.fusion_width))|set(range(count,count+len(head_shards)))
@@ -47,6 +60,12 @@ prompt_name=result_name+'-prompt.i32'
 executable=result_name+'-full_model'
 result_dir=args.source/args.dtype/result_name;result_dir.mkdir(exist_ok=True)
 prompt_folder=args.prompt_folder or args.source
+prompt_count=len(json.loads((prompt_folder/'prompt.json').read_text())['token_ids'])
+assert 0<=args.cached_prefix<prompt_count and 0<=args.prefill_scalar_prefix<=prompt_count
+assert prompt_count+args.max_new-1<=capacity
+(result_dir/'runner-config.json').write_text(json.dumps({'decode_variant':args.dtype,'prefill_variant':args.prefill_variant,
+    'capacity':capacity,'query_tokens':prefill_tokens,'cached_prefix':args.cached_prefix,
+    'scalar_prefix':args.prefill_scalar_prefix},indent=2)+'\n')
 feedback_file=None
 if args.feedback_from:
     feedback=json.loads(args.feedback_from.read_text())
@@ -57,10 +76,12 @@ if args.feedback_from:
     feedback_file=result_dir/'feedback.i32'
     feedback_file.write_bytes(struct.pack('<'+'i'*args.max_new,*feedback['tokens']))
 files=[(args.source/'embeddings.f32','embeddings.f32'),(prompt_folder/'prompt.i32',prompt_name),
-       (scripts/'full_model.c','full_model.c'),(scripts/'board_probe.c','board_probe.c'),(scripts/'greedy_i16.h','greedy_i16.h')]
+       (scripts/'full_model.c','full_model.c'),(scripts/'board_probe.c','board_probe.c'),(scripts/'greedy_i16.h','greedy_i16.h'),
+       (scripts/'batch_prefill.h','batch_prefill.h')]
 files.extend((Path(r['path']),f"layer{r['layer']}.nb") for r in records)
+files.extend((Path(r['path']),f"prefill-layer{r['layer']}.nb") for r in prefill_records)
 if args.skip_deploy:
-    files=[(src,name) for src,name in files if name in (prompt_name,'full_model.c','board_probe.c','greedy_i16.h')]
+    files=[(src,name) for src,name in files if name in (prompt_name,'full_model.c','board_probe.c','greedy_i16.h','batch_prefill.h')]
 if feedback_file:files.append((feedback_file,result_name+'-feedback.i32'))
 if files:
     subprocess.run(ssh+['mkdir -p '+remote],check=True,timeout=30)
@@ -89,12 +110,15 @@ if args.deploy_only:
     raise SystemExit(0)
 for name in ('prompt.json','prompt.i32'):
     (result_dir/name).write_bytes((prompt_folder/name).read_bytes())
-command=(f'cd {remote} && mkdir -p {result_name} && timeout 600 ./{executable} . {len(manifest["layers"])} {manifest["capacity"]} '
+command=(f'cd {remote} && mkdir -p {result_name} && timeout 600 ./{executable} . {len(manifest["layers"])} {capacity} '
          f'{manifest["vocab_size"]} embeddings.f32 {prompt_name} {args.max_new} {result_name}/tokens.json {result_name}/logits.f32 {manifest["eos_token_ids"][0]}')
 if args.trace:command=command.replace('timeout 600',f'OPI_FULL_TRACE={result_name}/hidden-trace.f32 timeout 600')
 if args.performance:command=command.replace('timeout 600','OPI_PERFORMANCE=1 timeout 600')
 if args.decoder_group:command=command.replace('timeout 600',f'OPI_DECODER_GROUP={args.decoder_group} timeout 600')
 if args.fast_greedy:command=command.replace('timeout 600','OPI_FAST_GREEDY=1 timeout 600')
+if args.prefill_variant:command=command.replace('timeout 600',f'OPI_PREFILL_TOKENS={prefill_tokens} timeout 600')
+if args.cached_prefix:command=command.replace('timeout 600',f'OPI_CACHED_PREFIX={args.cached_prefix} timeout 600')
+if args.prefill_scalar_prefix:command=command.replace('timeout 600',f'OPI_PREFILL_SCALAR_PREFIX={args.prefill_scalar_prefix} timeout 600')
 if feedback_file:command=command.replace('timeout 600',f'OPI_FEEDBACK_FILE={result_name}-feedback.i32 timeout 600')
 command=compile_command+' && '+command
 command='flock -w 1800 /run/opi-npu-kv-benchmark.lock sh -c '+shlex.quote(command)

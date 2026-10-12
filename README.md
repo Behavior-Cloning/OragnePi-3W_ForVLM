@@ -10,7 +10,8 @@
 ## 开发入口
 
 - [文档总导航](docs/README.md)：当前报告、部署手册、硬件选型与历史资料。
-- [MLP选择性量化加速](npu/kv-cache/MLP选择性量化加速.md)：最新500M 13.92、1B 13.22 token/s；完整生成精度、固定历史五轮对照及配置审计。
+- [批量Prefill与CPU对标](npu/kv-cache/批量Prefill与CPU对标.md)：500M首字1.92→0.86秒；1B增量首字1.21→0.316秒，decode仍未超过CPU，含失败样例与内存代价。
+- [MLP选择性量化加速](npu/kv-cache/MLP选择性量化加速.md)：上一阶段500M 13.92、1B 13.22 token/s；完整生成精度、固定历史五轮对照及配置审计。
 - [Decoder融合与GQA优化](npu/kv-cache/Decoder融合与GQA优化.md)：双层计算图、减少K/V展开、完整输出核对及相同条件的NPU对照。
 - [Q8 完整模型优化进展](npu/kv-cache/Q8完整模型优化进展.md)：此前500M/1B全层W8精度、输出头提速、五次对照及量化算法说明。
 - [NPU INT8误差修复](npu/kv-cache/INT8误差定位与修复.md)：500M混合精度完整生成复测、1B输出头修复与未达标项。

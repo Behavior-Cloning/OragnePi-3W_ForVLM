@@ -1,12 +1,14 @@
-"""Join calibrated ACUITY decoder graphs without changing their quantizers.
+"""Join calibrated ACUITY decoder graphs, with explicit optional experiments.
 
 Only the intermediate hidden input/output boundary is removed. Every layer
 keeps its own KV, mask and RoPE ports, so no scale compatibility is assumed.
+Layout and precision experiments are opt-in and recorded in conversion.json.
 """
 import argparse
 import copy
 import hashlib
 import json
+import re
 from pathlib import Path
 import subprocess
 import time
@@ -34,8 +36,27 @@ p.add_argument('--native-rmsnorm',action='store_true',help='experimental SDK RMS
 p.add_argument('--key-cache-transposed',action='store_true',help='experimental K cache layout; requires matching runtime')
 p.add_argument('--attention-fp16',action='store_true',help='diagnostic FP16 matmul operand conversion; KV ports stay calibrated')
 p.add_argument('--attention-fp16-convert',action='store_true',help='explicit dtype_converter before attention matmul; preserve layout-node precision')
+p.add_argument('--node-trace',action='store_true',help='emit SDK node mapping for NPD diagnostics')
+p.add_argument('--fp16-kv-cache',action='store_true',help='retain history in FP16 and convert only newly appended KV')
+p.add_argument('--attention-probability-i16',action='store_true',help='ablation: INT16 softmax probability output with original KV concat')
+p.add_argument('--split-kv-attention',action='store_true',help='avoid full-history KV concat by distributed attention matmuls')
+p.add_argument('--split-kv-side',choices=('both','key','value'),default='both')
+p.add_argument('--split-probability-i16',action='store_true',help='materialize sliced past probabilities in INT16')
+p.add_argument('--split-value-heads',action='store_true',help='lower past AV to per-KV-head 2D matrices')
+p.add_argument('--split-value-fp16',action='store_true',help='explicitly convert past V before split attention')
+p.add_argument('--split-value-transposed',action='store_true',help='evaluate AV as transposed V times transposed probabilities')
+p.add_argument('--split-probability-identity',action='store_true',help='materialize positive sliced probabilities through abs')
+p.add_argument('--split-softmax-i16',action='store_true',help='retain softmax arithmetic but quantize its probabilities to INT16 at the producer')
+p.add_argument('--split-current-matmul',action='store_true',help='use outer-product matmul for current V instead of cross-axis broadcasting')
+p.add_argument('--sdk-option',action='append',default=[],metavar='VIV_VX_NAME=VALUE',help='explicit SDK experiment, recorded in provenance')
 a = p.parse_args()
 assert not (a.attention_fp16 and a.attention_fp16_convert)
+assert not (a.split_kv_side != 'both' or any((a.split_probability_i16, a.split_value_heads,
+    a.split_value_fp16, a.split_value_transposed, a.split_probability_identity,
+    a.split_softmax_i16, a.split_current_matmul))) or a.split_kv_attention
+assert not a.split_kv_attention or a.tokens == 1 or a.split_current_matmul
+assert all(re.fullmatch(r'VIV_VX_[A-Z0-9_]+=[A-Za-z0-9_.-]+', v) for v in a.sdk_option)
+assert len({v.split('=')[0] for v in a.sdk_option}) == len(a.sdk_option)
 root = Path(__file__).resolve().parents[2] / 'npu/results'
 out = a.output.resolve()
 relative = out.relative_to(root)
@@ -46,6 +67,8 @@ layout_changes = []
 norm_changes = []
 key_layout_changes = []
 attention_changes = []
+split_kv_changes = []
+fp16_kv_changes = []
 manifest = json.loads((a.source / 'trained-manifest.json').read_text())
 previous_hidden = None
 for offset in range(a.width):
@@ -87,12 +110,30 @@ for offset in range(a.width):
     if a.value_layout_sliced:
         from reshape_decoder import slice_value_layout
         slice_value_layout(graph,q,manifest['kv_heads'],manifest['head_dim'],a.tokens)
+    if a.fp16_kv_cache:
+        assert a.compact_gqa and not any((a.key_cache_transposed,a.split_kv_attention,a.attention_fp16,a.attention_fp16_convert))
+        from fp16_kv_cache import fp16_kv_cache
+        fp16_kv_changes.append({'layer':a.first+offset,**fp16_kv_cache(graph,q)})
+    if a.attention_probability_i16:
+        assert a.compact_gqa and not any((a.split_kv_attention,a.fp16_kv_cache,a.attention_fp16,a.attention_fp16_convert))
+        key=next(k for k,v in graph['Layers'].items() if v['op']=='softmax')
+        q['quantize_parameters']['@'+key+':out0']={'qtype':'i16','quantizer':'dynamic_fixed_point','rounding':'rtne','fl':15}
+    if a.split_kv_attention:
+        assert a.compact_gqa
+        from split_kv_attention import split_kv_attention
+        split_kv_changes.append({'layer':a.first+offset,**split_kv_attention(graph,q,data,
+            manifest['heads'],manifest['kv_heads'],manifest['head_dim'],
+            a.capacity or manifest['capacity'],a.tokens,side=a.split_kv_side,
+            probability_i16=a.split_probability_i16,value_heads=a.split_value_heads,
+            value_fp16=a.split_value_fp16,value_transposed=a.split_value_transposed,
+            probability_identity=a.split_probability_identity,softmax_i16=a.split_softmax_i16,
+            current_matmul=a.split_current_matmul,key_cache_transposed=a.key_cache_transposed)})
     if a.native_rmsnorm:
         assert manifest.get('stable_norm') and manifest.get('norm_version') == 3
         from native_rmsnorm import replace_rmsnorm
         data, change = replace_rmsnorm(graph, q, data)
         norm_changes.append({'layer': a.first + offset, **change})
-    if a.key_cache_transposed:
+    if a.key_cache_transposed and not a.split_kv_attention:
         assert a.compact_gqa
         from key_cache_layout import transpose_key_cache
         key_layout_changes.append({'layer':a.first+offset,**transpose_key_cache(graph,q)})
@@ -195,6 +236,10 @@ command = ['docker', 'run', '--rm', '--name', container, '--network', 'none', '-
     '--optimize', 'VIP9000NANODI_PLUS_PID0X1000003B', '--viv-sdk', '/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools',
     '--output-path', 'export/decoder']
 started = time.monotonic()
+if a.node_trace:
+    command[2:2] = ['-e', 'VIV_VX_DUMP_NODE_TRACE_DB=1']
+for option in a.sdk_option:
+    command[2:2] = ['-e', option]
 with (out / 'export.log').open('w') as log:
     try:
         result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, timeout=a.timeout)
@@ -203,6 +248,19 @@ with (out / 'export.log').open('w') as log:
         subprocess.run(['docker', 'stop', '-t', '2', container], stdout=log, stderr=subprocess.STDOUT, timeout=15)
         status = 124
 report = {'first_layer': a.first, 'fusion_width': a.width, 'sources': sources,
+    'node_trace':a.node_trace,
+    'fp16_kv_cache':a.fp16_kv_cache,'fp16_kv_changes':fp16_kv_changes,
+    'attention_probability_i16':a.attention_probability_i16,
+    'split_kv_attention':a.split_kv_attention,'split_kv_changes':split_kv_changes,
+    'split_kv_side':a.split_kv_side,
+    'split_probability_i16':a.split_probability_i16,
+    'split_value_heads':a.split_value_heads,
+    'split_value_fp16':a.split_value_fp16,
+    'split_value_transposed':a.split_value_transposed,
+    'split_probability_identity':a.split_probability_identity,
+    'split_softmax_i16':a.split_softmax_i16,
+    'split_current_matmul':a.split_current_matmul,
+    'sdk_options':a.sdk_option,
     'value_output_fp16':a.value_output_fp16,'value_perchannel':a.value_perchannel,
     'value_layout_fp16':a.value_layout_fp16,
     'value_layout_sliced':a.value_layout_sliced,

@@ -24,6 +24,19 @@ p.add_argument('--native-rmsnorm',action='store_true')
 p.add_argument('--key-cache-transposed',action='store_true')
 p.add_argument('--attention-fp16',action='store_true')
 p.add_argument('--attention-fp16-convert',action='store_true')
+p.add_argument('--split-kv-attention',action='store_true')
+p.add_argument('--split-kv-side',choices=('both','key','value'),default='both')
+p.add_argument('--split-probability-i16',action='store_true')
+p.add_argument('--split-value-heads',action='store_true')
+p.add_argument('--split-value-fp16',action='store_true')
+p.add_argument('--split-value-transposed',action='store_true')
+p.add_argument('--split-probability-identity',action='store_true')
+p.add_argument('--split-softmax-i16',action='store_true')
+p.add_argument('--split-current-matmul',action='store_true')
+p.add_argument('--node-trace',action='store_true')
+p.add_argument('--fp16-kv-cache',action='store_true')
+p.add_argument('--attention-probability-i16',action='store_true')
+p.add_argument('--sdk-option',action='append',default=[])
 p.add_argument('--reuse-blocks-from', help='reuse immutable blocks only when every source hash and graph option matches')
 a = p.parse_args()
 source = a.source.resolve()
@@ -51,6 +64,25 @@ def compatible(record, first):
     if record.get('attention_fp16',False)!=a.attention_fp16:
         return False
     if record.get('attention_fp16_convert',False)!=a.attention_fp16_convert:
+        return False
+    if record.get('split_kv_attention',False)!=a.split_kv_attention:
+        return False
+    if record.get('fp16_kv_cache',False)!=a.fp16_kv_cache:
+        return False
+    if record.get('attention_probability_i16',False)!=a.attention_probability_i16:
+        return False
+    if a.split_kv_attention and (record.get('split_kv_side','both')!=a.split_kv_side or
+            record.get('split_probability_i16',False)!=a.split_probability_i16 or
+            record.get('split_value_heads',False)!=a.split_value_heads or
+            record.get('split_value_fp16',False)!=a.split_value_fp16 or
+            record.get('split_value_transposed',False)!=a.split_value_transposed or
+            record.get('split_probability_identity',False)!=a.split_probability_identity or
+            record.get('split_softmax_i16',False)!=a.split_softmax_i16 or
+            record.get('split_current_matmul',False)!=a.split_current_matmul):
+        return False
+    if sorted(record.get('sdk_options',[]))!=sorted(a.sdk_option):
+        return False
+    if a.node_trace and not record.get('node_trace',False):
         return False
     if {s['layer'] for s in record['sources']} != set(range(first,first+a.width)):
         return False
@@ -86,6 +118,18 @@ def compile_block(first):
                 (['--key-cache-transposed'] if a.key_cache_transposed else []) +
                 (['--attention-fp16'] if a.attention_fp16 else []) +
                 (['--attention-fp16-convert'] if a.attention_fp16_convert else []) +
+                (['--split-kv-attention','--split-kv-side',a.split_kv_side] if a.split_kv_attention else []) +
+                (['--split-probability-i16'] if a.split_probability_i16 else []) +
+                (['--split-value-heads'] if a.split_value_heads else []) +
+                (['--split-value-fp16'] if a.split_value_fp16 else []) +
+                (['--split-value-transposed'] if a.split_value_transposed else []) +
+                (['--split-probability-identity'] if a.split_probability_identity else []) +
+                (['--split-softmax-i16'] if a.split_softmax_i16 else []) +
+                (['--split-current-matmul'] if a.split_current_matmul else []) +
+                (['--node-trace'] if a.node_trace else []) +
+                (['--fp16-kv-cache'] if a.fp16_kv_cache else []) +
+                (['--attention-probability-i16'] if a.attention_probability_i16 else []) +
+                [v for opt in a.sdk_option for v in ('--sdk-option',opt)] +
                 (['--compact-gqa'] if a.compact_gqa else []),
                 stdout=log, stderr=subprocess.STDOUT, check=True, timeout=340)
         record = json.loads((folder / 'conversion.json').read_text())
@@ -94,6 +138,15 @@ def compile_block(first):
     result = {'layer': first, 'fusion_width': a.width, 'exit_code': 0,
               'capacity':a.capacity or m['capacity'],'query_tokens':a.tokens,
               'key_cache_transposed':a.key_cache_transposed,
+              'split_kv_attention':a.split_kv_attention,'split_kv_side':a.split_kv_side,
+              'fp16_kv_cache':a.fp16_kv_cache,
+              'attention_probability_i16':a.attention_probability_i16,
+              'split_probability_i16':a.split_probability_i16,'sdk_options':a.sdk_option,
+              'split_value_heads':a.split_value_heads,'split_value_fp16':a.split_value_fp16,
+              'split_value_transposed':a.split_value_transposed,
+              'split_probability_identity':a.split_probability_identity,
+              'split_softmax_i16':a.split_softmax_i16,
+              'split_current_matmul':a.split_current_matmul,
               'path': str(folder / 'export_nbg_unify/network_binary.nb'), 'base': a.base,
               'reused_from':str(folder.resolve()) if folder.is_symlink() else None}
     print(json.dumps(result), flush=True)

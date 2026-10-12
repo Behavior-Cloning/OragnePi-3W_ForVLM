@@ -90,6 +90,16 @@ summary['execution_gate_v1']={
     'passed':bool(summary['relative_l2_all_logits']<=0.05 and cosine.min()>=0.99 and (top==predicted).mean()>=0.95)
               if args.reference_weights!='original' else None,
     'scope':'execution on this trajectory only; not holdout quality acceptance'}
+if result.get('fixed_feedback'):
+    targets = torch.tensor(result['feedback_tokens'], dtype=torch.long)
+    assert targets.numel() == actual.shape[0]
+    steps = torch.arange(targets.numel())
+    reference_nll = float(-reference_logp[steps,targets].mean())
+    actual_nll = float(-actual_logp[steps,targets].mean())
+    summary['fixed_trajectory_nll'] = {
+        'reference_nll_nats':reference_nll, 'npu_nll_nats':actual_nll,
+        'perplexity_ratio':float(np.exp(actual_nll-reference_nll)),
+        'scope':'development continuation, not independent holdout acceptance'}
 if trace is not None:summary['hidden_trace_errors']=trace_errors
 reference=board/'cpu-full-reference.json'
 if not reference.exists():

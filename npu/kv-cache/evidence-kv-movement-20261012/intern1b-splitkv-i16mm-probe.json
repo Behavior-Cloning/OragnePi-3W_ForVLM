@@ -1,0 +1,135 @@
+{
+  "fixture": {
+    "history": 1024,
+    "capacity": 1280,
+    "query_tokens": 1,
+    "fp32_graph_errors": {
+      "b1_attach_hidden_out/out0": 1.447794147679815e-06,
+      "b0_attach_new_k/out0": 4.694254229775652e-08,
+      "b0_attach_new_v/out0": 4.4646390051639173e-07,
+      "b1_attach_new_k/out0": 1.0420562546187284e-07,
+      "b1_attach_new_v/out0": 1.1735947964552906e-06
+    },
+    "key_cache_transposed": false,
+    "inputs": [
+      [
+        "b0_hidden",
+        896
+      ],
+      [
+        "b0_past_k",
+        163840
+      ],
+      [
+        "b1_past_k",
+        163840
+      ],
+      [
+        "b0_past_v",
+        163840
+      ],
+      [
+        "b1_past_v",
+        163840
+      ],
+      [
+        "b0_mask",
+        1281
+      ],
+      [
+        "b1_mask",
+        1281
+      ],
+      [
+        "b0_rope_cos",
+        64
+      ],
+      [
+        "b1_rope_cos",
+        64
+      ],
+      [
+        "b0_rope_sin",
+        64
+      ],
+      [
+        "b1_rope_sin",
+        64
+      ]
+    ],
+    "outputs": [
+      [
+        "b1_attach_hidden_out/out0",
+        896
+      ],
+      [
+        "b0_attach_new_k/out0",
+        128
+      ],
+      [
+        "b1_attach_new_k/out0",
+        128
+      ],
+      [
+        "b0_attach_new_v/out0",
+        128
+      ],
+      [
+        "b1_attach_new_v/out0",
+        128
+      ]
+    ]
+  },
+  "folder": "npu/results/intern1b-decode-c1280-splitkv-i16mm/l0",
+  "cpu_affinity": "6,7",
+  "binary_sha256": "00877e259a07b311a33116c2af3e89a0c3b802c73e1d7f901adf93fc64d51de2",
+  "input_sha256": "d64c65b22efcd0dbbda47283ba3661c7b3bf67d15876921e359bf7a412301978",
+  "alternate_fixture": null,
+  "errors": [
+    {
+      "tensor": "b1_attach_hidden_out/out0",
+      "relative_l2": 0.012249483726918697,
+      "cosine": 0.9999279379844666
+    },
+    {
+      "tensor": "b0_attach_new_k/out0",
+      "relative_l2": 0.0002599253784865141,
+      "cosine": 1.0000001192092896
+    },
+    {
+      "tensor": "b1_attach_new_k/out0",
+      "relative_l2": 0.0011424776166677475,
+      "cosine": 0.9999994039535522
+    },
+    {
+      "tensor": "b0_attach_new_v/out0",
+      "relative_l2": 0.0009348523453809321,
+      "cosine": 0.9999995827674866
+    },
+    {
+      "tensor": "b1_attach_new_v/out0",
+      "relative_l2": 0.009805156849324703,
+      "cosine": 0.9999520182609558
+    }
+  ],
+  "timing": {
+    "repeats": 50,
+    "mean_api_seconds": 0.004125664,
+    "allocated_bytes": 29067200,
+    "released_bytes": 0,
+    "differing_repeats": 0,
+    "mismatched_elements": 0,
+    "npd_enabled": false,
+    "temperature_before_mC": 50034,
+    "temperature_after_mC": 50716,
+    "cpu_seconds": 0.12468,
+    "resident_copies": 0,
+    "resident_mismatched_elements": 0,
+    "resident_api_seconds": 0.0
+  },
+  "gate": {
+    "max_relative_l2": 0.05,
+    "min_cosine": 0.99,
+    "passed": true
+  }
+}

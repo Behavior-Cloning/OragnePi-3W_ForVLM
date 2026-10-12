@@ -34,6 +34,7 @@ p.add_argument('--prefill-scalar-block',type=int,default=-1,help='run one sensit
 p.add_argument('--cpu-affinity',help='taskset CPU list for the NPU host process')
 p.add_argument('--feedback-from',type=Path,help='tokens.json of a frozen continuation; teacher forcing for matched work, not free generation')
 p.add_argument('--reuse-tag',help='reuse immutable binaries from this deployed tag, hash-checking all reused files')
+p.add_argument('--reuse-prefill',action='store_true',help='also hard-link unchanged prefill binaries from reuse-tag; SHA checks remain mandatory')
 p.add_argument('--deploy-layers',type=int,nargs='+',default=[],help='new binaries to upload when --reuse-tag is used')
 p.add_argument('--prompt-folder',type=Path,help='case-specific prompt directory');args=p.parse_args()
 from board_host_lock import lock_board_from_host
@@ -50,6 +51,7 @@ assert sum((args.poison_prefill_output,args.prefill_flush_output,args.prefill_cl
 if args.cpu_affinity:assert 0<len(args.cpu_affinity)<=24 and all(c in '01234567,-' for c in args.cpu_affinity)
 if args.reuse_tag and (not args.reuse_tag.replace('-','').isalnum() or args.reuse_tag==args.tag or args.skip_deploy):
     raise ValueError('invalid reuse tag or conflicting skip-deploy')
+assert not args.reuse_prefill or (args.reuse_tag and args.prefill_variant)
 if args.case and not args.case.replace('-','').isalnum():raise ValueError('invalid case')
 manifest=json.loads((args.source/'trained-manifest.json').read_text())
 count=len(manifest['layers'])
@@ -59,7 +61,9 @@ if args.prefill_scalar_block>=0:
 if count%args.fusion_width or not 0<=args.decoder_group<=count//args.fusion_width:raise ValueError('invalid fusion/group size')
 if args.trace and args.fusion_width!=1:raise ValueError('fused graphs do not expose per-layer hidden traces')
 records=json.loads((args.source/args.dtype/'stack-conversion.json').read_text())
-assert not any(r.get('key_cache_transposed',False) for r in records), 'transposed K is currently probe-only; full runtime not validated'
+key_cache_transposed = records[0].get('key_cache_transposed',False)
+assert all(r.get('key_cache_transposed',False)==key_cache_transposed for r in records if r['layer']<count)
+assert not key_cache_transposed or not args.prefill_variant, 'transposed K currently requires scalar prefill'
 capacity=records[0].get('capacity',manifest['capacity'])
 assert all(r.get('capacity',manifest['capacity'])==capacity and r.get('query_tokens',1)==1 for r in records if r['layer']<count)
 prefill_records=[];prefill_tokens=0
@@ -70,6 +74,7 @@ if args.prefill_variant:
     assert len(prefill_records)==count//args.fusion_width and prefill_tokens>1
     assert {r['layer'] for r in prefill_records}==set(range(0,count,args.fusion_width))
     assert all(r['query_tokens']==prefill_tokens and r['capacity']==capacity and r['fusion_width']==args.fusion_width and not r['exit_code'] for r in prefill_records)
+    assert not any(r.get('key_cache_transposed',False) for r in prefill_records), 'transposed prefill K is currently probe-only'
 head_shards=manifest.get('head_shards',[{'vocab_count':manifest['vocab_size']}])
 assert len(records)==count//args.fusion_width+len(head_shards) and not any(r['exit_code'] for r in records)
 assert {r['layer'] for r in records}==set(range(0,count,args.fusion_width))|set(range(count,count+len(head_shards)))
@@ -89,6 +94,7 @@ prompt_count=len(json.loads((prompt_folder/'prompt.json').read_text())['token_id
 assert 0<=args.cached_prefix<prompt_count and 0<=args.prefill_scalar_prefix<=prompt_count
 assert prompt_count+args.max_new-1<=capacity
 (result_dir/'runner-config.json').write_text(json.dumps({'decode_variant':args.dtype,'prefill_variant':args.prefill_variant,
+    'key_cache_transposed':key_cache_transposed,
     'capacity':capacity,'query_tokens':prefill_tokens,'cached_prefix':args.cached_prefix,
     'scalar_prefix':args.prefill_scalar_prefix,'init_buffer_flush':args.init_buffer_flush,
     'audit_outputs':args.audit_outputs,'decoder_group':args.decoder_group,
@@ -119,6 +125,7 @@ if files:
     hashes=[]
     for source,name in files:
         reuse=args.reuse_tag and (name=='embeddings.f32' or
+            (args.reuse_prefill and name.startswith('prefill-layer') and name.endswith('.nb')) or
             (name.startswith('layer') and name.endswith('.nb') and int(name[5:-3]) not in args.deploy_layers))
         if reuse:
             original='/opt/opi-vlm/npu-kv-probe/'+args.reuse_tag+'/'+name
@@ -135,6 +142,7 @@ if files:
         f'-DMODEL_KV={manifest["kv_heads"]} -DMODEL_HD={manifest["head_dim"]} -DROPE_BASE={manifest["rope_base"]} '
         f'-DHEAD_SHARDS={len(head_shards)} -DHEAD_CHUNK={head_shards[0]["vocab_count"]} '
         f'-DFUSED_LAYERS={args.fusion_width} '
+        f'-DKEY_CACHE_TRANSPOSED={int(key_cache_transposed)} '
         f'full_model.c -lNBGlinker -lVIPhal -lm -o {executable}')
 if args.deploy_only:
     subprocess.run(ssh+['flock -w 1800 /run/opi-npu-kv-benchmark.lock sh -c '+shlex.quote(compile_command)],check=True,timeout=1850)

@@ -1,0 +1,2154 @@
+{
+  "scope": "all decoder layers and final LM head; logits checked on actual NPU-generated history",
+  "fixed_feedback": false,
+  "reference_weights": "exported",
+  "exported_constant_scope": "decoder matrices, QKV biases, norm scales and all output-head shards; FP32 arithmetic",
+  "constant_reconstruction_version": 3,
+  "fusion_width": 2,
+  "prefill_decode_constants_identical": null,
+  "constant_records": [
+    {
+      "layer": 0,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.011373973451554775
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.011078744195401669
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.024967847391963005
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 6.61805756863032e-07
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008387845940887928
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.008139695972204208
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.495085382747675e-08
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008309941738843918
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.010252241045236588
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.2686958917338416e-08
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 1,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.0106409452855587
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009018807671964169
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.025072429329156876
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 1.7434828691875737e-07
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008355667814612389
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.008233929052948952
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.5580424889426467e-08
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.00851136539131403
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.00847567431628704
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.1325878662992181e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 9.049340405908879e-07
+        }
+      ]
+    },
+    {
+      "layer": 2,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "FLOAT16",
+          "relative_l2": 0.00020620944269467145
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.010442563332617283
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.025840848684310913
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008416018448770046
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.009053637273609638
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.3203647831214766e-08
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008280853740870953
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009599277749657631
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.4153806066351535e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 2.223562631797904e-07
+        }
+      ]
+    },
+    {
+      "layer": 3,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "FLOAT16",
+          "relative_l2": 0.00020622739975806326
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009954224340617657
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.017975496128201485
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008416036143898964
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.008611063472926617
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 8.781063343121787e-08
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008364002220332623
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009323060512542725
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 1.41002459486117e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 3.6017200955029693e-07
+        }
+      ]
+    },
+    {
+      "layer": 4,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.012902690097689629
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.010005231015384197
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.01612044684588909
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.009019538760185242
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.008752847090363503
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.723639565578196e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008596263825893402
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.008800238370895386
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.015793706457771e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 1.4874089515615196e-07
+        }
+      ]
+    },
+    {
+      "layer": 5,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.011484447866678238
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.008982245810329914
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.015662813559174538
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008499137125909328
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.009143859148025513
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 5.31984994722734e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008197451941668987
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009117101319134235
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.1548655126935046e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 7.027825859040604e-07
+        }
+      ]
+    },
+    {
+      "layer": 6,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.011595040559768677
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009854179807007313
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.01790473982691765
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008611473254859447
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.009141583926975727
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 8.167034479811264e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008683478459715843
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009124333038926125
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.230857939546695e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 1.2297256262172596e-06
+        }
+      ]
+    },
+    {
+      "layer": 7,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.01368903461843729
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009712479077279568
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.015688885003328323
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.6587869089999003e-07
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008825061842799187
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.010186838917434216
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 6.858943493170955e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008825087919831276
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009426657110452652
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 1.6639589262013033e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 3.7109182926542417e-07
+        }
+      ]
+    },
+    {
+      "layer": 8,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.011584453284740448
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009956120513379574
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.035188183188438416
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 6.83866119288723e-07
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008757537230849266
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.008510329760611057
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 7.370940124928893e-08
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008641282096505165
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.01106309425085783
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.083943565547088e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 8.982465260487515e-07
+        }
+      ]
+    },
+    {
+      "layer": 9,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.01334724947810173
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009821337647736073
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.01626620814204216
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008849957026541233
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.010532581247389317
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 8.138486577990989e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008734669536352158
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009180773980915546
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 1.5501638017667574e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 4.485895715333754e-06
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 4.4531353182719613e-07
+        }
+      ]
+    },
+    {
+      "layer": 10,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.013544282875955105
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009810080751776695
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.02858298271894455
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.7236235382588347e-06
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008981706574559212
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.0090703209862113
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 9.538180165691301e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008814055472612381
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009150614961981773
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.512631394642085e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 11,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.014070695266127586
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009990967810153961
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.016885438933968544
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.3360876134102e-07
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.009312259033322334
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.010799931362271309
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 6.764061595276871e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008969784714281559
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009703341871500015
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 1.59903777330328e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 12,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.011808923445641994
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009482919238507748
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.030876804143190384
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008894960395991802
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.008881957270205021
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 8.138888460962335e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008935497142374516
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.008967237547039986
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.6683368875856104e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 13,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.013398579321801662
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.00951141957193613
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.01572762243449688
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.009002930484712124
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.01014248188585043
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 8.896460030882736e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.009151211939752102
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009765269234776497
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.231634704865428e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 14,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.0135686956346035
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009445840492844582
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.02788817510008812
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.009008016437292099
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.00935195293277502
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 7.365855481111794e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.009446801617741585
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009682361036539078
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.749098880234669e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 15,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.013528918847441673
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.00996245164424181
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.028685200959444046
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.7220521587878466e-06
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.009309949353337288
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.00865723006427288
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 8.756512670515804e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.00943619292229414
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009282245300710201
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.396697252355807e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 16,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.014850922860205173
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.01104805525392294
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.03152036666870117
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.009502261877059937
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.011012603528797626
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 8.414821195401601e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.00955247227102518
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009143805131316185
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.916781790598179e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 17,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.012133906595408916
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.00935326237231493
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.02768256887793541
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008431432768702507
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.009589132852852345
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.614479962583573e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.009028448723256588
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009552041999995708
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.067378801484665e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 18,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.011259538121521473
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009052969515323639
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.011719265021383762
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008235123939812183
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.01144043356180191
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 5.591001013272034e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008532819338142872
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.010497202165424824
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 1.866274885742314e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 19,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.012487928383052349
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009655756875872612
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.025297140702605247
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008860048837959766
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.009467510506510735
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.8991851170067093e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.009203045628964901
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009007688611745834
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 1.6518373513463303e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 20,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.012185472063720226
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009975249879062176
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.023424293845891953
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008834300562739372
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.00973621103912592
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 7.740468959127611e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.009151007980108261
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009570118971168995
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 5.437523782347853e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 21,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.01128233689814806
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009270405396819115
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.03854403272271156
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008221622556447983
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.010736585594713688
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 9.94566789813689e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008575454354286194
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.010038519278168678
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 5.291975639920565e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 1.916873316076817e-06
+        }
+      ]
+    },
+    {
+      "layer": 22,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.011289626359939575
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.008644845336675644
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.020714595913887024
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008636762388050556
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.010552043095231056
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.924920750047022e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008692456409335136
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009670176543295383
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.649509778824722e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 7.511476383115223e-07
+        }
+      ]
+    },
+    {
+      "layer": 23,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.01135562639683485
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.012576918117702007
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.022498592734336853
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008190518245100975
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.010274301283061504
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.989393005416787e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.00831176619976759
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.008833985775709152
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 5.187025635677855e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 3.103097867551696e-07
+        }
+      ]
+    },
+    {
+      "head": [
+        {
+          "matrix": "head[0:49152]",
+          "dtype": "INT8",
+          "relative_l2": 0.008367611095309258
+        },
+        {
+          "matrix": "head[49152:98304]",
+          "dtype": "INT8",
+          "relative_l2": 0.009026790037751198
+        },
+        {
+          "matrix": "head[98304:147456]",
+          "dtype": "INT8",
+          "relative_l2": 0.008673345670104027
+        },
+        {
+          "matrix": "head[147456:151674]",
+          "dtype": "INT8",
+          "relative_l2": 0.010076072998344898
+        },
+        {
+          "matrix": "output_norm",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    }
+  ],
+  "model": "InternVL3-1B-Instruct-Q8_0.gguf",
+  "decoder_layers": 24,
+  "npu_dtype": "w8-fused2-c1280-splitkv-i16mm",
+  "prompt": "<|im_start|>system\n你是小橙，用户的桌边陪伴机器人。用自然中文回应，记住对话，不编造真实经历。<|im_end|>\n<|im_start|>user\n第1件小事：我想聊聊下班路上的晚霞，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊下班路上的晚霞吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第2件小事：我想聊聊刚修好的程序，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊刚修好的程序吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第3件小事：我想聊聊窗边的雨声，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊窗边的雨声吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第4件小事：我想聊聊周末想读的书，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊周末想读的书吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第5件小事：我想聊聊准备做的晚饭，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊准备做的晚饭吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第6件小事：我想聊聊朋友分享的照片，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊朋友分享的照片吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第7件小事：我想聊聊散步时的小猫，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊散步时的小猫吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第8件小事：我想聊聊今天听到的音乐，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊今天听到的音乐吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第9件小事：我想聊聊下班路上的晚霞，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊下班路上的晚霞吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第10件小事：我想聊聊刚修好的程序，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊刚修好的程序吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第11件小事：我想聊聊窗边的雨声，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊窗边的雨声吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第12件小事：我想聊聊周末想读的书，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊周末想读的书吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第13件小事：我想聊聊准备做的晚饭，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊准备做的晚饭吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第14件小事：我想聊聊朋友分享的照片，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊朋友分享的照片吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第15件小事：我想聊聊散步时的小猫，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊散步时的小猫吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第16件小事：我想聊聊今天听到的音乐，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊今天听到的音乐吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第17件小事：我想聊聊下班路上的晚霞，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊下班路上的晚霞吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n第18件小事：我想聊聊刚修好的程序，今天忙完之后终于有时间休息了。<|im_end|>\n<|im_start|>assistant\n那就慢慢聊刚修好的程序吧。我在听，先把最想说的那一点告诉我。<|im_end|>\n<|im_start|>user\n接着陪我聊聊，描述一个轻松的傍晚，可以说得详细一些。<|im_end|>\n<|im_start|>assistant\n当然可以。今天下午的傍晚，阳光透过树叶洒在地面上，温暖而柔和。我们一家三口在公园的长椅上享受着<|im_end|>\n<|im_start|>user\n我想再听一点，接着说吧。<|im_end|>\n<|im_start|>assistant\n",
+  "npu_answer": "当然，我继续。我们一家人围坐在篝火旁，听着音乐，分享着今天的趣事。妈妈唱着欢快的歌，孩子们兴奋地跳着舞，笑声不断。我们还分享了一些有趣的新闻，比如最近发生的地震和洪水，但很快又转回了轻松愉快的氛围。我们一边聊天，一边享受着这个美好的傍晚，感觉非常幸福和满足。<|im_end|>",
+  "predictions_text_on_fixed_history": null,
+  "generated_token_count": 82,
+  "max_abs_logit_error": 0.7797400951385498,
+  "relative_l2_all_logits": 0.03195526450872421,
+  "max_step_relative_l2": 0.050540246069431305,
+  "min_step_cosine": 0.9987351894378662,
+  "argmax_matches_fp32": 78,
+  "argmax_match_fraction": 0.9512195121951219,
+  "mean_kl_nats": 0.0026689732912927866,
+  "max_step_kl_nats": 0.007522430270910263,
+  "npu_tokens": [
+    103942,
+    3837,
+    35946,
+    100640,
+    1773,
+    97639,
+    110272,
+    99455,
+    104427,
+    121785,
+    79599,
+    100484,
+    3837,
+    110311,
+    101941,
+    3837,
+    93149,
+    99164,
+    106560,
+    99594,
+    29826,
+    1773,
+    101935,
+    100074,
+    99164,
+    115506,
+    9370,
+    99678,
+    3837,
+    104563,
+    105487,
+    29490,
+    100421,
+    99164,
+    100066,
+    3837,
+    115042,
+    99607,
+    1773,
+    97639,
+    97706,
+    93149,
+    105593,
+    107935,
+    100014,
+    3837,
+    101912,
+    104044,
+    106806,
+    105526,
+    33108,
+    108392,
+    3837,
+    77288,
+    102154,
+    99518,
+    46670,
+    18397,
+    34187,
+    104261,
+    107071,
+    9370,
+    104556,
+    1773,
+    97639,
+    104203,
+    105292,
+    3837,
+    104203,
+    104028,
+    99164,
+    99487,
+    106369,
+    112018,
+    3837,
+    100681,
+    99491,
+    101954,
+    33108,
+    101929,
+    1773,
+    151645
+  ],
+  "fp32_greedy_tokens_on_npu_history": [
+    103942,
+    3837,
+    35946,
+    100640,
+    1773,
+    97639,
+    110272,
+    99455,
+    104427,
+    121785,
+    79599,
+    100484,
+    3837,
+    110311,
+    101941,
+    3837,
+    93149,
+    99164,
+    106560,
+    99594,
+    29826,
+    1773,
+    101935,
+    100074,
+    99164,
+    115506,
+    9370,
+    99678,
+    3837,
+    102208,
+    105487,
+    29490,
+    100421,
+    99164,
+    100066,
+    3837,
+    115042,
+    99607,
+    1773,
+    97639,
+    97706,
+    93149,
+    105593,
+    107935,
+    100014,
+    3837,
+    101912,
+    104044,
+    9370,
+    105526,
+    33108,
+    108392,
+    3837,
+    77288,
+    102154,
+    99518,
+    46670,
+    18397,
+    34187,
+    104261,
+    107071,
+    9370,
+    104556,
+    1773,
+    97639,
+    100281,
+    104028,
+    3837,
+    104203,
+    104028,
+    99164,
+    99487,
+    106369,
+    112018,
+    3837,
+    100681,
+    99491,
+    101954,
+    33108,
+    101929,
+    1773,
+    151645
+  ],
+  "step_relative_l2": [
+    0.0381377711892128,
+    0.03300481662154198,
+    0.036107100546360016,
+    0.02993137389421463,
+    0.034490086138248444,
+    0.037028297781944275,
+    0.02720530703663826,
+    0.02326606959104538,
+    0.029524434357881546,
+    0.031367115676403046,
+    0.03488728776574135,
+    0.033149879425764084,
+    0.030002836138010025,
+    0.02588030882179737,
+    0.0302298404276371,
+    0.029839692637324333,
+    0.027872450649738312,
+    0.03113354928791523,
+    0.02607733942568302,
+    0.026859035715460777,
+    0.03231604024767876,
+    0.038263916969299316,
+    0.030332475900650024,
+    0.0300665944814682,
+    0.028287895023822784,
+    0.022714052349328995,
+    0.026724807918071747,
+    0.024235090240836143,
+    0.03428282216191292,
+    0.028974102810025215,
+    0.022139735519886017,
+    0.028536813333630562,
+    0.023126529529690742,
+    0.02620616741478443,
+    0.028487373143434525,
+    0.036748986691236496,
+    0.03323443979024887,
+    0.025431932881474495,
+    0.0331667959690094,
+    0.044591113924980164,
+    0.030603112652897835,
+    0.02658778429031372,
+    0.03169482201337814,
+    0.03376386687159538,
+    0.03171263635158539,
+    0.04656805098056793,
+    0.0352645143866539,
+    0.031016087159514427,
+    0.03262212499976158,
+    0.03046765923500061,
+    0.03598923981189728,
+    0.03077274188399315,
+    0.03353989124298096,
+    0.03663391247391701,
+    0.036407727748155594,
+    0.034850768744945526,
+    0.03072449006140232,
+    0.03004736639559269,
+    0.032770682126283646,
+    0.0311460979282856,
+    0.03391188755631447,
+    0.0361933708190918,
+    0.0309282299131155,
+    0.041776835918426514,
+    0.03809399902820587,
+    0.02900761179625988,
+    0.025903625413775444,
+    0.0383717343211174,
+    0.03518463298678398,
+    0.029111633077263832,
+    0.03138360381126404,
+    0.0299163106828928,
+    0.03503364324569702,
+    0.03136664628982544,
+    0.03539268672466278,
+    0.042440105229616165,
+    0.03193826600909233,
+    0.031154699623584747,
+    0.038003887981176376,
+    0.03472110629081726,
+    0.050540246069431305,
+    0.04199157655239105
+  ],
+  "runtime": {
+    "decoder_layers": 24,
+    "head_on_npu": true,
+    "capacity": 1280,
+    "prompt_tokens": 1073,
+    "generated_tokens": 82,
+    "load_seconds": 0.628261,
+    "ttft_seconds": 1.132577,
+    "total_seconds": 8.521434,
+    "decode_tokens_per_second": 10.962452,
+    "npu_api_seconds": 6.973341,
+    "cpu_seconds": 1.455928,
+    "cpu_percent_one_core": 17.085,
+    "max_rss_kib": 12416,
+    "driver_allocated_bytes": 478379944,
+    "driver_after_release_bytes": 0,
+    "temperature_before_mC": 55428,
+    "temperature_after_mC": 55366,
+    "tokens": [
+      103942,
+      3837,
+      35946,
+      100640,
+      1773,
+      97639,
+      110272,
+      99455,
+      104427,
+      121785,
+      79599,
+      100484,
+      3837,
+      110311,
+      101941,
+      3837,
+      93149,
+      99164,
+      106560,
+      99594,
+      29826,
+      1773,
+      101935,
+      100074,
+      99164,
+      115506,
+      9370,
+      99678,
+      3837,
+      104563,
+      105487,
+      29490,
+      100421,
+      99164,
+      100066,
+      3837,
+      115042,
+      99607,
+      1773,
+      97639,
+      97706,
+      93149,
+      105593,
+      107935,
+      100014,
+      3837,
+      101912,
+      104044,
+      106806,
+      105526,
+      33108,
+      108392,
+      3837,
+      77288,
+      102154,
+      99518,
+      46670,
+      18397,
+      34187,
+      104261,
+      107071,
+      9370,
+      104556,
+      1773,
+      97639,
+      104203,
+      105292,
+      3837,
+      104203,
+      104028,
+      99164,
+      99487,
+      106369,
+      112018,
+      3837,
+      100681,
+      99491,
+      101954,
+      33108,
+      101929,
+      1773,
+      151645
+    ],
+    "token_latencies_seconds": [
+      1.132577,
+      0.096118,
+      0.096704,
+      0.09108,
+      0.089429,
+      0.09092,
+      0.090761,
+      0.0911,
+      0.088569,
+      0.090779,
+      0.091415,
+      0.092359,
+      0.091887,
+      0.090958,
+      0.091415,
+      0.090405,
+      0.090767,
+      0.090947,
+      0.091335,
+      0.09096,
+      0.090816,
+      0.0899,
+      0.090409,
+      0.091124,
+      0.091508,
+      0.091219,
+      0.090354,
+      0.090375,
+      0.090589,
+      0.091131,
+      0.089147,
+      0.090881,
+      0.089625,
+      0.091356,
+      0.090616,
+      0.090622,
+      0.091018,
+      0.090321,
+      0.092017,
+      0.091061,
+      0.090633,
+      0.091434,
+      0.090836,
+      0.091395,
+      0.09099,
+      0.089978,
+      0.090908,
+      0.090891,
+      0.090591,
+      0.09027,
+      0.092643,
+      0.090976,
+      0.090062,
+      0.0898,
+      0.089851,
+      0.089936,
+      0.09337,
+      0.089919,
+      0.186635,
+      0.087277,
+      0.08676,
+      0.086232,
+      0.087819,
+      0.086821,
+      0.088043,
+      0.087662,
+      0.087079,
+      0.087907,
+      0.087783,
+      0.087228,
+      0.087672,
+      0.087441,
+      0.089863,
+      0.090296,
+      0.087176,
+      0.085615,
+      0.086753,
+      0.087526,
+      0.087467,
+      0.087353,
+      0.08724,
+      0.090703
+    ],
+    "head_api_seconds": 1.536581,
+    "decode_decoder_api_seconds": 4.359498,
+    "decode_head_api_seconds": 1.517405,
+    "layer_api_seconds": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "block_api_seconds": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "decode_block_api_seconds": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "fixed_feedback": false,
+    "feedback_tokens": [],
+    "prefill_batch_size": 0,
+    "cached_prefix_tokens": 1053,
+    "new_prompt_tokens": 20,
+    "batched_prompt_tokens": 0,
+    "prepared_batch_tokens": 0,
+    "preparation_seconds": 57.379824,
+    "preparation_api_seconds": 56.693442,
+    "preparation_cpu_seconds": 0.77037,
+    "prefill_api_seconds": 0.0,
+    "prefill_host_hidden": false,
+    "host_output_buffers": false,
+    "prefill_clear_output": false,
+    "prefill_scalar_block": -1,
+    "key_cache_transposed": false,
+    "key_cache_layout_revision": 1,
+    "prefill_rebind_outputs": false,
+    "poison_prefill_output": false,
+    "prefill_flush_output": false,
+    "capture_prefill": false,
+    "prefill_scalar_prefix": 0,
+    "performance_mode": false,
+    "host_revision": 10,
+    "decoder_group_size": 12,
+    "fusion_width": 2,
+    "max_start_temperature_mC": 55000,
+    "npu_frequency_before_hz": 1008000000,
+    "npu_frequency_after_hz": 1008000000,
+    "cpu6_frequency_before_khz": 2002000,
+    "cpu6_frequency_after_khz": 780000,
+    "fast_greedy": true,
+    "rss_after_inference_kib": 12416,
+    "init_buffer_flush": false,
+    "audit_outputs": false
+  },
+  "execution_gate_v1": {
+    "applicable": true,
+    "relative_l2_limit": 0.05,
+    "min_cosine_limit": 0.99,
+    "argmax_match_min": 0.95,
+    "passed": true,
+    "scope": "execution on this trajectory only; not holdout quality acceptance"
+  }
+}

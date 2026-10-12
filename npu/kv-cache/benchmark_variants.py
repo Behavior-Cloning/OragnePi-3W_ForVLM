@@ -97,6 +97,7 @@ if a.fixed_feedback:
         assert (folder/'prompt.i32').read_bytes()==(a.reference/'prompt.i32').read_bytes()
         assert validation['execution_gate_v1']['passed'] and validation['runtime']==expected
         v['expected_tokens']=expected['tokens']
+        v['key_cache_transposed']=expected.get('key_cache_transposed',False)
         v['expected_logits_sha256']=hashlib.sha256((folder/'logits.f32').read_bytes()).hexdigest()
         v['validation']=validation['execution_gate_v1']
         v['feedback_sha256']=hashlib.sha256((folder/'feedback.i32').read_bytes()).hexdigest()
@@ -192,6 +193,8 @@ for phase in ('diagnostic','warmup','measure'):
             assert r.get('prefill_flush_output',False)==v['prefill_flush_output']
             assert r.get('prefill_clear_output',False)==v['prefill_clear_output']
             assert r.get('prefill_scalar_block',-1)==v['scalar_block']
+            if 'key_cache_transposed' in v:
+                assert r.get('key_cache_transposed',False)==v['key_cache_transposed']
             assert r['driver_after_release_bytes']==0
             record={'phase':phase,'repeat':repeat,'label':v['label'],'result':r,'system_samples':observations,
                     'monitor_scope':'1-second health snapshots; short concurrent requests between samples may be missed'}

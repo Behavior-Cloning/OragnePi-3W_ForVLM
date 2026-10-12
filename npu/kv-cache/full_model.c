@@ -5,6 +5,9 @@
 #ifndef FUSED_LAYERS
 #define FUSED_LAYERS 1
 #endif
+#ifndef KEY_CACHE_TRANSPOSED
+#define KEY_CACHE_TRANSPOSED 0
+#endif
 #define TENSOR_MAX_INPUTS (1+5*FUSED_LAYERS)
 #define TENSOR_MAX_OUTPUTS (1+2*FUSED_LAYERS)
 #define IN_K(k) (1+(k))
@@ -104,6 +107,7 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     int scalar_prefix=getenv("OPI_PREFILL_SCALAR_PREFIX")?atoi(getenv("OPI_PREFILL_SCALAR_PREFIX")):0;
     if(prefill_tokens<0||prefill_tokens==1||prefill_tokens>256||prefill_tokens>capacity||
        cached_prefix<0||cached_prefix>=prompt_count||scalar_prefix<0||scalar_prefix>prompt_count)return 2;
+    if(KEY_CACHE_TRANSPOSED&&prefill_tokens){fprintf(stderr,"transposed K currently requires scalar prefill\n");return 2;}
     if(prompt_count+max_new-1>capacity){fprintf(stderr,"prompt plus output exceeds KV capacity\n");return 2;}
     const float *emb=mmap(NULL,emb_stat.st_size,PROT_READ,MAP_PRIVATE,emb_fd,0);
     const int32_t *prompt=mmap(NULL,prompt_stat.st_size,PROT_READ,MAP_PRIVATE,prompt_fd,0);
@@ -165,6 +169,13 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
         char path[1024];snprintf(path,sizeof(path),"%s/layer%d.nb",argv[1],i*FUSED_LAYERS);
         load_net(&decoder[i],path,ni,no,ins,outs);
         for(int k=0;k<FUSED_LAYERS;k++){
+            if(KEY_CACHE_TRANSPOSED){
+                Tensor *key=&decoder[i].in[IN_K(k)];
+                if(key->p.num_of_dims!=4||key->p.sizes[0]!=(unsigned)capacity||
+                   key->p.sizes[1]!=HD||key->p.sizes[2]!=KV||key->p.sizes[3]!=1){
+                    fprintf(stderr,"transposed K shape mismatch block=%d layer=%d\n",i,k);return 2;
+                }
+            }
             for(int j=0;j<capacity;j++)put(&decoder[i].in[IN_MASK(k)],j,-10000);
             put(&decoder[i].in[IN_MASK(k)],capacity,0);
         }
@@ -272,7 +283,12 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
             }
             for(int k=0;k<FUSED_LAYERS;k++)for(int h=0;h<KV;h++){
                 unsigned dst=(h*capacity+pos)*HD,src=h*HD;
-                copy_values(&l->in[IN_K(k)],dst,&l->out[OUT_K(k)],src,HD);
+                if(KEY_CACHE_TRANSPOSED){
+                    /* Scatter only this new vector into [KV,HD,capacity].
+                     * copy_values preserves raw bits when quantizers match. */
+                    for(int j=0;j<HD;j++)copy_values(&l->in[IN_K(k)],
+                        (h*HD+j)*capacity+pos,&l->out[OUT_K(k)],src+j,1);
+                }else copy_values(&l->in[IN_K(k)],dst,&l->out[OUT_K(k)],src,HD);
                 copy_values(&l->in[IN_V(k)],dst,&l->out[OUT_V(k)],src,HD);
             }
             if(trace_file&&fwrite(x,sizeof(float),DIM,trace_file)!=(size_t)DIM)return 2;
@@ -359,6 +375,7 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     fprintf(token_file,",\"prefill_host_hidden\":%s,\"host_output_buffers\":%s",getenv("OPI_PREFILL_HOST_HIDDEN")?"true":"false",getenv("OPI_HOST_OUTPUT_BUFFERS")?"true":"false");
     fprintf(token_file,",\"prefill_clear_output\":%s",getenv("OPI_PREFILL_CLEAR_OUTPUT")?"true":"false");
     fprintf(token_file,",\"prefill_scalar_block\":%d",prefill_tokens?batch.scalar_block:-1);
+    fprintf(token_file,",\"key_cache_transposed\":%s,\"key_cache_layout_revision\":1",KEY_CACHE_TRANSPOSED?"true":"false");
     fprintf(token_file,",\"prefill_rebind_outputs\":%s,\"poison_prefill_output\":%s,\"prefill_flush_output\":%s,\"capture_prefill\":%s",getenv("OPI_PREFILL_REBIND_OUTPUTS")?"true":"false",getenv("OPI_PREFILL_POISON_OUTPUT")?"true":"false",getenv("OPI_PREFILL_FLUSH_OUTPUT")?"true":"false",getenv("OPI_CAPTURE_PREFIX")?"true":"false");
     fprintf(token_file,",\"prefill_scalar_prefix\":%d,\"performance_mode\":%s,\"host_revision\":10,\"decoder_group_size\":%d,\"fusion_width\":%d,\"max_start_temperature_mC\":%d,\"npu_frequency_before_hz\":%lld,\"npu_frequency_after_hz\":%lld,\"cpu6_frequency_before_khz\":%lld,\"cpu6_frequency_after_khz\":%lld,\"fast_greedy\":%s,\"rss_after_inference_kib\":%ld,\"init_buffer_flush\":%s,\"audit_outputs\":%s}\n",scalar_prefix,performance?"true":"false",group_size,FUSED_LAYERS,max_start_temp,npu_freq_before,npu_freq_after,cpu_freq_before,cpu_freq_after,fast_greedy?"true":"false",rss_after_inference,getenv("OPI_INIT_BUFFER_FLUSH")?"true":"false",audit_file?"true":"false");
     if(trace_file)fclose(trace_file);

@@ -1,0 +1,135 @@
+{
+  "fixture": {
+    "history": 1024,
+    "capacity": 1280,
+    "query_tokens": 1,
+    "fp32_graph_errors": {
+      "b1_attach_hidden_out/out0": 8.827577175907209e-07,
+      "b0_attach_new_k/out0": 4.161330480201286e-07,
+      "b0_attach_new_v/out0": 4.344827857494238e-07,
+      "b1_attach_new_k/out0": 5.390521664594417e-07,
+      "b1_attach_new_v/out0": 8.56551025663066e-07
+    },
+    "key_cache_transposed": true,
+    "inputs": [
+      [
+        "b0_hidden",
+        960
+      ],
+      [
+        "b0_past_k",
+        409600
+      ],
+      [
+        "b1_past_k",
+        409600
+      ],
+      [
+        "b0_past_v",
+        409600
+      ],
+      [
+        "b1_past_v",
+        409600
+      ],
+      [
+        "b0_mask",
+        1281
+      ],
+      [
+        "b1_mask",
+        1281
+      ],
+      [
+        "b0_rope_cos",
+        64
+      ],
+      [
+        "b1_rope_cos",
+        64
+      ],
+      [
+        "b0_rope_sin",
+        64
+      ],
+      [
+        "b1_rope_sin",
+        64
+      ]
+    ],
+    "outputs": [
+      [
+        "b1_attach_hidden_out/out0",
+        960
+      ],
+      [
+        "b0_attach_new_k/out0",
+        320
+      ],
+      [
+        "b1_attach_new_k/out0",
+        320
+      ],
+      [
+        "b0_attach_new_v/out0",
+        320
+      ],
+      [
+        "b1_attach_new_v/out0",
+        320
+      ]
+    ]
+  },
+  "folder": "npu/results/smol500-decode-c1280-splitkv-transk/l0",
+  "cpu_affinity": "6,7",
+  "binary_sha256": "9c3622c387ea94aa3937ba0a082908d0b3a83e2f51c80dccc563a12928569ad9",
+  "input_sha256": "05af0a133bce15ddf1351caad6c454827f8ffb298f56fe32953bedac44926eb6",
+  "alternate_fixture": null,
+  "errors": [
+    {
+      "tensor": "b1_attach_hidden_out/out0",
+      "relative_l2": 0.01612708531320095,
+      "cosine": 0.9998706579208374
+    },
+    {
+      "tensor": "b0_attach_new_k/out0",
+      "relative_l2": 0.0067323604598641396,
+      "cosine": 0.9999783635139465
+    },
+    {
+      "tensor": "b1_attach_new_k/out0",
+      "relative_l2": 0.011190156452357769,
+      "cosine": 0.9999377727508545
+    },
+    {
+      "tensor": "b0_attach_new_v/out0",
+      "relative_l2": 0.022879689931869507,
+      "cosine": 0.9997387528419495
+    },
+    {
+      "tensor": "b1_attach_new_v/out0",
+      "relative_l2": 0.020867714658379555,
+      "cosine": 0.9997832775115967
+    }
+  ],
+  "timing": {
+    "repeats": 50,
+    "mean_api_seconds": 0.003085936,
+    "allocated_bytes": 21584176,
+    "released_bytes": 0,
+    "differing_repeats": 0,
+    "mismatched_elements": 0,
+    "npd_enabled": false,
+    "temperature_before_mC": 52824,
+    "temperature_after_mC": 52762,
+    "cpu_seconds": 0.276675,
+    "resident_copies": 0,
+    "resident_mismatched_elements": 0,
+    "resident_api_seconds": 0.0
+  },
+  "gate": {
+    "max_relative_l2": 0.05,
+    "min_cosine": 0.99,
+    "passed": true
+  }
+}

@@ -90,9 +90,14 @@ static void tensor_init(Layer *l,Tensor *t,unsigned index,int output,unsigned ex
     fprintf(stderr,"%s[%u] %s size=%u dtype=%d quant=%d fl=%d shape=",output?"out":"in",index,name,t->count,t->p.data_format,t->p.quant_format,t->p.quant_data.dfp.fixed_point_pos);
     for(unsigned j=0;j<t->p.num_of_dims;j++)fprintf(stderr,"%u,",t->p.sizes[j]);
     fprintf(stderr,"\n");
-    check(vip_create_buffer(&t->p,sizeof(t->p),&t->b),"create buffer");
+    if(output&&getenv("OPI_HOST_OUTPUT_BUFFERS"))
+        check(vip_create_buffer_cache(&t->p,sizeof(t->p),&t->b),"create host-backed output buffer");
+    else check(vip_create_buffer(&t->p,sizeof(t->p),&t->b),"create buffer");
     t->data=vip_map_buffer(t->b);if(!t->data)exit(2);
     for(unsigned j=0;j<t->count;j++)put(t,j,0);
+    /* Diagnostic: explicitly publish zeroes before device writes. */
+    if(getenv("OPI_INIT_BUFFER_FLUSH"))
+        check(vip_flush_buffer(t->b,VIP_BUFFER_OPER_TYPE_FLUSH),"publish initialized buffer");
     check(output?vip_set_output(l->net,index,t->b):vip_set_input(l->net,index,t->b),"bind buffer");
 }
 static void read_file(const char *path,float *data,size_t n) {

@@ -11,7 +11,7 @@ def evaluate(graph, data, feeds):
         x=[visit(v[1:].rsplit(':',1)[0]) for v in node.get('inputs',[])]
         if op=='input':y=feeds[node['name']]
         elif op=='variable':y=torch.from_numpy(data[key]['data'])
-        elif op=='output':y=x[0]
+        elif op in ('output','dtype_converter'):y=x[0]
         elif op=='fullconnect':y=x[0]@torch.from_numpy(data[key]['weight'])+torch.from_numpy(data[key]['bias'])
         elif op=='reshape':y=x[0].reshape(p['shape'])
         elif op=='permute':y=x[0].permute(p['perm'])
@@ -26,6 +26,9 @@ def evaluate(graph, data, feeds):
         elif op=='abs':y=x[0].abs()
         elif op=='sqrt':y=x[0].sqrt()
         elif op=='swish':y=F.silu(x[0])
+        elif op=='rmsnormalize':
+            assert p['axis'] == -1
+            y=x[0]*torch.rsqrt(x[0].square().mean(-1,keepdim=True)+p['eps'])*torch.from_numpy(data[key]['scale'])
         elif op=='softmax':y=torch.softmax(x[0],dim=p['sf_axis'])
         elif op=='reducemax':y=x[0].amax(tuple(p['axis_list']),keepdim=p['keep_dims'])
         elif op=='reducemean':y=x[0].mean(tuple(p['axis_list']),keepdim=p['keep_dims'])

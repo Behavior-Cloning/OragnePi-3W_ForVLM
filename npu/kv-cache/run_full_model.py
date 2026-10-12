@@ -21,20 +21,45 @@ p.add_argument('--prefill-variant',help='compatible batched graph stack, loaded 
 p.add_argument('--cached-prefix',type=int,default=0,help='prepare prefix KV before incremental TTFT timer starts')
 p.add_argument('--prefill-scalar-prefix',type=int,default=0,help='keep first N absolute positions on the proven single-token path')
 p.add_argument('--fast-greedy',action='store_true',help='compare shard integer maxima, checking against full FP32 argmax in diagnostic mode')
+p.add_argument('--init-buffer-flush',action='store_true',help='diagnostic explicit initialization cache flush')
+p.add_argument('--audit-outputs',action='store_true',help='diagnostic per-block output fingerprints; changes readback overhead')
+p.add_argument('--capture-prefill',type=int,nargs=2,metavar=('POSITION','BLOCK'),help='capture one real prefill graph input/output for isolated replay')
+p.add_argument('--prefill-host-hidden',action='store_true',help='diagnostic host transfer between prefill blocks instead of aliasing')
+p.add_argument('--host-output-buffers',action='store_true',help='diagnostic SDK host-backed cached output allocations')
+p.add_argument('--prefill-rebind-outputs',action='store_true',help='diagnostic output rebinding before every batch call')
+p.add_argument('--poison-prefill-output',action='store_true',help='diagnostic sentinel before device writes, not performance mode')
+p.add_argument('--prefill-flush-output',action='store_true',help='flush hidden output before each prefill graph execution')
+p.add_argument('--prefill-clear-output',action='store_true',help='clear and flush hidden output before each batched graph call')
+p.add_argument('--prefill-scalar-block',type=int,default=-1,help='run one sensitive block through the single-token NPU graph during batch prefill')
+p.add_argument('--cpu-affinity',help='taskset CPU list for the NPU host process')
 p.add_argument('--feedback-from',type=Path,help='tokens.json of a frozen continuation; teacher forcing for matched work, not free generation')
 p.add_argument('--reuse-tag',help='reuse immutable binaries from this deployed tag, hash-checking all reused files')
 p.add_argument('--deploy-layers',type=int,nargs='+',default=[],help='new binaries to upload when --reuse-tag is used')
 p.add_argument('--prompt-folder',type=Path,help='case-specific prompt directory');args=p.parse_args()
+from board_host_lock import lock_board_from_host
+lock_board_from_host()
 if not args.tag.replace('-','').isalnum():raise ValueError('invalid tag')
 if args.trace and args.performance:raise ValueError('performance and trace are exclusive')
+if args.capture_prefill:
+    assert args.prefill_variant and not args.performance and min(args.capture_prefill)>=0
+assert not(args.poison_prefill_output and args.performance)
+assert not(args.audit_outputs and args.performance)
+if any((args.prefill_host_hidden,args.prefill_rebind_outputs,args.poison_prefill_output,args.prefill_flush_output,args.prefill_clear_output)):
+    assert args.prefill_variant, 'prefill diagnostic options require a batch stack'
+assert sum((args.poison_prefill_output,args.prefill_flush_output,args.prefill_clear_output))<=1
+if args.cpu_affinity:assert 0<len(args.cpu_affinity)<=24 and all(c in '01234567,-' for c in args.cpu_affinity)
 if args.reuse_tag and (not args.reuse_tag.replace('-','').isalnum() or args.reuse_tag==args.tag or args.skip_deploy):
     raise ValueError('invalid reuse tag or conflicting skip-deploy')
 if args.case and not args.case.replace('-','').isalnum():raise ValueError('invalid case')
 manifest=json.loads((args.source/'trained-manifest.json').read_text())
 count=len(manifest['layers'])
+assert -1<=args.prefill_scalar_block<count//args.fusion_width
+if args.prefill_scalar_block>=0:
+    assert args.prefill_variant and not any((args.audit_outputs,args.capture_prefill,args.prefill_rebind_outputs,args.poison_prefill_output,args.prefill_flush_output,args.prefill_clear_output)), 'test scalar block independently of output diagnostics'
 if count%args.fusion_width or not 0<=args.decoder_group<=count//args.fusion_width:raise ValueError('invalid fusion/group size')
 if args.trace and args.fusion_width!=1:raise ValueError('fused graphs do not expose per-layer hidden traces')
 records=json.loads((args.source/args.dtype/'stack-conversion.json').read_text())
+assert not any(r.get('key_cache_transposed',False) for r in records), 'transposed K is currently probe-only; full runtime not validated'
 capacity=records[0].get('capacity',manifest['capacity'])
 assert all(r.get('capacity',manifest['capacity'])==capacity and r.get('query_tokens',1)==1 for r in records if r['layer']<count)
 prefill_records=[];prefill_tokens=0
@@ -65,7 +90,13 @@ assert 0<=args.cached_prefix<prompt_count and 0<=args.prefill_scalar_prefix<=pro
 assert prompt_count+args.max_new-1<=capacity
 (result_dir/'runner-config.json').write_text(json.dumps({'decode_variant':args.dtype,'prefill_variant':args.prefill_variant,
     'capacity':capacity,'query_tokens':prefill_tokens,'cached_prefix':args.cached_prefix,
-    'scalar_prefix':args.prefill_scalar_prefix},indent=2)+'\n')
+    'scalar_prefix':args.prefill_scalar_prefix,'init_buffer_flush':args.init_buffer_flush,
+    'audit_outputs':args.audit_outputs,'decoder_group':args.decoder_group,
+    'capture_prefill':args.capture_prefill,'prefill_host_hidden':args.prefill_host_hidden,
+    'host_output_buffers':args.host_output_buffers,'prefill_rebind_outputs':args.prefill_rebind_outputs,
+    'poison_prefill_output':args.poison_prefill_output,'prefill_flush_output':args.prefill_flush_output,
+    'prefill_clear_output':args.prefill_clear_output,'prefill_scalar_block':args.prefill_scalar_block,
+    'host_cpu_affinity':args.cpu_affinity},indent=2)+'\n')
 feedback_file=None
 if args.feedback_from:
     feedback=json.loads(args.feedback_from.read_text())
@@ -116,17 +147,31 @@ if args.trace:command=command.replace('timeout 600',f'OPI_FULL_TRACE={result_nam
 if args.performance:command=command.replace('timeout 600','OPI_PERFORMANCE=1 timeout 600')
 if args.decoder_group:command=command.replace('timeout 600',f'OPI_DECODER_GROUP={args.decoder_group} timeout 600')
 if args.fast_greedy:command=command.replace('timeout 600','OPI_FAST_GREEDY=1 timeout 600')
+if args.init_buffer_flush:command=command.replace('timeout 600','OPI_INIT_BUFFER_FLUSH=1 timeout 600')
+if args.host_output_buffers:command=command.replace('timeout 600','OPI_HOST_OUTPUT_BUFFERS=1 timeout 600')
+if args.prefill_rebind_outputs:command=command.replace('timeout 600','OPI_PREFILL_REBIND_OUTPUTS=1 timeout 600')
+if args.poison_prefill_output:command=command.replace('timeout 600','OPI_PREFILL_POISON_OUTPUT=1 timeout 600')
+if args.prefill_flush_output:command=command.replace('timeout 600','OPI_PREFILL_FLUSH_OUTPUT=1 timeout 600')
+if args.prefill_clear_output:command=command.replace('timeout 600','OPI_PREFILL_CLEAR_OUTPUT=1 timeout 600')
+if args.prefill_scalar_block>=0:command=command.replace('timeout 600',f'OPI_PREFILL_SCALAR_BLOCK={args.prefill_scalar_block} timeout 600')
+if args.audit_outputs:command=command.replace('timeout 600',f'OPI_AUDIT_OUTPUTS={result_name}/output-audit.tsv timeout 600')
+if args.capture_prefill:
+    position,block=args.capture_prefill
+    assert block<count//args.fusion_width and position+prefill_tokens<=prompt_count
+    command=command.replace('timeout 600',f'OPI_CAPTURE_POSITION={position} OPI_CAPTURE_BLOCK={block} OPI_CAPTURE_PREFIX={result_name}/capture timeout 600')
 if args.prefill_variant:command=command.replace('timeout 600',f'OPI_PREFILL_TOKENS={prefill_tokens} timeout 600')
+if args.prefill_host_hidden:command=command.replace('timeout 600','OPI_PREFILL_HOST_HIDDEN=1 timeout 600')
 if args.cached_prefix:command=command.replace('timeout 600',f'OPI_CACHED_PREFIX={args.cached_prefix} timeout 600')
 if args.prefill_scalar_prefix:command=command.replace('timeout 600',f'OPI_PREFILL_SCALAR_PREFIX={args.prefill_scalar_prefix} timeout 600')
 if feedback_file:command=command.replace('timeout 600',f'OPI_FEEDBACK_FILE={result_name}-feedback.i32 timeout 600')
+if args.cpu_affinity:command=command.replace('timeout 600',f'taskset -c {args.cpu_affinity} timeout 600')
 command=compile_command+' && '+command
 command='flock -w 1800 /run/opi-npu-kv-benchmark.lock sh -c '+shlex.quote(command)
 with (result_dir/'run.stdout').open('w') as out,(result_dir/'run.stderr').open('w') as err:
     result=subprocess.run(ssh+[command],stdout=out,stderr=err,timeout=2500)
 (result_dir/'exit.json').write_text(json.dumps({'exit_code':result.returncode})+'\n')
 if result.returncode:raise SystemExit(result.returncode)
-for name in ('tokens.json',)+ (() if args.performance else ('logits.f32',))+ (('hidden-trace.f32',) if args.trace else ()):
+for name in ('tokens.json',)+ (() if args.performance else ('logits.f32',))+ (('hidden-trace.f32',) if args.trace else ()) + (('output-audit.tsv',) if args.audit_outputs else ()) + (('capture-input.f32','capture-output.f32') if args.capture_prefill else ()):
     subprocess.run(scp+['root@192.168.88.29:'+remote+'/'+result_name+'/'+name,str(result_dir/name)],check=True,timeout=120)
 result=json.loads((result_dir/'tokens.json').read_text())
 if result['prompt_tokens']!=len(json.loads((result_dir/'prompt.json').read_text())['token_ids']):

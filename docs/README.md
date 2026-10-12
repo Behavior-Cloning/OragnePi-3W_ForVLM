@@ -12,7 +12,8 @@
 | 陪伴质量 | [六模型质量汇总](六模型陪伴质量汇总.md) | 单seed首轮已结束，含截断与失败案例 |
 | 评测规范 | [第一阶段场景与协议](陪伴机器人第一阶段评测.md) | 自然度、角色稳定；非人工盲评结论 |
 | 硬件选型 | [3B选型与AX650N](端侧3B选型与A733-NPU可行性.md) | 外部数据核查，非同条件板卡实测 |
-| NPU最新进展 | [批量Prefill与CPU对标](../npu/kv-cache/批量Prefill与CPU对标.md) | 首字等待明显下降，decode未明显提升；1B相同轨迹对照CPU、完整精度与失败证据 |
+| NPU最新进展 | [长历史KV验证](../npu/kv-cache/长历史KV验证.md) | 扩展真实约512/1024历史，完整精度、五轮测速与千token失败定位 |
+| NPU短历史Prefill | [批量Prefill与CPU对标](../npu/kv-cache/批量Prefill与CPU对标.md) | 首字等待明显下降，decode未明显提升；1B相同轨迹对照CPU、完整精度与失败证据 |
 | NPU MLP优化 | [MLP选择性量化加速](../npu/kv-cache/MLP选择性量化加速.md) | 上一阶段500M 13.92、1B 13.22 token/s；固定历史五轮、完整精度、内存和配置审计 |
 | NPU图优化 | [Decoder融合与GQA优化](../npu/kv-cache/Decoder融合与GQA优化.md) | 双层融合、GQA去重复展开、等价整数greedy和完整输出核对 |
 | NPU输出头优化 | [Q8完整模型优化进展](../npu/kv-cache/Q8完整模型优化进展.md) | W8输出头、量化算法、精度边界及提交批处理实验，未超过CPU |

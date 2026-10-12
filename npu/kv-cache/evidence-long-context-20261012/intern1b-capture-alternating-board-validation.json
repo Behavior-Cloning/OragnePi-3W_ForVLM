@@ -1,0 +1,116 @@
+{
+  "fixture": {
+    "scope": "actual captured NPU inputs, independent per-layer reference with exported constants",
+    "capture_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-t1/board-history1053-capture160/capture-input.f32",
+    "capture_sha256": "df2d498c82d0961b0ff3ce86d44687dd86177a970ff2eb7f63fa660cc729bda7",
+    "capacity": 1280,
+    "query_tokens": 20,
+    "first_layer": 2,
+    "fp32_graph_errors": {
+      "b1_attach_hidden_out/out0": 5.230499482422601e-07,
+      "b0_attach_new_k/out0": 5.757166476882958e-08,
+      "b0_attach_new_v/out0": 4.8329663826507385e-08,
+      "b1_attach_new_k/out0": 1.6672639446824178e-07,
+      "b1_attach_new_v/out0": 6.258283065108117e-07
+    },
+    "outputs": [
+      [
+        "b1_attach_hidden_out/out0",
+        17920
+      ],
+      [
+        "b0_attach_new_k/out0",
+        2560
+      ],
+      [
+        "b1_attach_new_k/out0",
+        2560
+      ],
+      [
+        "b0_attach_new_v/out0",
+        2560
+      ],
+      [
+        "b1_attach_new_v/out0",
+        2560
+      ]
+    ]
+  },
+  "alternate_fixture": {
+    "scope": "actual captured NPU inputs, independent per-layer reference with exported constants",
+    "capture_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-t1/board-history1053-rebind/capture-input.f32",
+    "capture_sha256": "64536a87075b2972c56a2b15ee3ae3f9e76a904cdb72b73a347dce8cd553d480",
+    "capacity": 1280,
+    "query_tokens": 20,
+    "first_layer": 2,
+    "fp32_graph_errors": {
+      "b1_attach_hidden_out/out0": 5.403210252552526e-07,
+      "b0_attach_new_k/out0": 5.272755743135349e-08,
+      "b0_attach_new_v/out0": 4.513694662477974e-08,
+      "b1_attach_new_k/out0": 1.6044806727677496e-07,
+      "b1_attach_new_v/out0": 5.316230158314283e-07
+    },
+    "outputs": [
+      [
+        "b1_attach_hidden_out/out0",
+        17920
+      ],
+      [
+        "b0_attach_new_k/out0",
+        2560
+      ],
+      [
+        "b1_attach_new_k/out0",
+        2560
+      ],
+      [
+        "b0_attach_new_v/out0",
+        2560
+      ],
+      [
+        "b1_attach_new_v/out0",
+        2560
+      ]
+    ]
+  },
+  "errors": [
+    {
+      "tensor": "b1_attach_hidden_out/out0",
+      "relative_l2": 0.005841914564371109,
+      "cosine": 0.9999825954437256
+    },
+    {
+      "tensor": "b0_attach_new_k/out0",
+      "relative_l2": 9.890449291560799e-05,
+      "cosine": 1.0000001192092896
+    },
+    {
+      "tensor": "b1_attach_new_k/out0",
+      "relative_l2": 0.0007780108717270195,
+      "cosine": 0.9999997019767761
+    },
+    {
+      "tensor": "b0_attach_new_v/out0",
+      "relative_l2": 0.0005221693427301943,
+      "cosine": 0.9999998807907104
+    },
+    {
+      "tensor": "b1_attach_new_v/out0",
+      "relative_l2": 0.0030330659355968237,
+      "cosine": 0.999995231628418
+    }
+  ],
+  "timing": {
+    "repeats": 100,
+    "mean_api_seconds": 0.186798456,
+    "allocated_bytes": 42891800,
+    "released_bytes": 0,
+    "differing_repeats": 0,
+    "mismatched_elements": 0
+  },
+  "gate": {
+    "max_relative_l2": 0.05,
+    "min_cosine": 0.99,
+    "passed": true
+  }
+}

@@ -27,13 +27,40 @@ int main(int argc,char **argv) {
     }
     if(fgetc(input)!=EOF)return 2;
     fclose(input);
-    double seconds=0;for(int i=0;i<repeats;i++)execute(&layer,ni,no,&seconds);
+    size_t input_count=0;for(unsigned i=0;i<ni;i++)input_count+=layer.in[i].count;
+    float *alternate=NULL,*original=NULL;
+    if(getenv("OPI_PROBE_ALTERNATE")){
+        alternate=calloc(input_count,sizeof(float));original=calloc(input_count,sizeof(float));
+        if(!alternate||!original)return 2;
+        read_file(getenv("OPI_PROBE_ALTERNATE"),alternate,input_count);
+        size_t offset=0;
+        for(unsigned i=0;i<ni;i++)for(unsigned j=0;j<layer.in[i].count;j++)original[offset++]=get(&layer.in[i],j);
+    }
+    size_t output_count=0;for(unsigned i=0;i<no;i++)output_count+=layer.out[i].count;
+    float *first=calloc(output_count*(alternate?2:1),sizeof(float));if(!first)return 2;
+    unsigned long long mismatches=0;int differing_repeats=0;
+    double seconds=0;for(int i=0;i<repeats;i++){
+        int phase=alternate?i%2:0;
+        if(alternate){
+            const float *values=phase?alternate:original;size_t offset=0;
+            for(unsigned o=0;o<ni;o++)for(unsigned j=0;j<layer.in[o].count;j++)put(&layer.in[o],j,values[offset++]);
+        }
+        execute(&layer,ni,no,&seconds);size_t offset=0;int changed=0;
+        for(unsigned o=0;o<no;o++)for(unsigned j=0;j<layer.out[o].count;j++,offset++){
+            float value=get(&layer.out[o],j);if(!isfinite(value))return 3;
+            size_t at=phase*output_count+offset;
+            if(i<(alternate?2:1))first[at]=value;
+            else if(memcmp(&value,&first[at],sizeof(float))){mismatches++;changed=1;}
+        }
+        differing_repeats+=changed;
+    }
+    free(first);free(alternate);free(original);
     for(unsigned i=0;i<no;i++)for(unsigned j=0;j<layer.out[i].count;j++){
         float value=get(&layer.out[i],j);if(!isfinite(value))return 3;
         if(fwrite(&value,sizeof(value),1,output)!=1)return 2;
     }
     fclose(output);long long allocated=npu_bytes();free_net(&layer,ni,no);check(vip_destroy(),"destroy");
     FILE *result=fopen(argv[5],"w");if(!result)return 2;
-    fprintf(result,"{\"repeats\":%d,\"mean_api_seconds\":%.9f,\"allocated_bytes\":%lld,\"released_bytes\":%lld}\n",repeats,seconds/repeats,allocated,npu_bytes());
+    fprintf(result,"{\"repeats\":%d,\"mean_api_seconds\":%.9f,\"allocated_bytes\":%lld,\"released_bytes\":%lld,\"differing_repeats\":%d,\"mismatched_elements\":%llu}\n",repeats,seconds/repeats,allocated,npu_bytes(),differing_repeats,mismatches);
     fclose(result);return 0;
 }

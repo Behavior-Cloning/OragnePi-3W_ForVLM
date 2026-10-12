@@ -1,0 +1,1166 @@
+{
+  "scope": "diagnostic only; same 1053-history + 20 input + 128 fixed-feedback steps",
+  "fp32_reference_sha256": "a00ba1fb2d048a9f23b2f4e30cd525de571510782b0a2a942ac0189a0d4f1c3b",
+  "runs": [
+    {
+      "case": "audit1",
+      "runner": {
+        "decode_variant": "w8-fused2-c1280-t1",
+        "prefill_variant": "w8-fused2-c1280-t20-vslice",
+        "capacity": 1280,
+        "query_tokens": 20,
+        "cached_prefix": 1053,
+        "scalar_prefix": 0,
+        "init_buffer_flush": true,
+        "audit_outputs": true,
+        "decoder_group": 12
+      },
+      "relative_l2": 0.1070079356431961,
+      "min_cosine": 0.9671899676322937,
+      "argmax_matches": 112,
+      "logits_sha256": "0031431cbc41a6b3940e9e765e3e85655ef3a2ed9dc6bc243a0df2b948d0e215",
+      "released_bytes": 0,
+      "reference_scope": "reuse scalar independent FP32 reference: same graph constants, prompt and fixed feedback",
+      "hashes": {
+        "output-audit.tsv": "204632b9c659963271d7c42f4248682019b0deec1b02be55e2eacf3f8b08c007",
+        "deployed-sha256.txt": "95a734ccad09846c149bf76115dbb1b4e7c703f5aa49a7c98f9ef1df03ed7309"
+      },
+      "exact_previous_hidden_repetitions": [
+        {
+          "position": 320,
+          "block": 1,
+          "previous_position": 300
+        },
+        {
+          "position": 400,
+          "block": 1,
+          "previous_position": 380
+        },
+        {
+          "position": 580,
+          "block": 1,
+          "previous_position": 560
+        },
+        {
+          "position": 680,
+          "block": 1,
+          "previous_position": 660
+        },
+        {
+          "position": 700,
+          "block": 1,
+          "previous_position": 680
+        },
+        {
+          "position": 720,
+          "block": 1,
+          "previous_position": 700
+        },
+        {
+          "position": 840,
+          "block": 1,
+          "previous_position": 820
+        },
+        {
+          "position": 900,
+          "block": 1,
+          "previous_position": 880
+        },
+        {
+          "position": 1000,
+          "block": 1,
+          "previous_position": 980
+        }
+      ]
+    },
+    {
+      "case": "audit2",
+      "runner": {
+        "decode_variant": "w8-fused2-c1280-t1",
+        "prefill_variant": "w8-fused2-c1280-t20-vslice",
+        "capacity": 1280,
+        "query_tokens": 20,
+        "cached_prefix": 1053,
+        "scalar_prefix": 0,
+        "init_buffer_flush": true,
+        "audit_outputs": true,
+        "decoder_group": 12
+      },
+      "relative_l2": 0.035584814846515656,
+      "min_cosine": 0.9966263771057129,
+      "argmax_matches": 123,
+      "logits_sha256": "463f0a4108983923a71763515a05342431894a1d3f84cf97c7e3d50413856cc0",
+      "released_bytes": 0,
+      "reference_scope": "reuse scalar independent FP32 reference: same graph constants, prompt and fixed feedback",
+      "hashes": {
+        "output-audit.tsv": "2a8f80b63f927fba1d118d11cfe0320e0058a690d0ed6f5bddde04030fd46165",
+        "deployed-sha256.txt": "8262e125926c24dfc464d6e111f81748e76fb551030bb1bba295f7fc57dea773"
+      },
+      "exact_previous_hidden_repetitions": [
+        {
+          "position": 160,
+          "block": 1,
+          "previous_position": 140
+        },
+        {
+          "position": 260,
+          "block": 1,
+          "previous_position": 240
+        },
+        {
+          "position": 620,
+          "block": 1,
+          "previous_position": 600
+        },
+        {
+          "position": 740,
+          "block": 1,
+          "previous_position": 720
+        },
+        {
+          "position": 780,
+          "block": 1,
+          "previous_position": 760
+        },
+        {
+          "position": 800,
+          "block": 1,
+          "previous_position": 780
+        },
+        {
+          "position": 900,
+          "block": 1,
+          "previous_position": 880
+        }
+      ]
+    },
+    {
+      "case": "capture160",
+      "runner": {
+        "decode_variant": "w8-fused2-c1280-t1",
+        "prefill_variant": "w8-fused2-c1280-t20-vslice",
+        "capacity": 1280,
+        "query_tokens": 20,
+        "cached_prefix": 1053,
+        "scalar_prefix": 0,
+        "init_buffer_flush": true,
+        "audit_outputs": true,
+        "decoder_group": 12
+      },
+      "relative_l2": 0.8596155643463135,
+      "min_cosine": 0.12228398770093918,
+      "argmax_matches": 56,
+      "logits_sha256": "ac1c5c8b375d101f10d57dbb0ac5df6bfec4cb77f967a6bb14cb85b18ba8e4bc",
+      "released_bytes": 0,
+      "reference_scope": "reuse scalar independent FP32 reference: same graph constants, prompt and fixed feedback",
+      "hashes": {
+        "output-audit.tsv": "27c2199b09d17c448ccc612a8056db9789f9f3afb6eadbbe24aee3f5dd79a020",
+        "deployed-sha256.txt": "7dd033d999ce8600c9449d05ce0858544dd6d83dbcc892fc79785c2358f82904",
+        "capture-output.f32": "aedfd38b55674a998dceb00c70b2928e3292cd396668610e5e599a8df56b4375",
+        "capture-input.f32": "df2d498c82d0961b0ff3ce86d44687dd86177a970ff2eb7f63fa660cc729bda7"
+      },
+      "exact_previous_hidden_repetitions": [
+        {
+          "position": 100,
+          "block": 1,
+          "previous_position": 80
+        },
+        {
+          "position": 160,
+          "block": 1,
+          "previous_position": 140
+        },
+        {
+          "position": 260,
+          "block": 1,
+          "previous_position": 240
+        },
+        {
+          "position": 340,
+          "block": 1,
+          "previous_position": 320
+        },
+        {
+          "position": 360,
+          "block": 1,
+          "previous_position": 340
+        },
+        {
+          "position": 400,
+          "block": 1,
+          "previous_position": 380
+        },
+        {
+          "position": 540,
+          "block": 1,
+          "previous_position": 520
+        },
+        {
+          "position": 560,
+          "block": 1,
+          "previous_position": 540
+        },
+        {
+          "position": 600,
+          "block": 1,
+          "previous_position": 580
+        },
+        {
+          "position": 780,
+          "block": 1,
+          "previous_position": 760
+        },
+        {
+          "position": 980,
+          "block": 1,
+          "previous_position": 960
+        },
+        {
+          "position": 1053,
+          "block": 1,
+          "previous_position": 1020
+        }
+      ]
+    },
+    {
+      "case": "host-hidden",
+      "runner": {
+        "decode_variant": "w8-fused2-c1280-t1",
+        "prefill_variant": "w8-fused2-c1280-t20-vslice",
+        "capacity": 1280,
+        "query_tokens": 20,
+        "cached_prefix": 1053,
+        "scalar_prefix": 0,
+        "init_buffer_flush": true,
+        "audit_outputs": true,
+        "decoder_group": 12,
+        "capture_prefill": null,
+        "prefill_host_hidden": true
+      },
+      "relative_l2": 0.9898998737335205,
+      "min_cosine": 0.020241986960172653,
+      "argmax_matches": 37,
+      "logits_sha256": "0d2c285320aca8c8a14b06eae53d77aabb6cb6e6592ae087f21cb1ffc59981c6",
+      "released_bytes": 0,
+      "reference_scope": "reuse scalar independent FP32 reference: same graph constants, prompt and fixed feedback",
+      "hashes": {
+        "output-audit.tsv": "173b64a95a60120ff6420f2c406bb0f89792aff78688d439de2246b63c238a0a",
+        "deployed-sha256.txt": "0ac04c016df50396e63cce2b9661c88732e1b2176ea98d108ee41c0b20197baf"
+      },
+      "exact_previous_hidden_repetitions": [
+        {
+          "position": 20,
+          "block": 1,
+          "previous_position": 0
+        },
+        {
+          "position": 40,
+          "block": 1,
+          "previous_position": 20
+        },
+        {
+          "position": 60,
+          "block": 1,
+          "previous_position": 40
+        },
+        {
+          "position": 80,
+          "block": 1,
+          "previous_position": 60
+        },
+        {
+          "position": 100,
+          "block": 1,
+          "previous_position": 80
+        },
+        {
+          "position": 120,
+          "block": 1,
+          "previous_position": 100
+        },
+        {
+          "position": 140,
+          "block": 1,
+          "previous_position": 120
+        },
+        {
+          "position": 160,
+          "block": 1,
+          "previous_position": 140
+        },
+        {
+          "position": 180,
+          "block": 1,
+          "previous_position": 160
+        },
+        {
+          "position": 200,
+          "block": 1,
+          "previous_position": 180
+        },
+        {
+          "position": 220,
+          "block": 1,
+          "previous_position": 200
+        },
+        {
+          "position": 240,
+          "block": 1,
+          "previous_position": 220
+        },
+        {
+          "position": 260,
+          "block": 1,
+          "previous_position": 240
+        },
+        {
+          "position": 280,
+          "block": 1,
+          "previous_position": 260
+        },
+        {
+          "position": 300,
+          "block": 1,
+          "previous_position": 280
+        },
+        {
+          "position": 320,
+          "block": 1,
+          "previous_position": 300
+        },
+        {
+          "position": 340,
+          "block": 1,
+          "previous_position": 320
+        },
+        {
+          "position": 380,
+          "block": 1,
+          "previous_position": 360
+        },
+        {
+          "position": 400,
+          "block": 1,
+          "previous_position": 380
+        },
+        {
+          "position": 420,
+          "block": 1,
+          "previous_position": 400
+        },
+        {
+          "position": 440,
+          "block": 1,
+          "previous_position": 420
+        },
+        {
+          "position": 460,
+          "block": 1,
+          "previous_position": 440
+        },
+        {
+          "position": 480,
+          "block": 1,
+          "previous_position": 460
+        },
+        {
+          "position": 500,
+          "block": 1,
+          "previous_position": 480
+        },
+        {
+          "position": 540,
+          "block": 1,
+          "previous_position": 520
+        },
+        {
+          "position": 560,
+          "block": 1,
+          "previous_position": 540
+        },
+        {
+          "position": 580,
+          "block": 1,
+          "previous_position": 560
+        },
+        {
+          "position": 600,
+          "block": 1,
+          "previous_position": 580
+        },
+        {
+          "position": 640,
+          "block": 1,
+          "previous_position": 620
+        },
+        {
+          "position": 660,
+          "block": 1,
+          "previous_position": 640
+        },
+        {
+          "position": 680,
+          "block": 1,
+          "previous_position": 660
+        },
+        {
+          "position": 700,
+          "block": 1,
+          "previous_position": 680
+        },
+        {
+          "position": 720,
+          "block": 1,
+          "previous_position": 700
+        },
+        {
+          "position": 740,
+          "block": 1,
+          "previous_position": 720
+        },
+        {
+          "position": 760,
+          "block": 1,
+          "previous_position": 740
+        },
+        {
+          "position": 780,
+          "block": 1,
+          "previous_position": 760
+        },
+        {
+          "position": 800,
+          "block": 1,
+          "previous_position": 780
+        },
+        {
+          "position": 820,
+          "block": 1,
+          "previous_position": 800
+        },
+        {
+          "position": 840,
+          "block": 1,
+          "previous_position": 820
+        },
+        {
+          "position": 860,
+          "block": 1,
+          "previous_position": 840
+        },
+        {
+          "position": 880,
+          "block": 1,
+          "previous_position": 860
+        },
+        {
+          "position": 900,
+          "block": 1,
+          "previous_position": 880
+        },
+        {
+          "position": 920,
+          "block": 1,
+          "previous_position": 900
+        },
+        {
+          "position": 940,
+          "block": 1,
+          "previous_position": 920
+        },
+        {
+          "position": 960,
+          "block": 1,
+          "previous_position": 940
+        },
+        {
+          "position": 980,
+          "block": 1,
+          "previous_position": 960
+        },
+        {
+          "position": 1000,
+          "block": 1,
+          "previous_position": 980
+        },
+        {
+          "position": 1020,
+          "block": 1,
+          "previous_position": 1000
+        },
+        {
+          "position": 1053,
+          "block": 1,
+          "previous_position": 1020
+        }
+      ]
+    },
+    {
+      "case": "host-outputs",
+      "runner": {
+        "decode_variant": "w8-fused2-c1280-t1",
+        "prefill_variant": "w8-fused2-c1280-t20-vslice",
+        "capacity": 1280,
+        "query_tokens": 20,
+        "cached_prefix": 1053,
+        "scalar_prefix": 0,
+        "init_buffer_flush": true,
+        "audit_outputs": true,
+        "decoder_group": 12,
+        "capture_prefill": null,
+        "prefill_host_hidden": false,
+        "host_output_buffers": true
+      },
+      "relative_l2": 0.16492494940757751,
+      "min_cosine": 0.6637060046195984,
+      "argmax_matches": 118,
+      "logits_sha256": "455a0bbd6046fc409b0e8cbb7b3e341425e0c4e9d0ba16f0b16f3b524b00be8e",
+      "released_bytes": 0,
+      "reference_scope": "reuse scalar independent FP32 reference: same graph constants, prompt and fixed feedback",
+      "hashes": {
+        "output-audit.tsv": "d79845af2e9377528b259983ac2eb6350743a34a527919f560ad6144860a29c0",
+        "deployed-sha256.txt": "8d9980c77f8353a5e6830f56d3a0105a363ed3c9637e8ba30c74d407fc9983f8"
+      },
+      "exact_previous_hidden_repetitions": [
+        {
+          "position": 180,
+          "block": 1,
+          "previous_position": 160
+        },
+        {
+          "position": 200,
+          "block": 1,
+          "previous_position": 180
+        },
+        {
+          "position": 320,
+          "block": 1,
+          "previous_position": 300
+        },
+        {
+          "position": 340,
+          "block": 1,
+          "previous_position": 320
+        },
+        {
+          "position": 380,
+          "block": 1,
+          "previous_position": 360
+        },
+        {
+          "position": 800,
+          "block": 1,
+          "previous_position": 780
+        },
+        {
+          "position": 1053,
+          "block": 1,
+          "previous_position": 1020
+        }
+      ]
+    },
+    {
+      "case": "rebind",
+      "runner": {
+        "decode_variant": "w8-fused2-c1280-t1",
+        "prefill_variant": "w8-fused2-c1280-t20-vslice",
+        "capacity": 1280,
+        "query_tokens": 20,
+        "cached_prefix": 1053,
+        "scalar_prefix": 0,
+        "init_buffer_flush": true,
+        "audit_outputs": true,
+        "decoder_group": 12,
+        "capture_prefill": [
+          140,
+          1
+        ],
+        "prefill_host_hidden": false,
+        "host_output_buffers": false,
+        "prefill_rebind_outputs": true
+      },
+      "relative_l2": 0.22856850922107697,
+      "min_cosine": 0.6719188690185547,
+      "argmax_matches": 110,
+      "logits_sha256": "cbcd7a481585c50a2aae79866f390062717ad5cea8561564400071d530edfed1",
+      "released_bytes": 0,
+      "reference_scope": "reuse scalar independent FP32 reference: same graph constants, prompt and fixed feedback",
+      "hashes": {
+        "output-audit.tsv": "bc9b9a5da1e129bbb16fd450a913cb046461e9866eb38fdb3686de0887a749f0",
+        "deployed-sha256.txt": "c27e1a9d2dfdefd5602e23acae77f1e49e582e532c57ea8912aff7d5ca0aa487",
+        "capture-output.f32": "db92ea0e87547386e02cd5f0ec15995a5ee271063740c182b8375c1625113ce5",
+        "capture-input.f32": "64536a87075b2972c56a2b15ee3ae3f9e76a904cdb72b73a347dce8cd553d480"
+      },
+      "exact_previous_hidden_repetitions": [
+        {
+          "position": 60,
+          "block": 1,
+          "previous_position": 40
+        },
+        {
+          "position": 80,
+          "block": 1,
+          "previous_position": 60
+        },
+        {
+          "position": 100,
+          "block": 1,
+          "previous_position": 80
+        },
+        {
+          "position": 120,
+          "block": 1,
+          "previous_position": 100
+        },
+        {
+          "position": 140,
+          "block": 1,
+          "previous_position": 120
+        },
+        {
+          "position": 160,
+          "block": 1,
+          "previous_position": 140
+        },
+        {
+          "position": 180,
+          "block": 1,
+          "previous_position": 160
+        },
+        {
+          "position": 200,
+          "block": 1,
+          "previous_position": 180
+        },
+        {
+          "position": 220,
+          "block": 1,
+          "previous_position": 200
+        },
+        {
+          "position": 240,
+          "block": 1,
+          "previous_position": 220
+        },
+        {
+          "position": 260,
+          "block": 1,
+          "previous_position": 240
+        },
+        {
+          "position": 280,
+          "block": 1,
+          "previous_position": 260
+        },
+        {
+          "position": 300,
+          "block": 1,
+          "previous_position": 280
+        },
+        {
+          "position": 320,
+          "block": 1,
+          "previous_position": 300
+        },
+        {
+          "position": 340,
+          "block": 1,
+          "previous_position": 320
+        },
+        {
+          "position": 360,
+          "block": 1,
+          "previous_position": 340
+        },
+        {
+          "position": 380,
+          "block": 1,
+          "previous_position": 360
+        },
+        {
+          "position": 400,
+          "block": 1,
+          "previous_position": 380
+        },
+        {
+          "position": 420,
+          "block": 1,
+          "previous_position": 400
+        },
+        {
+          "position": 440,
+          "block": 1,
+          "previous_position": 420
+        },
+        {
+          "position": 460,
+          "block": 1,
+          "previous_position": 440
+        },
+        {
+          "position": 480,
+          "block": 1,
+          "previous_position": 460
+        },
+        {
+          "position": 500,
+          "block": 1,
+          "previous_position": 480
+        },
+        {
+          "position": 520,
+          "block": 1,
+          "previous_position": 500
+        },
+        {
+          "position": 540,
+          "block": 1,
+          "previous_position": 520
+        },
+        {
+          "position": 580,
+          "block": 1,
+          "previous_position": 560
+        },
+        {
+          "position": 600,
+          "block": 1,
+          "previous_position": 580
+        },
+        {
+          "position": 620,
+          "block": 1,
+          "previous_position": 600
+        },
+        {
+          "position": 660,
+          "block": 1,
+          "previous_position": 640
+        },
+        {
+          "position": 680,
+          "block": 1,
+          "previous_position": 660
+        },
+        {
+          "position": 700,
+          "block": 1,
+          "previous_position": 680
+        },
+        {
+          "position": 720,
+          "block": 1,
+          "previous_position": 700
+        },
+        {
+          "position": 740,
+          "block": 1,
+          "previous_position": 720
+        },
+        {
+          "position": 760,
+          "block": 1,
+          "previous_position": 740
+        },
+        {
+          "position": 780,
+          "block": 1,
+          "previous_position": 760
+        },
+        {
+          "position": 800,
+          "block": 1,
+          "previous_position": 780
+        },
+        {
+          "position": 820,
+          "block": 1,
+          "previous_position": 800
+        },
+        {
+          "position": 840,
+          "block": 1,
+          "previous_position": 820
+        },
+        {
+          "position": 860,
+          "block": 1,
+          "previous_position": 840
+        },
+        {
+          "position": 880,
+          "block": 1,
+          "previous_position": 860
+        },
+        {
+          "position": 900,
+          "block": 1,
+          "previous_position": 880
+        },
+        {
+          "position": 920,
+          "block": 1,
+          "previous_position": 900
+        },
+        {
+          "position": 940,
+          "block": 1,
+          "previous_position": 920
+        },
+        {
+          "position": 960,
+          "block": 1,
+          "previous_position": 940
+        },
+        {
+          "position": 980,
+          "block": 1,
+          "previous_position": 960
+        },
+        {
+          "position": 1020,
+          "block": 1,
+          "previous_position": 1000
+        },
+        {
+          "position": 1053,
+          "block": 1,
+          "previous_position": 1020
+        }
+      ]
+    },
+    {
+      "case": "poison",
+      "runner": {
+        "decode_variant": "w8-fused2-c1280-t1",
+        "prefill_variant": "w8-fused2-c1280-t20-vslice",
+        "capacity": 1280,
+        "query_tokens": 20,
+        "cached_prefix": 1053,
+        "scalar_prefix": 0,
+        "init_buffer_flush": true,
+        "audit_outputs": true,
+        "decoder_group": 12,
+        "capture_prefill": [
+          160,
+          1
+        ],
+        "prefill_host_hidden": false,
+        "host_output_buffers": false,
+        "prefill_rebind_outputs": false,
+        "poison_prefill_output": true
+      },
+      "relative_l2": 0.03199281170964241,
+      "min_cosine": 0.9987761974334717,
+      "argmax_matches": 126,
+      "logits_sha256": "059c05749f78a95b7efbce2b3edc553a060370f15a770565093d05bc7c2e4263",
+      "released_bytes": 0,
+      "reference_scope": "reuse scalar independent FP32 reference: same graph constants, prompt and fixed feedback",
+      "hashes": {
+        "output-audit.tsv": "7f87d7ddca810c98b251a275cea1aac84d7100fef8072817bd6665c4e099c9e4",
+        "deployed-sha256.txt": "935ce97b057f384037fa39bcc755d88458686cf093e94ec9a118a71658df5519",
+        "capture-output.f32": "355ec182259650ee89851ab74564265a4594460b67f33ee6f4b56b8c28f38594",
+        "capture-input.f32": "df2d498c82d0961b0ff3ce86d44687dd86177a970ff2eb7f63fa660cc729bda7"
+      },
+      "exact_previous_hidden_repetitions": []
+    },
+    {
+      "case": "preflush",
+      "runner": {
+        "decode_variant": "w8-fused2-c1280-t1",
+        "prefill_variant": "w8-fused2-c1280-t20-vslice",
+        "capacity": 1280,
+        "query_tokens": 20,
+        "cached_prefix": 1053,
+        "scalar_prefix": 0,
+        "init_buffer_flush": true,
+        "audit_outputs": false,
+        "decoder_group": 12,
+        "capture_prefill": null,
+        "prefill_host_hidden": false,
+        "host_output_buffers": false,
+        "prefill_rebind_outputs": false,
+        "poison_prefill_output": false,
+        "prefill_flush_output": true
+      },
+      "relative_l2": 0.034709632396698,
+      "min_cosine": 0.9979028701782227,
+      "argmax_matches": 123,
+      "logits_sha256": "1401f59e2cda2a94012af41d80ffa3887d9441f2b136ff0808ece9c137280575",
+      "released_bytes": 0,
+      "reference_scope": "reuse scalar independent FP32 reference: same graph constants, prompt and fixed feedback",
+      "hashes": {
+        "deployed-sha256.txt": "758d331a7d710e2ec8eb30eba1d3165f797ee7159ee29e8762c87778f9c4ba38"
+      }
+    },
+    {
+      "case": "preflush-repeat",
+      "runner": {
+        "decode_variant": "w8-fused2-c1280-t1",
+        "prefill_variant": "w8-fused2-c1280-t20-vslice",
+        "capacity": 1280,
+        "query_tokens": 20,
+        "cached_prefix": 1053,
+        "scalar_prefix": 0,
+        "init_buffer_flush": true,
+        "audit_outputs": false,
+        "decoder_group": 12,
+        "capture_prefill": null,
+        "prefill_host_hidden": false,
+        "host_output_buffers": false,
+        "prefill_rebind_outputs": false,
+        "poison_prefill_output": false,
+        "prefill_flush_output": true
+      },
+      "relative_l2": 0.8825891613960266,
+      "min_cosine": 0.15655237436294556,
+      "argmax_matches": 37,
+      "logits_sha256": "3b03a747464f06878bfcea05a3cc21bf5453e58d3b75fa700aad4d84aee2dcc6",
+      "released_bytes": 0,
+      "reference_scope": "reuse scalar independent FP32 reference: same graph constants, prompt and fixed feedback",
+      "hashes": {
+        "deployed-sha256.txt": "29971f47210fedef4bf33eece8fafe9e5946f862b634373e51ec9c6877360f12"
+      }
+    },
+    {
+      "case": "clear",
+      "runner": {
+        "decode_variant": "w8-fused2-c1280-t1",
+        "prefill_variant": "w8-fused2-c1280-t20-vslice",
+        "capacity": 1280,
+        "query_tokens": 20,
+        "cached_prefix": 1053,
+        "scalar_prefix": 0,
+        "init_buffer_flush": true,
+        "audit_outputs": false,
+        "decoder_group": 12,
+        "capture_prefill": null,
+        "prefill_host_hidden": false,
+        "host_output_buffers": false,
+        "prefill_rebind_outputs": false,
+        "poison_prefill_output": false,
+        "prefill_flush_output": false,
+        "prefill_clear_output": true
+      },
+      "relative_l2": 0.03199281170964241,
+      "min_cosine": 0.9987761974334717,
+      "argmax_matches": 126,
+      "logits_sha256": "059c05749f78a95b7efbce2b3edc553a060370f15a770565093d05bc7c2e4263",
+      "released_bytes": 0,
+      "reference_scope": "reuse scalar independent FP32 reference: same graph constants, prompt and fixed feedback",
+      "hashes": {
+        "deployed-sha256.txt": "e7570efd2b02c27b91d34f815141d0e475bc4d4250c4a429d44510f3e4a65401"
+      }
+    },
+    {
+      "case": "clear-repeat",
+      "runner": {
+        "decode_variant": "w8-fused2-c1280-t1",
+        "prefill_variant": "w8-fused2-c1280-t20-vslice",
+        "capacity": 1280,
+        "query_tokens": 20,
+        "cached_prefix": 1053,
+        "scalar_prefix": 0,
+        "init_buffer_flush": true,
+        "audit_outputs": false,
+        "decoder_group": 12,
+        "capture_prefill": null,
+        "prefill_host_hidden": false,
+        "host_output_buffers": false,
+        "prefill_rebind_outputs": false,
+        "poison_prefill_output": false,
+        "prefill_flush_output": false,
+        "prefill_clear_output": true
+      },
+      "relative_l2": 0.2639590799808502,
+      "min_cosine": 0.2809388041496277,
+      "argmax_matches": 110,
+      "logits_sha256": "53345a9028fe34642364dffc43adfa87cff279dbcf738c9221361eacfe0cc5e8",
+      "released_bytes": 0,
+      "reference_scope": "reuse scalar independent FP32 reference: same graph constants, prompt and fixed feedback",
+      "hashes": {
+        "deployed-sha256.txt": "95e5daf95cb577c1d4eb6a7c4e7c76252f8ea43339dd43e6ceeb761e0d88e26e"
+      }
+    },
+    {
+      "case": "scalar-repeat",
+      "runner": {
+        "decode_variant": "w8-fused2-c1280-t1",
+        "prefill_variant": null,
+        "capacity": 1280,
+        "query_tokens": 0,
+        "cached_prefix": 1053,
+        "scalar_prefix": 0,
+        "init_buffer_flush": false,
+        "audit_outputs": false,
+        "decoder_group": 12,
+        "capture_prefill": null,
+        "prefill_host_hidden": false,
+        "host_output_buffers": false,
+        "prefill_rebind_outputs": false,
+        "poison_prefill_output": false,
+        "prefill_flush_output": false,
+        "prefill_clear_output": false
+      },
+      "relative_l2": 0.03188979625701904,
+      "min_cosine": 0.9987496137619019,
+      "argmax_matches": 126,
+      "logits_sha256": "c363f57cb27a57eadb04c3cd2afb60a035939e67bce0da81c83a4838734d24ac",
+      "released_bytes": 0,
+      "reference_scope": "reuse scalar independent FP32 reference: same graph constants, prompt and fixed feedback",
+      "hashes": {
+        "deployed-sha256.txt": "4f6b5833442f511fb1b87a378ca4c05969c240e4327754007f494399ab5593fa"
+      }
+    },
+    {
+      "case": "scalarblock1-v2",
+      "runner": {
+        "decode_variant": "w8-fused2-c1280-t1",
+        "prefill_variant": "w8-fused2-c1280-t20-vslice",
+        "capacity": 1280,
+        "query_tokens": 20,
+        "cached_prefix": 1053,
+        "scalar_prefix": 0,
+        "init_buffer_flush": false,
+        "audit_outputs": false,
+        "decoder_group": 12,
+        "capture_prefill": null,
+        "prefill_host_hidden": false,
+        "host_output_buffers": false,
+        "prefill_rebind_outputs": false,
+        "poison_prefill_output": false,
+        "prefill_flush_output": false,
+        "prefill_clear_output": false,
+        "prefill_scalar_block": 1
+      },
+      "relative_l2": 0.032278209924697876,
+      "min_cosine": 0.9986361861228943,
+      "argmax_matches": 124,
+      "logits_sha256": "256f109b351a36b781f6b61c21c43dfc081e40d0333b978b1fa2031bcf0f5f0a",
+      "released_bytes": 0,
+      "reference_scope": "reuse scalar independent FP32 reference: same graph constants, prompt and fixed feedback",
+      "hashes": {
+        "deployed-sha256.txt": "7cc53e2082f0a25a126f53ff42240ddeb6afd7c5672fe93ca2403fc5459a5ec6"
+      }
+    },
+    {
+      "case": "scalarblock1-repeat",
+      "runner": {
+        "decode_variant": "w8-fused2-c1280-t1",
+        "prefill_variant": "w8-fused2-c1280-t20-vslice",
+        "capacity": 1280,
+        "query_tokens": 20,
+        "cached_prefix": 1053,
+        "scalar_prefix": 0,
+        "init_buffer_flush": false,
+        "audit_outputs": false,
+        "decoder_group": 12,
+        "capture_prefill": null,
+        "prefill_host_hidden": false,
+        "host_output_buffers": false,
+        "prefill_rebind_outputs": false,
+        "poison_prefill_output": false,
+        "prefill_flush_output": false,
+        "prefill_clear_output": false,
+        "prefill_scalar_block": 1
+      },
+      "relative_l2": 0.032278209924697876,
+      "min_cosine": 0.9986361861228943,
+      "argmax_matches": 124,
+      "logits_sha256": "256f109b351a36b781f6b61c21c43dfc081e40d0333b978b1fa2031bcf0f5f0a",
+      "released_bytes": 0,
+      "reference_scope": "reuse scalar independent FP32 reference: same graph constants, prompt and fixed feedback",
+      "hashes": {
+        "deployed-sha256.txt": "25d9f5f5053545c44163246215f90966c30e02795af928b680a4604001dca34b"
+      }
+    },
+    {
+      "case": "pin6",
+      "runner": {
+        "decode_variant": "w8-fused2-c1280-t1",
+        "prefill_variant": "w8-fused2-c1280-t20-vslice",
+        "capacity": 1280,
+        "query_tokens": 20,
+        "cached_prefix": 1053,
+        "scalar_prefix": 0,
+        "init_buffer_flush": false,
+        "audit_outputs": false,
+        "decoder_group": 12,
+        "capture_prefill": null,
+        "prefill_host_hidden": false,
+        "host_output_buffers": false,
+        "prefill_rebind_outputs": false,
+        "poison_prefill_output": false,
+        "prefill_flush_output": false,
+        "prefill_clear_output": false,
+        "prefill_scalar_block": -1,
+        "host_cpu_affinity": "6"
+      },
+      "relative_l2": 0.8795327544212341,
+      "min_cosine": 0.10420238971710205,
+      "argmax_matches": 55,
+      "logits_sha256": "445bcc63c8d0ed9711a9e7e9165b5aa5fd2a2f772fb8faa9f7d7dfd38cdebe66",
+      "released_bytes": 0,
+      "reference_scope": "reuse scalar independent FP32 reference: same graph constants, prompt and fixed feedback",
+      "hashes": {
+        "deployed-sha256.txt": "ae356548cb49c88986b771a442ce399559f04cef6c54a3781ed3e4cd934bba66"
+      }
+    },
+    {
+      "case": "pin0",
+      "runner": {
+        "decode_variant": "w8-fused2-c1280-t1",
+        "prefill_variant": "w8-fused2-c1280-t20-vslice",
+        "capacity": 1280,
+        "query_tokens": 20,
+        "cached_prefix": 1053,
+        "scalar_prefix": 0,
+        "init_buffer_flush": false,
+        "audit_outputs": false,
+        "decoder_group": 12,
+        "capture_prefill": null,
+        "prefill_host_hidden": false,
+        "host_output_buffers": false,
+        "prefill_rebind_outputs": false,
+        "poison_prefill_output": false,
+        "prefill_flush_output": false,
+        "prefill_clear_output": false,
+        "prefill_scalar_block": -1,
+        "host_cpu_affinity": "0"
+      },
+      "relative_l2": 0.8460404276847839,
+      "min_cosine": 0.18791654706001282,
+      "argmax_matches": 59,
+      "logits_sha256": "e7a34106de800a5b69a5fb953faafadc3e794f320de87d6e87c38578baa5317f",
+      "released_bytes": 0,
+      "reference_scope": "reuse scalar independent FP32 reference: same graph constants, prompt and fixed feedback",
+      "hashes": {
+        "deployed-sha256.txt": "81c8aec89b0f990df3285185f781b152a1455267ae91791316581aa4e9ad9623"
+      }
+    }
+  ],
+  "failed_scalarblock_benchmark": {
+    "host_cpu_affinity": "6,7",
+    "relative_l2": 0.07841331511735916,
+    "min_cosine": 0.6059448719024658,
+    "argmax_matches": 123,
+    "logits_sha256": "1991cc98b36d4e722f513d17d56ba9cbd044544ad589d50c93ba1a20dc4cde1e",
+    "released_bytes": 0,
+    "scope": "diagnostic rejected before warmup/measurement; full FP32 reference reused on identical feedback"
+  },
+  "comparison": {
+    "total_output_tensors": 11580,
+    "different_output_tensors": 8922,
+    "first_mismatch": {
+      "stage": "prefill",
+      "position": 160,
+      "block": 1,
+      "port": 0,
+      "count": 17920,
+      "hashes": [
+        "e3287ee09d5a883d",
+        "695a937dc156d03a"
+      ]
+    }
+  }
+}

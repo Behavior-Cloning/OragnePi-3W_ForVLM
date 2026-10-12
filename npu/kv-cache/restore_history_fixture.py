@@ -10,9 +10,13 @@ from full_prompt import tokenizer_from_gguf
 
 p=argparse.ArgumentParser();p.add_argument('--archive',type=Path,required=True)
 p.add_argument('--model',type=Path,required=True);p.add_argument('--model-id',required=True)
+p.add_argument('--context',type=int,default=1024,help='archived CPU context capacity')
+p.add_argument('--case-index',type=int,default=0,help='archived history-length case')
 p.add_argument('--output',type=Path,required=True);a=p.parse_args()
 r=json.loads(a.archive.read_text());m=next(m for m in r['models'] if m['id']==a.model_id)
-c=next(c for c in m['contexts'] if c['context']==1024)['cases'][0]
+cases=next(c for c in m['contexts'] if c['context']==a.context)['cases']
+assert 0<=a.case_index<len(cases)
+c=cases[a.case_index]
 reader=gguf.GGUFReader(a.model);tokenizer=tokenizer_from_gguf(reader)
 template=Environment().from_string(reader.fields['tokenizer.chat_template'].contents())
 def render(messages):
@@ -26,7 +30,8 @@ assert tokens==c['prompt_tokens']
 text,tokens=render(c['incremental']['messages']);timing=c['incremental']['run']['timings']
 assert len(tokens)==c['incremental']['input_tokens']==timing['cache_n']+timing['prompt_n']
 a.output.mkdir(parents=True,exist_ok=False)
-report={'text':'archived short-history companion continuation','rendered_prompt':text,'token_ids':tokens,
+report={'text':'archived companion continuation','rendered_prompt':text,'token_ids':tokens,
+        'archive_context':a.context,'archive_case_index':a.case_index,
         'messages':c['incremental']['messages'],'archive':str(a.archive),
         'archive_sha256':hashlib.sha256(a.archive.read_bytes()).hexdigest(),
         'cached_prefix':timing['cache_n'],'new_tokens':timing['prompt_n'],

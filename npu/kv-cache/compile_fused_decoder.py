@@ -30,7 +30,12 @@ p.add_argument('--value-output-fp16',action='store_true',help='diagnostic explic
 p.add_argument('--value-perchannel',action='store_true',help='diagnostic W8 per-channel V kernel for batched queries')
 p.add_argument('--value-layout-fp16',action='store_true',help='diagnostic FP16 V layout conversion with unchanged matrix weights')
 p.add_argument('--value-layout-sliced',action='store_true',help='replace V permute by equivalent per-KV-head slices')
+p.add_argument('--native-rmsnorm',action='store_true',help='experimental SDK RMSNormalize; requires independent numerical validation')
+p.add_argument('--key-cache-transposed',action='store_true',help='experimental K cache layout; requires matching runtime')
+p.add_argument('--attention-fp16',action='store_true',help='diagnostic FP16 matmul operand conversion; KV ports stay calibrated')
+p.add_argument('--attention-fp16-convert',action='store_true',help='explicit dtype_converter before attention matmul; preserve layout-node precision')
 a = p.parse_args()
+assert not (a.attention_fp16 and a.attention_fp16_convert)
 root = Path(__file__).resolve().parents[2] / 'npu/results'
 out = a.output.resolve()
 relative = out.relative_to(root)
@@ -38,6 +43,9 @@ out.mkdir(parents=True, exist_ok=False)
 nodes, weights, quant, ports, output_nodes = {}, {}, {}, [], []
 sources = []
 layout_changes = []
+norm_changes = []
+key_layout_changes = []
+attention_changes = []
 manifest = json.loads((a.source / 'trained-manifest.json').read_text())
 previous_hidden = None
 for offset in range(a.width):
@@ -79,6 +87,46 @@ for offset in range(a.width):
     if a.value_layout_sliced:
         from reshape_decoder import slice_value_layout
         slice_value_layout(graph,q,manifest['kv_heads'],manifest['head_dim'],a.tokens)
+    if a.native_rmsnorm:
+        assert manifest.get('stable_norm') and manifest.get('norm_version') == 3
+        from native_rmsnorm import replace_rmsnorm
+        data, change = replace_rmsnorm(graph, q, data)
+        norm_changes.append({'layer': a.first + offset, **change})
+    if a.key_cache_transposed:
+        assert a.compact_gqa
+        from key_cache_layout import transpose_key_cache
+        key_layout_changes.append({'layer':a.first+offset,**transpose_key_cache(graph,q)})
+    if a.attention_fp16:
+        assert a.compact_gqa and not a.key_cache_transposed
+        changes=[]
+        for node in graph['Layers'].values():
+            if node['op']!='matmul':continue
+            for ref in node['inputs']:
+                operand=graph['Layers'][ref[1:].rsplit(':',1)[0]]
+                assert operand['op']!='input', 'retain external KV precision'
+                old=q['quantize_parameters'][ref]
+                if old=={'qtype':'float16','quantizer':'float16'}:continue
+                changes.append({'tensor':ref,'before':old})
+                q['quantize_parameters'][ref]={'qtype':'float16','quantizer':'float16'}
+        attention_changes.append({'layer':a.first+offset,'operands':changes})
+    if a.attention_fp16_convert:
+        assert a.compact_gqa and not a.key_cache_transposed
+        changes=[];converters={}
+        for key,node in list(graph['Layers'].items()):
+            if node['op']!='matmul':continue
+            for i,ref in enumerate(node['inputs']):
+                old=q['quantize_parameters'][ref]
+                if old=={'qtype':'float16','quantizer':'float16'}:continue
+                if ref not in converters:
+                    name=f'attention_fp16_{len(converters)}'
+                    assert name not in graph['Layers']
+                    graph['Layers'][name]={'name':name,'op':'dtype_converter','parameters':{},
+                        'inputs':[ref],'outputs':['out0']}
+                    converters[ref]='@'+name+':out0'
+                    q['quantize_parameters'][converters[ref]]={'qtype':'float16','quantizer':'float16'}
+                node['inputs'][i]=converters[ref]
+                changes.append({'matmul':key,'input':i,'tensor':ref,'before':old,'converted':converters[ref]})
+        attention_changes.append({'layer':a.first+offset,'strategy':'explicit-dtype-converter-v1','operands':changes})
     assert not graph.get('quantize_info') and not q.get('customized_quantize_layers')
     original = graph['Layers']
     rename = {key: f'b{offset}_{key}' for key in original}
@@ -158,6 +206,10 @@ report = {'first_layer': a.first, 'fusion_width': a.width, 'sources': sources,
     'value_output_fp16':a.value_output_fp16,'value_perchannel':a.value_perchannel,
     'value_layout_fp16':a.value_layout_fp16,
     'value_layout_sliced':a.value_layout_sliced,
+    'native_rmsnorm':a.native_rmsnorm,'norm_changes':norm_changes,
+    'key_cache_transposed':a.key_cache_transposed,'key_layout_changes':key_layout_changes,
+    'attention_fp16':a.attention_fp16,'attention_changes':attention_changes,
+    'attention_fp16_convert':a.attention_fp16_convert,
     'capacity':a.capacity or manifest['capacity'],'query_tokens':a.tokens,
     'compact_gqa': a.compact_gqa, 'layout_changes': layout_changes,
     'scope': 'calibrated graph fusion with explicit recorded layout/precision overrides; no recalibration',

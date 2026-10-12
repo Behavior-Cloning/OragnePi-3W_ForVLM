@@ -39,7 +39,9 @@ with torch.inference_mode():
         if offset==0:feeds['b0_hidden']=query
         hidden=layer.full(hidden)
         ref.append((keys[:,:,a.history:],values[:,:,a.history:]))
-    outputs=evaluate(graph,data,feeds)
+    graph_feeds={k:(v.transpose(-1,-2).contiguous() if conversion.get('key_cache_transposed') and k.endswith('_past_k') else v)
+                 for k,v in feeds.items()}
+    outputs=evaluate(graph,data,graph_feeds)
     expected={f'b{width-1}_attach_hidden_out/out0':hidden[:,a.history:]}
     for i,(k,v) in enumerate(ref):expected.update({f'b{i}_attach_new_k/out0':k,f'b{i}_attach_new_v/out0':v})
     errors={}
@@ -59,9 +61,10 @@ with torch.inference_mode():
     board_expected[f'b{width-1}_attach_hidden_out/out0']=x
     input_order=[graph['Layers'][k]['name'] for k in conversion['input_order']]
     output_order=[graph['Layers'][k]['name'] for k in conversion['output_order']]
-    np.concatenate([feeds[k].numpy().ravel() for k in input_order]).tofile(a.folder/'probe-input.f32')
+    np.concatenate([graph_feeds[k].numpy().ravel() for k in input_order]).tofile(a.folder/'probe-input.f32')
     np.concatenate([board_expected[k].numpy().ravel() for k in output_order]).tofile(a.folder/'probe-reference.f32')
     report={'history':a.history,'capacity':capacity,'query_tokens':n,'fp32_graph_errors':errors,
+            'key_cache_transposed':conversion.get('key_cache_transposed',False),
             'inputs':[(k,feeds[k].numel()) for k in input_order],
             'outputs':[(k,board_expected[k].numel()) for k in output_order]}
     (a.folder/'probe-fixture.json').write_text(json.dumps(report,indent=2)+'\n')

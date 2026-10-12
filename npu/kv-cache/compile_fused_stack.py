@@ -20,6 +20,10 @@ p.add_argument('--tokens',type=int,default=1)
 p.add_argument('--value-output-fp16',action='store_true')
 p.add_argument('--value-perchannel',action='store_true')
 p.add_argument('--value-layout-sliced',action='store_true')
+p.add_argument('--native-rmsnorm',action='store_true')
+p.add_argument('--key-cache-transposed',action='store_true')
+p.add_argument('--attention-fp16',action='store_true')
+p.add_argument('--attention-fp16-convert',action='store_true')
 p.add_argument('--reuse-blocks-from', help='reuse immutable blocks only when every source hash and graph option matches')
 a = p.parse_args()
 source = a.source.resolve()
@@ -39,6 +43,14 @@ def compatible(record, first):
     if record.get('value_output_fp16',False)!=a.value_output_fp16 or record.get('value_perchannel',False)!=a.value_perchannel:
         return False
     if record.get('value_layout_fp16',False) or record.get('value_layout_sliced',False)!=a.value_layout_sliced:
+        return False
+    if record.get('native_rmsnorm',False)!=a.native_rmsnorm:
+        return False
+    if record.get('key_cache_transposed',False)!=a.key_cache_transposed:
+        return False
+    if record.get('attention_fp16',False)!=a.attention_fp16:
+        return False
+    if record.get('attention_fp16_convert',False)!=a.attention_fp16_convert:
         return False
     if {s['layer'] for s in record['sources']} != set(range(first,first+a.width)):
         return False
@@ -70,6 +82,10 @@ def compile_block(first):
                 (['--value-output-fp16'] if a.value_output_fp16 else []) +
                 (['--value-perchannel'] if a.value_perchannel else []) +
                 (['--value-layout-sliced'] if a.value_layout_sliced else []) +
+                (['--native-rmsnorm'] if a.native_rmsnorm else []) +
+                (['--key-cache-transposed'] if a.key_cache_transposed else []) +
+                (['--attention-fp16'] if a.attention_fp16 else []) +
+                (['--attention-fp16-convert'] if a.attention_fp16_convert else []) +
                 (['--compact-gqa'] if a.compact_gqa else []),
                 stdout=log, stderr=subprocess.STDOUT, check=True, timeout=340)
         record = json.loads((folder / 'conversion.json').read_text())
@@ -77,6 +93,7 @@ def compile_block(first):
     verify_contract(folder, a.width)
     result = {'layer': first, 'fusion_width': a.width, 'exit_code': 0,
               'capacity':a.capacity or m['capacity'],'query_tokens':a.tokens,
+              'key_cache_transposed':a.key_cache_transposed,
               'path': str(folder / 'export_nbg_unify/network_binary.nb'), 'base': a.base,
               'reused_from':str(folder.resolve()) if folder.is_symlink() else None}
     print(json.dumps(result), flush=True)

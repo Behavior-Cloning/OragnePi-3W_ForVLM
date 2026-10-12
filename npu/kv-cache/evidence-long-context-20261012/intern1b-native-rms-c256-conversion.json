@@ -1,0 +1,680 @@
+{
+  "first_layer": 0,
+  "fusion_width": 2,
+  "sources": [
+    {
+      "layer": 0,
+      "folder": "full-intern1b-sharded-v2-c128/w8-balanced/l0",
+      "sha256": {
+        "decoder.json": "6748c089c3fca6f5055876c9b482c96dcbb5e6dad80e60e4c3952c06d092e648",
+        "decoder.data": "6fa2b2c6f6cac4c46655ec5a133484c7c41b1ff84150c2f923c11f36a23e503c",
+        "decoder.quantize": "285f669f572f49e26e5867651c59166f08d52a2e9f5b0f58c0139ff65b26c8c6"
+      }
+    },
+    {
+      "layer": 1,
+      "folder": "full-intern1b-sharded-v2-c128/w8-balanced/l1",
+      "sha256": {
+        "decoder.json": "6748c089c3fca6f5055876c9b482c96dcbb5e6dad80e60e4c3952c06d092e648",
+        "decoder.data": "de0ea3dce8d9b3f4cee9940f23d03354c3a4724d449c25c59266f401f9bb0b80",
+        "decoder.quantize": "337b339499bdc8b14be519f5bf001329a3a2bf40a3276004eae7a5b3b36ec39b"
+      }
+    }
+  ],
+  "value_output_fp16": false,
+  "value_perchannel": false,
+  "value_layout_fp16": false,
+  "value_layout_sliced": false,
+  "native_rmsnorm": true,
+  "norm_changes": [
+    {
+      "layer": 0,
+      "norms": [
+        {
+          "norm": "norm1",
+          "node": "Mul_3_output_0_38",
+          "source": "@hidden_101:out0",
+          "eps": 1.0000000949949049e-06,
+          "axis": -1,
+          "width": 896,
+          "native_scale": "unit FP16"
+        },
+        {
+          "norm": "norm2",
+          "node": "Mul_12_output_0_45",
+          "source": "@Add_7_output_0_9:out0",
+          "eps": 1.0000000949949049e-06,
+          "axis": -1,
+          "width": 896,
+          "native_scale": "unit FP16"
+        }
+      ],
+      "removed_nodes": [
+        "Abs_1_output_0_77",
+        "Abs_1_output_0_77_acuity_mark_perm_107",
+        "Abs_output_0_71",
+        "Abs_output_0_71_acuity_mark_perm_114",
+        "Add_8_output_0_62",
+        "Add_output_0_56",
+        "Clip_1_output_0_60",
+        "Clip_output_0_55",
+        "Constant_1_output_0_74",
+        "Constant_2_output_0_48",
+        "Constant_43_output_0_80",
+        "Constant_44_output_0_61",
+        "Div_1_output_0_40",
+        "Div_3_output_0_52",
+        "Div_3_output_0_52_acuity_mark_perm_113",
+        "Div_4_output_0_53",
+        "Div_output_0_47",
+        "Div_output_0_47_acuity_mark_perm_112",
+        "Divide_82",
+        "Divide_86",
+        "Mul_10_output_0_70",
+        "Mul_11_output_0_78",
+        "Mul_11_output_0_78_acuity_mark_perm_110",
+        "Mul_12_output_0_45_acuity_mark_perm_111",
+        "Mul_1_output_0_65",
+        "Mul_2_output_0_72",
+        "Mul_2_output_0_72_acuity_mark_perm_109",
+        "Mul_3_output_0_38_acuity_mark_perm_108",
+        "Mul_9_output_0_79",
+        "Mul_output_0_73",
+        "Reciprocal_1_output_0_81",
+        "Reciprocal_output_0_85",
+        "ReduceMax_1_output_0_68",
+        "ReduceMax_output_0_63",
+        "ReduceMean_1_output_0_69",
+        "ReduceMean_output_0_64",
+        "Sqrt_1_output_0_54",
+        "Sqrt_output_0_49"
+      ]
+    },
+    {
+      "layer": 1,
+      "norms": [
+        {
+          "norm": "norm1",
+          "node": "Mul_3_output_0_38",
+          "source": "@hidden_101:out0",
+          "eps": 1.0000000949949049e-06,
+          "axis": -1,
+          "width": 896,
+          "native_scale": "unit FP16"
+        },
+        {
+          "norm": "norm2",
+          "node": "Mul_12_output_0_45",
+          "source": "@Add_7_output_0_9:out0",
+          "eps": 1.0000000949949049e-06,
+          "axis": -1,
+          "width": 896,
+          "native_scale": "unit FP16"
+        }
+      ],
+      "removed_nodes": [
+        "Abs_1_output_0_77",
+        "Abs_1_output_0_77_acuity_mark_perm_107",
+        "Abs_output_0_71",
+        "Abs_output_0_71_acuity_mark_perm_114",
+        "Add_8_output_0_62",
+        "Add_output_0_56",
+        "Clip_1_output_0_60",
+        "Clip_output_0_55",
+        "Constant_1_output_0_74",
+        "Constant_2_output_0_48",
+        "Constant_43_output_0_80",
+        "Constant_44_output_0_61",
+        "Div_1_output_0_40",
+        "Div_3_output_0_52",
+        "Div_3_output_0_52_acuity_mark_perm_113",
+        "Div_4_output_0_53",
+        "Div_output_0_47",
+        "Div_output_0_47_acuity_mark_perm_112",
+        "Divide_82",
+        "Divide_86",
+        "Mul_10_output_0_70",
+        "Mul_11_output_0_78",
+        "Mul_11_output_0_78_acuity_mark_perm_110",
+        "Mul_12_output_0_45_acuity_mark_perm_111",
+        "Mul_1_output_0_65",
+        "Mul_2_output_0_72",
+        "Mul_2_output_0_72_acuity_mark_perm_109",
+        "Mul_3_output_0_38_acuity_mark_perm_108",
+        "Mul_9_output_0_79",
+        "Mul_output_0_73",
+        "Reciprocal_1_output_0_81",
+        "Reciprocal_output_0_85",
+        "ReduceMax_1_output_0_68",
+        "ReduceMax_output_0_63",
+        "ReduceMean_1_output_0_69",
+        "ReduceMean_output_0_64",
+        "Sqrt_1_output_0_54",
+        "Sqrt_output_0_49"
+      ]
+    }
+  ],
+  "capacity": 256,
+  "query_tokens": 1,
+  "compact_gqa": true,
+  "layout_changes": [
+    {
+      "layer": 0,
+      "old_capacity": 128,
+      "capacity": 256,
+      "tokens": 1,
+      "mask_query_repeats": 1,
+      "layout": {
+        "removed_nodes": [
+          "Reshape_3_output_0_83",
+          "Reshape_4_output_0_42",
+          "Tile_1_output_0_44",
+          "Tile_output_0_84",
+          "Unsqueeze_1_output_0_51",
+          "Unsqueeze_output_0_89"
+        ],
+        "query_shape": [
+          1,
+          2,
+          7,
+          64
+        ],
+        "kv_repeat_factor_removed": 7
+      },
+      "changes": [
+        {
+          "node": "Transpose_4_output_0_33",
+          "before": {
+            "shape": [
+              1,
+              1,
+              896
+            ]
+          },
+          "after": {
+            "shape": [
+              1,
+              14,
+              1,
+              64
+            ]
+          }
+        },
+        {
+          "node": "past_k_102",
+          "before": {
+            "size": "",
+            "channels": 1,
+            "shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "after": {
+            "size": "",
+            "channels": 1,
+            "shape": [
+              1,
+              2,
+              256,
+              64
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          }
+        },
+        {
+          "node": "past_v_103",
+          "before": {
+            "size": "",
+            "channels": 1,
+            "shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "after": {
+            "size": "",
+            "channels": 1,
+            "shape": [
+              1,
+              2,
+              256,
+              64
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          }
+        },
+        {
+          "node": "mask_104",
+          "before": {
+            "size": "",
+            "channels": 1,
+            "shape": [
+              1,
+              1,
+              1,
+              129
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "after": {
+            "size": "",
+            "channels": 1,
+            "shape": [
+              1,
+              1,
+              1,
+              257
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          }
+        },
+        {
+          "node": "reshape_117",
+          "before": {
+            "shape": [
+              -1,
+              1,
+              896
+            ]
+          },
+          "after": {
+            "shape": [
+              1,
+              1,
+              896
+            ]
+          }
+        },
+        {
+          "node": "reshape_120",
+          "before": {
+            "shape": [
+              -1,
+              1,
+              896
+            ]
+          },
+          "after": {
+            "shape": [
+              1,
+              1,
+              896
+            ]
+          }
+        },
+        {
+          "node": "reshape_123",
+          "before": {
+            "shape": [
+              -1,
+              1,
+              128
+            ]
+          },
+          "after": {
+            "shape": [
+              1,
+              1,
+              128
+            ]
+          }
+        },
+        {
+          "node": "reshape_126",
+          "before": {
+            "shape": [
+              -1,
+              1,
+              4864
+            ]
+          },
+          "after": {
+            "shape": [
+              1,
+              1,
+              4864
+            ]
+          }
+        },
+        {
+          "node": "reshape_129",
+          "before": {
+            "shape": [
+              -1,
+              1,
+              128
+            ]
+          },
+          "after": {
+            "shape": [
+              1,
+              1,
+              128
+            ]
+          }
+        },
+        {
+          "node": "reshape_132",
+          "before": {
+            "shape": [
+              -1,
+              1,
+              4864
+            ]
+          },
+          "after": {
+            "shape": [
+              1,
+              1,
+              4864
+            ]
+          }
+        },
+        {
+          "node": "reshape_135",
+          "before": {
+            "shape": [
+              -1,
+              1,
+              896
+            ]
+          },
+          "after": {
+            "shape": [
+              1,
+              1,
+              896
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "layer": 1,
+      "old_capacity": 128,
+      "capacity": 256,
+      "tokens": 1,
+      "mask_query_repeats": 1,
+      "layout": {
+        "removed_nodes": [
+          "Reshape_3_output_0_83",
+          "Reshape_4_output_0_42",
+          "Tile_1_output_0_44",
+          "Tile_output_0_84",
+          "Unsqueeze_1_output_0_51",
+          "Unsqueeze_output_0_89"
+        ],
+        "query_shape": [
+          1,
+          2,
+          7,
+          64
+        ],
+        "kv_repeat_factor_removed": 7
+      },
+      "changes": [
+        {
+          "node": "Transpose_4_output_0_33",
+          "before": {
+            "shape": [
+              1,
+              1,
+              896
+            ]
+          },
+          "after": {
+            "shape": [
+              1,
+              14,
+              1,
+              64
+            ]
+          }
+        },
+        {
+          "node": "past_k_102",
+          "before": {
+            "size": "",
+            "channels": 1,
+            "shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "after": {
+            "size": "",
+            "channels": 1,
+            "shape": [
+              1,
+              2,
+              256,
+              64
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          }
+        },
+        {
+          "node": "past_v_103",
+          "before": {
+            "size": "",
+            "channels": 1,
+            "shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "after": {
+            "size": "",
+            "channels": 1,
+            "shape": [
+              1,
+              2,
+              256,
+              64
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          }
+        },
+        {
+          "node": "mask_104",
+          "before": {
+            "size": "",
+            "channels": 1,
+            "shape": [
+              1,
+              1,
+              1,
+              129
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "after": {
+            "size": "",
+            "channels": 1,
+            "shape": [
+              1,
+              1,
+              1,
+              257
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          }
+        },
+        {
+          "node": "reshape_117",
+          "before": {
+            "shape": [
+              -1,
+              1,
+              896
+            ]
+          },
+          "after": {
+            "shape": [
+              1,
+              1,
+              896
+            ]
+          }
+        },
+        {
+          "node": "reshape_120",
+          "before": {
+            "shape": [
+              -1,
+              1,
+              896
+            ]
+          },
+          "after": {
+            "shape": [
+              1,
+              1,
+              896
+            ]
+          }
+        },
+        {
+          "node": "reshape_123",
+          "before": {
+            "shape": [
+              -1,
+              1,
+              128
+            ]
+          },
+          "after": {
+            "shape": [
+              1,
+              1,
+              128
+            ]
+          }
+        },
+        {
+          "node": "reshape_126",
+          "before": {
+            "shape": [
+              -1,
+              1,
+              4864
+            ]
+          },
+          "after": {
+            "shape": [
+              1,
+              1,
+              4864
+            ]
+          }
+        },
+        {
+          "node": "reshape_129",
+          "before": {
+            "shape": [
+              -1,
+              1,
+              128
+            ]
+          },
+          "after": {
+            "shape": [
+              1,
+              1,
+              128
+            ]
+          }
+        },
+        {
+          "node": "reshape_132",
+          "before": {
+            "shape": [
+              -1,
+              1,
+              4864
+            ]
+          },
+          "after": {
+            "shape": [
+              1,
+              1,
+              4864
+            ]
+          }
+        },
+        {
+          "node": "reshape_135",
+          "before": {
+            "shape": [
+              -1,
+              1,
+              896
+            ]
+          },
+          "after": {
+            "shape": [
+              1,
+              1,
+              896
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "scope": "calibrated graph fusion with explicit recorded layout/precision overrides; no recalibration",
+  "input_order": [
+    "b0_hidden_101",
+    "b0_past_k_102",
+    "b1_past_k_102",
+    "b0_past_v_103",
+    "b1_past_v_103",
+    "b0_mask_104",
+    "b1_mask_104",
+    "b0_rope_cos_105",
+    "b1_rope_cos_105",
+    "b0_rope_sin_106",
+    "b1_rope_sin_106"
+  ],
+  "output_order": [
+    "b1_attach_hidden_out/out0_0",
+    "b0_attach_new_k/out0_1",
+    "b1_attach_new_k/out0_1",
+    "b0_attach_new_v/out0_2",
+    "b1_attach_new_v/out0_2"
+  ],
+  "exit_code": 0,
+  "seconds": 9.98399423196679,
+  "binaries": [
+    {
+      "path": "export_nbg_unify/network_binary.nb",
+      "bytes": 27391920
+    }
+  ],
+  "contract_verified_from_exported_c": true
+}

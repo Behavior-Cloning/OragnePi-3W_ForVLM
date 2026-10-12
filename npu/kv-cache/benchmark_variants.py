@@ -18,12 +18,22 @@ p.add_argument('--output', type=Path, required=True)
 p.add_argument('--max-start-temp-mc', type=int, default=55000,
                help='explicit supplementary thermal condition; default preserves the original 55C protocol')
 p.add_argument('--fast-greedy',action='append',default=[],help='enable exact integer argmax for these variant labels')
+p.add_argument('--init-buffer-flush',action='append',default=[],help='enable diagnostic buffer initialization flush for these labels')
+p.add_argument('--host-output-buffers',action='append',default=[],help='use SDK host-backed output allocations for these labels')
+p.add_argument('--prefill-host-hidden',action='append',default=[],help='host transfer between prefill blocks for these labels')
+p.add_argument('--prefill-flush-output',action='append',default=[],help='flush hidden outputs before batched graph calls for these labels')
+p.add_argument('--prefill-clear-output',action='append',default=[],help='clear and flush hidden output before batched graph calls for these labels')
+p.add_argument('--prefill-scalar-block',nargs=2,action='append',default=[],metavar=('LABEL','BLOCK'))
 p.add_argument('--prefill',nargs=2,action='append',default=[],metavar=('LABEL','TOKENS'))
+p.add_argument('--prefill-scalar-prefix',nargs=2,action='append',default=[],metavar=('LABEL','TOKENS'),
+    help='diagnostic preparation policy; retained and checked in every measured result')
 p.add_argument('--cpu-affinity',help='optional taskset CPU list for the NPU host process, e.g. 6,7')
 p.add_argument('--fixed-feedback',action='store_true',help='same frozen input trajectory, retaining each variant own predictions; not natural generation')
 p.add_argument('--variant-reference',nargs=2,action='append',default=[],metavar=('LABEL','FOLDER'),
     help='with fixed feedback, independently validated diagnostic output for each variant')
 a = p.parse_args()
+from board_host_lock import lock_board_from_host
+lock_board_from_host()
 m = json.loads((a.source / 'trained-manifest.json').read_text())
 r = json.loads((a.reference / 'tokens.json').read_text())
 variants = []
@@ -37,14 +47,32 @@ for label, tag, case, group, fusion in a.variant:
     assert fusion in (1, 2, 4) and len(m['layers']) % fusion == 0
     assert 0 <= group <= len(m['layers']) // fusion
     variants.append({'label': label, 'remote': '/opt/opi-vlm/npu-kv-probe/' + tag,
-                     'case': 'board-' + case, 'group': group, 'fusion': fusion,'fast_greedy':label in a.fast_greedy})
+                     'case': 'board-' + case, 'group': group, 'fusion': fusion,'fast_greedy':label in a.fast_greedy,
+                     'init_buffer_flush':label in a.init_buffer_flush,
+                     'host_output_buffers':label in a.host_output_buffers,'prefill_host_hidden':label in a.prefill_host_hidden,
+                     'prefill_flush_output':label in a.prefill_flush_output,
+                     'prefill_clear_output':label in a.prefill_clear_output})
 assert len({v['label'] for v in variants}) == len(variants)
 assert set(a.fast_greedy).issubset({v['label'] for v in variants})
+assert set(a.init_buffer_flush).issubset({v['label'] for v in variants})
+assert set(a.host_output_buffers).issubset({v['label'] for v in variants})
+assert set(a.prefill_host_hidden).issubset({v['label'] for v in variants})
+assert set(a.prefill_flush_output).issubset({v['label'] for v in variants})
+assert set(a.prefill_clear_output).issubset({v['label'] for v in variants})
 references=dict(a.variant_reference)
 prefill=dict(a.prefill)
 assert len(prefill)==len(a.prefill) and all(2<=int(n)<=256 for n in prefill.values())
 assert set(prefill).issubset({v['label'] for v in variants})
 for v in variants:v['prefill_tokens']=int(prefill.get(v['label'],0))
+scalar_blocks=dict(a.prefill_scalar_block)
+assert len(scalar_blocks)==len(a.prefill_scalar_block) and set(scalar_blocks).issubset(prefill)
+for v in variants:
+    v['scalar_block']=int(scalar_blocks.get(v['label'],-1))
+    assert -1<=v['scalar_block']<len(m['layers'])//v['fusion']
+scalar_prefix=dict(a.prefill_scalar_prefix)
+assert len(scalar_prefix)==len(a.prefill_scalar_prefix) and set(scalar_prefix).issubset(prefill)
+assert all(0<=int(n)<=r['prompt_tokens'] for n in scalar_prefix.values())
+for v in variants:v['scalar_prefix']=int(scalar_prefix.get(v['label'],0))
 assert len(references)==len(a.variant_reference)
 assert a.fixed_feedback == bool(references)
 if a.fixed_feedback:
@@ -57,7 +85,15 @@ if a.fixed_feedback:
         assert expected['prompt_tokens']==r['prompt_tokens'] and len(expected['tokens'])==len(r['tokens'])
         assert expected['capacity']==r['capacity'] and expected.get('cached_prefix_tokens',0)==r.get('cached_prefix_tokens',0)
         assert expected.get('prefill_batch_size',0)==v['prefill_tokens']
-        assert expected.get('prefill_scalar_prefix',0)==0, 'scalar-prefix ablation requires its own benchmark option'
+        assert expected.get('prefill_scalar_prefix',0)==v['scalar_prefix']
+        assert expected.get('init_buffer_flush',False)==v['init_buffer_flush']
+        assert expected.get('host_output_buffers',False)==v['host_output_buffers']
+        assert expected.get('prefill_host_hidden',False)==v['prefill_host_hidden']
+        assert expected.get('prefill_flush_output',False)==v['prefill_flush_output']
+        assert expected.get('prefill_clear_output',False)==v['prefill_clear_output']
+        assert expected.get('prefill_scalar_block',-1)==v['scalar_block']
+        assert not any(expected.get(k,False) for k in ('poison_prefill_output','capture_prefill','prefill_rebind_outputs'))
+        assert not expected.get('audit_outputs',False), 'fingerprint readback is diagnostic only'
         assert (folder/'prompt.i32').read_bytes()==(a.reference/'prompt.i32').read_bytes()
         assert validation['execution_gate_v1']['passed'] and validation['runtime']==expected
         v['expected_tokens']=expected['tokens']
@@ -108,8 +144,19 @@ for phase in ('diagnostic','warmup','measure'):
             env=os.environ.copy()
             env.pop('OPI_FULL_TRACE',None);env.pop('OPI_PERFORMANCE',None)
             env.pop('OPI_FEEDBACK_FILE',None)
+            env.pop('OPI_AUDIT_OUTPUTS',None);env.pop('OPI_INIT_BUFFER_FLUSH',None)
+            env.pop('OPI_CAPTURE_PREFIX',None)
+            env.pop('OPI_HOST_OUTPUT_BUFFERS',None);env.pop('OPI_PREFILL_HOST_HIDDEN',None)
+            for key in ('OPI_PREFILL_POISON_OUTPUT','OPI_PREFILL_REBIND_OUTPUTS','OPI_PREFILL_FLUSH_OUTPUT','OPI_PREFILL_CLEAR_OUTPUT','OPI_PREFILL_SCALAR_BLOCK'):env.pop(key,None)
+            if v['scalar_block']>=0:env['OPI_PREFILL_SCALAR_BLOCK']=str(v['scalar_block'])
+            if v['host_output_buffers']:env['OPI_HOST_OUTPUT_BUFFERS']='1'
+            if v['prefill_host_hidden']:env['OPI_PREFILL_HOST_HIDDEN']='1'
+            if v['prefill_flush_output']:env['OPI_PREFILL_FLUSH_OUTPUT']='1'
+            if v['prefill_clear_output']:env['OPI_PREFILL_CLEAR_OUTPUT']='1'
+            if v['init_buffer_flush']:env['OPI_INIT_BUFFER_FLUSH']='1'
             env.pop('OPI_PREFILL_TOKENS',None);env.pop('OPI_CACHED_PREFIX',None);env.pop('OPI_PREFILL_SCALAR_PREFIX',None)
             if v['prefill_tokens']:env['OPI_PREFILL_TOKENS']=str(v['prefill_tokens'])
+            if v['scalar_prefix']:env['OPI_PREFILL_SCALAR_PREFIX']=str(v['scalar_prefix'])
             if c['cached_prefix']:env['OPI_CACHED_PREFIX']=str(c['cached_prefix'])
             if c['fixed_feedback']:env['OPI_FEEDBACK_FILE']=v['case']+'-feedback.i32'
             env['OPI_DECODER_GROUP']=str(v['group'])
@@ -138,6 +185,13 @@ for phase in ('diagnostic','warmup','measure'):
             if c['fixed_feedback']:assert r['feedback_tokens']==c['feedback_tokens']
             assert r['prompt_tokens']==c['prompt_tokens'] and r['fusion_width']==v['fusion']
             assert r.get('prefill_batch_size',0)==v['prefill_tokens'] and r.get('cached_prefix_tokens',0)==c['cached_prefix']
+            assert r.get('prefill_scalar_prefix',0)==v['scalar_prefix']
+            assert r.get('init_buffer_flush',False)==v['init_buffer_flush']
+            assert r.get('host_output_buffers',False)==v['host_output_buffers']
+            assert r.get('prefill_host_hidden',False)==v['prefill_host_hidden']
+            assert r.get('prefill_flush_output',False)==v['prefill_flush_output']
+            assert r.get('prefill_clear_output',False)==v['prefill_clear_output']
+            assert r.get('prefill_scalar_block',-1)==v['scalar_block']
             assert r['driver_after_release_bytes']==0
             record={'phase':phase,'repeat':repeat,'label':v['label'],'result':r,'system_samples':observations,
                     'monitor_scope':'1-second health snapshots; short concurrent requests between samples may be missed'}

@@ -69,6 +69,21 @@ static void copy_values(Tensor *dst,unsigned offset,Tensor *src,unsigned begin,u
     if(same&&size)memcpy((char*)dst->data+offset*size,(char*)src->data+begin*size,count*size);
     else for(unsigned j=0;j<count;j++)put(dst,offset+j,get(src,begin+j));
 }
+/* Opt-in diagnostic readback, excluded from all performance results. */
+static FILE *audit_file;
+static void audit_outputs(Layer *layer,unsigned no,const char *stage,int pos,int block) {
+    if(!audit_file)return;
+    for(unsigned o=0;o<no;o++){
+        Tensor *t=&layer->out[o];
+        check(vip_flush_buffer(t->b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"audit output");
+        uint64_t hash=UINT64_C(14695981039346656037);
+        for(unsigned j=0;j<t->count;j++){
+            float value=get(t,j);uint32_t bits;memcpy(&bits,&value,sizeof(bits));
+            for(unsigned b=0;b<4;b++){hash^=(bits>>(8*b))&255;hash*=UINT64_C(1099511628211);}
+        }
+        fprintf(audit_file,"%s\t%d\t%d\t%u\t%u\t%016llx\n",stage,pos,block,o,t->count,(unsigned long long)hash);
+    }
+}
 #include "batch_prefill.h"
 #ifndef OPI_FULL_MODEL_ENTRY
 #define OPI_FULL_MODEL_ENTRY main
@@ -108,6 +123,11 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     }
     int performance=getenv("OPI_PERFORMANCE")!=NULL;
     int fast_greedy=getenv("OPI_FAST_GREEDY")!=NULL;
+    if(performance&&(getenv("OPI_AUDIT_OUTPUTS")||getenv("OPI_CAPTURE_PREFIX")||getenv("OPI_PREFILL_POISON_OUTPUT")))return 2;
+    if(getenv("OPI_AUDIT_OUTPUTS")){
+        if(performance)return 2;
+        audit_file=fopen(getenv("OPI_AUDIT_OUTPUTS"),"w");if(!audit_file)return 2;
+    }
     int max_start_temp=getenv("OPI_MAX_START_TEMP_MC")?atoi(getenv("OPI_MAX_START_TEMP_MC")):55000;
     if(max_start_temp<35000||max_start_temp>70000)return 2;
     int group_size=getenv("OPI_DECODER_GROUP")?atoi(getenv("OPI_DECODER_GROUP")):0;
@@ -245,6 +265,7 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
             }else{
                 for(unsigned j=(i==blocks-1||trace_file)?0:1;j<no;j++)check(vip_flush_buffer(l->out[j].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read grouped output");
             }
+            audit_outputs(l,no,"scalar",pos,i);
             for(int j=0;(!group_size||i==blocks-1||trace_file)&&j<DIM;j++){
                 x[j]=get(&l->out[0],j);
                 if(!isfinite(x[j])){fprintf(stderr,"NONFINITE position=%d layer=%d component=%d value=%g\n",pos,i,j,x[j]);return 3;}
@@ -335,8 +356,13 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     fprintf(token_file,"],\"fixed_feedback\":%s,\"feedback_tokens\":[",feedback?"true":"false");
     if(feedback)for(int i=0;i<max_new;i++)fprintf(token_file,"%s%d",i?",":"",feedback[i]);
     fprintf(token_file,"],\"prefill_batch_size\":%d,\"cached_prefix_tokens\":%d,\"new_prompt_tokens\":%d,\"batched_prompt_tokens\":%d,\"prepared_batch_tokens\":%d,\"preparation_seconds\":%.6f,\"preparation_api_seconds\":%.6f,\"preparation_cpu_seconds\":%.6f,\"prefill_api_seconds\":%.6f",prefill_tokens,cached_prefix,prompt_count-cached_prefix,batched_prompt_tokens,prepared_batch_tokens,preparation_seconds,preparation_api_seconds,preparation_cpu_seconds,prefill_api_seconds);
-    fprintf(token_file,",\"prefill_scalar_prefix\":%d,\"performance_mode\":%s,\"host_revision\":9,\"decoder_group_size\":%d,\"fusion_width\":%d,\"max_start_temperature_mC\":%d,\"npu_frequency_before_hz\":%lld,\"npu_frequency_after_hz\":%lld,\"cpu6_frequency_before_khz\":%lld,\"cpu6_frequency_after_khz\":%lld,\"fast_greedy\":%s,\"rss_after_inference_kib\":%ld}\n",scalar_prefix,performance?"true":"false",group_size,FUSED_LAYERS,max_start_temp,npu_freq_before,npu_freq_after,cpu_freq_before,cpu_freq_after,fast_greedy?"true":"false",rss_after_inference);
+    fprintf(token_file,",\"prefill_host_hidden\":%s,\"host_output_buffers\":%s",getenv("OPI_PREFILL_HOST_HIDDEN")?"true":"false",getenv("OPI_HOST_OUTPUT_BUFFERS")?"true":"false");
+    fprintf(token_file,",\"prefill_clear_output\":%s",getenv("OPI_PREFILL_CLEAR_OUTPUT")?"true":"false");
+    fprintf(token_file,",\"prefill_scalar_block\":%d",prefill_tokens?batch.scalar_block:-1);
+    fprintf(token_file,",\"prefill_rebind_outputs\":%s,\"poison_prefill_output\":%s,\"prefill_flush_output\":%s,\"capture_prefill\":%s",getenv("OPI_PREFILL_REBIND_OUTPUTS")?"true":"false",getenv("OPI_PREFILL_POISON_OUTPUT")?"true":"false",getenv("OPI_PREFILL_FLUSH_OUTPUT")?"true":"false",getenv("OPI_CAPTURE_PREFIX")?"true":"false");
+    fprintf(token_file,",\"prefill_scalar_prefix\":%d,\"performance_mode\":%s,\"host_revision\":10,\"decoder_group_size\":%d,\"fusion_width\":%d,\"max_start_temperature_mC\":%d,\"npu_frequency_before_hz\":%lld,\"npu_frequency_after_hz\":%lld,\"cpu6_frequency_before_khz\":%lld,\"cpu6_frequency_after_khz\":%lld,\"fast_greedy\":%s,\"rss_after_inference_kib\":%ld,\"init_buffer_flush\":%s,\"audit_outputs\":%s}\n",scalar_prefix,performance?"true":"false",group_size,FUSED_LAYERS,max_start_temp,npu_freq_before,npu_freq_after,cpu_freq_before,cpu_freq_after,fast_greedy?"true":"false",rss_after_inference,getenv("OPI_INIT_BUFFER_FLUSH")?"true":"false",audit_file?"true":"false");
     if(trace_file)fclose(trace_file);
+    if(audit_file){fclose(audit_file);audit_file=NULL;}
     free(decode_block_seconds);
     fclose(token_file);if(logits_file)fclose(logits_file);munmap((void*)emb,emb_stat.st_size);munmap((void*)prompt,prompt_stat.st_size);
     close(emb_fd);close(prompt_fd);free(decoder);free(x);free(logits);free(generated);free(feedback);free(latencies);free(layer_seconds);return 0;

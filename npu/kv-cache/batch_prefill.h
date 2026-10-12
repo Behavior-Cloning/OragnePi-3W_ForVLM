@@ -1,5 +1,25 @@
 /* Batched causal prefill shares decode KV only after exact IO checks. */
-typedef struct { Layer *layers; int tokens,blocks,capacity,previous_position; } BatchPrefill;
+typedef struct { Layer *layers,*scalar; int tokens,blocks,capacity,previous_position,host_hidden,scalar_block; } BatchPrefill;
+static void capture_prefill_io(BatchPrefill *b,Layer *decode,int pos,int block,int output) {
+    const char *prefix=getenv("OPI_CAPTURE_PREFIX");
+    if(!prefix||!getenv("OPI_CAPTURE_POSITION")||!getenv("OPI_CAPTURE_BLOCK")||
+       atoi(getenv("OPI_CAPTURE_POSITION"))!=pos||atoi(getenv("OPI_CAPTURE_BLOCK"))!=block)return;
+    char path[1024];snprintf(path,sizeof(path),"%s-%s.f32",prefix,output?"output":"input");
+    FILE *file=fopen(path,"wb");if(!file)exit(2);
+    for(unsigned port=0;port<(output?TENSOR_MAX_OUTPUTS:TENSOR_MAX_INPUTS);port++){
+        Tensor *t=output?&b->layers[block].out[port]:&b->layers[block].in[port];
+        if(!output){
+            if(!port&&block&&!b->host_hidden)t=&b->layers[block-1].out[0];
+            else if(port>=1&&port<1+2*FUSED_LAYERS)t=&decode[block].in[port];
+        }
+        if(output||(!port&&block&&!b->host_hidden))
+            check(vip_flush_buffer(t->b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"capture device output");
+        for(unsigned j=0;j<t->count;j++){
+            float value=get(t,j);if(fwrite(&value,sizeof(value),1,file)!=1)exit(2);
+        }
+    }
+    fclose(file);
+}
 static int same_tensor_contract(const Tensor *a,const Tensor *b) {
     if(a->count!=b->count||a->p.num_of_dims!=b->p.num_of_dims||
        a->p.data_format!=b->p.data_format||a->p.quant_format!=b->p.quant_format||
@@ -11,6 +31,9 @@ static int same_tensor_contract(const Tensor *a,const Tensor *b) {
 static BatchPrefill load_prefill(const char *path,int tokens,int blocks,int capacity,Layer *decode) {
     BatchPrefill b={0};if(!tokens)return b;
     b.tokens=tokens;b.blocks=blocks;b.capacity=capacity;b.layers=calloc(blocks,sizeof(Layer));
+    b.host_hidden=getenv("OPI_PREFILL_HOST_HIDDEN")!=NULL;
+    b.scalar_block=getenv("OPI_PREFILL_SCALAR_BLOCK")?atoi(getenv("OPI_PREFILL_SCALAR_BLOCK")):-1;
+    if(b.scalar_block<-1||b.scalar_block>=blocks)exit(2);
     if(!b.layers)exit(2);
     unsigned ins[TENSOR_MAX_INPUTS]={(unsigned)(tokens*DIM)},outs[TENSOR_MAX_OUTPUTS]={(unsigned)(tokens*DIM)};
     unsigned repeat=DIM/(KV*HD);
@@ -36,14 +59,65 @@ static BatchPrefill load_prefill(const char *path,int tokens,int blocks,int capa
             }
             check(vip_set_input(l->net,port,decode[i].in[port].b),"share prefill KV");
         }
-        if(i){
+        if(i&&!b.host_hidden){
             if(!same_tensor_contract(&l->in[0],&b.layers[i-1].out[0])){
                 fprintf(stderr,"prefill hidden mismatch\n");exit(2);
             }
             check(vip_set_input(l->net,0,b.layers[i-1].out[0].b),"link prefill hidden");
         }
     }
+    if(b.scalar_block>=0){
+        b.scalar=calloc(1,sizeof(Layer));if(!b.scalar)exit(2);
+        unsigned scalar_in[TENSOR_MAX_INPUTS]={DIM},scalar_out[TENSOR_MAX_OUTPUTS]={DIM};
+        for(int k=0;k<FUSED_LAYERS;k++){
+            scalar_in[IN_K(k)]=scalar_in[IN_V(k)]=KV*capacity*HD;
+            scalar_in[IN_MASK(k)]=capacity+1;scalar_in[IN_COS(k)]=scalar_in[IN_SIN(k)]=HD;
+            scalar_out[OUT_K(k)]=scalar_out[OUT_V(k)]=KV*HD;
+        }
+        char filename[1024];snprintf(filename,sizeof(filename),"%s/layer%d.nb",path,b.scalar_block*FUSED_LAYERS);
+        /* A network owned by a VIP group cannot also execute individually. */
+        load_net(b.scalar,filename,TENSOR_MAX_INPUTS,TENSOR_MAX_OUTPUTS,scalar_in,scalar_out);
+        for(int k=0;k<FUSED_LAYERS;k++)for(int kind=0;kind<2;kind++){
+            unsigned port=kind?IN_V(k):IN_K(k);
+            if(!same_tensor_contract(&b.scalar->in[port],&decode[b.scalar_block].in[port]))exit(2);
+            check(vip_set_input(b.scalar->net,port,decode[b.scalar_block].in[port].b),"share scalar prefill KV");
+        }
+    }
     return b;
+}
+/* Use the proven decode graph for one sensitive block, keeping all compute on
+ * the NPU and the other blocks batched. CPU only transfers hidden/KV values. */
+static void run_scalar_prefill_block(BatchPrefill *b,Layer *decode,int block,int pos,
+                                    const float *cosines,const float *sines,double *api_seconds) {
+    Layer *l=b->scalar,*batch=&b->layers[block],*kv=&decode[block];
+    Tensor *input=(block&&!b->host_hidden)?&b->layers[block-1].out[0]:&batch->in[0];
+    if(block&&!b->host_hidden)check(vip_flush_buffer(input->b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read scalar prefill hidden");
+    for(int k=0;k<FUSED_LAYERS;k++)for(int j=0;j<=b->capacity;j++)
+        put(&l->in[IN_MASK(k)],j,(j<pos||j==b->capacity)?0:-10000);
+    for(int t=0;t<b->tokens;t++){
+        copy_values(&l->in[0],0,input,t*DIM,DIM);
+        for(int k=0;k<FUSED_LAYERS;k++){
+            if(pos+t)put(&l->in[IN_MASK(k)],pos+t-1,0);
+            for(int j=0;j<HD;j++){
+                put(&l->in[IN_COS(k)],j,cosines[t*HD+j]);
+                put(&l->in[IN_SIN(k)],j,sines[t*HD+j]);
+            }
+        }
+        for(unsigned port=0;port<TENSOR_MAX_INPUTS;port++){
+            Tensor *input_port=port>=1&&port<1+2*FUSED_LAYERS?&kv->in[port]:&l->in[port];
+            check(vip_flush_buffer(input_port->b,VIP_BUFFER_OPER_TYPE_FLUSH),"flush scalar prefill input");
+        }
+        double stamp=now();check(vip_run_network(l->net),"scalar prefill block");*api_seconds+=now()-stamp;
+        for(unsigned port=0;port<TENSOR_MAX_OUTPUTS;port++)
+            check(vip_flush_buffer(l->out[port].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read scalar prefill block");
+        copy_values(&batch->out[0],t*DIM,&l->out[0],0,DIM);
+        for(int k=0;k<FUSED_LAYERS;k++)for(int h=0;h<KV;h++){
+            copy_values(&kv->in[IN_K(k)],(h*b->capacity+pos+t)*HD,&l->out[OUT_K(k)],h*HD,HD);
+            copy_values(&kv->in[IN_V(k)],(h*b->capacity+pos+t)*HD,&l->out[OUT_V(k)],h*HD,HD);
+        }
+    }
+    for(int k=0;k<FUSED_LAYERS;k++)for(int t=0;t<pos+b->tokens;t++)put(&kv->in[IN_MASK(k)],t,0);
+    check(vip_flush_buffer(batch->out[0].b,VIP_BUFFER_OPER_TYPE_FLUSH),"publish scalar prefill hidden");
 }
 static void run_prefill(BatchPrefill *b,Layer *decode,const float *embedding,
                         const int32_t *prompt,int pos,float *last_hidden,double *api_seconds) {
@@ -58,6 +132,11 @@ static void run_prefill(BatchPrefill *b,Layer *decode,const float *embedding,
     }
     for(int i=0;i<b->blocks;i++){
         Layer *l=&b->layers[i];
+        if(i&&b->host_hidden)copy_values(&l->in[0],0,&b->layers[i-1].out[0],0,n*DIM);
+        if(i==b->scalar_block){
+            run_scalar_prefill_block(b,decode,i,pos,cosines,sines,api_seconds);
+            continue;
+        }
         for(int k=0;k<FUSED_LAYERS;k++){
             for(int r=0;r<repeat;r++)for(int t=0;t<n;t++)for(int j=b->previous_position;j<pos;j++)
                 put(&l->in[IN_MASK(k)],((r*n+t)*(c+n)+j),0);
@@ -67,11 +146,28 @@ static void run_prefill(BatchPrefill *b,Layer *decode,const float *embedding,
             check(vip_flush_buffer(decode[i].in[IN_K(k)].b,VIP_BUFFER_OPER_TYPE_FLUSH),"flush shared K");
             check(vip_flush_buffer(decode[i].in[IN_V(k)].b,VIP_BUFFER_OPER_TYPE_FLUSH),"flush shared V");
         }
-        if(!i)check(vip_flush_buffer(l->in[0].b,VIP_BUFFER_OPER_TYPE_FLUSH),"flush batch embedding");
+        if(!i||b->host_hidden)check(vip_flush_buffer(l->in[0].b,VIP_BUFFER_OPER_TYPE_FLUSH),"flush batch hidden");
         for(unsigned j=1+2*FUSED_LAYERS;j<TENSOR_MAX_INPUTS;j++)
             check(vip_flush_buffer(l->in[j].b,VIP_BUFFER_OPER_TYPE_FLUSH),"flush batch position");
+        capture_prefill_io(b,decode,pos,i,0);
+        if(getenv("OPI_PREFILL_POISON_OUTPUT")){
+            for(unsigned j=0;j<l->out[0].count;j++)put(&l->out[0],j,-123.0f);
+            check(vip_flush_buffer(l->out[0].b,VIP_BUFFER_OPER_TYPE_FLUSH),"publish prefill output sentinel");
+        }
+        if(getenv("OPI_PREFILL_FLUSH_OUTPUT"))
+            check(vip_flush_buffer(l->out[0].b,VIP_BUFFER_OPER_TYPE_FLUSH),"flush prefill hidden before device write");
+        if(getenv("OPI_PREFILL_CLEAR_OUTPUT")){
+            Tensor *out=&l->out[0];
+            if(out->p.data_format!=VIP_BUFFER_FORMAT_FP16||out->p.quant_format!=VIP_BUFFER_QUANTIZE_NONE)exit(2);
+            memset(out->data,0,out->count*sizeof(__fp16));
+            check(vip_flush_buffer(out->b,VIP_BUFFER_OPER_TYPE_FLUSH),"publish cleared prefill hidden");
+        }
+        if(getenv("OPI_PREFILL_REBIND_OUTPUTS"))
+            for(unsigned o=0;o<TENSOR_MAX_OUTPUTS;o++)check(vip_set_output(l->net,o,l->out[o].b),"rebind batch output");
         double stamp=now();check(vip_run_network(l->net),"batch prefill");*api_seconds+=now()-stamp;
-        for(unsigned j=1;j<TENSOR_MAX_OUTPUTS;j++)
+        capture_prefill_io(b,decode,pos,i,1);
+        audit_outputs(l,TENSOR_MAX_OUTPUTS,"prefill",pos,i);
+        for(unsigned j=b->host_hidden?0:1;j<TENSOR_MAX_OUTPUTS;j++)
             check(vip_flush_buffer(l->out[j].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read batch KV");
         for(int k=0;k<FUSED_LAYERS;k++){
             for(int h=0;h<KV;h++){
@@ -93,4 +189,5 @@ static void free_prefill(BatchPrefill *b) {
     /* Aliases belong to decode/preceding output. Free only owned port buffers. */
     for(int i=0;i<b->blocks;i++)free_net(&b->layers[i],TENSOR_MAX_INPUTS,TENSOR_MAX_OUTPUTS);
     free(b->layers);
+    if(b->scalar){free_net(b->scalar,TENSOR_MAX_INPUTS,TENSOR_MAX_OUTPUTS);free(b->scalar);}
 }

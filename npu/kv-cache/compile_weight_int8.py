@@ -1,5 +1,6 @@
 """Bounded W8/W4 export; compilation alone is not proof of native acceleration."""
 import argparse
+import copy
 import hashlib
 import json
 from pathlib import Path
@@ -24,6 +25,9 @@ p.add_argument('--float-sensitive',action='store_true',help='FP16 RMSNorm intern
 p.add_argument('--activation-headroom-bits',type=int,default=0,help='diagnostic expansion of INT16 activation ranges, excluding weights/constants')
 p.add_argument('--float-down-output',action='store_true',help='FP16 down-projection output to retain ordinary values next to BOS outliers')
 p.add_argument('--float-mlp',action='store_true',help='FP16 MLP only, for layers with exceptional BOS activation outliers')
+p.add_argument('--int8-mlp-projections',nargs='+',choices=['gate','up'],default=[],
+    help='with --float-mlp, restore calibrated W8/A16 gate/up boundaries while keeping the nonlinear product and down projection FP16')
+p.add_argument('--mlp-headroom-bits',type=int,help='separate range headroom for restored MLP projections (default: activation headroom)')
 p.add_argument('--float-scores',action='store_true',help='FP16 QK product and score scaling, stopping before projection tensors')
 p.add_argument('--float-head-norm',action='store_true',help='FP16 internal head norm; retain calibrated matrix boundaries and external IO')
 args=p.parse_args();root=Path(__file__).resolve().parents[2]/'npu/results'
@@ -32,7 +36,12 @@ out.mkdir(parents=True,exist_ok=True)
 for name in ('decoder.json','decoder.data','tensor-inputmeta.yml'):
     shutil.copyfile(base/name,out/name)
 quant=yaml.safe_load((base/'decoder.quantize').read_text())
+calibrated_quant=copy.deepcopy(quant['quantize_parameters'])
 graph=json.loads((base/'decoder.json').read_text())['Layers']
+if args.int8_mlp_projections and (not args.float_mlp or args.weight_bits!=8):
+    raise ValueError('selective MLP restoration requires --float-mlp and W8')
+if args.mlp_headroom_bits is not None and (not args.int8_mlp_projections or not 0<=args.mlp_headroom_bits<=8):
+    raise ValueError('MLP headroom requires selective restoration and must be 0..8')
 if args.float_head_norm:
     roots=[k for k,v in graph.items() if v.get('name')=='Mul_4_output_0']
     assert len(roots)==1
@@ -138,6 +147,34 @@ if args.float_mlp:
             if value.startswith('@'):float_branch(value[1:].split(':')[0])
     float_branch(output)
     assert len(float_linears)==3,float_linears
+mlp_restored={}
+if args.int8_mlp_projections:
+    def through_layout(node):
+        path=[node]
+        while graph[node]['op'] in ('reshape','permute'):
+            assert len(graph[node]['inputs'])==1
+            node=graph[node]['inputs'][0][1:].split(':')[0];path.append(node)
+        return node,path
+    swish=[k for k in seen if graph[k]['op']=='swish']
+    assert len(swish)==1, 'expected one MLP SiLU'
+    gate,gate_path=through_layout(graph[swish[0]]['inputs'][0][1:].split(':')[0])
+    products=[k for k in seen if graph[k]['op']=='multiply' and '@'+swish[0]+':out0' in graph[k]['inputs']]
+    assert len(products)==1
+    up_input=next(v for v in graph[products[0]]['inputs'] if v!='@'+swish[0]+':out0')
+    up,up_path=through_layout(up_input[1:].split(':')[0])
+    for role,linear,outputs in (('gate',gate,gate_path),('up',up,up_path)):
+        assert linear in float_linears and graph[linear]['op']=='fullconnect'
+        if role not in args.int8_mlp_projections:continue
+        assert len(graph[linear]['inputs'])==1
+        norm,inputs=through_layout(graph[linear]['inputs'][0][1:].split(':')[0])
+        assert graph[norm]['name']=='Mul_13_output_0', 'unexpected MLP input normalization'
+        for node in inputs+outputs:
+            key='@'+node+':out0';q=copy.deepcopy(calibrated_quant[key])
+            assert q['qtype']=='i16' and q['quantizer']=='dynamic_fixed_point'
+            q['fl']-=args.activation_headroom_bits if args.mlp_headroom_bits is None else args.mlp_headroom_bits
+            quant['quantize_parameters'][key]=q
+        float_linears.remove(linear)
+        mlp_restored[role]={'linear':linear,'activation_nodes':inputs+outputs}
 # This is our own compiler-generated numpy dictionary, not an external pickle.
 data=np.load(base/'decoder.data',allow_pickle=True).item();changed=[]
 for name,parameters in data.items():
@@ -175,6 +212,10 @@ report={'scope':'one decoder with explicit per-matrix weight and sensitive-activ
         'activation_headroom_bits':args.activation_headroom_bits,
         'float_down_output':args.float_down_output,
         'float_mlp':args.float_mlp,
+        'int8_mlp_projections':mlp_restored,
+        'mlp_headroom_bits':args.mlp_headroom_bits,
+        'headroom_override_version':2,
+        'compiler_script_sha256':hashlib.file_digest(Path(__file__).open('rb'),'sha256').hexdigest(),
         'float_scores':args.float_scores,
         'float_head_norm':args.float_head_norm,
         'source_quantize_sha256':hashlib.file_digest((base/'decoder.quantize').open('rb'),'sha256').hexdigest()}

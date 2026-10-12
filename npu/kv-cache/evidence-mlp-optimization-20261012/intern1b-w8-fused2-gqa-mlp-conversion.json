@@ -1,0 +1,95 @@
+[
+  {
+    "first_layer": 2,
+    "fusion_width": 2,
+    "sources": [
+      {
+        "layer": 2,
+        "folder": "full-intern1b-sharded-v2-c128/w8-mlp-gateup/l2",
+        "sha256": {
+          "decoder.json": "6748c089c3fca6f5055876c9b482c96dcbb5e6dad80e60e4c3952c06d092e648",
+          "decoder.data": "f6f3998affa0a7c9fe9fd96d55a37527758c7343723f7baac467442977a71470",
+          "decoder.quantize": "38f2e220ac1844ecc34711e64576111558b96fd3ea5bc44eacf07e139787a85c"
+        }
+      },
+      {
+        "layer": 3,
+        "folder": "full-intern1b-sharded-v2-c128/w8-mlp-gateup/l3",
+        "sha256": {
+          "decoder.json": "6748c089c3fca6f5055876c9b482c96dcbb5e6dad80e60e4c3952c06d092e648",
+          "decoder.data": "a3e88f3937157124be30a2d1647e8aad9e5e347e860b3f336983911db4de1009",
+          "decoder.quantize": "390f324ab97176b889bfdfe4770b782c926d91ffbe6f615de0f8b0e0fce6081c"
+        }
+      }
+    ],
+    "compact_gqa": true,
+    "layout_changes": [
+      {
+        "layer": 2,
+        "removed_nodes": [
+          "Reshape_3_output_0_83",
+          "Reshape_4_output_0_42",
+          "Tile_1_output_0_44",
+          "Tile_output_0_84",
+          "Unsqueeze_1_output_0_51",
+          "Unsqueeze_output_0_89"
+        ],
+        "query_shape": [
+          1,
+          2,
+          7,
+          64
+        ],
+        "kv_repeat_factor_removed": 7
+      },
+      {
+        "layer": 3,
+        "removed_nodes": [
+          "Reshape_3_output_0_83",
+          "Reshape_4_output_0_42",
+          "Tile_1_output_0_44",
+          "Tile_output_0_84",
+          "Unsqueeze_1_output_0_51",
+          "Unsqueeze_output_0_89"
+        ],
+        "query_shape": [
+          1,
+          2,
+          7,
+          64
+        ],
+        "kv_repeat_factor_removed": 7
+      }
+    ],
+    "scope": "concatenated calibrated graphs, unchanged per-tensor quantization; no recalibration",
+    "input_order": [
+      "b0_hidden_101",
+      "b0_past_k_102",
+      "b1_past_k_102",
+      "b0_past_v_103",
+      "b1_past_v_103",
+      "b0_mask_104",
+      "b1_mask_104",
+      "b0_rope_cos_105",
+      "b1_rope_cos_105",
+      "b0_rope_sin_106",
+      "b1_rope_sin_106"
+    ],
+    "output_order": [
+      "b1_attach_hidden_out/out0_0",
+      "b0_attach_new_k/out0_1",
+      "b1_attach_new_k/out0_1",
+      "b0_attach_new_v/out0_2",
+      "b1_attach_new_v/out0_2"
+    ],
+    "exit_code": 0,
+    "seconds": 12.69191541703185,
+    "binaries": [
+      {
+        "path": "export_nbg_unify/network_binary.nb",
+        "bytes": 37188704
+      }
+    ],
+    "contract_verified_from_exported_c": true
+  }
+]

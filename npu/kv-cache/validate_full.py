@@ -18,7 +18,7 @@ board=args.source/args.dtype/('board'+('-'+args.case if args.case else ''));resu
 fusion=result.get('fusion_width',1)
 prompt_path=board/'prompt.json'
 prompt=json.loads((prompt_path if prompt_path.exists() else args.source/'prompt.json').read_text())
-tokens=prompt['token_ids']+result['tokens'][:-1]
+tokens=prompt['token_ids']+(result['feedback_tokens'] if result.get('fixed_feedback') else result['tokens'])[:-1]
 reader=gguf.GGUFReader(args.model)
 t=next(t for t in reader.tensors if t.name=='token_embd.weight')
 embedding=gguf.dequantize(t.data,t.tensor_type)
@@ -56,7 +56,8 @@ actual_logp=torch.log_softmax(torch.from_numpy(actual),dim=-1)
 kl=(reference_logp.exp()*(reference_logp-actual_logp)).sum(-1).numpy()
 np.testing.assert_array_equal(predicted,result['tokens'])
 tokenizer=Tokenizer.from_file(str(args.source/'tokenizer.json'))
-summary={'scope':'all decoder layers and final LM head; logits checked on actual NPU-generated history',
+summary={'scope':'all decoder layers and final LM head; logits checked on '+('fixed teacher-forced history' if result.get('fixed_feedback') else 'actual NPU-generated history'),
+         'fixed_feedback':result.get('fixed_feedback',False),
          'reference_weights':args.reference_weights,
          'exported_constant_scope':'decoder matrices, QKV biases, norm scales and all output-head shards; FP32 arithmetic' if args.reference_weights!='original' else None,
          'constant_reconstruction_version':3 if args.reference_weights!='original' else None,
@@ -64,7 +65,8 @@ summary={'scope':'all decoder layers and final LM head; logits checked on actual
          'constant_records':constant_records,
          'model':args.model.name,'decoder_layers':manifest['language_layers_total'],
          'npu_dtype':args.dtype,'prompt':prompt['rendered_prompt'],
-         'npu_answer':tokenizer.decode(result['tokens'],skip_special_tokens=False),
+         'npu_answer':None if result.get('fixed_feedback') else tokenizer.decode(result['tokens'],skip_special_tokens=False),
+         'predictions_text_on_fixed_history':tokenizer.decode(result['tokens'],skip_special_tokens=False) if result.get('fixed_feedback') else None,
          'generated_token_count':len(actual),'max_abs_logit_error':float(np.max(np.abs(actual-expected))),
          'relative_l2_all_logits':float(np.linalg.norm(actual-expected)/np.linalg.norm(expected)),
          'max_step_relative_l2':float(relative.max()),'min_step_cosine':float(cosine.min()),

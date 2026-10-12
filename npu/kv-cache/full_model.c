@@ -85,6 +85,18 @@ int main(int argc,char **argv) {
     const int32_t *prompt=mmap(NULL,prompt_stat.st_size,PROT_READ,MAP_PRIVATE,prompt_fd,0);
     if(emb==MAP_FAILED||prompt==MAP_FAILED)return 2;
     for(int i=0;i<prompt_count;i++)if(prompt[i]<0||prompt[i]>=vocab)return 2;
+    const char *feedback_path=getenv("OPI_FEEDBACK_FILE");
+    int32_t *feedback=NULL;
+    if(feedback_path){
+        feedback=calloc(max_new,sizeof(*feedback));
+        FILE *f=fopen(feedback_path,"rb");
+        if(!feedback||!f)return 2;
+        if(fread(feedback,sizeof(*feedback),max_new,f)!=(size_t)max_new||fgetc(f)!=EOF){
+            fprintf(stderr,"fixed feedback length mismatch\n");return 2;
+        }
+        fclose(f);
+        for(int i=0;i<max_new;i++)if(feedback[i]<0||feedback[i]>=vocab)return 2;
+    }
     int performance=getenv("OPI_PERFORMANCE")!=NULL;
     int fast_greedy=getenv("OPI_FAST_GREEDY")!=NULL;
     int max_start_temp=getenv("OPI_MAX_START_TEMP_MC")?atoi(getenv("OPI_MAX_START_TEMP_MC")):55000;
@@ -161,7 +173,7 @@ int main(int argc,char **argv) {
     double head_seconds=0,decode_decoder_seconds=0,decode_head_seconds=0;
     int n_generated=0,token=0;
     for(int pos=0;pos<prompt_count+max_new-1;pos++) {
-        token=pos<prompt_count?prompt[pos]:generated[n_generated-1];
+        token=pos<prompt_count?prompt[pos]:(feedback?feedback[n_generated-1]:generated[n_generated-1]);
         memcpy(x,emb+(size_t)token*DIM,DIM*sizeof(float));
         float rope_cos[HD],rope_sin[HD];
         for(int j=0;j<HD;j++){
@@ -260,7 +272,7 @@ int main(int argc,char **argv) {
         double stamp=now();latencies[n_generated]=stamp-previous_token;previous_token=stamp;
         generated[n_generated++]=best;if(n_generated==1)first_token=stamp-start;
         if(!performance)fprintf(stderr,"generated[%d]=%d elapsed=%.3f\n",n_generated-1,best,stamp-start);
-        if(best==eos)break;
+        if(!feedback&&best==eos)break;
     }
     double total=now()-start,cpu=cpu_time()-cpu_start;struct rusage usage;getrusage(RUSAGE_SELF,&usage);
     long rss_after_inference=current_rss_kib();
@@ -284,8 +296,10 @@ int main(int argc,char **argv) {
         if(group_size)fprintf(token_file,"%snull",i?",":"");
         else fprintf(token_file,"%s%.6f",i?",":"",layer_seconds[i]);
     }
-    fprintf(token_file,"],\"performance_mode\":%s,\"host_revision\":6,\"decoder_group_size\":%d,\"fusion_width\":%d,\"max_start_temperature_mC\":%d,\"npu_frequency_before_hz\":%lld,\"npu_frequency_after_hz\":%lld,\"cpu6_frequency_before_khz\":%lld,\"cpu6_frequency_after_khz\":%lld,\"fast_greedy\":%s,\"rss_after_inference_kib\":%ld}\n",performance?"true":"false",group_size,FUSED_LAYERS,max_start_temp,npu_freq_before,npu_freq_after,cpu_freq_before,cpu_freq_after,fast_greedy?"true":"false",rss_after_inference);
+    fprintf(token_file,"],\"fixed_feedback\":%s,\"feedback_tokens\":[",feedback?"true":"false");
+    if(feedback)for(int i=0;i<max_new;i++)fprintf(token_file,"%s%d",i?",":"",feedback[i]);
+    fprintf(token_file,"],\"performance_mode\":%s,\"host_revision\":7,\"decoder_group_size\":%d,\"fusion_width\":%d,\"max_start_temperature_mC\":%d,\"npu_frequency_before_hz\":%lld,\"npu_frequency_after_hz\":%lld,\"cpu6_frequency_before_khz\":%lld,\"cpu6_frequency_after_khz\":%lld,\"fast_greedy\":%s,\"rss_after_inference_kib\":%ld}\n",performance?"true":"false",group_size,FUSED_LAYERS,max_start_temp,npu_freq_before,npu_freq_after,cpu_freq_before,cpu_freq_after,fast_greedy?"true":"false",rss_after_inference);
     if(trace_file)fclose(trace_file);
     fclose(token_file);if(logits_file)fclose(logits_file);munmap((void*)emb,emb_stat.st_size);munmap((void*)prompt,prompt_stat.st_size);
-    close(emb_fd);close(prompt_fd);free(decoder);free(x);free(logits);free(generated);free(latencies);free(layer_seconds);return 0;
+    close(emb_fd);close(prompt_fd);free(decoder);free(x);free(logits);free(generated);free(feedback);free(latencies);free(layer_seconds);return 0;
 }

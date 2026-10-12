@@ -1,0 +1,3167 @@
+{
+  "scope": "all decoder layers and final LM head; logits checked on actual NPU-generated history",
+  "reference_weights": "exported",
+  "exported_constant_scope": "decoder matrices, QKV biases, norm scales and all output-head shards; FP32 arithmetic",
+  "constant_reconstruction_version": 3,
+  "fusion_width": 2,
+  "constant_records": [
+    {
+      "layer": 0,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.011373973451554775
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.011078744195401669
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.024967847391963005
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 6.61805756863032e-07
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008387845940887928
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.008139695972204208
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.495085382747675e-08
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008309941738843918
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.010252241045236588
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.2686958917338416e-08
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 1,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.0106409452855587
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009018807671964169
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.025072429329156876
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 1.7434828691875737e-07
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008355667814612389
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.008233929052948952
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.5580424889426467e-08
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.00851136539131403
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.00847567431628704
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.1325878662992181e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 9.049340405908879e-07
+        }
+      ]
+    },
+    {
+      "layer": 2,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "FLOAT16",
+          "relative_l2": 0.00020620944269467145
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.010442563332617283
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.025840848684310913
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008416018448770046
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.009053637273609638
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 5.4420194572912806e-08
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008280853740870953
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009599277749657631
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.7024275318108266e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 2.223562631797904e-07
+        }
+      ]
+    },
+    {
+      "layer": 3,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "FLOAT16",
+          "relative_l2": 0.00020622739975806326
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009954224340617657
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.017975496128201485
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.1628599117539125e-07
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008416036143898964
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.008611063472926617
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 1.6958929904831166e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008364002220332623
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009323060512542725
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.683401589820278e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 3.6017200955029693e-07
+        }
+      ]
+    },
+    {
+      "layer": 4,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.012902690097689629
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.010005231015384197
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.01612044684588909
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.009019538760185242
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.008752847090363503
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.723639565578196e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008596263825893402
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.008800238370895386
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.015793706457771e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 1.4874089515615196e-07
+        }
+      ]
+    },
+    {
+      "layer": 5,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.011484447866678238
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.008982245810329914
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.015662813559174538
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008499137125909328
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.009143859148025513
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 5.31984994722734e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008197451941668987
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009117101319134235
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.1548655126935046e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 7.027825859040604e-07
+        }
+      ]
+    },
+    {
+      "layer": 6,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.011595040559768677
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009854179807007313
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.01790473982691765
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008611473254859447
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.009141583926975727
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 8.167034479811264e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008683478459715843
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009124333038926125
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.230857939546695e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 1.2297256262172596e-06
+        }
+      ]
+    },
+    {
+      "layer": 7,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.01368903461843729
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009712479077279568
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.015688885003328323
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.6587869089999003e-07
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008825061842799187
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.010186838917434216
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 6.858943493170955e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008825087919831276
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009426657110452652
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 1.6639589262013033e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 3.7109182926542417e-07
+        }
+      ]
+    },
+    {
+      "layer": 8,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.011584453284740448
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009956120513379574
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.035188183188438416
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 6.83866119288723e-07
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008757537230849266
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.008510329760611057
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 7.370940124928893e-08
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008641282096505165
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.01106309425085783
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.083943565547088e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 8.982465260487515e-07
+        }
+      ]
+    },
+    {
+      "layer": 9,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.01334724947810173
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009821337647736073
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.01626620814204216
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008849957026541233
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.010532581247389317
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 8.138486577990989e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008734669536352158
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009180773980915546
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 1.5501638017667574e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 4.485895715333754e-06
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 4.4531353182719613e-07
+        }
+      ]
+    },
+    {
+      "layer": 10,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.013544282875955105
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009810080751776695
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.02858298271894455
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.7236235382588347e-06
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008981706574559212
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.0090703209862113
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 9.538180165691301e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008814055472612381
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009150614961981773
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.512631394642085e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 11,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.014070695266127586
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009990967810153961
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.016885438933968544
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.3360876134102e-07
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.009312259033322334
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.010799931362271309
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 6.764061595276871e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008969784714281559
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009703341871500015
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 1.59903777330328e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 12,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.011808923445641994
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009482919238507748
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.030876804143190384
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008894960395991802
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.008881957270205021
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 8.138888460962335e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008935497142374516
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.008967237547039986
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.6683368875856104e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 13,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.013398579321801662
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.00951141957193613
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.01572762243449688
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.009002930484712124
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.01014248188585043
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 8.896460030882736e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.009151211939752102
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009765269234776497
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.231634704865428e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 14,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.0135686956346035
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009445840492844582
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.02788817510008812
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.009008016437292099
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.00935195293277502
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 7.365855481111794e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.009446801617741585
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009682361036539078
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.749098880234669e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 15,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.013528918847441673
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.00996245164424181
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.028685200959444046
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.7220521587878466e-06
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.009309949353337288
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.00865723006427288
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 8.756512670515804e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.00943619292229414
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009282245300710201
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.396697252355807e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 16,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.014850922860205173
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.01104805525392294
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.03152036666870117
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.009502261877059937
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.011012603528797626
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 8.414821195401601e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.00955247227102518
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009143805131316185
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.916781790598179e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 17,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.012133906595408916
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.00935326237231493
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.02768256887793541
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008431432768702507
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.009589132852852345
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.614479962583573e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.009028448723256588
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009552041999995708
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.067378801484665e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 18,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.011259538121521473
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009052969515323639
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.011719265021383762
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008235123939812183
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.01144043356180191
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 5.591001013272034e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008532819338142872
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.010497202165424824
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 1.866274885742314e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 19,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.012487928383052349
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009655756875872612
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.025297140702605247
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008860048837959766
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.009467510506510735
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.8991851170067093e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.009203045628964901
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009007688611745834
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 1.6518373513463303e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 20,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.012185472063720226
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009975249879062176
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.023424293845891953
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008834300562739372
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.00973621103912592
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 7.740468959127611e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.009151007980108261
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009570118971168995
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 5.437523782347853e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "layer": 21,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.01128233689814806
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.009270405396819115
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.03854403272271156
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008221622556447983
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.010736585594713688
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 9.94566789813689e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008575454354286194
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.010038519278168678
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 5.291975639920565e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 1.916873316076817e-06
+        }
+      ]
+    },
+    {
+      "layer": 22,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.011289626359939575
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.008644845336675644
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.020714595913887024
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008636762388050556
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.010552043095231056
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 2.924920750047022e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.008692456409335136
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.009670176543295383
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 3.649509778824722e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 7.511476383115223e-07
+        }
+      ]
+    },
+    {
+      "layer": 23,
+      "constants": [
+        {
+          "matrix": "down",
+          "dtype": "INT8",
+          "relative_l2": 0.01135562639683485
+        },
+        {
+          "matrix": "o",
+          "dtype": "INT8",
+          "relative_l2": 0.012576918117702007
+        },
+        {
+          "matrix": "v",
+          "dtype": "INT8",
+          "relative_l2": 0.022498592734336853
+        },
+        {
+          "matrix": "v_bias",
+          "dtype": "INT64",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "up",
+          "dtype": "INT8",
+          "relative_l2": 0.008190518245100975
+        },
+        {
+          "matrix": "k",
+          "dtype": "INT8",
+          "relative_l2": 0.010274301283061504
+        },
+        {
+          "matrix": "k_bias",
+          "dtype": "INT64",
+          "relative_l2": 4.989393005416787e-07
+        },
+        {
+          "matrix": "gate",
+          "dtype": "INT8",
+          "relative_l2": 0.00831176619976759
+        },
+        {
+          "matrix": "q",
+          "dtype": "INT8",
+          "relative_l2": 0.008833985775709152
+        },
+        {
+          "matrix": "q_bias",
+          "dtype": "INT64",
+          "relative_l2": 5.187025635677855e-07
+        },
+        {
+          "matrix": "norm1",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        },
+        {
+          "matrix": "norm2",
+          "dtype": "INT16",
+          "relative_l2": 3.103097867551696e-07
+        }
+      ]
+    },
+    {
+      "head": [
+        {
+          "matrix": "head[0:49152]",
+          "dtype": "INT8",
+          "relative_l2": 0.008367611095309258
+        },
+        {
+          "matrix": "head[49152:98304]",
+          "dtype": "INT8",
+          "relative_l2": 0.009026790037751198
+        },
+        {
+          "matrix": "head[98304:147456]",
+          "dtype": "INT8",
+          "relative_l2": 0.008673345670104027
+        },
+        {
+          "matrix": "head[147456:151674]",
+          "dtype": "INT8",
+          "relative_l2": 0.010076072998344898
+        },
+        {
+          "matrix": "output_norm",
+          "dtype": "INT16",
+          "relative_l2": 0.0
+        }
+      ]
+    }
+  ],
+  "model": "InternVL3-1B-Instruct-Q8_0.gguf",
+  "decoder_layers": 24,
+  "npu_dtype": "w8-fused2-gqa-mlp",
+  "prompt": "<|im_start|>system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.<|im_end|>\n<|im_start|>user\nHello! Please introduce yourself in one short sentence.<|im_end|>\n<|im_start|>assistant\n",
+  "npu_answer": "I am Qwen, a powerful AI assistant created by Alibaba Cloud.<|im_end|>",
+  "generated_token_count": 15,
+  "max_abs_logit_error": 0.8042807579040527,
+  "relative_l2_all_logits": 0.033210378140211105,
+  "max_step_relative_l2": 0.04281703382730484,
+  "min_step_cosine": 0.9990829825401306,
+  "argmax_matches_fp32": 15,
+  "argmax_match_fraction": 1.0,
+  "mean_kl_nats": 0.0008493595523759723,
+  "max_step_kl_nats": 0.005302061326801777,
+  "npu_tokens": [
+    40,
+    1079,
+    1207,
+    16948,
+    11,
+    264,
+    7988,
+    15235,
+    17847,
+    3465,
+    553,
+    54364,
+    14817,
+    13,
+    151645
+  ],
+  "fp32_greedy_tokens_on_npu_history": [
+    40,
+    1079,
+    1207,
+    16948,
+    11,
+    264,
+    7988,
+    15235,
+    17847,
+    3465,
+    553,
+    54364,
+    14817,
+    13,
+    151645
+  ],
+  "step_relative_l2": [
+    0.04281703382730484,
+    0.03053525649011135,
+    0.024144621565937996,
+    0.036644428968429565,
+    0.032211244106292725,
+    0.03423783555626869,
+    0.03408554941415787,
+    0.028840601444244385,
+    0.030925137922167778,
+    0.030384959653019905,
+    0.041793517768383026,
+    0.025082506239414215,
+    0.03181346878409386,
+    0.041926607489585876,
+    0.039760611951351166
+  ],
+  "runtime": {
+    "decoder_layers": 24,
+    "head_on_npu": true,
+    "capacity": 128,
+    "prompt_tokens": 39,
+    "generated_tokens": 15,
+    "load_seconds": 0.378884,
+    "ttft_seconds": 2.194434,
+    "total_seconds": 3.480578,
+    "decode_tokens_per_second": 10.885255,
+    "npu_api_seconds": 3.182898,
+    "cpu_seconds": 0.304003,
+    "cpu_percent_one_core": 8.734,
+    "max_rss_kib": 6016,
+    "driver_allocated_bytes": 464000872,
+    "driver_after_release_bytes": 0,
+    "temperature_before_mC": 58838,
+    "temperature_after_mC": 56916,
+    "tokens": [
+      40,
+      1079,
+      1207,
+      16948,
+      11,
+      264,
+      7988,
+      15235,
+      17847,
+      3465,
+      553,
+      54364,
+      14817,
+      13,
+      151645
+    ],
+    "token_latencies_seconds": [
+      2.194434,
+      0.09762,
+      0.091891,
+      0.09188,
+      0.090813,
+      0.090904,
+      0.091082,
+      0.090753,
+      0.091507,
+      0.091232,
+      0.091649,
+      0.09153,
+      0.09257,
+      0.091245,
+      0.091441
+    ],
+    "head_api_seconds": 0.283116,
+    "decode_decoder_api_seconds": 0.766448,
+    "decode_head_api_seconds": 0.26387,
+    "layer_api_seconds": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "block_api_seconds": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "performance_mode": false,
+    "host_revision": 6,
+    "decoder_group_size": 12,
+    "fusion_width": 2,
+    "max_start_temperature_mC": 55000,
+    "npu_frequency_before_hz": 1008000000,
+    "npu_frequency_after_hz": 1008000000,
+    "cpu6_frequency_before_khz": 2002000,
+    "cpu6_frequency_after_khz": 780000,
+    "fast_greedy": true,
+    "rss_after_inference_kib": 6016
+  },
+  "execution_gate_v1": {
+    "applicable": true,
+    "relative_l2_limit": 0.05,
+    "min_cosine_limit": 0.99,
+    "argmax_match_min": 0.95,
+    "passed": true,
+    "scope": "execution on this trajectory only; not holdout quality acceptance"
+  },
+  "llama_cpu_reference": {
+    "backend": "llama.cpp CPU Q8_0",
+    "threads": 2,
+    "affinity": [
+      6,
+      7
+    ],
+    "prompt_token_ids": [
+      151644,
+      8948,
+      198,
+      2610,
+      525,
+      1207,
+      16948,
+      11,
+      3465,
+      553,
+      54364,
+      14817,
+      13,
+      1446,
+      525,
+      264,
+      10950,
+      17847,
+      13,
+      151645,
+      198,
+      151644,
+      872,
+      198,
+      9707,
+      0,
+      5209,
+      19131,
+      6133,
+      304,
+      825,
+      2805,
+      11652,
+      13,
+      151645,
+      198,
+      151644,
+      77091,
+      198
+    ],
+    "tokenizer_exact_match": true,
+    "load_seconds": 17.519264238000687,
+    "request_seconds": 1.2711276919999364,
+    "command": [
+      "taskset",
+      "-c",
+      "6,7",
+      "/opt/opi-vlm/bin/llama-server",
+      "--model",
+      "/opt/opi-vlm/models/internvl3-1b/InternVL3-1B-Instruct-Q8_0.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "18083",
+      "--ctx-size",
+      "128",
+      "--threads",
+      "2",
+      "--threads-batch",
+      "2",
+      "--parallel",
+      "1",
+      "--n-gpu-layers",
+      "0",
+      "--no-warmup",
+      "--no-context-shift"
+    ],
+    "response": {
+      "index": 0,
+      "content": "Hello! I am Qwen, a powerful AI assistant created by Alibaba Cloud.",
+      "tokens": [
+        9707,
+        0,
+        358,
+        1079,
+        1207,
+        16948,
+        11,
+        264,
+        7988,
+        15235,
+        17847,
+        3465,
+        553,
+        54364,
+        14817,
+        13,
+        151645
+      ],
+      "id_slot": 0,
+      "stop": true,
+      "model": "/opt/opi-vlm/models/internvl3-1b/InternVL3-1B-Instruct-Q8_0.gguf",
+      "tokens_predicted": 17,
+      "tokens_evaluated": 39,
+      "generation_settings": {
+        "seed": 42,
+        "temperature": 0.0,
+        "dynatemp_range": 0.0,
+        "dynatemp_exponent": 1.0,
+        "top_k": 40,
+        "top_p": 0.949999988079071,
+        "min_p": 0.05000000074505806,
+        "top_n_sigma": -1.0,
+        "xtc_probability": 0.0,
+        "xtc_threshold": 0.10000000149011612,
+        "typical_p": 1.0,
+        "repeat_last_n": 64,
+        "repeat_penalty": 1.0,
+        "presence_penalty": 0.0,
+        "frequency_penalty": 0.0,
+        "dry_multiplier": 0.0,
+        "dry_base": 1.75,
+        "dry_allowed_length": 2,
+        "dry_penalty_last_n": 64,
+        "dry_sequence_breakers": [
+          "\n",
+          ":",
+          "\"",
+          "*"
+        ],
+        "mirostat": 0,
+        "mirostat_tau": 5.0,
+        "mirostat_eta": 0.10000000149011612,
+        "adaptive_target": -1.0,
+        "adaptive_decay": 0.8999999761581421,
+        "stop": [],
+        "max_tokens": 32,
+        "n_predict": 32,
+        "n_keep": 0,
+        "n_discard": 0,
+        "ignore_eos": false,
+        "stream": false,
+        "logit_bias": [],
+        "n_probs": 5,
+        "min_keep": 0,
+        "grammar": "",
+        "grammar_lazy": false,
+        "grammar_triggers": [],
+        "preserved_tokens": [],
+        "chat_format": "Content-only",
+        "reasoning_format": "deepseek",
+        "reasoning_in_content": false,
+        "generation_prompt": "",
+        "samplers": [
+          "penalties",
+          "dry",
+          "top_n_sigma",
+          "top_k",
+          "typ_p",
+          "top_p",
+          "min_p",
+          "xtc",
+          "temperature"
+        ],
+        "speculative.types": "none",
+        "timings_per_token": false,
+        "post_sampling_probs": false,
+        "backend_sampling": false,
+        "lora": []
+      },
+      "prompt": "<|im_start|>system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.<|im_end|>\n<|im_start|>user\nHello! Please introduce yourself in one short sentence.<|im_end|>\n<|im_start|>assistant\n",
+      "has_new_line": false,
+      "truncated": false,
+      "stop_type": "eos",
+      "stopping_word": "",
+      "tokens_cached": 55,
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 39,
+        "prompt_ms": 431.291,
+        "prompt_per_token_ms": 11.058743589743589,
+        "prompt_per_second": 90.42618556844451,
+        "predicted_n": 17,
+        "predicted_ms": 831.853,
+        "predicted_per_token_ms": 51.9908125,
+        "predicted_per_second": 19.23416757528073
+      },
+      "completion_probabilities": [
+        {
+          "id": 9707,
+          "token": "Hello",
+          "bytes": [
+            72,
+            101,
+            108,
+            108,
+            111
+          ],
+          "logprob": -0.8973637819290161,
+          "top_logprobs": [
+            {
+              "id": 9707,
+              "token": "Hello",
+              "bytes": [
+                72,
+                101,
+                108,
+                108,
+                111
+              ],
+              "logprob": -0.8973637819290161
+            },
+            {
+              "id": 40,
+              "token": "I",
+              "bytes": [
+                73
+              ],
+              "logprob": -0.9097005128860474
+            },
+            {
+              "id": 91786,
+              "token": "Greetings",
+              "bytes": [
+                71,
+                114,
+                101,
+                101,
+                116,
+                105,
+                110,
+                103,
+                115
+              ],
+              "logprob": -2.691152572631836
+            },
+            {
+              "id": 2121,
+              "token": "As",
+              "bytes": [
+                65,
+                115
+              ],
+              "logprob": -3.849283218383789
+            },
+            {
+              "id": 5050,
+              "token": "My",
+              "bytes": [
+                77,
+                121
+              ],
+              "logprob": -3.895322799682617
+            }
+          ]
+        },
+        {
+          "id": 0,
+          "token": "!",
+          "bytes": [
+            33
+          ],
+          "logprob": -0.009168446063995361,
+          "top_logprobs": [
+            {
+              "id": 0,
+              "token": "!",
+              "bytes": [
+                33
+              ],
+              "logprob": -0.009168446063995361
+            },
+            {
+              "id": 11,
+              "token": ",",
+              "bytes": [
+                44
+              ],
+              "logprob": -5.084171295166016
+            },
+            {
+              "id": 13,
+              "token": ".",
+              "bytes": [
+                46
+              ],
+              "logprob": -7.2922821044921875
+            },
+            {
+              "id": 1052,
+              "token": " there",
+              "bytes": [
+                32,
+                116,
+                104,
+                101,
+                114,
+                101
+              ],
+              "logprob": -7.362163543701172
+            },
+            {
+              "id": 323,
+              "token": " and",
+              "bytes": [
+                32,
+                97,
+                110,
+                100
+              ],
+              "logprob": -7.598484039306641
+            }
+          ]
+        },
+        {
+          "id": 358,
+          "token": " I",
+          "bytes": [
+            32,
+            73
+          ],
+          "logprob": -0.08621162921190262,
+          "top_logprobs": [
+            {
+              "id": 358,
+              "token": " I",
+              "bytes": [
+                32,
+                73
+              ],
+              "logprob": -0.08621162921190262
+            },
+            {
+              "id": 3017,
+              "token": " My",
+              "bytes": [
+                32,
+                77,
+                121
+              ],
+              "logprob": -2.7239432334899902
+            },
+            {
+              "id": 1634,
+              "token": " As",
+              "bytes": [
+                32,
+                65,
+                115
+              ],
+              "logprob": -4.452451229095459
+            },
+            {
+              "id": 2585,
+              "token": " How",
+              "bytes": [
+                32,
+                72,
+                111,
+                119
+              ],
+              "logprob": -7.234801769256592
+            },
+            {
+              "id": 9731,
+              "token": " Thank",
+              "bytes": [
+                32,
+                84,
+                104,
+                97,
+                110,
+                107
+              ],
+              "logprob": -7.272428035736084
+            }
+          ]
+        },
+        {
+          "id": 1079,
+          "token": " am",
+          "bytes": [
+            32,
+            97,
+            109
+          ],
+          "logprob": -0.3714373707771301,
+          "top_logprobs": [
+            {
+              "id": 1079,
+              "token": " am",
+              "bytes": [
+                32,
+                97,
+                109
+              ],
+              "logprob": -0.3714373707771301
+            },
+            {
+              "id": 2776,
+              "token": "'m",
+              "bytes": [
+                39,
+                109
+              ],
+              "logprob": -1.195120096206665
+            },
+            {
+              "id": 4249,
+              "token": "’m",
+              "bytes": [
+                226,
+                128,
+                153,
+                109
+              ],
+              "logprob": -5.214300632476807
+            },
+            {
+              "id": 11,
+              "token": ",",
+              "bytes": [
+                44
+              ],
+              "logprob": -6.795675754547119
+            },
+            {
+              "id": 374,
+              "token": " is",
+              "bytes": [
+                32,
+                105,
+                115
+              ],
+              "logprob": -8.357540130615234
+            }
+          ]
+        },
+        {
+          "id": 1207,
+          "token": " Q",
+          "bytes": [
+            32,
+            81
+          ],
+          "logprob": -0.23559562861919403,
+          "top_logprobs": [
+            {
+              "id": 1207,
+              "token": " Q",
+              "bytes": [
+                32,
+                81
+              ],
+              "logprob": -0.23559562861919403
+            },
+            {
+              "id": 264,
+              "token": " a",
+              "bytes": [
+                32,
+                97
+              ],
+              "logprob": -2.077291488647461
+            },
+            {
+              "id": 458,
+              "token": " an",
+              "bytes": [
+                32,
+                97,
+                110
+              ],
+              "logprob": -3.953031539916992
+            },
+            {
+              "id": 54364,
+              "token": " Alibaba",
+              "bytes": [
+                32,
+                65,
+                108,
+                105,
+                98,
+                97,
+                98,
+                97
+              ],
+              "logprob": -4.43309211730957
+            },
+            {
+              "id": 1674,
+              "token": " Al",
+              "bytes": [
+                32,
+                65,
+                108
+              ],
+              "logprob": -4.710111618041992
+            }
+          ]
+        },
+        {
+          "id": 16948,
+          "token": "wen",
+          "bytes": [
+            119,
+            101,
+            110
+          ],
+          "logprob": -1.1920999895664863e-05,
+          "top_logprobs": [
+            {
+              "id": 16948,
+              "token": "wen",
+              "bytes": [
+                119,
+                101,
+                110
+              ],
+              "logprob": -1.1920999895664863e-05
+            },
+            {
+              "id": 896,
+              "token": "we",
+              "bytes": [
+                119,
+                101
+              ],
+              "logprob": -12.41185474395752
+            },
+            {
+              "id": 61223,
+              "token": " Wen",
+              "bytes": [
+                32,
+                87,
+                101,
+                110
+              ],
+              "logprob": -12.631450653076172
+            },
+            {
+              "id": 86,
+              "token": "w",
+              "bytes": [
+                119
+              ],
+              "logprob": -13.136026382446289
+            },
+            {
+              "id": 48437,
+              "token": "wik",
+              "bytes": [
+                119,
+                105,
+                107
+              ],
+              "logprob": -14.375795364379883
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "token": ",",
+          "bytes": [
+            44
+          ],
+          "logprob": -0.0051283384673297405,
+          "top_logprobs": [
+            {
+              "id": 11,
+              "token": ",",
+              "bytes": [
+                44
+              ],
+              "logprob": -0.0051283384673297405
+            },
+            {
+              "id": 13,
+              "token": ".",
+              "bytes": [
+                46
+              ],
+              "logprob": -5.574113368988037
+            },
+            {
+              "id": 320,
+              "token": " (",
+              "bytes": [
+                32,
+                40
+              ],
+              "logprob": -7.406350612640381
+            },
+            {
+              "id": 27996,
+              "token": "—a",
+              "bytes": [
+                226,
+                128,
+                148,
+                97
+              ],
+              "logprob": -8.5465669631958
+            },
+            {
+              "id": 15235,
+              "token": " AI",
+              "bytes": [
+                32,
+                65,
+                73
+              ],
+              "logprob": -8.812203407287598
+            }
+          ]
+        },
+        {
+          "id": 264,
+          "token": " a",
+          "bytes": [
+            32,
+            97
+          ],
+          "logprob": -0.6243518590927124,
+          "top_logprobs": [
+            {
+              "id": 264,
+              "token": " a",
+              "bytes": [
+                32,
+                97
+              ],
+              "logprob": -0.6243518590927124
+            },
+            {
+              "id": 458,
+              "token": " an",
+              "bytes": [
+                32,
+                97,
+                110
+              ],
+              "logprob": -1.0549129247665405
+            },
+            {
+              "id": 3465,
+              "token": " created",
+              "bytes": [
+                32,
+                99,
+                114,
+                101,
+                97,
+                116,
+                101,
+                100
+              ],
+              "logprob": -2.6858294010162354
+            },
+            {
+              "id": 7881,
+              "token": " developed",
+              "bytes": [
+                32,
+                100,
+                101,
+                118,
+                101,
+                108,
+                111,
+                112,
+                101,
+                100
+              ],
+              "logprob": -3.637238025665283
+            },
+            {
+              "id": 697,
+              "token": " your",
+              "bytes": [
+                32,
+                121,
+                111,
+                117,
+                114
+              ],
+              "logprob": -5.263128757476807
+            }
+          ]
+        },
+        {
+          "id": 7988,
+          "token": " powerful",
+          "bytes": [
+            32,
+            112,
+            111,
+            119,
+            101,
+            114,
+            102,
+            117,
+            108
+          ],
+          "logprob": -1.5168787240982056,
+          "top_logprobs": [
+            {
+              "id": 7988,
+              "token": " powerful",
+              "bytes": [
+                32,
+                112,
+                111,
+                119,
+                101,
+                114,
+                102,
+                117,
+                108
+              ],
+              "logprob": -1.5168787240982056
+            },
+            {
+              "id": 3460,
+              "token": " large",
+              "bytes": [
+                32,
+                108,
+                97,
+                114,
+                103,
+                101
+              ],
+              "logprob": -2.249931812286377
+            },
+            {
+              "id": 7517,
+              "token": " convers",
+              "bytes": [
+                32,
+                99,
+                111,
+                110,
+                118,
+                101,
+                114,
+                115
+              ],
+              "logprob": -2.4179482460021973
+            },
+            {
+              "id": 7548,
+              "token": " highly",
+              "bytes": [
+                32,
+                104,
+                105,
+                103,
+                104,
+                108,
+                121
+              ],
+              "logprob": -2.747267484664917
+            },
+            {
+              "id": 1584,
+              "token": " state",
+              "bytes": [
+                32,
+                115,
+                116,
+                97,
+                116,
+                101
+              ],
+              "logprob": -2.9496922492980957
+            }
+          ]
+        },
+        {
+          "id": 15235,
+          "token": " AI",
+          "bytes": [
+            32,
+            65,
+            73
+          ],
+          "logprob": -0.8265925645828247,
+          "top_logprobs": [
+            {
+              "id": 15235,
+              "token": " AI",
+              "bytes": [
+                32,
+                65,
+                73
+              ],
+              "logprob": -0.8265925645828247
+            },
+            {
+              "id": 323,
+              "token": " and",
+              "bytes": [
+                32,
+                97,
+                110,
+                100
+              ],
+              "logprob": -1.8052951097488403
+            },
+            {
+              "id": 4128,
+              "token": " language",
+              "bytes": [
+                32,
+                108,
+                97,
+                110,
+                103,
+                117,
+                97,
+                103,
+                101
+              ],
+              "logprob": -1.8152514696121216
+            },
+            {
+              "id": 20443,
+              "token": " artificial",
+              "bytes": [
+                32,
+                97,
+                114,
+                116,
+                105,
+                102,
+                105,
+                99,
+                105,
+                97,
+                108
+              ],
+              "logprob": -1.9755183458328247
+            },
+            {
+              "id": 7517,
+              "token": " convers",
+              "bytes": [
+                32,
+                99,
+                111,
+                110,
+                118,
+                101,
+                114,
+                115
+              ],
+              "logprob": -4.154721260070801
+            }
+          ]
+        },
+        {
+          "id": 17847,
+          "token": " assistant",
+          "bytes": [
+            32,
+            97,
+            115,
+            115,
+            105,
+            115,
+            116,
+            97,
+            110,
+            116
+          ],
+          "logprob": -1.0079923868179321,
+          "top_logprobs": [
+            {
+              "id": 17847,
+              "token": " assistant",
+              "bytes": [
+                32,
+                97,
+                115,
+                115,
+                105,
+                115,
+                116,
+                97,
+                110,
+                116
+              ],
+              "logprob": -1.0079923868179321
+            },
+            {
+              "id": 1614,
+              "token": " model",
+              "bytes": [
+                32,
+                109,
+                111,
+                100,
+                101,
+                108
+              ],
+              "logprob": -1.5296884775161743
+            },
+            {
+              "id": 7881,
+              "token": " developed",
+              "bytes": [
+                32,
+                100,
+                101,
+                118,
+                101,
+                108,
+                111,
+                112,
+                101,
+                100
+              ],
+              "logprob": -1.5526376962661743
+            },
+            {
+              "id": 4128,
+              "token": " language",
+              "bytes": [
+                32,
+                108,
+                97,
+                110,
+                103,
+                117,
+                97,
+                103,
+                101
+              ],
+              "logprob": -2.1776814460754395
+            },
+            {
+              "id": 6188,
+              "token": " designed",
+              "bytes": [
+                32,
+                100,
+                101,
+                115,
+                105,
+                103,
+                110,
+                101,
+                100
+              ],
+              "logprob": -2.9621665477752686
+            }
+          ]
+        },
+        {
+          "id": 3465,
+          "token": " created",
+          "bytes": [
+            32,
+            99,
+            114,
+            101,
+            97,
+            116,
+            101,
+            100
+          ],
+          "logprob": -0.4138983488082886,
+          "top_logprobs": [
+            {
+              "id": 3465,
+              "token": " created",
+              "bytes": [
+                32,
+                99,
+                114,
+                101,
+                97,
+                116,
+                101,
+                100
+              ],
+              "logprob": -0.4138983488082886
+            },
+            {
+              "id": 6188,
+              "token": " designed",
+              "bytes": [
+                32,
+                100,
+                101,
+                115,
+                105,
+                103,
+                110,
+                101,
+                100
+              ],
+              "logprob": -1.8621596097946167
+            },
+            {
+              "id": 7881,
+              "token": " developed",
+              "bytes": [
+                32,
+                100,
+                101,
+                118,
+                101,
+                108,
+                111,
+                112,
+                101,
+                100
+              ],
+              "logprob": -1.913690447807312
+            },
+            {
+              "id": 13,
+              "token": ".",
+              "bytes": [
+                46
+              ],
+              "logprob": -4.374015808105469
+            },
+            {
+              "id": 429,
+              "token": " that",
+              "bytes": [
+                32,
+                116,
+                104,
+                97,
+                116
+              ],
+              "logprob": -5.1444091796875
+            }
+          ]
+        },
+        {
+          "id": 553,
+          "token": " by",
+          "bytes": [
+            32,
+            98,
+            121
+          ],
+          "logprob": -0.04043944180011749,
+          "top_logprobs": [
+            {
+              "id": 553,
+              "token": " by",
+              "bytes": [
+                32,
+                98,
+                121
+              ],
+              "logprob": -0.04043944180011749
+            },
+            {
+              "id": 311,
+              "token": " to",
+              "bytes": [
+                32,
+                116,
+                111
+              ],
+              "logprob": -3.7907121181488037
+            },
+            {
+              "id": 323,
+              "token": " and",
+              "bytes": [
+                32,
+                97,
+                110,
+                100
+              ],
+              "logprob": -4.323032379150391
+            },
+            {
+              "id": 11689,
+              "token": " specifically",
+              "bytes": [
+                32,
+                115,
+                112,
+                101,
+                99,
+                105,
+                102,
+                105,
+                99,
+                97,
+                108,
+                108,
+                121
+              ],
+              "logprob": -6.260385513305664
+            },
+            {
+              "id": 369,
+              "token": " for",
+              "bytes": [
+                32,
+                102,
+                111,
+                114
+              ],
+              "logprob": -6.762384414672852
+            }
+          ]
+        },
+        {
+          "id": 54364,
+          "token": " Alibaba",
+          "bytes": [
+            32,
+            65,
+            108,
+            105,
+            98,
+            97,
+            98,
+            97
+          ],
+          "logprob": -0.0016182634280994534,
+          "top_logprobs": [
+            {
+              "id": 54364,
+              "token": " Alibaba",
+              "bytes": [
+                32,
+                65,
+                108,
+                105,
+                98,
+                97,
+                98,
+                97
+              ],
+              "logprob": -0.0016182634280994534
+            },
+            {
+              "id": 1674,
+              "token": " Al",
+              "bytes": [
+                32,
+                65,
+                108
+              ],
+              "logprob": -7.284579277038574
+            },
+            {
+              "id": 279,
+              "token": " the",
+              "bytes": [
+                32,
+                116,
+                104,
+                101
+              ],
+              "logprob": -8.345255851745605
+            },
+            {
+              "id": 15235,
+              "token": " AI",
+              "bytes": [
+                32,
+                65,
+                73
+              ],
+              "logprob": -8.419495582580566
+            },
+            {
+              "id": 8176,
+              "token": " Amazon",
+              "bytes": [
+                32,
+                65,
+                109,
+                97,
+                122,
+                111,
+                110
+              ],
+              "logprob": -8.80410099029541
+            }
+          ]
+        },
+        {
+          "id": 14817,
+          "token": " Cloud",
+          "bytes": [
+            32,
+            67,
+            108,
+            111,
+            117,
+            100
+          ],
+          "logprob": -0.0011787803377956152,
+          "top_logprobs": [
+            {
+              "id": 14817,
+              "token": " Cloud",
+              "bytes": [
+                32,
+                67,
+                108,
+                111,
+                117,
+                100
+              ],
+              "logprob": -0.0011787803377956152
+            },
+            {
+              "id": 13,
+              "token": ".",
+              "bytes": [
+                46
+              ],
+              "logprob": -7.130992889404297
+            },
+            {
+              "id": 11,
+              "token": ",",
+              "bytes": [
+                44
+              ],
+              "logprob": -9.40438461303711
+            },
+            {
+              "id": 5737,
+              "token": " Group",
+              "bytes": [
+                32,
+                71,
+                114,
+                111,
+                117,
+                112
+              ],
+              "logprob": -9.55971908569336
+            },
+            {
+              "id": 16055,
+              "token": "Cloud",
+              "bytes": [
+                67,
+                108,
+                111,
+                117,
+                100
+              ],
+              "logprob": -9.619512557983398
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "token": ".",
+          "bytes": [
+            46
+          ],
+          "logprob": -0.11817705631256104,
+          "top_logprobs": [
+            {
+              "id": 13,
+              "token": ".",
+              "bytes": [
+                46
+              ],
+              "logprob": -0.11817705631256104
+            },
+            {
+              "id": 11,
+              "token": ",",
+              "bytes": [
+                44
+              ],
+              "logprob": -2.676459789276123
+            },
+            {
+              "id": 429,
+              "token": " that",
+              "bytes": [
+                32,
+                116,
+                104,
+                97,
+                116
+              ],
+              "logprob": -4.659608364105225
+            },
+            {
+              "id": 6188,
+              "token": " designed",
+              "bytes": [
+                32,
+                100,
+                101,
+                115,
+                105,
+                103,
+                110,
+                101,
+                100
+              ],
+              "logprob": -4.670979976654053
+            },
+            {
+              "id": 311,
+              "token": " to",
+              "bytes": [
+                32,
+                116,
+                111
+              ],
+              "logprob": -4.772435665130615
+            }
+          ]
+        },
+        {
+          "id": 151645,
+          "token": "",
+          "bytes": [],
+          "logprob": -0.4816703796386719,
+          "top_logprobs": [
+            {
+              "id": 151645,
+              "token": "",
+              "bytes": [],
+              "logprob": -0.4816703796386719
+            },
+            {
+              "id": 358,
+              "token": " I",
+              "bytes": [
+                32,
+                73
+              ],
+              "logprob": -1.497890591621399
+            },
+            {
+              "id": 3017,
+              "token": " My",
+              "bytes": [
+                32,
+                77,
+                121
+              ],
+              "logprob": -2.6029052734375
+            },
+            {
+              "id": 2585,
+              "token": " How",
+              "bytes": [
+                32,
+                72,
+                111,
+                119
+              ],
+              "logprob": -3.1677284240722656
+            },
+            {
+              "id": 3555,
+              "token": " What",
+              "bytes": [
+                32,
+                87,
+                104,
+                97,
+                116
+              ],
+              "logprob": -5.18754768371582
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "llama_cpu_answer": "Hello! I am Qwen, a powerful AI assistant created by Alibaba Cloud.",
+  "tokenizer_independent_match": true
+}

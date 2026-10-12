@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import shlex
+import struct
 import subprocess
 
 p=argparse.ArgumentParser();p.add_argument('--source',type=Path,required=True)
@@ -17,6 +18,7 @@ p.add_argument('--performance',action='store_true',help='no logits/hidden dumps 
 p.add_argument('--decoder-group',type=int,default=0,help='batch N decoder submissions and share FP16 hidden buffers; 0 keeps host transfers')
 p.add_argument('--fusion-width',type=int,choices=(1,2,4),default=1,help='language layers per compiled decoder graph')
 p.add_argument('--fast-greedy',action='store_true',help='compare shard integer maxima, checking against full FP32 argmax in diagnostic mode')
+p.add_argument('--feedback-from',type=Path,help='tokens.json of a frozen continuation; teacher forcing for matched work, not free generation')
 p.add_argument('--reuse-tag',help='reuse immutable binaries from this deployed tag, hash-checking all reused files')
 p.add_argument('--deploy-layers',type=int,nargs='+',default=[],help='new binaries to upload when --reuse-tag is used')
 p.add_argument('--prompt-folder',type=Path,help='case-specific prompt directory');args=p.parse_args()
@@ -45,11 +47,21 @@ prompt_name=result_name+'-prompt.i32'
 executable=result_name+'-full_model'
 result_dir=args.source/args.dtype/result_name;result_dir.mkdir(exist_ok=True)
 prompt_folder=args.prompt_folder or args.source
+feedback_file=None
+if args.feedback_from:
+    feedback=json.loads(args.feedback_from.read_text())
+    assert not feedback.get('fixed_feedback'), 'use a natural generation as the fixed trajectory'
+    assert (args.feedback_from.parent/'prompt.i32').read_bytes()==(prompt_folder/'prompt.i32').read_bytes()
+    assert len(feedback['tokens'])==args.max_new
+    assert all(isinstance(t,int) and 0<=t<manifest['vocab_size'] for t in feedback['tokens'])
+    feedback_file=result_dir/'feedback.i32'
+    feedback_file.write_bytes(struct.pack('<'+'i'*args.max_new,*feedback['tokens']))
 files=[(args.source/'embeddings.f32','embeddings.f32'),(prompt_folder/'prompt.i32',prompt_name),
        (scripts/'full_model.c','full_model.c'),(scripts/'board_probe.c','board_probe.c'),(scripts/'greedy_i16.h','greedy_i16.h')]
 files.extend((Path(r['path']),f"layer{r['layer']}.nb") for r in records)
 if args.skip_deploy:
     files=[(src,name) for src,name in files if name in (prompt_name,'full_model.c','board_probe.c','greedy_i16.h')]
+if feedback_file:files.append((feedback_file,result_name+'-feedback.i32'))
 if files:
     subprocess.run(ssh+['mkdir -p '+remote],check=True,timeout=30)
     hashes=[]
@@ -83,6 +95,7 @@ if args.trace:command=command.replace('timeout 600',f'OPI_FULL_TRACE={result_nam
 if args.performance:command=command.replace('timeout 600','OPI_PERFORMANCE=1 timeout 600')
 if args.decoder_group:command=command.replace('timeout 600',f'OPI_DECODER_GROUP={args.decoder_group} timeout 600')
 if args.fast_greedy:command=command.replace('timeout 600','OPI_FAST_GREEDY=1 timeout 600')
+if feedback_file:command=command.replace('timeout 600',f'OPI_FEEDBACK_FILE={result_name}-feedback.i32 timeout 600')
 command=compile_command+' && '+command
 command='flock -w 1800 /run/opi-npu-kv-benchmark.lock sh -c '+shlex.quote(command)
 with (result_dir/'run.stdout').open('w') as out,(result_dir/'run.stderr').open('w') as err:

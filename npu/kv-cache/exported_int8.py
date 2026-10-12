@@ -20,7 +20,7 @@ def read_constant(block, raw, arrays):
             fl=int(re.search(r'attr.dtype.fl = (-?\d+)',block)[1]);values*=2.**(-fl)
     return values.astype(np.float32),dtype
 
-def apply_exported_int8(layer, folder: Path):
+def apply_exported_int8(layer, folder: Path, prefix=''):
     graph=(folder/'export/vnn_decoder.c').read_text()
     arrays={k:np.asarray([float(v.strip()) for v in body.split(',') if v.strip()],np.float32)
             for k,body in re.findall(r'float\s+scales_(\d+)\[\]\s*=\s*\{([^}]+)\}',graph)}
@@ -28,7 +28,7 @@ def apply_exported_int8(layer, folder: Path):
     data=np.load(folder/'decoder.data',allow_pickle=True).item()
     records=[];matched=set()
     for name,parameters in data.items():
-        if not name.startswith('fullconnect'):continue
+        if not name.startswith(prefix+'fullconnect'):continue
         original=parameters['weight']
         block=graph.split('/* @'+name+':weight */',1)[1].split('/*',1)[0]
         match=re.search(r'VSI_NN_TYPE_(INT8|FLOAT16),\s*(\d+),\s*(\d+)\)',block)
@@ -68,7 +68,7 @@ def apply_exported_int8(layer, folder: Path):
         target=getattr(layer,key,None)
         if target is None:continue
         blocks=[block for names,block in re.findall(r'/\* (.*?)\*/(.*?)(?=/\*|$)',graph,re.S)
-                if re.search(r'@'+re.escape(key)+r'_\d+:from_var_data',names) and 'NEW_CONST_TENSOR' in block]
+                if re.search(r'@'+re.escape(prefix+key)+r'_\d+:from_var_data',names) and 'NEW_CONST_TENSOR' in block]
         if len(blocks)!=1:raise ValueError('ambiguous/missing norm constant '+key)
         restored,dtype=read_constant(blocks[0],raw,arrays)
         original=target.numpy()

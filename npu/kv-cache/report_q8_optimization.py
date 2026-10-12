@@ -6,6 +6,7 @@ import shutil
 here=Path(__file__).resolve().parent;results=here.parent/'results'
 archive=here/'evidence-q8-optimization-20261012';archive.mkdir(exist_ok=True)
 lines=['# Q8 完整生成优化进展','',
+    '后续decoder双层融合、GQA去重复展开及补充性能对照见[Decoder融合与GQA优化](Decoder融合与GQA优化.md)。本页保留此前输出头和提交批处理阶段的结果。','',
     '2026-10-12。按用户最终口径：500M、1B 的历史 CPU 都是 Q8_0，未测 Q4；本轮优化 NPU W8，并与对应 CPU Q8 比较。Q4 编译探索及 FP16 下载已暂停，不加入本轮目标。', '',
     '这是研发进展，不是最终验收。核心历史档位、独立留出质量、30 分钟稳定性、最快 CPU Q8 的完整搜索尚未完成；不能宣称超过 CPU。', '',
     '## 完整生成和精度','',
@@ -116,7 +117,7 @@ lines += ['## CPU Q8 对照的边界','',
     '| 校准方法 | 脚本未显式指定 --algorithm，采用 SDK 默认流程；未系统 A/B 比较 KL/MLE 等 |',
     '| CPU 对照 | llama.cpp GGUF Q8_0：分块 INT8，与 NPU 的 per-channel/DFP 不是同一编码 |','',
     '已实际读取官方镜像 ACUITY 6.30.22 的 `pegasus.py quantize --help`：量化器有 dynamic_fixed_point、asymmetric_affine、symmetric_affine、perchannel_symmetric_affine，以及浮点格式选项；校准算法入口有 normal、moving_average、kl_divergence、auto，另有 hybrid 和 MLE（逐层误差最小化）选项。CLI 列出能力不表示 A733 每种算子组合都能执行，必须编译并上板确认。SDK 也列出 int4/uint4，但本轮按用户要求暂停 Q4。','',
-    '用户要求增加提速投入：以通过精度门槛的 W8 为起点，优先矩阵/head执行路径、2/4 层融合和中间布局/拷贝、容量分档、批量 prefill；校准优化用于修复实际退化和减少高精度例外。当前尚未新增融合图、PagedAttention 或 FlashAttention 成功结果。','',
+    '用户要求增加提速投入：以通过精度门槛的 W8 为起点，优先矩阵/head执行路径、2/4 层融合和中间布局/拷贝、容量分档、批量 prefill；校准优化用于修复实际退化和减少高精度例外。后续已新增双层融合和紧凑GQA图，详见页首报告；仍没有PagedAttention或FlashAttention结果。','',
     '## 当前未完成','',
     '两模型在独立质量集和长历史上的精度验收、同轨迹 CPU Q8 比较、历史 128/512/2048（容量须包含输出）、完整首字/增量 prefill、资源曲线和 30 分钟持续运行仍待完成。CPU/NPU 同档位量化不代表编码相同，应同时报告相对原 CPU Q8 的新增量化误差。', '',
     '下一步按验收计划推进图融合、容量分档和批量 prefill；没有从仅两层的速度外推完整模型达标。网页保持 CPU 后端。','',

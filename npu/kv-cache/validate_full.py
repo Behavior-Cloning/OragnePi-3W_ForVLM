@@ -15,6 +15,7 @@ p.add_argument('--reference-weights',choices=['original','exported-int8','export
 args=p.parse_args();torch.set_num_threads(2)
 manifest=json.loads((args.source/'trained-manifest.json').read_text())
 board=args.source/args.dtype/('board'+('-'+args.case if args.case else ''));result=json.loads((board/'tokens.json').read_text())
+fusion=result.get('fusion_width',1)
 prompt_path=board/'prompt.json'
 prompt=json.loads((prompt_path if prompt_path.exists() else args.source/'prompt.json').read_text())
 tokens=prompt['token_ids']+result['tokens'][:-1]
@@ -30,7 +31,8 @@ with torch.inference_mode():
         layer=TrainedDecoder(reader,index).eval()
         if args.reference_weights!='original':
             from exported_int8 import apply_exported_int8
-            constant_records.append({'layer':index,'constants':apply_exported_int8(layer,args.source/args.dtype/f'l{index}')})
+            constant_records.append({'layer':index,'constants':apply_exported_int8(layer,
+                args.source/args.dtype/f'l{index//fusion*fusion}',prefix=f'b{index%fusion}_' if fusion>1 else '')})
         hidden=layer.full(hidden)
         if trace is not None:
             ref=hidden.numpy()[0];actual_hidden=trace[:,index,:]
@@ -58,6 +60,7 @@ summary={'scope':'all decoder layers and final LM head; logits checked on actual
          'reference_weights':args.reference_weights,
          'exported_constant_scope':'decoder matrices, QKV biases, norm scales and all output-head shards; FP32 arithmetic' if args.reference_weights!='original' else None,
          'constant_reconstruction_version':3 if args.reference_weights!='original' else None,
+         'fusion_width':fusion,
          'constant_records':constant_records,
          'model':args.model.name,'decoder_layers':manifest['language_layers_total'],
          'npu_dtype':args.dtype,'prompt':prompt['rendered_prompt'],

@@ -20,8 +20,12 @@
 #define ROPE_BASE 10000.0f
 #endif
 enum { LAYERS=2, DIM=MODEL_DIM, KV=MODEL_KV, HD=MODEL_HD, NI=6, NO=3 };
+#ifndef TENSOR_MAX_INPUTS
+#define TENSOR_MAX_INPUTS 6
+#define TENSOR_MAX_OUTPUTS 3
+#endif
 typedef struct { vip_buffer b; vip_buffer_create_params_t p; void *data; unsigned count; } Tensor;
-typedef struct { vip_network net; Tensor in[NI], out[NO]; } Layer;
+typedef struct { vip_network net; Tensor in[TENSOR_MAX_INPUTS], out[TENSOR_MAX_OUTPUTS]; } Layer;
 static Layer layers[LAYERS];
 static void check(vip_status_e s, const char *where) {
     if(s != VIP_SUCCESS) { fprintf(stderr,"%s status=%d\n",where,s); exit(2); }

@@ -15,6 +15,8 @@ p.add_argument('--case',help='unique result directory suffix, preserving earlier
 p.add_argument('--trace',action='store_true',help='diagnostic hidden states for all tokens/layers; not a clean speed run')
 p.add_argument('--performance',action='store_true',help='no logits/hidden dumps or per-token logging; tokens and full-chain timing retained')
 p.add_argument('--decoder-group',type=int,default=0,help='batch N decoder submissions and share FP16 hidden buffers; 0 keeps host transfers')
+p.add_argument('--fusion-width',type=int,choices=(1,2,4),default=1,help='language layers per compiled decoder graph')
+p.add_argument('--fast-greedy',action='store_true',help='compare shard integer maxima, checking against full FP32 argmax in diagnostic mode')
 p.add_argument('--reuse-tag',help='reuse immutable binaries from this deployed tag, hash-checking all reused files')
 p.add_argument('--deploy-layers',type=int,nargs='+',default=[],help='new binaries to upload when --reuse-tag is used')
 p.add_argument('--prompt-folder',type=Path,help='case-specific prompt directory');args=p.parse_args()
@@ -24,10 +26,14 @@ if args.reuse_tag and (not args.reuse_tag.replace('-','').isalnum() or args.reus
     raise ValueError('invalid reuse tag or conflicting skip-deploy')
 if args.case and not args.case.replace('-','').isalnum():raise ValueError('invalid case')
 manifest=json.loads((args.source/'trained-manifest.json').read_text())
-if not 0<=args.decoder_group<=len(manifest['layers']):raise ValueError('invalid decoder group size')
+count=len(manifest['layers'])
+if count%args.fusion_width or not 0<=args.decoder_group<=count//args.fusion_width:raise ValueError('invalid fusion/group size')
+if args.trace and args.fusion_width!=1:raise ValueError('fused graphs do not expose per-layer hidden traces')
 records=json.loads((args.source/args.dtype/'stack-conversion.json').read_text())
 head_shards=manifest.get('head_shards',[{'vocab_count':manifest['vocab_size']}])
-assert len(records)==len(manifest['layers'])+len(head_shards) and not any(r['exit_code'] for r in records)
+assert len(records)==count//args.fusion_width+len(head_shards) and not any(r['exit_code'] for r in records)
+assert {r['layer'] for r in records}==set(range(0,count,args.fusion_width))|set(range(count,count+len(head_shards)))
+assert all(r.get('fusion_width',1)==args.fusion_width for r in records if r['layer']<count)
 assert set(args.deploy_layers).issubset({r['layer'] for r in records}), 'unknown replacement layer'
 remote='/opt/opi-vlm/npu-kv-probe/'+args.tag
 prefix=[str(Path.home()/'.local/bin/sshpass'),'-e'] if 'SSHPASS' in os.environ else []
@@ -40,10 +46,10 @@ executable=result_name+'-full_model'
 result_dir=args.source/args.dtype/result_name;result_dir.mkdir(exist_ok=True)
 prompt_folder=args.prompt_folder or args.source
 files=[(args.source/'embeddings.f32','embeddings.f32'),(prompt_folder/'prompt.i32',prompt_name),
-       (scripts/'full_model.c','full_model.c'),(scripts/'board_probe.c','board_probe.c')]
+       (scripts/'full_model.c','full_model.c'),(scripts/'board_probe.c','board_probe.c'),(scripts/'greedy_i16.h','greedy_i16.h')]
 files.extend((Path(r['path']),f"layer{r['layer']}.nb") for r in records)
 if args.skip_deploy:
-    files=[(src,name) for src,name in files if name in (prompt_name,'full_model.c','board_probe.c')]
+    files=[(src,name) for src,name in files if name in (prompt_name,'full_model.c','board_probe.c','greedy_i16.h')]
 if files:
     subprocess.run(ssh+['mkdir -p '+remote],check=True,timeout=30)
     hashes=[]
@@ -64,6 +70,7 @@ if files:
     compile_command=(f'cd {remote} && cc -O2 -Wall -Wextra -Werror -DMODEL_DIM={manifest["dim"]} '
         f'-DMODEL_KV={manifest["kv_heads"]} -DMODEL_HD={manifest["head_dim"]} -DROPE_BASE={manifest["rope_base"]} '
         f'-DHEAD_SHARDS={len(head_shards)} -DHEAD_CHUNK={head_shards[0]["vocab_count"]} '
+        f'-DFUSED_LAYERS={args.fusion_width} '
         f'full_model.c -lNBGlinker -lVIPhal -lm -o {executable}')
 if args.deploy_only:
     subprocess.run(ssh+['flock -w 1800 /run/opi-npu-kv-benchmark.lock sh -c '+shlex.quote(compile_command)],check=True,timeout=1850)
@@ -75,6 +82,7 @@ command=(f'cd {remote} && mkdir -p {result_name} && timeout 600 ./{executable} .
 if args.trace:command=command.replace('timeout 600',f'OPI_FULL_TRACE={result_name}/hidden-trace.f32 timeout 600')
 if args.performance:command=command.replace('timeout 600','OPI_PERFORMANCE=1 timeout 600')
 if args.decoder_group:command=command.replace('timeout 600',f'OPI_DECODER_GROUP={args.decoder_group} timeout 600')
+if args.fast_greedy:command=command.replace('timeout 600','OPI_FAST_GREEDY=1 timeout 600')
 command=compile_command+' && '+command
 command='flock -w 1800 /run/opi-npu-kv-benchmark.lock sh -c '+shlex.quote(command)
 with (result_dir/'run.stdout').open('w') as out,(result_dir/'run.stderr').open('w') as err:

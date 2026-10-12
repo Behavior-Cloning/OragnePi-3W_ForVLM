@@ -2,6 +2,18 @@
  * Reuse the tested IO/quantization utilities from the incremental probe.
  * Compile with MODEL_DIM/MODEL_KV/MODEL_HD/ROPE_BASE from the model manifest.
  */
+#ifndef FUSED_LAYERS
+#define FUSED_LAYERS 1
+#endif
+#define TENSOR_MAX_INPUTS (1+5*FUSED_LAYERS)
+#define TENSOR_MAX_OUTPUTS (1+2*FUSED_LAYERS)
+#define IN_K(k) (1+(k))
+#define IN_V(k) (1+FUSED_LAYERS+(k))
+#define IN_MASK(k) (1+2*FUSED_LAYERS+(k))
+#define IN_COS(k) (1+3*FUSED_LAYERS+(k))
+#define IN_SIN(k) (1+4*FUSED_LAYERS+(k))
+#define OUT_K(k) (1+(k))
+#define OUT_V(k) (1+FUSED_LAYERS+(k))
 #define main two_layer_probe_example_main
 #include "board_probe.c"
 #undef main
@@ -9,10 +21,20 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include "greedy_i16.h"
 #ifndef HEAD_SHARDS
 #define HEAD_SHARDS 1
 #define HEAD_CHUNK 0
 #endif
+static long long read_frequency(const char *path) {
+    long long value=-1;FILE *f=fopen(path,"r");
+    if(f){if(fscanf(f,"%lld",&value)!=1)value=-1;fclose(f);}return value;
+}
+static long current_rss_kib(void) {
+    char line[256];long value=-1;FILE *f=fopen("/proc/self/status","r");
+    if(f){while(fgets(line,sizeof(line),f))if(sscanf(line,"VmRSS: %ld kB",&value)==1)break;fclose(f);}
+    return value;
+}
 
 static void load_net(Layer *layer,const char *path,unsigned ni,unsigned no,
                      const unsigned *ins,const unsigned *outs) {
@@ -51,6 +73,9 @@ int main(int argc,char **argv) {
     if(argc!=11){fprintf(stderr,"usage: full_model networks layers capacity vocab embeddings.f32 prompt.i32 max_new tokens.json logits.f32 eos_id\n");return 2;}
     int count=atoi(argv[2]),capacity=atoi(argv[3]),vocab=atoi(argv[4]),max_new=atoi(argv[7]),eos=atoi(argv[10]);
     if(count<1||count>80||capacity<1||capacity>8192||vocab<1||max_new<1||max_new>capacity)return 2;
+    if(count%FUSED_LAYERS)return 2;
+    int blocks=count/FUSED_LAYERS;
+    unsigned ni=TENSOR_MAX_INPUTS,no=TENSOR_MAX_OUTPUTS;
     int emb_fd=open(argv[5],O_RDONLY),prompt_fd=open(argv[6],O_RDONLY);struct stat emb_stat,prompt_stat;
     if(emb_fd<0||prompt_fd<0||fstat(emb_fd,&emb_stat)||fstat(prompt_fd,&prompt_stat))return 2;
     if((size_t)emb_stat.st_size!=(size_t)vocab*DIM*sizeof(float)||prompt_stat.st_size<4||prompt_stat.st_size%4)return 2;
@@ -61,15 +86,19 @@ int main(int argc,char **argv) {
     if(emb==MAP_FAILED||prompt==MAP_FAILED)return 2;
     for(int i=0;i<prompt_count;i++)if(prompt[i]<0||prompt[i]>=vocab)return 2;
     int performance=getenv("OPI_PERFORMANCE")!=NULL;
+    int fast_greedy=getenv("OPI_FAST_GREEDY")!=NULL;
+    int max_start_temp=getenv("OPI_MAX_START_TEMP_MC")?atoi(getenv("OPI_MAX_START_TEMP_MC")):55000;
+    if(max_start_temp<35000||max_start_temp>70000)return 2;
     int group_size=getenv("OPI_DECODER_GROUP")?atoi(getenv("OPI_DECODER_GROUP")):0;
-    if(group_size<0||group_size>count)return 2;
+    if(group_size<0||group_size>blocks)return 2;
     FILE *token_file=fopen(argv[8],"w"),*logits_file=performance?NULL:fopen(argv[9],"wb");
     if(!token_file||(!performance&&!logits_file))return 2;
     const char *trace_path=getenv("OPI_FULL_TRACE");
+    if(trace_path&&FUSED_LAYERS!=1){fprintf(stderr,"per-layer hidden trace unavailable in fused graph\n");return 2;}
     if(performance&&trace_path){fprintf(stderr,"performance and trace are exclusive\n");return 2;}
     FILE *trace_file=trace_path?fopen(trace_path,"wb"):NULL;
     if(trace_path&&!trace_file)return 2;
-    Layer *decoder=calloc(count,sizeof(*decoder)),head[HEAD_SHARDS];
+    Layer *decoder=calloc(blocks,sizeof(*decoder)),head[HEAD_SHARDS];
     memset(head,0,sizeof(head));
     float *x=calloc(DIM,sizeof(float)),*logits=calloc(vocab,sizeof(float));
     int *generated=calloc(max_new,sizeof(int));double *latencies=calloc(max_new,sizeof(double));
@@ -77,25 +106,31 @@ int main(int argc,char **argv) {
     if(!decoder||!x||!logits||!generated||!latencies||!layer_seconds)return 2;
     if(performance){
         double deadline=now()+300;
-        while(temperature()>55000){
+        while(temperature()>max_start_temp){
             if(now()>deadline){fprintf(stderr,"cooldown timeout\n");return 2;}
             struct timespec delay={1,0};nanosleep(&delay,NULL);
         }
         if(temperature()<0){fprintf(stderr,"temperature unavailable\n");return 2;}
     }
     int temp_before=temperature();double load_start=now();check(vip_init(),"init full model");
-    unsigned ins[]={DIM,KV*capacity*HD,KV*capacity*HD,capacity+1,HD,HD},outs[]={DIM,KV*HD,KV*HD};
-    for(int i=0;i<count;i++){
-        char path[1024];snprintf(path,sizeof(path),"%s/layer%d.nb",argv[1],i);
-        load_net(&decoder[i],path,6,3,ins,outs);
-        for(int j=0;j<capacity;j++)put(&decoder[i].in[3],j,-10000);
-        put(&decoder[i].in[3],capacity,0);
+    unsigned ins[TENSOR_MAX_INPUTS]={DIM},outs[TENSOR_MAX_OUTPUTS]={DIM};
+    for(int j=0;j<FUSED_LAYERS;j++){
+        ins[IN_K(j)]=ins[IN_V(j)]=KV*capacity*HD;ins[IN_MASK(j)]=capacity+1;
+        ins[IN_COS(j)]=ins[IN_SIN(j)]=HD;outs[OUT_K(j)]=outs[OUT_V(j)]=KV*HD;
+    }
+    for(int i=0;i<blocks;i++){
+        char path[1024];snprintf(path,sizeof(path),"%s/layer%d.nb",argv[1],i*FUSED_LAYERS);
+        load_net(&decoder[i],path,ni,no,ins,outs);
+        for(int k=0;k<FUSED_LAYERS;k++){
+            for(int j=0;j<capacity;j++)put(&decoder[i].in[IN_MASK(k)],j,-10000);
+            put(&decoder[i].in[IN_MASK(k)],capacity,0);
+        }
     }
     /* A group batches submissions, not graph operators. Hidden stays in the
      * device buffer; KV for each layer is updated after the whole stack. */
-    vip_group groups[80]={0};int group_count=group_size?(count+group_size-1)/group_size:0;
+    vip_group groups[80]={0};int group_count=group_size?(blocks+group_size-1)/group_size:0;
     if(group_size){
-        for(int i=1;i<count;i++){
+        for(int i=1;i<blocks;i++){
             Tensor *src=&decoder[i-1].out[0],*dst=&decoder[i].in[0];
             if(src->p.data_format!=VIP_BUFFER_FORMAT_FP16||dst->p.data_format!=VIP_BUFFER_FORMAT_FP16||
                src->p.quant_format!=VIP_BUFFER_QUANTIZE_NONE||dst->p.quant_format!=VIP_BUFFER_QUANTIZE_NONE||
@@ -106,7 +141,7 @@ int main(int argc,char **argv) {
             check(vip_set_input(decoder[i].net,0,src->b),"link decoder hidden");
         }
         for(int g=0;g<group_count;g++){
-            unsigned n=(unsigned)(count-g*group_size<group_size?count-g*group_size:group_size),timeout=30000;
+            unsigned n=(unsigned)(blocks-g*group_size<group_size?blocks-g*group_size:group_size),timeout=30000;
             check(vip_create_group(n,&groups[g]),"create decoder group");
             check(vip_set_group(groups[g],VIP_GROUP_PROP_SET_TIME_OUT,&timeout),"group timeout");
             for(unsigned j=0;j<n;j++)check(vip_add_network(groups[g],decoder[g*group_size+j].net),"add decoder group");
@@ -120,6 +155,8 @@ int main(int argc,char **argv) {
         unsigned head_in[]={DIM},head_out[]={width};load_net(&head[s],path,1,1,head_in,head_out);
     }
     double load_seconds=now()-load_start;long long allocated=npu_bytes();
+    long long npu_freq_before=read_frequency("/sys/class/devfreq/3600000.npu/cur_freq");
+    long long cpu_freq_before=read_frequency("/sys/devices/system/cpu/cpu6/cpufreq/scaling_cur_freq");
     double start=now(),cpu_start=cpu_time(),run_seconds=0,first_token=0,previous_token=start;
     double head_seconds=0,decode_decoder_seconds=0,decode_head_seconds=0;
     int n_generated=0,token=0;
@@ -133,59 +170,91 @@ int main(int argc,char **argv) {
         }
         if(group_size){
             for(int j=0;j<DIM;j++)put(&decoder[0].in[0],j,x[j]);
-            for(int i=0;i<count;i++){
+            for(int i=0;i<blocks;i++){
                 Layer *l=&decoder[i];
-                if(pos)put(&l->in[3],pos-1,0);
-                for(int j=0;j<HD;j++){
-                    put(&l->in[4],j,rope_cos[j]);put(&l->in[5],j,rope_sin[j]);
+                for(int k=0;k<FUSED_LAYERS;k++){
+                    if(pos)put(&l->in[IN_MASK(k)],pos-1,0);
+                    for(int j=0;j<HD;j++){
+                        put(&l->in[IN_COS(k)],j,rope_cos[j]);put(&l->in[IN_SIN(k)],j,rope_sin[j]);
+                    }
                 }
                 /* Never flush linked hidden from the CPU: it is produced by NPU. */
-                for(unsigned j=i?1:0;j<6;j++)check(vip_flush_buffer(l->in[j].b,VIP_BUFFER_OPER_TYPE_FLUSH),"flush grouped input");
+                for(unsigned j=i?1:0;j<ni;j++)check(vip_flush_buffer(l->in[j].b,VIP_BUFFER_OPER_TYPE_FLUSH),"flush grouped input");
             }
             double prior=run_seconds;
             for(int g=0;g<group_count;g++){
-                unsigned n=(unsigned)(count-g*group_size<group_size?count-g*group_size:group_size);
+                unsigned n=(unsigned)(blocks-g*group_size<group_size?blocks-g*group_size:group_size);
                 double stamp=now();check(vip_run_group(groups[g],n),"run decoder group");run_seconds+=now()-stamp;
             }
             if(pos>=prompt_count)decode_decoder_seconds+=run_seconds-prior;
         }
-        for(int i=0;i<count;i++) {
+        for(int i=0;i<blocks;i++) {
             Layer *l=&decoder[i];
             if(!group_size){
                 for(int j=0;j<DIM;j++)put(&l->in[0],j,x[j]);
-                if(pos)put(&l->in[3],pos-1,0);
-                for(int j=0;j<HD;j++){
-                    put(&l->in[4],j,rope_cos[j]);put(&l->in[5],j,rope_sin[j]);
+                for(int k=0;k<FUSED_LAYERS;k++){
+                    if(pos)put(&l->in[IN_MASK(k)],pos-1,0);
+                    for(int j=0;j<HD;j++){
+                        put(&l->in[IN_COS(k)],j,rope_cos[j]);put(&l->in[IN_SIN(k)],j,rope_sin[j]);
+                    }
                 }
-                double prior=run_seconds;execute(l,6,3,&run_seconds);
+                double prior=run_seconds;execute(l,ni,no,&run_seconds);
                 layer_seconds[i]+=run_seconds-prior;
                 if(pos>=prompt_count)decode_decoder_seconds+=run_seconds-prior;
             }else{
-                for(unsigned j=0;j<3;j++)check(vip_flush_buffer(l->out[j].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read grouped output");
+                for(unsigned j=0;j<no;j++)check(vip_flush_buffer(l->out[j].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read grouped output");
             }
             for(int j=0;j<DIM;j++){
                 x[j]=get(&l->out[0],j);
                 if(!isfinite(x[j])){fprintf(stderr,"NONFINITE position=%d layer=%d component=%d value=%g\n",pos,i,j,x[j]);return 3;}
             }
-            for(int h=0;h<KV;h++){
+            for(int k=0;k<FUSED_LAYERS;k++)for(int h=0;h<KV;h++){
                 unsigned dst=(h*capacity+pos)*HD,src=h*HD;
-                copy_values(&l->in[1],dst,&l->out[1],src,HD);
-                copy_values(&l->in[2],dst,&l->out[2],src,HD);
+                copy_values(&l->in[IN_K(k)],dst,&l->out[OUT_K(k)],src,HD);
+                copy_values(&l->in[IN_V(k)],dst,&l->out[OUT_V(k)],src,HD);
             }
             if(trace_file&&fwrite(x,sizeof(float),DIM,trace_file)!=(size_t)DIM)return 2;
         }
         if(pos<prompt_count-1)continue;
+        int fast_best=-1;float fast_value=-INFINITY;
         for(int s=0;s<HEAD_SHARDS;s++){
             for(int j=0;j<DIM;j++)put(&head[s].in[0],j,x[j]);
             double prior=run_seconds;execute(&head[s],1,1,&run_seconds);
             head_seconds+=run_seconds-prior;
             if(pos>=prompt_count)decode_head_seconds+=run_seconds-prior;
-            for(unsigned j=0;j<head[s].out[0].count;j++)logits[s*head_chunk+j]=get(&head[s].out[0],j);
+            Tensor *output=&head[s].out[0];
+            if(fast_greedy){
+                unsigned best=0;
+                if(output->p.data_format==VIP_BUFFER_FORMAT_INT16&&
+                   output->p.quant_format==VIP_BUFFER_QUANTIZE_DYNAMIC_FIXED_POINT&&
+                   output->p.quant_data.dfp.fixed_point_pos>=-110&&output->p.quant_data.dfp.fixed_point_pos<=110){
+                    best=greedy_i16((const int16_t*)output->data,output->count);
+                }else{
+                    float value=-INFINITY;
+                    for(unsigned j=0;j<output->count;j++){
+                        float current=get(output,j);
+                        if(!isfinite(current)){fprintf(stderr,"nonfinite greedy input\n");return 3;}
+                        if(current>value){value=current;best=j;}
+                    }
+                }
+                float value=get(output,best);
+                if(!isfinite(value)){fprintf(stderr,"nonfinite greedy maximum\n");return 3;}
+                /* Each shard may have a different positive DFP scale. Compare
+                 * dequantized maxima, preserving earliest global-index ties. */
+                if(value>fast_value){fast_value=value;fast_best=s*head_chunk+(int)best;}
+            }
+            if(!fast_greedy||logits_file)
+                for(unsigned j=0;j<output->count;j++)logits[s*head_chunk+j]=get(output,j);
         }
-        int best=0;
-        for(int j=0;j<vocab;j++){
-            if(!isfinite(logits[j])){fprintf(stderr,"NONFINITE position=%d LM_HEAD token=%d value=%g\n",pos,j,logits[j]);return 3;}
-            if(logits[j]>logits[best])best=j;
+        int best=fast_greedy?fast_best:0;
+        if(!fast_greedy||logits_file){
+            int reference=0;
+            for(int j=0;j<vocab;j++){
+                if(!isfinite(logits[j])){fprintf(stderr,"NONFINITE position=%d LM_HEAD token=%d value=%g\n",pos,j,logits[j]);return 3;}
+                if(logits[j]>logits[reference])reference=j;
+            }
+            if(fast_greedy&&reference!=best){fprintf(stderr,"greedy verification mismatch\n");return 3;}
+            best=reference;
         }
         if(logits_file&&fwrite(logits,sizeof(float),vocab,logits_file)!=(size_t)vocab)return 2;
         double stamp=now();latencies[n_generated]=stamp-previous_token;previous_token=stamp;
@@ -194,8 +263,11 @@ int main(int argc,char **argv) {
         if(best==eos)break;
     }
     double total=now()-start,cpu=cpu_time()-cpu_start;struct rusage usage;getrusage(RUSAGE_SELF,&usage);
+    long rss_after_inference=current_rss_kib();
+    long long npu_freq_after=read_frequency("/sys/class/devfreq/3600000.npu/cur_freq");
+    long long cpu_freq_after=read_frequency("/sys/devices/system/cpu/cpu6/cpufreq/scaling_cur_freq");
     for(int g=0;g<group_count;g++)check(vip_destroy_group(groups[g]),"destroy decoder group");
-    for(int i=0;i<count;i++){free_net(&decoder[i],6,3);}
+    for(int i=0;i<blocks;i++){free_net(&decoder[i],ni,no);}
     for(int s=0;s<HEAD_SHARDS;s++)free_net(&head[s],1,1);
     check(vip_destroy(),"release full model");
     fprintf(token_file,"{\"decoder_layers\":%d,\"head_on_npu\":true,\"capacity\":%d,\"prompt_tokens\":%d,\"generated_tokens\":%d,\"load_seconds\":%.6f,\"ttft_seconds\":%.6f,\"total_seconds\":%.6f,\"decode_tokens_per_second\":%.6f,\"npu_api_seconds\":%.6f,\"cpu_seconds\":%.6f,\"cpu_percent_one_core\":%.3f,\"max_rss_kib\":%ld,\"driver_allocated_bytes\":%lld,\"driver_after_release_bytes\":%lld,\"temperature_before_mC\":%d,\"temperature_after_mC\":%d,\"tokens\":[",count,capacity,prompt_count,n_generated,load_seconds,first_token,total,n_generated>1?(n_generated-1)/(total-first_token):0,run_seconds,cpu,100*cpu/total,usage.ru_maxrss,allocated,npu_bytes(),temp_before,temperature());
@@ -204,10 +276,15 @@ int main(int argc,char **argv) {
     for(int i=0;i<n_generated;i++){fprintf(token_file,"%s%.6f",i?",":"",latencies[i]);}
     fprintf(token_file,"],\"head_api_seconds\":%.6f,\"decode_decoder_api_seconds\":%.6f,\"decode_head_api_seconds\":%.6f,\"layer_api_seconds\":[",head_seconds,decode_decoder_seconds,decode_head_seconds);
     for(int i=0;i<count;i++){
+        if(group_size||FUSED_LAYERS!=1)fprintf(token_file,"%snull",i?",":"");
+        else fprintf(token_file,"%s%.6f",i?",":"",layer_seconds[i]);
+    }
+    fprintf(token_file,"],\"block_api_seconds\":[");
+    for(int i=0;i<blocks;i++){
         if(group_size)fprintf(token_file,"%snull",i?",":"");
         else fprintf(token_file,"%s%.6f",i?",":"",layer_seconds[i]);
     }
-    fprintf(token_file,"],\"performance_mode\":%s,\"host_revision\":3,\"decoder_group_size\":%d}\n",performance?"true":"false",group_size);
+    fprintf(token_file,"],\"performance_mode\":%s,\"host_revision\":6,\"decoder_group_size\":%d,\"fusion_width\":%d,\"max_start_temperature_mC\":%d,\"npu_frequency_before_hz\":%lld,\"npu_frequency_after_hz\":%lld,\"cpu6_frequency_before_khz\":%lld,\"cpu6_frequency_after_khz\":%lld,\"fast_greedy\":%s,\"rss_after_inference_kib\":%ld}\n",performance?"true":"false",group_size,FUSED_LAYERS,max_start_temp,npu_freq_before,npu_freq_after,cpu_freq_before,cpu_freq_after,fast_greedy?"true":"false",rss_after_inference);
     if(trace_file)fclose(trace_file);
     fclose(token_file);if(logits_file)fclose(logits_file);munmap((void*)emb,emb_stat.st_size);munmap((void*)prompt,prompt_stat.st_size);
     close(emb_fd);close(prompt_fd);free(decoder);free(x);free(logits);free(generated);free(latencies);free(layer_seconds);return 0;

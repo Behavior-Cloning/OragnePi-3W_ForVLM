@@ -219,6 +219,7 @@ lines += ['', '代码与小型证据进Git；模型、NBG、SDK、完整logits�
 if len(formal) == 4:
     import matplotlib
     matplotlib.use('Agg')
+    matplotlib.rcParams['svg.hashsalt'] = 'opi-kv-movement-20261012'
     import matplotlib.pyplot as plt
     import numpy as np
     x = np.arange(4)
@@ -252,7 +253,9 @@ if len(formal) == 4:
     ax.set_title('A733 full language inference: cached-history decode',loc='left',pad=14)
     ax.legend(loc='upper right',fontsize=8,ncols=2,frameon=False)
     fig.savefig(here/'kv-decode-comparison.png',dpi=160)
-    fig.savefig(here/'kv-decode-comparison.svg')
+    svg = here/'kv-decode-comparison.svg'
+    fig.savefig(svg,metadata={'Date':'2026-10-12'})
+    svg.write_text('\n'.join(line.rstrip() for line in svg.read_text().splitlines())+'\n')
     plt.close(fig)
     at = lines.index('## 硬件计数定位')
     lines[at:at] = ['![完整语言链路解码对照](kv-decode-comparison.png)', '',

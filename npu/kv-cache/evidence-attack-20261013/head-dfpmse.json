@@ -1,0 +1,249 @@
+{
+  "probes": {
+    "baseline": {
+      "fixture": {
+        "scope": "single vocabulary shard, calibration hidden; not independent quality or full-model speed",
+        "layer": 24,
+        "vocab_start": 0,
+        "vocab_count": 49152,
+        "input_source": "npu/results/full-intern1b-sharded-v2-c128/head_p32_hidden.npy",
+        "input_sha256": "d50fa3ff0a58f30dbbcd90bd87488f9e3a66a1f58f83e03ef5048620e2494894",
+        "outputs": [
+          [
+            "logits",
+            49152
+          ]
+        ],
+        "constants": [
+          {
+            "matrix": "head[0:49152]",
+            "dtype": "INT8",
+            "relative_l2": 0.008367611095309258
+          },
+          {
+            "matrix": "output_norm",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          }
+        ]
+      },
+      "folder": "npu/results/intern1b-head-profile-20261013/fixture-baseline",
+      "cpu_affinity": "6,7",
+      "fusion_width": 2,
+      "binary_sha256": "5171cd11a6f278fcbb356a99cfe33b294dfbf1d4c5d1d8b9ed13d3a7990c61b3",
+      "probe_source_sha256": "6e773846dd4c14106926a5190455f5b69ad9d0ea183c94162d2d5effcdd92e15",
+      "input_sha256": "d973c94e0459b1ce7da304c3d81ed5c7152151950d77d3e9b2933a44fbe6fb53",
+      "alternate_fixture": null,
+      "errors": [
+        {
+          "tensor": "logits",
+          "relative_l2": 0.0018231840804219246,
+          "cosine": 0.9999968409538269
+        }
+      ],
+      "timing": {
+        "repeats": 50,
+        "mean_api_seconds": 0.005946852,
+        "allocated_bytes": 41318680,
+        "released_bytes": 0,
+        "differing_repeats": 0,
+        "mismatched_elements": 0,
+        "npd_enabled": false,
+        "temperature_before_mC": 41912,
+        "temperature_after_mC": 39618,
+        "cpu_seconds": 0.272927,
+        "resident_copies": 0,
+        "resident_mismatched_elements": 0,
+        "resident_api_seconds": 0.0,
+        "sram_preload_requested": -1,
+        "sram_preload_status": 0,
+        "warmup_repeats": 3,
+        "api_seconds": [
+          0.005705603,
+          0.005989687,
+          0.005840854,
+          0.005944354,
+          0.005969354,
+          0.005967438,
+          0.005958562,
+          0.005968938,
+          0.005972645,
+          0.005957937,
+          0.005975229,
+          0.005965479,
+          0.005887937,
+          0.005958187,
+          0.005962812,
+          0.005835604,
+          0.005966729,
+          0.005698103,
+          0.005956813,
+          0.005962188,
+          0.005976979,
+          0.005961063,
+          0.005970188,
+          0.005991605,
+          0.005991979,
+          0.005966896,
+          0.005983229,
+          0.005964688,
+          0.005975062,
+          0.005963563,
+          0.005838937,
+          0.005786187,
+          0.005956396,
+          0.005965104,
+          0.00595627,
+          0.005972646,
+          0.005988021,
+          0.005992812,
+          0.005997105,
+          0.006008188,
+          0.006031438,
+          0.005981479,
+          0.005970938,
+          0.005986979,
+          0.00597952,
+          0.005969146,
+          0.005856895,
+          0.005967271,
+          0.005981396,
+          0.005966188
+        ]
+      },
+      "gate": {
+        "max_relative_l2": 0.05,
+        "min_cosine": 0.99,
+        "passed": true
+      },
+      "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/intern1b-head-profile-20261013/probe-baseline/board-validation.json",
+      "source_sha256": "86557a36095ac9f72ffa879640a4ed1fb61ef5036687d8bdfedaaac8c3079960"
+    },
+    "dfpmse": {
+      "fixture": {
+        "scope": "single vocabulary shard, calibration hidden; not independent quality or full-model speed",
+        "layer": 24,
+        "vocab_start": 0,
+        "vocab_count": 49152,
+        "input_source": "npu/results/full-intern1b-sharded-v2-c128/head_p32_hidden.npy",
+        "input_sha256": "d50fa3ff0a58f30dbbcd90bd87488f9e3a66a1f58f83e03ef5048620e2494894",
+        "outputs": [
+          [
+            "logits",
+            49152
+          ]
+        ],
+        "constants": [
+          {
+            "matrix": "head[0:49152]",
+            "dtype": "INT8",
+            "relative_l2": 0.01779494807124138
+          },
+          {
+            "matrix": "output_norm",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          }
+        ]
+      },
+      "folder": "npu/results/intern1b-head-profile-20261013/fixture-dfpmse",
+      "cpu_affinity": "6,7",
+      "fusion_width": 2,
+      "binary_sha256": "5809759670990c046d874d65312f983895122b7996a4d9f2af2cacd07ec5d896",
+      "probe_source_sha256": "6e773846dd4c14106926a5190455f5b69ad9d0ea183c94162d2d5effcdd92e15",
+      "input_sha256": "d973c94e0459b1ce7da304c3d81ed5c7152151950d77d3e9b2933a44fbe6fb53",
+      "alternate_fixture": null,
+      "errors": [
+        {
+          "tensor": "logits",
+          "relative_l2": 0.0018234801245853305,
+          "cosine": 0.9999974370002747
+        }
+      ],
+      "timing": {
+        "repeats": 50,
+        "mean_api_seconds": 0.005528698,
+        "allocated_bytes": 40313752,
+        "released_bytes": 0,
+        "differing_repeats": 0,
+        "mismatched_elements": 0,
+        "npd_enabled": false,
+        "temperature_before_mC": 40610,
+        "temperature_after_mC": 39556,
+        "cpu_seconds": 0.270701,
+        "resident_copies": 0,
+        "resident_mismatched_elements": 0,
+        "resident_api_seconds": 0.0,
+        "sram_preload_requested": -1,
+        "sram_preload_status": 0,
+        "warmup_repeats": 3,
+        "api_seconds": [
+          0.005332436,
+          0.005351268,
+          0.00534931,
+          0.005430061,
+          0.005601895,
+          0.005551186,
+          0.005596103,
+          0.005550436,
+          0.005611644,
+          0.005477352,
+          0.005576686,
+          0.005503852,
+          0.005597561,
+          0.005595728,
+          0.005545394,
+          0.005602811,
+          0.005608478,
+          0.005616477,
+          0.005495853,
+          0.00560102,
+          0.005601227,
+          0.005591395,
+          0.005544686,
+          0.005561352,
+          0.005607561,
+          0.005506936,
+          0.005607394,
+          0.005599478,
+          0.005418768,
+          0.005452435,
+          0.00555752,
+          0.005491686,
+          0.005503853,
+          0.00562252,
+          0.005611894,
+          0.005469394,
+          0.005463769,
+          0.005415768,
+          0.005408269,
+          0.005411269,
+          0.005581353,
+          0.005462686,
+          0.005415977,
+          0.005608769,
+          0.005508103,
+          0.00554302,
+          0.005505894,
+          0.005598602,
+          0.005614145,
+          0.005553645
+        ]
+      },
+      "gate": {
+        "max_relative_l2": 0.05,
+        "min_cosine": 0.99,
+        "passed": true
+      },
+      "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/intern1b-head-profile-20261013/probe-dfpmse/board-validation.json",
+      "source_sha256": "38f95b181c724188bba0dbcd7a8257b3093cf1ff95a0114ac376a3189481b96f"
+    }
+  },
+  "trial": {
+    "status": "waiting-for-full-run",
+    "independent_quality_accepted": false,
+    "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/headmse-productwide-trial-20261013/state.json",
+    "source_sha256": "b680d204c3930b4f9cfb6e769a1acb3266cd543fc2d8d3f54802d3cec2cab484"
+  },
+  "performance": null
+}

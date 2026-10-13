@@ -1,0 +1,68 @@
+[
+  {
+    "case": "dfp-cpufaoff-smol500-h512-n32",
+    "source": "npu/results/full-smol500-stable-v3-c128",
+    "model": "models/smolvlm-500m/SmolVLM-500M-Instruct-Q8_0.gguf",
+    "dtype": "w8-fused2-c768-dfpgateup",
+    "prefill": "w8-fused2-c768-t32-dfpgateup",
+    "tag": "full-smol500-c768-dfpgateup",
+    "fixture": "npu/results/aligned-20261013r2/smol500-h512-n32",
+    "feedback": "npu/results/cpu-q8-search-20261013/smol500-h512-n32-final-fa-off/tokens.json",
+    "history": 512, "group": 16, "bands": ["low"], "wait_reference": true
+  },
+  {
+    "case": "dfpmse-prefill16-intern1b-h512-n32",
+    "source": "npu/results/full-intern1b-sharded-v2-c128",
+    "model": "models/internvl3-1b/InternVL3-1B-Instruct-Q8_0.gguf",
+    "dtype": "w8-fused2-c768-dfpgateup-mse-v2",
+    "prefill": "w8-fused2-c768-t16-dfpgateup-mse",
+    "tag": "full-intern1b-c768-dfpmse-prefill16",
+    "fixture": "npu/results/aligned-20261013r2/intern1b-h512-n32",
+    "feedback": "npu/results/thermal-aligned-20261013/intern1b-h512-n32-low-cpu/tokens.json",
+    "history": 512, "group": 12, "group_head": true, "bands": ["low"], "wait_reference": true
+  },
+  {
+    "case": "dfpgateup-smol500-h512-n64",
+    "source": "npu/results/full-smol500-stable-v3-c128",
+    "model": "models/smolvlm-500m/SmolVLM-500M-Instruct-Q8_0.gguf",
+    "dtype": "w8-fused2-c768-dfpgateup",
+    "prefill": "w8-fused2-c768-t32-dfpgateup",
+    "tag": "full-smol500-c768-dfpgateup",
+    "fixture": "npu/results/aligned-20261013r2/smol500-h512-n64",
+    "feedback": "npu/results/cpu-q8-search-20261013/smol500-h512-n64-final-fa-off/tokens.json",
+    "history": 512, "group": 16, "bands": ["low"], "wait_reference": true
+  },
+  {
+    "case": "dfpmse-prefill16-intern1b-h512-n64",
+    "source": "npu/results/full-intern1b-sharded-v2-c128",
+    "model": "models/internvl3-1b/InternVL3-1B-Instruct-Q8_0.gguf",
+    "dtype": "w8-fused2-c768-dfpgateup-mse-v2",
+    "prefill": "w8-fused2-c768-t16-dfpgateup-mse",
+    "tag": "full-intern1b-c768-dfpmse-prefill16",
+    "fixture": "npu/results/aligned-20261013r2/intern1b-h512-n64",
+    "feedback": "npu/results/thermal-aligned-20261013/intern1b-h512-n64-low-cpu/tokens.json",
+    "history": 512, "group": 12, "group_head": true, "bands": ["low"], "wait_reference": true
+  },
+  {
+    "case": "dfp-cpufaoff-smol500-h512-n128",
+    "source": "npu/results/full-smol500-stable-v3-c128",
+    "model": "models/smolvlm-500m/SmolVLM-500M-Instruct-Q8_0.gguf",
+    "dtype": "w8-fused2-c768-dfpgateup",
+    "prefill": "w8-fused2-c768-t32-dfpgateup",
+    "tag": "full-smol500-c768-dfpgateup",
+    "fixture": "npu/results/aligned-20261013r2/smol500-h512-n128",
+    "feedback": "npu/results/cpu-q8-search-20261013/smol500-h512-n128-final-fa-off/tokens.json",
+    "history": 512, "group": 16, "bands": ["low"], "wait_reference": true
+  },
+  {
+    "case": "dfpmse-prefill16-intern1b-h512-n128",
+    "source": "npu/results/full-intern1b-sharded-v2-c128",
+    "model": "models/internvl3-1b/InternVL3-1B-Instruct-Q8_0.gguf",
+    "dtype": "w8-fused2-c768-dfpgateup-mse-v2",
+    "prefill": "w8-fused2-c768-t16-dfpgateup-mse",
+    "tag": "full-intern1b-c768-dfpmse-prefill16",
+    "fixture": "npu/results/aligned-20261013r2/intern1b-h512-n128",
+    "feedback": "npu/results/thermal-aligned-20261013/intern1b-h512-n128-low-cpu/tokens.json",
+    "history": 512, "group": 12, "group_head": true, "bands": ["low"], "wait_reference": true
+  }
+]

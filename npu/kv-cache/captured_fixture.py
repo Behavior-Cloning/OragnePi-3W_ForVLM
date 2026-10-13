@@ -3,7 +3,6 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
-import shutil
 
 import gguf
 import numpy as np
@@ -16,6 +15,8 @@ p=argparse.ArgumentParser()
 p.add_argument('--model',type=Path,required=True)
 p.add_argument('--graph-folder',type=Path,required=True)
 p.add_argument('--capture',type=Path,required=True)
+p.add_argument('--capture-graph-folder',type=Path,
+               help='source graph contract when replaying the same capture with a different K layout')
 p.add_argument('--output',type=Path,required=True)
 a=p.parse_args();torch.set_num_threads(2)
 a.output.mkdir(parents=True,exist_ok=False)
@@ -25,11 +26,23 @@ for name in ('decoder.json','decoder.data','decoder.quantize','conversion.json',
 conversion=json.loads((source/'conversion.json').read_text())
 graph=json.loads((source/'decoder.json').read_text())
 data=np.load(source/'decoder.data',allow_pickle=True).item()
+capture_source=(a.capture_graph_folder or a.graph_folder).resolve()
+capture_conversion=json.loads((capture_source/'conversion.json').read_text())
+capture_graph=json.loads((capture_source/'decoder.json').read_text())
+assert all(capture_conversion[k]==conversion[k] for k in ('capacity','query_tokens','fusion_width','first_layer'))
 raw=np.fromfile(a.capture,np.float32);feeds={};offset=0
-for key in conversion['input_order']:
-    node=graph['Layers'][key];shape=node['parameters']['shape'];count=int(np.prod(shape))
-    feeds[node['name']]=torch.from_numpy(raw[offset:offset+count].reshape(shape).copy());offset+=count
+for key in capture_conversion['input_order']:
+    node=capture_graph['Layers'][key];shape=node['parameters']['shape'];count=int(np.prod(shape))
+    value=torch.from_numpy(raw[offset:offset+count].reshape(shape).copy());offset+=count
+    if node['name'].endswith('_past_k') and (capture_conversion.get('key_cache_transposed',False)!=conversion.get('key_cache_transposed',False)):
+        value=value.transpose(-2,-1).contiguous()
+    feeds[node['name']]=value
 assert offset==raw.size and np.isfinite(raw).all()
+target_names={graph['Layers'][k]['name'] for k in conversion['input_order']}
+assert target_names==set(feeds)
+for key in conversion['input_order']:
+    node=graph['Layers'][key]
+    assert tuple(feeds[node['name']].shape)==tuple(node['parameters']['shape'])
 reader=gguf.GGUFReader(a.model)
 width=conversion['fusion_width'];n=conversion['query_tokens']
 def reference(exported):
@@ -55,9 +68,12 @@ with torch.inference_mode():
     outputs=[graph['Layers'][k]['name'] for k in conversion['output_order']]
     np.concatenate([expected[k].numpy().ravel() for k in outputs]).tofile(a.output/'probe-reference.f32')
     np.concatenate([original[k].numpy().ravel() for k in outputs]).tofile(a.output/'probe-original-reference.f32')
-shutil.copyfile(a.capture,a.output/'probe-input.f32')
+np.concatenate([feeds[graph['Layers'][k]['name']].numpy().ravel() for k in conversion['input_order']]).tofile(a.output/'probe-input.f32')
 report={'scope':'actual captured NPU inputs, independent per-layer reference with exported constants',
     'capture_path':str(a.capture.resolve()),'capture_sha256':hashlib.sha256(a.capture.read_bytes()).hexdigest(),
+    'capture_graph_folder':str(capture_source),
+    'replayed_input_sha256':hashlib.sha256((a.output/'probe-input.f32').read_bytes()).hexdigest(),
+    'capture_key_cache_transposed':capture_conversion.get('key_cache_transposed',False),
     'capacity':conversion['capacity'],'query_tokens':n,'first_layer':conversion['first_layer'],
     'key_cache_transposed':conversion.get('key_cache_transposed',False),
     'fp32_graph_errors':graph_errors,'outputs':[(k,expected[k].numel()) for k in outputs]}

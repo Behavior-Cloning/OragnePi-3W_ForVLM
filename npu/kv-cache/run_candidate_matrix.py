@@ -61,6 +61,14 @@ def main():
                 if time.monotonic() > deadline:
                     raise TimeoutError('CPU feedback missing: ' + str(feedback))
                 time.sleep(15)
+            if request.get('wait_reference'):
+                row['active']='waiting-existing-full-run';save()
+                while not (reference/'tokens.json').exists():
+                    if (reference/'exit.json').exists():
+                        assert json.loads((reference/'exit.json').read_text())['exit_code']==0, 'dependent full run failed'
+                    if time.monotonic()>deadline:
+                        raise TimeoutError('existing full run not ready: '+str(reference))
+                    time.sleep(15)
             if not (reference / 'tokens.json').exists():
                 row['active'] = 'full-depth-run'
                 save()

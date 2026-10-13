@@ -38,6 +38,10 @@ def main():
     assert 0 <= args.dialogue_turns <= 100
     assert not args.holdout_reference or args.retain_after_overflow is None, 'freeze holdout context policy'
     scripts = Path(__file__).resolve().parent
+    # Queue waits may span later edits. Python modules are already loaded;
+    # preserve their launch bytes rather than hashing a newer file after lock.
+    python_source_sha256 = {n: hashlib.sha256((scripts / n).read_bytes()).hexdigest() for n in
+                           ('resident_worker.py', 'resident_http.py', 'run_resident_http_validation.py')}
     reference = args.reference.resolve()
     manifest = json.loads((reference.parents[1] / 'trained-manifest.json').read_text())
     runtime = json.loads((reference / 'tokens.json').read_text())
@@ -116,8 +120,9 @@ def main():
               'model': str(args.model), 'reference': str(reference), 'layers': runtime['decoder_layers'],
               'capacity': runtime['capacity'], 'runs': [], 'independent_quality_accepted': False,
               'retain_after_overflow': args.retain_after_overflow,
-              'source_sha256': {n: hashlib.sha256((scripts / n).read_bytes()).hexdigest() for n in
-                                ('resident_session.c', 'resident_worker.py', 'resident_http.py', 'run_resident_http_validation.py')}}
+              'source_sha256': {**python_source_sha256,
+                  'resident_session.c': hashlib.sha256((scripts / 'resident_session.c').read_bytes()).hexdigest()},
+              'provenance_scope': 'Python source snapshot at launch before lock; C snapshot at deployment'}
     def save():
         (args.output / 'result.json').write_text(json.dumps(result, indent=2, ensure_ascii=False) + '\n')
     def request(messages, max_new=48):

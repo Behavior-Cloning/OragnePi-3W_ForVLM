@@ -27,7 +27,7 @@ def main():
     profile['fullconnect_busy_percent'] = [100*t['by_op']['fullconnect']['cycles']/t['summed_busy_cycles'] for t in traces]
     base = sha(ROOT / 'l0/export_nbg_unify/network_binary.nb')
     trials = []
-    for name in ('tpfc0', 'tpfc1', 'nn-transpose', 'burst128', 'gateup-a8', 'gateup-a8-range1', 'gateup-w8dfp', 'gateup-w8dfp-mse', 'all-w8dfp-mse', 'mlp-w8dfp-mse'):
+    for name in ('tpfc0', 'tpfc1', 'nn-transpose', 'burst128', 'gateup-a8', 'gateup-a8-range1', 'gateup-w8dfp', 'gateup-w8dfp-mse', 'all-w8dfp-mse', 'mlp-w8dfp-mse', 'gateup-w8dfp-mse-transk'):
         folder = ROOT / name
         conversion = folder / 'conversion.json'
         if not conversion.exists():
@@ -38,7 +38,7 @@ def main():
                        'binary_sha256': sha(binary) if binary.exists() else None,
                        'binary_identical_to_baseline': sha(binary) == base if binary.exists() else False})
     probes = {}
-    for name in ('preload-on', 'preload-off', 'probe-gateup-a8', 'probe-gateup-a8-range1', 'probe-gateup-w8dfp', 'probe-gateup-w8dfp-mse', 'probe-all-w8dfp-mse', 'probe-mlp-w8dfp-mse'):
+    for name in ('preload-on', 'preload-off', 'probe-gateup-a8', 'probe-gateup-a8-range1', 'probe-gateup-w8dfp', 'probe-gateup-w8dfp-mse', 'probe-all-w8dfp-mse', 'probe-mlp-w8dfp-mse', 'probe-gateup-w8dfp-mse-transk'):
         path = ROOT / name / 'board-validation.json'
         if not path.exists():
             continue
@@ -125,6 +125,10 @@ def main():
         lines+=['','## 完整DFP候选：精度尚未接受','',
                 '1B、512＋64、全部24层和完整输出头：导出常量执行门槛通过，但相对原Q8的完整logits L2约12.60%、开发轨迹PPL比1.05738，超过预设1.05质量线。诊断运行写大logits，速度不列为正式成绩；不推广这一候选。','',
                 '下一版保持W8/A16，只用权重自身搜索DFP小数位，最小化权重均方误差；不查看留出对话。每矩阵记录全部候选的误差和截断比例。既有敏感层、head与KV格式保持基线来源；新版本仍须全模型验证。']
+    if (ROOT/'fixture-gateup-w8dfp-mse-transk/probe-fixture.json').exists():
+        for name in ('probe-reference.f32','probe-original-reference.f32'):
+            assert (ROOT/'fixture-gateup-w8dfp-mse'/name).read_bytes()==(ROOT/'fixture-gateup-w8dfp-mse-transk'/name).read_bytes()
+        lines+=['','转置K与gate/up DFP MSE组合已编译，使用原完整运行捕获输入，仅转换K缓存轴顺序；独立原Q8参考和导出常量参考均与原布局逐字节相同。实板数值/计时只有出现在上表才算完成，不能用编译或数学等价代替设备精度。小图尚不表示全24层收益。']
     if report['full_dfp_mse']:
         d=report['full_dfp_mse']['full-validation-w8.json'];o=report['full_dfp_mse']['full-validation.json']
         lines+=['',f'MSE缩放版完整24层已验证：执行门槛{"通过" if d["execution_gate_v1"]["passed"] else "未通过"}，L2 {d["relative_l2_all_logits"]:.3%}、最低cosine {d["min_step_cosine"]:.6f}；相对原Q8开发轨迹PPL比{o["fixed_trajectory_nll"]["perplexity_ratio"]:.6f}、logits L2 {o["relative_l2_all_logits"]:.3%}。该结果不等于独立留出通过，五轮干净测速另列。']

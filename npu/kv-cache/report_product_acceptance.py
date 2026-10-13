@@ -66,6 +66,8 @@ def stability_summary(data):
                'source_path': data['source_path'], 'source_sha256': data.get('source_sha256'),
                'groups': groups, 'rows': rows,
                'quality_accepted': False, 'audio_concurrency': False}
+    summary['provenance_scope'] = data.get('provenance_scope',
+        'legacy hashes sampled after queue wait; Python files may have changed since launch; not guaranteed loaded Python bytes')
     if rows:
         q = max(1, len(rows) // 4)
         summary.update(rss_mib=dist([r['rss_kib'] / 1024 for r in rows]),
@@ -147,6 +149,7 @@ def main():
                      f'{"是" if s["driver_released_to_zero"] else "未确认"} | {fmt_range("rss_mib")} | '
                      f'{delta_text} | {fmt_range("temperature_c")} |')
     lines += ['', 'RSS是板端宿主进程，驱动分配另列，不能把RSS当成NPU全部内存。记录的是每轮边界温度/RSS，不是持续采样峰值。前后区间内存变化只作泄漏线索，不自动定义通过。', '',
+              '早期队列在获取板卡锁后才采源码哈希；等待期间Python文件若已更新，该哈希不保证等于已加载Python字节。原始结果保留此溯源限制；后续运行改为启动时快照Python、部署时快照C。行为参数和板端结果单独记录。', '',
               '| 模型 / 路径 | 轮数 | 首token中位 / P95 / 最大 s | decode中位 token/s |',
               '| --- | ---: | ---: | ---: |']
     for model, row in evidence['models'].items():

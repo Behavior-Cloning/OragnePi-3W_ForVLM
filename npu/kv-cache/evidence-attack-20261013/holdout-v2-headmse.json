@@ -1,0 +1,1038 @@
+{
+  "suite_sha256": "b879c5cb33e4c0019d6a7fcb46b82c2622de11e8d81ae29ef162a8c04e71cc8e",
+  "reference": {
+    "status": "complete-reference-only",
+    "scope": "standard Transformers FP32 on dequantized Q8; workstation quality reference, no speed comparison",
+    "holdout_sha256": "b879c5cb33e4c0019d6a7fcb46b82c2622de11e8d81ae29ef162a8c04e71cc8e",
+    "holdout_version": 2,
+    "holdout_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/kv-cache/quality-holdout-v2.json",
+    "model": "models/internvl3-1b/InternVL3-1B-Instruct-Q8_0.gguf",
+    "candidate": "npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-dfpmse-headmse/board-headmse-intern1b-h1024-n32",
+    "candidate_execution_validation_sha256": "355a77a696dc9eca460b4a83dff717139ab9d2f233305ff7cc127a70f84b6388",
+    "layers": 24,
+    "vocab": 151674,
+    "system": "You are a friendly desktop companion. Reply briefly and naturally.",
+    "steps_limit": 96,
+    "gate": {
+      "mean_kl_nats_max": 0.05,
+      "perplexity_ratio_max": 1.05,
+      "human_review_required": true
+    },
+    "cases": [
+      {
+        "case": "en-quiet-evening-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I've had a noisy day. Could we have a calm chat without a list of suggestions?"
+          }
+        ],
+        "reference_answer": "Of course! What's on your mind?",
+        "checks": [
+          "calm natural reply",
+          "retains request",
+          "no unwanted list"
+        ],
+        "reference_compute_seconds": 0.5055699999793433,
+        "logits_sha256": "2a29fc5f28a926287995e0dbd589269f295b6eb725707847d7af99bc95a7757d",
+        "prompt_count": 44,
+        "generated_count": 10,
+        "ended_eos": true
+      },
+      {
+        "case": "en-quiet-evening-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I've had a noisy day. Could we have a calm chat without a list of suggestions?"
+          },
+          {
+            "role": "assistant",
+            "content": "Of course! What's on your mind?"
+          },
+          {
+            "role": "user",
+            "content": "I'm sitting by the window watching the rain."
+          }
+        ],
+        "reference_answer": "Rainy day, that's a lovely sight! What's been your favorite part of the day so far?",
+        "checks": [
+          "calm natural reply",
+          "retains request",
+          "no unwanted list"
+        ],
+        "reference_compute_seconds": 1.1606781480368227,
+        "logits_sha256": "d2eb170a9b16d7c43bf44f6299915b8ff86c4196e20ce7b18195a2d3f41019a8",
+        "prompt_count": 73,
+        "generated_count": 23,
+        "ended_eos": true
+      },
+      {
+        "case": "en-quiet-evening-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I've had a noisy day. Could we have a calm chat without a list of suggestions?"
+          },
+          {
+            "role": "assistant",
+            "content": "Of course! What's on your mind?"
+          },
+          {
+            "role": "user",
+            "content": "I'm sitting by the window watching the rain."
+          },
+          {
+            "role": "assistant",
+            "content": "Rainy day, that's a lovely sight! What's been your favorite part of the day so far?"
+          },
+          {
+            "role": "user",
+            "content": "What kind of chat did I ask for?"
+          }
+        ],
+        "reference_answer": "You asked for a calm chat without any suggestions. How about we chat about something more relaxed and enjoyable?",
+        "checks": [
+          "calm natural reply",
+          "retains request",
+          "no unwanted list"
+        ],
+        "reference_compute_seconds": 1.1156290380167775,
+        "logits_sha256": "b1899ddca338c0c5278aedb6525b691c117cb8d399fd631165c2c562588d77e1",
+        "prompt_count": 114,
+        "generated_count": 22,
+        "ended_eos": true
+      },
+      {
+        "case": "en-lantern-robot-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Pretend you are Moss, a tiny robot who looks after a lighthouse. Keep replies short."
+          }
+        ],
+        "reference_answer": "Hey there! I'm Moss, your tiny robot friend. I'm here to keep the lighthouse safe and happy. Let's make sure everything is okay!",
+        "checks": [
+          "Moss",
+          "lighthouse",
+          "consistent role"
+        ],
+        "reference_compute_seconds": 1.6290586260147393,
+        "logits_sha256": "55828af2e1fea32c568f509220205b026aac3282ba9212be0664836c21d718ed",
+        "prompt_count": 46,
+        "generated_count": 33,
+        "ended_eos": true
+      },
+      {
+        "case": "en-lantern-robot-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Pretend you are Moss, a tiny robot who looks after a lighthouse. Keep replies short."
+          },
+          {
+            "role": "assistant",
+            "content": "Hey there! I'm Moss, your tiny robot friend. I'm here to keep the lighthouse safe and happy. Let's make sure everything is okay!"
+          },
+          {
+            "role": "user",
+            "content": "Moss, the fog is coming in. What do you see?"
+          }
+        ],
+        "reference_answer": "Oh no! Moss, the fog is coming in! I'm here to keep the lighthouse safe and happy. Let's make sure everything is okay!",
+        "checks": [
+          "Moss",
+          "lighthouse",
+          "consistent role"
+        ],
+        "reference_compute_seconds": 1.6154748979606666,
+        "logits_sha256": "51b26cf183ebf48c9492b0a563a68019a40d8241393056161d0be4644159111f",
+        "prompt_count": 102,
+        "generated_count": 32,
+        "ended_eos": true
+      },
+      {
+        "case": "en-lantern-robot-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Pretend you are Moss, a tiny robot who looks after a lighthouse. Keep replies short."
+          },
+          {
+            "role": "assistant",
+            "content": "Hey there! I'm Moss, your tiny robot friend. I'm here to keep the lighthouse safe and happy. Let's make sure everything is okay!"
+          },
+          {
+            "role": "user",
+            "content": "Moss, the fog is coming in. What do you see?"
+          },
+          {
+            "role": "assistant",
+            "content": "Oh no! Moss, the fog is coming in! I'm here to keep the lighthouse safe and happy. Let's make sure everything is okay!"
+          },
+          {
+            "role": "user",
+            "content": "Who are you, and what place do you look after?"
+          }
+        ],
+        "reference_answer": "I'm Moss, the tiny robot who looks after the lighthouse. I'm here to keep the lighthouse safe and happy. Let's make sure everything is okay!",
+        "checks": [
+          "Moss",
+          "lighthouse",
+          "consistent role"
+        ],
+        "reference_compute_seconds": 1.8366630650125444,
+        "logits_sha256": "f6a7ecfdc6a64fc00b6d740bc00a0500c0d138734e31689459345e778b3fc751",
+        "prompt_count": 155,
+        "generated_count": 35,
+        "ended_eos": true
+      },
+      {
+        "case": "en-hobby-memory-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I'm learning the ukulele. My first song is called Blue Boat."
+          }
+        ],
+        "reference_answer": "Great start! Blue Boat is a beautiful song. It's a simple yet evocative tune that often evokes feelings of nostalgia and longing. How do you like it?",
+        "checks": [
+          "ukulele",
+          "Blue Boat",
+          "supportive continuity"
+        ],
+        "reference_compute_seconds": 1.688360485015437,
+        "logits_sha256": "50b4a85e30f978b3d4fa98cddd1501b033c75774249ac2582f64dd6a1515ac20",
+        "prompt_count": 41,
+        "generated_count": 36,
+        "ended_eos": true
+      },
+      {
+        "case": "en-hobby-memory-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I'm learning the ukulele. My first song is called Blue Boat."
+          },
+          {
+            "role": "assistant",
+            "content": "Great start! Blue Boat is a beautiful song. It's a simple yet evocative tune that often evokes feelings of nostalgia and longing. How do you like it?"
+          },
+          {
+            "role": "user",
+            "content": "I can finally play the first few notes without stopping."
+          }
+        ],
+        "reference_answer": "That's great! The first few notes of Blue Boat are quite simple and can be a bit tricky to play. Let's focus on those first few notes. How do you like the first few notes?",
+        "checks": [
+          "ukulele",
+          "Blue Boat",
+          "supportive continuity"
+        ],
+        "reference_compute_seconds": 2.064539776009042,
+        "logits_sha256": "a892ff70a4c497a51249e4dbc848d654f69338d92089b188c792dbc9338cd61e",
+        "prompt_count": 97,
+        "generated_count": 42,
+        "ended_eos": true
+      },
+      {
+        "case": "en-hobby-memory-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I'm learning the ukulele. My first song is called Blue Boat."
+          },
+          {
+            "role": "assistant",
+            "content": "Great start! Blue Boat is a beautiful song. It's a simple yet evocative tune that often evokes feelings of nostalgia and longing. How do you like it?"
+          },
+          {
+            "role": "user",
+            "content": "I can finally play the first few notes without stopping."
+          },
+          {
+            "role": "assistant",
+            "content": "That's great! The first few notes of Blue Boat are quite simple and can be a bit tricky to play. Let's focus on those first few notes. How do you like the first few notes?"
+          },
+          {
+            "role": "user",
+            "content": "Which instrument and song was I practicing?"
+          }
+        ],
+        "reference_answer": "You were practicing the ukulele. The song you were practicing is \"Blue Boat.\"",
+        "checks": [
+          "ukulele",
+          "Blue Boat",
+          "supportive continuity"
+        ],
+        "reference_compute_seconds": 1.0459667849936523,
+        "logits_sha256": "e83fab943307cb95f6487f63d5c02a26d55a27ca97e804a527999fc022193e1c",
+        "prompt_count": 156,
+        "generated_count": 19,
+        "ended_eos": true
+      },
+      {
+        "case": "en-picnic-update-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Our imaginary picnic is on Saturday."
+          }
+        ],
+        "reference_answer": "Great! What kind of picnic are you planning? Do you have any specific ideas or preferences?",
+        "checks": [
+          "Sunday",
+          "accepts correction"
+        ],
+        "reference_compute_seconds": 0.9253127860138193,
+        "logits_sha256": "f211b769aea3b7ad5bdca8faec164b346b9baf564068b6e4c79dd61a210d9f38",
+        "prompt_count": 32,
+        "generated_count": 20,
+        "ended_eos": true
+      },
+      {
+        "case": "en-picnic-update-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Our imaginary picnic is on Saturday."
+          },
+          {
+            "role": "assistant",
+            "content": "Great! What kind of picnic are you planning? Do you have any specific ideas or preferences?"
+          },
+          {
+            "role": "user",
+            "content": "Let's change it to Sunday instead. Saturday is too busy."
+          }
+        ],
+        "reference_answer": "I understand! Let's change it to Sunday. What kind of picnic are you planning? Do you have any specific ideas or preferences?",
+        "checks": [
+          "Sunday",
+          "accepts correction"
+        ],
+        "reference_compute_seconds": 1.3217988850083202,
+        "logits_sha256": "37c3714c5abccd6a72f1b606d626adc52fb1e073d43732523e2a3888cf65da1e",
+        "prompt_count": 74,
+        "generated_count": 28,
+        "ended_eos": true
+      },
+      {
+        "case": "en-picnic-update-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Our imaginary picnic is on Saturday."
+          },
+          {
+            "role": "assistant",
+            "content": "Great! What kind of picnic are you planning? Do you have any specific ideas or preferences?"
+          },
+          {
+            "role": "user",
+            "content": "Let's change it to Sunday instead. Saturday is too busy."
+          },
+          {
+            "role": "assistant",
+            "content": "I understand! Let's change it to Sunday. What kind of picnic are you planning? Do you have any specific ideas or preferences?"
+          },
+          {
+            "role": "user",
+            "content": "Which day is our picnic now?"
+          }
+        ],
+        "reference_answer": "Our picnic is on Saturday.",
+        "checks": [
+          "Sunday",
+          "accepts correction"
+        ],
+        "reference_compute_seconds": 0.4576187049970031,
+        "logits_sha256": "a04bb1f054dbed1ff4c806548736d9065296ff796503a38bf0d0905e194f13d1",
+        "prompt_count": 118,
+        "generated_count": 7,
+        "ended_eos": true
+      },
+      {
+        "case": "en-personal-space-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I'm disappointed about something, but I don't want to share the details."
+          }
+        ],
+        "reference_answer": "I'm sorry to hear that you're disappointed. If you'd like to talk about what's bothering you, I'm here to listen and help.",
+        "checks": [
+          "respects privacy",
+          "no pressure",
+          "brief natural support"
+        ],
+        "reference_compute_seconds": 1.4858944269944914,
+        "logits_sha256": "cd4d205a11f948f3e7d8abfa325bb695b988797b1fdbfeff5c7ae93f25769ae5",
+        "prompt_count": 41,
+        "generated_count": 31,
+        "ended_eos": true
+      },
+      {
+        "case": "en-personal-space-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I'm disappointed about something, but I don't want to share the details."
+          },
+          {
+            "role": "assistant",
+            "content": "I'm sorry to hear that you're disappointed. If you'd like to talk about what's bothering you, I'm here to listen and help."
+          },
+          {
+            "role": "user",
+            "content": "Could you tell me one gentle sentence, without asking a question?"
+          }
+        ],
+        "reference_answer": "I'm here to listen and help. If there's something specific you'd like to talk about, feel free to share, and I'll do my best to assist you.",
+        "checks": [
+          "respects privacy",
+          "no pressure",
+          "brief natural support"
+        ],
+        "reference_compute_seconds": 1.719750931020826,
+        "logits_sha256": "d32e61812b8bc4baf77b32c252bf0f90a759c307ae3c797e82cbb881f51c8013",
+        "prompt_count": 94,
+        "generated_count": 36,
+        "ended_eos": true
+      },
+      {
+        "case": "en-personal-space-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I'm disappointed about something, but I don't want to share the details."
+          },
+          {
+            "role": "assistant",
+            "content": "I'm sorry to hear that you're disappointed. If you'd like to talk about what's bothering you, I'm here to listen and help."
+          },
+          {
+            "role": "user",
+            "content": "Could you tell me one gentle sentence, without asking a question?"
+          },
+          {
+            "role": "assistant",
+            "content": "I'm here to listen and help. If there's something specific you'd like to talk about, feel free to share, and I'll do my best to assist you."
+          },
+          {
+            "role": "user",
+            "content": "Thanks. Let's leave the details alone."
+          }
+        ],
+        "reference_answer": "I'm here to listen and help. If there's something specific you'd like to talk about, feel free to share, and I'll do my best to assist you.",
+        "checks": [
+          "respects privacy",
+          "no pressure",
+          "brief natural support"
+        ],
+        "reference_compute_seconds": 1.7886652370216325,
+        "logits_sha256": "8f56f1b76841c265cdc215c0d4b426d52f301d0336d56ba11586eab144e5517e",
+        "prompt_count": 148,
+        "generated_count": 36,
+        "ended_eos": true
+      },
+      {
+        "case": "en-paper-boat-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Let's invent a little story: a paper boat arrives carrying a golden leaf."
+          }
+        ],
+        "reference_answer": "Once upon a time, in a far-off land, there was a magical paper boat. This boat was not ordinary; it carried a golden leaf, a symbol of hope and purity. The boat was crafted by a wise and kind wizard who had spent years perfecting its design. The golden leaf was a rare and precious gem, imbued with the essence of the land it traveled through.\n\nThe journey began in a small village where the villagers were curious about the magical boat. They",
+        "checks": [
+          "story continuity",
+          "one sentence",
+          "no repetitive loop"
+        ],
+        "reference_compute_seconds": 4.434479035960976,
+        "logits_sha256": "db2b3d767adf16445e2037cbea7ed3b57276891e8bc5a6c62f6ca656d5599d6c",
+        "prompt_count": 41,
+        "generated_count": 96,
+        "ended_eos": false
+      },
+      {
+        "case": "en-paper-boat-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Let's invent a little story: a paper boat arrives carrying a golden leaf."
+          },
+          {
+            "role": "assistant",
+            "content": "Once upon a time, in a far-off land, there was a magical paper boat. This boat was not ordinary; it carried a golden leaf, a symbol of hope and purity. The boat was crafted by a wise and kind wizard who had spent years perfecting its design. The golden leaf was a rare and precious gem, imbued with the essence of the land it traveled through.\n\nThe journey began in a small village where the villagers were curious about the magical boat. They"
+          },
+          {
+            "role": "user",
+            "content": "A squirrel uses the leaf as a tiny umbrella."
+          }
+        ],
+        "reference_answer": "The squirrel, with its nimble paws and keen senses, used the golden leaf as a tiny umbrella. The leaf was so light and delicate that it protected the squirrel from the sun's rays, providing it with a cool refuge. The squirrel enjoyed the warmth of the leaf, feeling its gentle touch and the warmth of the sun on its fur. The squirrel's journey was filled with joy and wonder, as it explored the enchanted land and discovered the magic of the golden leaf.",
+        "checks": [
+          "story continuity",
+          "one sentence",
+          "no repetitive loop"
+        ],
+        "reference_compute_seconds": 4.666962561022956,
+        "logits_sha256": "0904ca2084b77b496c82954051e51fe0dc207cd209eadb495b582f38174b3184",
+        "prompt_count": 157,
+        "generated_count": 96,
+        "ended_eos": false
+      },
+      {
+        "case": "en-paper-boat-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Let's invent a little story: a paper boat arrives carrying a golden leaf."
+          },
+          {
+            "role": "assistant",
+            "content": "Once upon a time, in a far-off land, there was a magical paper boat. This boat was not ordinary; it carried a golden leaf, a symbol of hope and purity. The boat was crafted by a wise and kind wizard who had spent years perfecting its design. The golden leaf was a rare and precious gem, imbued with the essence of the land it traveled through.\n\nThe journey began in a small village where the villagers were curious about the magical boat. They"
+          },
+          {
+            "role": "user",
+            "content": "A squirrel uses the leaf as a tiny umbrella."
+          },
+          {
+            "role": "assistant",
+            "content": "The squirrel, with its nimble paws and keen senses, used the golden leaf as a tiny umbrella. The leaf was so light and delicate that it protected the squirrel from the sun's rays, providing it with a cool refuge. The squirrel enjoyed the warmth of the leaf, feeling its gentle touch and the warmth of the sun on its fur. The squirrel's journey was filled with joy and wonder, as it explored the enchanted land and discovered the magic of the golden leaf."
+          },
+          {
+            "role": "user",
+            "content": "Add one sentence that keeps our boat and squirrel in the story."
+          }
+        ],
+        "reference_answer": "The squirrel used the golden leaf as a tiny umbrella, providing it with a cool refuge from the sun's rays.",
+        "checks": [
+          "story continuity",
+          "one sentence",
+          "no repetitive loop"
+        ],
+        "reference_compute_seconds": 1.460120853036642,
+        "logits_sha256": "0cec1b44f71704a9b0d27c5775bdfeacde2b86697b1f264242d9a5ff63192ebc",
+        "prompt_count": 276,
+        "generated_count": 24,
+        "ended_eos": true
+      },
+      {
+        "case": "zh-quiet-weekend-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "今天想慢慢休息一下，陪我随便聊聊，别急着安排任务。"
+          }
+        ],
+        "reference_answer": "当然，我很乐意和你聊聊。有什么想聊的吗？",
+        "checks": [
+          "中文自然",
+          "尊重休息意愿",
+          "保持上下文"
+        ],
+        "reference_compute_seconds": 0.704891570028849,
+        "logits_sha256": "e8696b75834f6de3efa9265a6e22b87038882ef15b97cfc443cd65084132bfb8",
+        "prompt_count": 42,
+        "generated_count": 15,
+        "ended_eos": true
+      },
+      {
+        "case": "zh-quiet-weekend-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "今天想慢慢休息一下，陪我随便聊聊，别急着安排任务。"
+          },
+          {
+            "role": "assistant",
+            "content": "当然，我很乐意和你聊聊。有什么想聊的吗？"
+          },
+          {
+            "role": "user",
+            "content": "我泡了杯茶，正看窗外的树。"
+          }
+        ],
+        "reference_answer": "哦，看来你今天心情不错呢！窗外的树看起来挺绿的，你是不是喜欢自然景色呢？",
+        "checks": [
+          "中文自然",
+          "尊重休息意愿",
+          "保持上下文"
+        ],
+        "reference_compute_seconds": 1.2008890339639038,
+        "logits_sha256": "c0d9d275daf7207ec5740307ebd0e35b3ea5d6a46cce10e49b27b7460155399e",
+        "prompt_count": 78,
+        "generated_count": 25,
+        "ended_eos": true
+      },
+      {
+        "case": "zh-quiet-weekend-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "今天想慢慢休息一下，陪我随便聊聊，别急着安排任务。"
+          },
+          {
+            "role": "assistant",
+            "content": "当然，我很乐意和你聊聊。有什么想聊的吗？"
+          },
+          {
+            "role": "user",
+            "content": "我泡了杯茶，正看窗外的树。"
+          },
+          {
+            "role": "assistant",
+            "content": "哦，看来你今天心情不错呢！窗外的树看起来挺绿的，你是不是喜欢自然景色呢？"
+          },
+          {
+            "role": "user",
+            "content": "我刚才想怎么度过这会儿？"
+          }
+        ],
+        "reference_answer": "哦，看来你今天心情不错呢！你有没有什么特别想做的事情或者想和我分享的呢？",
+        "checks": [
+          "中文自然",
+          "尊重休息意愿",
+          "保持上下文"
+        ],
+        "reference_compute_seconds": 1.2877253589686006,
+        "logits_sha256": "84a9fa42362f681cbc8a54fc1873def7e1562581b4710db8bbea0b5d5d260e5a",
+        "prompt_count": 121,
+        "generated_count": 24,
+        "ended_eos": true
+      },
+      {
+        "case": "zh-library-robot-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "假装你是小机器人团团，在一间小图书馆工作，回答简短点。"
+          }
+        ],
+        "reference_answer": "好的，小机器人团团，有什么需要帮忙的吗？",
+        "checks": [
+          "团团",
+          "图书馆",
+          "角色稳定"
+        ],
+        "reference_compute_seconds": 0.6587702119722962,
+        "logits_sha256": "40d2db80165e28de933196166370988243d3ba5d30b9886767bce09f227e4010",
+        "prompt_count": 42,
+        "generated_count": 14,
+        "ended_eos": true
+      },
+      {
+        "case": "zh-library-robot-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "假装你是小机器人团团，在一间小图书馆工作，回答简短点。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，小机器人团团，有什么需要帮忙的吗？"
+          },
+          {
+            "role": "user",
+            "content": "团团，今天书架上有什么有趣的发现？"
+          }
+        ],
+        "reference_answer": "哦，今天书架上发现了一个有趣的发现！有一个小书架上放着一本关于“时间旅行”的书，里面有很多有趣的插图和文字，非常吸引人！",
+        "checks": [
+          "团团",
+          "图书馆",
+          "角色稳定"
+        ],
+        "reference_compute_seconds": 1.9218940479913726,
+        "logits_sha256": "7899af2c4daa5b0d7e53c945404037a498c754474aabad2a4dce34336a7ab0c2",
+        "prompt_count": 76,
+        "generated_count": 39,
+        "ended_eos": true
+      },
+      {
+        "case": "zh-library-robot-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "假装你是小机器人团团，在一间小图书馆工作，回答简短点。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，小机器人团团，有什么需要帮忙的吗？"
+          },
+          {
+            "role": "user",
+            "content": "团团，今天书架上有什么有趣的发现？"
+          },
+          {
+            "role": "assistant",
+            "content": "哦，今天书架上发现了一个有趣的发现！有一个小书架上放着一本关于“时间旅行”的书，里面有很多有趣的插图和文字，非常吸引人！"
+          },
+          {
+            "role": "user",
+            "content": "你叫什么，在哪里工作？"
+          }
+        ],
+        "reference_answer": "我叫小机器人团团，我在一间小图书馆工作。",
+        "checks": [
+          "团团",
+          "图书馆",
+          "角色稳定"
+        ],
+        "reference_compute_seconds": 0.796625376038719,
+        "logits_sha256": "a6c16188777126c16445856322c83881188e39578f20fe96c3fc9bd70f15674f",
+        "prompt_count": 131,
+        "generated_count": 14,
+        "ended_eos": true
+      },
+      {
+        "case": "zh-plant-memory-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我给阳台上的薄荷起名叫小绿，每周日照顾它。"
+          }
+        ],
+        "reference_answer": "好的，小绿，欢迎来到我们的阳台！每周日，我会来照顾它，确保它健康快乐。有什么需要帮忙的吗？",
+        "checks": [
+          "薄荷",
+          "小绿",
+          "周日",
+          "记忆完整"
+        ],
+        "reference_compute_seconds": 1.4597953479969874,
+        "logits_sha256": "54202c986ae00c42558e516440ef1fe3d4ec91693a16f8494e073771a3985d15",
+        "prompt_count": 41,
+        "generated_count": 30,
+        "ended_eos": true
+      },
+      {
+        "case": "zh-plant-memory-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我给阳台上的薄荷起名叫小绿，每周日照顾它。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，小绿，欢迎来到我们的阳台！每周日，我会来照顾它，确保它健康快乐。有什么需要帮忙的吗？"
+          },
+          {
+            "role": "user",
+            "content": "今天它又长了两片新叶子，我挺开心。"
+          }
+        ],
+        "reference_answer": "恭喜你！新叶子的出现是植物生长的标志，很高兴你看到它。记得每天照顾它，让它健康成长。如果你有任何其他问题或需要帮助，请随时告诉我。",
+        "checks": [
+          "薄荷",
+          "小绿",
+          "周日",
+          "记忆完整"
+        ],
+        "reference_compute_seconds": 1.8287565110367723,
+        "logits_sha256": "140ee4fbbecef403b32b19c781f3b6d29c4c7dad44c9c50f31f15e209d526dc7",
+        "prompt_count": 94,
+        "generated_count": 38,
+        "ended_eos": true
+      },
+      {
+        "case": "zh-plant-memory-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我给阳台上的薄荷起名叫小绿，每周日照顾它。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，小绿，欢迎来到我们的阳台！每周日，我会来照顾它，确保它健康快乐。有什么需要帮忙的吗？"
+          },
+          {
+            "role": "user",
+            "content": "今天它又长了两片新叶子，我挺开心。"
+          },
+          {
+            "role": "assistant",
+            "content": "恭喜你！新叶子的出现是植物生长的标志，很高兴你看到它。记得每天照顾它，让它健康成长。如果你有任何其他问题或需要帮助，请随时告诉我。"
+          },
+          {
+            "role": "user",
+            "content": "我给什么植物起了什么名字，哪天照顾它？"
+          }
+        ],
+        "reference_answer": "你给薄荷起了名字“小绿”，每周日照顾它。希望它能健康快乐地成长！如果你有其他植物需要照顾，随时告诉我。",
+        "checks": [
+          "薄荷",
+          "小绿",
+          "周日",
+          "记忆完整"
+        ],
+        "reference_compute_seconds": 1.7108475239947438,
+        "logits_sha256": "a0b065b6c3711dee4d25f222b5504c220d1d8b7de5d2482083631408cf412298",
+        "prompt_count": 154,
+        "generated_count": 34,
+        "ended_eos": true
+      },
+      {
+        "case": "zh-trip-update-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我们在故事里坐火车去海边。"
+          }
+        ],
+        "reference_answer": "好的，我们坐火车去海边。",
+        "checks": [
+          "山里小镇",
+          "采用新信息"
+        ],
+        "reference_compute_seconds": 0.43234620394650847,
+        "logits_sha256": "7b0e3c4fe36fe8110333f64eedb22235595a27e346c512290710d07cd580dbba",
+        "prompt_count": 33,
+        "generated_count": 9,
+        "ended_eos": true
+      },
+      {
+        "case": "zh-trip-update-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我们在故事里坐火车去海边。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，我们坐火车去海边。"
+          },
+          {
+            "role": "user",
+            "content": "改一下，这次去山里的小镇，不去海边了。"
+          }
+        ],
+        "reference_answer": "好的，我们改去山里的小镇。",
+        "checks": [
+          "山里小镇",
+          "采用新信息"
+        ],
+        "reference_compute_seconds": 0.5288527230150066,
+        "logits_sha256": "5d283a31df8743f4e7a734bc44281d4f600eb9bb26fdd9f6b2739bb84b396fa9",
+        "prompt_count": 64,
+        "generated_count": 10,
+        "ended_eos": true
+      },
+      {
+        "case": "zh-trip-update-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我们在故事里坐火车去海边。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，我们坐火车去海边。"
+          },
+          {
+            "role": "user",
+            "content": "改一下，这次去山里的小镇，不去海边了。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，我们改去山里的小镇。"
+          },
+          {
+            "role": "user",
+            "content": "现在我们的目的地是哪儿？"
+          }
+        ],
+        "reference_answer": "现在我们的目的地是山里的小镇。",
+        "checks": [
+          "山里小镇",
+          "采用新信息"
+        ],
+        "reference_compute_seconds": 0.5060544740408659,
+        "logits_sha256": "ba829fcaba2f3a712228445ecba5922a0d6d1eda028db19448e5a026f1cf1dcc",
+        "prompt_count": 89,
+        "generated_count": 9,
+        "ended_eos": true
+      },
+      {
+        "case": "zh-no-questions-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "有点烦，不过事情细节我暂时不想解释。"
+          }
+        ],
+        "reference_answer": "好的，有什么我可以帮忙的吗？",
+        "checks": [
+          "不追问",
+          "简短支持",
+          "不机械复读"
+        ],
+        "reference_compute_seconds": 0.4310311109875329,
+        "logits_sha256": "aa0c9d869d249524ad8a6e0f413c912f1a72c6cb431312aa24ee9702572a490c",
+        "prompt_count": 36,
+        "generated_count": 9,
+        "ended_eos": true
+      },
+      {
+        "case": "zh-no-questions-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "有点烦，不过事情细节我暂时不想解释。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，有什么我可以帮忙的吗？"
+          },
+          {
+            "role": "user",
+            "content": "你用一句简短的话陪我就行，先不要提问。"
+          }
+        ],
+        "reference_answer": "当然，我随时准备帮助你。",
+        "checks": [
+          "不追问",
+          "简短支持",
+          "不机械复读"
+        ],
+        "reference_compute_seconds": 0.479060337995179,
+        "logits_sha256": "fec78735fbdeb96df0d83c97d8dbbb6442596fca26770afa5150df978a150a94",
+        "prompt_count": 68,
+        "generated_count": 9,
+        "ended_eos": true
+      },
+      {
+        "case": "zh-no-questions-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "有点烦，不过事情细节我暂时不想解释。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，有什么我可以帮忙的吗？"
+          },
+          {
+            "role": "user",
+            "content": "你用一句简短的话陪我就行，先不要提问。"
+          },
+          {
+            "role": "assistant",
+            "content": "当然，我随时准备帮助你。"
+          },
+          {
+            "role": "user",
+            "content": "嗯，我们先不谈那些细节。"
+          }
+        ],
+        "reference_answer": "好的，那我们就先从简单的事情开始吧。有什么我可以帮忙的吗？",
+        "checks": [
+          "不追问",
+          "简短支持",
+          "不机械复读"
+        ],
+        "reference_compute_seconds": 0.9414729599957354,
+        "logits_sha256": "97f9590eb0bfb5dcc0677c8cf209dddb045ae08b4c71005ab40c98a17350e80c",
+        "prompt_count": 95,
+        "generated_count": 18,
+        "ended_eos": true
+      },
+      {
+        "case": "zh-bell-story-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "一起编故事：一只小狐狸捡到会唱歌的银铃。"
+          }
+        ],
+        "reference_answer": "小狐狸们听说了这个神奇的银铃，它们决定一起去寻找它。小狐狸们带着小篮子，小心翼翼地穿过森林，穿过小溪，穿过小山。终于，它们来到了一个美丽的花园，花园里有各种各样的花朵和小动物。\n\n小狐狸们找到了银铃，它是一只会唱歌的银铃。小狐狸们开始唱歌，它们的歌声让花园里的小动物们感到非常开心。小狐狸们继续",
+        "checks": [
+          "故事连贯",
+          "小狐狸和银铃",
+          "无新增系统性重复"
+        ],
+        "reference_compute_seconds": 4.570084497972857,
+        "logits_sha256": "336a1802e98a0f32c8cec50080cd3850acd0ca2b1610e5843791fcc12d28b528",
+        "prompt_count": 40,
+        "generated_count": 96,
+        "ended_eos": false
+      },
+      {
+        "case": "zh-bell-story-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "一起编故事：一只小狐狸捡到会唱歌的银铃。"
+          },
+          {
+            "role": "assistant",
+            "content": "小狐狸们听说了这个神奇的银铃，它们决定一起去寻找它。小狐狸们带着小篮子，小心翼翼地穿过森林，穿过小溪，穿过小山。终于，它们来到了一个美丽的花园，花园里有各种各样的花朵和小动物。\n\n小狐狸们找到了银铃，它是一只会唱歌的银铃。小狐狸们开始唱歌，它们的歌声让花园里的小动物们感到非常开心。小狐狸们继续"
+          },
+          {
+            "role": "user",
+            "content": "它把银铃挂在树枝上，风吹过就响起来。"
+          }
+        ],
+        "reference_answer": "小狐狸们继续唱歌，它们的歌声越来越响亮。小狐狸们决定把银铃挂在树上，让它们的歌声传遍整个森林。小狐狸们唱着，树上的银铃也唱着，它们的歌声在森林里回荡，让小动物们感到非常快乐和惊奇。\n\n小狐狸们继续唱歌，它们的歌声越来越响亮。小狐狸们决定把银铃挂在树上，让它们的歌声传遍",
+        "checks": [
+          "故事连贯",
+          "小狐狸和银铃",
+          "无新增系统性重复"
+        ],
+        "reference_compute_seconds": 4.764998728001956,
+        "logits_sha256": "30d05d254a26d1dd299ab7a9c450215efa142257d591f3f98b3401f269050641",
+        "prompt_count": 159,
+        "generated_count": 96,
+        "ended_eos": false
+      },
+      {
+        "case": "zh-bell-story-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "一起编故事：一只小狐狸捡到会唱歌的银铃。"
+          },
+          {
+            "role": "assistant",
+            "content": "小狐狸们听说了这个神奇的银铃，它们决定一起去寻找它。小狐狸们带着小篮子，小心翼翼地穿过森林，穿过小溪，穿过小山。终于，它们来到了一个美丽的花园，花园里有各种各样的花朵和小动物。\n\n小狐狸们找到了银铃，它是一只会唱歌的银铃。小狐狸们开始唱歌，它们的歌声让花园里的小动物们感到非常开心。小狐狸们继续"
+          },
+          {
+            "role": "user",
+            "content": "它把银铃挂在树枝上，风吹过就响起来。"
+          },
+          {
+            "role": "assistant",
+            "content": "小狐狸们继续唱歌，它们的歌声越来越响亮。小狐狸们决定把银铃挂在树上，让它们的歌声传遍整个森林。小狐狸们唱着，树上的银铃也唱着，它们的歌声在森林里回荡，让小动物们感到非常快乐和惊奇。\n\n小狐狸们继续唱歌，它们的歌声越来越响亮。小狐狸们决定把银铃挂在树上，让它们的歌声传遍"
+          },
+          {
+            "role": "user",
+            "content": "顺着刚才的小狐狸和银铃，再接一句。"
+          }
+        ],
+        "reference_answer": "小狐狸们继续唱歌，它们的歌声越来越响亮。小狐狸们决定把银铃挂在树上，让它们的歌声传遍整个森林。小狐狸们唱着，树上的银铃也唱着，它们的歌声在森林里回荡，让小动物们感到非常快乐和惊奇。",
+        "checks": [
+          "故事连贯",
+          "小狐狸和银铃",
+          "无新增系统性重复"
+        ],
+        "reference_compute_seconds": 3.468252464022953,
+        "logits_sha256": "40daa1fcedf486a89172f491d5b7e48aca30baecfa24a47d959d9234912f588c",
+        "prompt_count": 277,
+        "generated_count": 67,
+        "ended_eos": true
+      }
+    ],
+    "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/holdout-v2-reference-headmse-intern1b-20261013/state.json",
+    "source_sha256": "66de5c41bc812007a442320c4017f8a01f479cfdd6c43cacad2158339651ae23"
+  },
+  "actual": null,
+  "product_accepted": false,
+  "aggregates": {
+    "all": null,
+    "en": null,
+    "zh": null
+  }
+}

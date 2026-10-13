@@ -23,14 +23,20 @@ def main():
              '| 模型 | 状态 | 标量尾块执行门槛 | 合并尾块执行门槛 |',
              '| --- | --- | --- | --- |']
     for model in ('smol500', 'intern1b'):
-        state = read(ROOT / f'prefill-tail-{model}-20261013/state.json')
-        performance = read(ROOT / f'prefill-tail-{model}-20261013/performance.json')
+        original = ROOT / f'prefill-tail-{model}-20261013'
+        folder = original
+        if (Path(str(original)+'-attempt2')/'state.json').exists():
+            folder=Path(str(original)+'-attempt2')
+        state = read(folder/'state.json')
+        performance = read(folder/'performance.json')
         cpu = read(ROOT / f'prefill-tail-{model}-20261013/cpu/results.json')
-        evidence[model] = {'state': state, 'performance': performance, 'cpu': cpu}
+        evidence[model] = {'state': state, 'performance': performance, 'cpu': cpu,
+                           'original_attempt': read(original/'state.json') if folder!=original else None}
         variants = (state or {}).get('variants', {})
         gates = [str(variants.get(v, {}).get('execution_gate', {}).get('passed', '待验'))
                  for v in ('scalar', 'padded')]
         lines.append(f'| {model} | {(state or {}).get("status", "未启动")} | {gates[0]} | {gates[1]} |')
+    lines += ['', '1B首个标量尾块诊断未过执行门槛，原记录保留；新attempt只复用该诊断及其CPU轨迹，继续检查批量padding自身的完整精度。只要任一侧未过，就不做正式速度比。']
     lines += ['', '| 模型 / 已有＋新增 | 标量→合并首token s | 首字降低 | 标量→合并decode token/s | 驱动MiB（标量→合并） |',
               '| --- | ---: | ---: | ---: | ---: |']
     for model, row in evidence.items():

@@ -1,7 +1,7 @@
 {
   "smol500": {
     "state": {
-      "status": "full-depth-scalar",
+      "status": "full-depth-padded",
       "scope": "Full-depth padded causal tail vs scalar tail, with its own CPU trajectory.\n\nExtra short-turn experiment; never substitute its 20/12 new tokens for the\nrequired 32/64/128 matrix. Keep the existing deployed graph weights unchanged.\n",
       "fixture": {
         "case": "smol500-h512-n20",
@@ -13,9 +13,23 @@
       },
       "candidate_tail_min": 16,
       "independent_quality_accepted": false,
-      "variants": {},
+      "variants": {
+        "scalar": {
+          "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-smol500-stable-v3-c128/w8-fused2-c768-dfpgateup/board-tail-smol500-h512-n20-scalar",
+          "execution_gate": {
+            "applicable": true,
+            "relative_l2_limit": 0.05,
+            "min_cosine_limit": 0.99,
+            "argmax_match_min": 0.95,
+            "passed": true,
+            "scope": "execution on this trajectory only; not holdout quality acceptance"
+          },
+          "mean_kl_nats": 0.010195653885602951,
+          "perplexity_ratio": 1.0096089909465777
+        }
+      },
       "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/prefill-tail-smol500-20261013/state.json",
-      "source_sha256": "ee90bf05ab13e48d15fd910f87ff7ddcc2b25ae08fb0f30ecc97f05d35d78565"
+      "source_sha256": "a933866ea82097736a136dba413577a06d84d7e17b7004b194ff13a47ffaadd0"
     },
     "performance": null,
     "cpu": {
@@ -4318,11 +4332,12 @@
       "status": "complete",
       "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/prefill-tail-smol500-20261013/cpu/results.json",
       "source_sha256": "4085594d19c4c409ea6e3de54ab11f92600575c681543f5fecba6282776575f0"
-    }
+    },
+    "original_attempt": null
   },
   "intern1b": {
     "state": {
-      "status": "full-depth-scalar",
+      "status": "full-depth-padded",
       "scope": "Full-depth padded causal tail vs scalar tail, with its own CPU trajectory.\n\nExtra short-turn experiment; never substitute its 20/12 new tokens for the\nrequired 32/64/128 matrix. Keep the existing deployed graph weights unchanged.\n",
       "fixture": {
         "case": "intern1b-h512-n12",
@@ -4334,9 +4349,28 @@
       },
       "candidate_tail_min": 8,
       "independent_quality_accepted": false,
-      "variants": {},
-      "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/prefill-tail-intern1b-20261013/state.json",
-      "source_sha256": "e985bb00e669e07a615b4601473fa7250f77166606e67bb24e156ad7d646e394"
+      "variants": {
+        "scalar": {
+          "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c768-dfpgateup-mse-v2/board-tail-intern1b-h512-n12-scalar",
+          "execution_gate": {
+            "applicable": true,
+            "relative_l2_limit": 0.05,
+            "min_cosine_limit": 0.99,
+            "argmax_match_min": 0.95,
+            "passed": false,
+            "scope": "execution on this trajectory only; not holdout quality acceptance"
+          },
+          "mean_kl_nats": 0.007291771937161684,
+          "perplexity_ratio": 1.0011411258623601
+        }
+      },
+      "reused_scalar_trial": {
+        "path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/prefill-tail-intern1b-20261013",
+        "state_sha256": "ac1563ef906eb9d4e35126a65cf7748c65880ba29654bdcb5895952e4495b98f",
+        "cpu_tokens_sha256": "8ab116087aa16069a33fdec18a51c99fca5e5880d8550349e5008c852edc70fb"
+      },
+      "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/prefill-tail-intern1b-20261013-attempt2/state.json",
+      "source_sha256": "771ab1df67e79df4ed6754b2f5135c97244757c490f5d9586af60fce79d6ae59"
     },
     "performance": null,
     "cpu": {
@@ -9339,6 +9373,37 @@
       "status": "complete",
       "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/prefill-tail-intern1b-20261013/cpu/results.json",
       "source_sha256": "a3653fe8dd823a7a3d7233b86724ff85ef69e46710882dcba8f51b5467156841"
+    },
+    "original_attempt": {
+      "status": "development-quality-failed",
+      "scope": "Full-depth padded causal tail vs scalar tail, with its own CPU trajectory.\n\nExtra short-turn experiment; never substitute its 20/12 new tokens for the\nrequired 32/64/128 matrix. Keep the existing deployed graph weights unchanged.\n",
+      "fixture": {
+        "case": "intern1b-h512-n12",
+        "folder": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/prefill-tail-fixtures-20261013-attempt2/intern1b-h512-n12",
+        "history": 512,
+        "new_tokens": 12,
+        "user_text": "Stay with me.",
+        "prompt_sha256": "0f500020c927f6880b9a5d62b639954033dad4ae0cae3aa8d5d74ef52884f2a3"
+      },
+      "candidate_tail_min": 8,
+      "independent_quality_accepted": false,
+      "variants": {
+        "scalar": {
+          "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c768-dfpgateup-mse-v2/board-tail-intern1b-h512-n12-scalar",
+          "execution_gate": {
+            "applicable": true,
+            "relative_l2_limit": 0.05,
+            "min_cosine_limit": 0.99,
+            "argmax_match_min": 0.95,
+            "passed": false,
+            "scope": "execution on this trajectory only; not holdout quality acceptance"
+          },
+          "mean_kl_nats": 0.007291771937161684,
+          "perplexity_ratio": 1.0011411258623601
+        }
+      },
+      "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/prefill-tail-intern1b-20261013/state.json",
+      "source_sha256": "ac1563ef906eb9d4e35126a65cf7748c65880ba29654bdcb5895952e4495b98f"
     }
   }
 }

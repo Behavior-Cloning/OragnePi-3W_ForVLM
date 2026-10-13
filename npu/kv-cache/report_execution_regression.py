@@ -3,6 +3,7 @@ import hashlib
 import json
 from pathlib import Path
 import statistics
+from audit_captured_execution import audit
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent / 'results'
@@ -65,7 +66,34 @@ def main():
                 f'| decoder误差传到logits | {m["decoder_propagated_error_relative_l2"]:.4%} |',
                 f'| 输出头局部执行 | {m["local_head_error_relative_l2"]:.4%} |','',
                 f'各项使用同一参考范数，L2不能直接相加；平方交叉项为{m["normalized_cross_term"]:.8f}，已核对误差向量分解恒等式。局部head KL={m["local_head_mean_kl_nats"]:.6f}。不包含prefill生成的第一token。']
-    lines += ['', '新版完整输出头另扩展同一1024＋64/128轨迹，保留相同decoder与prefill，以区分输出头变化是否足够；不将32新增的通过外推至64新增。', '',
+    head_path=ROOT/'full-intern1b-sharded-v2-c128/w8-fused2-c1280-dfpmse-headmse/board-headmse-intern1b-h1024-n64/full-validation-w8.json'
+    if head_path.exists():
+        h=json.loads(head_path.read_text())
+        evidence['changed_head_64']={k:h[k] for k in ('relative_l2_all_logits','min_step_cosine','argmax_match_fraction','execution_gate_v1')}
+        evidence['changed_head_64'].update(source=str(head_path),source_sha256=sha(head_path))
+        lines+=['',f'更换完整输出头后的同轨迹执行L2={h["relative_l2_all_logits"]:.4%}，门槛通过={h["execution_gate_v1"]["passed"]}。输出头优化没有修复这一档，后续定位集中在decoder及其量化。']
+    captures_path=ROOT/'intern1b-1024n64-captured-ranges-20261013/state.json'
+    if captures_path.exists():
+        captured=json.loads(captures_path.read_text());evidence['captures']=captured
+        lines+=['',f'针对性真实输入重放状态：`{captured["status"]}`。选择预测25时的2/3层、预测109时的22/23层；运行全部24层再抓对应调用，先核对完整logits不变。']
+        for row in captured['captures']:
+            local=audit(Path(row['fixture']),Path(row['folder'])/'decode-capture-output.f32')
+            row['local_execution']=local
+            lines+=['',f'位置{row["position"]}、层组{row["block"]}实际输入/输出的局部误差：两份FP32参考均从同一实板hidden和KV开始，不包含前面层组已积累的误差。','',
+                    '| 输出 | 执行L2（对导出常量） | 含再量化L2（对原Q8） |','| --- | ---: | ---: |']
+            for v in local['outputs']:
+                x=v['execution_vs_exported']['relative_l2'];y=v['device_vs_original']['relative_l2']
+                lines.append(f'| {v["name"]} | {x:.4%} | {y:.4%} |')
+            ranges_path=Path(row['ranges'])
+            exported_path=ranges_path.with_name(ranges_path.stem+'-exported.json')
+            if exported_path.exists():ranges_path=exported_path
+            ranges=json.loads(ranges_path.read_text());row['range_audit']=ranges
+            clipped=[v for v in ranges['nodes'] if v['outside_count']]
+            weights='实际导出权重' if ranges.get('reference_weights')=='exported' else '原Q8权重'
+            lines+=['',f'位置{row["position"]}、层组{row["block"]}：{weights}的FP32范围诊断发现{len(clipped)}个有截断的动态定点张量。这里只是范围诊断，尚不是硬件内部数值读出。','',
+                    '| 张量 | 位数 / 小数位 | 超范围元素 | 单纯截断L2 |','| --- | --- | ---: | ---: |']
+            for v in clipped[:8]:lines.append(f'| {v["name"]} | {v["qtype"]} / {v["fl"]} | {v["outside_count"]}/{v["count"]} | {v["clipping_relative_l2"]:.4%} |')
+    lines += ['', 'cap1的缩放上界候选另扩展同一1024＋64开发场景。保持原门槛，通过才测速度，不能以新的32新增通过结果替代。', '',
               '复现：`npu/.venv/bin/python npu/kv-cache/report_execution_regression.py`。', '']
     (HERE/'1B增量64执行误差定位.md').write_text('\n'.join(lines))
     (HERE/'evidence-attack-20261013/execution-regression.json').write_text(

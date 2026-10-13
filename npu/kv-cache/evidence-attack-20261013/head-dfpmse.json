@@ -8922,5 +8922,71 @@
     },
     "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/headmse-productwide-trial-20261013/performance.json",
     "source_sha256": "ac50bb5eea8c1b495c8f46f1806383a2ea3634042bfed6997e1d70b36b7f5178"
+  },
+  "expansion": {
+    "requests_sha256": "f4d6e9dfd237b2c4f1a7ae7484af7a5928f2592f7d520ad74a724e1fc253f163",
+    "cases": {
+      "headmse-intern1b-h1024-n64": {
+        "status": "quality-failed",
+        "config": {
+          "case": "headmse-intern1b-h1024-n64",
+          "source": "npu/results/full-intern1b-sharded-v2-c128",
+          "model": "models/internvl3-1b/InternVL3-1B-Instruct-Q8_0.gguf",
+          "dtype": "w8-fused2-c1280-dfpmse-headmse",
+          "prefill": "w8-fused2-c1280-t16-dfpmse-productwide",
+          "tag": "full-intern1b-c1280-headmse",
+          "fixture": "npu/results/aligned-20261013r2/intern1b-h1024-n64",
+          "feedback": "npu/results/thermal-aligned-20261013/intern1b-h1024-n64-low-cpu/tokens.json",
+          "history": 1024,
+          "group": 12,
+          "group_head": true,
+          "bands": [
+            "medium"
+          ]
+        },
+        "active": null,
+        "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-dfpmse-headmse/board-headmse-intern1b-h1024-n64",
+        "execution_gate": {
+          "applicable": true,
+          "relative_l2_limit": 0.05,
+          "min_cosine_limit": 0.99,
+          "argmax_match_min": 0.95,
+          "passed": false,
+          "scope": "execution on this trajectory only; not holdout quality acceptance"
+        },
+        "original_q8_development": {
+          "relative_l2": 0.10025424510240555,
+          "mincos": 0.987295389175415,
+          "kl": 0.012141760438680649,
+          "ppl_ratio": 1.0092612556466687
+        }
+      },
+      "headmse-intern1b-h1024-n128": {
+        "status": "running",
+        "config": {
+          "case": "headmse-intern1b-h1024-n128",
+          "source": "npu/results/full-intern1b-sharded-v2-c128",
+          "model": "models/internvl3-1b/InternVL3-1B-Instruct-Q8_0.gguf",
+          "dtype": "w8-fused2-c1280-dfpmse-headmse",
+          "prefill": "w8-fused2-c1280-t16-dfpmse-productwide",
+          "tag": "full-intern1b-c1280-headmse",
+          "fixture": "npu/results/aligned-20261013r2/intern1b-h1024-n128",
+          "feedback": "npu/results/thermal-aligned-20261013/intern1b-h1024-n128-low-cpu/tokens.json",
+          "history": 1024,
+          "group": 12,
+          "group_head": true,
+          "bands": [
+            "medium"
+          ]
+        },
+        "active": "full-depth-run",
+        "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-dfpmse-headmse/board-headmse-intern1b-h1024-n128"
+      }
+    },
+    "independent_quality_accepted": false,
+    "scope": "full-depth development trajectories; response-start temperature bands",
+    "status": "running",
+    "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/headmse-expansion-20261013/state.json",
+    "source_sha256": "cc90d8d8e6906afb9818910e6c7209cbb263b883cf72b77085d48b39ac45e6ab"
   }
 }

@@ -61,11 +61,11 @@ RTF为识别耗时/11秒音频时长，<1表示该文件的处理快于实时。
 
 | 模型 | 状态 | CPU单独→ASR小核并发 token/s | 首token s | ASR识别 s / RTF |
 | --- | --- | ---: | ---: | ---: |
-| smol500 | waiting-board | — | — | — |
-| intern1b | waiting-board | — | — | — |
+| smol500 | complete-paired-concurrency | 23.049→22.040 | 0.707 | 13.446 / 1.222 |
+| intern1b | complete-paired-concurrency | 18.222→16.824 | 0.635 | 15.707 / 1.428 |
 
 ![音频并发对照](audio-concurrency.png)
 
-图中柱为五轮中位数，误差线为最小至最大；6 token/s虚线仅作口语节奏示意，实际换算随语言和分词器而变，不是质量或吞吐验收门槛。CPU/ASR分核候选完成后会另列第五根柱。
+图中柱为五轮中位数，误差线为最小至最大；6 token/s虚线仅作口语节奏示意，实际换算随语言和分词器而变，不是质量或吞吐验收门槛。第五根柱（若已完成）为另一次CPU/ASR分核试验，需要结合ASR的RTF判断，不能只按语言token/s宣告更好。
 
 完整原始采样位于本地`npu/results/audio-concurrency-*-20261013`；复现报告：`npu/.venv/bin/python npu/kv-cache/report_audio_concurrency.py`。

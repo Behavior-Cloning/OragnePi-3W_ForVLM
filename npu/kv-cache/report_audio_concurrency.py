@@ -60,6 +60,8 @@ def plot_comparison(evidence):
                  '5-run medians; whiskers = min/max; start 55–<65°C; sustained 11 s ASR file',fontsize=11)
     fig.savefig(HERE/'audio-concurrency.png',dpi=160)
     fig.savefig(HERE/'audio-concurrency.svg',metadata={'Date':None})
+    svg=HERE/'audio-concurrency.svg'
+    svg.write_text('\n'.join(line.rstrip() for line in svg.read_text().splitlines())+'\n')
     plt.close(fig)
 
 
@@ -160,7 +162,7 @@ def main():
                      f'{statistics.median(c["rtf"] for c in calls):.3f} |')
     lines+=['',
             '![音频并发对照](audio-concurrency.png)','',
-            '图中柱为五轮中位数，误差线为最小至最大；6 token/s虚线仅作口语节奏示意，实际换算随语言和分词器而变，不是质量或吞吐验收门槛。CPU/ASR分核候选完成后会另列第五根柱。','',
+            '图中柱为五轮中位数，误差线为最小至最大；6 token/s虚线仅作口语节奏示意，实际换算随语言和分词器而变，不是质量或吞吐验收门槛。第五根柱（若已完成）为另一次CPU/ASR分核试验，需要结合ASR的RTF判断，不能只按语言token/s宣告更好。','',
             '完整原始采样位于本地`npu/results/audio-concurrency-*-20261013`；复现报告：`npu/.venv/bin/python npu/kv-cache/report_audio_concurrency.py`。','']
     plot_comparison(evidence)
     # Retain timing summaries and transcripts, without duplicating raw /proc counters into Git.

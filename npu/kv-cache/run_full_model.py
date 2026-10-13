@@ -38,6 +38,7 @@ p.add_argument('--prefill-scalar-block',type=int,default=-1,help='run one sensit
 p.add_argument('--cpu-affinity',help='taskset CPU list for the NPU host process')
 p.add_argument('--feedback-from',type=Path,help='tokens.json of a frozen continuation; teacher forcing for matched work, not free generation')
 p.add_argument('--reuse-tag',help='reuse immutable binaries from this deployed tag, hash-checking all reused files')
+p.add_argument('--reuse-head-tag',help='reuse complete output-head binaries from a second deployed tag; SHA checks remain mandatory')
 p.add_argument('--reuse-prefill',action='store_true',help='also hard-link unchanged prefill binaries from reuse-tag; SHA checks remain mandatory')
 p.add_argument('--deploy-layers',type=int,nargs='+',default=[],help='new binaries to upload when --reuse-tag is used')
 p.add_argument('--deploy-prefill-layers',type=int,nargs='+',default=[],help='upload selected changed prefill graphs while hard-linking the others')
@@ -60,6 +61,9 @@ assert sum((args.poison_prefill_output,args.prefill_flush_output,args.prefill_cl
 if args.cpu_affinity:assert 0<len(args.cpu_affinity)<=24 and all(c in '01234567,-' for c in args.cpu_affinity)
 if args.reuse_tag and (not args.reuse_tag.replace('-','').isalnum() or args.reuse_tag==args.tag or args.skip_deploy):
     raise ValueError('invalid reuse tag or conflicting skip-deploy')
+if args.reuse_head_tag:
+    assert args.reuse_tag and args.reuse_head_tag.replace('-','').isalnum()
+    assert args.reuse_head_tag != args.tag
 assert not args.reuse_prefill or (args.reuse_tag and args.prefill_variant)
 assert not args.deploy_prefill_layers or args.reuse_prefill
 if args.case and not args.case.replace('-','').isalnum():raise ValueError('invalid case')
@@ -90,6 +94,7 @@ assert len(records)==count//args.fusion_width+len(head_shards) and not any(r['ex
 assert {r['layer'] for r in records}==set(range(0,count,args.fusion_width))|set(range(count,count+len(head_shards)))
 assert all(r.get('fusion_width',1)==args.fusion_width for r in records if r['layer']<count)
 assert set(args.deploy_layers).issubset({r['layer'] for r in records}), 'unknown replacement layer'
+assert not args.reuse_head_tag or not any(layer>=count for layer in args.deploy_layers), 'head reuse conflicts with upload'
 assert set(args.deploy_prefill_layers).issubset({r['layer'] for r in prefill_records}), 'unknown replacement prefill layer'
 remote='/opt/opi-vlm/npu-kv-probe/'+args.tag
 prefix=[str(Path.home()/'.local/bin/sshpass'),'-e'] if 'SSHPASS' in os.environ else []
@@ -139,11 +144,15 @@ if files:
     # Reserve room for both deployment and the complete diagnostic logits.
     # Hard-linked model files do not require another model-sized allocation.
     required=(0 if args.performance or args.deploy_only else args.max_new*manifest['vocab_size']*4)
-    for src,name in files:
+    def reuse_source_tag(name):
+        if args.reuse_head_tag and name.startswith('layer') and name.endswith('.nb') and int(name[5:-3])>=count:
+            return args.reuse_head_tag
         linked=args.reuse_tag and (name=='embeddings.f32' or
             (args.reuse_prefill and name.startswith('prefill-layer') and name.endswith('.nb') and int(name[13:-3]) not in args.deploy_prefill_layers) or
             (name.startswith('layer') and name.endswith('.nb') and int(name[5:-3]) not in args.deploy_layers))
-        if not linked:required+=src.stat().st_size
+        return args.reuse_tag if linked else None
+    for src,name in files:
+        if not reuse_source_tag(name):required+=src.stat().st_size
     available=int(subprocess.check_output(ssh+['python3 -c '+shlex.quote(
         'import shutil; print(shutil.disk_usage("/opt/opi-vlm/npu-kv-probe").free)')],text=True,timeout=20))
     if available<required+256*1024**2:
@@ -151,11 +160,9 @@ if files:
     subprocess.run(ssh+['mkdir -p '+remote],check=True,timeout=30)
     hashes=[]
     for source,name in files:
-        reuse=args.reuse_tag and (name=='embeddings.f32' or
-            (args.reuse_prefill and name.startswith('prefill-layer') and name.endswith('.nb') and int(name[13:-3]) not in args.deploy_prefill_layers) or
-            (name.startswith('layer') and name.endswith('.nb') and int(name[5:-3]) not in args.deploy_layers))
+        reuse=reuse_source_tag(name)
         if reuse:
-            original='/opt/opi-vlm/npu-kv-probe/'+args.reuse_tag+'/'+name
+            original='/opt/opi-vlm/npu-kv-probe/'+reuse+'/'+name
             # Hard links make this variant independent of later path replacement.
             subprocess.run(ssh+['ln '+shlex.quote(original)+' '+shlex.quote(remote+'/'+name)],check=True,timeout=30)
         else:

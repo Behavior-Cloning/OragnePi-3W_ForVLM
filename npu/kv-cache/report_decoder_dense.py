@@ -221,8 +221,21 @@ def main():
                 measured=[r for r in perf['runs'] if r['phase']=='measure'];assert len(measured)==10
                 b,c=perf['medians']['baseline'],perf['medians']['candidate']
                 lines.append(f'完整五轮：decode {b["decode_tokens_per_second"]:.6f}→{c["decode_tokens_per_second"]:.6f} token/s；首token {b["ttft_seconds"]:.6f}→{c["ttft_seconds"]:.6f}s。新权重仍需独立质量验收。')
+                gains=[]
+                for i in range(5):
+                    pair={r['label']:r['result'] for r in measured if r['repeat']==i}
+                    assert pair['baseline']['feedback_tokens']==pair['candidate']['feedback_tokens']
+                    gains.append(100*(pair['candidate']['decode_tokens_per_second']/pair['baseline']['decode_tokens_per_second']-1))
+                lines.append(f'中位提升{100*(c["decode_tokens_per_second"]/b["decode_tokens_per_second"]-1):+.2f}%；配对{min(gains):+.2f}%–{max(gains):+.2f}%，{sum(x>0 for x in gains)}/5更快。驱动{b["driver_allocated_bytes"]/2**20:.2f}→{c["driver_allocated_bytes"]/2**20:.2f}MiB；127次decode的decoder API {b["decode_decoder_api_seconds"]:.6f}→{c["decode_decoder_api_seconds"]:.6f}s，head API {b["decode_head_api_seconds"]:.6f}→{c["decode_head_api_seconds"]:.6f}s。')
                 report['cap1_full_performance']={**perf,'source_path':str(cap_perf_path),'source_sha256':sha(cap_perf_path)}
                 report['cap1_full_performance']['runs']=[{k:v for k,v in r.items() if k!='system_samples'} for r in perf['runs']]
+    cap_expansion=HERE.parent/'results/cap1-expansion-20261013/state.json'
+    if cap_expansion.exists():
+        expansion=json.loads(cap_expansion.read_text())
+        report['cap1_expansion']={**expansion,'source_path':str(cap_expansion),'source_sha256':sha(cap_expansion)}
+        lines+=['','cap1另外复核1024＋64；32新增通过不代表64通过：','']
+        for case,row in expansion['cases'].items():
+            lines.append(f'- {case}：{row["status"]}，执行门槛{row.get("execution_gate",{}).get("passed","待验")}。')
     (ARCHIVE / 'decoder-dense-probes.json').write_text(json.dumps(report, indent=2) + '\n')
     lines += ['', '探针3次预热后记录50次；只统计VIP API，不含完整模型宿主代价。开关分时执行、温度不同，不以微小差异宣告提速。SRAM设置返回成功仅证明接口接受，不证明实际预载字节数；最终仍须同温档、全深度五轮A/B。', '',
               'A8候选仅在选中的W8 gate/up矩阵输入前插入显式转换，原权重、外部KV、残差和矩阵输出格式不变。默认保持原校准动态范围；range1另将范围缩小1bit，须额外验证饱和风险。该变化不是新的权重量化算法，局部通过也不能替代完整logits和独立留出。', '',

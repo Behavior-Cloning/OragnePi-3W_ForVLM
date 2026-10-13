@@ -28,6 +28,17 @@
 
 中位解码提升+2.63%；配对收益+2.21%–+2.80%，5/5次更快。
 
+## 其他新增长度
+
+| 场景 | 状态 | 执行L2 | 执行门槛 |
+| --- | --- | ---: | --- |
+| headmse-intern1b-h1024-n64 | quality-failed | 5.2051% | False |
+| headmse-intern1b-h1024-n128 | running | — | 待验 |
+
+1024＋64若仍未通过，不能把32新增的提速推广到该场景；具体decoder/head分解见[执行误差定位](1B增量64执行误差定位.md)。
+
+新输出头的[独立v2对话验收](1B新输出头独立v2验收.md)使用冻结的12中英场景×3轮，参考与板端结果分别保存在`holdout-v2-reference-headmse-intern1b-20261013`及`holdout-v2-npu-headmse-intern1b-20261013`；不能沿用旧输出头v1的通过结论。
+
 任何失败原样保留，不放宽原数值门槛；尚未达到全模型质量要求时不把局部提速加入最终成绩。
 
 复现：`npu/.venv/bin/python npu/kv-cache/report_head_mse.py`。

@@ -18,7 +18,8 @@ def main():
     probes={name:read(ROOT/f'intern1b-head-profile-20261013/probe-{name}/board-validation.json') for name in ('baseline','dfpmse')}
     trial=read(ROOT/'headmse-productwide-trial-20261013/state.json')
     performance=read(ROOT/'headmse-productwide-trial-20261013/performance.json')
-    evidence={'probes':probes,'trial':trial,'performance':performance}
+    expansion=read(ROOT/'headmse-expansion-20261013/state.json')
+    evidence={'probes':probes,'trial':trial,'performance':performance,'expansion':expansion}
     lines=['# 1B输出头DFP MSE候选','',
            '权重位数维持W8。将输出头从逐输出通道INT8改为单尺度DFP INT8，搜索使权重均方误差最小的小数位；激活余量不变，保留全部151674词表。四个分片都编译，decoder沿用通过开发门槛的gate/up DFP MSE与范围修复版，prefill16不变。','',
            '## 单片筛选','',
@@ -47,7 +48,16 @@ def main():
         lines.append(f'| 127次decode的head API s | {b["decode_head_api_seconds"]:.6f} | {c["decode_head_api_seconds"]:.6f} |')
         lines.append(f'| 127次decode的decoder API s | {b["decode_decoder_api_seconds"]:.6f} | {c["decode_decoder_api_seconds"]:.6f} |')
         lines+=['',f'中位解码提升{100*(c["decode_tokens_per_second"]/b["decode_tokens_per_second"]-1):+.2f}%；配对收益{min(gains):+.2f}%–{max(gains):+.2f}%，{sum(g>0 for g in gains)}/5次更快。']
-    lines+=['','任何失败原样保留，不放宽原数值门槛；尚未达到全模型质量要求时不把局部提速加入最终成绩。','',
+    if expansion:
+        lines+=['','## 其他新增长度','',
+                '| 场景 | 状态 | 执行L2 | 执行门槛 |','| --- | --- | ---: | --- |']
+        for case,row in expansion['cases'].items():
+            v=read(Path(row['reference'])/'full-validation-w8.json') if row.get('reference') else None
+            if v:lines.append(f'| {case} | {row["status"]} | {v["relative_l2_all_logits"]:.4%} | {v["execution_gate_v1"]["passed"]} |')
+            else:lines.append(f'| {case} | {row["status"]} | — | 待验 |')
+        lines+=['','1024＋64若仍未通过，不能把32新增的提速推广到该场景；具体decoder/head分解见[执行误差定位](1B增量64执行误差定位.md)。']
+    lines+=['','新输出头的[独立v2对话验收](1B新输出头独立v2验收.md)使用冻结的12中英场景×3轮，参考与板端结果分别保存在`holdout-v2-reference-headmse-intern1b-20261013`及`holdout-v2-npu-headmse-intern1b-20261013`；不能沿用旧输出头v1的通过结论。','',
+            '任何失败原样保留，不放宽原数值门槛；尚未达到全模型质量要求时不把局部提速加入最终成绩。','',
             '复现：`npu/.venv/bin/python npu/kv-cache/report_head_mse.py`。','']
     if performance:
         performance['runs']=[{k:v for k,v in r.items() if k!='system_samples'} for r in performance['runs']]

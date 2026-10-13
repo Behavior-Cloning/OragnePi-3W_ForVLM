@@ -310,13 +310,45 @@
             "path": "npu/results/cpu-q8-search-20261013/smol500-h1024-n32-final-fa-off/results.json",
             "repeats": 5,
             "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "n128-final-fa-off": {
+            "config": {
+              "threads": 2,
+              "affinity": "0-7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "off",
+              "affinity_batch": null
+            },
+            "aligned": false,
+            "medians": {
+              "ttft_seconds": 1.8932915139957913,
+              "engine_ttft_seconds": 1.7901449999999999,
+              "decode_tokens_per_second": 20.33745441687874,
+              "total_seconds": 8.040528549994633,
+              "response_cpu_seconds": 16.070000000000007,
+              "preparation_seconds": 11.178555376005534
+            },
+            "path": "npu/results/cpu-q8-search-20261013/smol500-h1024-n128-final-fa-off-attempt2/results.json",
+            "repeats": 5,
+            "quality": "trajectory changed; revalidation required"
           }
         },
-        "status": "running",
+        "status": "complete",
         "fastest_decode": "final-fa-off",
         "fastest_total": "final-fa-off",
         "fastest_ttft": "final-fa-off",
-        "active": "final-fa-off"
+        "tested_new_tokens": [
+          32,
+          64,
+          128
+        ],
+        "requires_trajectory_revalidation": [
+          "n128-final-fa-off"
+        ],
+        "independent_quality_accepted": false,
+        "search_revision": 3,
+        "finished_at": 1791897661.0088067
       },
       "smol500-h512-n64": {
         "runs": {
@@ -754,6 +786,11 @@
         "independent_quality_accepted": false,
         "search_revision": 3,
         "finished_at": 1791875664.4448266
+      },
+      "intern1b-h512-n64": {
+        "runs": {},
+        "status": "running",
+        "active": "a76-t2"
       }
     },
     "status": "running",

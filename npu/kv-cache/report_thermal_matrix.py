@@ -20,7 +20,10 @@ def main():
     here=Path(__file__).resolve().parent;archive=here/'evidence-thermal-20261013';archive.mkdir(exist_ok=True)
     state=read(a.root/'state.json');rows=[];system=[];gates=[];counts={'cpu':0,'npu':0,'failed_cases':0}
     def keep(data,name):(archive/name).write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n')
-    for case,entry in state['cases'].items():
+    fixtures=read(a.root.parent/'aligned-20261013r2/matrix.json')
+    entries={c['case']:state['cases'].get(c['case'],{'status':'pending','config':c,'bands':{},
+        'reference':str(a.root/('not-yet-deployed-'+c['case']))}) for c in fixtures['cases']}
+    for case,entry in entries.items():
         c=entry['config'];depth=32 if c['model']=='smol500' else 24
         if entry['status'] in ('failed','quality-failed'):counts['failed_cases']+=1
         reference=Path(entry['reference']);gp=reference/'full-validation-w8.json'
@@ -39,6 +42,9 @@ def main():
             row={'case':case,'model':c['model'],'history':c['history'],'new_tokens':c['new_tokens'],'band':band}
             for backend in ('cpu','npu'):
                 path=Path(entry['bands'].get(band,{}).get('cpu_path',str(a.root/(case+'-'+band+'-cpu'))))/'results.json' if backend=='cpu' else Path(entry['bands'].get(band,{}).get('performance',str(a.root/(case+'-'+band+'-npu.json'))))
+                if backend=='npu' and (not path.exists() or read(path).get('status')!='complete'):
+                    completed=[f for f in a.root.glob(case+'-'+band+'-npu-attempt*.json') if read(f).get('status')=='complete']
+                    if completed:path=sorted(completed,key=lambda f:int(f.stem.rsplit('attempt',1)[1]))[-1]
                 if not path.exists():continue
                 data=read(path)
                 if data.get('status')!='complete':continue
@@ -129,6 +135,8 @@ def main():
         '## 五轮中位数','',
         '| 模型 | 历史 | 新增 | 温档 | CPU token/s | NPU token/s | NPU/CPU | CPU TTFT s | NPU TTFT s | CPU总响应 s | NPU总响应 s |',
         '| --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |']
+    if state.get('status')=='blocked-storage':
+        lines[4:4]=['**当前因板端TF存储I/O阻塞暂停。** 内核报告SDMMC `wait dma hold bit clear timeout`，结果写入阻塞于`ext4_setattr`，多个系统进程也处于D状态；降至约35°C后仍未恢复。网页在线，已停止后续排队和预热，未重启/关机。不能据此直接判定TF卡损坏，供电、控制器调谐和温度相关性尚未定位。[只读故障证据](evidence-thermal-20261013/storage-fault.json)。高温CPU仅完成预热和1次，未计正式结果。','']
     names={'low':'低','medium':'中','high':'高'}
     def fmt(x):return '—' if x is None else f'{x:.3f}'
     for r in rows:

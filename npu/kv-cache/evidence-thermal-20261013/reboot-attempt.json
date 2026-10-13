@@ -1,0 +1,32 @@
+{
+  "recorded_at": "2026-10-13T11:03:59+08:00",
+  "authorization": "User approved board reboot with 可以.",
+  "board": "192.168.88.29",
+  "observations": {
+    "icmp": "2 replies, 0% packet loss, approximately 3 ms",
+    "ssh": "Key exchange and password authentication succeed; session does not start before timeout, including command true.",
+    "http_8080": "GET / timed out after 5 seconds with zero response bytes.",
+    "boot_id": "Read timed out; no reboot confirmed."
+  },
+  "attempts": [
+    {
+      "request": "systemctl reboot via SSH",
+      "result": "SSH timeout, exit 255; command execution not confirmed."
+    },
+    {
+      "request": "Shell builtin check of /proc/1/comm, then RTMIN+5 to PID 1 only if systemd",
+      "result": "SSH timeout, exit 255; signal delivery not confirmed. This requests orderly systemd reboot, not forced reboot."
+    }
+  ],
+  "status": "awaiting-physical-power-cycle",
+  "benchmark_status": "blocked-storage",
+  "action_requested": "Disconnect PWR, wait about 10 seconds, reconnect, report completion.",
+  "risk_disclosed": "Normal shutdown unavailable; unsaved data may be lost during physical recovery.",
+  "after_recovery": [
+    "Check boot ID or uptime, kernel MMC/ext4 errors, filesystem recovery logs and blocked processes.",
+    "Run a small bounded temporary-file write, fsync and read checksum on root storage.",
+    "Verify deployed graph and model hashes before inference.",
+    "Preserve partial high-temperature CPU attempt3; next attempt uses a new tag.",
+    "Resume low and medium bands only after evidence confirms recovery; leave high band pending."
+  ]
+}

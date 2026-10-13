@@ -136,7 +136,10 @@ def main():
         '| 模型 | 历史 | 新增 | 温档 | CPU token/s | NPU token/s | NPU/CPU | CPU TTFT s | NPU TTFT s | CPU总响应 s | NPU总响应 s |',
         '| --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |']
     if state.get('status')=='blocked-storage':
-        lines[4:4]=['**当前因板端TF存储I/O阻塞暂停。** 内核报告SDMMC `wait dma hold bit clear timeout`，结果写入阻塞于`ext4_setattr`，多个系统进程也处于D状态；降至约35°C后仍未恢复。网页在线，已停止后续排队和预热，未重启/关机。不能据此直接判定TF卡损坏，供电、控制器调谐和温度相关性尚未定位。[只读故障证据](evidence-thermal-20261013/storage-fault.json)。高温CPU仅完成预热和1次，未计正式结果。','']
+        recovery=('用户已授权重启，但SSH认证成功后无法启动命令，普通重启和systemd正常重启信号请求均超时，是否执行未能确认；网页也超时。已请求现场断电再上电，等待恢复核查。[重启尝试记录](evidence-thermal-20261013/reboot-attempt.json)。'
+                  if state.get('reboot_attempt',{}).get('status')=='awaiting-physical-power-cycle'
+                  else '已停止后续排队和预热，存储恢复尚未验证。')
+        lines[4:4]=['**当前因板端TF存储I/O阻塞暂停。** 内核报告SDMMC `wait dma hold bit clear timeout`，结果写入阻塞于`ext4_setattr`，多个系统进程也处于D状态；降至约35°C后仍未恢复。'+recovery+'不能据此直接判定TF卡损坏，供电、控制器调谐和温度相关性尚未定位。[只读故障证据](evidence-thermal-20261013/storage-fault.json)。高温CPU仅完成预热和1次，未计正式结果。','']
     names={'low':'低','medium':'中','high':'高'}
     def fmt(x):return '—' if x is None else f'{x:.3f}'
     for r in rows:

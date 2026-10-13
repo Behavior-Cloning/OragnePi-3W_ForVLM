@@ -3,6 +3,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 import time
@@ -11,9 +12,33 @@ import time
 BANDS={'low':(40000,50000),'medium':(55000,64999),'high':(65000,80000)}
 
 
+def cpu_output(root,case,band,previous=None):
+    """Never reuse a started attempt, even if a stalled board returned no files."""
+    base=root/(case+'-'+band+'-cpu')
+    candidate=Path(previous) if previous else base
+    result=candidate/'results.json'
+    if result.exists() and json.loads(result.read_text()).get('status')=='complete':
+        return candidate
+    match=re.search(r'-attempt(\d+)$',candidate.name)
+    attempt=int(match.group(1)) if match else 1
+    # A recorded path reserves the corresponding remote tag before upload.
+    if previous or candidate.exists():
+        attempt+=1;candidate=base.with_name(base.name+f'-attempt{attempt}')
+    while candidate.exists():
+        attempt+=1;candidate=base.with_name(base.name+f'-attempt{attempt}')
+    return candidate
+
+
+def case_status(bands,gate):
+    if gate is not None and not gate['passed']:return 'quality-failed'
+    return 'complete' if all(bands.get(b,{}).get('status')=='complete' for b in BANDS) else 'partial'
+
+
 def main():
     p=argparse.ArgumentParser();p.add_argument('--fixtures',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True);p.add_argument('--case',action='append',default=[])
+    p.add_argument('--band',action='append',choices=BANDS,default=[],
+        help='Run only selected response-start bands; other bands remain pending.')
     a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
     scripts=Path(__file__).resolve().parent;project=scripts.parents[1]
     matrix=json.loads((a.fixtures/'matrix.json').read_text())
@@ -53,18 +78,24 @@ def main():
         state['cases'][case]=row;save()
         try:
             trajectory=None
+            # Include already completed, unselected bands in the trajectory check.
+            for old_band,old_row in row['bands'].items():
+                old_cpu=Path(old_row.get('cpu_path',str(a.output/(case+'-'+old_band+'-cpu'))))
+                old_result=old_cpu/'results.json'
+                if old_result.exists() and json.loads(old_result.read_text()).get('status')=='complete':
+                    old_tokens=json.loads((old_cpu/'tokens.json').read_text())['tokens']
+                    if trajectory is None:trajectory=old_tokens
+                    else:assert trajectory==old_tokens,'stored CPU trajectory changed with temperature'
             prior_gate=reference/'full-validation-w8.json'
             gate=json.loads(prior_gate.read_text())['execution_gate_v1'] if prior_gate.exists() else None
             for band,(low,high) in BANDS.items():
+                if a.band and band not in a.band:continue
                 bandrow=row['bands'].get(band,{'status':'running'});row['bands'][band]=bandrow;save()
-                cpu=Path(bandrow.get('cpu_path',str(a.output/(case+'-'+band+'-cpu'))))
-                cpu_attempt=1
-                while (cpu/'results.json').exists() and json.loads((cpu/'results.json').read_text()).get('status')!='complete':
-                    cpu_attempt+=1;cpu=a.output/(case+'-'+band+f'-cpu-attempt{cpu_attempt}')
+                cpu=cpu_output(a.output,case,band,bandrow.get('cpu_path'))
                 bandrow['cpu_path']=str(cpu);save()
                 if not (cpu/'results.json').exists():
                     run(case,band+'-cpu',['run_cpu_reference.py','--prompt-folder',c['folder'],
-                        '--model-id',c['model_id'],'--context',cap,'--tag','thermal3-'+case+'-'+band+'-cpu'+(f'-attempt{cpu_attempt}' if cpu_attempt>1 else ''),
+                        '--model-id',c['model_id'],'--context',cap,'--tag','thermal3-'+cpu.name,
                         '--output',cpu,'--repeats',5,'--temperature-band-mc',low,high])
                 result=json.loads((cpu/'results.json').read_text());assert result['status']=='complete'
                 actual=json.loads((cpu/'tokens.json').read_text())['tokens']
@@ -111,7 +142,7 @@ def main():
                 if attempt>1:
                     # Refresh host runner/helper only; keep immutable graphs and
                     # verify new diagnostic outputs against the prior reference.
-                    cpu_source=Path(row['bands']['low'].get('cpu_path',str(a.output/(case+'-low-cpu'))))
+                    cpu_source=cpu
                     rerun=npu_case+f'-runner{attempt}'
                     run(case,band+'-refresh',['run_full_model.py','--source',source,'--dtype',decode,'--tag',tag,
                         '--case',rerun,'--prompt-folder',c['folder'],'--max-new',128,'--cached-prefix',c['history'],
@@ -132,7 +163,7 @@ def main():
                 result=json.loads(performance.read_text());assert result['status']=='complete'
                 bandrow.update(status='complete',npu=result['medians']['batch32'],performance=str(performance));save()
                 subprocess.run([sys.executable,str(scripts/'report_thermal_matrix.py'),'--root',str(a.output)],check=True)
-            row['status']='complete' if gate['passed'] else 'quality-failed'
+            row['status']=case_status(row['bands'],gate)
             row.pop('error',None)
         except Exception as exc:
             row.update(status='failed',error=str(exc));print(case,str(exc),flush=True)

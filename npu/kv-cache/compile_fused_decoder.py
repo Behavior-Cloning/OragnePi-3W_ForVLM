@@ -51,7 +51,7 @@ p.add_argument('--split-current-matmul',action='store_true',help='use outer-prod
 p.add_argument('--sdk-option',action='append',default=[],metavar='VIV_VX_NAME=VALUE',help='explicit SDK experiment, recorded in provenance')
 p.add_argument('--fc-input-int8',choices=('gateup','all-w8'),help='diagnostic local A8 converters for selected W8 matrices; preserve KV and outputs')
 p.add_argument('--fc-input-range-bits',type=int,choices=(0,1),default=0)
-p.add_argument('--fc-weight-dfp',choices=('gateup','all-w8'),help='diagnostic W8 single-scale weight encoding; separate from A8 trials')
+p.add_argument('--fc-weight-dfp',choices=('gateup','mlp','all-w8'),help='diagnostic W8 single-scale weight encoding; separate from A8 trials')
 p.add_argument('--fc-weight-dfp-method',choices=('peak','mse'),default='peak')
 p.add_argument('--mlp-product-headroom',type=int,nargs=2,action='append',default=[],metavar=('LAYER','BITS'))
 a = p.parse_args()

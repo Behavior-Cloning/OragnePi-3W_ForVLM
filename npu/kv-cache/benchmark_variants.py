@@ -215,7 +215,10 @@ for phase in ('diagnostic','warmup','measure'):
                 with subprocess.Popen(command,env=env,stdout=out,stderr=err) as child:
                     observer=threading.Thread(target=observe);observer.start()
                     try:
-                        if child.wait(timeout=600):raise RuntimeError('NPU runner failed; see run.stderr')
+                        if child.wait(timeout=600):
+                            err.flush()
+                            detail=(folder/'run.stderr').read_text(errors='replace')[-8000:]
+                            raise RuntimeError('NPU runner failed: '+str(folder)+'\n'+detail)
                     except BaseException:
                         child.kill();child.wait();raise
                     finally:stop.set();observer.join()

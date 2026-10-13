@@ -50,6 +50,12 @@ def main():
         expected=next(r['tokens'] for r in base['runs'] if r['phase']=='measure')
         def run(label,threads,affinity,repeats=2,threads_batch=None,ubatch=512,flash='auto',fixture=None,affinity_batch=None):
             fixture=fixture or case;target_name=fixture['case']
+            key=label if fixture is case else f'n{fixture["new_tokens"]}-'+label
+            recorded=entry['runs'].get(key,{})
+            if recorded.get('status')=='rejected-thermal-limit':
+                prior=json.loads(Path(recorded['path']).read_text())
+                assert prior.get('status')=='failed' and any(t.get('temperature_mC',0)>=80000 for t in prior.get('thermal_abort',[]))
+                return recorded  # Keep thermal rejection even when it occurred in attempt2+.
             folder=a.output/(target_name+'-'+label)
             result=folder/'results.json'
             logpath=a.output/(target_name+'-'+label+'.log')
@@ -78,7 +84,6 @@ def main():
                     child=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT)
                 if child.returncode and not result.exists():child.check_returncode()
                 data=json.loads(result.read_text())
-            key=label if fixture is case else f'n{fixture["new_tokens"]}-'+label
             if data.get('status')=='failed' and any(t.get('temperature_mC',0)>=80000 for t in data.get('thermal_abort',[])):
                 value={'aligned':False,'repeats':repeats,'path':str(result),'status':'rejected-thermal-limit',
                        'quality':'unmeasured after thermal stop','medians':{},'thermal_abort':data['thermal_abort']}

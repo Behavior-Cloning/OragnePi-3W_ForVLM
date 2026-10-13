@@ -112,10 +112,32 @@
                 "monotonic_seconds": 19171.555490469
               }
             ]
+          },
+          "all-t2": {
+            "config": {
+              "threads": 2,
+              "affinity": "0-7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 1.0493244309982401,
+              "engine_ttft_seconds": 0.9276025,
+              "decode_tokens_per_second": 17.69376069593694,
+              "total_seconds": 8.11317496599986,
+              "response_cpu_seconds": 16.21999999999999,
+              "preparation_seconds": 9.156993003500247
+            },
+            "path": "npu/results/cpu-q8-search-20261013/smol500-h1024-n64-all-t2/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
           }
         },
         "status": "running",
-        "active": "all-t2"
+        "active": "all-t4"
       },
       "smol500-h512-n64": {
         "runs": {

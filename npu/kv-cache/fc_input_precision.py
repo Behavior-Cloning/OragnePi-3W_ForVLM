@@ -10,13 +10,15 @@ import numpy as np
 
 def convert_fc_weights_dfp(graph, quant, data, hidden_dim, selection, method='peak'):
     """Compare per-channel vs one-scale signed W8; activations are unchanged."""
-    assert selection in ('gateup', 'all-w8') and method in ('peak', 'mse')
+    assert selection in ('gateup', 'mlp', 'all-w8') and method in ('peak', 'mse')
     qp=quant['quantize_parameters'];changes=[]
     for name,node in graph['Layers'].items():
         if node['op']!='fullconnect':continue
         ref='@'+name+':weight';previous=qp[ref];matrix=data[name]['weight']
         if previous.get('qtype')!='i8' or previous.get('quantizer')=='dynamic_fixed_point':continue
         if selection=='gateup' and not (matrix.shape[0]==hidden_dim and matrix.shape[1]>hidden_dim):continue
+        if selection=='mlp' and not ((matrix.shape[0]==hidden_dim and matrix.shape[1]>hidden_dim) or
+                                    (matrix.shape[1]==hidden_dim and matrix.shape[0]>hidden_dim)):continue
         peak=float(np.abs(matrix).max());assert math.isfinite(peak) and peak>0
         peak_fl=math.floor(math.log2(127/peak))
         # Weight-only search: no prompts, continuation or holdout are consulted.

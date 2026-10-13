@@ -2,6 +2,7 @@
 import hashlib
 import json
 from pathlib import Path
+import statistics
 
 from report_system_load import summarize
 
@@ -11,22 +12,28 @@ ROOT=HERE.parent/'results'
 
 def main():
     trials=[
-        ('500M DFP',ROOT/'smol500-dfpgateup-ab-20261013.json','dfp',
+        ('500M DFP',512,64,ROOT/'smol500-dfpgateup-ab-20261013.json','dfp',
          ROOT/'cpu-q8-search-20261013/smol500-h512-n64-final-fa-off/results.json',
          '500M的512历史CPU配置筛选已完成，当前同场景最快decode确认配置；质量留出待验收'),
-        ('1B DFP MSE',ROOT/'intern1b-dfpmse-ab-20261013.json','dfpmse',
+        ('1B DFP MSE',512,64,ROOT/'intern1b-dfpmse-ab-20261013.json','dfpmse',
          ROOT/'thermal-aligned-20261013/intern1b-h512-n64-medium-cpu/results.json',
          '1B CPU配置搜索尚未完成；这里只对照同场景已测Q8'),
-        ('1B DFP MSE＋prefill16',ROOT/'dfpmse-prefill16-trial-20261013/performance.json','candidate',
+        ('1B DFP MSE＋prefill16',512,64,ROOT/'dfpmse-prefill16-trial-20261013/performance.json','candidate',
          ROOT/'thermal-aligned-20261013/intern1b-h512-n64-medium-cpu/results.json',
-         '1B CPU配置搜索尚未完成；这里只对照同场景已测Q8')]
+         '1B CPU配置搜索尚未完成；这里只对照同场景已测Q8'),
+        ('500M DFP',1024,64,ROOT/'smol500-c1280-dfp-trial-20261013-attempt2/performance.json','candidate',
+         ROOT/'thermal-aligned-20261013/smol500-h1024-n64-medium-cpu/results.json',
+         '1024历史CPU配置搜索尚未完成；旧NPU与新NPU均t32，反馈轨迹对应本行已测CPU'),
+        ('1B DFP MSE＋prefill16＋范围修复',1024,32,ROOT/'dfpmse-productwide-trial-20261013-attempt2/performance.json','candidate',
+         ROOT/'thermal-aligned-20261013/intern1b-h1024-n32-medium-cpu/results.json',
+         '旧NPU采用已通过质量门槛的product1920wide修复版，两端均grouped head；不与质量失败的旧栈计算收益。CPU配置搜索未完成')]
     records=[]
     lines=['# 全深度加速候选：速度与系统开销','',
-           '两模型均为512历史＋64新增、128次预测、Q8对应比较、中温55–<65°C起测、五轮。500M全32层，1B全24层，均包括完整词表输出头。温档约束响应开始温度，响应中自然升降温。','',
+           '按表中精确历史/新增token计数，均为128次预测、Q8对应比较、中温55–<65°C起测、五轮。500M全32层，1B全24层，均包括完整词表输出头。温档约束响应开始温度，响应中自然升降温。','',
            '候选完整执行门槛已通过，独立质量留出尚未验收；这份报告不表示已超过最优CPU或完成产品验收。','',
-           '| 候选 | 旧NPU→新NPU token/s | 解码提升 | 旧→新首token s | 同场景CPU token/s | CPU首token s |',
+           '| 候选 / 历史＋新增 | 旧NPU→新NPU token/s | 解码提升 | 旧→新首token s | 同场景CPU token/s | CPU首token s |',
            '| --- | ---: | ---: | ---: | ---: | ---: |']
-    for name,path,label,cpu_path,note in trials:
+    for name,history,new,path,label,cpu_path,note in trials:
         if not path.exists():continue
         data=json.loads(path.read_text())
         if data['status']!='complete':continue
@@ -36,8 +43,13 @@ def main():
         assert all(r['result']['feedback_tokens']==cpu['nonstream_trajectory']['tokens'] for r in measured)
         b,n=data['medians']['baseline'],data['medians'][label]
         c=cpu['medians'];gain=100*(n['decode_tokens_per_second']/b['decode_tokens_per_second']-1)
-        lines.append(f'| {name} | {b["decode_tokens_per_second"]:.3f}→{n["decode_tokens_per_second"]:.3f} | +{gain:.2f}% | {b["ttft_seconds"]:.3f}→{n["ttft_seconds"]:.3f} | {c["decode_tokens_per_second"]:.3f} | {c["engine_ttft_seconds"]:.3f} |')
-        records.append({'name':name,'source':str(path),'source_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
+        engine_ttft=statistics.median(r['timings']['prompt_ms']/1000 for r in cpu['runs'] if r['phase']=='measure')
+        display=f'{name} / {history}＋{new}'
+        lines.append(f'| {display} | {b["decode_tokens_per_second"]:.3f}→{n["decode_tokens_per_second"]:.3f} | +{gain:.2f}% | {b["ttft_seconds"]:.3f}→{n["ttft_seconds"]:.3f} | {c["decode_tokens_per_second"]:.3f} | {engine_ttft:.3f} |')
+        records.append({'name':display,'history_tokens':history,'new_tokens':new,
+                        'source':str(path),'source_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
+                        'cpu_timing':{'decode_tokens_per_second':c['decode_tokens_per_second'],
+                                      'engine_ttft_seconds':engine_ttft,'source':str(cpu_path)},
                         'medians':data['medians'],'cpu':summarize(cpu_path,'cpu'),
                         'npu':summarize(path,'npu',label),'note':note,
                         'trajectory_matches_cpu':True,'independent_quality_accepted':False})
@@ -46,12 +58,18 @@ def main():
             '| --- | ---: | ---: | ---: | ---: |']
     fmt=lambda x:'缺测' if x is None else f'{x:.1f}'
     for record in records:
+        if not record['cpu'] or not record['npu']:
+            lines.append(f'| {record["name"]} | 缺少配对直接采样，待补测 | — | — | — |')
+            continue
         c,n=record['cpu']['medians'],record['npu']['medians']
         lines.append(f'| {record["name"]} | {c["busy_percent"]:.2f} / {n["busy_percent"]:.2f} | {fmt(c["rss_peak_mib"])} | {fmt(n["rss_peak_mib"])}＋{fmt(n["driver_mib"])} | {fmt(c["pss_peak_mib"])} / {fmt(n["pss_peak_mib"])} |')
     lines+=['','整机CPU以8核总和为100%；NPU宿主RSS与驱动分配另列，不能把宿主RSS当成总模型内存，也不能把驱动字节与RSS简单相加视为去重后的物理内存。CPU网页模型在两端均保持常驻。CPU占用下降不是功耗测量。','',
             '| 候选 | CPU/NPU换入＋换出 KiB | CPU/NPU磁盘读＋写 KiB | CPU/NPU响应采样覆盖率 |',
             '| --- | ---: | ---: | ---: |']
     for record in records:
+        if not record['cpu'] or not record['npu']:
+            lines.append(f'| {record["name"]} | 待补测 | 待补测 | 待补测 |')
+            continue
         c,n=record['cpu']['medians'],record['npu']['medians']
         lines.append(f'| {record["name"]} | {(c["swap_in_bytes"]+c["swap_out_bytes"])/1024:.0f} / {(n["swap_in_bytes"]+n["swap_out_bytes"])/1024:.0f} | {(c["disk_read_bytes"]+c["disk_write_bytes"])/1024:.0f} / {(n["disk_read_bytes"]+n["disk_write_bytes"])/1024:.0f} | {c["covered_fraction"]:.0%} / {n["covered_fraction"]:.0%} |')
     lines+=['','统计只覆盖完全落在响应中的采样区间；未覆盖边界、模型加载及KV历史准备阶段不包含在I/O、换页结论里。表中均为五轮中位数，逐轮采样摘要保存在证据中。','']

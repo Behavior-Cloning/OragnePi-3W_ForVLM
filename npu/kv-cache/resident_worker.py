@@ -13,7 +13,8 @@ import time
 
 
 class ResidentWorker:
-    def __init__(self, command, cwd, log, dump_dir=None, timeout=120):
+    def __init__(self, command, cwd, log, dump_dir=None, timeout=120,
+                 events_on_stdout=False):
         self.capacity = None
         self.last_request = 0
         self.events = bytearray()
@@ -28,7 +29,8 @@ class ResidentWorker:
         self.log = open(log, 'xb')
         try:
             self.process = subprocess.Popen(command, cwd=cwd, env=env, stdin=subprocess.PIPE,
-                                            stdout=self.log, stderr=subprocess.STDOUT,
+                                            stdout=write_fd if events_on_stdout else self.log,
+                                            stderr=self.log,
                                             pass_fds=(write_fd,))
         except BaseException:
             self.selector.close()

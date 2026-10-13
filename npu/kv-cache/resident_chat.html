@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>橙语 · NPU实验</title>
+<style>
+body{max-width:780px;margin:32px auto;padding:0 20px;background:#f8f8f5;color:#222;font:16px/1.6 system-ui}header{display:flex;align-items:center;justify-content:space-between}h1{font-size:22px}#status,small{color:#666}article{padding:14px 18px;margin:14px 0;border-radius:14px;background:white;white-space:pre-wrap}.user{background:#e7eee1}textarea{box-sizing:border-box;width:100%;min-height:100px;padding:12px;border:1px solid #aaa;border-radius:12px;font:inherit}button{padding:9px 16px;border:1px solid #bbb;border-radius:9px;background:white;cursor:pointer}button:disabled{opacity:.5}form{position:sticky;bottom:0;background:#f8f8f5;padding:14px 0}#notice{color:#874b14}#metrics{white-space:pre-wrap}
+</style>
+<header><h1>橙语 · NPU实验</h1><button id="clear">新对话</button></header>
+<p id="status">正在连接模型…</p><small>实验模型，质量尚待验收。此页对话仅保存在当前页面，刷新即清空。</small>
+<main id="messages"></main><p id="notice" role="status"></p><small id="metrics"></small>
+<form><textarea id="prompt" placeholder="说点什么…" required></textarea><button id="send">发送</button> <button id="stop" type="button" disabled>停止</button></form>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);let messages=[],controller=null;
+function append(role,text){const el=document.createElement('article');el.className=role;el.textContent=text;$('messages').append(el);return el;}
+fetch('/api/health').then(r=>r.json()).then(d=>$('status').textContent=`${d.model} · NPU · ${d.context} token 窗口`).catch(()=>$('status').textContent='连接失败');
+$('clear').onclick=()=>{if(controller)return;messages=[];$('messages').replaceChildren();$('metrics').textContent='';$('notice').textContent='';};
+$('stop').onclick=()=>controller?.abort();
+document.querySelector('form').onsubmit=async e=>{
+ e.preventDefault();if(controller||!$('prompt').value.trim())return;
+ const text=$('prompt').value.trim();messages.push({role:'user',content:text});append('user',text);$('prompt').value='';
+ const answer=append('assistant','模型正在准备…');let content='',complete=false,finished=false;controller=new AbortController();
+ $('send').disabled=$('clear').disabled=$('prompt').disabled=true;$('stop').disabled=false;$('notice').textContent='';
+ try{
+  const response=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages,max_tokens:128}),signal:controller.signal});
+  if(!response.ok)throw new Error((await response.json()).error);
+  const dropped=Number(response.headers.get('X-Context-Dropped')||0);if(dropped){messages=messages.slice(dropped);$('notice').textContent=`较早的 ${dropped} 条消息已移出模型上下文。`;}
+  const reader=response.body.getReader(),decoder=new TextDecoder();let buffer='';
+  while(!finished){const part=await reader.read();buffer+=decoder.decode(part.value||new Uint8Array(),{stream:!part.done});let pos;
+   while((pos=buffer.indexOf('\n\n'))>=0){const raw=buffer.slice(0,pos);buffer=buffer.slice(pos+2);if(!raw.startsWith('data: '))continue;const body=raw.slice(6);
+    if(body==='[DONE]'){complete=true;finished=true;break;}const event=JSON.parse(body);if(event.error)throw new Error(event.error);
+    content+=event.choices?.[0]?.delta?.content||'';answer.textContent=content||'正在生成…';
+    if(event.metrics){const m=event.metrics;$('metrics').textContent=`首token ${m.ttft_seconds.toFixed(3)} s · ${m.decode_tokens_per_second.toFixed(2)} token/s · 复用 ${m.reused_tokens} / 新算 ${m.new_tokens} token${m.model_load_seconds>0?' · 本轮含模型加载':''}`;}
+   }if(part.done)break;
+  }await reader.cancel();if(!complete)throw new Error('推理连接中断');
+ }catch(err){$('notice').textContent=err.name==='AbortError'?'已停止生成。':err.message;}
+ finally{if(content){messages.push({role:'assistant',content});answer.textContent=content;}else{messages.pop();answer.textContent=complete?'模型未生成正文。':'本轮未完成，请重试。';}
+  controller=null;$('send').disabled=$('clear').disabled=$('prompt').disabled=false;$('stop').disabled=true;}
+};
+</script></html>

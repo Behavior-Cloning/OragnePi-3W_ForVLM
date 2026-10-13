@@ -292,7 +292,7 @@
       "label": "dfp",
       "source_sha256": "937eb8a5ca970bc760906e3a2e0fa1cad5616e2a81f5705d47c885a063b35445"
     },
-    "note": "500M的512历史CPU配置筛选已完成，当前同场景最快decode确认配置；质量留出待验收",
+    "note": "500M的512历史CPU配置筛选已完成，当前同场景最快decode确认配置；独立v1存在单例质量失败",
     "trajectory_matches_cpu": true,
     "independent_quality_accepted": false
   },
@@ -589,7 +589,7 @@
       "label": "dfpmse",
       "source_sha256": "ad290ca9d0d2f92c49f9a891cfa1c08b695a30a9def1ea0b9df6b8024174cd5a"
     },
-    "note": "1B CPU配置搜索尚未完成；这里只对照同场景已测Q8",
+    "note": "保留本次A/B匹配的原CPU轨迹；搜索已完成，最新更快CPU对齐见另表",
     "trajectory_matches_cpu": true,
     "independent_quality_accepted": false
   },
@@ -886,7 +886,7 @@
       "label": "candidate",
       "source_sha256": "c31d33749c4dbe07589b3b315d3403b28661281267a1cc541722cb18e79b9a5c"
     },
-    "note": "1B CPU配置搜索尚未完成；这里只对照同场景已测Q8",
+    "note": "保留本次A/B匹配的原CPU轨迹；搜索已完成，最新更快CPU对齐见另表",
     "trajectory_matches_cpu": true,
     "independent_quality_accepted": false
   },
@@ -1055,7 +1055,7 @@
       "label": "candidate",
       "source_sha256": "b366dcf304a67235e7a06663bca0e6264b4fd2a451ac34bd4cf2f94935ef5090"
     },
-    "note": "1024历史CPU配置搜索尚未完成；旧NPU与新NPU均t32，反馈轨迹对应本行已测CPU",
+    "note": "旧NPU与新NPU均t32，保留本次A/B匹配的原CPU；更快CPU结果与完整对齐见另表",
     "trajectory_matches_cpu": true,
     "independent_quality_accepted": false
   },
@@ -1352,7 +1352,7 @@
       "label": "candidate",
       "source_sha256": "97e3d28c489b553f4388539850381097898ece235f9eaa404994222405f5596a"
     },
-    "note": "旧NPU采用已通过质量门槛的product1920wide修复版，两端均grouped head；不与质量失败的旧栈计算收益。CPU配置搜索未完成",
+    "note": "旧NPU采用已通过开发门槛的product1920wide修复版，两端均grouped head；不与质量失败的旧栈计算收益。本行CPU是原匹配轨迹",
     "trajectory_matches_cpu": true,
     "independent_quality_accepted": false
   },
@@ -1649,7 +1649,601 @@
       "label": "candidate",
       "source_sha256": "ac50bb5eea8c1b495c8f46f1806383a2ea3634042bfed6997e1d70b36b7f5178"
     },
-    "note": "只改变完整词表输出头量化，decoder与prefill16相同；新输出头仅通过本开发轨迹，独立留出未验。CPU搜索未完成",
+    "note": "只改变完整词表输出头量化，decoder与prefill16相同；独立v2为32/36单例通过，未过整套质量。本行CPU是原匹配轨迹",
+    "trajectory_matches_cpu": true,
+    "independent_quality_accepted": false
+  },
+  {
+    "name": "1B decoder有界MSE cap1 / 1024＋32",
+    "history_tokens": 1024,
+    "new_tokens": 32,
+    "source": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/cap1-productwide-trial-20261013/performance.json",
+    "source_sha256": "2b948d361aab64df6ad56f6ad087993be02da5b23fc5b992de919189eb03421b",
+    "cpu_timing": {
+      "decode_tokens_per_second": 16.75587742086146,
+      "engine_ttft_seconds": 0.506863,
+      "source": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/thermal-aligned-20261013/intern1b-h1024-n32-medium-cpu/results.json"
+    },
+    "medians": {
+      "baseline": {
+        "decode_tokens_per_second": 14.759158,
+        "ttft_seconds": 0.632731,
+        "total_seconds": 9.237147,
+        "cpu_seconds": 0.24827,
+        "driver_allocated_bytes": 799152952,
+        "decode_decoder_api_seconds": 6.232042,
+        "decode_head_api_seconds": 2.153027,
+        "max_rss_kib": 24484,
+        "load_seconds": 0.781881
+      },
+      "candidate": {
+        "decode_tokens_per_second": 15.228567,
+        "ttft_seconds": 0.627814,
+        "total_seconds": 8.966696,
+        "cpu_seconds": 0.246574,
+        "driver_allocated_bytes": 766233144,
+        "decode_decoder_api_seconds": 5.970406,
+        "decode_head_api_seconds": 2.154293,
+        "max_rss_kib": 24452,
+        "load_seconds": 0.699383
+      }
+    },
+    "cpu": {
+      "medians": {
+        "busy_percent": 26.598077247427895,
+        "iowait_percent": 0.0,
+        "rss_peak_mib": 1090.76171875,
+        "pss_peak_mib": null,
+        "available_min_mib": 4006.8203125,
+        "temperature_min_c": 67.024,
+        "temperature_max_c": 72.275,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0,
+        "disk_read_bytes": 0,
+        "disk_write_bytes": 8192,
+        "covered_fraction": 0.9191842445621708,
+        "decode_tps": 16.75587742086146,
+        "ttft_seconds": 0.506863,
+        "driver_mib": null
+      },
+      "runs": [
+        {
+          "busy_percent": 26.434841323430113,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 1090.76171875,
+          "rss_source": "legacy-process-samples",
+          "pss_peak_mib": null,
+          "available_min_mib": 4009.203125,
+          "temperature_min_c": 67.024,
+          "temperature_max_c": 69.679,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 4096,
+          "covered_fraction": 0.9191842445621708,
+          "decode_tps": 16.754882663050076,
+          "ttft_seconds": 0.506819,
+          "driver_mib": null,
+          "sampling_errors": [
+            "process"
+          ]
+        },
+        {
+          "busy_percent": 26.598077247427895,
+          "iowait_percent": 0.016866250632484397,
+          "rss_peak_mib": 1090.76171875,
+          "rss_source": "legacy-process-samples",
+          "pss_peak_mib": null,
+          "available_min_mib": 4007.4609375,
+          "temperature_min_c": 67.083,
+          "temperature_max_c": 70.682,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 192512,
+          "covered_fraction": 0.9195714976503456,
+          "decode_tps": 16.759771375603766,
+          "ttft_seconds": 0.507392,
+          "driver_mib": null,
+          "sampling_errors": [
+            "process"
+          ]
+        },
+        {
+          "busy_percent": 26.75913396481732,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 1090.76171875,
+          "rss_source": "legacy-process-samples",
+          "pss_peak_mib": null,
+          "available_min_mib": 4006.8203125,
+          "temperature_min_c": 69.561,
+          "temperature_max_c": 72.452,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 8192,
+          "covered_fraction": 0.9149810940384033,
+          "decode_tps": 16.755293815291225,
+          "ttft_seconds": 0.507059,
+          "driver_mib": null,
+          "sampling_errors": [
+            "process"
+          ]
+        },
+        {
+          "busy_percent": 26.76435910392454,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 1090.76171875,
+          "rss_source": "legacy-process-samples",
+          "pss_peak_mib": null,
+          "available_min_mib": 4005.91015625,
+          "temperature_min_c": 64.959,
+          "temperature_max_c": 72.275,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 0,
+          "covered_fraction": 0.9195652511697504,
+          "decode_tps": 16.75587742086146,
+          "ttft_seconds": 0.506797,
+          "driver_mib": null,
+          "sampling_errors": [
+            "process"
+          ]
+        },
+        {
+          "busy_percent": 26.423109600679695,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 1090.88671875,
+          "rss_source": "legacy-process-samples",
+          "pss_peak_mib": null,
+          "available_min_mib": 4005.66796875,
+          "temperature_min_c": 62.062,
+          "temperature_max_c": 75.284,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 8192,
+          "covered_fraction": 0.9118062384655511,
+          "decode_tps": 16.757734618180955,
+          "ttft_seconds": 0.506863,
+          "driver_mib": null,
+          "sampling_errors": [
+            "process"
+          ]
+        }
+      ],
+      "source": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/thermal-aligned-20261013/intern1b-h1024-n32-medium-cpu/results.json",
+      "label": null,
+      "source_sha256": "c86796928c94be4020b559dfab369032e58742e1a41b8764da56dc9f7fecdabd"
+    },
+    "npu": {
+      "medians": {
+        "busy_percent": 1.2366412213740459,
+        "iowait_percent": 0.0,
+        "rss_peak_mib": 23.87890625,
+        "pss_peak_mib": 22.8115234375,
+        "available_min_mib": 3819.10546875,
+        "temperature_min_c": 47.368,
+        "temperature_max_c": 53.692,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0,
+        "disk_read_bytes": 0,
+        "disk_write_bytes": 4096,
+        "covered_fraction": 0.9162717186989203,
+        "decode_tps": 15.228567,
+        "ttft_seconds": 0.627814,
+        "driver_mib": 730.7368698120117
+      },
+      "runs": [
+        {
+          "busy_percent": 1.2366412213740459,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 24.01953125,
+          "rss_source": "direct-process",
+          "pss_peak_mib": 22.8564453125,
+          "available_min_mib": 3819.93359375,
+          "temperature_min_c": 46.81,
+          "temperature_max_c": 53.692,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 36864,
+          "covered_fraction": 0.9126382316259734,
+          "decode_tps": 15.177782,
+          "ttft_seconds": 0.628273,
+          "driver_mib": 730.7368698120117,
+          "sampling_errors": [
+            "process_io"
+          ]
+        },
+        {
+          "busy_percent": 1.0670731707317074,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 23.90234375,
+          "rss_source": "direct-process",
+          "pss_peak_mib": 22.8310546875,
+          "available_min_mib": 3819.10546875,
+          "temperature_min_c": 47.368,
+          "temperature_max_c": 61.628,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 4096,
+          "covered_fraction": 0.9180383078016453,
+          "decode_tps": 15.252415,
+          "ttft_seconds": 0.627814,
+          "driver_mib": 730.7368698120117,
+          "sampling_errors": [
+            "process_io"
+          ]
+        },
+        {
+          "busy_percent": 1.2773722627737227,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 23.87890625,
+          "rss_source": "direct-process",
+          "pss_peak_mib": 22.8115234375,
+          "available_min_mib": 3819.8828125,
+          "temperature_min_c": 46.624,
+          "temperature_max_c": 53.568,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 4096,
+          "covered_fraction": 0.9162717186989203,
+          "decode_tps": 15.187184,
+          "ttft_seconds": 0.628153,
+          "driver_mib": 730.7368698120117,
+          "sampling_errors": [
+            "process_io"
+          ]
+        },
+        {
+          "busy_percent": 1.245674740484429,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 23.80859375,
+          "rss_source": "direct-process",
+          "pss_peak_mib": 22.7763671875,
+          "available_min_mib": 3812.80078125,
+          "temperature_min_c": 47.492,
+          "temperature_max_c": 52.7,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 4096,
+          "covered_fraction": 0.8087297249503913,
+          "decode_tps": 15.249264,
+          "ttft_seconds": 0.627724,
+          "driver_mib": 730.7368698120117,
+          "sampling_errors": [
+            "process_io"
+          ]
+        },
+        {
+          "busy_percent": 1.150991973345449,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 23.8671875,
+          "rss_source": "direct-process",
+          "pss_peak_mib": 22.7724609375,
+          "available_min_mib": 3813.39453125,
+          "temperature_min_c": 47.43,
+          "temperature_max_c": 58.714,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 36864,
+          "covered_fraction": 0.9232327510600854,
+          "decode_tps": 15.228567,
+          "ttft_seconds": 0.627107,
+          "driver_mib": 730.7368698120117,
+          "sampling_errors": [
+            "process_io"
+          ]
+        }
+      ],
+      "source": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/cap1-productwide-trial-20261013/performance.json",
+      "label": "candidate",
+      "source_sha256": "2b948d361aab64df6ad56f6ad087993be02da5b23fc5b992de919189eb03421b"
+    },
+    "note": "完整24层gate/up权重MSE额外小数位最多＋1；原Q8开发门槛通过，本行CPU是原匹配轨迹，不继承其他组合独立质量",
+    "trajectory_matches_cpu": true,
+    "independent_quality_accepted": false
+  },
+  {
+    "name": "1B cap1＋输出头DFP MSE / 1024＋32",
+    "history_tokens": 1024,
+    "new_tokens": 32,
+    "source": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/cap1-headmse-trial-20261013/performance.json",
+    "source_sha256": "919a86445d60aa3459e714c44a21570e4aa8512b2a3d3ae8336c2186b0d20ac2",
+    "cpu_timing": {
+      "decode_tokens_per_second": 16.75587742086146,
+      "engine_ttft_seconds": 0.506863,
+      "source": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/thermal-aligned-20261013/intern1b-h1024-n32-medium-cpu/results.json"
+    },
+    "medians": {
+      "baseline": {
+        "decode_tokens_per_second": 14.74145,
+        "ttft_seconds": 0.632812,
+        "total_seconds": 9.247197,
+        "cpu_seconds": 0.250088,
+        "driver_allocated_bytes": 799152952,
+        "decode_decoder_api_seconds": 6.237543,
+        "decode_head_api_seconds": 2.155178,
+        "max_rss_kib": 23632,
+        "load_seconds": 0.971218
+      },
+      "candidate": {
+        "decode_tokens_per_second": 15.598395,
+        "ttft_seconds": 0.626082,
+        "total_seconds": 8.768828,
+        "cpu_seconds": 0.251676,
+        "driver_allocated_bytes": 753274680,
+        "decode_decoder_api_seconds": 5.971068,
+        "decode_head_api_seconds": 1.950252,
+        "max_rss_kib": 23640,
+        "load_seconds": 0.721034
+      }
+    },
+    "cpu": {
+      "medians": {
+        "busy_percent": 26.598077247427895,
+        "iowait_percent": 0.0,
+        "rss_peak_mib": 1090.76171875,
+        "pss_peak_mib": null,
+        "available_min_mib": 4006.8203125,
+        "temperature_min_c": 67.024,
+        "temperature_max_c": 72.275,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0,
+        "disk_read_bytes": 0,
+        "disk_write_bytes": 8192,
+        "covered_fraction": 0.9191842445621708,
+        "decode_tps": 16.75587742086146,
+        "ttft_seconds": 0.506863,
+        "driver_mib": null
+      },
+      "runs": [
+        {
+          "busy_percent": 26.434841323430113,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 1090.76171875,
+          "rss_source": "legacy-process-samples",
+          "pss_peak_mib": null,
+          "available_min_mib": 4009.203125,
+          "temperature_min_c": 67.024,
+          "temperature_max_c": 69.679,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 4096,
+          "covered_fraction": 0.9191842445621708,
+          "decode_tps": 16.754882663050076,
+          "ttft_seconds": 0.506819,
+          "driver_mib": null,
+          "sampling_errors": [
+            "process"
+          ]
+        },
+        {
+          "busy_percent": 26.598077247427895,
+          "iowait_percent": 0.016866250632484397,
+          "rss_peak_mib": 1090.76171875,
+          "rss_source": "legacy-process-samples",
+          "pss_peak_mib": null,
+          "available_min_mib": 4007.4609375,
+          "temperature_min_c": 67.083,
+          "temperature_max_c": 70.682,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 192512,
+          "covered_fraction": 0.9195714976503456,
+          "decode_tps": 16.759771375603766,
+          "ttft_seconds": 0.507392,
+          "driver_mib": null,
+          "sampling_errors": [
+            "process"
+          ]
+        },
+        {
+          "busy_percent": 26.75913396481732,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 1090.76171875,
+          "rss_source": "legacy-process-samples",
+          "pss_peak_mib": null,
+          "available_min_mib": 4006.8203125,
+          "temperature_min_c": 69.561,
+          "temperature_max_c": 72.452,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 8192,
+          "covered_fraction": 0.9149810940384033,
+          "decode_tps": 16.755293815291225,
+          "ttft_seconds": 0.507059,
+          "driver_mib": null,
+          "sampling_errors": [
+            "process"
+          ]
+        },
+        {
+          "busy_percent": 26.76435910392454,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 1090.76171875,
+          "rss_source": "legacy-process-samples",
+          "pss_peak_mib": null,
+          "available_min_mib": 4005.91015625,
+          "temperature_min_c": 64.959,
+          "temperature_max_c": 72.275,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 0,
+          "covered_fraction": 0.9195652511697504,
+          "decode_tps": 16.75587742086146,
+          "ttft_seconds": 0.506797,
+          "driver_mib": null,
+          "sampling_errors": [
+            "process"
+          ]
+        },
+        {
+          "busy_percent": 26.423109600679695,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 1090.88671875,
+          "rss_source": "legacy-process-samples",
+          "pss_peak_mib": null,
+          "available_min_mib": 4005.66796875,
+          "temperature_min_c": 62.062,
+          "temperature_max_c": 75.284,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 8192,
+          "covered_fraction": 0.9118062384655511,
+          "decode_tps": 16.757734618180955,
+          "ttft_seconds": 0.506863,
+          "driver_mib": null,
+          "sampling_errors": [
+            "process"
+          ]
+        }
+      ],
+      "source": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/thermal-aligned-20261013/intern1b-h1024-n32-medium-cpu/results.json",
+      "label": null,
+      "source_sha256": "c86796928c94be4020b559dfab369032e58742e1a41b8764da56dc9f7fecdabd"
+    },
+    "npu": {
+      "medians": {
+        "busy_percent": 1.184510250569476,
+        "iowait_percent": 0.0,
+        "rss_peak_mib": 23.0859375,
+        "pss_peak_mib": 21.8779296875,
+        "available_min_mib": 3831.453125,
+        "temperature_min_c": 47.306,
+        "temperature_max_c": 56.482,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0,
+        "disk_read_bytes": 0,
+        "disk_write_bytes": 8192,
+        "covered_fraction": 0.9320745938256677,
+        "decode_tps": 15.598395,
+        "ttft_seconds": 0.626082,
+        "driver_mib": 718.3787155151367
+      },
+      "runs": [
+        {
+          "busy_percent": 1.3298791018998273,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 23.02734375,
+          "rss_source": "direct-process",
+          "pss_peak_mib": 21.8974609375,
+          "available_min_mib": 3831.83203125,
+          "temperature_min_c": 46.996,
+          "temperature_max_c": 54.312,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 8192,
+          "covered_fraction": 0.8268586458447775,
+          "decode_tps": 15.603459,
+          "ttft_seconds": 0.625608,
+          "driver_mib": 718.3787155151367,
+          "sampling_errors": [
+            "process_io"
+          ]
+        },
+        {
+          "busy_percent": 1.163324659421399,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 23.0859375,
+          "rss_source": "direct-process",
+          "pss_peak_mib": 21.892578125,
+          "available_min_mib": 3832.9765625,
+          "temperature_min_c": 47.306,
+          "temperature_max_c": 56.544,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 12288,
+          "covered_fraction": 0.9320745938256677,
+          "decode_tps": 15.580426,
+          "ttft_seconds": 0.626082,
+          "driver_mib": 718.3787155151367,
+          "sampling_errors": [
+            "process_io"
+          ]
+        },
+        {
+          "busy_percent": 1.204398673415954,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 23.0859375,
+          "rss_source": "direct-process",
+          "pss_peak_mib": 21.8740234375,
+          "available_min_mib": 3829.6328125,
+          "temperature_min_c": 47.368,
+          "temperature_max_c": 53.816,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 8192,
+          "covered_fraction": 0.817762457840994,
+          "decode_tps": 15.587186,
+          "ttft_seconds": 0.626274,
+          "driver_mib": 718.3787155151367,
+          "sampling_errors": [
+            "process_io"
+          ]
+        },
+        {
+          "busy_percent": 1.1246200607902737,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 23.1171875,
+          "rss_source": "direct-process",
+          "pss_peak_mib": 21.8740234375,
+          "available_min_mib": 3831.453125,
+          "temperature_min_c": 47.43,
+          "temperature_max_c": 61.876,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 8192,
+          "covered_fraction": 0.9410853841589027,
+          "decode_tps": 15.598395,
+          "ttft_seconds": 0.626965,
+          "driver_mib": 718.3787155151367,
+          "sampling_errors": [
+            "process_io"
+          ]
+        },
+        {
+          "busy_percent": 1.184510250569476,
+          "iowait_percent": 0.0,
+          "rss_peak_mib": 23.12109375,
+          "rss_source": "direct-process",
+          "pss_peak_mib": 21.8779296875,
+          "available_min_mib": 3827.38671875,
+          "temperature_min_c": 46.81,
+          "temperature_max_c": 56.482,
+          "swap_in_bytes": 0,
+          "swap_out_bytes": 0,
+          "disk_read_bytes": 0,
+          "disk_write_bytes": 8192,
+          "covered_fraction": 0.9420045166885191,
+          "decode_tps": 15.618741,
+          "ttft_seconds": 0.625158,
+          "driver_mib": 718.3787155151367,
+          "sampling_errors": [
+            "process_io"
+          ]
+        }
+      ],
+      "source": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/cap1-headmse-trial-20261013/performance.json",
+      "label": "candidate",
+      "source_sha256": "919a86445d60aa3459e714c44a21570e4aa8512b2a3d3ae8336c2186b0d20ac2"
+    },
+    "note": "组合方案单独完整开发验证和五轮，与原gate/up MSE对照；不把两个独立收益相加。独立v2为33/36单例通过，未过整套质量。本行CPU是原匹配轨迹",
     "trajectory_matches_cpu": true,
     "independent_quality_accepted": false
   }

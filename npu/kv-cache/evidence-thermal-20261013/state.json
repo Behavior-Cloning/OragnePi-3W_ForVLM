@@ -818,7 +818,7 @@
       "finished": 1791879697.375582
     },
     "intern1b-h1024-n128": {
-      "status": "failed",
+      "status": "partial",
       "started": 1791875378.534627,
       "config": {
         "case": "intern1b-h1024-n128",
@@ -859,12 +859,31 @@
           "performance": "npu/results/thermal-aligned-20261013/intern1b-h1024-n128-low-npu-attempt2.json"
         },
         "medium": {
-          "status": "running",
-          "cpu_path": "npu/results/thermal-aligned-20261013/intern1b-h1024-n128-medium-cpu"
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/intern1b-h1024-n128-medium-cpu-attempt2",
+          "cpu": {
+            "ttft_seconds": 1.4657867830028408,
+            "engine_ttft_seconds": 1.463815,
+            "decode_tokens_per_second": 16.68888346901702,
+            "total_seconds": 9.07659738700022,
+            "response_cpu_seconds": 18.099999999999994,
+            "preparation_seconds": 8.913829240998894
+          },
+          "npu": {
+            "decode_tokens_per_second": 13.541547,
+            "ttft_seconds": 2.499094,
+            "total_seconds": 11.88112,
+            "cpu_seconds": 0.303814,
+            "driver_allocated_bytes": 910977960,
+            "decode_decoder_api_seconds": 6.817908,
+            "decode_head_api_seconds": 2.330508,
+            "max_rss_kib": 39836,
+            "load_seconds": 0.822632
+          },
+          "performance": "npu/results/thermal-aligned-20261013/intern1b-h1024-n128-medium-npu.json"
         }
       },
-      "error": "medium-cpu: exit 1, see npu/results/thermal-aligned-20261013/intern1b-h1024-n128-medium-cpu.log",
-      "finished": 1791892143.4703286,
+      "finished": 1791900253.6567123,
       "failed_references": [
         "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-splitkv-i16mm/board-thermal3-intern1b-h1024-n128"
       ],
@@ -928,7 +947,6 @@
     "scope": "filesystem I/O failure is not model latency or an accepted high-temperature run"
   },
   "active_bands": [
-    "low",
     "medium"
   ]
 }

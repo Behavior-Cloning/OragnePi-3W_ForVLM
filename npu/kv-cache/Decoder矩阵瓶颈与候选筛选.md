@@ -120,7 +120,7 @@ cap1完整模型状态：`complete-development-trial`；场景1024＋32。
 
 cap1另外复核1024＋64；32新增通过不代表64通过：
 
-- cap1-productwide-intern1b-h1024-n64：running，执行门槛待验。
+- cap1-productwide-intern1b-h1024-n64：complete，执行门槛True。
 
 探针3次预热后记录50次；只统计VIP API，不含完整模型宿主代价。开关分时执行、温度不同，不以微小差异宣告提速。SRAM设置返回成功仅证明接口接受，不证明实际预载字节数；最终仍须同温档、全深度五轮A/B。
 

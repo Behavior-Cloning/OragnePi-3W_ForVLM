@@ -55,7 +55,11 @@ p.add_argument('--fc-weight-dfp',choices=('gateup','mlp','all-w8'),help='diagnos
 p.add_argument('--fc-weight-dfp-method',choices=('peak','mse'),default='peak')
 p.add_argument('--fc-weight-dfp-max-extra-bits',type=int,choices=range(7),default=6)
 p.add_argument('--mlp-product-headroom',type=int,nargs=2,action='append',default=[],metavar=('LAYER','BITS'))
+p.add_argument('--query-headroom',type=int,nargs=2,action='append',default=[],metavar=('LAYER','BITS'))
 a = p.parse_args()
+query_headroom=dict(a.query_headroom)
+assert len(query_headroom)==len(a.query_headroom)
+assert all(a.first<=layer<a.first+a.width and 1<=bits<=4 for layer,bits in query_headroom.items())
 product_headroom=dict(a.mlp_product_headroom)
 assert len(product_headroom)==len(a.mlp_product_headroom)
 assert all(a.first<=layer<a.first+a.width and 1<=bits<=4 for layer,bits in product_headroom.items())
@@ -84,6 +88,7 @@ fp16_kv_changes = []
 fc_input_changes = []
 fc_weight_changes = []
 product_range_changes = []
+query_range_changes = []
 manifest = json.loads((a.source / 'trained-manifest.json').read_text())
 previous_hidden = None
 for offset in range(a.width):
@@ -91,6 +96,9 @@ for offset in range(a.width):
     graph = json.loads((folder / 'decoder.json').read_text())
     q = yaml.safe_load((folder / 'decoder.quantize').read_text())
     data = np.load(folder / 'decoder.data', allow_pickle=True).item()
+    if a.first+offset in query_headroom:
+        from activation_ranges import widen_query_path
+        query_range_changes.append({'layer':a.first+offset,**widen_query_path(graph,q,query_headroom[a.first+offset])})
     if a.first+offset in product_headroom:
         from activation_ranges import widen_mlp_product
         product_range_changes.append({'layer':a.first+offset,**widen_mlp_product(graph,q,product_headroom[a.first+offset])})
@@ -278,6 +286,7 @@ report = {'first_layer': a.first, 'fusion_width': a.width, 'sources': sources,
     'fc_weight_dfp':a.fc_weight_dfp,'fc_weight_dfp_method':a.fc_weight_dfp_method,'fc_weight_changes':fc_weight_changes,
     'fc_weight_dfp_max_extra_bits':a.fc_weight_dfp_max_extra_bits,
     'mlp_product_headroom':a.mlp_product_headroom,'mlp_product_changes':product_range_changes,
+    'query_headroom':a.query_headroom,'query_range_changes':query_range_changes,
     'node_trace':a.node_trace,
     'fp16_kv_cache':a.fp16_kv_cache,'fp16_kv_changes':fp16_kv_changes,
     'attention_probability_i16':a.attention_probability_i16,

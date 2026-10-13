@@ -3,7 +3,7 @@ import hashlib
 import json
 from pathlib import Path
 import statistics
-from audit_captured_execution import audit
+from audit_captured_execution import audit as audit_local_execution
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent / 'results'
@@ -77,7 +77,7 @@ def main():
         captured=json.loads(captures_path.read_text());evidence['captures']=captured
         lines+=['',f'针对性真实输入重放状态：`{captured["status"]}`。选择预测25时的2/3层、预测109时的22/23层；运行全部24层再抓对应调用，先核对完整logits不变。']
         for row in captured['captures']:
-            local=audit(Path(row['fixture']),Path(row['folder'])/'decode-capture-output.f32')
+            local=audit_local_execution(Path(row['fixture']),Path(row['folder'])/'decode-capture-output.f32')
             row['local_execution']=local
             lines+=['',f'位置{row["position"]}、层组{row["block"]}实际输入/输出的局部误差：两份FP32参考均从同一实板hidden和KV开始，不包含前面层组已积累的误差。','',
                     '| 输出 | 执行L2（对导出常量） | 含再量化L2（对原Q8） |','| --- | ---: | ---: |']
@@ -93,7 +93,30 @@ def main():
             lines+=['',f'位置{row["position"]}、层组{row["block"]}：{weights}的FP32范围诊断发现{len(clipped)}个有截断的动态定点张量。这里只是范围诊断，尚不是硬件内部数值读出。','',
                     '| 张量 | 位数 / 小数位 | 超范围元素 | 单纯截断L2 |','| --- | --- | ---: | ---: |']
             for v in clipped[:8]:lines.append(f'| {v["name"]} | {v["qtype"]} / {v["fl"]} | {v["outside_count"]}/{v["count"]} | {v["clipping_relative_l2"]:.4%} |')
-    lines += ['', 'cap1的缩放上界候选另扩展同一1024＋64开发场景。保持原门槛，通过才测速度，不能以新的32新增通过结果替代。', '',
+    cap_path=ROOT/'cap1-expansion-20261013/state.json'
+    if cap_path.exists():
+        cap=json.loads(cap_path.read_text())['cases'].get('cap1-productwide-intern1b-h1024-n64',{})
+        evidence['cap1_64']=cap
+        if cap.get('execution_gate'):
+            v=json.loads((Path(cap['reference'])/'full-validation-w8.json').read_text())
+            lines+=['',f'cap1已经单独复核相同1024＋64反馈：执行L2 {v["relative_l2_all_logits"]:.4%}，最低cosine {v["min_step_cosine"]:.6f}，门槛通过={v["execution_gate_v1"]["passed"]}。它改变权重编码，不能把误差改善完全归因于某个激活截断已消失。']
+            if cap.get('bands',{}).get('medium'):
+                m=cap['bands']['medium']['medians']
+                lines.append(f'中温五轮decode {m["decode_tokens_per_second"]:.6f} token/s，首token {m["ttft_seconds"]:.6f}s。对应最快CPU的新反馈仍须重对齐。')
+    query_path=ROOT/'querywide-trial-20261014/state.json'
+    if query_path.exists():
+        query=json.loads(query_path.read_text());evidence['query_range_trial']=query
+        lines+=['',f'选择性Query范围试验状态：`{query["status"]}`。仅层3/22（0起始）的Q投影至RoPE路径扩大1bit，权重、Norm、K/V及输出头不变，decode与prefill均更新；只据上面的开发抓取定位，不使用独立留出。']
+        if query.get('execution_gate'):
+            validation_path=ROOT/'full-intern1b-sharded-v2-c128/w8-fused2-c1280-decode-dfpmse-querywide/board-querywide-intern1b-h1024-n64/full-validation-w8.json'
+            qv=json.loads(validation_path.read_text())
+            evidence['query_execution']={k:qv[k] for k in ('relative_l2_all_logits','min_step_cosine','argmax_match_fraction','execution_gate_v1')}
+            evidence['query_execution'].update(source=str(validation_path),source_sha256=sha(validation_path))
+            lines.append(f'完整执行L2 {qv["relative_l2_all_logits"]:.4%}，最低cosine {qv["min_step_cosine"]:.6f}，argmax一致 {qv["argmax_match_fraction"]:.3%}，门槛通过={query["execution_gate"]["passed"]}；原Q8开发指标：{query.get("original_q8_development")}。')
+            if query.get('status')=='complete-development-trial':
+                m=query['medians']['candidate']
+                lines.append(f'中温五轮：decode {m["decode_tokens_per_second"]:.6f} token/s，首token {m["ttft_seconds"]:.6f}s，驱动 {m["driver_allocated_bytes"]/2**20:.2f}MiB。这里只证明该开发轨迹恢复到门槛内；不与精度失败的旧版计算加速比，也不替代cap1组合的独立质量验收。')
+    lines += ['', '保持原门槛，通过才测速度，不能以32新增通过结果替代64。', '',
               '复现：`npu/.venv/bin/python npu/kv-cache/report_execution_regression.py`。', '']
     (HERE/'1B增量64执行误差定位.md').write_text('\n'.join(lines))
     (HERE/'evidence-attack-20261013/execution-regression.json').write_text(

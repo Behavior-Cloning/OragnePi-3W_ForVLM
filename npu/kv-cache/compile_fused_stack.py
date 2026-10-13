@@ -43,6 +43,7 @@ p.add_argument('--fc-weight-dfp',choices=('gateup','mlp','all-w8'))
 p.add_argument('--fc-weight-dfp-method',choices=('peak','mse'),default='peak')
 p.add_argument('--fc-weight-dfp-max-extra-bits',type=int,choices=range(7),default=6)
 p.add_argument('--mlp-product-headroom',type=int,nargs=2,action='append',default=[],metavar=('LAYER','BITS'))
+p.add_argument('--query-headroom',type=int,nargs=2,action='append',default=[],metavar=('LAYER','BITS'))
 p.add_argument('--reuse-blocks-from', help='reuse immutable blocks only when every source hash and graph option matches')
 a = p.parse_args()
 source = a.source.resolve()
@@ -53,8 +54,12 @@ count = len(m['layers'])
 assert count % a.width == 0
 assert len(dict(a.mlp_product_headroom))==len(a.mlp_product_headroom)
 assert all(0<=layer<count and 1<=bits<=4 for layer,bits in a.mlp_product_headroom)
+assert len(dict(a.query_headroom))==len(a.query_headroom)
+assert all(0<=layer<count and 1<=bits<=4 for layer,bits in a.query_headroom)
 base_records = json.loads((source / a.base / 'stack-conversion.json').read_text())
 def compatible(record, first):
+    if sorted(record.get('query_headroom',[]))!=sorted(p for p in a.query_headroom if first<=p[0]<first+a.width):
+        return False
     ranges=[p for p in a.mlp_product_headroom if first<=p[0]<first+a.width]
     if sorted(record.get('mlp_product_headroom',[]))!=sorted(ranges):
         return False  # Never silently reuse a graph with different ranges.
@@ -154,6 +159,8 @@ def compile_block(first):
                   '--fc-weight-dfp-max-extra-bits',str(a.fc_weight_dfp_max_extra_bits)] if a.fc_weight_dfp else []) +
                 [v for layer,bits in a.mlp_product_headroom if first<=layer<first+a.width
                    for v in ('--mlp-product-headroom',str(layer),str(bits))] +
+                [v for layer,bits in a.query_headroom if first<=layer<first+a.width
+                   for v in ('--query-headroom',str(layer),str(bits))] +
                 (['--compact-gqa'] if a.compact_gqa else []),
                 stdout=log, stderr=subprocess.STDOUT, check=True, timeout=340)
         record = json.loads((folder / 'conversion.json').read_text())
@@ -172,6 +179,7 @@ def compile_block(first):
               'split_softmax_i16':a.split_softmax_i16,
               'split_current_matmul':a.split_current_matmul,
               'mlp_product_headroom':[p for p in a.mlp_product_headroom if first<=p[0]<first+a.width],
+              'query_headroom':[p for p in a.query_headroom if first<=p[0]<first+a.width],
               'path': str(folder / 'export_nbg_unify/network_binary.nb'), 'base': a.base,
               'reused_from':str(folder.resolve()) if folder.is_symlink() else None}
     print(json.dumps(result), flush=True)

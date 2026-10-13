@@ -22,7 +22,7 @@ def main():
     complete=sum(v.get('status')=='complete' for c in matrix['cases'].values()
                  for b,v in c['bands'].items() if b in ('low','medium'))
     lines=['# 下一轮攻关进展：测量、CPU搜索与NPU候选','',
-           '2026-10-13。本报告为运行中快照；全语言深度、Q8对应比较、低/中温范围不变。','',
+           '2026-10-14。本报告保留原矩阵与CPU搜索快照；全语言深度、Q8对应比较、低/中温范围不变。最新组合候选和最快CPU反馈对齐另见[最新CPU矩阵与负载](最新CPU对齐与组合候选矩阵.md)，不与旧矩阵混计。','',
            f'低/中温CPU/NPU配对矩阵完成{complete}/24组；CPU搜索状态`{cpu["status"]}`，head扩展状态`{head["status"]}`。', '',
            '统一引擎首token及直接系统资源采样已落地，见[计时与采样说明](首字计时与直接资源采样.md)。完整矩阵和曲线见[全深度对标](三温档全深度对标.md)。','',
            '## 1B输出头：相同图、相同完整输出','',
@@ -65,7 +65,7 @@ def main():
             '## Decoder定位与待完成工作','',
             '已从1B全24层512＋32运行抓取真实decode输入（位置544、block0）；抓取版的128步完整logits与已验收基线逐字节相同，独立全模型导出常量门槛也通过。5份硬件计数中fullconnect占busy cycles约91.55%，优先检查矩阵与权重搬运，见[Decoder矩阵瓶颈与候选筛选](Decoder矩阵瓶颈与候选筛选.md)。小图仅定位瓶颈，不进入全模型速度排行。','',
             '独立v1留出、实际CPU自然回答、实验HTTP/浏览器和两模型30分钟常驻多轮已完成执行，具体质量失败与接口边界见[产品验收](独立质量与连续多轮验收.md)。这不等于陪伴产品通过。[真实ASR并发及CPU分核复核](真实ASR与LLM并发验收.md)均已完成。剩余测量包括当前DFP矩阵、CPU配置搜索，以及新输出头、decoder缩放和短尾块候选的完整验收；新输出头使用另行冻结的[独立v2套件](1B新输出头独立v2验收.md)。','',
-            '最新矩阵明确区分待测与质量失败，见[当前DFP矩阵](当前DFP候选精确矩阵.md)。1B 1024＋64的执行L2约5.208%超过5%门槛，正在定位；不放宽阈值、不列为合格速度。当前仍不能宣布超过最快CPU。','',
+            '原矩阵保留失败，见[当前DFP矩阵](当前DFP候选精确矩阵.md)。旧1B1024＋64执行L2约5.208%超过5%门槛；独立Query范围修复在同轨迹降至4.961%，不回填覆盖旧失败，也不与失败版计算加速比。新cap1＋输出头组合独立v2单例33/36通过，未过整套质量。当前仍不能宣布超过最快CPU。','',
             '复现快照：`npu/.venv/bin/python npu/kv-cache/report_attack_iteration.py`。紧凑证据保存源报告SHA256、配置、每轮结果和响应内资源摘要；完整时间序列保留在本地`npu/results`。','']
     (ARCHIVE/'state-summary.json').write_text(json.dumps({'matrix_completed_pairs':complete,'cpu':cpu,'head':head},indent=2)+'\n')
     (HERE/'下一轮攻关进展.md').write_text('\n'.join(lines))

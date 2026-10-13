@@ -1,5 +1,5 @@
 {
-  "matrix_completed_pairs": 21,
+  "matrix_completed_pairs": 22,
   "cpu": {
     "scope": "Q8 only; medium start; 2-repeat screening then 5-repeat finalist; greedy trajectory equality is alignment, not holdout quality",
     "cases": {
@@ -788,12 +788,718 @@
         "finished_at": 1791875664.4448266
       },
       "intern1b-h512-n64": {
-        "runs": {},
-        "status": "running",
-        "active": "a76-t2"
+        "runs": {
+          "a76-t2": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 0.6317541255011747,
+              "engine_ttft_seconds": 0.629788,
+              "decode_tokens_per_second": 18.229716533651043,
+              "total_seconds": 7.598618542000622,
+              "response_cpu_seconds": 15.149999999999995,
+              "preparation_seconds": 4.016550617001485
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n64-a76-t2/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "a76-t1": {
+            "config": {
+              "threads": 1,
+              "affinity": "6",
+              "threads_batch": 1,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": false,
+            "medians": {
+              "ttft_seconds": 1.1269772150044446,
+              "engine_ttft_seconds": 1.125604,
+              "decode_tokens_per_second": 14.767351826412217,
+              "total_seconds": 9.727574851003737,
+              "response_cpu_seconds": 9.730000000000004,
+              "preparation_seconds": 7.780313191498863
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n64-a76-t1/results.json",
+            "repeats": 2,
+            "quality": "trajectory changed; revalidation required"
+          },
+          "mixed-t4": {
+            "config": {
+              "threads": 4,
+              "affinity": "4-7",
+              "threads_batch": 4,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": false,
+            "medians": {
+              "ttft_seconds": 0.6726392665004823,
+              "engine_ttft_seconds": 0.6703950000000001,
+              "decode_tokens_per_second": 15.618718593742214,
+              "total_seconds": 8.804672114001733,
+              "response_cpu_seconds": 34.325,
+              "preparation_seconds": 3.5566074200032745
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n64-mixed-t4/results.json",
+            "repeats": 2,
+            "quality": "trajectory changed; revalidation required"
+          },
+          "mixed-t6": {
+            "config": {
+              "threads": 6,
+              "affinity": "2-7",
+              "threads_batch": 6,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": false,
+            "medians": {
+              "ttft_seconds": 0.6045796140024322,
+              "engine_ttft_seconds": 0.6023355,
+              "decode_tokens_per_second": 17.216330831819846,
+              "total_seconds": 7.982140661501035,
+              "response_cpu_seconds": 47.53,
+              "preparation_seconds": 3.1341265615010343
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n64-mixed-t6/results.json",
+            "repeats": 2,
+            "quality": "trajectory changed; revalidation required"
+          },
+          "all-t8": {
+            "config": {
+              "threads": 8,
+              "affinity": "0-7",
+              "threads_batch": 8,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": false,
+            "medians": {
+              "ttft_seconds": 0.5952796655001293,
+              "engine_ttft_seconds": 0.593055,
+              "decode_tokens_per_second": 17.601301667444964,
+              "total_seconds": 7.8114376534977055,
+              "response_cpu_seconds": 61.575,
+              "preparation_seconds": 2.9164252859991393
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n64-all-t8/results.json",
+            "repeats": 2,
+            "quality": "trajectory changed; revalidation required"
+          },
+          "mixed-t6-cooled": {
+            "config": {
+              "threads": 6,
+              "affinity": "2-7",
+              "threads_batch": 6,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": false,
+            "medians": {
+              "ttft_seconds": 0.600581662998593,
+              "engine_ttft_seconds": 0.598679,
+              "decode_tokens_per_second": 17.23641581232375,
+              "total_seconds": 7.969755868496577,
+              "response_cpu_seconds": 47.44999999999999,
+              "preparation_seconds": 3.1548559664988716
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n64-mixed-t6-cooled/results.json",
+            "repeats": 2,
+            "quality": "trajectory changed; revalidation required"
+          },
+          "all-t2": {
+            "config": {
+              "threads": 2,
+              "affinity": "0-7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 0.6335562560016115,
+              "engine_ttft_seconds": 0.629183,
+              "decode_tokens_per_second": 18.15994239237967,
+              "total_seconds": 7.627791808998154,
+              "response_cpu_seconds": 15.234999999999996,
+              "preparation_seconds": 4.056282484001713
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n64-all-t2/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "all-t4": {
+            "config": {
+              "threads": 4,
+              "affinity": "0-7",
+              "threads_batch": 4,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": false,
+            "medians": {
+              "ttft_seconds": 0.6755673599982401,
+              "engine_ttft_seconds": 0.6733655000000001,
+              "decode_tokens_per_second": 15.622618915539173,
+              "total_seconds": 8.80557976250202,
+              "response_cpu_seconds": 34.25,
+              "preparation_seconds": 3.5903344944999844
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n64-all-t4/results.json",
+            "repeats": 2,
+            "quality": "trajectory changed; revalidation required"
+          },
+          "prefill4": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 4,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 0.7266539954980544,
+              "engine_ttft_seconds": 0.7247304999999999,
+              "decode_tokens_per_second": 18.138872192642797,
+              "total_seconds": 7.728416240996012,
+              "response_cpu_seconds": 15.36,
+              "preparation_seconds": 4.071083617996919
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n64-prefill4/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "ub128": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 2,
+              "ubatch": 128,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 0.6321251680019486,
+              "engine_ttft_seconds": 0.6302449999999999,
+              "decode_tokens_per_second": 18.170564743153115,
+              "total_seconds": 7.621731142498902,
+              "response_cpu_seconds": 15.195000000000004,
+              "preparation_seconds": 4.05006027449781
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n64-ub128/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "fa-on": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "on",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 0.6313058320010896,
+              "engine_ttft_seconds": 0.628864,
+              "decode_tokens_per_second": 18.1970536167467,
+              "total_seconds": 7.61066870850118,
+              "response_cpu_seconds": 15.169999999999998,
+              "preparation_seconds": 3.981550287000573
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n64-fa-on/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "fa-off": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "off",
+              "affinity_batch": null
+            },
+            "aligned": false,
+            "medians": {
+              "ttft_seconds": 0.6567869409991545,
+              "engine_ttft_seconds": 0.6550825,
+              "decode_tokens_per_second": 18.824818424872085,
+              "total_seconds": 7.403695929002424,
+              "response_cpu_seconds": 14.760000000000005,
+              "preparation_seconds": 4.60795772700294
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n64-fa-off/results.json",
+            "repeats": 2,
+            "quality": "trajectory changed; revalidation required"
+          },
+          "decode2-prefill6-strict": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 6,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": "2-7"
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 0.6639930700002878,
+              "engine_ttft_seconds": 0.6617635,
+              "decode_tokens_per_second": 18.116074224884194,
+              "total_seconds": 7.676480227997672,
+              "response_cpu_seconds": 17.554999999999993,
+              "preparation_seconds": 3.311058965497068
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n64-decode2-prefill6-strict/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "final-all-t8": {
+            "aligned": false,
+            "repeats": 5,
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n64-final-all-t8/results.json",
+            "status": "rejected-thermal-limit",
+            "quality": "unmeasured after thermal stop",
+            "medians": {},
+            "thermal_abort": [
+              {
+                "temperature_mC": 80358,
+                "monotonic_seconds": 45654.539122973
+              }
+            ]
+          },
+          "final-fa-off": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "off",
+              "affinity_batch": null
+            },
+            "aligned": false,
+            "medians": {
+              "ttft_seconds": 0.6569335669992142,
+              "engine_ttft_seconds": 0.6551,
+              "decode_tokens_per_second": 18.899976709871222,
+              "total_seconds": 7.376869794999948,
+              "response_cpu_seconds": 14.700000000000003,
+              "preparation_seconds": 4.583687997001107
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n64-final-fa-off/results.json",
+            "repeats": 5,
+            "quality": "trajectory changed; revalidation required"
+          },
+          "n32-final-fa-off": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "off",
+              "affinity_batch": null
+            },
+            "aligned": false,
+            "medians": {
+              "ttft_seconds": 0.344002066005487,
+              "engine_ttft_seconds": 0.342099,
+              "decode_tokens_per_second": 18.88373344792439,
+              "total_seconds": 7.069307104997279,
+              "response_cpu_seconds": 14.08999999999999,
+              "preparation_seconds": 4.564250638002704
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n32-final-fa-off/results.json",
+            "repeats": 5,
+            "quality": "trajectory changed; revalidation required"
+          },
+          "n128-final-fa-off": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "off",
+              "affinity_batch": null
+            },
+            "aligned": false,
+            "medians": {
+              "ttft_seconds": 1.2852599089965224,
+              "engine_ttft_seconds": 1.283633,
+              "decode_tokens_per_second": 18.908007481615687,
+              "total_seconds": 8.003969258003053,
+              "response_cpu_seconds": 15.950000000000017,
+              "preparation_seconds": 4.582437368000683
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h512-n128-final-fa-off/results.json",
+            "repeats": 5,
+            "quality": "trajectory changed; revalidation required"
+          }
+        },
+        "status": "complete",
+        "fastest_decode": "final-fa-off",
+        "fastest_total": "final-fa-off",
+        "fastest_ttft": "final-fa-off",
+        "tested_new_tokens": [
+          32,
+          64,
+          128
+        ],
+        "requires_trajectory_revalidation": [
+          "final-fa-off",
+          "n32-final-fa-off",
+          "n128-final-fa-off"
+        ],
+        "independent_quality_accepted": false,
+        "search_revision": 3,
+        "finished_at": 1791906847.408942
+      },
+      "intern1b-h1024-n64": {
+        "runs": {
+          "a76-t2": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 0.8034934705065098,
+              "engine_ttft_seconds": 0.801336,
+              "decode_tokens_per_second": 16.72882601710488,
+              "total_seconds": 8.395433322002646,
+              "response_cpu_seconds": 16.74000000000001,
+              "preparation_seconds": 8.895908971997414
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h1024-n64-a76-t2/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "a76-t1": {
+            "config": {
+              "threads": 1,
+              "affinity": "6",
+              "threads_batch": 1,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": false,
+            "medians": {
+              "ttft_seconds": 1.372934337498009,
+              "engine_ttft_seconds": 1.3711545,
+              "decode_tokens_per_second": 12.993323736991911,
+              "total_seconds": 11.147605060497881,
+              "response_cpu_seconds": 11.14,
+              "preparation_seconds": 17.5224521975033
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h1024-n64-a76-t1/results.json",
+            "repeats": 2,
+            "quality": "trajectory changed; revalidation required"
+          },
+          "mixed-t4": {
+            "aligned": false,
+            "repeats": 2,
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h1024-n64-mixed-t4/results.json",
+            "status": "rejected-thermal-limit",
+            "quality": "unmeasured after thermal stop",
+            "medians": {},
+            "thermal_abort": [
+              {
+                "temperature_mC": 81007,
+                "monotonic_seconds": 46295.493553349
+              }
+            ]
+          },
+          "mixed-t6": {
+            "aligned": false,
+            "repeats": 2,
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h1024-n64-mixed-t6/results.json",
+            "status": "rejected-thermal-limit",
+            "quality": "unmeasured after thermal stop",
+            "medians": {},
+            "thermal_abort": [
+              {
+                "temperature_mC": 81007,
+                "monotonic_seconds": 46310.742512528
+              }
+            ]
+          },
+          "all-t8": {
+            "aligned": false,
+            "repeats": 2,
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h1024-n64-all-t8/results.json",
+            "status": "rejected-thermal-limit",
+            "quality": "unmeasured after thermal stop",
+            "medians": {},
+            "thermal_abort": [
+              {
+                "temperature_mC": 82128,
+                "monotonic_seconds": 46326.206127159
+              }
+            ]
+          },
+          "mixed-t6-cooled": {
+            "aligned": false,
+            "repeats": 2,
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h1024-n64-mixed-t6-cooled/results.json",
+            "status": "rejected-thermal-limit",
+            "quality": "unmeasured after thermal stop",
+            "medians": {},
+            "thermal_abort": [
+              {
+                "temperature_mC": 80535,
+                "monotonic_seconds": 46341.841379551
+              }
+            ]
+          },
+          "all-t2": {
+            "config": {
+              "threads": 2,
+              "affinity": "0-7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 0.8069141275009315,
+              "engine_ttft_seconds": 0.801091,
+              "decode_tokens_per_second": 16.621471444597145,
+              "total_seconds": 8.448244670998974,
+              "response_cpu_seconds": 16.869999999999997,
+              "preparation_seconds": 8.86799147849888
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h1024-n64-all-t2/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "all-t4": {
+            "aligned": false,
+            "repeats": 2,
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h1024-n64-all-t4/results.json",
+            "status": "rejected-thermal-limit",
+            "quality": "unmeasured after thermal stop",
+            "medians": {},
+            "thermal_abort": [
+              {
+                "temperature_mC": 80299,
+                "monotonic_seconds": 46456.846142499
+              }
+            ]
+          },
+          "prefill4": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 4,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 0.9578587965006591,
+              "engine_ttft_seconds": 0.9556815,
+              "decode_tokens_per_second": 16.713075398592864,
+              "total_seconds": 8.557458591498289,
+              "response_cpu_seconds": 17.025,
+              "preparation_seconds": 9.055092335500376
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h1024-n64-prefill4/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "ub128": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 2,
+              "ubatch": 128,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 0.8023775494984875,
+              "engine_ttft_seconds": 0.8001735000000001,
+              "decode_tokens_per_second": 16.6711145322161,
+              "total_seconds": 8.42199472649736,
+              "response_cpu_seconds": 16.790000000000006,
+              "preparation_seconds": 9.143440266001562
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h1024-n64-ub128/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "fa-on": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "on",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 0.8034171364997746,
+              "engine_ttft_seconds": 0.8012254999999999,
+              "decode_tokens_per_second": 16.73111581305084,
+              "total_seconds": 8.394273111498478,
+              "response_cpu_seconds": 16.739999999999995,
+              "preparation_seconds": 8.867594394498155
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h1024-n64-fa-on/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "fa-off": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "off",
+              "affinity_batch": null
+            },
+            "aligned": false,
+            "medians": {
+              "ttft_seconds": 0.7946010154992109,
+              "engine_ttft_seconds": 0.79266,
+              "decode_tokens_per_second": 17.7439072298585,
+              "total_seconds": 7.9538728064981115,
+              "response_cpu_seconds": 15.849999999999994,
+              "preparation_seconds": 10.21712597450096
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h1024-n64-fa-off/results.json",
+            "repeats": 2,
+            "quality": "trajectory changed; revalidation required"
+          },
+          "decode2-prefill6-strict": {
+            "aligned": false,
+            "repeats": 2,
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h1024-n64-decode2-prefill6-strict/results.json",
+            "status": "rejected-thermal-limit",
+            "quality": "unmeasured after thermal stop",
+            "medians": {},
+            "thermal_abort": [
+              {
+                "temperature_mC": 80948,
+                "monotonic_seconds": 46873.108881231
+              }
+            ]
+          },
+          "final-fa-off": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "off",
+              "affinity_batch": null
+            },
+            "aligned": false,
+            "medians": {
+              "ttft_seconds": 0.7940078469982836,
+              "engine_ttft_seconds": 0.79196,
+              "decode_tokens_per_second": 17.759793617214076,
+              "total_seconds": 7.946622905998083,
+              "response_cpu_seconds": 15.840000000000003,
+              "preparation_seconds": 10.214583633001894
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h1024-n64-final-fa-off/results.json",
+            "repeats": 5,
+            "quality": "trajectory changed; revalidation required"
+          },
+          "n32-final-fa-off": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "off",
+              "affinity_batch": null
+            },
+            "aligned": false,
+            "medians": {
+              "ttft_seconds": 0.4151156110019656,
+              "engine_ttft_seconds": 0.413264,
+              "decode_tokens_per_second": 17.74963676137053,
+              "total_seconds": 7.571393766993424,
+              "response_cpu_seconds": 15.090000000000003,
+              "preparation_seconds": 10.251964888004295
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h1024-n32-final-fa-off/results.json",
+            "repeats": 5,
+            "quality": "trajectory changed; revalidation required"
+          },
+          "n128-final-fa-off": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "off",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 1.5609238910037675,
+              "engine_ttft_seconds": 1.558724,
+              "decode_tokens_per_second": 17.756679797288626,
+              "total_seconds": 8.714796871005092,
+              "response_cpu_seconds": 17.379999999999995,
+              "preparation_seconds": 10.19403689399769
+            },
+            "path": "npu/results/cpu-q8-search-20261013/intern1b-h1024-n128-final-fa-off/results.json",
+            "repeats": 5,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          }
+        },
+        "status": "complete",
+        "fastest_decode": "final-fa-off",
+        "fastest_total": "final-fa-off",
+        "fastest_ttft": "final-fa-off",
+        "tested_new_tokens": [
+          32,
+          64,
+          128
+        ],
+        "requires_trajectory_revalidation": [
+          "final-fa-off",
+          "n32-final-fa-off"
+        ],
+        "independent_quality_accepted": false,
+        "search_revision": 3,
+        "finished_at": 1791908217.6778636
       }
     },
-    "status": "running",
+    "status": "complete-selected-cases",
     "waiting_case": null
   },
   "head": {
@@ -978,9 +1684,53 @@
           "scope": "execution on this trajectory only; not holdout quality acceptance"
         },
         "decode_gain_percent": 1.955422561975917
+      },
+      "intern1b-h1024-n128": {
+        "status": "complete",
+        "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-splitkv-i16mm/board-thermal3-intern1b-h1024-n128-attempt2-runner2-runner2",
+        "result": "npu/results/head-matrix-20261013/intern1b-h1024-n128-head-ab.json",
+        "serial": {
+          "decode_tokens_per_second": 13.510492,
+          "ttft_seconds": 2.501239,
+          "total_seconds": 11.90944,
+          "cpu_seconds": 0.308427,
+          "driver_allocated_bytes": 910977960,
+          "decode_decoder_api_seconds": 6.823791,
+          "decode_head_api_seconds": 2.34699,
+          "max_rss_kib": 38744,
+          "load_seconds": 0.817764
+        },
+        "grouped": {
+          "decode_tokens_per_second": 13.786108,
+          "ttft_seconds": 2.496344,
+          "total_seconds": 11.708516,
+          "cpu_seconds": 0.276362,
+          "driver_allocated_bytes": 910977960,
+          "decode_decoder_api_seconds": 6.825554,
+          "decode_head_api_seconds": 2.158146,
+          "max_rss_kib": 38932,
+          "load_seconds": 0.836323
+        },
+        "paired_gains_percent": [
+          1.9081881651740407,
+          2.022573217194834,
+          2.228180171714711,
+          1.7878845566837942,
+          2.036922856732448
+        ],
+        "logits_identical": true,
+        "gate": {
+          "applicable": true,
+          "relative_l2_limit": 0.05,
+          "min_cosine_limit": 0.99,
+          "argmax_match_min": 0.95,
+          "passed": true,
+          "scope": "execution on this trajectory only; not holdout quality acceptance"
+        },
+        "decode_gain_percent": 2.040014530929013
       }
     },
-    "status": "waiting-for-baseline",
-    "waiting_case": "intern1b-h1024-n128"
+    "status": "partial-quality-blocked",
+    "waiting_case": null
   }
 }

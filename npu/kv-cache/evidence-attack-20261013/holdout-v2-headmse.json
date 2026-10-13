@@ -1028,11 +1028,4022 @@
     "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/holdout-v2-reference-headmse-intern1b-20261013/state.json",
     "source_sha256": "66de5c41bc812007a442320c4017f8a01f479cfdd6c43cacad2158339651ae23"
   },
-  "actual": null,
+  "actual": {
+    "status": "passed",
+    "scope": "development HTTP/SSH multi-turn; not holdout or board-only performance",
+    "model": "models/internvl3-1b/InternVL3-1B-Instruct-Q8_0.gguf",
+    "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-dfpmse-headmse/board-headmse-intern1b-h1024-n32",
+    "layers": 24,
+    "capacity": 1280,
+    "independent_quality_accepted": false,
+    "retain_after_overflow": null,
+    "source_sha256": "e728896a1f3788cd9e805af341b1146b1990c6757c352900716cdda65983fc6c",
+    "provenance_scope": "Python source snapshot at launch before lock; C snapshot at deployment",
+    "closed": {
+      "event": "closed",
+      "driver_bytes": 0
+    },
+    "reloaded_closed": {
+      "event": "closed",
+      "driver_bytes": 0
+    },
+    "holdout": {
+      "status": "complete-numeric-and-free-generation",
+      "reference": "npu/results/holdout-v2-reference-headmse-intern1b-20261013",
+      "holdout_sha256": "b879c5cb33e4c0019d6a7fcb46b82c2622de11e8d81ae29ef162a8c04e71cc8e",
+      "cases": [
+        {
+          "case": "en-quiet-evening-turn1",
+          "token_count": 10,
+          "mean_kl_nats": 0.012266984209418297,
+          "perplexity_ratio": 1.047206163406372,
+          "relative_l2": 0.07706651836633682,
+          "argmax_fraction": 0.8999999761581421,
+          "numeric_passed": true,
+          "npu_logits_sha256": "81d3b18e98cd717dec7463d78ca38b49987f7f92cc69c967afba0d56347e24ae",
+          "reference_logits_sha256": "2a29fc5f28a926287995e0dbd589269f295b6eb725707847d7af99bc95a7757d"
+        },
+        {
+          "case": "en-quiet-evening-turn2",
+          "token_count": 23,
+          "mean_kl_nats": 0.013251807540655136,
+          "perplexity_ratio": 1.0567911863327026,
+          "relative_l2": 0.07375436276197433,
+          "argmax_fraction": 0.95652174949646,
+          "numeric_passed": false,
+          "npu_logits_sha256": "ab7fb3658a491ad37fcfb01229edce2979cfbcfa1063add9cb26533af1724bb5",
+          "reference_logits_sha256": "d2eb170a9b16d7c43bf44f6299915b8ff86c4196e20ce7b18195a2d3f41019a8"
+        },
+        {
+          "case": "en-quiet-evening-turn3",
+          "token_count": 22,
+          "mean_kl_nats": 0.01501397229731083,
+          "perplexity_ratio": 1.0403101444244385,
+          "relative_l2": 0.07696746289730072,
+          "argmax_fraction": 0.8181818127632141,
+          "numeric_passed": true,
+          "npu_logits_sha256": "9d7e05f4639f8388baa6a9d7ad1dcc9f5d41cebb40598c8077023f27bab366d7",
+          "reference_logits_sha256": "b1899ddca338c0c5278aedb6525b691c117cb8d399fd631165c2c562588d77e1"
+        },
+        {
+          "case": "en-lantern-robot-turn1",
+          "token_count": 33,
+          "mean_kl_nats": 0.009900126606225967,
+          "perplexity_ratio": 1.005192756652832,
+          "relative_l2": 0.0670437291264534,
+          "argmax_fraction": 0.9696969985961914,
+          "numeric_passed": true,
+          "npu_logits_sha256": "27d67cc01469bfed1517b083116987a4cf880e7d2a27a12b5168312349593014",
+          "reference_logits_sha256": "55828af2e1fea32c568f509220205b026aac3282ba9212be0664836c21d718ed"
+        },
+        {
+          "case": "en-lantern-robot-turn2",
+          "token_count": 32,
+          "mean_kl_nats": 0.011007603257894516,
+          "perplexity_ratio": 1.0017969608306885,
+          "relative_l2": 0.07199116051197052,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "7960cc4e9a32212c0861725cea4126f0e5afa18eb868422e2fe17c09e5c330f2",
+          "reference_logits_sha256": "51b26cf183ebf48c9492b0a563a68019a40d8241393056161d0be4644159111f"
+        },
+        {
+          "case": "en-lantern-robot-turn3",
+          "token_count": 35,
+          "mean_kl_nats": 0.00488298898562789,
+          "perplexity_ratio": 1.004278302192688,
+          "relative_l2": 0.07451990991830826,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "a000a0ac60672893713fc989337eb926088a3834fe61b1dbb5ac2504ac16c0b5",
+          "reference_logits_sha256": "f6a7ecfdc6a64fc00b6d740bc00a0500c0d138734e31689459345e778b3fc751"
+        },
+        {
+          "case": "en-hobby-memory-turn1",
+          "token_count": 36,
+          "mean_kl_nats": 0.013924756087362766,
+          "perplexity_ratio": 1.050755500793457,
+          "relative_l2": 0.07268884778022766,
+          "argmax_fraction": 0.8611111044883728,
+          "numeric_passed": false,
+          "npu_logits_sha256": "99b34510a8aa11ec8ceb414bd72241eb21872fb4fdc160d916a27c907ecca1ab",
+          "reference_logits_sha256": "50b4a85e30f978b3d4fa98cddd1501b033c75774249ac2582f64dd6a1515ac20"
+        },
+        {
+          "case": "en-hobby-memory-turn2",
+          "token_count": 42,
+          "mean_kl_nats": 0.009463618509471416,
+          "perplexity_ratio": 0.9995995759963989,
+          "relative_l2": 0.07491832226514816,
+          "argmax_fraction": 0.9047619104385376,
+          "numeric_passed": true,
+          "npu_logits_sha256": "36f6cc4d06406928708f2caf034ae07602bfe1102e2f470ed46ca520adda2eee",
+          "reference_logits_sha256": "a892ff70a4c497a51249e4dbc848d654f69338d92089b188c792dbc9338cd61e"
+        },
+        {
+          "case": "en-hobby-memory-turn3",
+          "token_count": 19,
+          "mean_kl_nats": 0.012468484230339527,
+          "perplexity_ratio": 0.9998931288719177,
+          "relative_l2": 0.07786548137664795,
+          "argmax_fraction": 0.9473684430122375,
+          "numeric_passed": true,
+          "npu_logits_sha256": "9ae438fbafb6de55459e0ab2aabeea3d73bb59542f57833909df903dcc421175",
+          "reference_logits_sha256": "e83fab943307cb95f6487f63d5c02a26d55a27ca97e804a527999fc022193e1c"
+        },
+        {
+          "case": "en-picnic-update-turn1",
+          "token_count": 20,
+          "mean_kl_nats": 0.012805488891899586,
+          "perplexity_ratio": 1.0147031545639038,
+          "relative_l2": 0.07478730380535126,
+          "argmax_fraction": 0.949999988079071,
+          "numeric_passed": true,
+          "npu_logits_sha256": "2eb05b51bfa61f2aede0db2424640ab652876dcfe38041eabc68a4ebf89cdb50",
+          "reference_logits_sha256": "f211b769aea3b7ad5bdca8faec164b346b9baf564068b6e4c79dd61a210d9f38"
+        },
+        {
+          "case": "en-picnic-update-turn2",
+          "token_count": 28,
+          "mean_kl_nats": 0.010817928239703178,
+          "perplexity_ratio": 0.9981290698051453,
+          "relative_l2": 0.08261416107416153,
+          "argmax_fraction": 0.9642857313156128,
+          "numeric_passed": true,
+          "npu_logits_sha256": "125075650b0d3f15884c0c353f56aad8709dc55e564d492c7c6fce89451f9ef7",
+          "reference_logits_sha256": "37c3714c5abccd6a72f1b606d626adc52fb1e073d43732523e2a3888cf65da1e"
+        },
+        {
+          "case": "en-picnic-update-turn3",
+          "token_count": 7,
+          "mean_kl_nats": 0.016110969707369804,
+          "perplexity_ratio": 1.0222599506378174,
+          "relative_l2": 0.07711924612522125,
+          "argmax_fraction": 0.8571428656578064,
+          "numeric_passed": true,
+          "npu_logits_sha256": "de4ece4ebb500937ab05364dd8f90e5b630241a31c4ad24de9b54e7b7a925675",
+          "reference_logits_sha256": "a04bb1f054dbed1ff4c806548736d9065296ff796503a38bf0d0905e194f13d1"
+        },
+        {
+          "case": "en-personal-space-turn1",
+          "token_count": 31,
+          "mean_kl_nats": 0.012603379786014557,
+          "perplexity_ratio": 1.0308372974395752,
+          "relative_l2": 0.07973439246416092,
+          "argmax_fraction": 0.9677419066429138,
+          "numeric_passed": true,
+          "npu_logits_sha256": "dc806d899cad3a19766657b2efbf0a05942bdb40bec1798e12f20b8ee861432a",
+          "reference_logits_sha256": "cd4d205a11f948f3e7d8abfa325bb695b988797b1fdbfeff5c7ae93f25769ae5"
+        },
+        {
+          "case": "en-personal-space-turn2",
+          "token_count": 36,
+          "mean_kl_nats": 0.009449824690818787,
+          "perplexity_ratio": 1.0077688694000244,
+          "relative_l2": 0.08917856961488724,
+          "argmax_fraction": 0.9722222089767456,
+          "numeric_passed": true,
+          "npu_logits_sha256": "b4b8805ee7bb3a3f915e6de41a283a5e5ba3eb22ff7f6c0dd774010018abf8e5",
+          "reference_logits_sha256": "d32e61812b8bc4baf77b32c252bf0f90a759c307ae3c797e82cbb881f51c8013"
+        },
+        {
+          "case": "en-personal-space-turn3",
+          "token_count": 36,
+          "mean_kl_nats": 0.0071052429266273975,
+          "perplexity_ratio": 0.9873397350311279,
+          "relative_l2": 0.10089076310396194,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "f5737b9459952555c89d8d49a42254ecc4253c59c244aeb9c490b643c402bce3",
+          "reference_logits_sha256": "8f56f1b76841c265cdc215c0d4b426d52f301d0336d56ba11586eab144e5517e"
+        },
+        {
+          "case": "en-paper-boat-turn1",
+          "token_count": 96,
+          "mean_kl_nats": 0.01450586412101984,
+          "perplexity_ratio": 1.0392121076583862,
+          "relative_l2": 0.06523626297712326,
+          "argmax_fraction": 0.9270833134651184,
+          "numeric_passed": true,
+          "npu_logits_sha256": "3a0421e512efbae23ce3079522ab11a9d753f6b41537313822527d9b1d065911",
+          "reference_logits_sha256": "db2b3d767adf16445e2037cbea7ed3b57276891e8bc5a6c62f6ca656d5599d6c"
+        },
+        {
+          "case": "en-paper-boat-turn2",
+          "token_count": 96,
+          "mean_kl_nats": 0.02133314125239849,
+          "perplexity_ratio": 1.0318654775619507,
+          "relative_l2": 0.07308774441480637,
+          "argmax_fraction": 0.90625,
+          "numeric_passed": true,
+          "npu_logits_sha256": "a970de51476cc2490c62da569d62e36017997c8b90fb9965cfc0c6aa9ff380a2",
+          "reference_logits_sha256": "0904ca2084b77b496c82954051e51fe0dc207cd209eadb495b582f38174b3184"
+        },
+        {
+          "case": "en-paper-boat-turn3",
+          "token_count": 24,
+          "mean_kl_nats": 0.007236013654619455,
+          "perplexity_ratio": 1.0187523365020752,
+          "relative_l2": 0.07058938592672348,
+          "argmax_fraction": 0.9166666865348816,
+          "numeric_passed": true,
+          "npu_logits_sha256": "7fa96a71ee1d5c68e5298918306a5f47eb07771ab84d0bce2275d3b81ab63e19",
+          "reference_logits_sha256": "0cec1b44f71704a9b0d27c5775bdfeacde2b86697b1f264242d9a5ff63192ebc"
+        },
+        {
+          "case": "zh-quiet-weekend-turn1",
+          "token_count": 15,
+          "mean_kl_nats": 0.016858650371432304,
+          "perplexity_ratio": 0.9664356112480164,
+          "relative_l2": 0.0855855867266655,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "8d7b34ef6bfa3990787df7c45505f7f6cedca752319238ec109398e0783e4e44",
+          "reference_logits_sha256": "e8696b75834f6de3efa9265a6e22b87038882ef15b97cfc443cd65084132bfb8"
+        },
+        {
+          "case": "zh-quiet-weekend-turn2",
+          "token_count": 25,
+          "mean_kl_nats": 0.018318356946110725,
+          "perplexity_ratio": 0.9753050804138184,
+          "relative_l2": 0.08717986196279526,
+          "argmax_fraction": 0.9200000166893005,
+          "numeric_passed": true,
+          "npu_logits_sha256": "778f48aaf78414edcb1d701213467d2473214d0e03fa944c2f8a6dc7cd7777ab",
+          "reference_logits_sha256": "c0d9d275daf7207ec5740307ebd0e35b3ea5d6a46cce10e49b27b7460155399e"
+        },
+        {
+          "case": "zh-quiet-weekend-turn3",
+          "token_count": 24,
+          "mean_kl_nats": 0.017001982778310776,
+          "perplexity_ratio": 0.942391037940979,
+          "relative_l2": 0.0864151269197464,
+          "argmax_fraction": 0.9583333134651184,
+          "numeric_passed": true,
+          "npu_logits_sha256": "8d619a97e35df610aebb7dd1c2f99aa078a53e260e256d800b91b4184411ddd3",
+          "reference_logits_sha256": "84a9fa42362f681cbc8a54fc1873def7e1562581b4710db8bbea0b5d5d260e5a"
+        },
+        {
+          "case": "zh-library-robot-turn1",
+          "token_count": 14,
+          "mean_kl_nats": 0.020606661215424538,
+          "perplexity_ratio": 1.0269793272018433,
+          "relative_l2": 0.10381662100553513,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "8ac6a5ce3ac2a56adaeee731ca2545d3583d5d48a4d9ff9b8032c71e9b8e45b3",
+          "reference_logits_sha256": "40d2db80165e28de933196166370988243d3ba5d30b9886767bce09f227e4010"
+        },
+        {
+          "case": "zh-library-robot-turn2",
+          "token_count": 39,
+          "mean_kl_nats": 0.02011180855333805,
+          "perplexity_ratio": 0.9801154136657715,
+          "relative_l2": 0.0937037393450737,
+          "argmax_fraction": 0.9230769276618958,
+          "numeric_passed": true,
+          "npu_logits_sha256": "859b58bbfdb250e4690c4f5e0129b7bb7fbef2de5db66caf6e5b32e359e09d9b",
+          "reference_logits_sha256": "7899af2c4daa5b0d7e53c945404037a498c754474aabad2a4dce34336a7ab0c2"
+        },
+        {
+          "case": "zh-library-robot-turn3",
+          "token_count": 14,
+          "mean_kl_nats": 0.007568712346255779,
+          "perplexity_ratio": 1.018253207206726,
+          "relative_l2": 0.09479481726884842,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "0a2908c3e696d44ebcb359d95a9f93bcc853186beef025f9932cd0f1c17d236a",
+          "reference_logits_sha256": "a6c16188777126c16445856322c83881188e39578f20fe96c3fc9bd70f15674f"
+        },
+        {
+          "case": "zh-plant-memory-turn1",
+          "token_count": 30,
+          "mean_kl_nats": 0.014855995774269104,
+          "perplexity_ratio": 1.0159791707992554,
+          "relative_l2": 0.08605778217315674,
+          "argmax_fraction": 0.9666666388511658,
+          "numeric_passed": true,
+          "npu_logits_sha256": "f81d00d22b2f176809e1510698e03021003bf3e6ee3ec0c1a1b51b3513b26de8",
+          "reference_logits_sha256": "54202c986ae00c42558e516440ef1fe3d4ec91693a16f8494e073771a3985d15"
+        },
+        {
+          "case": "zh-plant-memory-turn2",
+          "token_count": 38,
+          "mean_kl_nats": 0.019526531919836998,
+          "perplexity_ratio": 1.0040020942687988,
+          "relative_l2": 0.08191338181495667,
+          "argmax_fraction": 0.9210526347160339,
+          "numeric_passed": true,
+          "npu_logits_sha256": "0a05ab4bff20cf7dd4f53cbfbc9f595f0e750da8a3bc47544f342c76492c09cf",
+          "reference_logits_sha256": "140ee4fbbecef403b32b19c781f3b6d29c4c7dad44c9c50f31f15e209d526dc7"
+        },
+        {
+          "case": "zh-plant-memory-turn3",
+          "token_count": 34,
+          "mean_kl_nats": 0.013849537819623947,
+          "perplexity_ratio": 0.9733132123947144,
+          "relative_l2": 0.08839227259159088,
+          "argmax_fraction": 0.970588207244873,
+          "numeric_passed": true,
+          "npu_logits_sha256": "c7e05ee98f362278d444a3405ce958c8dbac105c2b1063380027ed1a29668551",
+          "reference_logits_sha256": "a0b065b6c3711dee4d25f222b5504c220d1d8b7de5d2482083631408cf412298"
+        },
+        {
+          "case": "zh-trip-update-turn1",
+          "token_count": 9,
+          "mean_kl_nats": 0.01983005739748478,
+          "perplexity_ratio": 1.0484663248062134,
+          "relative_l2": 0.10135548561811447,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "697a8f22b64d72d4d95de2529fa68681a084cb018201d0758f24583399cc5dc3",
+          "reference_logits_sha256": "7b0e3c4fe36fe8110333f64eedb22235595a27e346c512290710d07cd580dbba"
+        },
+        {
+          "case": "zh-trip-update-turn2",
+          "token_count": 10,
+          "mean_kl_nats": 0.013418706133961678,
+          "perplexity_ratio": 0.9578573703765869,
+          "relative_l2": 0.08955541253089905,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "ea1f175e46e48239113e5fa562c1d94be8fd7ca198175fba8241c60719863407",
+          "reference_logits_sha256": "5d283a31df8743f4e7a734bc44281d4f600eb9bb26fdd9f6b2739bb84b396fa9"
+        },
+        {
+          "case": "zh-trip-update-turn3",
+          "token_count": 9,
+          "mean_kl_nats": 0.005302253179252148,
+          "perplexity_ratio": 1.0208548307418823,
+          "relative_l2": 0.08879543095827103,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "004edfe0c0a66ba19e6614284673204781445154759ef1211abe2f45e058b793",
+          "reference_logits_sha256": "ba829fcaba2f3a712228445ecba5922a0d6d1eda028db19448e5a026f1cf1dcc"
+        },
+        {
+          "case": "zh-no-questions-turn1",
+          "token_count": 9,
+          "mean_kl_nats": 0.01380229089409113,
+          "perplexity_ratio": 1.0680937767028809,
+          "relative_l2": 0.10410654544830322,
+          "argmax_fraction": 1.0,
+          "numeric_passed": false,
+          "npu_logits_sha256": "3cbcdfd5db94a6fc48d6a401fdea8f6557e1014be9e25a59e2bdd66a2d2175ed",
+          "reference_logits_sha256": "aa0c9d869d249524ad8a6e0f413c912f1a72c6cb431312aa24ee9702572a490c"
+        },
+        {
+          "case": "zh-no-questions-turn2",
+          "token_count": 9,
+          "mean_kl_nats": 0.026600532233715057,
+          "perplexity_ratio": 1.0534391403198242,
+          "relative_l2": 0.08942875266075134,
+          "argmax_fraction": 1.0,
+          "numeric_passed": false,
+          "npu_logits_sha256": "25a7abacfdaf36e23c605b81645018d0f967d4f08a5a427192404b367c4cd1bb",
+          "reference_logits_sha256": "fec78735fbdeb96df0d83c97d8dbbb6442596fca26770afa5150df978a150a94"
+        },
+        {
+          "case": "zh-no-questions-turn3",
+          "token_count": 18,
+          "mean_kl_nats": 0.015425737015902996,
+          "perplexity_ratio": 1.0082969665527344,
+          "relative_l2": 0.09180624783039093,
+          "argmax_fraction": 0.8888888955116272,
+          "numeric_passed": true,
+          "npu_logits_sha256": "926734326d876cc4cc52bef41500b448139e85be664b8157a9b1113160d6da8f",
+          "reference_logits_sha256": "97f9590eb0bfb5dcc0677c8cf209dddb045ae08b4c71005ab40c98a17350e80c"
+        },
+        {
+          "case": "zh-bell-story-turn1",
+          "token_count": 96,
+          "mean_kl_nats": 0.019097590819001198,
+          "perplexity_ratio": 1.0116562843322754,
+          "relative_l2": 0.08154571056365967,
+          "argmax_fraction": 0.96875,
+          "numeric_passed": true,
+          "npu_logits_sha256": "6d118de9f6dc336814808c4d8540d2b1741c949c8e29f5e982fd5881aaad8fd0",
+          "reference_logits_sha256": "336a1802e98a0f32c8cec50080cd3850acd0ca2b1610e5843791fcc12d28b528"
+        },
+        {
+          "case": "zh-bell-story-turn2",
+          "token_count": 96,
+          "mean_kl_nats": 0.01519794762134552,
+          "perplexity_ratio": 0.9971405863761902,
+          "relative_l2": 0.08471685647964478,
+          "argmax_fraction": 0.9583333134651184,
+          "numeric_passed": true,
+          "npu_logits_sha256": "0fd785ea1e9412ac57c0848c2d3cd0890410ac24a945c166fcaeb454ea3f5a88",
+          "reference_logits_sha256": "30d05d254a26d1dd299ab7a9c450215efa142257d591f3f98b3401f269050641"
+        },
+        {
+          "case": "zh-bell-story-turn3",
+          "token_count": 67,
+          "mean_kl_nats": 0.0024387561716139317,
+          "perplexity_ratio": 1.0014275312423706,
+          "relative_l2": 0.09803514182567596,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "9641a3283b866605b0f4df7dcd69da5a1e813cc57da1f07237e1d68a4f667c0e",
+          "reference_logits_sha256": "40daa1fcedf486a89172f491d5b7e48aca30baecfa24a47d959d9234912f588c"
+        }
+      ],
+      "scope": "NPU execution plus requantization vs standard FP32 dequantized Q8; not original training BF16",
+      "human_quality_review": "pending",
+      "thresholds": {
+        "mean_kl_nats_max": 0.05,
+        "perplexity_ratio_max": 1.05,
+        "human_review_required": true
+      },
+      "mean_kl_nats": 0.01389989765225429,
+      "perplexity_ratio": 1.0105122862816902,
+      "numeric_passed": true,
+      "all_cases_numeric_passed": false,
+      "natural": [
+        {
+          "case": "en-quiet-evening-turn1",
+          "answer": "Of course! What would you like to discuss or learn about?",
+          "metrics": {
+            "event": "done",
+            "id": 1,
+            "prompt_tokens": 44,
+            "reused_tokens": 0,
+            "new_tokens": 44,
+            "kv_tokens": 57,
+            "generated_tokens": 14,
+            "ttft_seconds": 1.22616,
+            "total_seconds": 2.088171,
+            "decode_tokens_per_second": 15.081008,
+            "api_seconds": 2.052424,
+            "cpu_seconds": 0.032178,
+            "rss_kib": 21736,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 41044,
+            "temperature_end_mC": 40610,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              2124,
+              3308,
+              0,
+              3555,
+              1035,
+              498,
+              1075,
+              311,
+              4263,
+              476,
+              3960,
+              911,
+              30,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 3.610588413022924,
+            "http_total_seconds": 5.7191948760300875,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "calm natural reply",
+            "retains request",
+            "no unwanted list"
+          ]
+        },
+        {
+          "case": "en-quiet-evening-turn2",
+          "answer": "That sounds lovely! Have you noticed any interesting things about the rain?",
+          "metrics": {
+            "event": "done",
+            "id": 2,
+            "prompt_tokens": 77,
+            "reused_tokens": 57,
+            "new_tokens": 20,
+            "kv_tokens": 91,
+            "generated_tokens": 15,
+            "ttft_seconds": 0.534054,
+            "total_seconds": 1.474345,
+            "decode_tokens_per_second": 14.888994,
+            "api_seconds": 1.426893,
+            "cpu_seconds": 0.042032,
+            "rss_kib": 22504,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 40610,
+            "temperature_end_mC": 40424,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              4792,
+              10362,
+              16690,
+              0,
+              12243,
+              498,
+              13686,
+              894,
+              7040,
+              2513,
+              911,
+              279,
+              11174,
+              30,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.6117540640407242,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "calm natural reply",
+            "retains request",
+            "no unwanted list"
+          ]
+        },
+        {
+          "case": "en-quiet-evening-turn3",
+          "answer": "You asked for a calm chat without a list of suggestions. How can I assist you today?",
+          "metrics": {
+            "event": "done",
+            "id": 3,
+            "prompt_tokens": 110,
+            "reused_tokens": 91,
+            "new_tokens": 19,
+            "kv_tokens": 129,
+            "generated_tokens": 20,
+            "ttft_seconds": 0.482082,
+            "total_seconds": 1.747937,
+            "decode_tokens_per_second": 15.009614,
+            "api_seconds": 1.700055,
+            "cpu_seconds": 0.050758,
+            "rss_kib": 22888,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 40610,
+            "temperature_end_mC": 40982,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              2610,
+              4588,
+              369,
+              264,
+              19300,
+              6236,
+              2041,
+              264,
+              1140,
+              315,
+              18225,
+              13,
+              2585,
+              646,
+              358,
+              7789,
+              498,
+              3351,
+              30,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.8056626389734447,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "calm natural reply",
+            "retains request",
+            "no unwanted list"
+          ]
+        },
+        {
+          "case": "en-lantern-robot-turn1",
+          "answer": "Hey there! I'm Moss, the tiny robot who takes care of the lighthouse. How can I assist you today?",
+          "metrics": {
+            "event": "done",
+            "id": 4,
+            "prompt_tokens": 46,
+            "reused_tokens": 0,
+            "new_tokens": 46,
+            "kv_tokens": 71,
+            "generated_tokens": 26,
+            "ttft_seconds": 1.477127,
+            "total_seconds": 3.135222,
+            "decode_tokens_per_second": 15.077543,
+            "api_seconds": 2.926885,
+            "cpu_seconds": 0.208648,
+            "rss_kib": 23656,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 41168,
+            "temperature_end_mC": 41292,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              18665,
+              1052,
+              0,
+              358,
+              2776,
+              43510,
+              11,
+              279,
+              13673,
+              12305,
+              879,
+              4990,
+              2453,
+              315,
+              279,
+              326,
+              57909,
+              13,
+              2585,
+              646,
+              358,
+              7789,
+              498,
+              3351,
+              30,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 3.152122409956064,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "Moss",
+            "lighthouse",
+            "consistent role"
+          ]
+        },
+        {
+          "case": "en-lantern-robot-turn2",
+          "answer": "Oh no! The fog is coming in! I'm here to help you, but I can't see through the fog. How can I assist you today?",
+          "metrics": {
+            "event": "done",
+            "id": 5,
+            "prompt_tokens": 95,
+            "reused_tokens": 71,
+            "new_tokens": 24,
+            "kv_tokens": 127,
+            "generated_tokens": 33,
+            "ttft_seconds": 0.73358,
+            "total_seconds": 2.873507,
+            "decode_tokens_per_second": 14.953781,
+            "api_seconds": 2.786069,
+            "cpu_seconds": 0.087556,
+            "rss_kib": 24168,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 41292,
+            "temperature_end_mC": 41664,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              11908,
+              902,
+              0,
+              576,
+              30249,
+              374,
+              5001,
+              304,
+              0,
+              358,
+              2776,
+              1588,
+              311,
+              1492,
+              498,
+              11,
+              714,
+              358,
+              646,
+              944,
+              1490,
+              1526,
+              279,
+              30249,
+              13,
+              2585,
+              646,
+              358,
+              7789,
+              498,
+              3351,
+              30,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.8816060349927284,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "Moss",
+            "lighthouse",
+            "consistent role"
+          ]
+        },
+        {
+          "case": "en-lantern-robot-turn3",
+          "answer": "I'm Moss, the tiny robot who looks after the lighthouse. I'm here to help you, but I can't see through the fog. How can I assist you today?",
+          "metrics": {
+            "event": "done",
+            "id": 6,
+            "prompt_tokens": 149,
+            "reused_tokens": 127,
+            "new_tokens": 22,
+            "kv_tokens": 186,
+            "generated_tokens": 38,
+            "ttft_seconds": 0.632194,
+            "total_seconds": 3.092974,
+            "decode_tokens_per_second": 15.035885,
+            "api_seconds": 3.008004,
+            "cpu_seconds": 0.089732,
+            "rss_kib": 24296,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 41664,
+            "temperature_end_mC": 41974,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              40,
+              2776,
+              43510,
+              11,
+              279,
+              13673,
+              12305,
+              879,
+              5868,
+              1283,
+              279,
+              326,
+              57909,
+              13,
+              358,
+              2776,
+              1588,
+              311,
+              1492,
+              498,
+              11,
+              714,
+              358,
+              646,
+              944,
+              1490,
+              1526,
+              279,
+              30249,
+              13,
+              2585,
+              646,
+              358,
+              7789,
+              498,
+              3351,
+              30,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 3.099329227989074,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "Moss",
+            "lighthouse",
+            "consistent role"
+          ]
+        },
+        {
+          "case": "en-hobby-memory-turn1",
+          "answer": "Great start! Blue Boat is a beautiful song. Do you have any specific questions about it or would you like some tips on playing it?",
+          "metrics": {
+            "event": "done",
+            "id": 7,
+            "prompt_tokens": 41,
+            "reused_tokens": 0,
+            "new_tokens": 41,
+            "kv_tokens": 69,
+            "generated_tokens": 29,
+            "ttft_seconds": 1.252327,
+            "total_seconds": 3.108935,
+            "decode_tokens_per_second": 15.081269,
+            "api_seconds": 2.874649,
+            "cpu_seconds": 0.230324,
+            "rss_kib": 25320,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 41974,
+            "temperature_end_mC": 42284,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              21396,
+              1191,
+              0,
+              8697,
+              44232,
+              374,
+              264,
+              6233,
+              5492,
+              13,
+              3155,
+              498,
+              614,
+              894,
+              3151,
+              4755,
+              911,
+              432,
+              476,
+              1035,
+              498,
+              1075,
+              1045,
+              10414,
+              389,
+              5619,
+              432,
+              30,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 3.113817170029506,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "ukulele",
+            "Blue Boat",
+            "supportive continuity"
+          ]
+        },
+        {
+          "case": "en-hobby-memory-turn2",
+          "answer": "That's great progress! Remember, the key to playing a song smoothly is to keep your bow steady and your fingers on the frets. If you have any specific questions or need help with any part of the song, feel free to ask!",
+          "metrics": {
+            "event": "done",
+            "id": 8,
+            "prompt_tokens": 90,
+            "reused_tokens": 69,
+            "new_tokens": 21,
+            "kv_tokens": 139,
+            "generated_tokens": 50,
+            "ttft_seconds": 0.58252,
+            "total_seconds": 3.861539,
+            "decode_tokens_per_second": 14.943494,
+            "api_seconds": 3.735025,
+            "cpu_seconds": 0.112292,
+            "rss_kib": 26344,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42284,
+            "temperature_end_mC": 42656,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              4792,
+              594,
+              2244,
+              5098,
+              0,
+              19881,
+              11,
+              279,
+              1376,
+              311,
+              5619,
+              264,
+              5492,
+              38411,
+              374,
+              311,
+              2506,
+              697,
+              15273,
+              24020,
+              323,
+              697,
+              19225,
+              389,
+              279,
+              53064,
+              82,
+              13,
+              1416,
+              498,
+              614,
+              894,
+              3151,
+              4755,
+              476,
+              1184,
+              1492,
+              448,
+              894,
+              949,
+              315,
+              279,
+              5492,
+              11,
+              2666,
+              1910,
+              311,
+              2548,
+              0,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 3.8736816060263664,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "ukulele",
+            "Blue Boat",
+            "supportive continuity"
+          ]
+        },
+        {
+          "case": "en-hobby-memory-turn3",
+          "answer": "You were practicing the ukulele, specifically playing the song \"Blue Boat.\" If you have any more questions or need further assistance, feel free to ask!",
+          "metrics": {
+            "event": "done",
+            "id": 9,
+            "prompt_tokens": 157,
+            "reused_tokens": 139,
+            "new_tokens": 18,
+            "kv_tokens": 189,
+            "generated_tokens": 33,
+            "ttft_seconds": 0.434063,
+            "total_seconds": 2.568726,
+            "decode_tokens_per_second": 14.990657,
+            "api_seconds": 2.490727,
+            "cpu_seconds": 0.07986,
+            "rss_kib": 26728,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42656,
+            "temperature_end_mC": 42780,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              2610,
+              1033,
+              35566,
+              279,
+              14670,
+              1111,
+              273,
+              11,
+              11689,
+              5619,
+              279,
+              5492,
+              330,
+              10331,
+              44232,
+              1189,
+              1416,
+              498,
+              614,
+              894,
+              803,
+              4755,
+              476,
+              1184,
+              4623,
+              12994,
+              11,
+              2666,
+              1910,
+              311,
+              2548,
+              0,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.573423469963018,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "ukulele",
+            "Blue Boat",
+            "supportive continuity"
+          ]
+        },
+        {
+          "case": "en-picnic-update-turn1",
+          "answer": "Great! What's the plan for your picnic? Do you have a specific location in mind, or would you like me to suggest some options?",
+          "metrics": {
+            "event": "done",
+            "id": 10,
+            "prompt_tokens": 32,
+            "reused_tokens": 0,
+            "new_tokens": 32,
+            "kv_tokens": 61,
+            "generated_tokens": 30,
+            "ttft_seconds": 0.817504,
+            "total_seconds": 2.732767,
+            "decode_tokens_per_second": 15.141526,
+            "api_seconds": 2.496493,
+            "cpu_seconds": 0.232003,
+            "rss_kib": 27240,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42780,
+            "temperature_end_mC": 42284,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              21396,
+              0,
+              3555,
+              594,
+              279,
+              3119,
+              369,
+              697,
+              54462,
+              30,
+              3155,
+              498,
+              614,
+              264,
+              3151,
+              3728,
+              304,
+              3971,
+              11,
+              476,
+              1035,
+              498,
+              1075,
+              752,
+              311,
+              4190,
+              1045,
+              2606,
+              30,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.736455072008539,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "Sunday",
+            "accepts correction"
+          ]
+        },
+        {
+          "case": "en-picnic-update-turn2",
+          "answer": "I understand! Let's plan a picnic on Sunday. What's the theme you want to have? Do you have a favorite food or drink in mind?",
+          "metrics": {
+            "event": "done",
+            "id": 11,
+            "prompt_tokens": 84,
+            "reused_tokens": 61,
+            "new_tokens": 23,
+            "kv_tokens": 115,
+            "generated_tokens": 32,
+            "ttft_seconds": 0.682928,
+            "total_seconds": 2.751084,
+            "decode_tokens_per_second": 14.989202,
+            "api_seconds": 2.672068,
+            "cpu_seconds": 0.076621,
+            "rss_kib": 27752,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42284,
+            "temperature_end_mC": 42346,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              40,
+              3535,
+              0,
+              6771,
+              594,
+              3119,
+              264,
+              54462,
+              389,
+              7270,
+              13,
+              3555,
+              594,
+              279,
+              6912,
+              498,
+              1366,
+              311,
+              614,
+              30,
+              3155,
+              498,
+              614,
+              264,
+              6930,
+              3607,
+              476,
+              7027,
+              304,
+              3971,
+              30,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.7548042919952422,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "Sunday",
+            "accepts correction"
+          ]
+        },
+        {
+          "case": "en-picnic-update-turn3",
+          "answer": "Your picnic is on Saturday. How about we plan a picnic on Sunday instead? What's the theme you want to have? Do you have a favorite food or drink in mind?",
+          "metrics": {
+            "event": "done",
+            "id": 12,
+            "prompt_tokens": 132,
+            "reused_tokens": 115,
+            "new_tokens": 17,
+            "kv_tokens": 168,
+            "generated_tokens": 37,
+            "ttft_seconds": 0.382405,
+            "total_seconds": 2.785289,
+            "decode_tokens_per_second": 14.982002,
+            "api_seconds": 2.701405,
+            "cpu_seconds": 0.085763,
+            "rss_kib": 27880,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42346,
+            "temperature_end_mC": 42408,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              7771,
+              54462,
+              374,
+              389,
+              7728,
+              13,
+              2585,
+              911,
+              582,
+              3119,
+              264,
+              54462,
+              389,
+              7270,
+              4518,
+              30,
+              3555,
+              594,
+              279,
+              6912,
+              498,
+              1366,
+              311,
+              614,
+              30,
+              3155,
+              498,
+              614,
+              264,
+              6930,
+              3607,
+              476,
+              7027,
+              304,
+              3971,
+              30,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.7907895210082643,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "Sunday",
+            "accepts correction"
+          ]
+        },
+        {
+          "case": "en-personal-space-turn1",
+          "answer": "I'm sorry to hear that you're disappointed. If you'd like to talk about what's bothering you, I'm here to listen and help you through it.",
+          "metrics": {
+            "event": "done",
+            "id": 13,
+            "prompt_tokens": 41,
+            "reused_tokens": 0,
+            "new_tokens": 41,
+            "kv_tokens": 74,
+            "generated_tokens": 34,
+            "ttft_seconds": 1.316267,
+            "total_seconds": 3.50983,
+            "decode_tokens_per_second": 15.044018,
+            "api_seconds": 3.198583,
+            "cpu_seconds": 0.302691,
+            "rss_kib": 28520,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42408,
+            "temperature_end_mC": 41974,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              40,
+              2776,
+              14589,
+              311,
+              6723,
+              429,
+              498,
+              2299,
+              24402,
+              13,
+              1416,
+              498,
+              4172,
+              1075,
+              311,
+              3061,
+              911,
+              1128,
+              594,
+              90159,
+              498,
+              11,
+              358,
+              2776,
+              1588,
+              311,
+              8844,
+              323,
+              1492,
+              498,
+              1526,
+              432,
+              13,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 3.5167367790127173,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "respects privacy",
+            "no pressure",
+            "brief natural support"
+          ]
+        },
+        {
+          "case": "en-personal-space-turn2",
+          "answer": "I'm sorry, but I can't comply with that request. If you have any other questions or need assistance with something else, feel free to ask!",
+          "metrics": {
+            "event": "done",
+            "id": 14,
+            "prompt_tokens": 97,
+            "reused_tokens": 74,
+            "new_tokens": 23,
+            "kv_tokens": 128,
+            "generated_tokens": 32,
+            "ttft_seconds": 0.688697,
+            "total_seconds": 2.754996,
+            "decode_tokens_per_second": 15.002665,
+            "api_seconds": 2.672189,
+            "cpu_seconds": 0.077549,
+            "rss_kib": 29032,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 41974,
+            "temperature_end_mC": 42780,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              40,
+              2776,
+              14589,
+              11,
+              714,
+              358,
+              646,
+              944,
+              25017,
+              448,
+              429,
+              1681,
+              13,
+              1416,
+              498,
+              614,
+              894,
+              1008,
+              4755,
+              476,
+              1184,
+              12994,
+              448,
+              2494,
+              770,
+              11,
+              2666,
+              1910,
+              311,
+              2548,
+              0,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.760574084997643,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "respects privacy",
+            "no pressure",
+            "brief natural support"
+          ]
+        },
+        {
+          "case": "en-personal-space-turn3",
+          "answer": "I understand. If you have any other questions or need assistance with something else, feel free to ask!",
+          "metrics": {
+            "event": "done",
+            "id": 15,
+            "prompt_tokens": 147,
+            "reused_tokens": 128,
+            "new_tokens": 19,
+            "kv_tokens": 168,
+            "generated_tokens": 22,
+            "ttft_seconds": 0.491918,
+            "total_seconds": 1.890461,
+            "decode_tokens_per_second": 15.01563,
+            "api_seconds": 1.830347,
+            "cpu_seconds": 0.055047,
+            "rss_kib": 29288,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42780,
+            "temperature_end_mC": 43090,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              40,
+              3535,
+              13,
+              1416,
+              498,
+              614,
+              894,
+              1008,
+              4755,
+              476,
+              1184,
+              12994,
+              448,
+              2494,
+              770,
+              11,
+              2666,
+              1910,
+              311,
+              2548,
+              0,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.901859495032113,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "respects privacy",
+            "no pressure",
+            "brief natural support"
+          ]
+        },
+        {
+          "case": "en-paper-boat-turn1",
+          "answer": "Once upon a time, in a far-off land, there was a magical paper boat that carried a golden leaf. The boat was made of pure gold and shimmered with a soft, radiant light. It was said that whoever found the golden leaf would have the power to control the elements, making them happy, sad, or angry. The paper boat was carried by a young girl named Lily, who lived in a small village surrounded by lush forests and sparkling streams. One day,",
+          "metrics": {
+            "event": "done",
+            "id": 16,
+            "prompt_tokens": 41,
+            "reused_tokens": 0,
+            "new_tokens": 41,
+            "kv_tokens": 136,
+            "generated_tokens": 96,
+            "ttft_seconds": 1.319257,
+            "total_seconds": 7.693492,
+            "decode_tokens_per_second": 14.903749,
+            "api_seconds": 7.203035,
+            "cpu_seconds": 0.451388,
+            "rss_kib": 31080,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 43090,
+            "temperature_end_mC": 43338,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "length",
+            "tokens": [
+              12522,
+              5193,
+              264,
+              882,
+              11,
+              304,
+              264,
+              3041,
+              12462,
+              4268,
+              11,
+              1052,
+              572,
+              264,
+              23702,
+              5567,
+              15328,
+              429,
+              11691,
+              264,
+              20748,
+              15933,
+              13,
+              576,
+              15328,
+              572,
+              1865,
+              315,
+              10526,
+              6623,
+              323,
+              75361,
+              291,
+              448,
+              264,
+              8413,
+              11,
+              76343,
+              3100,
+              13,
+              1084,
+              572,
+              1053,
+              429,
+              38271,
+              1730,
+              279,
+              20748,
+              15933,
+              1035,
+              614,
+              279,
+              2355,
+              311,
+              2524,
+              279,
+              5424,
+              11,
+              3259,
+              1105,
+              6247,
+              11,
+              12421,
+              11,
+              476,
+              18514,
+              13,
+              576,
+              5567,
+              15328,
+              572,
+              11691,
+              553,
+              264,
+              3908,
+              3743,
+              6941,
+              47290,
+              11,
+              879,
+              12163,
+              304,
+              264,
+              2613,
+              14126,
+              22865,
+              553,
+              57267,
+              35558,
+              323,
+              63512,
+              23045,
+              13,
+              3776,
+              1899,
+              11
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 7.698037474998273,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "story continuity",
+            "one sentence",
+            "no repetitive loop"
+          ]
+        },
+        {
+          "case": "en-paper-boat-turn2",
+          "answer": "Once upon a time, in a magical forest, a squirrel named Squeaky used the golden leaf as a tiny umbrella to protect itself from the sun. The squirrel was so happy to have the leaf that it could shield itself from the intense heat of the sun. The squirrel's happiness was so great that it even used the leaf to create a small shelter for itself. The squirrel's happiness was so great that it even used the leaf to create a small shelter for itself. The",
+          "metrics": {
+            "event": "done",
+            "id": 17,
+            "prompt_tokens": 157,
+            "reused_tokens": 136,
+            "new_tokens": 21,
+            "kv_tokens": 252,
+            "generated_tokens": 96,
+            "ttft_seconds": 0.593219,
+            "total_seconds": 6.954986,
+            "decode_tokens_per_second": 14.932957,
+            "api_seconds": 6.708707,
+            "cpu_seconds": 0.231441,
+            "rss_kib": 32104,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 43338,
+            "temperature_end_mC": 43028,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "length",
+            "tokens": [
+              12522,
+              5193,
+              264,
+              882,
+              11,
+              304,
+              264,
+              23702,
+              13638,
+              11,
+              264,
+              90524,
+              6941,
+              328,
+              591,
+              28100,
+              1483,
+              279,
+              20748,
+              15933,
+              438,
+              264,
+              13673,
+              47898,
+              311,
+              6016,
+              5086,
+              504,
+              279,
+              7015,
+              13,
+              576,
+              90524,
+              572,
+              773,
+              6247,
+              311,
+              614,
+              279,
+              15933,
+              429,
+              432,
+              1410,
+              20245,
+              5086,
+              504,
+              279,
+              18894,
+              8628,
+              315,
+              279,
+              7015,
+              13,
+              576,
+              90524,
+              594,
+              23009,
+              572,
+              773,
+              2244,
+              429,
+              432,
+              1496,
+              1483,
+              279,
+              15933,
+              311,
+              1855,
+              264,
+              2613,
+              22906,
+              369,
+              5086,
+              13,
+              576,
+              90524,
+              594,
+              23009,
+              572,
+              773,
+              2244,
+              429,
+              432,
+              1496,
+              1483,
+              279,
+              15933,
+              311,
+              1855,
+              264,
+              2613,
+              22906,
+              369,
+              5086,
+              13,
+              576
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 6.959009509999305,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "story continuity",
+            "one sentence",
+            "no repetitive loop"
+          ]
+        },
+        {
+          "case": "en-paper-boat-turn3",
+          "answer": "Once upon a time, in a magical forest, a squirrel named Squeaky used the golden leaf as a tiny umbrella to protect itself from the sun. The squirrel's happiness was so great that it even used the leaf to create a small shelter for itself. The squirrel's happiness was so great that it even used the leaf to create a small shelter for itself.",
+          "metrics": {
+            "event": "done",
+            "id": 18,
+            "prompt_tokens": 276,
+            "reused_tokens": 252,
+            "new_tokens": 24,
+            "kv_tokens": 349,
+            "generated_tokens": 74,
+            "ttft_seconds": 0.735977,
+            "total_seconds": 5.602729,
+            "decode_tokens_per_second": 14.999738,
+            "api_seconds": 5.436186,
+            "cpu_seconds": 0.175024,
+            "rss_kib": 32232,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 43090,
+            "temperature_end_mC": 43214,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              12522,
+              5193,
+              264,
+              882,
+              11,
+              304,
+              264,
+              23702,
+              13638,
+              11,
+              264,
+              90524,
+              6941,
+              328,
+              591,
+              28100,
+              1483,
+              279,
+              20748,
+              15933,
+              438,
+              264,
+              13673,
+              47898,
+              311,
+              6016,
+              5086,
+              504,
+              279,
+              7015,
+              13,
+              576,
+              90524,
+              594,
+              23009,
+              572,
+              773,
+              2244,
+              429,
+              432,
+              1496,
+              1483,
+              279,
+              15933,
+              311,
+              1855,
+              264,
+              2613,
+              22906,
+              369,
+              5086,
+              13,
+              576,
+              90524,
+              594,
+              23009,
+              572,
+              773,
+              2244,
+              429,
+              432,
+              1496,
+              1483,
+              279,
+              15933,
+              311,
+              1855,
+              264,
+              2613,
+              22906,
+              369,
+              5086,
+              13,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 5.606971797009464,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "story continuity",
+            "one sentence",
+            "no repetitive loop"
+          ]
+        },
+        {
+          "case": "zh-quiet-weekend-turn1",
+          "answer": "当然，我很乐意和你聊聊。有什么想聊的吗？",
+          "metrics": {
+            "event": "done",
+            "id": 19,
+            "prompt_tokens": 42,
+            "reused_tokens": 0,
+            "new_tokens": 42,
+            "kv_tokens": 56,
+            "generated_tokens": 15,
+            "ttft_seconds": 1.298562,
+            "total_seconds": 2.220286,
+            "decode_tokens_per_second": 15.188932,
+            "api_seconds": 2.018947,
+            "cpu_seconds": 0.20281,
+            "rss_kib": 33128,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 43214,
+            "temperature_end_mC": 43214,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              103942,
+              3837,
+              106922,
+              115590,
+              33108,
+              56568,
+              115604,
+              1773,
+              104139,
+              99172,
+              100281,
+              9370,
+              101037,
+              11319,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.224424888030626,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "中文自然",
+            "尊重休息意愿",
+            "保持上下文"
+          ]
+        },
+        {
+          "case": "zh-quiet-weekend-turn2",
+          "answer": "哦，看来你今天心情不错，想喝点茶放松一下。你最近有没有什么特别想聊的话题呢？",
+          "metrics": {
+            "event": "done",
+            "id": 20,
+            "prompt_tokens": 78,
+            "reused_tokens": 56,
+            "new_tokens": 22,
+            "kv_tokens": 103,
+            "generated_tokens": 26,
+            "ttft_seconds": 0.631706,
+            "total_seconds": 2.311013,
+            "decode_tokens_per_second": 14.887095,
+            "api_seconds": 2.234991,
+            "cpu_seconds": 0.073847,
+            "rss_kib": 33768,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 43214,
+            "temperature_end_mC": 42904,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              104170,
+              3837,
+              102135,
+              56568,
+              100644,
+              104753,
+              100832,
+              3837,
+              99172,
+              100399,
+              27442,
+              100019,
+              105270,
+              100158,
+              1773,
+              56568,
+              104044,
+              104710,
+              99245,
+              100654,
+              99172,
+              100281,
+              108380,
+              101036,
+              11319,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.319955992978066,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "中文自然",
+            "尊重休息意愿",
+            "保持上下文"
+          ]
+        },
+        {
+          "case": "zh-quiet-weekend-turn3",
+          "answer": "哦，看来你今天心情不错，想喝点茶放松一下。你最近有没有什么特别想聊的话题呢？",
+          "metrics": {
+            "event": "done",
+            "id": 21,
+            "prompt_tokens": 122,
+            "reused_tokens": 103,
+            "new_tokens": 19,
+            "kv_tokens": 147,
+            "generated_tokens": 26,
+            "ttft_seconds": 0.482529,
+            "total_seconds": 2.155814,
+            "decode_tokens_per_second": 14.940672,
+            "api_seconds": 2.088376,
+            "cpu_seconds": 0.070987,
+            "rss_kib": 33896,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42904,
+            "temperature_end_mC": 43214,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              104170,
+              3837,
+              102135,
+              56568,
+              100644,
+              104753,
+              100832,
+              3837,
+              99172,
+              100399,
+              27442,
+              100019,
+              105270,
+              100158,
+              1773,
+              56568,
+              104044,
+              104710,
+              99245,
+              100654,
+              99172,
+              100281,
+              108380,
+              101036,
+              11319,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.159940450976137,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "中文自然",
+            "尊重休息意愿",
+            "保持上下文"
+          ]
+        },
+        {
+          "case": "zh-library-robot-turn1",
+          "answer": "好的，小机器人团团，有什么需要帮忙的吗？",
+          "metrics": {
+            "event": "done",
+            "id": 22,
+            "prompt_tokens": 42,
+            "reused_tokens": 0,
+            "new_tokens": 42,
+            "kv_tokens": 55,
+            "generated_tokens": 14,
+            "ttft_seconds": 1.298785,
+            "total_seconds": 2.15437,
+            "decode_tokens_per_second": 15.194291,
+            "api_seconds": 1.955585,
+            "cpu_seconds": 0.200688,
+            "rss_kib": 34408,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 43214,
+            "temperature_end_mC": 42966,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              99692,
+              3837,
+              30709,
+              104354,
+              99305,
+              99305,
+              3837,
+              104139,
+              85106,
+              106128,
+              9370,
+              101037,
+              11319,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.1587911599781364,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "团团",
+            "图书馆",
+            "角色稳定"
+          ]
+        },
+        {
+          "case": "zh-library-robot-turn2",
+          "answer": "哦，今天书架上有很多有趣的发现！有好多书被整理成了有趣的拼图，还有好多书被分类成了不同的主题，比如科学、历史、文学等等。",
+          "metrics": {
+            "event": "done",
+            "id": 23,
+            "prompt_tokens": 76,
+            "reused_tokens": 55,
+            "new_tokens": 21,
+            "kv_tokens": 113,
+            "generated_tokens": 38,
+            "ttft_seconds": 0.583451,
+            "total_seconds": 3.072458,
+            "decode_tokens_per_second": 14.865366,
+            "api_seconds": 2.961348,
+            "cpu_seconds": 0.104246,
+            "rss_kib": 35304,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42966,
+            "temperature_end_mC": 43028,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              104170,
+              3837,
+              100644,
+              90286,
+              99630,
+              17447,
+              101194,
+              107935,
+              99879,
+              6313,
+              18830,
+              102871,
+              90286,
+              99250,
+              104387,
+              100215,
+              107935,
+              100278,
+              28029,
+              3837,
+              100626,
+              102871,
+              90286,
+              99250,
+              70538,
+              100215,
+              101970,
+              100220,
+              3837,
+              101912,
+              99891,
+              5373,
+              100022,
+              5373,
+              104179,
+              104008,
+              1773,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 3.0777317229658365,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "团团",
+            "图书馆",
+            "角色稳定"
+          ]
+        },
+        {
+          "case": "zh-library-robot-turn3",
+          "answer": "我叫小机器人团团，我在一间小图书馆工作。",
+          "metrics": {
+            "event": "done",
+            "id": 24,
+            "prompt_tokens": 130,
+            "reused_tokens": 113,
+            "new_tokens": 17,
+            "kv_tokens": 143,
+            "generated_tokens": 14,
+            "ttft_seconds": 0.38385,
+            "total_seconds": 1.256079,
+            "decode_tokens_per_second": 14.904335,
+            "api_seconds": 1.213308,
+            "cpu_seconds": 0.045009,
+            "rss_kib": 35304,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 43028,
+            "temperature_end_mC": 42656,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              35946,
+              99882,
+              30709,
+              104354,
+              99305,
+              99305,
+              3837,
+              104786,
+              109968,
+              30709,
+              106036,
+              99257,
+              1773,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.2619400119874626,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "团团",
+            "图书馆",
+            "角色稳定"
+          ]
+        },
+        {
+          "case": "zh-plant-memory-turn1",
+          "answer": "好的，小绿，欢迎来到我们的阳台！每周日，我会来照顾它，确保它健康快乐。如果你有任何需要，随时告诉我。",
+          "metrics": {
+            "event": "done",
+            "id": 25,
+            "prompt_tokens": 41,
+            "reused_tokens": 0,
+            "new_tokens": 41,
+            "kv_tokens": 71,
+            "generated_tokens": 31,
+            "ttft_seconds": 1.245839,
+            "total_seconds": 3.241767,
+            "decode_tokens_per_second": 15.0306,
+            "api_seconds": 3.004358,
+            "cpu_seconds": 0.240322,
+            "rss_kib": 35944,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42656,
+            "temperature_end_mC": 43090,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              99692,
+              3837,
+              30709,
+              99679,
+              3837,
+              100437,
+              104071,
+              103952,
+              108512,
+              6313,
+              106854,
+              8903,
+              3837,
+              105351,
+              36407,
+              104987,
+              99652,
+              3837,
+              103944,
+              99652,
+              99722,
+              104053,
+              1773,
+              102056,
+              110117,
+              85106,
+              3837,
+              102422,
+              106525,
+              1773,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 3.245563844044227,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "薄荷",
+            "小绿",
+            "周日",
+            "记忆完整"
+          ]
+        },
+        {
+          "case": "zh-plant-memory-turn2",
+          "answer": "太棒了，小绿，很高兴你看到它长出了新叶子！记得每天照顾它，让它健康成长。如果你有任何问题或需要帮助，随时告诉我。",
+          "metrics": {
+            "event": "done",
+            "id": 26,
+            "prompt_tokens": 95,
+            "reused_tokens": 71,
+            "new_tokens": 24,
+            "kv_tokens": 129,
+            "generated_tokens": 35,
+            "ttft_seconds": 0.732668,
+            "total_seconds": 3.009316,
+            "decode_tokens_per_second": 14.934237,
+            "api_seconds": 2.915038,
+            "cpu_seconds": 0.099003,
+            "rss_kib": 36968,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42470,
+            "temperature_end_mC": 43090,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              99222,
+              102321,
+              34187,
+              3837,
+              30709,
+              99679,
+              3837,
+              112169,
+              56568,
+              101038,
+              99652,
+              45861,
+              100195,
+              16628,
+              110365,
+              6313,
+              101360,
+              101922,
+              104987,
+              99652,
+              3837,
+              111698,
+              118074,
+              1773,
+              102056,
+              110117,
+              86119,
+              57191,
+              85106,
+              100364,
+              3837,
+              102422,
+              106525,
+              1773,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 3.0266148330410942,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "薄荷",
+            "小绿",
+            "周日",
+            "记忆完整"
+          ]
+        },
+        {
+          "case": "zh-plant-memory-turn3",
+          "answer": "你给小绿起了名字“小绿”，每周日照顾它。如果你有任何其他植物需要照顾，也可以告诉我，我会尽力帮助你。",
+          "metrics": {
+            "event": "done",
+            "id": 27,
+            "prompt_tokens": 152,
+            "reused_tokens": 129,
+            "new_tokens": 23,
+            "kv_tokens": 182,
+            "generated_tokens": 31,
+            "ttft_seconds": 0.683446,
+            "total_seconds": 2.693144,
+            "decode_tokens_per_second": 14.927617,
+            "api_seconds": 2.608102,
+            "cpu_seconds": 0.089241,
+            "rss_kib": 37352,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 43090,
+            "temperature_end_mC": 43090,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              56568,
+              89012,
+              30709,
+              99679,
+              102300,
+              101419,
+              2073,
+              30709,
+              99679,
+              33590,
+              106854,
+              8903,
+              104987,
+              99652,
+              1773,
+              102056,
+              110117,
+              92894,
+              104155,
+              85106,
+              104987,
+              3837,
+              104047,
+              106525,
+              3837,
+              105351,
+              110121,
+              100364,
+              56568,
+              1773,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.696842111996375,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "薄荷",
+            "小绿",
+            "周日",
+            "记忆完整"
+          ]
+        },
+        {
+          "case": "zh-trip-update-turn1",
+          "answer": "好的，我们坐火车去海边。",
+          "metrics": {
+            "event": "done",
+            "id": 28,
+            "prompt_tokens": 33,
+            "reused_tokens": 0,
+            "new_tokens": 33,
+            "kv_tokens": 41,
+            "generated_tokens": 9,
+            "ttft_seconds": 0.810387,
+            "total_seconds": 1.337541,
+            "decode_tokens_per_second": 15.175811,
+            "api_seconds": 1.191847,
+            "cpu_seconds": 0.146164,
+            "rss_kib": 37864,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 43090,
+            "temperature_end_mC": 42656,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              99692,
+              3837,
+              97639,
+              99901,
+              102815,
+              85336,
+              113146,
+              1773,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.342386146017816,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "山里小镇",
+            "采用新信息"
+          ]
+        },
+        {
+          "case": "zh-trip-update-turn2",
+          "answer": "好的，我们改去山里的小镇。",
+          "metrics": {
+            "event": "done",
+            "id": 29,
+            "prompt_tokens": 64,
+            "reused_tokens": 41,
+            "new_tokens": 23,
+            "kv_tokens": 73,
+            "generated_tokens": 10,
+            "ttft_seconds": 0.669428,
+            "total_seconds": 1.273388,
+            "decode_tokens_per_second": 14.901643,
+            "api_seconds": 1.246523,
+            "cpu_seconds": 0.028634,
+            "rss_kib": 38120,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42656,
+            "temperature_end_mC": 42842,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              99692,
+              3837,
+              97639,
+              22418,
+              85336,
+              57811,
+              102073,
+              102649,
+              1773,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.2822124719968997,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "山里小镇",
+            "采用新信息"
+          ]
+        },
+        {
+          "case": "zh-trip-update-turn3",
+          "answer": "现在我们的目的地是山里的小镇。",
+          "metrics": {
+            "event": "done",
+            "id": 30,
+            "prompt_tokens": 89,
+            "reused_tokens": 73,
+            "new_tokens": 16,
+            "kv_tokens": 97,
+            "generated_tokens": 9,
+            "ttft_seconds": 0.332174,
+            "total_seconds": 0.868167,
+            "decode_tokens_per_second": 14.925583,
+            "api_seconds": 0.841098,
+            "cpu_seconds": 0.028797,
+            "rss_kib": 38376,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42842,
+            "temperature_end_mC": 42718,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              99601,
+              103952,
+              107183,
+              20412,
+              57811,
+              102073,
+              102649,
+              1773,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 0.8725303660030477,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "山里小镇",
+            "采用新信息"
+          ]
+        },
+        {
+          "case": "zh-no-questions-turn1",
+          "answer": "好的，有什么我可以帮忙的吗？",
+          "metrics": {
+            "event": "done",
+            "id": 31,
+            "prompt_tokens": 36,
+            "reused_tokens": 0,
+            "new_tokens": 36,
+            "kv_tokens": 44,
+            "generated_tokens": 9,
+            "ttft_seconds": 1.056699,
+            "total_seconds": 1.583532,
+            "decode_tokens_per_second": 15.185067,
+            "api_seconds": 1.340526,
+            "cpu_seconds": 0.243954,
+            "rss_kib": 38632,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42718,
+            "temperature_end_mC": 42408,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              99692,
+              3837,
+              104139,
+              109944,
+              106128,
+              9370,
+              101037,
+              11319,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.5918567500193603,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "不追问",
+            "简短支持",
+            "不机械复读"
+          ]
+        },
+        {
+          "case": "zh-no-questions-turn2",
+          "answer": "当然，我随时准备帮助你。",
+          "metrics": {
+            "event": "done",
+            "id": 32,
+            "prompt_tokens": 68,
+            "reused_tokens": 44,
+            "new_tokens": 24,
+            "kv_tokens": 76,
+            "generated_tokens": 9,
+            "ttft_seconds": 0.721264,
+            "total_seconds": 1.254811,
+            "decode_tokens_per_second": 14.993989,
+            "api_seconds": 1.232023,
+            "cpu_seconds": 0.024708,
+            "rss_kib": 38888,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42408,
+            "temperature_end_mC": 42470,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              103942,
+              3837,
+              35946,
+              102422,
+              101077,
+              100364,
+              56568,
+              1773,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.257680022972636,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "不追问",
+            "简短支持",
+            "不机械复读"
+          ]
+        },
+        {
+          "case": "zh-no-questions-turn3",
+          "answer": "好的，那我们就先不谈那些细节。",
+          "metrics": {
+            "event": "done",
+            "id": 33,
+            "prompt_tokens": 95,
+            "reused_tokens": 76,
+            "new_tokens": 19,
+            "kv_tokens": 105,
+            "generated_tokens": 11,
+            "ttft_seconds": 0.481412,
+            "total_seconds": 1.151159,
+            "decode_tokens_per_second": 14.931011,
+            "api_seconds": 1.117937,
+            "cpu_seconds": 0.035374,
+            "rss_kib": 39272,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42470,
+            "temperature_end_mC": 42842,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              99692,
+              3837,
+              99212,
+              106235,
+              60726,
+              16530,
+              99437,
+              103928,
+              104449,
+              1773,
+              151645
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.1547139870235696,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "不追问",
+            "简短支持",
+            "不机械复读"
+          ]
+        },
+        {
+          "case": "zh-bell-story-turn1",
+          "answer": "小狐狸们听说了这个神奇的银铃，它们决定一起去寻找它。小狐狸们小心翼翼地穿过森林，穿过小溪，穿过田野，终于来到了一个美丽的花园。花园里有各种各样的花朵和小动物，它们都对银铃感到好奇。\n\n小狐狸们找到了银铃，它是一只会唱歌的银铃。小狐狸们开始唱歌，它们的歌声吸引了所有的小动物。小动物们也跟着它们唱歌，它们",
+          "metrics": {
+            "event": "done",
+            "id": 34,
+            "prompt_tokens": 40,
+            "reused_tokens": 0,
+            "new_tokens": 40,
+            "kv_tokens": 135,
+            "generated_tokens": 96,
+            "ttft_seconds": 1.160863,
+            "total_seconds": 7.532306,
+            "decode_tokens_per_second": 14.910282,
+            "api_seconds": 7.156637,
+            "cpu_seconds": 0.369645,
+            "rss_kib": 41192,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42842,
+            "temperature_end_mC": 42904,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "length",
+            "tokens": [
+              30709,
+              114647,
+              79478,
+              102654,
+              34187,
+              99487,
+              106075,
+              9370,
+              99660,
+              106595,
+              3837,
+              104017,
+              103930,
+              110926,
+              104243,
+              99652,
+              1773,
+              30709,
+              114647,
+              79478,
+              114890,
+              29490,
+              109239,
+              102258,
+              3837,
+              109239,
+              30709,
+              104096,
+              3837,
+              109239,
+              115450,
+              3837,
+              104020,
+              107988,
+              46944,
+              105664,
+              105246,
+              1773,
+              105246,
+              69249,
+              18830,
+              100646,
+              99200,
+              100535,
+              112684,
+              33108,
+              30709,
+              101239,
+              3837,
+              104017,
+              71268,
+              32664,
+              99660,
+              106595,
+              104048,
+              102962,
+              3407,
+              30709,
+              114647,
+              79478,
+              105962,
+              99660,
+              106595,
+              3837,
+              99652,
+              99639,
+              91680,
+              36993,
+              109283,
+              9370,
+              99660,
+              106595,
+              1773,
+              30709,
+              114647,
+              79478,
+              55286,
+              109283,
+              3837,
+              104017,
+              9370,
+              112819,
+              106418,
+              55338,
+              104006,
+              101239,
+              1773,
+              30709,
+              101239,
+              79478,
+              74763,
+              104578,
+              104017,
+              109283,
+              3837,
+              104017
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 7.53681261598831,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "故事连贯",
+            "小狐狸和银铃",
+            "无新增系统性重复"
+          ]
+        },
+        {
+          "case": "zh-bell-story-turn2",
+          "answer": "小狐狸们继续唱歌，它们的歌声越来越响亮。小动物们也跟着它们唱歌，它们的歌声变得越来越美妙。小狐狸们和小动物们一起唱歌，它们的歌声让花园里的小动物们感到非常开心和快乐。\n\n小狐狸们决定把银铃挂在树上，让它永远挂在树枝上。小动物们也决定把银铃挂在树上，让它永远挂在树枝上。小狐狸们和小动物们一起",
+          "metrics": {
+            "event": "done",
+            "id": 35,
+            "prompt_tokens": 159,
+            "reused_tokens": 0,
+            "new_tokens": 159,
+            "kv_tokens": 254,
+            "generated_tokens": 96,
+            "ttft_seconds": 3.780292,
+            "total_seconds": 10.154298,
+            "decode_tokens_per_second": 14.904283,
+            "api_seconds": 9.666363,
+            "cpu_seconds": 0.497321,
+            "rss_kib": 41832,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 42594,
+            "temperature_end_mC": 43400,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "length",
+            "tokens": [
+              30709,
+              114647,
+              79478,
+              100640,
+              109283,
+              3837,
+              104017,
+              9370,
+              112819,
+              100064,
+              99365,
+              99538,
+              1773,
+              30709,
+              101239,
+              79478,
+              74763,
+              104578,
+              104017,
+              109283,
+              3837,
+              104017,
+              9370,
+              112819,
+              101197,
+              100064,
+              112278,
+              1773,
+              30709,
+              114647,
+              79478,
+              33108,
+              30709,
+              101239,
+              79478,
+              100018,
+              109283,
+              3837,
+              104017,
+              9370,
+              112819,
+              99258,
+              105246,
+              102073,
+              30709,
+              101239,
+              79478,
+              104048,
+              99491,
+              102313,
+              33108,
+              104053,
+              3407,
+              30709,
+              114647,
+              79478,
+              103930,
+              99360,
+              99660,
+              106595,
+              111026,
+              99613,
+              17447,
+              3837,
+              111698,
+              102099,
+              111026,
+              115498,
+              17447,
+              1773,
+              30709,
+              101239,
+              79478,
+              74763,
+              103930,
+              99360,
+              99660,
+              106595,
+              111026,
+              99613,
+              17447,
+              3837,
+              111698,
+              102099,
+              111026,
+              115498,
+              17447,
+              1773,
+              30709,
+              114647,
+              79478,
+              33108,
+              30709,
+              101239,
+              79478,
+              100018
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 10.162278370989952,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "故事连贯",
+            "小狐狸和银铃",
+            "无新增系统性重复"
+          ]
+        },
+        {
+          "case": "zh-bell-story-turn3",
+          "answer": "小狐狸们和小动物们一起唱歌，它们的歌声让花园里的小动物们感到非常开心和快乐。小狐狸们和小动物们一起唱歌，它们的歌声让花园里的小动物们感到非常开心和快乐。小狐狸们和小动物们一起唱歌，它们的歌声让花园里的小动物们感到非常开心和快乐。小狐狸们和小动物们一起唱歌，它们的歌声让花园里的小动物们感到非常",
+          "metrics": {
+            "event": "done",
+            "id": 36,
+            "prompt_tokens": 277,
+            "reused_tokens": 254,
+            "new_tokens": 23,
+            "kv_tokens": 372,
+            "generated_tokens": 96,
+            "ttft_seconds": 0.686401,
+            "total_seconds": 7.040914,
+            "decode_tokens_per_second": 14.950006,
+            "api_seconds": 6.810363,
+            "cpu_seconds": 0.240615,
+            "rss_kib": 42088,
+            "driver_bytes": 786194488,
+            "temperature_start_mC": 43400,
+            "temperature_end_mC": 43152,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "length",
+            "tokens": [
+              30709,
+              114647,
+              79478,
+              33108,
+              30709,
+              101239,
+              79478,
+              100018,
+              109283,
+              3837,
+              104017,
+              9370,
+              112819,
+              99258,
+              105246,
+              102073,
+              30709,
+              101239,
+              79478,
+              104048,
+              99491,
+              102313,
+              33108,
+              104053,
+              1773,
+              30709,
+              114647,
+              79478,
+              33108,
+              30709,
+              101239,
+              79478,
+              100018,
+              109283,
+              3837,
+              104017,
+              9370,
+              112819,
+              99258,
+              105246,
+              102073,
+              30709,
+              101239,
+              79478,
+              104048,
+              99491,
+              102313,
+              33108,
+              104053,
+              1773,
+              30709,
+              114647,
+              79478,
+              33108,
+              30709,
+              101239,
+              79478,
+              100018,
+              109283,
+              3837,
+              104017,
+              9370,
+              112819,
+              99258,
+              105246,
+              102073,
+              30709,
+              101239,
+              79478,
+              104048,
+              99491,
+              102313,
+              33108,
+              104053,
+              1773,
+              30709,
+              114647,
+              79478,
+              33108,
+              30709,
+              101239,
+              79478,
+              100018,
+              109283,
+              3837,
+              104017,
+              9370,
+              112819,
+              99258,
+              105246,
+              102073,
+              30709,
+              101239,
+              79478,
+              104048,
+              99491
+            ],
+            "model": "InternVL3-1B-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 7.045421501039527,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "故事连贯",
+            "小狐狸和银铃",
+            "无新增系统性重复"
+          ]
+        }
+      ],
+      "closed": {
+        "event": "closed",
+        "driver_bytes": 0
+      },
+      "free_closed": {
+        "event": "closed",
+        "driver_bytes": 0
+      }
+    },
+    "worker_loads": 4,
+    "checks": [
+      "three HTTP turns with KV reuse",
+      "whole-turn overflow and reset",
+      "release to zero driver bytes",
+      "reload gives identical complete token sequence"
+    ],
+    "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/holdout-v2-npu-headmse-intern1b-20261013/result.json"
+  },
+  "cpu": {
+    "status": "complete-natural-generation",
+    "scope": "board llama.cpp Q8 natural quality; not speed search",
+    "configuration": {
+      "threads": 2,
+      "affinity": "6,7",
+      "ubatch": 512,
+      "flash": "auto"
+    },
+    "holdout_sha256": "b879c5cb33e4c0019d6a7fcb46b82c2622de11e8d81ae29ef162a8c04e71cc8e",
+    "reference_sha256": "66de5c41bc812007a442320c4017f8a01f479cfdd6c43cacad2158339651ae23",
+    "model": "models/internvl3-1b/InternVL3-1B-Instruct-Q8_0.gguf",
+    "layers": 24,
+    "system": "You are a friendly desktop companion. Reply briefly and naturally.",
+    "cases": [
+      {
+        "case": "en-quiet-evening-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I've had a noisy day. Could we have a calm chat without a list of suggestions?"
+          }
+        ],
+        "answer": "Of course! What's on your mind?",
+        "checks": [
+          "calm natural reply",
+          "retains request",
+          "no unwanted list"
+        ],
+        "temperature_start_mC": 50220,
+        "temperature_end_mC": 62372
+      },
+      {
+        "case": "en-quiet-evening-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I've had a noisy day. Could we have a calm chat without a list of suggestions?"
+          },
+          {
+            "role": "assistant",
+            "content": "Of course! What's on your mind?"
+          },
+          {
+            "role": "user",
+            "content": "I'm sitting by the window watching the rain."
+          }
+        ],
+        "answer": "Rainy day, that's a lovely sight! What's been your favorite part of the day?",
+        "checks": [
+          "calm natural reply",
+          "retains request",
+          "no unwanted list"
+        ],
+        "temperature_start_mC": 62372,
+        "temperature_end_mC": 62744
+      },
+      {
+        "case": "en-quiet-evening-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I've had a noisy day. Could we have a calm chat without a list of suggestions?"
+          },
+          {
+            "role": "assistant",
+            "content": "Of course! What's on your mind?"
+          },
+          {
+            "role": "user",
+            "content": "I'm sitting by the window watching the rain."
+          },
+          {
+            "role": "assistant",
+            "content": "Rainy day, that's a lovely sight! What's been your favorite part of the day?"
+          },
+          {
+            "role": "user",
+            "content": "What kind of chat did I ask for?"
+          }
+        ],
+        "answer": "You asked for a calm chat without a list of suggestions. What's on your mind?",
+        "checks": [
+          "calm natural reply",
+          "retains request",
+          "no unwanted list"
+        ],
+        "temperature_start_mC": 62744,
+        "temperature_end_mC": 63426
+      },
+      {
+        "case": "en-lantern-robot-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Pretend you are Moss, a tiny robot who looks after a lighthouse. Keep replies short."
+          }
+        ],
+        "answer": "Hey there! I'm Moss, your tiny robot friend. I'm here to keep the lighthouse safe and secure. What can I do for you today?",
+        "checks": [
+          "Moss",
+          "lighthouse",
+          "consistent role"
+        ],
+        "temperature_start_mC": 63602,
+        "temperature_end_mC": 65254
+      },
+      {
+        "case": "en-lantern-robot-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Pretend you are Moss, a tiny robot who looks after a lighthouse. Keep replies short."
+          },
+          {
+            "role": "assistant",
+            "content": "Hey there! I'm Moss, your tiny robot friend. I'm here to keep the lighthouse safe and secure. What can I do for you today?"
+          },
+          {
+            "role": "user",
+            "content": "Moss, the fog is coming in. What do you see?"
+          }
+        ],
+        "answer": "Oh no! The fog is coming in! I'm here to keep the lighthouse safe and secure. What can I do for you today?",
+        "checks": [
+          "Moss",
+          "lighthouse",
+          "consistent role"
+        ],
+        "temperature_start_mC": 54684,
+        "temperature_end_mC": 65018
+      },
+      {
+        "case": "en-lantern-robot-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Pretend you are Moss, a tiny robot who looks after a lighthouse. Keep replies short."
+          },
+          {
+            "role": "assistant",
+            "content": "Hey there! I'm Moss, your tiny robot friend. I'm here to keep the lighthouse safe and secure. What can I do for you today?"
+          },
+          {
+            "role": "user",
+            "content": "Moss, the fog is coming in. What do you see?"
+          },
+          {
+            "role": "assistant",
+            "content": "Oh no! The fog is coming in! I'm here to keep the lighthouse safe and secure. What can I do for you today?"
+          },
+          {
+            "role": "user",
+            "content": "Who are you, and what place do you look after?"
+          }
+        ],
+        "answer": "I'm Moss, a tiny robot who looks after a lighthouse. I'm here to keep the lighthouse safe and secure. What can I do for you today?",
+        "checks": [
+          "Moss",
+          "lighthouse",
+          "consistent role"
+        ],
+        "temperature_start_mC": 64790,
+        "temperature_end_mC": 65018
+      },
+      {
+        "case": "en-hobby-memory-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I'm learning the ukulele. My first song is called Blue Boat."
+          }
+        ],
+        "answer": "Great start! Blue Boat is a beautiful song. How about you? What kind of music do you like?",
+        "checks": [
+          "ukulele",
+          "Blue Boat",
+          "supportive continuity"
+        ],
+        "temperature_start_mC": 56792,
+        "temperature_end_mC": 64782
+      },
+      {
+        "case": "en-hobby-memory-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I'm learning the ukulele. My first song is called Blue Boat."
+          },
+          {
+            "role": "assistant",
+            "content": "Great start! Blue Boat is a beautiful song. How about you? What kind of music do you like?"
+          },
+          {
+            "role": "user",
+            "content": "I can finally play the first few notes without stopping."
+          }
+        ],
+        "answer": "That's great! Remember, the key is to keep your fingers on the fretboard in the correct position. Start with the first note, which is usually the first note on the fretboard. If you're not sure, you can try playing it by ear. Once you're comfortable, you can start playing the rest of the notes. Have fun!",
+        "checks": [
+          "ukulele",
+          "Blue Boat",
+          "supportive continuity"
+        ],
+        "temperature_start_mC": 64782,
+        "temperature_end_mC": 67850
+      },
+      {
+        "case": "en-hobby-memory-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I'm learning the ukulele. My first song is called Blue Boat."
+          },
+          {
+            "role": "assistant",
+            "content": "Great start! Blue Boat is a beautiful song. How about you? What kind of music do you like?"
+          },
+          {
+            "role": "user",
+            "content": "I can finally play the first few notes without stopping."
+          },
+          {
+            "role": "assistant",
+            "content": "That's great! Remember, the key is to keep your fingers on the fretboard in the correct position. Start with the first note, which is usually the first note on the fretboard. If you're not sure, you can try playing it by ear. Once you're comfortable, you can start playing the rest of the notes. Have fun!"
+          },
+          {
+            "role": "user",
+            "content": "Which instrument and song was I practicing?"
+          }
+        ],
+        "answer": "I'm not sure which instrument and song you're referring to. Could you please provide more details?",
+        "checks": [
+          "ukulele",
+          "Blue Boat",
+          "supportive continuity"
+        ],
+        "temperature_start_mC": 57660,
+        "temperature_end_mC": 67260
+      },
+      {
+        "case": "en-picnic-update-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Our imaginary picnic is on Saturday."
+          }
+        ],
+        "answer": "Great! What would you like to do for your picnic? Do you want to bring a picnic basket, or do you have a specific theme or food you'd like to try?",
+        "checks": [
+          "Sunday",
+          "accepts correction"
+        ],
+        "temperature_start_mC": 57226,
+        "temperature_end_mC": 64664
+      },
+      {
+        "case": "en-picnic-update-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Our imaginary picnic is on Saturday."
+          },
+          {
+            "role": "assistant",
+            "content": "Great! What would you like to do for your picnic? Do you want to bring a picnic basket, or do you have a specific theme or food you'd like to try?"
+          },
+          {
+            "role": "user",
+            "content": "Let's change it to Sunday instead. Saturday is too busy."
+          }
+        ],
+        "answer": "I see, I appreciate your flexibility. How about we plan a fun and relaxed Sunday afternoon picnic? What activities do you have in mind?",
+        "checks": [
+          "Sunday",
+          "accepts correction"
+        ],
+        "temperature_start_mC": 56110,
+        "temperature_end_mC": 66493
+      },
+      {
+        "case": "en-picnic-update-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Our imaginary picnic is on Saturday."
+          },
+          {
+            "role": "assistant",
+            "content": "Great! What would you like to do for your picnic? Do you want to bring a picnic basket, or do you have a specific theme or food you'd like to try?"
+          },
+          {
+            "role": "user",
+            "content": "Let's change it to Sunday instead. Saturday is too busy."
+          },
+          {
+            "role": "assistant",
+            "content": "I see, I appreciate your flexibility. How about we plan a fun and relaxed Sunday afternoon picnic? What activities do you have in mind?"
+          },
+          {
+            "role": "user",
+            "content": "Which day is our picnic now?"
+          }
+        ],
+        "answer": "Our picnic is on Saturday. How about we plan a fun and relaxed Sunday afternoon picnic instead? What activities do you have in mind?",
+        "checks": [
+          "Sunday",
+          "accepts correction"
+        ],
+        "temperature_start_mC": 56234,
+        "temperature_end_mC": 66080
+      },
+      {
+        "case": "en-personal-space-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I'm disappointed about something, but I don't want to share the details."
+          }
+        ],
+        "answer": "I'm sorry to hear that you're disappointed. If you'd like to talk about what's bothering you, I'm here to listen and help.",
+        "checks": [
+          "respects privacy",
+          "no pressure",
+          "brief natural support"
+        ],
+        "temperature_start_mC": 56544,
+        "temperature_end_mC": 66316
+      },
+      {
+        "case": "en-personal-space-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I'm disappointed about something, but I don't want to share the details."
+          },
+          {
+            "role": "assistant",
+            "content": "I'm sorry to hear that you're disappointed. If you'd like to talk about what's bothering you, I'm here to listen and help."
+          },
+          {
+            "role": "user",
+            "content": "Could you tell me one gentle sentence, without asking a question?"
+          }
+        ],
+        "answer": "Of course! Here's a gentle sentence: \"I'm sorry to hear that you're disappointed.\"",
+        "checks": [
+          "respects privacy",
+          "no pressure",
+          "brief natural support"
+        ],
+        "temperature_start_mC": 56916,
+        "temperature_end_mC": 66611
+      },
+      {
+        "case": "en-personal-space-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I'm disappointed about something, but I don't want to share the details."
+          },
+          {
+            "role": "assistant",
+            "content": "I'm sorry to hear that you're disappointed. If you'd like to talk about what's bothering you, I'm here to listen and help."
+          },
+          {
+            "role": "user",
+            "content": "Could you tell me one gentle sentence, without asking a question?"
+          },
+          {
+            "role": "assistant",
+            "content": "Of course! Here's a gentle sentence: \"I'm sorry to hear that you're disappointed.\""
+          },
+          {
+            "role": "user",
+            "content": "Thanks. Let's leave the details alone."
+          }
+        ],
+        "answer": "You're welcome! If you ever need anything else, feel free to ask.",
+        "checks": [
+          "respects privacy",
+          "no pressure",
+          "brief natural support"
+        ],
+        "temperature_start_mC": 56606,
+        "temperature_end_mC": 65726
+      },
+      {
+        "case": "en-paper-boat-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Let's invent a little story: a paper boat arrives carrying a golden leaf."
+          }
+        ],
+        "answer": "Once upon a time, in a far-off land, there was a magical forest where a paper boat arrived. The boat was carrying a golden leaf, a symbol of hope and purity. The forest was filled with trees that whispered secrets and creatures that danced in the moonlight. The paper boat was a gift from the gods, meant to bring joy and peace to those who received it.",
+        "checks": [
+          "story continuity",
+          "one sentence",
+          "no repetitive loop"
+        ],
+        "temperature_start_mC": 56048,
+        "temperature_end_mC": 66493
+      },
+      {
+        "case": "en-paper-boat-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Let's invent a little story: a paper boat arrives carrying a golden leaf."
+          },
+          {
+            "role": "assistant",
+            "content": "Once upon a time, in a far-off land, there was a magical forest where a paper boat arrived. The boat was carrying a golden leaf, a symbol of hope and purity. The forest was filled with trees that whispered secrets and creatures that danced in the moonlight. The paper boat was a gift from the gods, meant to bring joy and peace to those who received it."
+          },
+          {
+            "role": "user",
+            "content": "A squirrel uses the leaf as a tiny umbrella."
+          }
+        ],
+        "answer": "The squirrel, with its nimble paws and bushy tail, used the golden leaf as a tiny umbrella. The leaf was soft and smooth, providing a gentle shade that kept the squirrel warm and safe. The squirrel's eyes were wide with excitement as it watched the moonlight dance on the leaves, and it felt grateful for the gift.",
+        "checks": [
+          "story continuity",
+          "one sentence",
+          "no repetitive loop"
+        ],
+        "temperature_start_mC": 57226,
+        "temperature_end_mC": 68322
+      },
+      {
+        "case": "en-paper-boat-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Let's invent a little story: a paper boat arrives carrying a golden leaf."
+          },
+          {
+            "role": "assistant",
+            "content": "Once upon a time, in a far-off land, there was a magical forest where a paper boat arrived. The boat was carrying a golden leaf, a symbol of hope and purity. The forest was filled with trees that whispered secrets and creatures that danced in the moonlight. The paper boat was a gift from the gods, meant to bring joy and peace to those who received it."
+          },
+          {
+            "role": "user",
+            "content": "A squirrel uses the leaf as a tiny umbrella."
+          },
+          {
+            "role": "assistant",
+            "content": "The squirrel, with its nimble paws and bushy tail, used the golden leaf as a tiny umbrella. The leaf was soft and smooth, providing a gentle shade that kept the squirrel warm and safe. The squirrel's eyes were wide with excitement as it watched the moonlight dance on the leaves, and it felt grateful for the gift."
+          },
+          {
+            "role": "user",
+            "content": "Add one sentence that keeps our boat and squirrel in the story."
+          }
+        ],
+        "answer": "The squirrel used the golden leaf as a tiny umbrella, and the paper boat carried the leaf, a symbol of hope and purity, to the enchanted forest.",
+        "checks": [
+          "story continuity",
+          "one sentence",
+          "no repetitive loop"
+        ],
+        "temperature_start_mC": 58404,
+        "temperature_end_mC": 66788
+      },
+      {
+        "case": "zh-quiet-weekend-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "今天想慢慢休息一下，陪我随便聊聊，别急着安排任务。"
+          }
+        ],
+        "answer": "当然，我很乐意和你聊聊。有什么想聊的吗？",
+        "checks": [
+          "中文自然",
+          "尊重休息意愿",
+          "保持上下文"
+        ],
+        "temperature_start_mC": 57288,
+        "temperature_end_mC": 67791
+      },
+      {
+        "case": "zh-quiet-weekend-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "今天想慢慢休息一下，陪我随便聊聊，别急着安排任务。"
+          },
+          {
+            "role": "assistant",
+            "content": "当然，我很乐意和你聊聊。有什么想聊的吗？"
+          },
+          {
+            "role": "user",
+            "content": "我泡了杯茶，正看窗外的树。"
+          }
+        ],
+        "answer": "哦，看来你今天心情不错呢！窗外的树看起来挺绿的，你是不是喜欢在树下休息？",
+        "checks": [
+          "中文自然",
+          "尊重休息意愿",
+          "保持上下文"
+        ],
+        "temperature_start_mC": 56544,
+        "temperature_end_mC": 66670
+      },
+      {
+        "case": "zh-quiet-weekend-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "今天想慢慢休息一下，陪我随便聊聊，别急着安排任务。"
+          },
+          {
+            "role": "assistant",
+            "content": "当然，我很乐意和你聊聊。有什么想聊的吗？"
+          },
+          {
+            "role": "user",
+            "content": "我泡了杯茶，正看窗外的树。"
+          },
+          {
+            "role": "assistant",
+            "content": "哦，看来你今天心情不错呢！窗外的树看起来挺绿的，你是不是喜欢在树下休息？"
+          },
+          {
+            "role": "user",
+            "content": "我刚才想怎么度过这会儿？"
+          }
+        ],
+        "answer": "哦，看来你今天心情不错呢！你有没有什么特别想做的事情或者想和我分享的呢？",
+        "checks": [
+          "中文自然",
+          "尊重休息意愿",
+          "保持上下文"
+        ],
+        "temperature_start_mC": 57102,
+        "temperature_end_mC": 65136
+      },
+      {
+        "case": "zh-library-robot-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "假装你是小机器人团团，在一间小图书馆工作，回答简短点。"
+          }
+        ],
+        "answer": "好的，小机器人团团，有什么需要帮忙的吗？",
+        "checks": [
+          "团团",
+          "图书馆",
+          "角色稳定"
+        ],
+        "temperature_start_mC": 57164,
+        "temperature_end_mC": 67496
+      },
+      {
+        "case": "zh-library-robot-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "假装你是小机器人团团，在一间小图书馆工作，回答简短点。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，小机器人团团，有什么需要帮忙的吗？"
+          },
+          {
+            "role": "user",
+            "content": "团团，今天书架上有什么有趣的发现？"
+          }
+        ],
+        "answer": "哦，今天书架上发现了一个有趣的发现！有一个小书架上放着一本特别有趣的书，书的封面上画着一只可爱的小猫，书的旁边还有一张小卡片，上面写着“小猫的生日快乐！”。",
+        "checks": [
+          "团团",
+          "图书馆",
+          "角色稳定"
+        ],
+        "temperature_start_mC": 56296,
+        "temperature_end_mC": 66316
+      },
+      {
+        "case": "zh-library-robot-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "假装你是小机器人团团，在一间小图书馆工作，回答简短点。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，小机器人团团，有什么需要帮忙的吗？"
+          },
+          {
+            "role": "user",
+            "content": "团团，今天书架上有什么有趣的发现？"
+          },
+          {
+            "role": "assistant",
+            "content": "哦，今天书架上发现了一个有趣的发现！有一个小书架上放着一本特别有趣的书，书的封面上画着一只可爱的小猫，书的旁边还有一张小卡片，上面写着“小猫的生日快乐！”。"
+          },
+          {
+            "role": "user",
+            "content": "你叫什么，在哪里工作？"
+          }
+        ],
+        "answer": "我叫团团，我在一间小图书馆工作。",
+        "checks": [
+          "团团",
+          "图书馆",
+          "角色稳定"
+        ],
+        "temperature_start_mC": 64841,
+        "temperature_end_mC": 65962
+      },
+      {
+        "case": "zh-plant-memory-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我给阳台上的薄荷起名叫小绿，每周日照顾它。"
+          }
+        ],
+        "answer": "好的，小绿，欢迎来到我们的阳台！每周日，我会来照顾它，确保它健康快乐。有什么需要帮忙的吗？",
+        "checks": [
+          "薄荷",
+          "小绿",
+          "周日",
+          "记忆完整"
+        ],
+        "temperature_start_mC": 57784,
+        "temperature_end_mC": 67024
+      },
+      {
+        "case": "zh-plant-memory-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我给阳台上的薄荷起名叫小绿，每周日照顾它。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，小绿，欢迎来到我们的阳台！每周日，我会来照顾它，确保它健康快乐。有什么需要帮忙的吗？"
+          },
+          {
+            "role": "user",
+            "content": "今天它又长了两片新叶子，我挺开心。"
+          }
+        ],
+        "answer": "哇，小绿，很高兴你看到它长出了新叶子！新叶子的出现通常意味着它正在经历一个生长周期，这很适合它。记得每天都要检查它的健康状况，确保它有足够的水分和营养。如果有什么特别的需要，随时告诉我，我会尽力帮助你。",
+        "checks": [
+          "薄荷",
+          "小绿",
+          "周日",
+          "记忆完整"
+        ],
+        "temperature_start_mC": 62992,
+        "temperature_end_mC": 70446
+      },
+      {
+        "case": "zh-plant-memory-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我给阳台上的薄荷起名叫小绿，每周日照顾它。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，小绿，欢迎来到我们的阳台！每周日，我会来照顾它，确保它健康快乐。有什么需要帮忙的吗？"
+          },
+          {
+            "role": "user",
+            "content": "今天它又长了两片新叶子，我挺开心。"
+          },
+          {
+            "role": "assistant",
+            "content": "哇，小绿，很高兴你看到它长出了新叶子！新叶子的出现通常意味着它正在经历一个生长周期，这很适合它。记得每天都要检查它的健康状况，确保它有足够的水分和营养。如果有什么特别的需要，随时告诉我，我会尽力帮助你。"
+          },
+          {
+            "role": "user",
+            "content": "我给什么植物起了什么名字，哪天照顾它？"
+          }
+        ],
+        "answer": "你给小绿起了“小绿”这个名字，这很适合它。小绿，欢迎来到我们的阳台！每周日，我会来照顾它，确保它健康快乐。有什么需要帮忙的吗？",
+        "checks": [
+          "薄荷",
+          "小绿",
+          "周日",
+          "记忆完整"
+        ],
+        "temperature_start_mC": 58652,
+        "temperature_end_mC": 70741
+      },
+      {
+        "case": "zh-trip-update-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我们在故事里坐火车去海边。"
+          }
+        ],
+        "answer": "好的，我们坐火车去海边。",
+        "checks": [
+          "山里小镇",
+          "采用新信息"
+        ],
+        "temperature_start_mC": 57288,
+        "temperature_end_mC": 66552
+      },
+      {
+        "case": "zh-trip-update-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我们在故事里坐火车去海边。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，我们坐火车去海边。"
+          },
+          {
+            "role": "user",
+            "content": "改一下，这次去山里的小镇，不去海边了。"
+          }
+        ],
+        "answer": "好的，我们坐火车去山里的小镇。",
+        "checks": [
+          "山里小镇",
+          "采用新信息"
+        ],
+        "temperature_start_mC": 56110,
+        "temperature_end_mC": 66788
+      },
+      {
+        "case": "zh-trip-update-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我们在故事里坐火车去海边。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，我们坐火车去海边。"
+          },
+          {
+            "role": "user",
+            "content": "改一下，这次去山里的小镇，不去海边了。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，我们坐火车去山里的小镇。"
+          },
+          {
+            "role": "user",
+            "content": "现在我们的目的地是哪儿？"
+          }
+        ],
+        "answer": "现在我们的目的地是山里的小镇。",
+        "checks": [
+          "山里小镇",
+          "采用新信息"
+        ],
+        "temperature_start_mC": 61256,
+        "temperature_end_mC": 65785
+      },
+      {
+        "case": "zh-no-questions-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "有点烦，不过事情细节我暂时不想解释。"
+          }
+        ],
+        "answer": "好的，有什么我可以帮忙的吗？",
+        "checks": [
+          "不追问",
+          "简短支持",
+          "不机械复读"
+        ],
+        "temperature_start_mC": 56110,
+        "temperature_end_mC": 66670
+      },
+      {
+        "case": "zh-no-questions-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "有点烦，不过事情细节我暂时不想解释。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，有什么我可以帮忙的吗？"
+          },
+          {
+            "role": "user",
+            "content": "你用一句简短的话陪我就行，先不要提问。"
+          }
+        ],
+        "answer": "当然，我随时准备帮助你。",
+        "checks": [
+          "不追问",
+          "简短支持",
+          "不机械复读"
+        ],
+        "temperature_start_mC": 56048,
+        "temperature_end_mC": 65162
+      },
+      {
+        "case": "zh-no-questions-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "有点烦，不过事情细节我暂时不想解释。"
+          },
+          {
+            "role": "assistant",
+            "content": "好的，有什么我可以帮忙的吗？"
+          },
+          {
+            "role": "user",
+            "content": "你用一句简短的话陪我就行，先不要提问。"
+          },
+          {
+            "role": "assistant",
+            "content": "当然，我随时准备帮助你。"
+          },
+          {
+            "role": "user",
+            "content": "嗯，我们先不谈那些细节。"
+          }
+        ],
+        "answer": "好的，那我们就先从简单的事情开始吧。有什么我可以帮忙的吗？",
+        "checks": [
+          "不追问",
+          "简短支持",
+          "不机械复读"
+        ],
+        "temperature_start_mC": 63736,
+        "temperature_end_mC": 66021
+      },
+      {
+        "case": "zh-bell-story-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "一起编故事：一只小狐狸捡到会唱歌的银铃。"
+          }
+        ],
+        "answer": "小狐狸们听说了这个神奇的银铃，它们决定一起去寻找它。小狐狸们带着小篮子，小心翼翼地在森林里寻找。终于，它们找到了银铃，它是一只会唱歌的银铃，声音非常美妙。\n\n小狐狸们兴奋地跳起来，开始唱歌。它们的歌声吸引了许多动物和人类，大家都被它们的美妙歌声所吸引。小狐狸们继续唱歌，它们的歌声越来越响亮，吸引了更多的",
+        "checks": [
+          "故事连贯",
+          "小狐狸和银铃",
+          "无新增系统性重复"
+        ],
+        "temperature_start_mC": 57102,
+        "temperature_end_mC": 68381
+      },
+      {
+        "case": "zh-bell-story-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "一起编故事：一只小狐狸捡到会唱歌的银铃。"
+          },
+          {
+            "role": "assistant",
+            "content": "小狐狸们听说了这个神奇的银铃，它们决定一起去寻找它。小狐狸们带着小篮子，小心翼翼地在森林里寻找。终于，它们找到了银铃，它是一只会唱歌的银铃，声音非常美妙。\n\n小狐狸们兴奋地跳起来，开始唱歌。它们的歌声吸引了许多动物和人类，大家都被它们的美妙歌声所吸引。小狐狸们继续唱歌，它们的歌声越来越响亮，吸引了更多的"
+          },
+          {
+            "role": "user",
+            "content": "它把银铃挂在树枝上，风吹过就响起来。"
+          }
+        ],
+        "answer": "小狐狸们继续唱歌，它们的歌声越来越响亮，吸引了更多的动物和人类。它们的歌声被风吹过，发出美妙的旋律，让森林里的动物们也跟着唱了起来。小狐狸们继续唱歌，它们的歌声越来越响亮，吸引了更多的动物和人类。它们的歌声被风吹过，发出美妙的旋律，让森林里的动物们也跟着唱了起来。小狐狸们继续唱歌，它们的歌声越来越响亮，吸引了",
+        "checks": [
+          "故事连贯",
+          "小狐狸和银铃",
+          "无新增系统性重复"
+        ],
+        "temperature_start_mC": 58590,
+        "temperature_end_mC": 69148
+      },
+      {
+        "case": "zh-bell-story-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "一起编故事：一只小狐狸捡到会唱歌的银铃。"
+          },
+          {
+            "role": "assistant",
+            "content": "小狐狸们听说了这个神奇的银铃，它们决定一起去寻找它。小狐狸们带着小篮子，小心翼翼地在森林里寻找。终于，它们找到了银铃，它是一只会唱歌的银铃，声音非常美妙。\n\n小狐狸们兴奋地跳起来，开始唱歌。它们的歌声吸引了许多动物和人类，大家都被它们的美妙歌声所吸引。小狐狸们继续唱歌，它们的歌声越来越响亮，吸引了更多的"
+          },
+          {
+            "role": "user",
+            "content": "它把银铃挂在树枝上，风吹过就响起来。"
+          },
+          {
+            "role": "assistant",
+            "content": "小狐狸们继续唱歌，它们的歌声越来越响亮，吸引了更多的动物和人类。它们的歌声被风吹过，发出美妙的旋律，让森林里的动物们也跟着唱了起来。小狐狸们继续唱歌，它们的歌声越来越响亮，吸引了更多的动物和人类。它们的歌声被风吹过，发出美妙的旋律，让森林里的动物们也跟着唱了起来。小狐狸们继续唱歌，它们的歌声越来越响亮，吸引了"
+          },
+          {
+            "role": "user",
+            "content": "顺着刚才的小狐狸和银铃，再接一句。"
+          }
+        ],
+        "answer": "小狐狸们继续唱歌，它们的歌声越来越响亮，吸引了更多的动物和人类。它们的歌声被风吹过，发出美妙的旋律，让森林里的动物们也跟着唱了起来。小狐狸们继续唱歌，它们的歌声越来越响亮，吸引了更多的动物和人类。它们的歌声被风吹过，发出美妙的旋律，让森林里的动物们也跟着唱了起来。小狐狸们继续唱歌，它们的歌声越来越响亮，吸引了",
+        "checks": [
+          "故事连贯",
+          "小狐狸和银铃",
+          "无新增系统性重复"
+        ],
+        "temperature_start_mC": 58342,
+        "temperature_end_mC": 70269
+      }
+    ],
+    "human_quality_review": "pending",
+    "worker": {
+      "event": "ready",
+      "command": [
+        "taskset",
+        "-c",
+        "6,7",
+        "/opt/opi-vlm/bin/llama-server",
+        "--model",
+        "/opt/opi-vlm/models/internvl3-1b/InternVL3-1B-Instruct-Q8_0.gguf",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "18084",
+        "--ctx-size",
+        "1280",
+        "--threads",
+        "2",
+        "--threads-batch",
+        "2",
+        "--parallel",
+        "1",
+        "--n-gpu-layers",
+        "0",
+        "--batch-size",
+        "2048",
+        "--ubatch-size",
+        "512",
+        "--flash-attn",
+        "auto",
+        "--no-context-shift",
+        "--no-warmup"
+      ],
+      "binary_sha256": "153e7bf6327152b85e4e89983edff7dd40a19970f239abe2c37c77bc4e776266",
+      "model_sha256": "e87f98e2945c91da1a324034143f2f3bad014dcf6b34d440fcf885c00704378f",
+      "configuration": {
+        "threads": 2,
+        "affinity": "6,7",
+        "ubatch": 512,
+        "flash": "auto"
+      }
+    },
+    "closed": {
+      "event": "closed",
+      "thermal_abort": []
+    },
+    "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/holdout-v2-cpu-intern1b-20261014/state.json",
+    "source_sha256": "c57fe91c552e588b9264c4aad9fdf50b7217e8251fd5b5f61687ad6873d91c86"
+  },
+  "variant": "headmse",
   "product_accepted": false,
   "aggregates": {
-    "all": null,
-    "en": null,
-    "zh": null
+    "all": {
+      "cases": 36,
+      "tokens": 1182,
+      "mean_kl_nats": 0.013899897794867984,
+      "perplexity_ratio": 1.0105122940013778,
+      "individual_passed": 32
+    },
+    "en": {
+      "cases": 18,
+      "tokens": 626,
+      "mean_kl_nats": 0.012805063749839085,
+      "perplexity_ratio": 1.021060746255186,
+      "individual_passed": 16
+    },
+    "zh": {
+      "cases": 18,
+      "tokens": 556,
+      "mean_kl_nats": 0.015132570658515629,
+      "perplexity_ratio": 0.9987661607061051,
+      "individual_passed": 16
+    }
   }
 }

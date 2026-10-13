@@ -26,7 +26,7 @@ def main():
     scripts = Path(__file__).resolve().parent
     raw = (a.reference / 'state.json').read_bytes()
     reference = json.loads(raw)
-    suite_path = scripts / 'quality-holdout-v1.json'
+    suite_path = Path(reference.get('holdout_path', scripts/'quality-holdout-v1.json'))
     assert reference['status'] == 'complete-reference-only'
     assert hashlib.sha256(suite_path.read_bytes()).hexdigest() == reference['holdout_sha256']
     model = Path(reference['model'])

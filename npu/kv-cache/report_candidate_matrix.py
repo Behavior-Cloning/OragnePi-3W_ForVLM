@@ -1,10 +1,12 @@
 """Current DFP candidate coverage, with exact length and CPU trajectory checks."""
+import argparse
 import hashlib
 import json
 from pathlib import Path
 import statistics
 import struct
 from matrix_paths import cpu_result_path
+from report_system_load import summarize
 
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parent/'results'
@@ -14,6 +16,9 @@ def read(path):return json.loads(path.read_text())
 
 
 def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--finalists',action='store_true',help='current CPU trajectories and the separately labelled 1B long-history combination')
+    args=parser.parse_args()
     candidates={}
     failures={}
     def collect(path,label):
@@ -22,13 +27,16 @@ def main():
         if d.get('status')!='complete':return
         v=next(v for v in d['config']['variants'] if v['label']==label)
         # Exclude the older product-range repair baseline and all failed MLP/head trials.
-        if not any(s in v['remote'] for s in ('dfpgateup','dfpmse')):return
-        if any(s in v['remote'] for s in ('headmse','dfpmlp')):return
+        combo=args.finalists and v['remote'].endswith('/full-intern1b-c1280-cap1-headmse')
+        if not combo:
+            if not any(s in v['remote'] for s in ('dfpgateup','dfpmse')):return
+            if any(s in v['remote'] for s in ('headmse','dfpmlp')):return
         runs=[r for r in d['runs'] if r['phase']=='measure' and r['label']==label]
         assert len(runs)==5
         runtime=runs[0]['result'];model='smol500' if runtime['decoder_layers']==32 else 'intern1b'
         depth=32 if model=='smol500' else 24
         h,n=runtime['cached_prefix_tokens'],runtime['new_prompt_tokens']
+        if args.finalists and model=='intern1b' and h==1024 and not combo:return
         assert all(r['result']['decoder_layers']==depth and r['result']['head_on_npu'] and
                    r['result']['generated_tokens']==128 and r['result']['fixed_feedback'] and
                    r['result']['cached_prefix_tokens']==h and r['result']['new_prompt_tokens']==n and
@@ -47,13 +55,17 @@ def main():
                        ('smol500-c1280-dfp-trial-20261013-attempt2/performance.json','candidate'),
                        ('dfpmse-productwide-trial-20261013-attempt2/performance.json','candidate')]:
         collect(ROOT/path,label)
-    for folder in ('candidate-expansion-20261013','candidate-long-expansion-20261013','candidate-short-low-20261013'):
+    folders=('candidate-expansion-20261013','candidate-long-expansion-20261013','candidate-short-low-20261013')
+    if args.finalists:folders+=('cpu-finalist-realignment-20261014',)
+    for folder in folders:
         state=ROOT/folder/'state.json'
         if state.exists():
             for row in read(state)['cases'].values():
                 if row.get('status')=='quality-failed':
                     cfg=row['config'];runtime=read(Path(row['reference'])/'tokens.json')
                     model='smol500' if runtime['decoder_layers']==32 else 'intern1b'
+                    if args.finalists and model=='intern1b' and runtime['cached_prefix_tokens']==1024 and 'cap1-headmse' not in cfg['tag']:
+                        continue
                     failure={'case':cfg['case'],'reference':row['reference'],
                              'validation':read(Path(row['reference'])/'full-validation-w8.json'),
                              'original_q8_development':row['original_q8_development']}
@@ -65,8 +77,10 @@ def main():
     low_path=ROOT/'cpu-q8-low-finalists-20261013/state.json'
     low_search=read(low_path) if low_path.exists() else {'cases':{}}
     rows=[]
-    lines=['# 当前DFP候选：精确长度低中温矩阵','',
-           '500M gate/up峰值DFP，1B gate/up MSE DFP＋prefill16，1024历史另有已验证product范围修复。全部32/24层、完整词表、固定128预测、预热＋五轮。此表不混入旧NPU基线、质量失败的MLP候选或尚未验证的新输出头。','',
+    title='最新CPU对齐与组合候选矩阵' if args.finalists else '当前DFP候选精确矩阵'
+    description=('500M沿用gate/up峰值DFP；1B512历史为gate/up MSE＋prefill16，1B1024历史明确改为cap1＋新输出头组合。与CPU配置搜索五轮入围的最快decode方案重新回灌对齐；本表不把旧1B长历史候选冒充组合方案。' if args.finalists else
+                 '500M gate/up峰值DFP，1B gate/up MSE DFP＋prefill16，1024历史另有已验证product范围修复。此表不混入旧NPU基线、质量失败的MLP候选或尚未验证的新输出头。')
+    lines=['# '+title,'',description+'全部32/24层、完整词表、固定128预测、预热＋五轮。','',
            f'当前候选五轮完成{len(candidates)}/24格；“待测”不是0速度。独立留出仍单独验收，不能以开发轨迹通过自动推广产品。','',
            '| 模型 / 历史＋新增 / 起温 | NPU token/s | NPU首token s | 同温CPU token/s | CPU首token s | 对齐/基线状态 |',
            '| --- | ---: | ---: | ---: | ---: | --- |']
@@ -134,12 +148,43 @@ def main():
     lines+=['','低温起点40–50°C，中温55–<65°C，响应期间自然变化。两端首token均使用引擎口径，不含加载、历史KV准备、调温和HTTP缓冲。低温最快CPU配置仍需同温复核，不能拿中温CPU直接替换低温成绩。','',
             '先筛64新增，再把入围CPU配置扩32/128；不等于穷举所有实现。若更快CPU改变贪心轨迹，保留更高目标线并要求NPU重新回灌和完整logits校验，不回退到慢CPU宣布胜出。','',
             '[独立质量与持续运行](独立质量与连续多轮验收.md) · [真实ASR并发](真实ASR与LLM并发验收.md) · [配对A/B收益与负载](全深度候选提速与负载.md)','',
-            '重建：`npu/.venv/bin/python npu/kv-cache/report_candidate_matrix.py`。','']
-    (HERE/'当前DFP候选精确矩阵.md').write_text('\n'.join(lines))
-    (HERE/'evidence-attack-20261013/candidate-matrix.json').write_text(json.dumps(rows,indent=2,ensure_ascii=False)+'\n')
-    (HERE/'evidence-attack-20261013/candidate-quality-failures.json').write_text(json.dumps(
+            '重建：`npu/.venv/bin/python npu/kv-cache/report_candidate_matrix.py'+(' --finalists' if args.finalists else '')+'`。','']
+    if args.finalists:
+        completed=sum(r['trajectory_aligned'] is True and ('配置搜索complete' in r['cpu_note'] or '低温复核' in r['cpu_note']) for r in rows)
+        lines.insert(4,f'当前同温五轮、CPU入围配置确认且反馈一致：{completed}/24格。未对齐项继续保留CPU更高目标线，不用于加速比。新组合的独立质量另验，不继承旧版本结论。\n')
+        lines+=['## 当前候选与已确认CPU的直接负载','',
+                '仅纳入上表同温、反馈一致且CPU入围配置确认的格子。性能和资源来自同一轮响应；不将旧版本的占用拼到新速度上。整机CPU按8核合计100%，NPU驱动分配与宿主RSS分别列出，二者不能简单相加视为去重后的物理内存。','',
+                '| 模型 / 历史＋新增 / 起温 | NPU相对CPU速度 | CPU/NPU整机CPU % | CPU/NPU进程RSS MiB | NPU驱动 MiB | CPU/NPU可用内存最低 MiB | CPU/NPU响应内温度°C |',
+                '| --- | ---: | --- | --- | ---: | --- | --- |']
+        fmt=lambda x:'未采到' if x is None else f'{x:.1f}'
+        for row in rows:
+            if row['trajectory_aligned'] is not True or not ('配置搜索complete' in row['cpu_note'] or '低温复核' in row['cpu_note']):continue
+            cp,np=Path(row['cpu']['source']),Path(row['npu']['source'])
+            assert hashlib.sha256(cp.read_bytes()).hexdigest()==row['cpu']['source_sha256']
+            assert hashlib.sha256(np.read_bytes()).hexdigest()==row['npu']['source_sha256']
+            c=summarize(cp,'cpu');n=summarize(np,'npu',row['npu']['variant']['label'])
+            row['direct_resources']={'cpu':c,'npu':n}
+            key=f'{row["model"]} / {row["history"]}＋{row["new_tokens"]} / {row["band"]}'
+            if not c or not n:
+                lines.append(f'| {key} | — | 缺少直接采样 | — | — | — | — |');continue
+            c,n=c['medians'],n['medians']
+            gain=n['decode_tps']/c['decode_tps']-1
+            lines.append(f'| {key} | {gain:+.1%} | {c["busy_percent"]:.2f} / {n["busy_percent"]:.2f} | {fmt(c["rss_peak_mib"])} / {fmt(n["rss_peak_mib"])} | {n["driver_mib"]:.1f} | {c["available_min_mib"]:.0f} / {n["available_min_mib"]:.0f} | {c["temperature_min_c"]:.1f}–{c["temperature_max_c"]:.1f} / {n["temperature_min_c"]:.1f}–{n["temperature_max_c"]:.1f} |')
+        lines+=['','| 模型 / 历史＋新增 / 起温 | CPU/NPU PSS MiB | CPU/NPU换入＋换出 KiB | CPU/NPU磁盘读＋写 KiB | CPU/NPU采样覆盖率 |',
+                '| --- | --- | --- | --- | --- |']
+        for row in rows:
+            resources=row.get('direct_resources',{})
+            if not resources.get('cpu') or not resources.get('npu'):continue
+            c,n=resources['cpu']['medians'],resources['npu']['medians']
+            key=f'{row["model"]} / {row["history"]}＋{row["new_tokens"]} / {row["band"]}'
+            lines.append(f'| {key} | {fmt(c["pss_peak_mib"])} / {fmt(n["pss_peak_mib"])} | {(c["swap_in_bytes"]+c["swap_out_bytes"])/1024:.0f} / {(n["swap_in_bytes"]+n["swap_out_bytes"])/1024:.0f} | {(c["disk_read_bytes"]+c["disk_write_bytes"])/1024:.0f} / {(n["disk_read_bytes"]+n["disk_write_bytes"])/1024:.0f} | {c["covered_fraction"]:.0%} / {n["covered_fraction"]:.0%} |')
+        lines+=['','每个指标是五轮各自统计量的中位数。采样只统计完全落入响应内的区间，边界、模型加载及KV历史准备不包含在零换页/零I/O结论中；温度范围也仅覆盖这些区间。MemAvailable含系统缓存及后台服务影响，不是独立模型内存。生产CPU网页在两端均常驻，未测电功率。源文件SHA、逐轮资源和缺失字段保存在同名紧凑证据。','']
+    suffix='finalist-aligned' if args.finalists else 'candidate'
+    (HERE/(title+'.md')).write_text('\n'.join(lines))
+    (HERE/f'evidence-attack-20261013/{suffix}-matrix.json').write_text(json.dumps(rows,indent=2,ensure_ascii=False)+'\n')
+    (HERE/f'evidence-attack-20261013/{suffix}-quality-failures.json').write_text(json.dumps(
         {v['case']:v for v in failures.values()},indent=2,ensure_ascii=False)+'\n')
-    print('current DFP candidate cells',len(rows))
+    print(title,len(rows))
 
 
 if __name__=='__main__':main()

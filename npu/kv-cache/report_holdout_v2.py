@@ -1,4 +1,5 @@
 """Report fresh acceptance separately from tuning, old holdouts and board speed."""
+import argparse
 import hashlib
 import json
 import math
@@ -30,13 +31,20 @@ def aggregate(rows):
 
 
 def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--variant',choices=('headmse','cap1-headmse'),default='headmse')
+    args=parser.parse_args()
+    date='20261013' if args.variant=='headmse' else '20261014'
+    title='1B新输出头' if args.variant=='headmse' else '1B cap1与新输出头组合'
     suite_path = HERE/'quality-holdout-v2.json'
     suite_raw = suite_path.read_bytes()
     suite = json.loads(suite_raw)
-    reference = read(ROOT/'holdout-v2-reference-headmse-intern1b-20261013/state.json')
-    actual = read(ROOT/'holdout-v2-npu-headmse-intern1b-20261013/result.json')
+    reference = read(ROOT/f'holdout-v2-reference-{args.variant}-intern1b-{date}/state.json')
+    actual = read(ROOT/f'holdout-v2-npu-{args.variant}-intern1b-{date}/result.json')
+    cpu = read(ROOT/'holdout-v2-cpu-intern1b-20261014/state.json')
     evidence = {'suite_sha256': hashlib.sha256(suite_raw).hexdigest(),
-                'reference': reference, 'actual': actual, 'product_accepted': False}
+                'reference': reference, 'actual': actual, 'cpu':cpu, 'variant':args.variant,
+                'product_accepted': False}
     assert reference and reference['status'] == 'complete-reference-only'
     assert reference['holdout_sha256'] == evidence['suite_sha256'] and suite['version'] == 2
     expected_ids = {r['case'] for r in reference['cases']}
@@ -50,7 +58,7 @@ def main():
     totals = {lang: aggregate([r for r in rows if lang == 'all' or r['case'].startswith(lang+'-')])
               for lang in ('all', 'en', 'zh')}
     evidence['aggregates'] = totals
-    lines = ['# 1B新输出头：独立v2对话验收', '',
+    lines = ['# '+title+'：独立v2对话验收', '',
              '全部24层、完整151674词表、NPU W8主体及既有FP16例外。12个新中英场景，各三轮；套件在任何候选输出前冻结，只作验收，不用于校准、缩放选择或性能调优。旧输出头v1结果不迁移。', '',
              '参考是工作站标准Transformers对原Q8_0反量化后的FP32计算；本表不是板端CPU速度，也不是对训练原BF16的比较。数值测试采用参考的固定反馈，自由对话使用各自实际生成历史。', '',
              f'任务状态：`{(actual or {}).get("status", "等待板锁")}`；数值进度{len(rows)}/36。留出状态：`{h.get("status", "未开始")}`。执行任务结束不等于产品质量通过。', '',
@@ -72,6 +80,10 @@ def main():
         for r in failures:
             lines.append(f'| {r["case"]} | {r["mean_kl_nats"]:.6f} | {r["perplexity_ratio"]:.6f} |')
     natural = {r['case']: r for r in h.get('natural', [])}
+    cpu_rows={r['case']:r for r in (cpu or {}).get('cases',[])}
+    if cpu:
+        assert cpu['holdout_sha256']==evidence['suite_sha256']
+        lines+=['',f'实际板端CPU Q8自然对照：`{cpu["status"]}`，{len(cpu_rows)}/36条。这是质量对照，不是最快CPU测速；同一用户题目，各自自然历史。']
     if natural:
         lines += ['', '## 全部自由对话原文', '',
                   '同一套用户问题；后续轮分别接续各自回答，不能将两者视为同一token输入。参考在工作站，NPU完整语言计算在板卡，HTTP/分词在主机；尚非独立板端网页。']
@@ -82,7 +94,10 @@ def main():
                 key = scenario['id']+f'-turn{i}'
                 lines += [f'用户{i}：{question}', '', '标准Q8参考：', '', refs[key]['reference_answer'], '', 'NPU：', '',
                           natural.get(key, {}).get('answer', '尚无结果') or '（空回答）', '']
-    lines += ['', '复现：`npu/.venv/bin/python npu/kv-cache/report_holdout_v2.py`。', '']
+                if key in cpu_rows:lines+=['板端CPU：','',cpu_rows[key]['answer'] or '（空回答）','']
+    if args.variant=='cap1-headmse':
+        lines+=['','cap1权重缩放及组合方案在查看v2结果前已经冻结并通过开发轨迹；未根据v2失败条目修改缩放或提示词。此套件仍只用于验收。如果以后用它指导修复，必须换新独立套件。']
+    lines += ['', f'复现：`npu/.venv/bin/python npu/kv-cache/report_holdout_v2.py --variant {args.variant}`。', '']
     # Store compact provenance and complete answer text, excluding token arrays.
     reference['cases'] = [{k: v for k, v in r.items() if k not in ('prompt_tokens', 'feedback_tokens')}
                           for r in reference['cases']]
@@ -90,8 +105,11 @@ def main():
         actual.pop('runs', None)
         for r in rows:
             r.pop('runtime', None)
-    (HERE/'1B新输出头独立v2验收.md').write_text('\n'.join(lines))
-    (HERE/'evidence-attack-20261013/holdout-v2-headmse.json').write_text(
+    if cpu:
+        cpu['cases']=[{k:v for k,v in row.items() if k in ('case','messages','answer','checks','temperature_start_mC','temperature_end_mC')}
+                      for row in cpu['cases']]
+    (HERE/(title+'独立v2验收.md')).write_text('\n'.join(lines))
+    (HERE/f'evidence-attack-20261013/holdout-v2-{args.variant}.json').write_text(
         json.dumps(evidence, indent=2, ensure_ascii=False)+'\n')
     print({'status': (actual or {}).get('status', 'pending'), 'numeric_cases': len(rows), 'natural': len(natural)})
 

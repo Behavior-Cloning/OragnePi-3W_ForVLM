@@ -33,7 +33,7 @@
 | 场景 | 状态 | 执行L2 | 执行门槛 |
 | --- | --- | ---: | --- |
 | headmse-intern1b-h1024-n64 | quality-failed | 5.2051% | False |
-| headmse-intern1b-h1024-n128 | running | — | 待验 |
+| headmse-intern1b-h1024-n128 | complete | 4.0432% | True |
 
 1024＋64若仍未通过，不能把32新增的提速推广到该场景；具体decoder/head分解见[执行误差定位](1B增量64执行误差定位.md)。
 

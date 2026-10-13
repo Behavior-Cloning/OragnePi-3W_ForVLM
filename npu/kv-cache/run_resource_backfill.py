@@ -58,7 +58,7 @@ def main():
         commands=[('cpu',cpu/'results.json',[
             'run_cpu_reference.py','--prompt-folder',cfg['folder'],'--model-id',cfg['model_id'],
             '--context',str(cfg['capacity']),'--tag','resources-'+key+'-cpu'+cpu_suffix,'--output',str(cpu),
-            '--repeats','5','--temperature-band-mc',str(lo),str(hi)]),
+            '--repeats','5','--temperature-band-mc',str(lo),str(hi),'--max-start-temp-mc','50000']),
             ('npu',npu,['benchmark_variants.py','--source',str(source),'--reference',str(reference),
             '--variant','batch32',entry['tag'],reference.name.removeprefix('board-'),str(group),'2',
             '--variant-reference','batch32',str(reference),'--prefill','batch32','32','--fast-greedy','batch32',

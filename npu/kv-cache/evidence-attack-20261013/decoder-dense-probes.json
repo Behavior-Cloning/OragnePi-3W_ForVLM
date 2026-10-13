@@ -205817,7 +205817,7 @@
     "requests_sha256": "a480a96ae1f5cba4ec84773eb287f39efdeb2f468b0b1e6834c8a8e3bb28dec7",
     "cases": {
       "cap1-productwide-intern1b-h1024-n64": {
-        "status": "running",
+        "status": "complete",
         "config": {
           "case": "cap1-productwide-intern1b-h1024-n64",
           "source": "npu/results/full-intern1b-sharded-v2-c128",
@@ -205834,14 +205834,44 @@
             "medium"
           ]
         },
-        "active": "full-depth-run",
-        "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-cap1-productwide/board-cap1-productwide-intern1b-h1024-n64"
+        "active": null,
+        "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-cap1-productwide/board-cap1-productwide-intern1b-h1024-n64",
+        "execution_gate": {
+          "applicable": true,
+          "relative_l2_limit": 0.05,
+          "min_cosine_limit": 0.99,
+          "argmax_match_min": 0.95,
+          "passed": true,
+          "scope": "execution on this trajectory only; not holdout quality acceptance"
+        },
+        "original_q8_development": {
+          "relative_l2": 0.08534587919712067,
+          "mincos": 0.9902871251106262,
+          "kl": 0.009453944861888885,
+          "ppl_ratio": 1.018082211670414
+        },
+        "bands": {
+          "medium": {
+            "result": "npu/results/cap1-expansion-20261013/cap1-productwide-intern1b-h1024-n64-medium.json",
+            "medians": {
+              "decode_tokens_per_second": 15.226188,
+              "ttft_seconds": 1.239674,
+              "total_seconds": 9.578991,
+              "cpu_seconds": 0.2532,
+              "driver_allocated_bytes": 766233144,
+              "decode_decoder_api_seconds": 5.966525,
+              "decode_head_api_seconds": 2.1576,
+              "max_rss_kib": 23416,
+              "load_seconds": 0.66276
+            }
+          }
+        }
       }
     },
     "independent_quality_accepted": false,
     "scope": "full-depth development trajectories; response-start temperature bands",
-    "status": "running",
+    "status": "complete",
     "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/cap1-expansion-20261013/state.json",
-    "source_sha256": "466aec7eee5733f71886ed5bd398bebbddeb1913cdb5f0cd343949259cb0bd04"
+    "source_sha256": "711020e1b3c0ffa7815a74eff7e96469a72233d7097051c091e5f7a71876795f"
   }
 }

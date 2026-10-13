@@ -1,13 +1,13 @@
 {
   "status": "running",
   "counts": {
-    "cpu": 23,
-    "npu": 21,
-    "failed_cases": 2
+    "cpu": 24,
+    "npu": 22,
+    "failed_cases": 1
   },
   "low_medium_counts": {
-    "cpu": 23,
-    "npu": 21
+    "cpu": 24,
+    "npu": 22
   },
   "bands_mC": {
     "low": [
@@ -703,7 +703,27 @@
       "model": "intern1b",
       "history": 1024,
       "new_tokens": 128,
-      "band": "medium"
+      "band": "medium",
+      "cpu": {
+        "ttft_seconds": 1.4657867830028408,
+        "engine_ttft_seconds": 1.463815,
+        "decode_tokens_per_second": 16.68888346901702,
+        "total_seconds": 9.07659738700022,
+        "response_cpu_seconds": 18.099999999999994,
+        "preparation_seconds": 8.913829240998894
+      },
+      "npu": {
+        "decode_tokens_per_second": 13.541547,
+        "ttft_seconds": 2.499094,
+        "total_seconds": 11.88112,
+        "cpu_seconds": 0.303814,
+        "driver_allocated_bytes": 910977960,
+        "decode_decoder_api_seconds": 6.817908,
+        "decode_head_api_seconds": 2.330508,
+        "max_rss_kib": 39836,
+        "load_seconds": 0.822632,
+        "engine_ttft_seconds": 2.499094
+      }
     },
     {
       "case": "intern1b-h1024-n128",
@@ -2044,6 +2064,74 @@
         "scope": "5-run medians; only direct counter intervals fully within response",
         "system_cpu_percent": 1.2733446519524618,
         "covered_seconds": 11.291229624999687,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      },
+      "npu_frequency_mhz_range": [
+        1008.0,
+        1008.0
+      ]
+    },
+    {
+      "case": "intern1b-h1024-n128",
+      "band": "medium",
+      "backend": "cpu",
+      "start_min_c": 61.07,
+      "start_max_c": 63.736,
+      "response_sample_min_c": 61.07,
+      "response_sample_max_c": 76.346,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 18.099999999999994,
+      "process_rss_mib": 1110.84765625,
+      "driver_mib": null,
+      "min_available_ram_mib": 4117.62109375,
+      "swap_used_mib_range": [
+        1191.0,
+        1191.0
+      ],
+      "all_phase_peak_system_cpu_percent": 26.951219512195124,
+      "conditioning_seconds_median": 0.40243585200369125,
+      "speed_min": 16.686635883546202,
+      "speed_max": 16.693316824037325,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 26.56135732046219,
+        "covered_seconds": 8.54755151399877,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      }
+    },
+    {
+      "case": "intern1b-h1024-n128",
+      "band": "medium",
+      "backend": "npu",
+      "start_min_c": 61.07,
+      "start_max_c": 61.814,
+      "response_sample_min_c": 45.384,
+      "response_sample_max_c": 61.814,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.303814,
+      "process_rss_mib": 38.90234375,
+      "driver_mib": 868.7762832641602,
+      "min_available_ram_mib": 3644.09765625,
+      "swap_used_mib_range": [
+        1196.25,
+        1198.75
+      ],
+      "all_phase_peak_system_cpu_percent": 100.0,
+      "conditioning_seconds_median": 10.121506,
+      "speed_min": 13.493631,
+      "speed_max": 13.554301,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 1.2171372930866602,
+        "covered_seconds": 10.289864423000836,
         "swap_in_bytes": 0,
         "swap_out_bytes": 0
       },

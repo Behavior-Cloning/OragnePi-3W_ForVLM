@@ -170,7 +170,7 @@ def main():
               '窗口满后当前实现重建保留历史，因此会出现明显首字尖峰。后续可比较提前裁剪保留余量、不同保留历史长度和位置/KV重用方案；需注明记忆损失并重验质量，不能隐去重建耗时。', '',
               '## 超窗保留余量试验', '',
               '默认策略保持不变。新试验只在实际超窗后按完整轮次裁剪到约768个prompt token，保留system和最新问题。比较原30分钟的前20轮与新策略20轮，各自使用真实生成历史；这会牺牲旧记忆，且后续回答轨迹可能不同，不当作同输入的内核加速比。', '',
-              '| 模型 / 策略 | 状态 / 已测轮 | 重建次数 | 首token中位 / P95 s | 累计首token等待 s | 丢弃消息数 |',
+              '| 模型 / 策略 | 状态 / 已测轮 | 重建次数 | 首token中位 / P95 s | 累计首token等待 s | prompt中位token / 丢弃消息数 |',
               '| --- | --- | ---: | ---: | ---: | ---: |']
     for model,row in evidence['models'].items():
         data=snapshot(ROOT/f'resident-retain768-{model}-20261013/result.json')
@@ -186,7 +186,7 @@ def main():
             first=dist([r['ttft_seconds'] for r in rows])
             lines.append(f'| {row["label"]} / {label} | {summary["status"]} / {len(rows)} | '
                          f'{sum(r["dropped_messages"]>0 for r in rows)} | {first["median"]:.3f} / {first["p95_nearest_rank"]:.3f} | '
-                         f'{sum(r["ttft_seconds"] for r in rows):.3f} | {sum(r["dropped_messages"] for r in rows)} |')
+                         f'{sum(r["ttft_seconds"] for r in rows):.3f} | {statistics.median(r["prompt_tokens"] for r in rows):.0f} / {sum(r["dropped_messages"] for r in rows)} |')
     lines += ['', '单轮重建时延、记忆保留、回答质量和重建频率需一起判断；少重建但丢更多旧对话不能称为无代价收益。试验未接入生产8080。', '',
               '## 独立留出', '',
               '冻结的v1为12个中英场景，每个3轮。固定标准Q8参考轨迹检查全部logits；自然生成另用NPU自己的历史。门槛KL≤0.05、PPL比≤1.05，人工对话评阅另列。看到留出后不得据其失败调参并继续声称v1独立。', '',
@@ -247,11 +247,17 @@ def main():
             model_evidence=evidence['models'][model]
             assert reviewed['reference_sha256']==model_evidence['quality_reference']['source_sha256']
             assert reviewed['npu_result_sha256']==model_evidence['holdout']['source_sha256']
-            lines += ['', model_evidence['label']+'：'+reviewed['summary'], '',
-                      '| 场景 | 标准Q8参考 | NPU | 原文观察 |','| --- | --- | --- | --- |']
+            cpu_review=reviewed.get('board_cpu_review',{})
+            if isinstance(cpu_review,dict):
+                assert cpu_review['source_sha256']==model_evidence['board_cpu_natural']['source_sha256']
+            else:
+                cpu_review={}
+            lines += ['', model_evidence['label']+'：'+reviewed['summary'], '',cpu_review.get('summary','实际CPU尚待评阅。'),'',
+                      '| 场景 | 标准Q8参考 | 板端CPU Q8 | NPU | 原文观察 |','| --- | --- | --- | --- | --- |']
             for c in reviewed['scenarios']:
-                lines.append(f'| {c["id"]} | {c["reference"]} | {c["npu"]} | {c["observation"]} |')
-    lines += ['', '产品状态：未验收。实际CPU配对、角色/自然度完整评阅、板端独立服务、真实音频并发仍按各项证据推进；聚合数值通过不能覆盖单例退化或真实对话失败。', '',
+                cpu_result=cpu_review.get('scenario_results',{}).get(c['id'],'待评阅')
+                lines.append(f'| {c["id"]} | {c["reference"]} | {cpu_result} | {c["npu"]} | {c["observation"]} |')
+    lines += ['', '产品状态：未验收。上述对话评阅已记录实际CPU/NPU差异与共同失败；其余矩阵、板端独立服务和真实音频并发按各项证据推进。聚合数值通过不能覆盖单例退化或真实对话失败。', '',
               '复现：`npu/.venv/bin/python npu/kv-cache/report_product_acceptance.py`。',
               '[紧凑证据](evidence-attack-20261013/product-acceptance.json)。', '']
     (HERE / '独立质量与连续多轮验收.md').write_text('\n'.join(line.rstrip() for line in '\n'.join(lines).splitlines())+'\n')

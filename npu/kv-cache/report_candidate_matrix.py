@@ -14,6 +14,7 @@ def read(path):return json.loads(path.read_text())
 
 def main():
     candidates={}
+    failures={}
     def collect(path,label):
         if not path.exists():return
         d=read(path)
@@ -49,9 +50,19 @@ def main():
         state=ROOT/folder/'state.json'
         if state.exists():
             for row in read(state)['cases'].values():
+                if row.get('status')=='quality-failed':
+                    cfg=row['config'];runtime=read(Path(row['reference'])/'tokens.json')
+                    model='smol500' if runtime['decoder_layers']==32 else 'intern1b'
+                    failure={'case':cfg['case'],'reference':row['reference'],
+                             'validation':read(Path(row['reference'])/'full-validation-w8.json'),
+                             'original_q8_development':row['original_q8_development']}
+                    for band in ('low','medium'):
+                        failures[(model,runtime['cached_prefix_tokens'],runtime['new_prompt_tokens'],band)]=failure
                 for band in row.get('bands',{}).values():
                     collect(Path(band['result']),'candidate')
     search=read(ROOT/'cpu-q8-search-20261013/state.json')
+    low_path=ROOT/'cpu-q8-low-finalists-20261013/state.json'
+    low_search=read(low_path) if low_path.exists() else {'cases':{}}
     rows=[]
     lines=['# 当前DFP候选：精确长度低中温矩阵','',
            '500M gate/up峰值DFP，1B gate/up MSE DFP＋prefill16，1024历史另有已验证product范围修复。全部32/24层、完整词表、固定128预测、预热＋五轮。此表不混入旧NPU基线、质量失败的MLP候选或尚未验证的新输出头。','',
@@ -68,7 +79,12 @@ def main():
                     c=candidates.get(key)
                     display=f'{model} / {h}＋{n} / {band}'
                     if not c:
-                        lines.append(f'| {display} | 待测 | — | — | — | — |');continue
+                        failed=failures.get(key)
+                        if failed:
+                            v=failed['validation']
+                            lines.append(f'| {display} | 精度未过 | — | — | — | 完整执行L2 {v["relative_l2_all_logits"]:.3%}；不进入测速 |')
+                        else:lines.append(f'| {display} | 待测 | — | — | — | — |')
+                        continue
                     cpu_path=ROOT/'thermal-aligned-20261013'/(case+'-'+band+'-cpu')/'results.json'
                     note='原矩阵Q8配置，尚非本格最优确认'
                     if band=='medium':
@@ -79,6 +95,12 @@ def main():
                             winner=max(finals,key=lambda k:finals[k]['medians']['decode_tokens_per_second'])
                             cpu_path=Path(finals[winner]['path'])
                             note=winner+'；配置搜索'+s.get('status','pending')
+                    else:
+                        low=low_search['cases'].get(case,{})
+                        if low.get('status')=='complete':
+                            winner=low['fastest_decode']
+                            cpu_path=Path(low['runs'][winner]['path'])
+                            note=winner+'；中温入围配置低温复核，非低温全搜索'
                     cpu=read(cpu_path)
                     assert cpu['status']=='complete' and cpu['cached_prefix']==h and len(cpu['prompt']['token_ids'])==h+n
                     packed=struct.pack('<'+'i'*len(cpu['prompt']['token_ids']),*cpu['prompt']['token_ids'])
@@ -95,12 +117,21 @@ def main():
                                  'cpu':{'source':str(cpu_path),'source_sha256':hashlib.sha256(cpu_path.read_bytes()).hexdigest(),
                                         'decode_tokens_per_second':speed,'engine_ttft_seconds':ttft},
                                  'trajectory_aligned':aligned,'cpu_note':note})
+    if failures:
+        lines+=['','## 未通过的完整执行验证','',
+                '每条固定轨迹先过执行门槛，再允许低、中温测速；同一精度失败同时阻止两温档，不能写作普通待测。保持L2≤5%、最低cosine≥0.99、argmax≥95%，原Q8 KL≤0.05/PPL比≤1.05的门槛不变。','',
+                '| 开发场景 | 执行L2 | 最低cosine | argmax一致 | 原Q8 KL / PPL比 |','| --- | ---: | ---: | ---: | ---: |']
+        for case in sorted({v['case'] for v in failures.values()}):
+            f=next(v for v in failures.values() if v['case']==case);v=f['validation'];q=f['original_q8_development']
+            lines.append(f'| {case} | {v["relative_l2_all_logits"]:.4%} | {v["min_step_cosine"]:.6f} | {v["argmax_match_fraction"]:.3%} | {q["kl"]:.6f} / {q["ppl_ratio"]:.6f} |')
     lines+=['','低温起点40–50°C，中温55–<65°C，响应期间自然变化。两端首token均使用引擎口径，不含加载、历史KV准备、调温和HTTP缓冲。低温最快CPU配置仍需同温复核，不能拿中温CPU直接替换低温成绩。','',
             '先筛64新增，再把入围CPU配置扩32/128；不等于穷举所有实现。若更快CPU改变贪心轨迹，保留更高目标线并要求NPU重新回灌和完整logits校验，不回退到慢CPU宣布胜出。','',
             '[独立质量与持续运行](独立质量与连续多轮验收.md) · [真实ASR并发](真实ASR与LLM并发验收.md) · [配对A/B收益与负载](全深度候选提速与负载.md)','',
             '重建：`npu/.venv/bin/python npu/kv-cache/report_candidate_matrix.py`。','']
     (HERE/'当前DFP候选精确矩阵.md').write_text('\n'.join(lines))
     (HERE/'evidence-attack-20261013/candidate-matrix.json').write_text(json.dumps(rows,indent=2,ensure_ascii=False)+'\n')
+    (HERE/'evidence-attack-20261013/candidate-quality-failures.json').write_text(json.dumps(
+        {v['case']:v for v in failures.values()},indent=2,ensure_ascii=False)+'\n')
     print('current DFP candidate cells',len(rows))
 
 

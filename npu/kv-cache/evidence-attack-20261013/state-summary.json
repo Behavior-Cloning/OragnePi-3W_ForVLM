@@ -1,5 +1,5 @@
 {
-  "matrix_completed_pairs": 20,
+  "matrix_completed_pairs": 21,
   "cpu": {
     "scope": "Q8 only; medium start; 2-repeat screening then 5-repeat finalist; greedy trajectory equality is alignment, not holdout quality",
     "cases": {
@@ -266,9 +266,34 @@
             "path": "npu/results/cpu-q8-search-20261013/smol500-h1024-n64-decode2-prefill6-strict/results.json",
             "repeats": 2,
             "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "final-fa-off": {
+            "config": {
+              "threads": 2,
+              "affinity": "0-7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "off",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 1.0063741949998075,
+              "engine_ttft_seconds": 0.902417,
+              "decode_tokens_per_second": 20.37255467183584,
+              "total_seconds": 7.142630564998399,
+              "response_cpu_seconds": 14.269999999999996,
+              "preparation_seconds": 11.210393858997122
+            },
+            "path": "npu/results/cpu-q8-search-20261013/smol500-h1024-n64-final-fa-off/results.json",
+            "repeats": 5,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
           }
         },
         "status": "running",
+        "fastest_decode": "final-fa-off",
+        "fastest_total": "final-fa-off",
+        "fastest_ttft": "final-fa-off",
         "active": "final-fa-off"
       },
       "smol500-h512-n64": {

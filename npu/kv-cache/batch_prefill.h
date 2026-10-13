@@ -119,12 +119,16 @@ static void run_scalar_prefill_block(BatchPrefill *b,Layer *decode,int block,int
     for(int k=0;k<FUSED_LAYERS;k++)for(int t=0;t<pos+b->tokens;t++)put(&kv->in[IN_MASK(k)],t,0);
     check(vip_flush_buffer(batch->out[0].b,VIP_BUFFER_OPER_TYPE_FLUSH),"publish scalar prefill hidden");
 }
-static void run_prefill(BatchPrefill *b,Layer *decode,const float *embedding,
-                        const int32_t *prompt,int pos,float *last_hidden,double *api_seconds) {
+static void run_prefill_rows(BatchPrefill *b,Layer *decode,const float *embedding,
+                        const int32_t *prompt,int pos,float *last_hidden,double *api_seconds,int valid) {
     const int n=b->tokens,c=b->capacity,repeat=DIM/(KV*HD);
-    if(pos<b->previous_position||pos+n>c){fprintf(stderr,"prefill position/capacity overflow\n");exit(2);}
+    if(pos<b->previous_position||pos+n>c||valid<1||valid>n||(valid!=n&&b->scalar_block>=0)){
+        fprintf(stderr,"prefill position/capacity/valid-row overflow\n");exit(2);
+    }
+    /* Earlier real queries cannot attend to padded future rows. Keep the
+     * causal mask; publish only real rows and their last hidden. */
     for(int t=0;t<n;t++)for(int j=0;j<DIM;j++)
-        put(&b->layers[0].in[0],t*DIM+j,embedding[(size_t)prompt[pos+t]*DIM+j]);
+        put(&b->layers[0].in[0],t*DIM+j,embedding[(size_t)prompt[pos+(t<valid?t:valid-1)]*DIM+j]);
     float cosines[n*HD],sines[n*HD];
     for(int t=0;t<n;t++)for(int j=0;j<HD;j++){
         float angle=(pos+t)/powf(ROPE_BASE,(j%(HD/2))/(float)(HD/2));
@@ -170,20 +174,24 @@ static void run_prefill(BatchPrefill *b,Layer *decode,const float *embedding,
         for(unsigned j=b->host_hidden?0:1;j<TENSOR_MAX_OUTPUTS;j++)
             check(vip_flush_buffer(l->out[j].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read batch KV");
         for(int k=0;k<FUSED_LAYERS;k++){
-            append_key(&decode[i].in[IN_K(k)],&l->out[OUT_K(k)],c,pos,n);
+            append_key_rows(&decode[i].in[IN_K(k)],&l->out[OUT_K(k)],c,pos,valid,n);
             for(int h=0;h<KV;h++){
-                copy_values(&decode[i].in[IN_V(k)],(h*c+pos)*HD,&l->out[OUT_V(k)],h*n*HD,n*HD);
+                copy_values(&decode[i].in[IN_V(k)],(h*c+pos)*HD,&l->out[OUT_V(k)],h*n*HD,valid*HD);
             }
-            for(int t=0;t<pos+n;t++)put(&decode[i].in[IN_MASK(k)],t,0);
+            for(int t=0;t<pos+valid;t++)put(&decode[i].in[IN_MASK(k)],t,0);
         }
     }
     Tensor *out=&b->layers[b->blocks-1].out[0];
     b->previous_position=pos;
     check(vip_flush_buffer(out->b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read batch hidden");
     for(int j=0;j<DIM;j++){
-        last_hidden[j]=get(out,(n-1)*DIM+j);
+        last_hidden[j]=get(out,(valid-1)*DIM+j);
         if(!isfinite(last_hidden[j])){fprintf(stderr,"nonfinite batch hidden\n");exit(3);}
     }
+}
+static void run_prefill(BatchPrefill *b,Layer *decode,const float *embedding,
+                        const int32_t *prompt,int pos,float *last_hidden,double *api_seconds) {
+    run_prefill_rows(b,decode,embedding,prompt,pos,last_hidden,api_seconds,b->tokens);
 }
 static void free_prefill(BatchPrefill *b) {
     /* Aliases belong to decode/preceding output. Free only owned port buffers. */

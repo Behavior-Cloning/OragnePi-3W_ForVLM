@@ -191,6 +191,39 @@ def main():
                 f'decode中位提高{100*(candidate["decode_tokens_per_second"]/baseline["decode_tokens_per_second"]-1):.2f}%，配对收益{min(gains):.2f}%–{max(gains):.2f}%，{sum(g>0 for g in gains)}/5更快。驱动分配减少{(baseline["driver_allocated_bytes"]-candidate["driver_allocated_bytes"])/2**20:.2f}MiB；decoder API下降，head基本不变。','',
                 '全模型导出常量门槛通过：L2约3.756%、最低cosine0.99648。相对原Q8开发轨迹logits L2约12.17%、最低cosine0.96548，PPL比0.99030；不能用预测相同或开发PPL较好替代独立留出验收。','',
                 '同场景优化CPU Q8五轮约22.780 token/s，NPU约20.487，仍未追平。其他新增长度、1024历史和独立质量继续验证。']
+    lines += ['', '## 后续布局与缩放候选', '']
+    base_probe=probes.get('probe-gateup-w8dfp-mse')
+    for label,description in [('transk','转置历史K布局'),('cap1','限制MSE缩放搜索额外小数位最多＋1')]:
+        probe=probes.get('probe-gateup-w8dfp-mse-'+label)
+        if not base_probe or not probe:continue
+        old=base_probe['timing']['mean_api_seconds'];new=probe['timing']['mean_api_seconds']
+        fixture=ROOT/('fixture-gateup-w8dfp-mse-'+label)
+        raw=np.fromfile(ROOT/('probe-gateup-w8dfp-mse-'+label)/'output.f32',np.float32)
+        original=np.fromfile(fixture/'probe-original-reference.f32',np.float32)
+        n=probe['fixture']['outputs'][0][1]
+        err=float(np.linalg.norm(raw[:n]-original[:n])/np.linalg.norm(original[:n]))
+        lines.append(f'{description}：两层50次API均值{old*1000:.4f}→{new*1000:.4f}ms，耗时变化{100*(new/old-1):+.2f}%；相对原Q8局部hidden L2 {err:.3%}。'+
+                     ('布局改动没有测得提速，暂不扩展整栈。' if label=='transk' else
+                      '仅依据权重自身误差选择，不使用独立留出；完整24层decode与prefill16已编译，待实板验收。'))
+        lines.append('')
+    cap_state_path=HERE.parent/'results/cap1-productwide-trial-20261013/state.json'
+    cap_perf_path=cap_state_path.with_name('performance.json')
+    if cap_state_path.exists():
+        cap_state=json.loads(cap_state_path.read_text())
+        report['cap1_full_trial']={**cap_state,'source_path':str(cap_state_path),'source_sha256':sha(cap_state_path)}
+        lines.append(f'cap1完整模型状态：`{cap_state["status"]}`；场景1024＋32。')
+        if cap_state.get('execution_gate'):
+            q=cap_state['original_q8_development']
+            lines.append(f'执行门槛：{cap_state["execution_gate"]["passed"]}；原Q8开发KL={q["mean_kl"]:.6f}，PPL比={q["perplexity_ratio"]:.6f}。')
+        if cap_perf_path.exists():
+            perf=json.loads(cap_perf_path.read_text())
+            if perf['status']=='complete':
+                measured=[r for r in perf['runs'] if r['phase']=='measure'];assert len(measured)==10
+                b,c=perf['medians']['baseline'],perf['medians']['candidate']
+                lines.append(f'完整五轮：decode {b["decode_tokens_per_second"]:.6f}→{c["decode_tokens_per_second"]:.6f} token/s；首token {b["ttft_seconds"]:.6f}→{c["ttft_seconds"]:.6f}s。新权重仍需独立质量验收。')
+                report['cap1_full_performance']={**perf,'source_path':str(cap_perf_path),'source_sha256':sha(cap_perf_path)}
+                report['cap1_full_performance']['runs']=[{k:v for k,v in r.items() if k!='system_samples'} for r in perf['runs']]
+    (ARCHIVE / 'decoder-dense-probes.json').write_text(json.dumps(report, indent=2) + '\n')
     lines += ['', '探针3次预热后记录50次；只统计VIP API，不含完整模型宿主代价。开关分时执行、温度不同，不以微小差异宣告提速。SRAM设置返回成功仅证明接口接受，不证明实际预载字节数；最终仍须同温档、全深度五轮A/B。', '',
               'A8候选仅在选中的W8 gate/up矩阵输入前插入显式转换，原权重、外部KV、残差和矩阵输出格式不变。默认保持原校准动态范围；range1另将范围缩小1bit，须额外验证饱和风险。该变化不是新的权重量化算法，局部通过也不能替代完整logits和独立留出。', '',
               '实测gate/up A8无可见速度收益，hidden局部L2达9.42%、另一V输出达7.39%，超过5%门槛，拒绝。后续DFP候选保持W8位数和A16，单独比较单尺度权重与逐通道权重；必须另查原权重误差，不能只依赖导出常量参考。', '',

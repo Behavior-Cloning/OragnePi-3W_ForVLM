@@ -18,6 +18,7 @@ p.add_argument('--performance',action='store_true',help='no logits/hidden dumps 
 p.add_argument('--decoder-group',type=int,default=0,help='batch N decoder submissions and share FP16 hidden buffers; 0 keeps host transfers')
 p.add_argument('--fusion-width',type=int,choices=(1,2,4),default=1,help='language layers per compiled decoder graph')
 p.add_argument('--prefill-variant',help='compatible batched graph stack, loaded alongside single-token decode')
+p.add_argument('--prefill-tail-min',type=int,default=0,help='experimental causal padded tail; 0 preserves scalar tail')
 p.add_argument('--cached-prefix',type=int,default=0,help='prepare prefix KV before incremental TTFT timer starts')
 p.add_argument('--prefill-scalar-prefix',type=int,default=0,help='keep first N absolute positions on the proven single-token path')
 p.add_argument('--fast-greedy',action='store_true',help='compare shard integer maxima, checking against full FP32 argmax in diagnostic mode')
@@ -83,6 +84,7 @@ if args.prefill_variant:
     assert {r['layer'] for r in prefill_records}==set(range(0,count,args.fusion_width))
     assert all(r['query_tokens']==prefill_tokens and r['capacity']==capacity and r['fusion_width']==args.fusion_width and not r['exit_code'] for r in prefill_records)
     assert all(r.get('key_cache_transposed',False)==key_cache_transposed for r in prefill_records), 'prefill/decode K layouts must match'
+assert args.prefill_tail_min==0 or (2<=args.prefill_tail_min<=prefill_tokens and args.prefill_scalar_block<0)
 head_shards=manifest.get('head_shards',[{'vocab_count':manifest['vocab_size']}])
 assert len(records)==count//args.fusion_width+len(head_shards) and not any(r['exit_code'] for r in records)
 assert {r['layer'] for r in records}==set(range(0,count,args.fusion_width))|set(range(count,count+len(head_shards)))
@@ -106,6 +108,7 @@ assert prompt_count+args.max_new-1<=capacity
     'grouped_head':args.group_head,
     'key_cache_transposed':key_cache_transposed,
     'capacity':capacity,'query_tokens':prefill_tokens,'cached_prefix':args.cached_prefix,
+    'prefill_tail_min':args.prefill_tail_min,
     'scalar_prefix':args.prefill_scalar_prefix,'init_buffer_flush':args.init_buffer_flush,
     'audit_outputs':args.audit_outputs,'decoder_group':args.decoder_group,
     'capture_prefill':args.capture_prefill,'prefill_host_hidden':args.prefill_host_hidden,
@@ -198,6 +201,7 @@ if args.capture_decode:
     assert block<count//args.fusion_width and prompt_count<=position<prompt_count+args.max_new-1
     command=command.replace('timeout 600',f'OPI_DECODE_CAPTURE_POSITION={position} OPI_DECODE_CAPTURE_BLOCK={block} OPI_DECODE_CAPTURE_PREFIX={result_name}/decode-capture timeout 600')
 if args.prefill_variant:command=command.replace('timeout 600',f'OPI_PREFILL_TOKENS={prefill_tokens} timeout 600')
+if args.prefill_tail_min:command=command.replace('timeout 600',f'OPI_PREFILL_TAIL_MIN={args.prefill_tail_min} timeout 600')
 if args.prefill_host_hidden:command=command.replace('timeout 600','OPI_PREFILL_HOST_HIDDEN=1 timeout 600')
 if args.cached_prefix:command=command.replace('timeout 600',f'OPI_CACHED_PREFIX={args.cached_prefix} timeout 600')
 if args.prefill_scalar_prefix:command=command.replace('timeout 600',f'OPI_PREFILL_SCALAR_PREFIX={args.prefill_scalar_prefix} timeout 600')

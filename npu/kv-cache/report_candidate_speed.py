@@ -26,12 +26,15 @@ def main():
          '1024历史CPU配置搜索尚未完成；旧NPU与新NPU均t32，反馈轨迹对应本行已测CPU'),
         ('1B DFP MSE＋prefill16＋范围修复',1024,32,ROOT/'dfpmse-productwide-trial-20261013-attempt2/performance.json','candidate',
          ROOT/'thermal-aligned-20261013/intern1b-h1024-n32-medium-cpu/results.json',
-         '旧NPU采用已通过质量门槛的product1920wide修复版，两端均grouped head；不与质量失败的旧栈计算收益。CPU配置搜索未完成')]
+         '旧NPU采用已通过质量门槛的product1920wide修复版，两端均grouped head；不与质量失败的旧栈计算收益。CPU配置搜索未完成'),
+        ('1B输出头DFP MSE',1024,32,ROOT/'headmse-productwide-trial-20261013/performance.json','candidate',
+         ROOT/'thermal-aligned-20261013/intern1b-h1024-n32-medium-cpu/results.json',
+         '只改变完整词表输出头量化，decoder与prefill16相同；新输出头仅通过本开发轨迹，独立留出未验。CPU搜索未完成')]
     records=[]
     frontier=[]
     lines=['# 全深度加速候选：速度与系统开销','',
            '按表中精确历史/新增token计数，均为128次预测、Q8对应比较、中温55–<65°C起测、五轮。500M全32层，1B全24层，均包括完整词表输出头。温档约束响应开始温度，响应中自然升降温。','',
-           '候选完整执行门槛已通过，独立质量留出尚未验收；这份报告不表示已超过最优CPU或完成产品验收。','',
+           '下表场景的候选完整执行门槛已通过。独立留出已完成执行：500M有单例数值失败，两模型陪伴自然度均未验收通过；这份报告不表示已超过最优CPU或完成产品验收。','',
            '| 候选 / 历史＋新增 | 旧NPU→新NPU token/s | 解码提升 | 旧→新首token s | 同场景CPU token/s | CPU首token s |',
            '| --- | ---: | ---: | ---: | ---: | ---: |']
     for name,history,new,path,label,cpu_path,note in trials:
@@ -92,7 +95,7 @@ def main():
                 frontier.append({'case':name,'label':label,'search_status':row['status'],**value})
                 lines.append(f'| {name} | {label} | {repeats} | {m["decode_tokens_per_second"]:.3f} | {m["engine_ttft_seconds"]:.3f} | {row["status"]} |')
         lines+=['','500M的1024历史已有快于当前NPU的CPU配置；在最快配置确认和轨迹重对齐结束前，不能宣称长历史NPU胜出。完整配置及热保护拒绝记录见[CPU搜索报告](下一轮攻关进展.md)。']
-    lines+=['','继续验收：扩展32/128新增与1024历史、最快CPU轨迹重对齐、独立留出与自然多轮、NPU常驻HTTP、30分钟稳定性、真实音频并发。缺少的项目不能用固定反馈速度替代。','',
+    lines+=['','继续验收：扩展32/128新增与1024历史、最快CPU轨迹重对齐、真实音频并发，以及新优化候选的精度和性能。两模型原候选的独立留出、自然多轮、实验HTTP与30分钟稳定性已有结果，不能自动转移给后来改变权重或执行路径的新候选。','',
             '两模型真实HTTP/浏览器多轮已通过接口检查，见[HTTP报告](HTTP多轮接口验证.md)；独立质量和持续运行进度见[产品验收](独立质量与连续多轮验收.md)，接口通过不等于陪伴质量通过。','',
             '复现：`npu/.venv/bin/python npu/kv-cache/report_candidate_speed.py`。',
             '[紧凑证据](evidence-attack-20261013/candidate-speed-load.json)。','']

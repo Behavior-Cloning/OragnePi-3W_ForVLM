@@ -77,13 +77,13 @@ static void copy_values(Tensor *dst,unsigned offset,Tensor *src,unsigned begin,u
 }
 /* Publish only the new K rows; never transpose or requantize old history.
  * Batched graph outputs remain [KV,tokens,HD] for both cache layouts. */
-static void append_key(Tensor *dst,Tensor *src,int capacity,int pos,int tokens) {
-    if(pos<0||tokens<1||pos+tokens>capacity||
-       dst->count!=(unsigned)(KV*capacity*HD)||src->count!=(unsigned)(KV*tokens*HD)){
+static void append_key_rows(Tensor *dst,Tensor *src,int capacity,int pos,int tokens,int source_tokens) {
+    if(pos<0||tokens<1||tokens>source_tokens||pos+tokens>capacity||
+       dst->count!=(unsigned)(KV*capacity*HD)||src->count!=(unsigned)(KV*source_tokens*HD)){
         fprintf(stderr,"append K shape/range mismatch\n");exit(2);
     }
     if(!KEY_CACHE_TRANSPOSED){
-        for(int h=0;h<KV;h++)copy_values(dst,(h*capacity+pos)*HD,src,h*tokens*HD,tokens*HD);
+        for(int h=0;h<KV;h++)copy_values(dst,(h*capacity+pos)*HD,src,h*source_tokens*HD,tokens*HD);
         return;
     }
     int raw16=dst->p.data_format==src->p.data_format&&dst->p.quant_format==src->p.quant_format&&
@@ -91,10 +91,13 @@ static void append_key(Tensor *dst,Tensor *src,int capacity,int pos,int tokens) 
          (dst->p.data_format==VIP_BUFFER_FORMAT_INT16&&dst->p.quant_format==VIP_BUFFER_QUANTIZE_DYNAMIC_FIXED_POINT&&
           dst->p.quant_data.dfp.fixed_point_pos==src->p.quant_data.dfp.fixed_point_pos));
     for(int h=0;h<KV;h++)for(int j=0;j<HD;j++)for(int t=0;t<tokens;t++){
-        unsigned to=(h*HD+j)*capacity+pos+t,from=(h*tokens+t)*HD+j;
+        unsigned to=(h*HD+j)*capacity+pos+t,from=(h*source_tokens+t)*HD+j;
         if(raw16)memcpy((char*)dst->data+to*2,(char*)src->data+from*2,2);
         else put(dst,to,get(src,from));
     }
+}
+static void append_key(Tensor *dst,Tensor *src,int capacity,int pos,int tokens) {
+    append_key_rows(dst,src,capacity,pos,tokens,tokens);
 }
 /* Opt-in diagnostic readback, excluded from all performance results. */
 static FILE *audit_file;
@@ -142,6 +145,8 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     int prefill_tokens=getenv("OPI_PREFILL_TOKENS")?atoi(getenv("OPI_PREFILL_TOKENS")):0;
     int cached_prefix=getenv("OPI_CACHED_PREFIX")?atoi(getenv("OPI_CACHED_PREFIX")):0;
     int scalar_prefix=getenv("OPI_PREFILL_SCALAR_PREFIX")?atoi(getenv("OPI_PREFILL_SCALAR_PREFIX")):0;
+    int tail_min=getenv("OPI_PREFILL_TAIL_MIN")?atoi(getenv("OPI_PREFILL_TAIL_MIN")):0;
+    if(tail_min&&(tail_min<2||tail_min>prefill_tokens||getenv("OPI_PREFILL_SCALAR_BLOCK")))return 2;
     if(prefill_tokens<0||prefill_tokens==1||prefill_tokens>256||prefill_tokens>capacity||
        cached_prefix<0||cached_prefix>=prompt_count||scalar_prefix<0||scalar_prefix>prompt_count)return 2;
     if(prompt_count+max_new-1>capacity){fprintf(stderr,"prompt plus output exceeds KV capacity\n");return 2;}
@@ -314,11 +319,15 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
             run_seconds=0;prefill_api_seconds=0;start=previous_token=stamp;cpu_start=cpu_stamp;
         }
         int boundary=pos<cached_prefix?cached_prefix:prompt_count;
-        if(prefill_tokens&&pos>=scalar_prefix&&pos+prefill_tokens<=boundary){
+        int remaining=boundary-pos;
+        int batch_valid=remaining>=prefill_tokens?prefill_tokens:
+            (tail_min&&remaining>=tail_min?remaining:0);
+        if(prefill_tokens&&pos>=scalar_prefix&&batch_valid>0&&pos+prefill_tokens<=capacity){
             double prior=run_seconds;
-            run_prefill(&batch,decoder,emb,prompt,pos,x,&run_seconds);
-            prefill_api_seconds+=run_seconds-prior;batched_prompt_tokens+=prefill_tokens;
-            pos+=prefill_tokens-1;
+            if(batch_valid==prefill_tokens)run_prefill(&batch,decoder,emb,prompt,pos,x,&run_seconds);
+            else run_prefill_rows(&batch,decoder,emb,prompt,pos,x,&run_seconds,batch_valid);
+            prefill_api_seconds+=run_seconds-prior;batched_prompt_tokens+=batch_valid;
+            pos+=batch_valid-1;
         }else{
         token=pos<prompt_count?prompt[pos]:(feedback?feedback[n_generated-1]:generated[n_generated-1]);
         memcpy(x,emb+(size_t)token*DIM,DIM*sizeof(float));
@@ -473,7 +482,7 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     fprintf(token_file,"],\"fixed_feedback\":%s,\"feedback_tokens\":[",feedback?"true":"false");
     if(feedback)for(int i=0;i<max_new;i++)fprintf(token_file,"%s%d",i?",":"",feedback[i]);
     fprintf(token_file,"],\"prefill_batch_size\":%d,\"cached_prefix_tokens\":%d,\"new_prompt_tokens\":%d,\"batched_prompt_tokens\":%d,\"prepared_batch_tokens\":%d,\"preparation_seconds\":%.6f,\"preparation_api_seconds\":%.6f,\"preparation_cpu_seconds\":%.6f,\"prefill_api_seconds\":%.6f",prefill_tokens,cached_prefix,prompt_count-cached_prefix,batched_prompt_tokens,prepared_batch_tokens,preparation_seconds,preparation_api_seconds,preparation_cpu_seconds,prefill_api_seconds);
-    fprintf(token_file,",\"prefill_host_hidden\":%s,\"host_output_buffers\":%s",getenv("OPI_PREFILL_HOST_HIDDEN")?"true":"false",getenv("OPI_HOST_OUTPUT_BUFFERS")?"true":"false");
+    fprintf(token_file,",\"prefill_host_hidden\":%s,\"host_output_buffers\":%s,\"prefill_tail_min\":%d",getenv("OPI_PREFILL_HOST_HIDDEN")?"true":"false",getenv("OPI_HOST_OUTPUT_BUFFERS")?"true":"false",tail_min);
     fprintf(token_file,",\"prefill_clear_output\":%s",getenv("OPI_PREFILL_CLEAR_OUTPUT")?"true":"false");
     fprintf(token_file,",\"prefill_scalar_block\":%d",prefill_tokens?batch.scalar_block:-1);
     fprintf(token_file,",\"key_cache_transposed\":%s,\"key_cache_layout_revision\":2",KEY_CACHE_TRANSPOSED?"true":"false");

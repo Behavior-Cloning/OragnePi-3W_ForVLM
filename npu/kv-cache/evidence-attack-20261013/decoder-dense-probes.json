@@ -148881,6 +148881,316 @@
       "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/intern1b-decode-profile-20261013/probe-mlp-w8dfp-mse/board-validation.json",
       "source_sha256": "d12a8328cfa631b2a6fd270e09fb8670afda0ba1f68444e5b97315d480964b93",
       "output_sha256": "b748ce0e66679af6d229650f7b21afbf32cf900a74443707a932448f14b2b6f2"
+    },
+    "probe-gateup-w8dfp-mse-transk": {
+      "fixture": {
+        "scope": "actual captured NPU inputs, independent per-layer reference with exported constants",
+        "capture_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c768-splitkv-i16mm/board-profile-intern1b-h512-n32-b0/decode-capture-input.f32",
+        "capture_sha256": "8a3e6b4eaa732c8b300769bc1b5a54bccc9f09e21eb4b31a5b35cdacde399bb3",
+        "capture_graph_folder": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/intern1b-decode-profile-20261013/gateup-w8dfp-mse",
+        "replayed_input_sha256": "12ada67775c500870107b1f7c6349a41bff764708c6590fb693abe939d0695b9",
+        "capture_key_cache_transposed": false,
+        "capacity": 768,
+        "query_tokens": 1,
+        "first_layer": 0,
+        "key_cache_transposed": true,
+        "fp32_graph_errors": {
+          "b1_attach_hidden_out/out0": 1.1900646086360211e-06,
+          "b0_attach_new_k/out0": 5.07254949155822e-09,
+          "b0_attach_new_v/out0": 4.506058814968128e-07,
+          "b1_attach_new_k/out0": 9.027504432879141e-08,
+          "b1_attach_new_v/out0": 9.126836744144384e-07
+        },
+        "outputs": [
+          [
+            "b1_attach_hidden_out/out0",
+            896
+          ],
+          [
+            "b0_attach_new_k/out0",
+            128
+          ],
+          [
+            "b1_attach_new_k/out0",
+            128
+          ],
+          [
+            "b0_attach_new_v/out0",
+            128
+          ],
+          [
+            "b1_attach_new_v/out0",
+            128
+          ]
+        ]
+      },
+      "folder": "npu/results/intern1b-decode-profile-20261013/fixture-gateup-w8dfp-mse-transk",
+      "cpu_affinity": "6,7",
+      "fusion_width": 2,
+      "binary_sha256": "6ced0880abc1a1e2e7c5e90ddfbb4ae3c4f58fbe79ccdb9c340d691fe3a9279f",
+      "probe_source_sha256": "6e773846dd4c14106926a5190455f5b69ad9d0ea183c94162d2d5effcdd92e15",
+      "input_sha256": "12ada67775c500870107b1f7c6349a41bff764708c6590fb693abe939d0695b9",
+      "alternate_fixture": null,
+      "errors": [
+        {
+          "tensor": "b1_attach_hidden_out/out0",
+          "relative_l2": 0.007516060955822468,
+          "cosine": 0.9999859929084778
+        },
+        {
+          "tensor": "b0_attach_new_k/out0",
+          "relative_l2": 0.000234088278375566,
+          "cosine": 0.9999998807907104
+        },
+        {
+          "tensor": "b1_attach_new_k/out0",
+          "relative_l2": 0.0005147696356289089,
+          "cosine": 0.9999998211860657
+        },
+        {
+          "tensor": "b0_attach_new_v/out0",
+          "relative_l2": 0.001138470135629177,
+          "cosine": 0.9999992251396179
+        },
+        {
+          "tensor": "b1_attach_new_v/out0",
+          "relative_l2": 0.003943352028727531,
+          "cosine": 0.999992311000824
+        }
+      ],
+      "timing": {
+        "repeats": 50,
+        "mean_api_seconds": 0.003810738,
+        "allocated_bytes": 25653984,
+        "released_bytes": 0,
+        "differing_repeats": 0,
+        "mismatched_elements": 0,
+        "npd_enabled": false,
+        "temperature_before_mC": 42470,
+        "temperature_after_mC": 40486,
+        "cpu_seconds": 0.083238,
+        "resident_copies": 0,
+        "resident_mismatched_elements": 0,
+        "resident_api_seconds": 0.0,
+        "sram_preload_requested": -1,
+        "sram_preload_status": 0,
+        "warmup_repeats": 3,
+        "api_seconds": [
+          0.003893555,
+          0.003732345,
+          0.003727596,
+          0.003739804,
+          0.003721304,
+          0.003720053,
+          0.003734595,
+          0.003730012,
+          0.003734387,
+          0.003729721,
+          0.003751846,
+          0.003673179,
+          0.003657429,
+          0.003731263,
+          0.003660929,
+          0.003678887,
+          0.003663345,
+          0.003810221,
+          0.004017888,
+          0.003954888,
+          0.003948722,
+          0.004123347,
+          0.003885304,
+          0.003819805,
+          0.003836721,
+          0.003734054,
+          0.004083971,
+          0.00400643,
+          0.004048972,
+          0.003934013,
+          0.00380097,
+          0.003736888,
+          0.003730137,
+          0.003923513,
+          0.004146722,
+          0.004041097,
+          0.003801762,
+          0.003804346,
+          0.003677804,
+          0.003733638,
+          0.003791346,
+          0.003798471,
+          0.003792638,
+          0.003815346,
+          0.003741054,
+          0.003669971,
+          0.003671095,
+          0.003671679,
+          0.003808763,
+          0.003895096
+        ]
+      },
+      "gate": {
+        "max_relative_l2": 0.05,
+        "min_cosine": 0.99,
+        "passed": true
+      },
+      "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/intern1b-decode-profile-20261013/probe-gateup-w8dfp-mse-transk/board-validation.json",
+      "source_sha256": "62e6d8fa8a8bffec60ab763127d2df3eecd6701222ddedb98f1cad6873e6efc7",
+      "output_sha256": "f49d0822e3863a1ac7a97b91d901c9611acd2d22c689def8fdacc0a2ec678e06"
+    },
+    "probe-gateup-w8dfp-mse-cap1": {
+      "fixture": {
+        "scope": "actual captured NPU inputs, independent per-layer reference with exported constants",
+        "capture_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c768-splitkv-i16mm/board-profile-intern1b-h512-n32-b0/decode-capture-input.f32",
+        "capture_sha256": "8a3e6b4eaa732c8b300769bc1b5a54bccc9f09e21eb4b31a5b35cdacde399bb3",
+        "capture_graph_folder": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/intern1b-decode-profile-20261013/gateup-w8dfp-mse-cap1",
+        "replayed_input_sha256": "8a3e6b4eaa732c8b300769bc1b5a54bccc9f09e21eb4b31a5b35cdacde399bb3",
+        "capture_key_cache_transposed": false,
+        "capacity": 768,
+        "query_tokens": 1,
+        "first_layer": 0,
+        "key_cache_transposed": false,
+        "fp32_graph_errors": {
+          "b1_attach_hidden_out/out0": 1.1900646086360211e-06,
+          "b0_attach_new_k/out0": 5.07254949155822e-09,
+          "b0_attach_new_v/out0": 4.506058814968128e-07,
+          "b1_attach_new_k/out0": 9.027504432879141e-08,
+          "b1_attach_new_v/out0": 9.126836744144384e-07
+        },
+        "outputs": [
+          [
+            "b1_attach_hidden_out/out0",
+            896
+          ],
+          [
+            "b0_attach_new_k/out0",
+            128
+          ],
+          [
+            "b1_attach_new_k/out0",
+            128
+          ],
+          [
+            "b0_attach_new_v/out0",
+            128
+          ],
+          [
+            "b1_attach_new_v/out0",
+            128
+          ]
+        ]
+      },
+      "folder": "npu/results/intern1b-decode-profile-20261013/fixture-gateup-w8dfp-mse-cap1",
+      "cpu_affinity": "6,7",
+      "fusion_width": 2,
+      "binary_sha256": "95748071f54189c42a042e95a2bee302b9be77d8f3f5e3e2d547ea8dba7c48ec",
+      "probe_source_sha256": "6e773846dd4c14106926a5190455f5b69ad9d0ea183c94162d2d5effcdd92e15",
+      "input_sha256": "8a3e6b4eaa732c8b300769bc1b5a54bccc9f09e21eb4b31a5b35cdacde399bb3",
+      "alternate_fixture": null,
+      "errors": [
+        {
+          "tensor": "b1_attach_hidden_out/out0",
+          "relative_l2": 0.007165646180510521,
+          "cosine": 0.9999842643737793
+        },
+        {
+          "tensor": "b0_attach_new_k/out0",
+          "relative_l2": 0.000234088278375566,
+          "cosine": 0.9999998807907104
+        },
+        {
+          "tensor": "b1_attach_new_k/out0",
+          "relative_l2": 0.000537784886546433,
+          "cosine": 0.9999999403953552
+        },
+        {
+          "tensor": "b0_attach_new_v/out0",
+          "relative_l2": 0.001138470135629177,
+          "cosine": 0.9999992251396179
+        },
+        {
+          "tensor": "b1_attach_new_v/out0",
+          "relative_l2": 0.004030704963952303,
+          "cosine": 0.999992311000824
+        }
+      ],
+      "timing": {
+        "repeats": 50,
+        "mean_api_seconds": 0.003574126,
+        "allocated_bytes": 24592352,
+        "released_bytes": 0,
+        "differing_repeats": 0,
+        "mismatched_elements": 0,
+        "npd_enabled": false,
+        "temperature_before_mC": 40176,
+        "temperature_after_mC": 40424,
+        "cpu_seconds": 0.083669,
+        "resident_copies": 0,
+        "resident_mismatched_elements": 0,
+        "resident_api_seconds": 0.0,
+        "sram_preload_requested": -1,
+        "sram_preload_status": 0,
+        "warmup_repeats": 3,
+        "api_seconds": [
+          0.003579054,
+          0.003607888,
+          0.003607263,
+          0.003609471,
+          0.003610721,
+          0.003609221,
+          0.003566388,
+          0.003592513,
+          0.003588596,
+          0.003632013,
+          0.003623472,
+          0.003619888,
+          0.00365868,
+          0.003671055,
+          0.003630888,
+          0.003625721,
+          0.003599347,
+          0.003576846,
+          0.003533512,
+          0.003533055,
+          0.003530346,
+          0.003535596,
+          0.003555513,
+          0.003558387,
+          0.003562804,
+          0.003557221,
+          0.003528054,
+          0.003526096,
+          0.003526013,
+          0.003583471,
+          0.003593221,
+          0.003591722,
+          0.003591929,
+          0.003571846,
+          0.003556471,
+          0.003563554,
+          0.003616804,
+          0.003588513,
+          0.003590305,
+          0.003538096,
+          0.003534513,
+          0.003534804,
+          0.003525846,
+          0.00353093,
+          0.00353818,
+          0.003560138,
+          0.003535471,
+          0.003551597,
+          0.003528304,
+          0.003524971
+        ]
+      },
+      "gate": {
+        "max_relative_l2": 0.05,
+        "min_cosine": 0.99,
+        "passed": true
+      },
+      "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/intern1b-decode-profile-20261013/probe-gateup-w8dfp-mse-cap1/board-validation.json",
+      "source_sha256": "110d2166e874bdc05667b4f2771700828017b3f82232e7a04a7ff5db87a1acac",
+      "output_sha256": "06788bc19a42e716f6c00bdbedd75ed6a07dcc53241cabadba933ce2da9f5280"
     }
   },
   "smol500_profiles": [
@@ -196809,5 +197119,11 @@
       "original_reference_sha256": "2f6781e58db4f14c181bfb665e5433cb0191d29cfad66c4ca0521bb6c7101f29",
       "board_output_sha256": "8ea2cf865bf7ef68fd43b1d7a8ab5bd6d6c815af96ae74daf30ce870a325deee"
     }
+  },
+  "cap1_full_trial": {
+    "status": "waiting-for-full-run",
+    "independent_quality_accepted": false,
+    "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/cap1-productwide-trial-20261013/state.json",
+    "source_sha256": "b680d204c3930b4f9cfb6e769a1acb3266cd543fc2d8d3f54802d3cec2cab484"
   }
 }

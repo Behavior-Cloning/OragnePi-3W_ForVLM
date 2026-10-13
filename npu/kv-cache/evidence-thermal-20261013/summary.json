@@ -2,12 +2,12 @@
   "status": "running",
   "counts": {
     "cpu": 23,
-    "npu": 20,
+    "npu": 21,
     "failed_cases": 2
   },
   "low_medium_counts": {
     "cpu": 23,
-    "npu": 20
+    "npu": 21
   },
   "bands_mC": {
     "low": [
@@ -684,6 +684,18 @@
         "total_seconds": 9.238054531999296,
         "response_cpu_seconds": 18.42,
         "preparation_seconds": 8.807615503001216
+      },
+      "npu": {
+        "decode_tokens_per_second": 13.531283,
+        "ttft_seconds": 2.489682,
+        "total_seconds": 11.874045,
+        "cpu_seconds": 0.294434,
+        "driver_allocated_bytes": 910977960,
+        "decode_decoder_api_seconds": 6.81743,
+        "decode_head_api_seconds": 2.339829,
+        "max_rss_kib": 40304,
+        "load_seconds": 1.002693,
+        "engine_ttft_seconds": 2.489682
       }
     },
     {
@@ -2003,6 +2015,42 @@
         "swap_in_bytes": 0,
         "swap_out_bytes": 0
       }
+    },
+    {
+      "case": "intern1b-h1024-n128",
+      "band": "low",
+      "backend": "npu",
+      "start_min_c": 44.95,
+      "start_max_c": 46.314,
+      "response_sample_min_c": 38.502,
+      "response_sample_max_c": 46.314,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.294434,
+      "process_rss_mib": 39.359375,
+      "driver_mib": 868.7762832641602,
+      "min_available_ram_mib": 3639.296875,
+      "swap_used_mib_range": [
+        1191.5,
+        1193.5
+      ],
+      "all_phase_peak_system_cpu_percent": 44.5995145631068,
+      "conditioning_seconds_median": 1.254232,
+      "speed_min": 13.48409,
+      "speed_max": 13.545143,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 1.2733446519524618,
+        "covered_seconds": 11.291229624999687,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      },
+      "npu_frequency_mhz_range": [
+        1008.0,
+        1008.0
+      ]
     }
   ],
   "gates": [

@@ -831,11 +831,11 @@
         "prompt_sha256": "84c34d5c11ee3c80fc61fc7414d371a44aeff4b814ba98163582bdd357900aaa",
         "history_sha256": "5e3f9e93f6763f5c156ae8e3574fe1cc951c5ad62adef172f7b33538a304e6ae"
       },
-      "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-splitkv-i16mm/board-thermal3-intern1b-h1024-n128-attempt2-runner2",
+      "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-splitkv-i16mm/board-thermal3-intern1b-h1024-n128-attempt2-runner2-runner2",
       "tag": "full-intern1b-c1280-aligned32",
       "bands": {
         "low": {
-          "status": "running",
+          "status": "complete",
           "cpu_path": "npu/results/thermal-aligned-20261013/intern1b-h1024-n128-low-cpu",
           "cpu": {
             "ttft_seconds": 1.6253415199989831,
@@ -844,11 +844,27 @@
             "total_seconds": 9.238054531999296,
             "response_cpu_seconds": 18.42,
             "preparation_seconds": 8.807615503001216
-          }
+          },
+          "npu": {
+            "decode_tokens_per_second": 13.531283,
+            "ttft_seconds": 2.489682,
+            "total_seconds": 11.874045,
+            "cpu_seconds": 0.294434,
+            "driver_allocated_bytes": 910977960,
+            "decode_decoder_api_seconds": 6.81743,
+            "decode_head_api_seconds": 2.339829,
+            "max_rss_kib": 40304,
+            "load_seconds": 1.002693
+          },
+          "performance": "npu/results/thermal-aligned-20261013/intern1b-h1024-n128-low-npu-attempt2.json"
+        },
+        "medium": {
+          "status": "running",
+          "cpu_path": "npu/results/thermal-aligned-20261013/intern1b-h1024-n128-medium-cpu"
         }
       },
-      "error": "low-npu: exit 1, see npu/results/thermal-aligned-20261013/intern1b-h1024-n128-low-npu-attempt2.log",
-      "finished": 1791883528.7884834,
+      "error": "medium-cpu: exit 1, see npu/results/thermal-aligned-20261013/intern1b-h1024-n128-medium-cpu.log",
+      "finished": 1791892143.4703286,
       "failed_references": [
         "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-splitkv-i16mm/board-thermal3-intern1b-h1024-n128"
       ],

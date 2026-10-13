@@ -109,6 +109,15 @@ def main():
     report = {'status': 'running', 'scope': __doc__, 'config': c, 'runs': [],
               'asr_scope': 'resident whisper.cpp tiny Q5_1; 2 CPU threads on 0-7; back-to-back 11 s WAV',
               'production_cpu_model_stays_resident': True}
+    # Waiting on the host lock can span edits. These are the actual files
+    # deployed and built for this run, not the host's earlier queue snapshot.
+    deployed_files = ('audio_concurrency_board.py', 'resident_worker.py', 'resident_session.c',
+                      'full_model.c', 'board_probe.c', 'batch_prefill.h', 'greedy_i16.h',
+                      'resource_sampler.py', 'thermal_condition.py', 'thermal_heater.c',
+                      'asr-worker/asr_worker.cpp', 'asr-worker/CMakeLists.txt', 'resident',
+                      'asr-build/opi-asr-worker')
+    report['deployed_sha256'] = {name: hashlib.sha256((root/name).read_bytes()).hexdigest()
+                                 for name in deployed_files}
     def save():
         tmp = root / 'result.tmp'
         tmp.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')

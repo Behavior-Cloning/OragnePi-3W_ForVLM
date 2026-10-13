@@ -6,7 +6,12 @@
     "smol500": {
       "reference_sha256": "36d65929aed70455c058da4a673914b9bccfa3d5945fb76c65bf19e3bfe13d51",
       "npu_result_sha256": "42d23ba5841d539d322949cd6342c0e17e89348525694faed962b9e562222413",
-      "board_cpu_review": "pending actual llama.cpp answers",
+      "board_cpu_review": {
+        "status":"reviewed-all-36-answers",
+        "source_sha256":"013b5b01f64ff761b0048db990b6f310c6252f6bb33a5669bf4a47ab9178a1fd",
+        "summary":"实际板端CPU同样有明显能力限制：中文倾听三轮都回答‘你要说什么？’，英文更名末轮也退回Robin；Pip与Bean/纸箱可记住。NPU中文小豆场景比CPU更差，CPU末轮仍记得小豆；猫场景NPU末轮反而答对。各自历史不同，不将单个措辞差异直接定为硬件错误。",
+        "scenario_results":{"en-listen":"未满足","en-role":"满足","en-memory":"满足","en-correction":"未满足","en-boundary":"满足","en-play":"部分满足","zh-listen":"未满足","zh-role":"部分满足","zh-memory":"未满足","zh-correction":"未满足","zh-boundary":"未满足","zh-play":"未满足"}
+      },
       "companion_accepted": false,
       "summary": "英语能维持Pip角色和Bean/纸箱记忆，但双方均未保留更正后的Sam。中文有明显能力不足，NPU另有角色丢失和机械复读；不能据聚合数值通过宣称陪伴质量通过。",
       "scenarios": [
@@ -27,7 +32,12 @@
     "intern1b": {
       "reference_sha256": "518c29550b9b3234174311a7366f613df5f2349e44bb0d5cbe35f319f020eadf",
       "npu_result_sha256": "9f96dddb05c86b64e09aad4397b214fa90cfa841b4c29a437db32fa3dd504c81",
-      "board_cpu_review": "pending actual llama.cpp answers",
+      "board_cpu_review": {
+        "status":"reviewed-all-36-answers",
+        "source_sha256":"94c8b35621c20a718b44b33ffa9225c2115f7fdb8a026c6155da9be81b103b04",
+        "summary":"实际板端CPU可记Pip、Bean、Sam与阿林，但中文倾听未回答最初要求；猫场景也先说芝麻、随后又索要名字，说明该问题并非NPU独有。中文故事CPU丢失月亮转谈地图，NPU末轮复读开头；双方都未形成稳定自然的陪伴体验。NPU英文倾听的主动建议比CPU更明显。",
+        "scenario_results":{"en-listen":"部分满足","en-role":"满足","en-memory":"满足","en-correction":"满足","en-boundary":"部分满足","en-play":"部分满足","zh-listen":"未满足","zh-role":"部分满足","zh-memory":"未满足","zh-correction":"满足","zh-boundary":"满足","zh-play":"未满足"}
+      },
       "companion_accepted": false,
       "summary": "36条固定轨迹逐例与聚合数值均过线，Pip、Bean、Sam及阿林可记住。自由回答仍有违背‘只听不建议’、中文机械复述和询问已知猫名等问题；数值通过不等于陪伴产品通过。",
       "scenarios": [

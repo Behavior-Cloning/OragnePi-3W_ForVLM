@@ -26,6 +26,7 @@ p.add_argument('--prefill-flush-output',action='append',default=[],help='flush h
 p.add_argument('--prefill-clear-output',action='append',default=[],help='clear and flush hidden output before batched graph calls for these labels')
 p.add_argument('--prefill-scalar-block',nargs=2,action='append',default=[],metavar=('LABEL','BLOCK'))
 p.add_argument('--prefill',nargs=2,action='append',default=[],metavar=('LABEL','TOKENS'))
+p.add_argument('--prefill-tail-min',nargs=2,action='append',default=[],metavar=('LABEL','TOKENS'))
 p.add_argument('--prefill-scalar-prefix',nargs=2,action='append',default=[],metavar=('LABEL','TOKENS'),
     help='diagnostic preparation policy; retained and checked in every measured result')
 p.add_argument('--cpu-affinity',help='optional taskset CPU list for the NPU host process, e.g. 6,7')
@@ -73,6 +74,11 @@ prefill=dict(a.prefill)
 assert len(prefill)==len(a.prefill) and all(2<=int(n)<=256 for n in prefill.values())
 assert set(prefill).issubset({v['label'] for v in variants})
 for v in variants:v['prefill_tokens']=int(prefill.get(v['label'],0))
+tail_min=dict(a.prefill_tail_min)
+assert len(tail_min)==len(a.prefill_tail_min) and set(tail_min).issubset(prefill)
+for v in variants:
+    v['tail_min']=int(tail_min.get(v['label'],0))
+    assert v['tail_min']==0 or 2<=v['tail_min']<=v['prefill_tokens']
 scalar_blocks=dict(a.prefill_scalar_block)
 assert len(scalar_blocks)==len(a.prefill_scalar_block) and set(scalar_blocks).issubset(prefill)
 for v in variants:
@@ -94,6 +100,7 @@ if a.fixed_feedback:
         assert expected['prompt_tokens']==r['prompt_tokens'] and len(expected['tokens'])==len(r['tokens'])
         assert expected['capacity']==r['capacity'] and expected.get('cached_prefix_tokens',0)==r.get('cached_prefix_tokens',0)
         assert expected.get('prefill_batch_size',0)==v['prefill_tokens']
+        assert expected.get('prefill_tail_min',0)==v['tail_min']
         assert expected.get('prefill_scalar_prefix',0)==v['scalar_prefix']
         assert expected.get('init_buffer_flush',False)==v['init_buffer_flush']
         assert expected.get('host_output_buffers',False)==v['host_output_buffers']
@@ -184,6 +191,8 @@ for phase in ('diagnostic','warmup','measure'):
             if v['init_buffer_flush']:env['OPI_INIT_BUFFER_FLUSH']='1'
             env.pop('OPI_PREFILL_TOKENS',None);env.pop('OPI_CACHED_PREFIX',None);env.pop('OPI_PREFILL_SCALAR_PREFIX',None)
             if v['prefill_tokens']:env['OPI_PREFILL_TOKENS']=str(v['prefill_tokens'])
+            env.pop('OPI_PREFILL_TAIL_MIN',None)
+            if v['tail_min']:env['OPI_PREFILL_TAIL_MIN']=str(v['tail_min'])
             if v['scalar_prefix']:env['OPI_PREFILL_SCALAR_PREFIX']=str(v['scalar_prefix'])
             if c['cached_prefix']:env['OPI_CACHED_PREFIX']=str(c['cached_prefix'])
             if c['fixed_feedback']:env['OPI_FEEDBACK_FILE']=v['case']+'-feedback.i32'
@@ -231,6 +240,7 @@ for phase in ('diagnostic','warmup','measure'):
             if c['fixed_feedback']:assert r['feedback_tokens']==c['feedback_tokens']
             assert r['prompt_tokens']==c['prompt_tokens'] and r['fusion_width']==v['fusion']
             assert r.get('prefill_batch_size',0)==v['prefill_tokens'] and r.get('cached_prefix_tokens',0)==c['cached_prefix']
+            assert r.get('prefill_tail_min',0)==v['tail_min']
             assert r.get('prefill_scalar_prefix',0)==v['scalar_prefix']
             assert r.get('init_buffer_flush',False)==v['init_buffer_flush']
             assert r.get('grouped_head',False)==v['grouped_head']

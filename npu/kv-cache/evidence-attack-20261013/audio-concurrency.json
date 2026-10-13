@@ -1,6 +1,6 @@
 {
   "setup": {
-    "status": "waiting-board",
+    "status": "passed-setup-only",
     "source_commit": "41fc9dea6a4fe056424be86f61164413903fcff4",
     "model_source": "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-tiny-q5_1.bin",
     "model_sha256": "818710568da3ca15689e31a743197b520007872ff9576237bda97bd1b469c3d7",
@@ -8,25 +8,100 @@
     "sample": "whisper.cpp samples/jfk.wav",
     "sample_seconds": 11,
     "scope": "real ASR setup and smoke only; not concurrency, Chinese accuracy or microphone pipeline",
+    "remote": "/opt/opi-vlm/npu-kv-probe/audio-asr-board-20261013",
+    "result": {
+      "status": "passed-setup-only",
+      "command": [
+        "taskset",
+        "-c",
+        "6,7",
+        "/opt/opi-vlm/npu-kv-probe/audio-asr-board-20261013/build/bin/whisper-cli",
+        "-m",
+        "/opt/opi-vlm/npu-kv-probe/audio-asr-board-20261013/ggml-tiny-q5_1.bin",
+        "-f",
+        "/opt/opi-vlm/npu-kv-probe/audio-asr-board-20261013/whisper.cpp/samples/jfk.wav",
+        "-t",
+        "2",
+        "-l",
+        "en",
+        "-nt",
+        "-oj",
+        "-of",
+        "/opt/opi-vlm/npu-kv-probe/audio-asr-board-20261013/smoke"
+      ],
+      "elapsed_seconds": 4.96167607699681,
+      "transcript": " And so my fellow Americans ask not what your country can do for you, ask what you can do for your country.",
+      "binary_sha256": "b9e940965a051e2e29f0e0d4386741e47b33c17560c78e90ef76d02e2f1ab970",
+      "model_sha256": "818710568da3ca15689e31a743197b520007872ff9576237bda97bd1b469c3d7",
+      "sample_sha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+      "sample_seconds": 11,
+      "whisper": {
+        "systeminfo": "WHISPER : COREML = 0 | OPENVINO = 0 | CPU : NEON = 1 | ARM_FMA = 1 | FP16_VA = 1 | DOTPROD = 1 | OPENMP = 1 | REPACK = 1 | ",
+        "model": {
+          "type": "tiny",
+          "multilingual": true,
+          "vocab": 51865,
+          "audio": {
+            "ctx": 1500,
+            "state": 384,
+            "head": 6,
+            "layer": 4
+          },
+          "text": {
+            "ctx": 448,
+            "state": 384,
+            "head": 6,
+            "layer": 4
+          },
+          "mels": 80,
+          "ftype": 9
+        },
+        "params": {
+          "model": "/opt/opi-vlm/npu-kv-probe/audio-asr-board-20261013/ggml-tiny-q5_1.bin",
+          "language": "en",
+          "translate": false
+        },
+        "result": {
+          "language": "en"
+        },
+        "transcription": [
+          {
+            "timestamps": {
+              "from": "00:00:00,000",
+              "to": "00:00:30,000"
+            },
+            "offsets": {
+              "from": 0,
+              "to": 30000
+            },
+            "text": " And so my fellow Americans ask not what your country can do for you, ask what you can do for your country."
+          }
+        ]
+      }
+    },
     "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/audio-asr-board-20261013/state.json",
-    "source_sha256": "561a85ee2b706baffc598b97b7083be28872643da02bcfb2244cd1dd8374e857"
+    "source_sha256": "283ffbd4e12786a825ec0ba44ac53fcadc4a399dfc42c0db17b47886bfb0ec38"
   },
   "models": {
     "smol500": {
       "state": {
-        "status": "waiting-audio-setup",
+        "status": "board-running",
         "scope": "paired resident ASR effect; full-depth 512+64 only",
-        "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/audio-concurrency-smol500-20261013/state.json",
-        "source_sha256": "ac41f66f1eb9e0465411ccb3bb54ca9eb258936dc4b813917447afb5c5addfe8"
+        "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-smol500-stable-v3-c128/w8-fused2-c768-dfpgateup/board-dfpgateup-smol500-h512-n64",
+        "cpu_reference": "npu/results/cpu-q8-search-20261013/smol500-h512-n64-final-fa-off/results.json",
+        "source_sha256": "9714c2db39728e26c574f4289756a186872d65818bef404997c51a136196999b",
+        "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/audio-concurrency-smol500-20261013/state.json"
       },
       "result": null
     },
     "intern1b": {
       "state": {
-        "status": "waiting-audio-setup",
+        "status": "waiting-board",
         "scope": "paired resident ASR effect; full-depth 512+64 only",
-        "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/audio-concurrency-intern1b-20261013/state.json",
-        "source_sha256": "ac41f66f1eb9e0465411ccb3bb54ca9eb258936dc4b813917447afb5c5addfe8"
+        "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c768-dfpgateup-mse-v2/board-dfpmse-prefill16-intern1b-h512-n64",
+        "cpu_reference": "npu/results/thermal-aligned-20261013/intern1b-h512-n64-medium-cpu/results.json",
+        "source_sha256": "2af3417d9431652405edcbcd20f751df6012c808c2e04a4884ae1a171f112f28",
+        "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/audio-concurrency-intern1b-20261013/state.json"
       },
       "result": null
     }

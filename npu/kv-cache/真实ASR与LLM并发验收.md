@@ -6,12 +6,12 @@
 
 CPU使用与该NPU候选轨迹对齐的已测Q8配置，具体命令归档；与持续CPU搜索得到的最终最快成绩分开。生产网页CPU模型在两种后端测量期间均保持常驻。
 
-板端音频准备状态：`waiting-board`。本机编译/识别smoke通过不代替板端验证；setup通过也不等于并发通过。
+板端音频准备状态：`passed-setup-only`。本机编译/识别smoke通过不代替板端验证；setup通过也不等于并发通过。
 
 | 模型 | 并发任务状态 | 已完成正式测量 / 20 |
 | --- | --- | ---: |
-| 500M | waiting-audio-setup | 0 |
-| 1B | waiting-audio-setup | 0 |
+| 500M | board-running | 0 |
+| 1B | waiting-board | 0 |
 
 | 模型 / 后端 | ASR关→开 decode token/s | 解码变化 | ASR关→开首token s | ASR关→开响应 s |
 | --- | ---: | ---: | ---: | ---: |

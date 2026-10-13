@@ -43,6 +43,9 @@ def main():
         lines+=['','| 指标 | 原输出头 | 新输出头 |','| --- | ---: | ---: |']
         for key,label in [('decode_tokens_per_second','decode token/s'),('ttft_seconds','首token s'),('total_seconds','响应 s')]:
             lines.append(f'| {label} | {b[key]:.6f} | {c[key]:.6f} |')
+        lines.append(f'| 驱动分配 MiB | {b["driver_allocated_bytes"]/2**20:.3f} | {c["driver_allocated_bytes"]/2**20:.3f} |')
+        lines.append(f'| 127次decode的head API s | {b["decode_head_api_seconds"]:.6f} | {c["decode_head_api_seconds"]:.6f} |')
+        lines.append(f'| 127次decode的decoder API s | {b["decode_decoder_api_seconds"]:.6f} | {c["decode_decoder_api_seconds"]:.6f} |')
         lines+=['',f'中位解码提升{100*(c["decode_tokens_per_second"]/b["decode_tokens_per_second"]-1):+.2f}%；配对收益{min(gains):+.2f}%–{max(gains):+.2f}%，{sum(g>0 for g in gains)}/5次更快。']
     lines+=['','任何失败原样保留，不放宽原数值门槛；尚未达到全模型质量要求时不把局部提速加入最终成绩。','',
             '复现：`npu/.venv/bin/python npu/kv-cache/report_head_mse.py`。','']

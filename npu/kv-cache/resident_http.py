@@ -30,6 +30,12 @@ class ChatCodec:
     def encode(self, messages):
         messages = [{'role': 'system', 'content': self.system}, *messages]
         if self.typed_content:
+            # Smol's generation marker is "Assistant:" but completed turns
+            # start "Assistant: ". Its generated leading space already owns
+            # that separator: re-rendering both creates a second space and
+            # invalidates the entire generated prefix on the next request.
+            messages = [{**m, 'content': m['content'][1:]} if m['role'] == 'assistant' and
+                        m['content'].startswith(' ') else m for m in messages]
             messages = [{**m, 'content': [{'type': 'text', 'text': m['content']}]} for m in messages]
         prompt = self.template.render(messages=messages, add_generation_prompt=True)
         return self.tokenizer.encode(prompt, add_special_tokens=False).ids
@@ -38,7 +44,7 @@ class ChatCodec:
         return self.tokenizer.decode(tokens, skip_special_tokens=True)
 
 
-def prepare_prompt(codec, messages, capacity, max_new):
+def prepare_prompt(codec, messages, capacity, max_new, retain_after_overflow=None):
     if not isinstance(messages, list) or not 0 < len(messages) <= 1023 or len(messages) % 2 != 1:
         raise ValueError('需要交替的用户/助手消息，并以用户问题结束')
     for i, message in enumerate(messages):
@@ -49,20 +55,32 @@ def prepare_prompt(codec, messages, capacity, max_new):
             raise ValueError('目前只接受非空文字消息')
     if type(max_new) is not int or not 1 <= max_new <= min(256, capacity):
         raise ValueError('输出长度必须为1–256 token，且不超过窗口')
+    if retain_after_overflow is not None and (type(retain_after_overflow) is not int or
+                                            not 1 <= retain_after_overflow <= capacity):
+        raise ValueError('超窗保留目标必须是窗口内的正整数token数')
     dropped = 0
+    limit = capacity - max_new + 1
+    target = limit
     while True:
         tokens = codec.encode(messages[dropped:])
-        if tokens and len(tokens) + max_new - 1 <= capacity:
+        if tokens and len(tokens) <= target:
             return tokens, dropped
         if len(messages) - dropped <= 1:
+            # Retention is a soft target. Never remove/truncate the latest
+            # question just to create headroom for future turns.
+            if tokens and len(tokens) <= limit:
+                return tokens, dropped
             raise ContextOverflow('最新问题超过上下文容量，请缩短输入')
+        if retain_after_overflow is not None:
+            target = min(limit, retain_after_overflow)
         dropped += 2  # Never keep a dangling assistant or discard the system role.
 
 
 class ChatEngine:
-    def __init__(self, codec, worker_factory, model, capacity):
+    def __init__(self, codec, worker_factory, model, capacity, retain_after_overflow=None):
         self.codec, self.worker_factory = codec, worker_factory
         self.model, self.capacity = model, capacity
+        self.retain_after_overflow = retain_after_overflow
         self.worker = None
         self.operation = threading.Lock()
 
@@ -138,6 +156,7 @@ class Handler(BaseHTTPRequestHandler):
             return self.reply(200, {'model': engine.model, 'backend': 'NPU experimental',
                                    'context': engine.capacity, 'busy': engine.operation.locked(),
                                    'resident': engine.worker is not None,
+                                   'retain_after_overflow': engine.retain_after_overflow,
                                    'independent_quality_accepted': False})
         if self.path != '/':
             return self.reply(404, {'error': 'Not found'})
@@ -168,7 +187,8 @@ class Handler(BaseHTTPRequestHandler):
             if not isinstance(data, dict):
                 raise ValueError('请求格式错误')
             max_new = data.get('max_tokens', 128)
-            tokens, dropped = prepare_prompt(engine.codec, data.get('messages'), engine.capacity, max_new)
+            tokens, dropped = prepare_prompt(engine.codec, data.get('messages'), engine.capacity, max_new,
+                                             engine.retain_after_overflow)
         except (ValueError, OSError) as exc:
             return self.reply(400, {'error': str(exc)})
         if not engine.operation.acquire(blocking=False):

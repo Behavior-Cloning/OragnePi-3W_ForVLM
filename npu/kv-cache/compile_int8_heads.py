@@ -11,6 +11,8 @@ p.add_argument('--base',required=True);p.add_argument('--dtype',required=True)
 p.add_argument('--float-head-norm',action='store_true')
 p.add_argument('--reuse-int16-base',action='store_true')
 p.add_argument('--activation-headroom-bits',type=int,default=0)
+p.add_argument('--weight-mode',choices=['perchannel','dfp'],default='perchannel')
+p.add_argument('--dfp-method',choices=['peak','mse'],default='peak')
 args=p.parse_args();scripts=Path(__file__).resolve().parent
 manifest=json.loads((args.source/'trained-manifest.json').read_text());count=manifest['language_layers_total']
 out=args.source/args.dtype;out.mkdir(exist_ok=True)
@@ -23,6 +25,7 @@ def compile_head(shard):
             [sys.executable,str(scripts/'compile_weight_int8.py'),'--base',str(base),'--output',str(out/f'l{i}'),'--expected-linears','1']]
         if args.float_head_norm:commands[-1].append('--float-head-norm')
         commands[-1]+=['--activation-headroom-bits',str(args.activation_headroom_bits)]
+        commands[-1]+=['--weight-mode',args.weight_mode,'--dfp-method',args.dfp_method]
         if args.reuse_int16_base:
             state=json.loads((base/'conversion.json').read_text())
             if state.get('status')!='COMPILED_NOT_BOARD_VALIDATED':raise ValueError('invalid calibrated head base')

@@ -28,6 +28,7 @@ def main():
          ROOT/'thermal-aligned-20261013/intern1b-h1024-n32-medium-cpu/results.json',
          '旧NPU采用已通过质量门槛的product1920wide修复版，两端均grouped head；不与质量失败的旧栈计算收益。CPU配置搜索未完成')]
     records=[]
+    frontier=[]
     lines=['# 全深度加速候选：速度与系统开销','',
            '按表中精确历史/新增token计数，均为128次预测、Q8对应比较、中温55–<65°C起测、五轮。500M全32层，1B全24层，均包括完整词表输出头。温档约束响应开始温度，响应中自然升降温。','',
            '候选完整执行门槛已通过，独立质量留出尚未验收；这份报告不表示已超过最优CPU或完成产品验收。','',
@@ -74,11 +75,30 @@ def main():
         lines.append(f'| {record["name"]} | {(c["swap_in_bytes"]+c["swap_out_bytes"])/1024:.0f} / {(n["swap_in_bytes"]+n["swap_out_bytes"])/1024:.0f} | {(c["disk_read_bytes"]+c["disk_write_bytes"])/1024:.0f} / {(n["disk_read_bytes"]+n["disk_write_bytes"])/1024:.0f} | {c["covered_fraction"]:.0%} / {n["covered_fraction"]:.0%} |')
     lines+=['','统计只覆盖完全落在响应中的采样区间；未覆盖边界、模型加载及KV历史准备阶段不包含在I/O、换页结论里。表中均为五轮中位数，逐轮采样摘要保存在证据中。','']
     lines.extend(f'- {r["name"]}：{r["note"]}。' for r in records)
+    search_path=ROOT/'cpu-q8-search-20261013/state.json'
+    if search_path.exists():
+        search=json.loads(search_path.read_text())
+        lines+=['','## 当前CPU目标线','',
+                '上表CPU列保持与该次NPU测量相同的反馈轨迹，不能把较旧对照误读成最优CPU。下面单列持续搜索得到的最快decode配置；两轮仅为筛选，五轮确认也须检查反馈轨迹，不能静默换到旧NPU配对中。','',
+                '| 场景 | 当前最快配置 | 轮数 | token/s | 引擎首token s | 配置搜索状态 |',
+                '| --- | --- | ---: | ---: | ---: | --- |']
+        for name,row in search['cases'].items():
+            for repeats in (2,5):
+                pool={k:v for k,v in row['runs'].items() if v.get('medians') and
+                      v['repeats']==repeats and not k.startswith(('n32-','n128-'))}
+                if not pool:continue
+                label=max(pool,key=lambda k:pool[k]['medians']['decode_tokens_per_second'])
+                value=pool[label];m=value['medians']
+                frontier.append({'case':name,'label':label,'search_status':row['status'],**value})
+                lines.append(f'| {name} | {label} | {repeats} | {m["decode_tokens_per_second"]:.3f} | {m["engine_ttft_seconds"]:.3f} | {row["status"]} |')
+        lines+=['','500M的1024历史已有快于当前NPU的CPU配置；在最快配置确认和轨迹重对齐结束前，不能宣称长历史NPU胜出。完整配置及热保护拒绝记录见[CPU搜索报告](下一轮攻关进展.md)。']
     lines+=['','继续验收：扩展32/128新增与1024历史、最快CPU轨迹重对齐、独立留出与自然多轮、NPU常驻HTTP、30分钟稳定性、真实音频并发。缺少的项目不能用固定反馈速度替代。','',
+            '两模型真实HTTP/浏览器多轮已通过接口检查，见[HTTP报告](HTTP多轮接口验证.md)；独立质量和持续运行进度见[产品验收](独立质量与连续多轮验收.md)，接口通过不等于陪伴质量通过。','',
             '复现：`npu/.venv/bin/python npu/kv-cache/report_candidate_speed.py`。',
             '[紧凑证据](evidence-attack-20261013/candidate-speed-load.json)。','']
     (HERE/'全深度候选提速与负载.md').write_text('\n'.join(lines))
     (HERE/'evidence-attack-20261013/candidate-speed-load.json').write_text(json.dumps(records,indent=2,ensure_ascii=False)+'\n')
+    (HERE/'evidence-attack-20261013/cpu-speed-frontier.json').write_text(json.dumps(frontier,indent=2,ensure_ascii=False)+'\n')
     print('completed candidate comparisons',len(records))
 
 

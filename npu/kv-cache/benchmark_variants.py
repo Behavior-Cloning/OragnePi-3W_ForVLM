@@ -218,7 +218,7 @@ for phase in ('diagnostic','warmup','measure'):
                         if child.wait(timeout=600):
                             err.flush()
                             detail=(folder/'run.stderr').read_text(errors='replace')[-8000:]
-                            raise RuntimeError('NPU runner failed: '+str(folder)+'\n'+detail)
+                            raise RuntimeError('NPU runner failed: '+str(folder)+chr(10)+detail)
                     except BaseException:
                         child.kill();child.wait();raise
                     finally:stop.set();observer.join()

@@ -4,7 +4,7 @@ import json
 import threading
 import unittest
 
-from resident_http import ChatEngine, ContextOverflow, make_server, prepare_prompt
+from resident_http import ChatCodec, ChatEngine, ContextOverflow, make_server, prepare_prompt
 
 
 class Codec:
@@ -60,6 +60,22 @@ class ResidentHTTPTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             prepare_prompt(Codec(), [{'role': 'user', 'content': 'ok'}], 32, True)
 
+    def test_overflow_headroom_is_opt_in_and_keeps_latest_question(self):
+        messages = [{'role': 'user', 'content': 'aaa'}, {'role': 'assistant', 'content': 'bbb'},
+                    {'role': 'user', 'content': 'ccc'}, {'role': 'assistant', 'content': 'ddd'},
+                    {'role': 'user', 'content': 'last'}]
+        # No overflow: a low retention target must not evict valid history.
+        self.assertEqual(prepare_prompt(Codec(), messages, 20, 3, 6)[1], 0)
+        # Overflow: ordinary policy removes one turn; headroom policy two.
+        self.assertEqual(prepare_prompt(Codec(), messages, 15, 3)[1], 2)
+        self.assertEqual(prepare_prompt(Codec(), messages, 15, 3, 6)[1], 4)
+        # The current question may exceed the soft target, never the hard cap.
+        tokens, dropped = prepare_prompt(Codec(), messages, 15, 3, 2)
+        self.assertEqual(tokens, [0, *map(ord, 'last')])
+        self.assertEqual(dropped, 4)
+        with self.assertRaises(ValueError):
+            prepare_prompt(Codec(), messages, 20, 3, True)
+
     def test_utf8_stream_and_worker_reuse(self):
         first = list(self.engine.stream([5], 3))
         self.assertEqual(''.join(e['choices'][0]['delta']['content'] for e in first), '橙子')
@@ -67,6 +83,21 @@ class ResidentHTTPTest(unittest.TestCase):
         list(self.engine.stream([5, 6], 3))
         self.assertEqual(len(self.workers), 1)
         self.assertFalse(self.workers[0].aborted)
+
+    def test_smol_generated_separator_is_not_duplicated(self):
+        from jinja2 import Environment
+        from types import SimpleNamespace
+        codec = ChatCodec.__new__(ChatCodec)
+        codec.system = 'System'
+        codec.typed_content = True
+        codec.template = Environment().from_string(
+            '{% for m in messages %}{{m.role | capitalize}}: {{m.content[0].text}}\n{% endfor %}Assistant:')
+        codec.tokenizer = SimpleNamespace(encode=lambda text, **kwargs: SimpleNamespace(ids=list(text.encode())))
+        first = [{'role': 'user', 'content': 'Hi'}]
+        next_turn = first + [{'role': 'assistant', 'content': ' Hello!'}, {'role': 'user', 'content': 'Continue'}]
+        before = codec.encode(first) + list(b' Hello!')
+        after = codec.encode(next_turn)
+        self.assertEqual(after[:len(before)], before)
 
     def test_interrupt_discards_worker_before_next_request(self):
         stream = self.engine.stream([5], 3)

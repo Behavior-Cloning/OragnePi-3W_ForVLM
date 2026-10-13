@@ -27,7 +27,7 @@ def main():
     profile['fullconnect_busy_percent'] = [100*t['by_op']['fullconnect']['cycles']/t['summed_busy_cycles'] for t in traces]
     base = sha(ROOT / 'l0/export_nbg_unify/network_binary.nb')
     trials = []
-    for name in ('tpfc0', 'tpfc1', 'nn-transpose', 'burst128', 'gateup-a8', 'gateup-a8-range1', 'gateup-w8dfp', 'gateup-w8dfp-mse', 'all-w8dfp-mse'):
+    for name in ('tpfc0', 'tpfc1', 'nn-transpose', 'burst128', 'gateup-a8', 'gateup-a8-range1', 'gateup-w8dfp', 'gateup-w8dfp-mse', 'all-w8dfp-mse', 'mlp-w8dfp-mse'):
         folder = ROOT / name
         conversion = folder / 'conversion.json'
         if not conversion.exists():
@@ -38,7 +38,7 @@ def main():
                        'binary_sha256': sha(binary) if binary.exists() else None,
                        'binary_identical_to_baseline': sha(binary) == base if binary.exists() else False})
     probes = {}
-    for name in ('preload-on', 'preload-off', 'probe-gateup-a8', 'probe-gateup-a8-range1', 'probe-gateup-w8dfp', 'probe-gateup-w8dfp-mse', 'probe-all-w8dfp-mse'):
+    for name in ('preload-on', 'preload-off', 'probe-gateup-a8', 'probe-gateup-a8-range1', 'probe-gateup-w8dfp', 'probe-gateup-w8dfp-mse', 'probe-all-w8dfp-mse', 'probe-mlp-w8dfp-mse'):
         path = ROOT / name / 'board-validation.json'
         if not path.exists():
             continue
@@ -140,6 +140,20 @@ def main():
             err=report['all_dfp_original_errors'][model]['hidden_relative_l2']
             lines.append(f'| {model} | {d["timing"]["mean_api_seconds"]*1000:.4f} | {err:.3%} | {"误差明显增大且慢于已选峰值gate/up版，拒绝推广" if model=="smol500" else "比gate/up MSE局部略快，但误差增大，暂不推广"} |')
         lines+=['','这些不是全模型速度，也不是独立留出成绩。1B的gate/up MSE对应原Q8局部hidden误差约3.83%，全部矩阵扩展后约6.83%；500M相应扩展达约28.83%。不能只看对导出常量的低误差就宣称量化质量合格。']
+    if 'probe-mlp-w8dfp-mse' in probes:
+        d=probes['probe-mlp-w8dfp-mse']
+        original=np.fromfile(ROOT/'fixture-mlp-w8dfp-mse/probe-original-reference.f32',np.float32)
+        output=np.fromfile(ROOT/'probe-mlp-w8dfp-mse/output.f32',np.float32)
+        hidden=d['fixture']['outputs'][0][1]
+        err=float(np.linalg.norm(output[:hidden]-original[:hidden])/np.linalg.norm(original[:hidden]))
+        lines+=['','## 限定MLP的下一候选','',
+                f'1B只在gate/up之外增加down的DFP MSE，不改Q/K/V/O或敏感FP16。两层50次API平均{d["timing"]["mean_api_seconds"]*1000:.4f}ms，执行门槛通过；相对原Q8局部hidden L2 {err:.3%}。相比gate/up MSE约3.7602ms有小幅机会，但不是全模型收益，也未接受质量。']
+        trial=HERE.parent/'results/dfpmlp-productwide-trial-20261013/state.json'
+        if trial.exists():
+            state=json.loads(trial.read_text())
+            if state.get('status')=='development-quality-failed':
+                q=state['original_q8_development']
+                lines+=['',f'完整24层1024＋32试验已拒绝：导出常量执行门槛通过，但原Q8开发PPL比{q["perplexity_ratio"]:.6f}（上限1.05），logits L2 {q["l2"]:.3%}。不进入五轮提速排行，保留原gate/up候选；局部通过不足以推广down量化。']
     if 'full_dfp_mse_ab' in report:
         c,n=ab['medians']['baseline'],ab['medians']['dfpmse']
         gains=[]

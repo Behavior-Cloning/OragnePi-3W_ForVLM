@@ -134,10 +134,120 @@
             "path": "npu/results/cpu-q8-search-20261013/smol500-h1024-n64-all-t2/results.json",
             "repeats": 2,
             "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "all-t4": {
+            "config": {
+              "threads": 4,
+              "affinity": "0-7",
+              "threads_batch": 4,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": false,
+            "medians": {
+              "ttft_seconds": 1.1440103464992717,
+              "engine_ttft_seconds": 1.0047139999999999,
+              "decode_tokens_per_second": 14.798254522494744,
+              "total_seconds": 9.590411773000596,
+              "response_cpu_seconds": 35.56500000000001,
+              "preparation_seconds": 8.631254859999899
+            },
+            "path": "npu/results/cpu-q8-search-20261013/smol500-h1024-n64-all-t4/results.json",
+            "repeats": 2,
+            "quality": "trajectory changed; revalidation required"
+          },
+          "prefill4": {
+            "config": {
+              "threads": 2,
+              "affinity": "0-7",
+              "threads_batch": 4,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 1.123303587000919,
+              "engine_ttft_seconds": 1.0069085,
+              "decode_tokens_per_second": 17.65838057439285,
+              "total_seconds": 8.203104373500537,
+              "response_cpu_seconds": 18.239999999999995,
+              "preparation_seconds": 8.609387679500287
+            },
+            "path": "npu/results/cpu-q8-search-20261013/smol500-h1024-n64-prefill4/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "ub128": {
+            "config": {
+              "threads": 2,
+              "affinity": "0-7",
+              "threads_batch": 2,
+              "ubatch": 128,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 1.0500342489995091,
+              "engine_ttft_seconds": 0.9286464999999999,
+              "decode_tokens_per_second": 17.52386206886867,
+              "total_seconds": 8.185219248998692,
+              "response_cpu_seconds": 16.354999999999997,
+              "preparation_seconds": 9.656650461001846
+            },
+            "path": "npu/results/cpu-q8-search-20261013/smol500-h1024-n64-ub128/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "fa-on": {
+            "config": {
+              "threads": 2,
+              "affinity": "0-7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "on",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 1.0490937460017449,
+              "engine_ttft_seconds": 0.926906,
+              "decode_tokens_per_second": 17.520372860351642,
+              "total_seconds": 8.181744403000266,
+              "response_cpu_seconds": 16.35,
+              "preparation_seconds": 9.185141324500364
+            },
+            "path": "npu/results/cpu-q8-search-20261013/smol500-h1024-n64-fa-on/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "fa-off": {
+            "config": {
+              "threads": 2,
+              "affinity": "0-7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "off",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 1.0083648339987121,
+              "engine_ttft_seconds": 0.9048944999999999,
+              "decode_tokens_per_second": 20.19174048476512,
+              "total_seconds": 7.200167683498876,
+              "response_cpu_seconds": 14.384999999999998,
+              "preparation_seconds": 11.16858808500183
+            },
+            "path": "npu/results/cpu-q8-search-20261013/smol500-h1024-n64-fa-off/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
           }
         },
         "status": "running",
-        "active": "all-t4"
+        "active": "decode2-prefill6-strict"
       },
       "smol500-h512-n64": {
         "runs": {

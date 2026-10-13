@@ -16,6 +16,9 @@ def main():
              '| --- | --- | ---: | ---: | ---: |']
     for model, folder in [('500M', 'resident-http-smol500-20261013'), ('1B', 'resident-http-intern1b-20261013')]:
         path = ROOT / folder / 'result.json'
+        retries=sorted(ROOT.glob(folder+'-attempt*/result.json'))
+        if retries:
+            path=retries[-1]
         if not path.exists():
             lines.append(f'| {model} | 排队，尚无结果 | — | — | 0 |')
             continue
@@ -24,7 +27,8 @@ def main():
         records.append(record)
         lines.append(f'| {model} | {data["status"]} | {data["layers"]} | {data["capacity"]} | {len(data["runs"])} |')
     lines += ['', '三个开发对话轮次使用模型自己的实际输出续聊，检查下一轮KV复用；再测试超窗删除完整旧轮、前缀变化重置，释放驱动至0，并重新加载后核对同一问题的完整输出token一致。这里没有用独立留出指导调参。', '',
-              '本地单测验证UTF-8跨token切分、半途关闭流后丢弃worker、跨域拒绝及忙碌请求返回409。实板HTTP成功不自动证明浏览器停止按钮已上板验收；读表时按实际checks字段判断。']
+              '500M第一次HTTP试验发现模板在`Assistant:`后补一个空格，而实际生成正文已以空格开头，重套模板产生双空格并使跨轮KV前缀失配。修复只在序列化旧assistant时消费模板的一个分隔空格，显示原文保留；原失败记录不删。真实生成token前缀已离线核对，新attempt另行实板验收。', '',
+              '本地单测验证UTF-8跨token切分、半途关闭流后丢弃worker、跨域拒绝及忙碌请求返回409。浏览器通过独立Chrome实际点击；仅当结果含browser.status=passed时，才计入停止、新对话及页面多轮验收。']
     for record in records:
         lines += ['', '## ' + Path(record['model']).stem, '']
         if record.get('error'):
@@ -40,6 +44,12 @@ def main():
         for i, run in enumerate(record['runs'][:3], 1):
             lines += [f'第{i}轮用户：' + run['messages'][-1]['content'], '',
                       '> ' + (run['answer'] or '（空回答）').replace('\n', '\n> '), '']
+        if record.get('browser'):
+            browser=record['browser']
+            lines+=['浏览器验证：`'+browser['status']+'`。'+ '、'.join(browser['checks'])+'。','']
+            for i,turn in enumerate(browser['turns'],1):
+                lines += [f'网页第{i}轮：'+turn['metrics'],'','> '+turn['answer'].replace('\n','\n> '),'']
+            lines+=['实际回答仅作为开发样例展示，不能据此称角色稳定或质量无损；尚未与同模型CPU逐问题配对评阅。','']
     lines += ['', '复现：`run_resident_http_validation.py`，报告生成：`report_resident_http.py`。',
               '[紧凑证据](evidence-attack-20261013/resident-http.json)。', '']
     (HERE / 'HTTP多轮接口验证.md').write_text('\n'.join(lines))

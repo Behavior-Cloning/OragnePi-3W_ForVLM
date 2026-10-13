@@ -14,6 +14,8 @@ import yaml
 p=argparse.ArgumentParser();p.add_argument('--base',type=Path,required=True)
 p.add_argument('--output',type=Path,required=True);p.add_argument('--timeout',type=int,default=180)
 p.add_argument('--weight-mode',choices=['perchannel','dfp'],default='perchannel')
+p.add_argument('--dfp-method',choices=['peak','mse'],default='peak',
+    help='weight-only scale selection; MSE experiment requires W8 DFP')
 p.add_argument('--weight-bits',type=int,choices=[4,8],default=8)
 p.add_argument('--expected-linears',type=int,default=7)
 p.add_argument('--only-linear',nargs='+',help='quantize only these imported linear layer names')
@@ -31,6 +33,7 @@ p.add_argument('--mlp-headroom-bits',type=int,help='separate range headroom for 
 p.add_argument('--float-scores',action='store_true',help='FP16 QK product and score scaling, stopping before projection tensors')
 p.add_argument('--float-head-norm',action='store_true',help='FP16 internal head norm; retain calibrated matrix boundaries and external IO')
 args=p.parse_args();root=Path(__file__).resolve().parents[2]/'npu/results'
+assert args.dfp_method=='peak' or (args.weight_mode=='dfp' and args.weight_bits==8)
 base=args.base.resolve();out=args.output.resolve();relative=out.relative_to(root)
 out.mkdir(parents=True,exist_ok=True)
 for name in ('decoder.json','decoder.data','tensor-inputmeta.yml'):
@@ -201,11 +204,21 @@ for name,parameters in data.items():
                 'rounding':'rtne','fl':fl,'max_value':float(weight.max()),'min_value':float(weight.min())}
         changed.append({'name':name,'shape':list(weight.shape),'dtype':f'int{args.weight_bits}'})
 assert len(changed)==args.expected_linears, 'unexpected linear projection count'
+dfp_search=None
+if args.dfp_method=='mse':
+    # Reuse the decoder's weight-only search. Mark just the selected W8
+    # matrices eligible; no activation or external tensor contract is changed.
+    from fc_input_precision import convert_fc_weights_dfp
+    for entry in changed:
+        if entry['dtype']=='int8':
+            quant['quantize_parameters']['@'+entry['name']+':weight']['quantizer']='perchannel_symmetric_affine'
+    dfp_search=convert_fc_weights_dfp({'Layers':graph},quant,data,0,'all-w8','mse')
 (out/'decoder.quantize').write_text(yaml.safe_dump(quant,sort_keys=False))
 report={'scope':'one decoder with explicit per-matrix weight and sensitive-activation precision overrides',
         'int8_matrices':sum(w['dtype']=='int8' for w in changed),
         'int4_matrices':sum(w['dtype']=='int4' for w in changed),
         'weight_bits_requested':args.weight_bits,
+        'dfp_method':args.dfp_method,'dfp_scale_search':dfp_search,
         'fp16_matrices':sum(w['dtype']=='float16' for w in changed),
         'base':str(base.relative_to(root)),'weights':changed,'weight_mode':args.weight_mode,'dfp_linear':args.dfp_linear,'float_nonlinear':args.float_nonlinear,'float_residual':args.float_residual,
         'float_sensitive':args.float_sensitive,

@@ -133,6 +133,18 @@ if args.skip_deploy:
     files=[(src,name) for src,name in files if name in (prompt_name,'full_model.c','board_probe.c','greedy_i16.h','batch_prefill.h','thermal_condition.py','thermal_heater.c')]
 if feedback_file:files.append((feedback_file,result_name+'-feedback.i32'))
 if files:
+    # Reserve room for both deployment and the complete diagnostic logits.
+    # Hard-linked model files do not require another model-sized allocation.
+    required=(0 if args.performance or args.deploy_only else args.max_new*manifest['vocab_size']*4)
+    for src,name in files:
+        linked=args.reuse_tag and (name=='embeddings.f32' or
+            (args.reuse_prefill and name.startswith('prefill-layer') and name.endswith('.nb') and int(name[13:-3]) not in args.deploy_prefill_layers) or
+            (name.startswith('layer') and name.endswith('.nb') and int(name[5:-3]) not in args.deploy_layers))
+        if not linked:required+=src.stat().st_size
+    available=int(subprocess.check_output(ssh+['python3 -c '+shlex.quote(
+        'import shutil; print(shutil.disk_usage("/opt/opi-vlm/npu-kv-probe").free)')],text=True,timeout=20))
+    if available<required+256*1024**2:
+        raise RuntimeError(f'insufficient board space: {available} free, {required} plus 256 MiB reserve needed')
     subprocess.run(ssh+['mkdir -p '+remote],check=True,timeout=30)
     hashes=[]
     for source,name in files:

@@ -77,6 +77,16 @@ def main():
         row=state['cases'].get(case,{'status':'running','started':time.time(),'config':c,'reference':str(reference),'tag':tag,'bands':{}})
         row['status']='running'
         reference=Path(row['reference']);npu_case=reference.name.removeprefix('board-')
+        exit_path=reference/'exit.json'
+        if exit_path.exists() and json.loads(exit_path.read_text()).get('exit_code')!=0:
+            # Preserve failed diagnostic files (including ENOSPC truncation).
+            base=re.sub(r'-attempt\d+$','',npu_case);attempt=2
+            replacement=source/decode/('board-'+base+f'-attempt{attempt}')
+            while replacement.exists():
+                attempt+=1;replacement=source/decode/('board-'+base+f'-attempt{attempt}')
+            row.setdefault('failed_references',[]).append(str(reference))
+            reference=replacement;npu_case=reference.name.removeprefix('board-')
+            row['reference']=str(reference)
         state['cases'][case]=row;save()
         try:
             trajectory=None

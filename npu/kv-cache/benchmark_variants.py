@@ -127,8 +127,11 @@ c['temperature_band_mC']=a.temperature_band_mc
 sampler_source=Path(__file__).with_name('resource_sampler.py').read_text()
 c['resource_sampler_sha256']=hashlib.sha256(sampler_source.encode()).hexdigest()
 code = '''
-import hashlib,json,os,pathlib,subprocess,threading,time,urllib.request
+import hashlib,json,os,pathlib,shutil,subprocess,threading,time,urllib.request
 c=CONFIG
+required=len(c['variants'])*len(c['tokens'])*c['vocab']*4+512*1024**2
+available=shutil.disk_usage('/opt/opi-vlm/npu-kv-probe').free
+assert available>=required, f'insufficient board space: {available} free, need {required} including diagnostic dumps and reserve'
 provenance={}
 def health():
     with urllib.request.urlopen('http://127.0.0.1:8080/api/health',timeout=3) as response:

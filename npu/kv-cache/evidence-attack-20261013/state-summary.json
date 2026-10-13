@@ -1,5 +1,5 @@
 {
-  "matrix_completed_pairs": 19,
+  "matrix_completed_pairs": 20,
   "cpu": {
     "scope": "Q8 only; medium start; 2-repeat screening then 5-repeat finalist; greedy trajectory equality is alignment, not holdout quality",
     "cases": {
@@ -11,7 +11,8 @@
               "affinity": "6,7",
               "threads_batch": 2,
               "ubatch": 512,
-              "flash": "auto"
+              "flash": "auto",
+              "affinity_batch": null
             },
             "aligned": true,
             "medians": {
@@ -32,7 +33,8 @@
               "affinity": "6",
               "threads_batch": 1,
               "ubatch": 512,
-              "flash": "auto"
+              "flash": "auto",
+              "affinity_batch": null
             },
             "aligned": false,
             "medians": {
@@ -53,7 +55,8 @@
               "affinity": "4-7",
               "threads_batch": 4,
               "ubatch": 512,
-              "flash": "auto"
+              "flash": "auto",
+              "affinity_batch": null
             },
             "aligned": false,
             "medians": {
@@ -67,11 +70,38 @@
             "path": "npu/results/cpu-q8-search-20261013/smol500-h1024-n64-mixed-t4/results.json",
             "repeats": 2,
             "quality": "trajectory changed; revalidation required"
+          },
+          "mixed-t6": {
+            "aligned": false,
+            "repeats": 2,
+            "path": "npu/results/cpu-q8-search-20261013/smol500-h1024-n64-mixed-t6/results.json",
+            "status": "rejected-thermal-limit",
+            "quality": "unmeasured after thermal stop",
+            "medians": {},
+            "thermal_abort": [
+              {
+                "temperature_mC": 80948,
+                "monotonic_seconds": 5740.296073024
+              }
+            ]
+          },
+          "all-t8": {
+            "aligned": false,
+            "repeats": 2,
+            "path": "npu/results/cpu-q8-search-20261013/smol500-h1024-n64-all-t8/results.json",
+            "status": "rejected-thermal-limit",
+            "quality": "unmeasured after thermal stop",
+            "medians": {},
+            "thermal_abort": [
+              {
+                "temperature_mC": 82718,
+                "monotonic_seconds": 16537.083887036
+              }
+            ]
           }
         },
-        "status": "failed",
-        "active": "mixed-t6",
-        "error": "Command '['/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/.venv/bin/python', '/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/kv-cache/run_cpu_reference.py', '--prompt-folder', '/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/aligned-20261013r2/smol500-h1024-n64', '--model-id', 'smolvlm-500m', '--context', '1280', '--tag', 'q8search-smol500-h1024-n64-mixed-t6', '--output', 'npu/results/cpu-q8-search-20261013/smol500-h1024-n64-mixed-t6', '--repeats', '2', '--threads', '6', '--cpu-affinity', '2-7', '--ubatch-size', '512', '--flash-attn', 'auto', '--temperature-band-mc', '55000', '64999']' returned non-zero exit status 1."
+        "status": "running",
+        "active": "mixed-t6-cooled"
       },
       "smol500-h512-n64": {
         "runs": {
@@ -448,13 +478,67 @@
             "path": "npu/results/cpu-q8-search-20261013/smol500-h512-n32-final-mixed-t6/results.json",
             "repeats": 5,
             "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "n128-final-fa-off": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 2,
+              "ubatch": 512,
+              "flash": "off",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 1.483083405000798,
+              "engine_ttft_seconds": 1.393343,
+              "decode_tokens_per_second": 23.025662735684428,
+              "total_seconds": 6.91114035100145,
+              "response_cpu_seconds": 13.790000000000006,
+              "preparation_seconds": 4.841409475999171
+            },
+            "path": "npu/results/cpu-q8-search-20261013/smol500-h512-n128-final-fa-off/results.json",
+            "repeats": 5,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "n128-final-mixed-t6": {
+            "config": {
+              "threads": 6,
+              "affinity": "2-7",
+              "threads_batch": 6,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": null
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 1.1299954160003836,
+              "engine_ttft_seconds": 1.026443,
+              "decode_tokens_per_second": 19.803320283932834,
+              "total_seconds": 7.442460332998962,
+              "response_cpu_seconds": 44.49000000000001,
+              "preparation_seconds": 3.0509736980002344
+            },
+            "path": "npu/results/cpu-q8-search-20261013/smol500-h512-n128-final-mixed-t6/results.json",
+            "repeats": 5,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
           }
         },
-        "status": "running",
+        "status": "complete",
         "fastest_decode": "final-fa-off",
         "fastest_total": "final-fa-off",
         "fastest_ttft": "final-mixed-t6",
-        "active": "final-fa-off"
+        "tested_new_tokens": [
+          32,
+          64,
+          128
+        ],
+        "requires_trajectory_revalidation": [
+          "n32-final-fa-off"
+        ],
+        "independent_quality_accepted": false,
+        "search_revision": 3,
+        "finished_at": 1791875664.4448266
       }
     },
     "status": "running",
@@ -598,9 +682,53 @@
         "status": "blocked-quality",
         "reason": "baseline execution gate failed; no speed experiment",
         "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-splitkv-i16mm/board-thermal3-intern1b-h1024-n32"
+      },
+      "intern1b-h1024-n64": {
+        "status": "complete",
+        "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-splitkv-i16mm/board-thermal3-intern1b-h1024-n64",
+        "result": "npu/results/head-matrix-20261013/intern1b-h1024-n64-head-ab.json",
+        "serial": {
+          "decode_tokens_per_second": 13.511095,
+          "ttft_seconds": 1.257495,
+          "total_seconds": 10.655774,
+          "cpu_seconds": 0.285676,
+          "driver_allocated_bytes": 910977960,
+          "decode_decoder_api_seconds": 6.826673,
+          "decode_head_api_seconds": 2.352942,
+          "max_rss_kib": 43244,
+          "load_seconds": 0.850309
+        },
+        "grouped": {
+          "decode_tokens_per_second": 13.775294,
+          "ttft_seconds": 1.255346,
+          "total_seconds": 10.474691,
+          "cpu_seconds": 0.258707,
+          "driver_allocated_bytes": 910977960,
+          "decode_decoder_api_seconds": 6.829849,
+          "decode_head_api_seconds": 2.165001,
+          "max_rss_kib": 43184,
+          "load_seconds": 0.802242
+        },
+        "paired_gains_percent": [
+          2.4042171055395523,
+          2.0256593720941574,
+          2.2524055588270864,
+          1.738794732604232,
+          1.955422561975917
+        ],
+        "logits_identical": true,
+        "gate": {
+          "applicable": true,
+          "relative_l2_limit": 0.05,
+          "min_cosine_limit": 0.99,
+          "argmax_match_min": 0.95,
+          "passed": true,
+          "scope": "execution on this trajectory only; not holdout quality acceptance"
+        },
+        "decode_gain_percent": 1.955422561975917
       }
     },
     "status": "waiting-for-baseline",
-    "waiting_case": "intern1b-h1024-n64"
+    "waiting_case": "intern1b-h1024-n128"
   }
 }

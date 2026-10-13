@@ -41,6 +41,7 @@ p.add_argument('--fc-input-int8',choices=('gateup','all-w8'))
 p.add_argument('--fc-input-range-bits',type=int,choices=(0,1),default=0)
 p.add_argument('--fc-weight-dfp',choices=('gateup','all-w8'))
 p.add_argument('--fc-weight-dfp-method',choices=('peak','mse'),default='peak')
+p.add_argument('--mlp-product-headroom',type=int,nargs=2,action='append',default=[],metavar=('LAYER','BITS'))
 p.add_argument('--reuse-blocks-from', help='reuse immutable blocks only when every source hash and graph option matches')
 a = p.parse_args()
 source = a.source.resolve()
@@ -49,10 +50,13 @@ out.mkdir(exist_ok=True)
 m = json.loads((source / 'trained-manifest.json').read_text())
 count = len(m['layers'])
 assert count % a.width == 0
+assert len(dict(a.mlp_product_headroom))==len(a.mlp_product_headroom)
+assert all(0<=layer<count and 1<=bits<=4 for layer,bits in a.mlp_product_headroom)
 base_records = json.loads((source / a.base / 'stack-conversion.json').read_text())
 def compatible(record, first):
-    if record.get('mlp_product_headroom'):
-        return False  # Explicitly changed range is never silently reused.
+    ranges=[p for p in a.mlp_product_headroom if first<=p[0]<first+a.width]
+    if sorted(record.get('mlp_product_headroom',[]))!=sorted(ranges):
+        return False  # Never silently reuse a graph with different ranges.
     if record.get('fc_weight_dfp') != a.fc_weight_dfp:
         return False
     if record.get('fc_weight_dfp_method','peak') != a.fc_weight_dfp_method:
@@ -144,6 +148,8 @@ def compile_block(first):
                 [v for opt in a.sdk_option for v in ('--sdk-option',opt)] +
                 (['--fc-input-int8',a.fc_input_int8,'--fc-input-range-bits',str(a.fc_input_range_bits)] if a.fc_input_int8 else []) +
                 (['--fc-weight-dfp',a.fc_weight_dfp,'--fc-weight-dfp-method',a.fc_weight_dfp_method] if a.fc_weight_dfp else []) +
+                [v for layer,bits in a.mlp_product_headroom if first<=layer<first+a.width
+                   for v in ('--mlp-product-headroom',str(layer),str(bits))] +
                 (['--compact-gqa'] if a.compact_gqa else []),
                 stdout=log, stderr=subprocess.STDOUT, check=True, timeout=340)
         record = json.loads((folder / 'conversion.json').read_text())
@@ -161,6 +167,7 @@ def compile_block(first):
               'split_probability_identity':a.split_probability_identity,
               'split_softmax_i16':a.split_softmax_i16,
               'split_current_matmul':a.split_current_matmul,
+              'mlp_product_headroom':[p for p in a.mlp_product_headroom if first<=p[0]<first+a.width],
               'path': str(folder / 'export_nbg_unify/network_binary.nb'), 'base': a.base,
               'reused_from':str(folder.resolve()) if folder.is_symlink() else None}
     print(json.dumps(result), flush=True)

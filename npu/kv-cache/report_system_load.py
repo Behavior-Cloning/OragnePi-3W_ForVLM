@@ -11,9 +11,9 @@ ROOT=HERE.parent/'results'
 def read(path):return json.loads(path.read_text())
 
 
-def summarize(path,backend):
+def summarize(path,backend,label=None):
     data=read(path);assert data['status']=='complete'
-    runs=[r for r in data['runs'] if r['phase']=='measure'];assert len(runs)==5
+    runs=[r for r in data['runs'] if r['phase']=='measure' and (label is None or r.get('label')==label)];assert len(runs)==5
     rows=[]
     for run in runs:
         runtime=run if backend=='cpu' else run['result']
@@ -51,7 +51,7 @@ def summarize(path,backend):
                      'sampling_errors':sorted({k for v in samples for k in v.get('errors',{})})})
     metrics={k:statistics.median(r[k] for r in rows) if all(r[k] is not None for r in rows) else None
              for k in rows[0] if k not in ('rss_source','sampling_errors')}
-    return {'medians':metrics,'runs':rows,'source':str(path),
+    return {'medians':metrics,'runs':rows,'source':str(path),'label':label,
             'source_sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
 
 

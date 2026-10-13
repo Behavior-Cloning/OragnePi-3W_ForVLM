@@ -23,10 +23,11 @@ for record in records:
         conversion=json.loads((folder/'conversion.json').read_text())
         assert conversion['exit_code']==0 and conversion['binaries'],i
         record['precision']=('W8 output head' if i>=manifest['language_layers_total'] else
-            ('W8 attention + partially W8 MLP' if conversion.get('int8_mlp_projections') else
+            ('unchanged weight types; selected INT16 MLP activation range widened' if conversion.get('mlp_product_headroom') else
+             'W8 attention + partially W8 MLP' if conversion.get('int8_mlp_projections') else
              'W8 attention + FP16 MLP' if conversion.get('float_mlp') else 'W8 with selected floating activations'))
         record['precision_overrides']={key:conversion.get(key) for key in
-            ('float_mlp','int8_mlp_projections','mlp_headroom_bits','float_residual','float_sensitive','float_down_output','float_scores','float_head_norm','activation_headroom_bits')}
+            ('float_mlp','int8_mlp_projections','mlp_headroom_bits','float_residual','float_sensitive','float_down_output','float_scores','float_head_norm','activation_headroom_bits','mlp_product_headroom','mlp_product_changes')}
     record['path']=str(folder/'export_nbg_unify/network_binary.nb')
     record['composed_from']=args.dtype if i in args.replace else args.base
     assert Path(record['path']).is_file()

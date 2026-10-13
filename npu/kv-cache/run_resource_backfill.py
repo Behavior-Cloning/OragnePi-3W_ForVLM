@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+from attempt_paths import select_attempt
 
 
 def read(path):
@@ -23,6 +24,7 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument('--matrix',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--retry-failed',action='store_true')
     a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
     scripts=Path(__file__).resolve().parent;root=scripts.parent/'results'
     matrix=read(a.matrix/'state.json')
@@ -49,21 +51,25 @@ def main():
         group=16 if cfg['model']=='smol500' else 12
         lo,hi=matrix['bands_mC'][band]
         cpu=a.output/(key+'-cpu');npu=a.output/(key+'-npu.json')
+        cpu,cpulog,cpu_attempt=select_attempt(cpu,'results.json',a.output/(key+'-cpu.log'),a.retry_failed)
+        npu,npulog,npu_attempt=select_attempt(npu,None,a.output/(key+'-npu.log'),a.retry_failed)
+        cpu_suffix='' if cpu_attempt==1 else f'-attempt{cpu_attempt}'
+        npu_suffix='' if npu_attempt==1 else f'-attempt{npu_attempt}'
         commands=[('cpu',cpu/'results.json',[
             'run_cpu_reference.py','--prompt-folder',cfg['folder'],'--model-id',cfg['model_id'],
-            '--context',str(cfg['capacity']),'--tag','resources-'+key+'-cpu','--output',str(cpu),
+            '--context',str(cfg['capacity']),'--tag','resources-'+key+'-cpu'+cpu_suffix,'--output',str(cpu),
             '--repeats','5','--temperature-band-mc',str(lo),str(hi)]),
             ('npu',npu,['benchmark_variants.py','--source',str(source),'--reference',str(reference),
             '--variant','batch32',entry['tag'],reference.name.removeprefix('board-'),str(group),'2',
             '--variant-reference','batch32',str(reference),'--prefill','batch32','32','--fast-greedy','batch32',
             '--fixed-feedback','--cpu-affinity','6,7','--max-start-temp-mc','68000',
-            '--temperature-band-mc',str(lo),str(hi),'--repeats','5','--experiment','resources-'+key,'--output',str(npu)])]
+            '--temperature-band-mc',str(lo),str(hi),'--repeats','5','--experiment','resources-'+key+npu_suffix,'--output',str(npu)])]
         row=state['cases'].setdefault(key,{})
         try:
             for backend,path,command in commands:
                 row.update(status='running',active=backend);save();print(key,backend,flush=True)
                 if not path.exists():
-                    with (a.output/(key+'-'+backend+'.log')).open('x') as log:
+                    with (cpulog if backend=='cpu' else npulog).open('x') as log:
                         subprocess.run([sys.executable,str(scripts/command[0]),*command[1:]],stdout=log,stderr=subprocess.STDOUT,check=True)
                 data=read(path);assert complete_resources(data),'incomplete direct sample coverage'
                 row[backend]=str(path)

@@ -72,6 +72,20 @@ def main():
     for name in ('probe-gateup-w8dfp','probe-gateup-w8dfp-mse'):
         path=smol_root/name/'board-validation.json'
         if path.exists():report['smol500_dfp_probes'][name]={**json.loads(path.read_text()),'source_path':str(path),'source_sha256':sha(path)}
+    ab_path=HERE.parent/'results/intern1b-dfpmse-ab-20261013.json'
+    ab=json.loads(ab_path.read_text()) if ab_path.exists() else None
+    if ab and ab['status']=='complete':
+        compact={k:v for k,v in ab.items() if k!='runs'}
+        compact.update(source_path=str(ab_path),source_sha256=sha(ab_path))
+        compact['runs']=[{k:v for k,v in r.items() if k!='system_samples'} for r in ab['runs']]
+        report['full_dfp_mse_ab']=compact
+    smol_ab_path=HERE.parent/'results/smol500-dfpgateup-ab-20261013.json'
+    smol_ab=json.loads(smol_ab_path.read_text()) if smol_ab_path.exists() else None
+    if smol_ab and smol_ab['status']=='complete':
+        compact={k:v for k,v in smol_ab.items() if k!='runs'}
+        compact.update(source_path=str(smol_ab_path),source_sha256=sha(smol_ab_path))
+        compact['runs']=[{k:v for k,v in r.items() if k!='system_samples'} for r in smol_ab['runs']]
+        report['full_smol500_dfp_ab']=compact
     (ARCHIVE / 'decoder-dense-probes.json').write_text(json.dumps(report, indent=2) + '\n')
     pct = profile['fullconnect_busy_percent']
     lines = ['# Decoder矩阵瓶颈与候选筛选', '',
@@ -106,6 +120,37 @@ def main():
         lines+=['',f'MSE缩放版完整24层已验证：执行门槛{"通过" if d["execution_gate_v1"]["passed"] else "未通过"}，L2 {d["relative_l2_all_logits"]:.3%}、最低cosine {d["min_step_cosine"]:.6f}；相对原Q8开发轨迹PPL比{o["fixed_trajectory_nll"]["perplexity_ratio"]:.6f}、logits L2 {o["relative_l2_all_logits"]:.3%}。该结果不等于独立留出通过，五轮干净测速另列。']
     for name,d in report['smol500_dfp_probes'].items():
         lines+=['',f'500M局部{name}：50次两层API平均{d["timing"]["mean_api_seconds"]*1000:.4f}ms，执行门槛{"通过" if d["gate"]["passed"] else "未通过"}。完整32层仍需验证，不与1B混合计算收益。']
+    if 'full_dfp_mse_ab' in report:
+        c,n=ab['medians']['baseline'],ab['medians']['dfpmse']
+        gains=[]
+        for i in range(5):
+            pair={r['label']:r['result'] for r in ab['runs'] if r['phase']=='measure' and r['repeat']==i}
+            gains.append(100*(pair['dfpmse']['decode_tokens_per_second']/pair['baseline']['decode_tokens_per_second']-1))
+        lines+=['','## 1B完整模型五轮解码收益','',
+                '512历史＋64新增、全24层、128次预测，两端同为t32和grouped head、中温55–<65°C起测。冻结反馈相同，各自完整诊断logits先复现；正式性能不写大logits。','',
+                '| 项目 | 基线NPU | DFP MSE候选 |','| --- | ---: | ---: |',
+                f'| decode token/s | {c["decode_tokens_per_second"]:.6f} | {n["decode_tokens_per_second"]:.6f} |',
+                f'| 引擎首token s | {c["ttft_seconds"]:.6f} | {n["ttft_seconds"]:.6f} |',
+                f'| 总响应 s | {c["total_seconds"]:.6f} | {n["total_seconds"]:.6f} |',
+                f'| 驱动分配 MiB | {c["driver_allocated_bytes"]/2**20:.2f} | {n["driver_allocated_bytes"]/2**20:.2f} |','',
+                f'decode中位提高{100*(n["decode_tokens_per_second"]/c["decode_tokens_per_second"]-1):.2f}%，配对五轮收益范围{min(gains):.2f}%–{max(gains):.2f}%，{sum(g>0 for g in gains)}/5更快。decoder API下降，head API基本不变，收益确实来自decoder路径。','',
+                '相同场景已测CPU Q8约18.25 token/s，候选仍未追平；CPU配置搜索继续，不能把超过旧NPU写成超过CPU。原Q8对齐、独立留出、其他输入档位及稳定性均需继续。']
+    if 'full_smol500_dfp_ab' in report:
+        baseline,candidate=smol_ab['medians']['baseline'],smol_ab['medians']['dfp']
+        gains=[]
+        for i in range(5):
+            pair={r['label']:r['result'] for r in smol_ab['runs'] if r['phase']=='measure' and r['repeat']==i}
+            gains.append(100*(pair['dfp']['decode_tokens_per_second']/pair['baseline']['decode_tokens_per_second']-1))
+        lines+=['','## 500M完整32层五轮结果','',
+                '512历史＋64新增、全部32层、完整输出头、128次固定轨迹预测，中温交替五轮。此模型采用峰值DFP缩放；1B采用MSE缩放，不能混作同一数值方案。两端均t32，head设置相同。','',
+                '| 项目 | 基线NPU | DFP候选 |','| --- | ---: | ---: |',
+                f'| decode token/s | {baseline["decode_tokens_per_second"]:.6f} | {candidate["decode_tokens_per_second"]:.6f} |',
+                f'| 引擎首token s | {baseline["ttft_seconds"]:.6f} | {candidate["ttft_seconds"]:.6f} |',
+                f'| 总响应 s | {baseline["total_seconds"]:.6f} | {candidate["total_seconds"]:.6f} |',
+                f'| 驱动分配 MiB | {baseline["driver_allocated_bytes"]/2**20:.2f} | {candidate["driver_allocated_bytes"]/2**20:.2f} |','',
+                f'decode中位提高{100*(candidate["decode_tokens_per_second"]/baseline["decode_tokens_per_second"]-1):.2f}%，配对收益{min(gains):.2f}%–{max(gains):.2f}%，{sum(g>0 for g in gains)}/5更快。驱动分配减少{(baseline["driver_allocated_bytes"]-candidate["driver_allocated_bytes"])/2**20:.2f}MiB；decoder API下降，head基本不变。','',
+                '全模型导出常量门槛通过：L2约3.756%、最低cosine0.99648。相对原Q8开发轨迹logits L2约12.17%、最低cosine0.96548，PPL比0.99030；不能用预测相同或开发PPL较好替代独立留出验收。','',
+                '同场景优化CPU Q8五轮约22.780 token/s，NPU约20.487，仍未追平。其他新增长度、1024历史和独立质量继续验证。']
     lines += ['', '探针3次预热后记录50次；只统计VIP API，不含完整模型宿主代价。开关分时执行、温度不同，不以微小差异宣告提速。SRAM设置返回成功仅证明接口接受，不证明实际预载字节数；最终仍须同温档、全深度五轮A/B。', '',
               'A8候选仅在选中的W8 gate/up矩阵输入前插入显式转换，原权重、外部KV、残差和矩阵输出格式不变。默认保持原校准动态范围；range1另将范围缩小1bit，须额外验证饱和风险。该变化不是新的权重量化算法，局部通过也不能替代完整logits和独立留出。', '',
               '实测gate/up A8无可见速度收益，hidden局部L2达9.42%、另一V输出达7.39%，超过5%门槛，拒绝。后续DFP候选保持W8位数和A16，单独比较单尺度权重与逐通道权重；必须另查原权重误差，不能只依赖导出常量参考。', '',

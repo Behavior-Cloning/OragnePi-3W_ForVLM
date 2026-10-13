@@ -5,6 +5,7 @@ from pathlib import Path
 import subprocess
 import sys
 import time
+from attempt_paths import select_attempt
 
 
 THREAD_CONFIGS = [
@@ -22,6 +23,7 @@ def main():
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--case',action='append',default=[])
     p.add_argument('--wait',action='store_true',help='wait for missing completed medium CPU baselines')
+    p.add_argument('--retry-failed',action='store_true',help='new attempt paths; never overwrite partial evidence')
     a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
     script=Path(__file__).resolve().parent/'run_cpu_reference.py'
     fixtures=json.loads((a.fixtures/'matrix.json').read_text())['cases']
@@ -50,20 +52,29 @@ def main():
             fixture=fixture or case;target_name=fixture['case']
             folder=a.output/(target_name+'-'+label)
             result=folder/'results.json'
+            logpath=a.output/(target_name+'-'+label+'.log')
+            thermal=False
+            if result.exists():
+                previous=json.loads(result.read_text())
+                thermal=previous.get('status')=='failed' and any(t.get('temperature_mC',0)>=80000 for t in previous.get('thermal_abort',[]))
+            if not thermal:
+                folder,logpath,attempt=select_attempt(folder,'results.json',logpath,a.retry_failed)
+                result=folder/'results.json'
+            else:attempt=1
             if result.exists():
                 data=json.loads(result.read_text())
             else:
                 assert not folder.exists(), 'keep partial result directory'
                 command=[sys.executable,str(script),'--prompt-folder',fixture['folder'],
                     '--model-id',fixture['model_id'],'--context',str(fixture['capacity']),
-                    '--tag','q8search-'+target_name+'-'+label,'--output',str(folder),
+                    '--tag','q8search-'+target_name+'-'+label+('' if attempt==1 else f'-attempt{attempt}'),'--output',str(folder),
                     '--repeats',str(repeats),'--threads',str(threads),'--cpu-affinity',affinity,
                     '--ubatch-size',str(ubatch),'--flash-attn',flash,'--temperature-band-mc','55000','64999']
                 command+=['--max-start-temp-mc','50000']
                 if threads_batch:command+=['--threads-batch',str(threads_batch)]
                 if affinity_batch:command+=['--cpu-affinity-batch',affinity_batch]
                 entry['active']=label;save();print(name,label,flush=True)
-                with (a.output/(target_name+'-'+label+'.log')).open('x') as log:
+                with logpath.open('x') as log:
                     child=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT)
                 if child.returncode and not result.exists():child.check_returncode()
                 data=json.loads(result.read_text())

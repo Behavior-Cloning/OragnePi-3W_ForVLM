@@ -742,7 +742,7 @@
       "finished": 1791871387.5933762
     },
     "intern1b-h1024-n64": {
-      "status": "running",
+      "status": "partial",
       "started": 1791871389.4941316,
       "config": {
         "case": "intern1b-h1024-n64",
@@ -781,6 +781,30 @@
             "load_seconds": 0.916053
           },
           "performance": "npu/results/thermal-aligned-20261013/intern1b-h1024-n64-low-npu.json"
+        },
+        "medium": {
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/intern1b-h1024-n64-medium-cpu",
+          "cpu": {
+            "ttft_seconds": 0.8050324750001892,
+            "engine_ttft_seconds": 0.80277,
+            "decode_tokens_per_second": 16.726546385676492,
+            "total_seconds": 8.398032518998662,
+            "response_cpu_seconds": 16.75,
+            "preparation_seconds": 8.807185384999684
+          },
+          "npu": {
+            "decode_tokens_per_second": 13.543224,
+            "ttft_seconds": 1.256595,
+            "total_seconds": 10.633502,
+            "cpu_seconds": 0.285844,
+            "driver_allocated_bytes": 910977960,
+            "decode_decoder_api_seconds": 6.815988,
+            "decode_head_api_seconds": 2.333804,
+            "max_rss_kib": 40492,
+            "load_seconds": 0.865536
+          },
+          "performance": "npu/results/thermal-aligned-20261013/intern1b-h1024-n64-medium-npu.json"
         }
       },
       "execution_gate": {
@@ -790,7 +814,41 @@
         "argmax_match_min": 0.95,
         "passed": true,
         "scope": "execution on this trajectory only; not holdout quality acceptance"
-      }
+      },
+      "finished": 1791875376.3744655
+    },
+    "intern1b-h1024-n128": {
+      "status": "failed",
+      "started": 1791875378.534627,
+      "config": {
+        "case": "intern1b-h1024-n128",
+        "model": "intern1b",
+        "model_id": "internvl3-1b",
+        "history": 1024,
+        "new_tokens": 128,
+        "capacity": 1280,
+        "folder": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/aligned-20261013r2/intern1b-h1024-n128",
+        "prompt_sha256": "84c34d5c11ee3c80fc61fc7414d371a44aeff4b814ba98163582bdd357900aaa",
+        "history_sha256": "5e3f9e93f6763f5c156ae8e3574fe1cc951c5ad62adef172f7b33538a304e6ae"
+      },
+      "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-splitkv-i16mm/board-thermal3-intern1b-h1024-n128",
+      "tag": "full-intern1b-c1280-aligned32",
+      "bands": {
+        "low": {
+          "status": "running",
+          "cpu_path": "npu/results/thermal-aligned-20261013/intern1b-h1024-n128-low-cpu",
+          "cpu": {
+            "ttft_seconds": 1.6253415199989831,
+            "engine_ttft_seconds": 1.6203800000000002,
+            "decode_tokens_per_second": 16.690113867316224,
+            "total_seconds": 9.238054531999296,
+            "response_cpu_seconds": 18.42,
+            "preparation_seconds": 8.807615503001216
+          }
+        }
+      },
+      "error": "npu-diagnostic: exit 2, see npu/results/thermal-aligned-20261013/intern1b-h1024-n128-npu-diagnostic.log",
+      "finished": 1791878622.9139185
     }
   },
   "status": "running",

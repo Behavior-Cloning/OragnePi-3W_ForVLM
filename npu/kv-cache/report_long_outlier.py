@@ -24,6 +24,8 @@ def main():
             'logits_sha256':hashes[0],'identical_diagnostic_runs':list(map(str,(original,trace,captured))),
             'validation':record(trace/'full-validation-w8.json'),
             'ranges':record(ROOT/'intern1b-range-1141b9-20261013/ranges.json')}
+    second=ROOT/'intern1b-range-1141b10-20261013/ranges.json'
+    if second.exists():report['second_block_ranges']=record(second)
     lines=['# 1B长历史误差定位与定点范围修复','',
            '场景：1024历史＋32新增，全部24层、完整输出头、128次预测、同一CPU Q8反馈。原版、逐块hidden抓取版、第1141位置第9块输入抓取版的完整logits逐字节相同，说明此误差可稳定复现。诊断计时不进入速度排行。','',
            '原版总logits L2约4.76%，但第86/87步出现离群，最低cosine约0.9762，未通过既定0.99门槛。平均误差合格不能覆盖最差步失败。','',
@@ -41,12 +43,22 @@ def main():
         d=report['full-validation-w8.json']
         lines += [f'候选全模型执行门槛：{"通过" if d["execution_gate_v1"]["passed"] else "未通过"}；logits L2 {d["relative_l2_all_logits"]:.3%}，最低cosine {d["min_step_cosine"]:.6f}，最高分token一致率 {d["argmax_match_fraction"]:.3%}。','']
     else:lines+=['候选全模型重验正在进行，尚不能称已修复。','']
+    if second.exists():
+        lines+=['第二处定位：修正layer19后，同一位置1141/block10的捕获完整logits仍与修正版逐字节一致。layer20 MLP乘积出现−45.4400，而FL10范围为±32，1个元素超范围，截断L2约24.95%。因此第二版额外扩大layer20这一乘积路径1bit（FL10→9），其余配置沿用第一版；须再次全模型验收。','']
+    secondroot=SOURCE/'w8-fused2-c1280-product1920wide/board-product1920wide-intern1b-h1024-n32'
+    for filename in ('full-validation-w8.json','full-validation.json'):
+        path=secondroot/filename
+        if path.exists():report['second-'+filename]=record(path)
+    if 'second-full-validation-w8.json' in report:
+        d=report['second-full-validation-w8.json']
+        lines += [f'两处修正版全模型执行门槛：{"通过" if d["execution_gate_v1"]["passed"] else "未通过"}；L2 {d["relative_l2_all_logits"]:.3%}，最低cosine {d["min_step_cosine"]:.6f}，argmax一致率 {d["argmax_match_fraction"]:.3%}。','']
     lines+=['该场景属于开发定位，不能再当作独立留出质量验收。其他历史、新增长度及自由生成须另验；不放宽精度门槛。','',
             '[紧凑证据](evidence-attack-20261013/long-outlier-repair.json)。重建：`npu/.venv/bin/python npu/kv-cache/report_long_outlier.py`。','']
     archive=HERE/'evidence-attack-20261013';archive.mkdir(exist_ok=True)
     (archive/'long-outlier-repair.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
     (HERE/'1B长历史离群误差与修复.md').write_text('\n'.join(lines))
-    print('report written; repair gate',report.get('full-validation-w8.json',{}).get('execution_gate_v1'))
+    print('report written; latest repair gate',report.get('second-full-validation-w8.json',
+          report.get('full-validation-w8.json',{})).get('execution_gate_v1'))
 
 
 if __name__=='__main__':main()

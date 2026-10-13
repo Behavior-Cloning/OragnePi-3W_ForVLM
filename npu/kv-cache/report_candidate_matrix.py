@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import statistics
 import struct
+from matrix_paths import cpu_result_path
 
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parent/'results'
@@ -85,7 +86,7 @@ def main():
                             lines.append(f'| {display} | 精度未过 | — | — | — | 完整执行L2 {v["relative_l2_all_logits"]:.3%}；不进入测速 |')
                         else:lines.append(f'| {display} | 待测 | — | — | — | — |')
                         continue
-                    cpu_path=ROOT/'thermal-aligned-20261013'/(case+'-'+band+'-cpu')/'results.json'
+                    cpu_path=cpu_result_path(ROOT/'thermal-aligned-20261013',case,band)
                     note='原矩阵Q8配置，尚非本格最优确认'
                     if band=='medium':
                         prefix='' if n==64 else f'n{n}-'
@@ -101,7 +102,13 @@ def main():
                             winner=low['fastest_decode']
                             cpu_path=Path(low['runs'][winner]['path'])
                             note=winner+'；中温入围配置低温复核，非低温全搜索'
-                    cpu=read(cpu_path)
+                    cpu=read(cpu_path) if cpu_path.exists() else {}
+                    if cpu.get('status')!='complete':
+                        m=c['medians']
+                        lines.append(f'| {display} | {m["decode_tokens_per_second"]:.3f} | {m["ttft_seconds"]:.3f} | 待补测 | — | CPU当前attempt未完成 |')
+                        rows.append({'model':model,'history':h,'new_tokens':n,'band':band,'npu':c,
+                                     'cpu':None,'trajectory_aligned':None,'cpu_note':'pending current matrix attempt'})
+                        continue
                     assert cpu['status']=='complete' and cpu['cached_prefix']==h and len(cpu['prompt']['token_ids'])==h+n
                     packed=struct.pack('<'+'i'*len(cpu['prompt']['token_ids']),*cpu['prompt']['token_ids'])
                     assert hashlib.sha256(packed).hexdigest()==c['config']['prompt_sha256']

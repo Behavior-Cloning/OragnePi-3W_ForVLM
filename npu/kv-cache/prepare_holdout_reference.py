@@ -24,11 +24,14 @@ def main():
     p.add_argument('--candidate',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--steps',type=int,default=96)
+    p.add_argument('--suite',type=Path,default=Path(__file__).with_name('quality-holdout-v1.json'))
     a=p.parse_args()
     assert not a.output.exists() and 1<=a.steps<=128
     a.output.mkdir(parents=True)
-    holdout=Path(__file__).with_name('quality-holdout-v1.json')
+    holdout=a.suite
     suite=json.loads(holdout.read_text())
+    assert len(suite['cases'])==12 and len({c['id'] for c in suite['cases']})==12
+    assert all(len(c['turns'])==3 for c in suite['cases'])
     manifest=json.loads((a.source/'trained-manifest.json').read_text())
     gate=json.loads((a.candidate/'full-validation-w8.json').read_text())
     assert gate['execution_gate_v1']['passed']
@@ -39,7 +42,8 @@ def main():
     system='You are a friendly desktop companion. Reply briefly and naturally.'
     codec=ChatCodec(a.model,system)
     report={'status':'running','scope':'standard Transformers FP32 on dequantized Q8; workstation quality reference, no speed comparison',
-            'holdout_sha256':hashlib.sha256(holdout.read_bytes()).hexdigest(),'model':str(a.model),
+            'holdout_sha256':hashlib.sha256(holdout.read_bytes()).hexdigest(),'holdout_version':suite['version'],
+            'holdout_path':str(holdout.resolve()),'model':str(a.model),
             'candidate':str(a.candidate),'candidate_execution_validation_sha256':hashlib.sha256((a.candidate/'full-validation-w8.json').read_bytes()).hexdigest(),
             'layers':len(model.model.layers),'vocab':config.vocab_size,'system':system,'steps_limit':a.steps,
             'gate':{'mean_kl_nats_max':.05,'perplexity_ratio_max':1.05,'human_review_required':True},'cases':[]}

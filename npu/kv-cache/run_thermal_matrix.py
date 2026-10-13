@@ -39,7 +39,10 @@ def main():
     p.add_argument('--output',type=Path,required=True);p.add_argument('--case',action='append',default=[])
     p.add_argument('--band',action='append',choices=BANDS,default=[],
         help='Run only selected response-start bands; other bands remain pending.')
+    p.add_argument('--cpu-prepare-max-start-temp-mc',type=int,default=50000,
+                   help='cool before rebuilding CPU history; response start bands are unchanged')
     a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
+    assert 30000<=a.cpu_prepare_max_start_temp_mc<=68000
     scripts=Path(__file__).resolve().parent;project=scripts.parents[1]
     matrix=json.loads((a.fixtures/'matrix.json').read_text())
     state_path=a.output/'state.json'
@@ -108,7 +111,8 @@ def main():
                 if not (cpu/'results.json').exists():
                     run(case,band+'-cpu',['run_cpu_reference.py','--prompt-folder',c['folder'],
                         '--model-id',c['model_id'],'--context',cap,'--tag','thermal3-'+cpu.name,
-                        '--output',cpu,'--repeats',5,'--temperature-band-mc',low,high])
+                        '--output',cpu,'--repeats',5,'--temperature-band-mc',low,high,
+                        '--max-start-temp-mc',a.cpu_prepare_max_start_temp_mc])
                 result=json.loads((cpu/'results.json').read_text());assert result['status']=='complete'
                 actual=json.loads((cpu/'tokens.json').read_text())['tokens']
                 for r in result['runs']:

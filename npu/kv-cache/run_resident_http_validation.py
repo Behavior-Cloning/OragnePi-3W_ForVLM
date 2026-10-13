@@ -67,6 +67,10 @@ def main():
         assert Path(quality['candidate']).resolve()==reference
         assert quality['candidate_execution_validation_sha256']==hashlib.sha256((reference/'full-validation-w8.json').read_bytes()).hexdigest()
         assert len(quality['cases'])==36
+        suite_path=Path(quality.get('holdout_path',scripts/'quality-holdout-v1.json'))
+        suite_raw=suite_path.read_bytes()
+        assert hashlib.sha256(suite_raw).hexdigest()==quality['holdout_sha256'], 'holdout suite changed after reference freeze'
+        suite=json.loads(suite_raw)
     codec = ChatCodec(args.model, 'You are a friendly desktop companion. Reply briefly and naturally.')
     from board_host_lock import lock_board_from_host
     lock_board_from_host()
@@ -272,7 +276,7 @@ def main():
                 # Independent natural generation follows the NPU's own history,
                 # and is kept separately from fixed-trajectory numerical scores.
                 natural=[]
-                for case in json.loads((scripts/'quality-holdout-v1.json').read_text())['cases']:
+                for case in suite['cases']:
                     messages=[]
                     for turn,text in enumerate(case['turns'],1):
                         messages.append({'role':'user','content':text})

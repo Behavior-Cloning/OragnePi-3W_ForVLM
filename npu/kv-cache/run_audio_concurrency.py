@@ -23,7 +23,12 @@ def main():
     p.add_argument('--tag',required=True)
     p.add_argument('--audio-setup',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--backends',nargs='+',choices=('npu','cpu'),default=['npu','cpu'])
+    p.add_argument('--asr-affinity',default='0-7')
+    p.add_argument('--reuse-asr-result',type=Path,help='reuse an already measured, hash-verified ASR worker')
     a=p.parse_args()
+    assert len(set(a.backends))==len(a.backends)
+    assert 0<len(a.asr_affinity)<=24 and all(c in '01234567,-' for c in a.asr_affinity)
     assert not a.output.exists()
     a.output.mkdir(parents=True)
     scripts=Path(__file__).resolve().parent
@@ -62,6 +67,7 @@ def main():
     remote='/opt/opi-vlm/npu-kv-probe/'+a.output.name
     audio_root=setup['remote']
     config={'remote':remote,'deployed':'/opt/opi-vlm/npu-kv-probe/'+a.tag,
+            'backends':a.backends,'asr_affinity':a.asr_affinity,
             'prompt':prompt,'feedback':r['feedback_tokens'],'expected_tokens':r['tokens'],
             'cached_prefix':512,'capacity':r['capacity'],'layers':r['decoder_layers'],
             'vocab':m['vocab_size'],'eos':m['eos_token_ids'][0],'batch':r['prefill_batch_size'],
@@ -70,6 +76,15 @@ def main():
             'asr_binary':remote+'/asr-build/opi-asr-worker','asr_model':audio_root+'/ggml-tiny-q5_1.bin',
             'asr_wav':audio_root+'/whisper.cpp/samples/jfk.wav','asr_model_sha256':setup['model_sha256'],
             'asr_source_commit':setup['source_commit']}
+    if a.reuse_asr_result:
+        prior=json.loads(a.reuse_asr_result.read_text())
+        assert prior['status']=='complete-paired-concurrency'
+        assert prior['config']['asr_model_sha256']==setup['model_sha256']
+        for name in ('asr-worker/asr_worker.cpp','asr-worker/CMakeLists.txt'):
+            assert prior['deployed_sha256'][name]==sha(scripts/name), 'ASR source changed; rebuild it'
+        config['asr_binary']=prior['config']['asr_binary']
+        config['expected_asr_binary_sha256']=prior.get('asr_binary_sha256') or prior['deployed_sha256']['asr-build/opi-asr-worker']
+        config['asr_reuse_source_sha256']=sha(a.reuse_asr_result)
     (a.output/'config.json').write_text(json.dumps(config,indent=2)+'\n')
     try:
         subprocess.run(ssh+['mkdir '+shlex.quote(remote)],check=True,timeout=30)
@@ -88,6 +103,7 @@ def main():
                   ['cc','-O2','-Wall','-Wextra','-Werror',*manifest_flags,'resident_session.c','-lNBGlinker','-lVIPhal','-lm','-o','resident'],
                   ['cc','-O3','-Wall','-Wextra','-Werror','-march=armv8-a+simd','thermal_heater.c','-pthread','-o','thermal_heater'],
                   ['python3','-u','audio_concurrency_board.py',remote+'/config.json']]
+        if a.reuse_asr_result:commands=commands[2:]
         command='cd '+shlex.quote(remote)+' && '+' && '.join(shlex.join(c) for c in commands)
         state['status']='board-running';save()
         with (a.output/'run.log').open('x') as log:

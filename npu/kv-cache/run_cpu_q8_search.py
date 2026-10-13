@@ -6,6 +6,7 @@ import subprocess
 import sys
 import time
 from attempt_paths import select_attempt
+from matrix_paths import cpu_result_path
 
 
 THREAD_CONFIGS = [
@@ -38,13 +39,14 @@ def main():
     for case in selected:
         name=case['case'];entry=state['cases'].setdefault(name,{'runs':{},'status':'running'})
         if entry['status']=='complete' and entry.get('search_revision')==3:continue
-        basepath=a.matrix/(name+'-medium-cpu')/'results.json'
+        basepath=cpu_result_path(a.matrix,name,'medium')
         deadline=time.monotonic()+14400
         while not basepath.exists() or json.loads(basepath.read_text()).get('status')!='complete':
             matrix_state=json.loads((a.matrix/'state.json').read_text())
             if not a.wait or time.monotonic()>deadline or matrix_state.get('status')!='running':
                 raise RuntimeError('complete baseline matrix for this case before CPU search: '+name)
             state.update(status='waiting-for-baseline',waiting_case=name);save();time.sleep(15)
+            basepath=cpu_result_path(a.matrix,name,'medium')
         state.update(status='running',waiting_case=None);entry.update(status='running');entry.pop('error',None)
         base=json.loads(basepath.read_text());assert base['status']=='complete'
         expected=next(r['tokens'] for r in base['runs'] if r['phase']=='measure')
@@ -92,7 +94,7 @@ def main():
             measured=[r for r in data['runs'] if r['phase']=='measure'];assert len(measured)==repeats
             canonical=expected
             if fixture is not case:
-                other=json.loads((a.matrix/(target_name+'-medium-cpu')/'results.json').read_text())
+                other=json.loads(cpu_result_path(a.matrix,target_name,'medium').read_text())
                 assert other['status']=='complete'
                 canonical=next(r['tokens'] for r in other['runs'] if r['phase']=='measure')
             aligned=all(r['tokens']==canonical for r in measured)
@@ -128,12 +130,13 @@ def main():
             entry['fastest_ttft']=min(finals,key=lambda k:finals[k]['medians']['engine_ttft_seconds'])
             for new in (32,128):
                 fixture=next(c for c in fixtures if c['model']==case['model'] and c['history']==case['history'] and c['new_tokens']==new)
-                path=a.matrix/(fixture['case']+'-medium-cpu')/'results.json'
+                path=cpu_result_path(a.matrix,fixture['case'],'medium')
                 deadline=time.monotonic()+14400
                 while not path.exists() or json.loads(path.read_text()).get('status')!='complete':
                     if not a.wait or time.monotonic()>deadline:raise RuntimeError('sibling CPU baseline not ready')
                     if json.loads((a.matrix/'state.json').read_text()).get('status')!='running':raise RuntimeError('baseline matrix stopped')
                     time.sleep(15)
+                    path=cpu_result_path(a.matrix,fixture['case'],'medium')
                 for label in {entry['fastest_decode'],entry['fastest_total'],entry['fastest_ttft']}:
                     cfg=finals[label]['config']
                     run(label,cfg['threads'],cfg['affinity'],repeats=5,threads_batch=cfg['threads_batch'],

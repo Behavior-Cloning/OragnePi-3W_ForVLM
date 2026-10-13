@@ -25,7 +25,7 @@ from thermal_condition import condition, temperature
 class Audio:
     def __init__(self, config, root):
         self.log = (root / 'asr.log').open('xb')
-        self.process = subprocess.Popen(['taskset', '-c', '0-7', config['asr_binary'],
+        self.process = subprocess.Popen(['taskset', '-c', config.get('asr_affinity','0-7'), config['asr_binary'],
             config['asr_model'], config['asr_wav'], '2'], stdin=subprocess.PIPE,
             stdout=subprocess.PIPE, stderr=self.log)
         self.selector = selectors.DefaultSelector()
@@ -107,17 +107,19 @@ def main():
     c = json.loads(Path(sys.argv[1]).read_text())
     root = Path(c['remote'])
     report = {'status': 'running', 'scope': __doc__, 'config': c, 'runs': [],
-              'asr_scope': 'resident whisper.cpp tiny Q5_1; 2 CPU threads on 0-7; back-to-back 11 s WAV',
+              'asr_scope': 'resident whisper.cpp tiny Q5_1; 2 CPU threads on '+c.get('asr_affinity','0-7')+'; back-to-back 11 s WAV',
               'production_cpu_model_stays_resident': True}
     # Waiting on the host lock can span edits. These are the actual files
     # deployed and built for this run, not the host's earlier queue snapshot.
     deployed_files = ('audio_concurrency_board.py', 'resident_worker.py', 'resident_session.c',
                       'full_model.c', 'board_probe.c', 'batch_prefill.h', 'greedy_i16.h',
                       'resource_sampler.py', 'thermal_condition.py', 'thermal_heater.c',
-                      'asr-worker/asr_worker.cpp', 'asr-worker/CMakeLists.txt', 'resident',
-                      'asr-build/opi-asr-worker')
+                      'asr-worker/asr_worker.cpp', 'asr-worker/CMakeLists.txt', 'resident')
     report['deployed_sha256'] = {name: hashlib.sha256((root/name).read_bytes()).hexdigest()
                                  for name in deployed_files}
+    report['asr_binary_sha256'] = hashlib.sha256(Path(c['asr_binary']).read_bytes()).hexdigest()
+    if c.get('expected_asr_binary_sha256'):
+        assert report['asr_binary_sha256']==c['expected_asr_binary_sha256'], 'reused ASR binary changed'
     def save():
         tmp = root / 'result.tmp'
         tmp.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
@@ -156,7 +158,7 @@ def main():
         report['asr_warmup'] = audio.infer()
         save()
         prompt, prefix, feedback = c['prompt'], c['cached_prefix'], c['feedback']
-        for backend in ('npu', 'cpu'):
+        for backend in c.get('backends', ['npu', 'cpu']):
             deadline = time.monotonic()+300
             while temperature() > 55000:
                 assert not guard_errors and time.monotonic()<deadline
@@ -270,6 +272,9 @@ def main():
                         'resource_summary':response_summary(samples,start,end),'asr':asr,
                         'asr_overlap_fraction':overlap/(end-start)})
                     save()
+                    print(json.dumps({'backend':backend,'asr':enabled,'repeat':repeat,
+                          'engine_ttft_seconds':ttft,'decode_tokens_per_second':speed,
+                          'asr_overlap_fraction':overlap/(end-start)}),flush=True)
             if worker:
                 report['npu_closed'] = worker.close(); worker = None
                 assert report['npu_closed']['driver_bytes'] == 0
@@ -278,7 +283,7 @@ def main():
         report['asr_all_calls'] = audio.records
         audio.close(); audio = None
         report['medians'] = {}
-        for backend in ('npu','cpu'):
+        for backend in c.get('backends', ['npu', 'cpu']):
             for enabled in (False,True):
                 rows = [r for r in report['runs'] if r['backend']==backend and r['audio']==enabled and r['phase']=='measure']
                 assert len(rows)==5

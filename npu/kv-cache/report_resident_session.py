@@ -1,0 +1,38 @@
+"""Archive actual board checks of model-resident, cross-request KV reuse."""
+import hashlib
+import json
+from pathlib import Path
+
+HERE=Path(__file__).resolve().parent
+ROOT=HERE.parent/'results'
+
+
+def main():
+    records=[]
+    lines=['# 常驻模型与跨请求KV验证','',
+           '2026-10-13。实验性resident_session进程一次加载全部语言层及完整输出头，在请求之间保留模型和KV。正式CPU网页尚未切换到这个接口。','',
+           '| 模型 | 语言层数 | 准备历史 | 次请求复用/新增 | 完整128步logits | 清空后完整logits | 退出驱动字节 |',
+           '| --- | ---: | ---: | ---: | --- | --- | ---: |']
+    for model,folder in [('500M','resident-validation-smol500-20261013'),
+                         ('1B','resident-validation-intern1b-20261013-attempt2')]:
+        path=ROOT/folder/'result.json'
+        if not path.exists():continue
+        d=json.loads(path.read_text())
+        if d['status']!='passed':continue
+        r=d['runs'];assert len(r)==5 and r[1]['reused_tokens']==512 and r[1]['new_tokens']==64
+        assert r[2]['reused_tokens']==0 and r[3]['reused_tokens']==703 and r[3]['new_tokens']==3
+        assert r[4]['reused_tokens']==0 and d['closed']['driver_bytes']==0
+        lines.append(f'| {model} | {d["ready"]["layers"]} | 512 | 512 / 64 | 与原完整运行器逐字节一致 | 逐字节一致 | 0 |')
+        records.append({**d,'source_path':str(path),'source_sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
+    lines+=['','每个模型实际运行以下链路：一次加载→准备512历史→另一请求追加64并预测128次→显式reset后完整输出重验→追加下一轮→改变历史触发reset→释放全部驱动分配。','',
+            '第三轮生成结束时，KV实际到703位置，最后一个已预测token还未作为输入处理。新请求给出706个prompt token，实测复用703、只处理3个新增位置，避免丢掉或重复回灌最后token。当前实现只接受完整已有前缀匹配；前缀变化或变短即重置，尚未做部分前缀回退优化。','',
+            '正确性检查写出了完整词表logits，其时间含诊断I/O；不把这里约10–18 token/s的诊断速度当成正式性能。五轮干净性能仍见[候选提速与负载](全深度候选提速与负载.md)。接口事件管道及内存常驻的性能还需独立验收。','',
+            '此测试使用冻结CPU反馈验证缓存，不是自然多轮聊天质量。任意聊天模板下的前缀保持、EOS、浏览器中止、HTTP接入、窗口截断、独立留出、30分钟稳定性、音频并发均未据此宣称完成。','',
+            '协议用独立事件管道隔离SDK日志；请求序号、长度、容量、超时及进程退出有检查。通信单测涵盖拆包、多请求、溢出、错误ID和超时；C程序已在两模型实板编译并执行。','',
+            '[紧凑证据](evidence-attack-20261013/resident-session.json)。复现脚本：`run_resident_validation.py`；报告：`report_resident_session.py`。','']
+    (HERE/'常驻模型与跨请求KV验证.md').write_text('\n'.join(lines))
+    (HERE/'evidence-attack-20261013/resident-session.json').write_text(json.dumps(records,indent=2,ensure_ascii=False)+'\n')
+    print('validated resident models',len(records))
+
+
+if __name__=='__main__':main()

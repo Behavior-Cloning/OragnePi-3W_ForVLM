@@ -3,6 +3,7 @@ import hashlib
 import json
 from pathlib import Path
 import statistics
+import numpy as np
 
 from profile_npd import summarize
 
@@ -26,7 +27,7 @@ def main():
     profile['fullconnect_busy_percent'] = [100*t['by_op']['fullconnect']['cycles']/t['summed_busy_cycles'] for t in traces]
     base = sha(ROOT / 'l0/export_nbg_unify/network_binary.nb')
     trials = []
-    for name in ('tpfc0', 'tpfc1', 'nn-transpose', 'burst128', 'gateup-a8', 'gateup-a8-range1', 'gateup-w8dfp', 'gateup-w8dfp-mse'):
+    for name in ('tpfc0', 'tpfc1', 'nn-transpose', 'burst128', 'gateup-a8', 'gateup-a8-range1', 'gateup-w8dfp', 'gateup-w8dfp-mse', 'all-w8dfp-mse'):
         folder = ROOT / name
         conversion = folder / 'conversion.json'
         if not conversion.exists():
@@ -37,7 +38,7 @@ def main():
                        'binary_sha256': sha(binary) if binary.exists() else None,
                        'binary_identical_to_baseline': sha(binary) == base if binary.exists() else False})
     probes = {}
-    for name in ('preload-on', 'preload-off', 'probe-gateup-a8', 'probe-gateup-a8-range1', 'probe-gateup-w8dfp', 'probe-gateup-w8dfp-mse'):
+    for name in ('preload-on', 'preload-off', 'probe-gateup-a8', 'probe-gateup-a8-range1', 'probe-gateup-w8dfp', 'probe-gateup-w8dfp-mse', 'probe-all-w8dfp-mse'):
         path = ROOT / name / 'board-validation.json'
         if not path.exists():
             continue
@@ -69,7 +70,7 @@ def main():
             report['full_dfp_mse'][name]={k:d[k] for k in ('relative_l2_all_logits','min_step_cosine','argmax_match_fraction','execution_gate_v1','fixed_trajectory_nll','mean_kl_nats')}
             report['full_dfp_mse'][name].update(source_path=str(path),source_sha256=sha(path))
     report['smol500_dfp_probes']={}
-    for name in ('probe-gateup-w8dfp','probe-gateup-w8dfp-mse'):
+    for name in ('probe-gateup-w8dfp','probe-gateup-w8dfp-mse','probe-all-w8dfp-mse'):
         path=smol_root/name/'board-validation.json'
         if path.exists():report['smol500_dfp_probes'][name]={**json.loads(path.read_text()),'source_path':str(path),'source_sha256':sha(path)}
     ab_path=HERE.parent/'results/intern1b-dfpmse-ab-20261013.json'
@@ -86,10 +87,19 @@ def main():
         compact.update(source_path=str(smol_ab_path),source_sha256=sha(smol_ab_path))
         compact['runs']=[{k:v for k,v in r.items() if k!='system_samples'} for r in smol_ab['runs']]
         report['full_smol500_dfp_ab']=compact
+    report['all_dfp_original_errors']={}
+    for model,root in [('intern1b',ROOT),('smol500',smol_root)]:
+        fixture=root/'fixture-all-w8dfp-mse';probe=root/'probe-all-w8dfp-mse'
+        if not (probe/'board-validation.json').exists():continue
+        original=np.fromfile(fixture/'probe-original-reference.f32',np.float32)
+        output=np.fromfile(probe/'output.f32',np.float32)
+        spec=json.loads((fixture/'probe-fixture.json').read_text());n=spec['outputs'][0][1]
+        report['all_dfp_original_errors'][model]={'hidden_relative_l2':float(np.linalg.norm(output[:n]-original[:n])/np.linalg.norm(original[:n])),
+            'original_reference_sha256':sha(fixture/'probe-original-reference.f32'),'board_output_sha256':sha(probe/'output.f32')}
     (ARCHIVE / 'decoder-dense-probes.json').write_text(json.dumps(report, indent=2) + '\n')
     pct = profile['fullconnect_busy_percent']
     lines = ['# Decoder矩阵瓶颈与候选筛选', '',
-             '2026-10-13。以下为局部诊断，不能当成完整模型速度或产品验收。输入来自InternVL3-1B全部24层、512历史＋32新增、128步固定反馈运行中的位置544。', '',
+             '2026-10-13。局部诊断与单独列出的完整模型五轮结果分别报告，局部探针不能代替全模型或产品验收。诊断输入来自InternVL3-1B全部24层、512历史＋32新增、128步固定反馈运行中的位置544。', '',
              f'普通第0/1层的5份硬件计数：fullconnect占累计busy cycles中位{statistics.median(pct):.3f}%（{min(pct):.3f}–{max(pct):.3f}%）。主要大矩阵为MLP gate/up/down。重复编译器UID保留候选层标签，不猜测具体层归属。', '',
              '这是这一组普通层的归因，不能外推敏感层或500M；busy cycles不能直接相加当成端到端耗时，read counter也不是独立实测DDR带宽。', '',
              '## 编译候选', '', '| 候选 | 编译退出码 | 二进制相同 | 处理 |', '| --- | ---: | --- | --- |']
@@ -119,7 +129,17 @@ def main():
         d=report['full_dfp_mse']['full-validation-w8.json'];o=report['full_dfp_mse']['full-validation.json']
         lines+=['',f'MSE缩放版完整24层已验证：执行门槛{"通过" if d["execution_gate_v1"]["passed"] else "未通过"}，L2 {d["relative_l2_all_logits"]:.3%}、最低cosine {d["min_step_cosine"]:.6f}；相对原Q8开发轨迹PPL比{o["fixed_trajectory_nll"]["perplexity_ratio"]:.6f}、logits L2 {o["relative_l2_all_logits"]:.3%}。该结果不等于独立留出通过，五轮干净测速另列。']
     for name,d in report['smol500_dfp_probes'].items():
-        lines+=['',f'500M局部{name}：50次两层API平均{d["timing"]["mean_api_seconds"]*1000:.4f}ms，执行门槛{"通过" if d["gate"]["passed"] else "未通过"}。完整32层仍需验证，不与1B混合计算收益。']
+        lines+=['',f'500M局部{name}：50次两层API平均{d["timing"]["mean_api_seconds"]*1000:.4f}ms，执行门槛{"通过" if d["gate"]["passed"] else "未通过"}。局部结果不能代替完整32层验收，不与1B混合计算收益。']
+    if report['all_dfp_original_errors']:
+        lines+=['','## 扩展全部W8矩阵的局部筛选','',
+                'all-w8dfp-mse只改变原本逐通道W8矩阵的编码，既有DFP V及敏感FP16仍保留。两模型对导出常量的执行门槛通过，但独立原Q8参考暴露出更多权重量化误差。','',
+                '| 模型 | 两层平均API ms | 对原Q8 hidden L2 | 决定 |','| --- | ---: | ---: | --- |']
+        for model,root in [('intern1b',ROOT),('smol500',smol_root)]:
+            if model not in report['all_dfp_original_errors']:continue
+            d=json.loads((root/'probe-all-w8dfp-mse/board-validation.json').read_text())
+            err=report['all_dfp_original_errors'][model]['hidden_relative_l2']
+            lines.append(f'| {model} | {d["timing"]["mean_api_seconds"]*1000:.4f} | {err:.3%} | {"误差明显增大且慢于已选峰值gate/up版，拒绝推广" if model=="smol500" else "比gate/up MSE局部略快，但误差增大，暂不推广"} |')
+        lines+=['','这些不是全模型速度，也不是独立留出成绩。1B的gate/up MSE对应原Q8局部hidden误差约3.83%，全部矩阵扩展后约6.83%；500M相应扩展达约28.83%。不能只看对导出常量的低误差就宣称量化质量合格。']
     if 'full_dfp_mse_ab' in report:
         c,n=ab['medians']['baseline'],ab['medians']['dfpmse']
         gains=[]

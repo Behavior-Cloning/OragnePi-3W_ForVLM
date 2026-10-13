@@ -63,7 +63,6 @@ if args.trace and args.fusion_width!=1:raise ValueError('fused graphs do not exp
 records=json.loads((args.source/args.dtype/'stack-conversion.json').read_text())
 key_cache_transposed = records[0].get('key_cache_transposed',False)
 assert all(r.get('key_cache_transposed',False)==key_cache_transposed for r in records if r['layer']<count)
-assert not key_cache_transposed or not args.prefill_variant, 'transposed K currently requires scalar prefill'
 capacity=records[0].get('capacity',manifest['capacity'])
 assert all(r.get('capacity',manifest['capacity'])==capacity and r.get('query_tokens',1)==1 for r in records if r['layer']<count)
 prefill_records=[];prefill_tokens=0
@@ -74,7 +73,7 @@ if args.prefill_variant:
     assert len(prefill_records)==count//args.fusion_width and prefill_tokens>1
     assert {r['layer'] for r in prefill_records}==set(range(0,count,args.fusion_width))
     assert all(r['query_tokens']==prefill_tokens and r['capacity']==capacity and r['fusion_width']==args.fusion_width and not r['exit_code'] for r in prefill_records)
-    assert not any(r.get('key_cache_transposed',False) for r in prefill_records), 'transposed prefill K is currently probe-only'
+    assert all(r.get('key_cache_transposed',False)==key_cache_transposed for r in prefill_records), 'prefill/decode K layouts must match'
 head_shards=manifest.get('head_shards',[{'vocab_count':manifest['vocab_size']}])
 assert len(records)==count//args.fusion_width+len(head_shards) and not any(r['exit_code'] for r in records)
 assert {r['layer'] for r in records}==set(range(0,count,args.fusion_width))|set(range(count,count+len(head_shards)))
@@ -114,11 +113,11 @@ if args.feedback_from:
     feedback_file.write_bytes(struct.pack('<'+'i'*args.max_new,*feedback['tokens']))
 files=[(args.source/'embeddings.f32','embeddings.f32'),(prompt_folder/'prompt.i32',prompt_name),
        (scripts/'full_model.c','full_model.c'),(scripts/'board_probe.c','board_probe.c'),(scripts/'greedy_i16.h','greedy_i16.h'),
-       (scripts/'batch_prefill.h','batch_prefill.h')]
+       (scripts/'batch_prefill.h','batch_prefill.h'),(scripts/'thermal_condition.py','thermal_condition.py'),(scripts/'thermal_heater.c','thermal_heater.c')]
 files.extend((Path(r['path']),f"layer{r['layer']}.nb") for r in records)
 files.extend((Path(r['path']),f"prefill-layer{r['layer']}.nb") for r in prefill_records)
 if args.skip_deploy:
-    files=[(src,name) for src,name in files if name in (prompt_name,'full_model.c','board_probe.c','greedy_i16.h','batch_prefill.h')]
+    files=[(src,name) for src,name in files if name in (prompt_name,'full_model.c','board_probe.c','greedy_i16.h','batch_prefill.h','thermal_condition.py','thermal_heater.c')]
 if feedback_file:files.append((feedback_file,result_name+'-feedback.i32'))
 if files:
     subprocess.run(ssh+['mkdir -p '+remote],check=True,timeout=30)
@@ -143,7 +142,7 @@ if files:
         f'-DHEAD_SHARDS={len(head_shards)} -DHEAD_CHUNK={head_shards[0]["vocab_count"]} '
         f'-DFUSED_LAYERS={args.fusion_width} '
         f'-DKEY_CACHE_TRANSPOSED={int(key_cache_transposed)} '
-        f'full_model.c -lNBGlinker -lVIPhal -lm -o {executable}')
+        f'full_model.c -lNBGlinker -lVIPhal -lm -o {executable} && cc -O3 -Wall -Wextra -Werror -march=armv8-a+simd thermal_heater.c -pthread -o thermal_heater')
 if args.deploy_only:
     subprocess.run(ssh+['flock -w 1800 /run/opi-npu-kv-benchmark.lock sh -c '+shlex.quote(compile_command)],check=True,timeout=1850)
     raise SystemExit(0)

@@ -1,0 +1,247 @@
+{
+  "status": "running",
+  "counts": {
+    "cpu": 3,
+    "npu": 2,
+    "failed_cases": 0
+  },
+  "bands_mC": {
+    "low": [
+      40000,
+      50000
+    ],
+    "medium": [
+      55000,
+      64999
+    ],
+    "high": [
+      65000,
+      80000
+    ]
+  },
+  "rows": [
+    {
+      "case": "smol500-h512-n32",
+      "model": "smol500",
+      "history": 512,
+      "new_tokens": 32,
+      "band": "low",
+      "cpu": {
+        "ttft_seconds": 0.49916746899543796,
+        "decode_tokens_per_second": 21.180741269240077,
+        "total_seconds": 6.402634765006951,
+        "response_cpu_seconds": 12.780000000000001,
+        "preparation_seconds": 3.8625981910008704
+      },
+      "npu": {
+        "decode_tokens_per_second": 17.981386,
+        "ttft_seconds": 0.472169,
+        "total_seconds": 7.534788,
+        "cpu_seconds": 0.220585,
+        "driver_allocated_bytes": 736570344,
+        "decode_decoder_api_seconds": 6.179903,
+        "decode_head_api_seconds": 0.695003,
+        "max_rss_kib": 23296,
+        "load_seconds": 0.77402
+      }
+    },
+    {
+      "case": "smol500-h512-n32",
+      "model": "smol500",
+      "history": 512,
+      "new_tokens": 32,
+      "band": "medium",
+      "cpu": {
+        "ttft_seconds": 0.4993970110081136,
+        "decode_tokens_per_second": 21.18780503348841,
+        "total_seconds": 6.400479297008133,
+        "response_cpu_seconds": 12.770000000000003,
+        "preparation_seconds": 3.8649151169956895
+      },
+      "npu": {
+        "decode_tokens_per_second": 18.060989,
+        "ttft_seconds": 0.472984,
+        "total_seconds": 7.504714,
+        "cpu_seconds": 0.201493,
+        "driver_allocated_bytes": 736570344,
+        "decode_decoder_api_seconds": 6.17092,
+        "decode_head_api_seconds": 0.686058,
+        "max_rss_kib": 23296,
+        "load_seconds": 0.773831
+      }
+    },
+    {
+      "case": "smol500-h512-n32",
+      "model": "smol500",
+      "history": 512,
+      "new_tokens": 32,
+      "band": "high"
+    },
+    {
+      "case": "smol500-h512-n64",
+      "model": "smol500",
+      "history": 512,
+      "new_tokens": 64,
+      "band": "low",
+      "cpu": {
+        "ttft_seconds": 0.8783303820091533,
+        "decode_tokens_per_second": 21.17748836322027,
+        "total_seconds": 6.781137009005761,
+        "response_cpu_seconds": 13.530000000000001,
+        "preparation_seconds": 3.8635485690028872
+      }
+    },
+    {
+      "case": "smol500-h512-n64",
+      "model": "smol500",
+      "history": 512,
+      "new_tokens": 64,
+      "band": "medium"
+    },
+    {
+      "case": "smol500-h512-n64",
+      "model": "smol500",
+      "history": 512,
+      "new_tokens": 64,
+      "band": "high"
+    }
+  ],
+  "system": [
+    {
+      "case": "smol500-h512-n32",
+      "band": "low",
+      "backend": "cpu",
+      "start_min_c": 48.732,
+      "start_max_c": 49.29,
+      "response_sample_min_c": 48.732,
+      "response_sample_max_c": 64.546,
+      "response_time_series_available": false,
+      "a76_min_sample_mhz": null,
+      "a76_max_sample_mhz": null,
+      "cpu_seconds": 12.780000000000001,
+      "process_rss_mib": 817.234375,
+      "driver_mib": null,
+      "min_available_ram_mib": 4135.2578125,
+      "swap_used_mib_range": [
+        1182.75,
+        1182.75
+      ],
+      "all_phase_peak_system_cpu_percent": 31.385954008701056,
+      "conditioning_seconds_median": 1.5040287669980898,
+      "speed_min": 20.923021567681282,
+      "speed_max": 21.18283269848773
+    },
+    {
+      "case": "smol500-h512-n32",
+      "band": "low",
+      "backend": "npu",
+      "start_min_c": 41.912,
+      "start_max_c": 43.152,
+      "response_sample_min_c": 37.324,
+      "response_sample_max_c": 45.012,
+      "response_time_series_available": true,
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.220585,
+      "process_rss_mib": 22.75,
+      "driver_mib": 702.4482192993164,
+      "min_available_ram_mib": 3825.22265625,
+      "swap_used_mib_range": [
+        1183.25,
+        1183.25
+      ],
+      "all_phase_peak_system_cpu_percent": 8.338405356056,
+      "conditioning_seconds_median": 0.78784,
+      "speed_min": 17.976583,
+      "speed_max": 18.12348
+    },
+    {
+      "case": "smol500-h512-n32",
+      "band": "medium",
+      "backend": "cpu",
+      "start_min_c": 56.916,
+      "start_max_c": 57.598,
+      "response_sample_min_c": 54.622,
+      "response_sample_max_c": 70.092,
+      "response_time_series_available": true,
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 12.770000000000003,
+      "process_rss_mib": 817.734375,
+      "driver_mib": null,
+      "min_available_ram_mib": 4134.94921875,
+      "swap_used_mib_range": [
+        1183.25,
+        1183.25
+      ],
+      "all_phase_peak_system_cpu_percent": 27.09447415329769,
+      "conditioning_seconds_median": 0.5013542280066758,
+      "speed_min": 21.17973103075747,
+      "speed_max": 21.1963875347216
+    },
+    {
+      "case": "smol500-h512-n32",
+      "band": "medium",
+      "backend": "npu",
+      "start_min_c": 60.698,
+      "start_max_c": 61.504,
+      "response_sample_min_c": 45.756,
+      "response_sample_max_c": 70.151,
+      "response_time_series_available": true,
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.201493,
+      "process_rss_mib": 22.75,
+      "driver_mib": 702.4482192993164,
+      "min_available_ram_mib": 3811.69921875,
+      "swap_used_mib_range": [
+        1176.25,
+        1176.25
+      ],
+      "all_phase_peak_system_cpu_percent": 100.0,
+      "conditioning_seconds_median": 12.868864,
+      "speed_min": 18.018981,
+      "speed_max": 18.127876
+    },
+    {
+      "case": "smol500-h512-n64",
+      "band": "low",
+      "backend": "cpu",
+      "start_min_c": 47.802,
+      "start_max_c": 48.608,
+      "response_sample_min_c": 47.802,
+      "response_sample_max_c": 64.841,
+      "response_time_series_available": true,
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 13.530000000000001,
+      "process_rss_mib": 817.34375,
+      "driver_mib": null,
+      "min_available_ram_mib": 4133.3828125,
+      "swap_used_mib_range": [
+        1183.25,
+        1183.25
+      ],
+      "all_phase_peak_system_cpu_percent": 33.23244552058111,
+      "conditioning_seconds_median": 2.5057110950001515,
+      "speed_min": 21.04339097510268,
+      "speed_max": 21.186292235374033
+    }
+  ],
+  "gates": [
+    {
+      "case": "smol500-h512-n32",
+      "l2": 0.0332006998360157,
+      "cos": 0.997830331325531,
+      "argmax": 127,
+      "passed": true
+    },
+    {
+      "case": "smol500-h512-n64",
+      "l2": 0.03663025051355362,
+      "cos": 0.997702419757843,
+      "argmax": 127,
+      "passed": true
+    }
+  ]
+}

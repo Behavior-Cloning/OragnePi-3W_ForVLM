@@ -17,6 +17,9 @@ p.add_argument('--cpu-affinity',help='optional taskset CPU list')
 p.add_argument('--resident-copies',type=int,default=0,help='diagnostic identical prepared graphs interleaved before primary execution')
 p.add_argument('--alternate',type=Path,help='another validated fixture with identical graph: alternate inputs and verify repeatability for each phase')
 a=p.parse_args();assert a.tag.replace('-','').isalnum()
+conversion=a.folder/'conversion.json'
+fusion_width=json.loads(conversion.read_text()).get('fusion_width',2) if conversion.exists() else 2
+assert fusion_width in (1,2,4), 'unsupported probe fusion width'
 if a.cpu_affinity:assert 0<len(a.cpu_affinity)<=24 and all(c in '01234567,-' for c in a.cpu_affinity)
 result_dir=a.result_dir or a.folder
 if a.result_dir:result_dir.mkdir(parents=True,exist_ok=False)
@@ -36,7 +39,7 @@ if a.alternate:
     assert (a.folder/'probe-input.f32').stat().st_size==(a.alternate/'probe-input.f32').stat().st_size
     files.append((a.alternate/'probe-input.f32','alternate.f32'))
 for source,name in files:subprocess.run(scp+[str(source),'root@192.168.88.29:'+remote+'/'+name],check=True,timeout=120)
-command='cd '+remote+' && cc -O2 -Wall -Wextra -Werror tensor_probe.c -lNBGlinker -lVIPhal -lm -o probe && ./probe model.nb input.f32 output.f32 '+str(a.repeats)+' timing.json'
+command='cd '+remote+' && cc -O2 -Wall -Wextra -Werror -DFUSED_LAYERS='+str(fusion_width)+' tensor_probe.c -lNBGlinker -lVIPhal -lm -o probe && ./probe model.nb input.f32 output.f32 '+str(a.repeats)+' timing.json'
 if a.alternate:command=command.replace('&& ./probe','&& OPI_PROBE_ALTERNATE=alternate.f32 ./probe')
 if a.npd:command=command.replace('./probe model.nb','env OPI_PROBE_NPD=1 ./probe model.nb')
 if a.resident_copies:command=command.replace('./probe model.nb','env OPI_PROBE_RESIDENT_COPIES='+str(a.resident_copies)+' ./probe model.nb')
@@ -58,7 +61,7 @@ for name,count in fixture['outputs']:
 assert offset==expected.size and rows, 'fixture must cover every output element'
 timing=json.loads((result_dir/'timing.json').read_text())
 passed=all(r['relative_l2']<=a.max_l2 and r['cosine']>=a.min_cosine for r in rows) and timing['differing_repeats']==0 and timing.get('resident_mismatched_elements',0)==0 and timing['released_bytes']==0
-report={'fixture':fixture,'folder':str(a.folder),'cpu_affinity':a.cpu_affinity,
+report={'fixture':fixture,'folder':str(a.folder),'cpu_affinity':a.cpu_affinity,'fusion_width':fusion_width,
         'binary_sha256':hashlib.sha256((a.folder/'export_nbg_unify/network_binary.nb').read_bytes()).hexdigest(),
         'input_sha256':hashlib.sha256((a.folder/'probe-input.f32').read_bytes()).hexdigest(),
         'alternate_fixture':json.loads((a.alternate/'probe-fixture.json').read_text()) if a.alternate else None,'errors':rows,'timing':timing,

@@ -29,6 +29,8 @@ p.add_argument('--prefill-scalar-prefix',nargs=2,action='append',default=[],meta
     help='diagnostic preparation policy; retained and checked in every measured result')
 p.add_argument('--cpu-affinity',help='optional taskset CPU list for the NPU host process, e.g. 6,7')
 p.add_argument('--fixed-feedback',action='store_true',help='same frozen input trajectory, retaining each variant own predictions; not natural generation')
+p.add_argument('--max-response-temp-mc',type=int,default=0,help='optional matched cooling with KV resident before the incremental response timer')
+p.add_argument('--temperature-band-mc',type=int,nargs=2)
 p.add_argument('--variant-reference',nargs=2,action='append',default=[],metavar=('LABEL','FOLDER'),
     help='with fixed feedback, independently validated diagnostic output for each variant')
 a = p.parse_args()
@@ -39,6 +41,10 @@ r = json.loads((a.reference / 'tokens.json').read_text())
 variants = []
 assert 1 <= a.repeats <= 20
 assert 35000 <= a.max_start_temp_mc <= 70000
+assert a.max_response_temp_mc==0 or 35000<=a.max_response_temp_mc<=70000
+if a.temperature_band_mc:
+    lo,hi=a.temperature_band_mc
+    assert 35000<=lo<hi<=80000 and hi-lo>=5000 and not a.max_response_temp_mc
 if a.cpu_affinity:
     assert all(c in '01234567,-' for c in a.cpu_affinity) and len(a.cpu_affinity)<=24
 for label, tag, case, group, fusion in a.variant:
@@ -113,6 +119,8 @@ c = {'variants': variants, 'experiment': a.experiment, 'repeats': a.repeats,
      'eos': m['eos_token_ids'][0], 'tokens': r['tokens'], 'prompt_tokens': r['prompt_tokens'],
      'prompt_sha256': hashlib.sha256((a.reference / 'prompt.i32').read_bytes()).hexdigest(),
      'logits_sha256': hashlib.sha256((a.reference / 'logits.f32').read_bytes()).hexdigest()}
+c['max_response_temperature_mC']=a.max_response_temp_mc
+c['temperature_band_mC']=a.temperature_band_mc
 code = '''
 import hashlib,json,os,pathlib,subprocess,threading,time,urllib.request
 c=CONFIG
@@ -121,7 +129,11 @@ def health():
     with urllib.request.urlopen('http://127.0.0.1:8080/api/health',timeout=3) as response:
         value=json.load(response)
     assert value['ready'] and not value['busy'] and not value['loading'] and not value['maintenance'], 'production backend is active/unavailable'
-    return {k:value[k] for k in ('model_id','backend','ready','busy','loading','maintenance','metrics')}
+    result={k:value[k] for k in ('model_id','backend','ready','busy','loading','maintenance','metrics')}
+    result['frequencies']={p.name:{n:(p/n).read_text().strip() for n in ('scaling_cur_freq','scaling_max_freq','scaling_governor')}
+        for p in pathlib.Path('/sys/devices/system/cpu/cpufreq').glob('policy*')}
+    result['npu_frequency_hz']=int(pathlib.Path('/sys/class/devfreq/3600000.npu/cur_freq').read_text())
+    return result
 def digest_file(path):
     digest=hashlib.sha256()
     with path.open('rb') as stream:
@@ -133,6 +145,7 @@ for v in c['variants']:
     if c['fixed_feedback']:
         assert digest_file(root/(v['case']+'-feedback.i32'))==v['feedback_sha256']
     paths=list(root.glob('layer*.nb'))+list(root.glob('prefill-layer*.nb'))+[root/(v['case']+'-full_model')]
+    if c['temperature_band_mC']:paths.extend([root/'thermal_condition.py',root/'thermal_heater'])
     provenance[v['label']]={p.name:digest_file(p) for p in paths}
 print(json.dumps({'provenance':provenance}),flush=True)
 for phase in ('diagnostic','warmup','measure'):
@@ -164,21 +177,26 @@ for phase in ('diagnostic','warmup','measure'):
             env.pop('OPI_FAST_GREEDY',None)
             if v['fast_greedy']:env['OPI_FAST_GREEDY']='1'
             env['OPI_MAX_START_TEMP_MC']=str(c['max_start_temperature_mC'])
+            env.pop('OPI_MAX_RESPONSE_TEMP_MC',None)
+            if c['max_response_temperature_mC']:env['OPI_MAX_RESPONSE_TEMP_MC']=str(c['max_response_temperature_mC'])
+            env.pop('OPI_THERMAL_LOW_MC',None);env.pop('OPI_THERMAL_HIGH_MC',None)
+            if c['temperature_band_mC']:
+                env['OPI_THERMAL_LOW_MC'],env['OPI_THERMAL_HIGH_MC']=map(str,c['temperature_band_mC'])
             if phase!='diagnostic':env['OPI_PERFORMANCE']='1'
             command=['./'+v['case']+'-full_model','.',str(c['layers']),str(c['capacity']),str(c['vocab']),
                 'embeddings.f32',v['case']+'-prompt.i32',str(len(c['tokens'])),str(folder/'tokens.json'),
                 str(folder/'logits.f32'),str(c['eos'])]
             if c['host_cpu_affinity']:command=['taskset','-c',c['host_cpu_affinity']]+command
-            observations=[{'elapsed':0.,'health':health()}];errors=[];stop=threading.Event();started=time.monotonic()
+            observations=[{'elapsed':0.,'monotonic_seconds':time.monotonic(),'health':health()}];errors=[];stop=threading.Event();started=time.monotonic()
             def observe():
                 while not stop.wait(1):
-                    try:observations.append({'elapsed':time.monotonic()-started,'health':health()})
+                    try:observations.append({'elapsed':time.monotonic()-started,'monotonic_seconds':time.monotonic(),'health':health()})
                     except Exception as exc:errors.append(str(exc))
             observer=threading.Thread(target=observe);observer.start()
             with (folder/'run.stdout').open('w') as out,(folder/'run.stderr').open('w') as err:
                 try:subprocess.run(command,env=env,stdout=out,stderr=err,check=True,timeout=600)
                 finally:stop.set();observer.join()
-            observations.append({'elapsed':time.monotonic()-started,'health':health()})
+            observations.append({'elapsed':time.monotonic()-started,'monotonic_seconds':time.monotonic(),'health':health()})
             assert not errors,errors
             r=json.loads((folder/'tokens.json').read_text())
             assert r['tokens']==v.get('expected_tokens',c['tokens']), 'prediction trajectory changed'
@@ -196,6 +214,13 @@ for phase in ('diagnostic','warmup','measure'):
             if 'key_cache_transposed' in v:
                 assert r.get('key_cache_transposed',False)==v['key_cache_transposed']
             assert r['driver_after_release_bytes']==0
+            if c['max_response_temperature_mC']:
+                assert r['max_response_temperature_mC']==c['max_response_temperature_mC']
+                assert 0<=r['response_start_temperature_mC']<=c['max_response_temperature_mC']+1000
+            if c['temperature_band_mC']:
+                lo,hi=c['temperature_band_mC']
+                assert r['thermal_low_mC']==lo and r['thermal_high_mC']==hi
+                assert lo<=r['response_start_temperature_mC']<=hi, 'response outside requested temperature band'
             record={'phase':phase,'repeat':repeat,'label':v['label'],'result':r,'system_samples':observations,
                     'monitor_scope':'1-second health snapshots; short concurrent requests between samples may be missed'}
             if phase=='diagnostic':

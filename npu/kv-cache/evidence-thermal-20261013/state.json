@@ -1,0 +1,154 @@
+{
+  "bands_mC": {
+    "low": [
+      40000,
+      50000
+    ],
+    "medium": [
+      55000,
+      64999
+    ],
+    "high": [
+      65000,
+      80000
+    ]
+  },
+  "cases": {
+    "smol500-h512-n32": {
+      "status": "running",
+      "started": 1791856891.4171424,
+      "config": {
+        "case": "smol500-h512-n32",
+        "model": "smol500",
+        "model_id": "smolvlm-500m",
+        "history": 512,
+        "new_tokens": 32,
+        "capacity": 768,
+        "folder": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/aligned-20261013r2/smol500-h512-n32",
+        "prompt_sha256": "e995b6be2a3090325ceb54d2f8870dbb337585d69e058f1e67b8f458faaa0984",
+        "history_sha256": "f36317f952b674a7e772d8fc23d480ba4b58c8a1dc8318c6974706554a978a0f"
+      },
+      "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-smol500-stable-v3-c128/w8-fused2-c768-splitkv-transk/board-thermal3-smol500-h512-n32-runner2-runner3-runner4",
+      "tag": "full-smol500-c768-aligned32",
+      "bands": {
+        "low": {
+          "status": "complete",
+          "cpu": {
+            "ttft_seconds": 0.49916746899543796,
+            "decode_tokens_per_second": 21.180741269240077,
+            "total_seconds": 6.402634765006951,
+            "response_cpu_seconds": 12.780000000000001,
+            "preparation_seconds": 3.8625981910008704
+          },
+          "npu": {
+            "decode_tokens_per_second": 17.981386,
+            "ttft_seconds": 0.472169,
+            "total_seconds": 7.534788,
+            "cpu_seconds": 0.220585,
+            "driver_allocated_bytes": 736570344,
+            "decode_decoder_api_seconds": 6.179903,
+            "decode_head_api_seconds": 0.695003,
+            "max_rss_kib": 23296,
+            "load_seconds": 0.77402
+          },
+          "cpu_path": "npu/results/thermal-aligned-20261013/smol500-h512-n32-low-cpu"
+        },
+        "medium": {
+          "status": "complete",
+          "cpu": {
+            "ttft_seconds": 0.4993970110081136,
+            "decode_tokens_per_second": 21.18780503348841,
+            "total_seconds": 6.400479297008133,
+            "response_cpu_seconds": 12.770000000000003,
+            "preparation_seconds": 3.8649151169956895
+          },
+          "npu": {
+            "decode_tokens_per_second": 18.060989,
+            "ttft_seconds": 0.472984,
+            "total_seconds": 7.504714,
+            "cpu_seconds": 0.201493,
+            "driver_allocated_bytes": 736570344,
+            "decode_decoder_api_seconds": 6.17092,
+            "decode_head_api_seconds": 0.686058,
+            "max_rss_kib": 23296,
+            "load_seconds": 0.773831
+          },
+          "performance": "npu/results/thermal-aligned-20261013/smol500-h512-n32-medium-npu-attempt4.json",
+          "cpu_path": "npu/results/thermal-aligned-20261013/smol500-h512-n32-medium-cpu"
+        },
+        "high": {
+          "status": "running",
+          "cpu_path": "npu/results/thermal-aligned-20261013/smol500-h512-n32-high-cpu-attempt3"
+        }
+      },
+      "execution_gate": {
+        "applicable": true,
+        "relative_l2_limit": 0.05,
+        "min_cosine_limit": 0.99,
+        "argmax_match_min": 0.95,
+        "passed": true,
+        "scope": "execution on this trajectory only; not holdout quality acceptance"
+      },
+      "error": "high-cpu: exit 1, see npu/results/thermal-aligned-20261013/smol500-h512-n32-high-cpu-attempt2.log",
+      "finished": 1791859153.364113
+    },
+    "smol500-h512-n64": {
+      "status": "running",
+      "started": 1791857286.5607212,
+      "config": {
+        "case": "smol500-h512-n64",
+        "model": "smol500",
+        "model_id": "smolvlm-500m",
+        "history": 512,
+        "new_tokens": 64,
+        "capacity": 768,
+        "folder": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/aligned-20261013r2/smol500-h512-n64",
+        "prompt_sha256": "c2e34598cf5bf743aa20b2d7e8d382faa132edaa2699606eae03c3d26abc3981",
+        "history_sha256": "f36317f952b674a7e772d8fc23d480ba4b58c8a1dc8318c6974706554a978a0f"
+      },
+      "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-smol500-stable-v3-c128/w8-fused2-c768-splitkv-transk/board-thermal3-smol500-h512-n64-runner2",
+      "tag": "full-smol500-c768-aligned32",
+      "bands": {
+        "low": {
+          "status": "running",
+          "cpu": {
+            "ttft_seconds": 0.8783303820091533,
+            "decode_tokens_per_second": 21.17748836322027,
+            "total_seconds": 6.781137009005761,
+            "response_cpu_seconds": 13.530000000000001,
+            "preparation_seconds": 3.8635485690028872
+          },
+          "cpu_path": "npu/results/thermal-aligned-20261013/smol500-h512-n64-low-cpu"
+        }
+      },
+      "execution_gate": {
+        "applicable": true,
+        "relative_l2_limit": 0.05,
+        "min_cosine_limit": 0.99,
+        "argmax_match_min": 0.95,
+        "passed": true,
+        "scope": "execution on this trajectory only; not holdout quality acceptance"
+      }
+    }
+  },
+  "status": "running",
+  "protocol_revisions": [
+    {
+      "old_bands_mC": {
+        "low": [
+          40000,
+          50000
+        ],
+        "medium": [
+          55000,
+          65000
+        ],
+        "high": [
+          70000,
+          80000
+        ]
+      },
+      "reason": "70 C start could not be reproduced after heater shutdown; no successful high-band results were relabeled. Medium upper bound is now exclusive 65 C."
+    }
+  ]
+}

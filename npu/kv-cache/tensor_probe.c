@@ -1,5 +1,7 @@
 /* Generic bounded graph probe using the same production tensor conversion. */
+#ifndef FUSED_LAYERS
 #define FUSED_LAYERS 2
+#endif
 #define OPI_FULL_MODEL_ENTRY full_model_example_main
 #include "full_model.c"
 

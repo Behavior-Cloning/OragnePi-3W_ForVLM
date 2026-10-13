@@ -111,9 +111,9 @@ static void run_scalar_prefill_block(BatchPrefill *b,Layer *decode,int block,int
         for(unsigned port=0;port<TENSOR_MAX_OUTPUTS;port++)
             check(vip_flush_buffer(l->out[port].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read scalar prefill block");
         copy_values(&batch->out[0],t*DIM,&l->out[0],0,DIM);
-        for(int k=0;k<FUSED_LAYERS;k++)for(int h=0;h<KV;h++){
-            copy_values(&kv->in[IN_K(k)],(h*b->capacity+pos+t)*HD,&l->out[OUT_K(k)],h*HD,HD);
-            copy_values(&kv->in[IN_V(k)],(h*b->capacity+pos+t)*HD,&l->out[OUT_V(k)],h*HD,HD);
+        for(int k=0;k<FUSED_LAYERS;k++){
+            append_key(&kv->in[IN_K(k)],&l->out[OUT_K(k)],b->capacity,pos+t,1);
+            for(int h=0;h<KV;h++)copy_values(&kv->in[IN_V(k)],(h*b->capacity+pos+t)*HD,&l->out[OUT_V(k)],h*HD,HD);
         }
     }
     for(int k=0;k<FUSED_LAYERS;k++)for(int t=0;t<pos+b->tokens;t++)put(&kv->in[IN_MASK(k)],t,0);
@@ -170,8 +170,8 @@ static void run_prefill(BatchPrefill *b,Layer *decode,const float *embedding,
         for(unsigned j=b->host_hidden?0:1;j<TENSOR_MAX_OUTPUTS;j++)
             check(vip_flush_buffer(l->out[j].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read batch KV");
         for(int k=0;k<FUSED_LAYERS;k++){
+            append_key(&decode[i].in[IN_K(k)],&l->out[OUT_K(k)],c,pos,n);
             for(int h=0;h<KV;h++){
-                copy_values(&decode[i].in[IN_K(k)],(h*c+pos)*HD,&l->out[OUT_K(k)],h*n*HD,n*HD);
                 copy_values(&decode[i].in[IN_V(k)],(h*c+pos)*HD,&l->out[OUT_V(k)],h*n*HD,n*HD);
             }
             for(int t=0;t<pos+n;t++)put(&decode[i].in[IN_MASK(k)],t,0);

@@ -2,6 +2,9 @@
  * Reuse the tested IO/quantization utilities from the incremental probe.
  * Compile with MODEL_DIM/MODEL_KV/MODEL_HD/ROPE_BASE from the model manifest.
  */
+#include <sys/wait.h>
+#include <sys/prctl.h>
+#include <signal.h>
 #ifndef FUSED_LAYERS
 #define FUSED_LAYERS 1
 #endif
@@ -72,6 +75,27 @@ static void copy_values(Tensor *dst,unsigned offset,Tensor *src,unsigned begin,u
     if(same&&size)memcpy((char*)dst->data+offset*size,(char*)src->data+begin*size,count*size);
     else for(unsigned j=0;j<count;j++)put(dst,offset+j,get(src,begin+j));
 }
+/* Publish only the new K rows; never transpose or requantize old history.
+ * Batched graph outputs remain [KV,tokens,HD] for both cache layouts. */
+static void append_key(Tensor *dst,Tensor *src,int capacity,int pos,int tokens) {
+    if(pos<0||tokens<1||pos+tokens>capacity||
+       dst->count!=(unsigned)(KV*capacity*HD)||src->count!=(unsigned)(KV*tokens*HD)){
+        fprintf(stderr,"append K shape/range mismatch\n");exit(2);
+    }
+    if(!KEY_CACHE_TRANSPOSED){
+        for(int h=0;h<KV;h++)copy_values(dst,(h*capacity+pos)*HD,src,h*tokens*HD,tokens*HD);
+        return;
+    }
+    int raw16=dst->p.data_format==src->p.data_format&&dst->p.quant_format==src->p.quant_format&&
+        ((dst->p.data_format==VIP_BUFFER_FORMAT_FP16&&dst->p.quant_format==VIP_BUFFER_QUANTIZE_NONE)||
+         (dst->p.data_format==VIP_BUFFER_FORMAT_INT16&&dst->p.quant_format==VIP_BUFFER_QUANTIZE_DYNAMIC_FIXED_POINT&&
+          dst->p.quant_data.dfp.fixed_point_pos==src->p.quant_data.dfp.fixed_point_pos));
+    for(int h=0;h<KV;h++)for(int j=0;j<HD;j++)for(int t=0;t<tokens;t++){
+        unsigned to=(h*HD+j)*capacity+pos+t,from=(h*tokens+t)*HD+j;
+        if(raw16)memcpy((char*)dst->data+to*2,(char*)src->data+from*2,2);
+        else put(dst,to,get(src,from));
+    }
+}
 /* Opt-in diagnostic readback, excluded from all performance results. */
 static FILE *audit_file;
 static void audit_outputs(Layer *layer,unsigned no,const char *stage,int pos,int block) {
@@ -107,7 +131,6 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     int scalar_prefix=getenv("OPI_PREFILL_SCALAR_PREFIX")?atoi(getenv("OPI_PREFILL_SCALAR_PREFIX")):0;
     if(prefill_tokens<0||prefill_tokens==1||prefill_tokens>256||prefill_tokens>capacity||
        cached_prefix<0||cached_prefix>=prompt_count||scalar_prefix<0||scalar_prefix>prompt_count)return 2;
-    if(KEY_CACHE_TRANSPOSED&&prefill_tokens){fprintf(stderr,"transposed K currently requires scalar prefill\n");return 2;}
     if(prompt_count+max_new-1>capacity){fprintf(stderr,"prompt plus output exceeds KV capacity\n");return 2;}
     const float *emb=mmap(NULL,emb_stat.st_size,PROT_READ,MAP_PRIVATE,emb_fd,0);
     const int32_t *prompt=mmap(NULL,prompt_stat.st_size,PROT_READ,MAP_PRIVATE,prompt_fd,0);
@@ -134,6 +157,11 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     }
     int max_start_temp=getenv("OPI_MAX_START_TEMP_MC")?atoi(getenv("OPI_MAX_START_TEMP_MC")):55000;
     if(max_start_temp<35000||max_start_temp>70000)return 2;
+    int max_response_temp=getenv("OPI_MAX_RESPONSE_TEMP_MC")?atoi(getenv("OPI_MAX_RESPONSE_TEMP_MC")):0;
+    if(max_response_temp&&(max_response_temp<35000||max_response_temp>70000))return 2;
+    int thermal_low=getenv("OPI_THERMAL_LOW_MC")?atoi(getenv("OPI_THERMAL_LOW_MC")):0;
+    int thermal_high=getenv("OPI_THERMAL_HIGH_MC")?atoi(getenv("OPI_THERMAL_HIGH_MC")):0;
+    if((thermal_low||thermal_high)&&(thermal_low<35000||thermal_high>80000||thermal_high-thermal_low<5000))return 2;
     int group_size=getenv("OPI_DECODER_GROUP")?atoi(getenv("OPI_DECODER_GROUP")):0;
     if(group_size<0||group_size>blocks)return 2;
     FILE *token_file=fopen(argv[8],"w"),*logits_file=performance?NULL:fopen(argv[9],"wb");
@@ -213,15 +241,45 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     long long npu_freq_before=read_frequency("/sys/class/devfreq/3600000.npu/cur_freq");
     long long cpu_freq_before=read_frequency("/sys/devices/system/cpu/cpu6/cpufreq/scaling_cur_freq");
     double start=now(),cpu_start=cpu_time(),run_seconds=0,first_token=0,previous_token=start;
+    double response_start_monotonic=start;
     double head_seconds=0,decode_decoder_seconds=0,decode_head_seconds=0;
     double preparation_seconds=0,preparation_api_seconds=0,preparation_cpu_seconds=0,prefill_api_seconds=0;
     int batched_prompt_tokens=0,prepared_batch_tokens=0;
+    int response_temp=temperature();double response_cooldown_seconds=0;
     int n_generated=0,token=0;
     for(int pos=0;pos<prompt_count+max_new-1;pos++) {
         if(cached_prefix&&pos==cached_prefix){
             double stamp=now(),cpu_stamp=cpu_time();
             preparation_seconds=stamp-start;preparation_cpu_seconds=cpu_stamp-cpu_start;
             preparation_api_seconds=run_seconds;prepared_batch_tokens=batched_prompt_tokens;
+            if(thermal_low){
+                double cool_start=now();char low[16],high[16];
+                snprintf(low,sizeof(low),"%d",thermal_low);snprintf(high,sizeof(high),"%d",thermal_high);
+                for(int attempt=0;attempt<5;attempt++){
+                    if(now()-cool_start>300){fprintf(stderr,"thermal conditioning deadline\n");return 2;}
+                    pid_t child=fork();if(child<0)return 2;
+                    if(!child){
+                        if(prctl(PR_SET_PDEATHSIG,SIGTERM)||getppid()==1)_exit(127);
+                        execlp("python3","python3","thermal_condition.py","--min",low,"--max",high,(char*)NULL);_exit(127);
+                    }
+                    int status=0;if(waitpid(child,&status,0)!=child||!WIFEXITED(status)||WEXITSTATUS(status))return 2;
+                    int actual=temperature();
+                    if(actual>=thermal_low&&actual<=thermal_high)break;
+                    if(attempt==4){fprintf(stderr,"thermal band changed before response\n");return 2;}
+                }
+                response_cooldown_seconds=now()-cool_start;
+                stamp=now();cpu_stamp=cpu_time();
+            }else if(max_response_temp){
+                double cool_start=now();
+                while(temperature()>max_response_temp){
+                    if(now()-cool_start>300){fprintf(stderr,"response cooldown timeout\n");return 2;}
+                    struct timespec delay={1,0};nanosleep(&delay,NULL);
+                }
+                response_cooldown_seconds=now()-cool_start;
+                stamp=now();cpu_stamp=cpu_time();
+            }
+            response_temp=temperature();
+            response_start_monotonic=stamp;
             run_seconds=0;prefill_api_seconds=0;start=previous_token=stamp;cpu_start=cpu_stamp;
         }
         int boundary=pos<cached_prefix?cached_prefix:prompt_count;
@@ -281,15 +339,9 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
                 x[j]=get(&l->out[0],j);
                 if(!isfinite(x[j])){fprintf(stderr,"NONFINITE position=%d layer=%d component=%d value=%g\n",pos,i,j,x[j]);return 3;}
             }
-            for(int k=0;k<FUSED_LAYERS;k++)for(int h=0;h<KV;h++){
-                unsigned dst=(h*capacity+pos)*HD,src=h*HD;
-                if(KEY_CACHE_TRANSPOSED){
-                    /* Scatter only this new vector into [KV,HD,capacity].
-                     * copy_values preserves raw bits when quantizers match. */
-                    for(int j=0;j<HD;j++)copy_values(&l->in[IN_K(k)],
-                        (h*HD+j)*capacity+pos,&l->out[OUT_K(k)],src+j,1);
-                }else copy_values(&l->in[IN_K(k)],dst,&l->out[OUT_K(k)],src,HD);
-                copy_values(&l->in[IN_V(k)],dst,&l->out[OUT_V(k)],src,HD);
+            for(int k=0;k<FUSED_LAYERS;k++){
+                append_key(&l->in[IN_K(k)],&l->out[OUT_K(k)],capacity,pos,1);
+                for(int h=0;h<KV;h++)copy_values(&l->in[IN_V(k)],(h*capacity+pos)*HD,&l->out[OUT_V(k)],h*HD,HD);
             }
             if(trace_file&&fwrite(x,sizeof(float),DIM,trace_file)!=(size_t)DIM)return 2;
         }
@@ -375,7 +427,10 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     fprintf(token_file,",\"prefill_host_hidden\":%s,\"host_output_buffers\":%s",getenv("OPI_PREFILL_HOST_HIDDEN")?"true":"false",getenv("OPI_HOST_OUTPUT_BUFFERS")?"true":"false");
     fprintf(token_file,",\"prefill_clear_output\":%s",getenv("OPI_PREFILL_CLEAR_OUTPUT")?"true":"false");
     fprintf(token_file,",\"prefill_scalar_block\":%d",prefill_tokens?batch.scalar_block:-1);
-    fprintf(token_file,",\"key_cache_transposed\":%s,\"key_cache_layout_revision\":1",KEY_CACHE_TRANSPOSED?"true":"false");
+    fprintf(token_file,",\"key_cache_transposed\":%s,\"key_cache_layout_revision\":2",KEY_CACHE_TRANSPOSED?"true":"false");
+    fprintf(token_file,",\"max_response_temperature_mC\":%d,\"response_start_temperature_mC\":%d,\"response_cooldown_seconds\":%.6f",max_response_temp,response_temp,response_cooldown_seconds);
+    fprintf(token_file,",\"thermal_low_mC\":%d,\"thermal_high_mC\":%d",thermal_low,thermal_high);
+    fprintf(token_file,",\"response_start_monotonic_seconds\":%.6f",response_start_monotonic);
     fprintf(token_file,",\"prefill_rebind_outputs\":%s,\"poison_prefill_output\":%s,\"prefill_flush_output\":%s,\"capture_prefill\":%s",getenv("OPI_PREFILL_REBIND_OUTPUTS")?"true":"false",getenv("OPI_PREFILL_POISON_OUTPUT")?"true":"false",getenv("OPI_PREFILL_FLUSH_OUTPUT")?"true":"false",getenv("OPI_CAPTURE_PREFIX")?"true":"false");
     fprintf(token_file,",\"prefill_scalar_prefix\":%d,\"performance_mode\":%s,\"host_revision\":10,\"decoder_group_size\":%d,\"fusion_width\":%d,\"max_start_temperature_mC\":%d,\"npu_frequency_before_hz\":%lld,\"npu_frequency_after_hz\":%lld,\"cpu6_frequency_before_khz\":%lld,\"cpu6_frequency_after_khz\":%lld,\"fast_greedy\":%s,\"rss_after_inference_kib\":%ld,\"init_buffer_flush\":%s,\"audit_outputs\":%s}\n",scalar_prefix,performance?"true":"false",group_size,FUSED_LAYERS,max_start_temp,npu_freq_before,npu_freq_after,cpu_freq_before,cpu_freq_after,fast_greedy?"true":"false",rss_after_inference,getenv("OPI_INIT_BUFFER_FLUSH")?"true":"false",audit_file?"true":"false");
     if(trace_file)fclose(trace_file);

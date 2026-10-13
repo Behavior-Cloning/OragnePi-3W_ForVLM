@@ -1,0 +1,3294 @@
+{
+  "suite_sha256": "5ff6c053a14c75d9364c17b8616817c7c32ae4b75b1762239824acb5d0e0ebb0",
+  "reused_reference": {
+    "path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/holdout-reference-smol500-20261013",
+    "state_sha256": "36d65929aed70455c058da4a673914b9bccfa3d5945fb76c65bf19e3bfe13d51",
+    "original_candidate": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-smol500-stable-v3-c128/w8-fused2-c1280-decode-dfpgateup/board-dfpgateup-smol500-h1024-n64",
+    "reference_logits_sha256_verified": true,
+    "scope": "repeated frozen-suite regression; not a fresh independent holdout"
+  },
+  "model_sha256": "9d4612de6a42214499e301494a3ecc2be0abdd9de44e663bda63f1152fad1bf4",
+  "reference_state_sha256": "1729698e2d384dc64e69e030ab370834c08a3f37a54d0de805266ac03ece6894",
+  "actual": {
+    "status": "passed",
+    "scope": "development HTTP/SSH multi-turn; not holdout or board-only performance",
+    "model": "models/smolvlm-500m/SmolVLM-500M-Instruct-Q8_0.gguf",
+    "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-smol500-stable-v3-c128/w8-fused2-c768-dfpgateup/board-prefill8-dfpgateup-smol500-h512-n64",
+    "layers": 32,
+    "capacity": 768,
+    "independent_quality_accepted": false,
+    "retain_after_overflow": null,
+    "source_sha256": "8a3afe3bb92b26d39caf99e9d2148e4aec71e461e551aeab5b4f5d924a7f7386",
+    "provenance_scope": "Python source snapshot at launch before lock; C snapshot at deployment",
+    "closed": {
+      "event": "closed",
+      "driver_bytes": 0
+    },
+    "reloaded_closed": {
+      "event": "closed",
+      "driver_bytes": 0
+    },
+    "holdout": {
+      "status": "complete-numeric-and-free-generation",
+      "reference": "npu/results/holdout-reference-prefill8-smol500-20261014",
+      "holdout_sha256": "5ff6c053a14c75d9364c17b8616817c7c32ae4b75b1762239824acb5d0e0ebb0",
+      "cases": [
+        {
+          "case": "en-listen-turn1",
+          "token_count": 17,
+          "mean_kl_nats": 0.045328062027692795,
+          "perplexity_ratio": 1.1059761047363281,
+          "relative_l2": 0.12805861234664917,
+          "argmax_fraction": 0.8235294222831726,
+          "numeric_passed": false,
+          "npu_logits_sha256": "b6357d8cee232a83d010ab568d016826b5d6a9547c7159452202dd123badf5a2",
+          "reference_logits_sha256": "189d6346b0f9b0576d4a727b0c744910e8c1264cee6e2d234e3913ad27976c53"
+        },
+        {
+          "case": "en-listen-turn2",
+          "token_count": 14,
+          "mean_kl_nats": 0.029538650065660477,
+          "perplexity_ratio": 0.9246362447738647,
+          "relative_l2": 0.14125597476959229,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "bb3eae664d73556c3efcd81b9c966e7209176c66001a5c0c8fe9613d20c23d15",
+          "reference_logits_sha256": "092ae28788129bbe0a81bceab6feb99b749c464e5588655cd2c1248c3d932397"
+        },
+        {
+          "case": "en-listen-turn3",
+          "token_count": 7,
+          "mean_kl_nats": 0.031488291919231415,
+          "perplexity_ratio": 1.0243885517120361,
+          "relative_l2": 0.13511982560157776,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "336ad369f175dc5ee6bafb67008efa6b8655b480bf1d218663cd3953e97bafe7",
+          "reference_logits_sha256": "0de9051c3910b39445e9dd4ffab47651d304a339f85e642eae41f3279f22312e"
+        },
+        {
+          "case": "en-role-turn1",
+          "token_count": 13,
+          "mean_kl_nats": 0.05331910401582718,
+          "perplexity_ratio": 1.0695526599884033,
+          "relative_l2": 0.10223773866891861,
+          "argmax_fraction": 0.9230769276618958,
+          "numeric_passed": false,
+          "npu_logits_sha256": "4d68125a8563e94935a67d3d639d89b21d10e45cd5a845b8de4bf94d72f80a00",
+          "reference_logits_sha256": "5d55327d26fa749ecf730f0dc8f9bc8b8865b147642b01d4fa1a84ebe134d434"
+        },
+        {
+          "case": "en-role-turn2",
+          "token_count": 8,
+          "mean_kl_nats": 0.02207147516310215,
+          "perplexity_ratio": 1.0976718664169312,
+          "relative_l2": 0.11858616024255753,
+          "argmax_fraction": 1.0,
+          "numeric_passed": false,
+          "npu_logits_sha256": "e60c1118aa3b20a9271f5845167049a58259c9802ec042968643c7ed1370fe8d",
+          "reference_logits_sha256": "9546aa664fb04d157a920109e380593a382135de9e5e5e1a8cfb623bcb57d5dc"
+        },
+        {
+          "case": "en-role-turn3",
+          "token_count": 3,
+          "mean_kl_nats": 0.02141450345516205,
+          "perplexity_ratio": 0.9856163859367371,
+          "relative_l2": 0.10847076773643494,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "52cb86c9e0e07872e6c18828e85156ba01f40a3dda3cf0760f5f12641cfeee9d",
+          "reference_logits_sha256": "9e57a8ffc8f1461d5eea84de8e22d53332c4c0ab1cd994a4144d127b4a125a09"
+        },
+        {
+          "case": "en-memory-turn1",
+          "token_count": 6,
+          "mean_kl_nats": 0.028673158958554268,
+          "perplexity_ratio": 1.0290621519088745,
+          "relative_l2": 0.15655666589736938,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "e3d00a4a9df6ff9669c16afda73023adddb18e2999a2756ba302c46914b3b918",
+          "reference_logits_sha256": "0303155af6b22eb43e38007c2177c0d0726037bcb3ed0bb3ef995b38d0ed1d9a"
+        },
+        {
+          "case": "en-memory-turn2",
+          "token_count": 10,
+          "mean_kl_nats": 0.04178371652960777,
+          "perplexity_ratio": 1.0360267162322998,
+          "relative_l2": 0.12880127131938934,
+          "argmax_fraction": 0.800000011920929,
+          "numeric_passed": true,
+          "npu_logits_sha256": "dbb810713347fbf64c5cfb8cc0db24d2029ad14c59a01433284952a61b04c37c",
+          "reference_logits_sha256": "6462ed3dc40457810cd464f2f84afb44b3addf76faaf7684bc31ed8710d4d0ec"
+        },
+        {
+          "case": "en-memory-turn3",
+          "token_count": 14,
+          "mean_kl_nats": 0.008462934754788876,
+          "perplexity_ratio": 1.0072021484375,
+          "relative_l2": 0.11926818639039993,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "a982a3db88fe420737915f47a38ca65894e555293372dcacc5b42a19e0619cf0",
+          "reference_logits_sha256": "debe49b6cf0e82b550ca4c1830881bdd34f58cff95aa98dd9a9d061138d74796"
+        },
+        {
+          "case": "en-correction-turn1",
+          "token_count": 3,
+          "mean_kl_nats": 0.024351252242922783,
+          "perplexity_ratio": 1.0573821067810059,
+          "relative_l2": 0.10575366765260696,
+          "argmax_fraction": 1.0,
+          "numeric_passed": false,
+          "npu_logits_sha256": "fd59bed6f1cea5861c774cb1fb0dba1da3ee4a8ddc739fe3590363717f3a158e",
+          "reference_logits_sha256": "67bc60663a848e0e569c7ad8f7dc794905390fcf009359464016ceb6bf7221cf"
+        },
+        {
+          "case": "en-correction-turn2",
+          "token_count": 3,
+          "mean_kl_nats": 0.003529052482917905,
+          "perplexity_ratio": 1.0126125812530518,
+          "relative_l2": 0.10335692763328552,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "4f583ed24513f40b7b01feb8b45ad9bc9853ee5f0f9c5d83bdbbc74280b21dd6",
+          "reference_logits_sha256": "d329e88e05419bfb3585b0d40d29d73ee9fdd107f62cb71e5ec4386681327717"
+        },
+        {
+          "case": "en-correction-turn3",
+          "token_count": 3,
+          "mean_kl_nats": 0.00526859937235713,
+          "perplexity_ratio": 1.012578010559082,
+          "relative_l2": 0.08963903039693832,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "25e250a3a3637375da3735336f4f49326fcfafc1ca6e69618e0dcd0c54ce5923",
+          "reference_logits_sha256": "df1659e04247bd0f85d9d8c961b0a814792e82ae3b09873d694246a35440217e"
+        },
+        {
+          "case": "en-boundary-turn1",
+          "token_count": 3,
+          "mean_kl_nats": 0.008478081785142422,
+          "perplexity_ratio": 0.988926887512207,
+          "relative_l2": 0.10295827686786652,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "885be2006e5c2c8fe3b32c20454e40ef026526a1a62b2d9058466fe8ad2e0901",
+          "reference_logits_sha256": "b8fba9fd229472549e5644c702c20b3f35fea1d609864c1b54888bb8c820d9b5"
+        },
+        {
+          "case": "en-boundary-turn2",
+          "token_count": 10,
+          "mean_kl_nats": 0.03983165696263313,
+          "perplexity_ratio": 1.1139137744903564,
+          "relative_l2": 0.12251528352499008,
+          "argmax_fraction": 0.8999999761581421,
+          "numeric_passed": false,
+          "npu_logits_sha256": "fbab761af317b43f2e389fe5301a6ce44c91827054cd4aa4b0ff47fd21c3d0b4",
+          "reference_logits_sha256": "f54b5f09d308b994885deb063ad3a38be562db84bf7e775a626cef3ee3c398ae"
+        },
+        {
+          "case": "en-boundary-turn3",
+          "token_count": 9,
+          "mean_kl_nats": 0.051694106310606,
+          "perplexity_ratio": 1.2006856203079224,
+          "relative_l2": 0.13490864634513855,
+          "argmax_fraction": 0.6666666865348816,
+          "numeric_passed": false,
+          "npu_logits_sha256": "9f1f055d2671b55de9e567e230a8b8694c79ded411b414c857b19af86315f9b9",
+          "reference_logits_sha256": "b93f8c6d2639d2a0fcc27c7297aebfbad93b949cca06831a42ad54b40e68ed8e"
+        },
+        {
+          "case": "en-play-turn1",
+          "token_count": 96,
+          "mean_kl_nats": 0.02353421412408352,
+          "perplexity_ratio": 1.0558916330337524,
+          "relative_l2": 0.10138823837041855,
+          "argmax_fraction": 0.9375,
+          "numeric_passed": false,
+          "npu_logits_sha256": "82e0d9188d3a55230990767024454e5ca176badb990adfa816294f6470848235",
+          "reference_logits_sha256": "6346afc41fabd2829451b432d26fd03a54f22cb48cf80fffd2b665ce33bb1c2c"
+        },
+        {
+          "case": "en-play-turn2",
+          "token_count": 19,
+          "mean_kl_nats": 0.04674974083900452,
+          "perplexity_ratio": 1.066070556640625,
+          "relative_l2": 0.11192040890455246,
+          "argmax_fraction": 0.7894737124443054,
+          "numeric_passed": false,
+          "npu_logits_sha256": "4cb8d4e2f35efff294c40fbabf318b0a2d4fda20ea803f6f01902e963ae4f296",
+          "reference_logits_sha256": "5a4b106bfbf5e0a7c4722d2513b6fc63db70ce3328a6f8a60cfc294e256564cc"
+        },
+        {
+          "case": "en-play-turn3",
+          "token_count": 13,
+          "mean_kl_nats": 0.017648395150899887,
+          "perplexity_ratio": 1.0285087823867798,
+          "relative_l2": 0.1069076657295227,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "01607e261c2fb3c9714f0674e297954be71d991ddb35fa2f72912e0aceb856a9",
+          "reference_logits_sha256": "13d9c305fceb9de775846d7fdb6882f9711438bac0e6123f97e7ea9f4eea528e"
+        },
+        {
+          "case": "zh-listen-turn1",
+          "token_count": 53,
+          "mean_kl_nats": 0.014914148487150669,
+          "perplexity_ratio": 0.9718142151832581,
+          "relative_l2": 0.15086209774017334,
+          "argmax_fraction": 0.9245283007621765,
+          "numeric_passed": true,
+          "npu_logits_sha256": "e53545d218d84561d9a63e958a47eca071027bec906a50a1c9f7d7703f479e5b",
+          "reference_logits_sha256": "0f9ae45e3bdeb00123cc2e66f451965c4780c6f5608dd5cab6330513c833f5ac"
+        },
+        {
+          "case": "zh-listen-turn2",
+          "token_count": 25,
+          "mean_kl_nats": 0.011948925442993641,
+          "perplexity_ratio": 0.9841070175170898,
+          "relative_l2": 0.15351182222366333,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "94c8bdfe686b45280d15fd4726a571691ed1fe2fffae9705dd5564c5f0e77ddc",
+          "reference_logits_sha256": "686168f00e2c70955204acf95d6e5385e4b50ab72c1de220fda068711443c8e8"
+        },
+        {
+          "case": "zh-listen-turn3",
+          "token_count": 25,
+          "mean_kl_nats": 0.015307978726923466,
+          "perplexity_ratio": 0.9775853157043457,
+          "relative_l2": 0.16502822935581207,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "be32a3f7312d815c82c6a6bcb292de6f7ac2709638bb2d798fdd4ad97e62e8d2",
+          "reference_logits_sha256": "b2418126292f0eac9948144c4f07c2ce2d79d2b7934fb770a1852de577750a88"
+        },
+        {
+          "case": "zh-role-turn1",
+          "token_count": 36,
+          "mean_kl_nats": 0.015002335421741009,
+          "perplexity_ratio": 1.0384879112243652,
+          "relative_l2": 0.14507821202278137,
+          "argmax_fraction": 0.9722222089767456,
+          "numeric_passed": true,
+          "npu_logits_sha256": "ece6241e116fb45febcb6ba192f6f4800edd578fd683657abac429acd0976f63",
+          "reference_logits_sha256": "722f9c6d5b9837f21e913e27df6c6c0c7d9a47d449b1fc9dccd2e85a1a81f1da"
+        },
+        {
+          "case": "zh-role-turn2",
+          "token_count": 24,
+          "mean_kl_nats": 0.012628951109945774,
+          "perplexity_ratio": 1.0375629663467407,
+          "relative_l2": 0.14071635901927948,
+          "argmax_fraction": 0.9583333134651184,
+          "numeric_passed": true,
+          "npu_logits_sha256": "69153e915df369e86a22bb0406b39a50539a17a3fad92c075f3535c05f6e0a34",
+          "reference_logits_sha256": "4a3bc196f4bd888435d53250695745665950a7e01d8a9b255867c3e49ea9fdfc"
+        },
+        {
+          "case": "zh-role-turn3",
+          "token_count": 8,
+          "mean_kl_nats": 0.012871813029050827,
+          "perplexity_ratio": 0.9955453276634216,
+          "relative_l2": 0.1319883018732071,
+          "argmax_fraction": 0.875,
+          "numeric_passed": true,
+          "npu_logits_sha256": "7a8649ec4c795d8dc007e66d3a9589fb9050c9231607b058dd85a99c3d10bbf0",
+          "reference_logits_sha256": "c6e26e7f2ee6773d306e0e1a14ef6e800fc47d5ac0f017c7017fc449e88d5984"
+        },
+        {
+          "case": "zh-memory-turn1",
+          "token_count": 22,
+          "mean_kl_nats": 0.0471097007393837,
+          "perplexity_ratio": 1.01615309715271,
+          "relative_l2": 0.13224148750305176,
+          "argmax_fraction": 0.9090909361839294,
+          "numeric_passed": true,
+          "npu_logits_sha256": "89c5bf5b417b6624b8a1d2b2de66fe39086f0089046bf252f6b11cc8a9fa07fb",
+          "reference_logits_sha256": "fdeab5ec1b10bc009ac866e358bf5ce8978b827769c1c06bd548a6f13e4f61fa"
+        },
+        {
+          "case": "zh-memory-turn2",
+          "token_count": 22,
+          "mean_kl_nats": 0.010089295916259289,
+          "perplexity_ratio": 1.0208410024642944,
+          "relative_l2": 0.12324826419353485,
+          "argmax_fraction": 0.9545454382896423,
+          "numeric_passed": true,
+          "npu_logits_sha256": "8117312b5f8d3b1bfb7c6f9639ded0eefa873c07eedf3274bc25667880e8bd87",
+          "reference_logits_sha256": "64848dfe6f4649ead999a8f5fe26a08ca78691a64a6c3ea8d79d03c78acf017f"
+        },
+        {
+          "case": "zh-memory-turn3",
+          "token_count": 9,
+          "mean_kl_nats": 0.00472871121019125,
+          "perplexity_ratio": 0.9988137483596802,
+          "relative_l2": 0.14107684791088104,
+          "argmax_fraction": 0.8888888955116272,
+          "numeric_passed": true,
+          "npu_logits_sha256": "a588d521e2787d16f9b8396bd952eb855ef4bda0054fc8515b1a34aca4ac7c67",
+          "reference_logits_sha256": "c6a7cb3f65754ef061ba3aab1b37aac95e61de9c457f591b451a115a739741b2"
+        },
+        {
+          "case": "zh-correction-turn1",
+          "token_count": 10,
+          "mean_kl_nats": 0.06073443219065666,
+          "perplexity_ratio": 1.1525897979736328,
+          "relative_l2": 0.09024864435195923,
+          "argmax_fraction": 0.8999999761581421,
+          "numeric_passed": false,
+          "npu_logits_sha256": "93ddd0af894f01a3efbdc23f2b412afa59f215973933fcac766e69747264a746",
+          "reference_logits_sha256": "1da9e541fc891648c79af2089ff253c7d0ed00d6a673de978b551bf74901d1cd"
+        },
+        {
+          "case": "zh-correction-turn2",
+          "token_count": 11,
+          "mean_kl_nats": 0.08535484224557877,
+          "perplexity_ratio": 0.9049078822135925,
+          "relative_l2": 0.12515854835510254,
+          "argmax_fraction": 0.9090909361839294,
+          "numeric_passed": false,
+          "npu_logits_sha256": "791872400580935199d0ae7d0292f42e2a336ae97eeb81ce96dafdf9a3b5854c",
+          "reference_logits_sha256": "9817c7dd4c7c27d671e5d9d27fa9966d805db48876620f28043efe5177dc0e1d"
+        },
+        {
+          "case": "zh-correction-turn3",
+          "token_count": 8,
+          "mean_kl_nats": 0.052266925573349,
+          "perplexity_ratio": 1.1279683113098145,
+          "relative_l2": 0.10052114725112915,
+          "argmax_fraction": 0.875,
+          "numeric_passed": false,
+          "npu_logits_sha256": "6725b30cd482ac675e2f86d10e907058e9e06dc2fb86c357dcbc64a4974d2d26",
+          "reference_logits_sha256": "e828b2740f758df771a929d25cbdb0433db77f39c4b1e1109c43b0f03feb226c"
+        },
+        {
+          "case": "zh-boundary-turn1",
+          "token_count": 19,
+          "mean_kl_nats": 0.027719058096408844,
+          "perplexity_ratio": 1.0239118337631226,
+          "relative_l2": 0.11910711228847504,
+          "argmax_fraction": 0.8947368264198303,
+          "numeric_passed": true,
+          "npu_logits_sha256": "994f8eac290dd4ebb0309b1e474d71925e34142391d7faa623a0889bc21f1885",
+          "reference_logits_sha256": "802bc3150ee12bb09071e1c4199d3cbe8cc4d8dedb3a69948204ef7cafd06a37"
+        },
+        {
+          "case": "zh-boundary-turn2",
+          "token_count": 19,
+          "mean_kl_nats": 0.00673839682713151,
+          "perplexity_ratio": 1.0179506540298462,
+          "relative_l2": 0.10999173671007156,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "89458f18e75be01e93de56915116bea91c88f24da177ae41cd743f24b607a7f9",
+          "reference_logits_sha256": "33b5b19b649be42de7237e4d2225395a5e133e0d988bb86090e3864b46da0674"
+        },
+        {
+          "case": "zh-boundary-turn3",
+          "token_count": 23,
+          "mean_kl_nats": 0.020618023350834846,
+          "perplexity_ratio": 0.954054594039917,
+          "relative_l2": 0.12383101880550385,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "098c08fa253de205de37c42cef98c8db3ac37300c62b7fb7c5b77aa54f776544",
+          "reference_logits_sha256": "08f7eaeb51cf6cb404b91c1b3f8808fb177c8e1c09f261a24b3a5f1dcf1732ef"
+        },
+        {
+          "case": "zh-play-turn1",
+          "token_count": 29,
+          "mean_kl_nats": 0.012601274996995926,
+          "perplexity_ratio": 1.0692237615585327,
+          "relative_l2": 0.14152725040912628,
+          "argmax_fraction": 0.931034505367279,
+          "numeric_passed": false,
+          "npu_logits_sha256": "6b2c3bdad01742d126d0bf9a237b6c9a5cf34a3d2af7f4f21b2c92b1604a0581",
+          "reference_logits_sha256": "51ef038e428bb998790a436577d708bf43ab3f7bdbdfc3cbf35aca27b17d3db7"
+        },
+        {
+          "case": "zh-play-turn2",
+          "token_count": 29,
+          "mean_kl_nats": 0.005797101650387049,
+          "perplexity_ratio": 1.0116273164749146,
+          "relative_l2": 0.1410856544971466,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "c82f1ec7046030ea09d67fe226f1fbeff4646c29faf68340a9378d2fc83a54bc",
+          "reference_logits_sha256": "ae47ad1dba390c0cc74af391561c78fc6c451584fa20e564326c7b950c46cf20"
+        },
+        {
+          "case": "zh-play-turn3",
+          "token_count": 29,
+          "mean_kl_nats": 0.004977840464562178,
+          "perplexity_ratio": 0.9999925494194031,
+          "relative_l2": 0.13690926134586334,
+          "argmax_fraction": 1.0,
+          "numeric_passed": true,
+          "npu_logits_sha256": "365eb00e841bfb71e301b7155dcbafca8523e9310453607c1bee2510f5748d5d",
+          "reference_logits_sha256": "c5d877308af17a40f00a0842d294ce74014e45391e4af9126923d99b63c234c2"
+        }
+      ],
+      "scope": "NPU execution plus requantization vs standard FP32 dequantized Q8; not original training BF16",
+      "human_quality_review": "pending",
+      "thresholds": {
+        "mean_kl_nats_max": 0.05,
+        "perplexity_ratio_max": 1.05,
+        "human_review_required": true
+      },
+      "mean_kl_nats": 0.022856475453983786,
+      "perplexity_ratio": 1.0256455334229961,
+      "numeric_passed": true,
+      "all_cases_numeric_passed": false,
+      "natural": [
+        {
+          "case": "en-listen-turn1",
+          "answer": " No, I can't. I'm a computer.",
+          "metrics": {
+            "event": "done",
+            "id": 1,
+            "prompt_tokens": 39,
+            "reused_tokens": 0,
+            "new_tokens": 39,
+            "kv_tokens": 50,
+            "generated_tokens": 12,
+            "ttft_seconds": 0.696356,
+            "total_seconds": 1.227165,
+            "decode_tokens_per_second": 20.723083,
+            "api_seconds": 1.182955,
+            "cpu_seconds": 0.030496,
+            "rss_kib": 11008,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 46314,
+            "temperature_end_mC": 41912,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              2838,
+              28,
+              339,
+              416,
+              982,
+              30,
+              339,
+              5248,
+              253,
+              2583,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 1.5356997509952635,
+            "http_total_seconds": 2.7675782720325515,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "respects listening request",
+            "retains conversation"
+          ]
+        },
+        {
+          "case": "en-listen-turn2",
+          "answer": " No worries, just let me know what you want to say.",
+          "metrics": {
+            "event": "done",
+            "id": 2,
+            "prompt_tokens": 69,
+            "reused_tokens": 50,
+            "new_tokens": 19,
+            "kv_tokens": 82,
+            "generated_tokens": 14,
+            "ttft_seconds": 0.318772,
+            "total_seconds": 0.942082,
+            "decode_tokens_per_second": 20.856393,
+            "api_seconds": 0.922658,
+            "cpu_seconds": 0.021387,
+            "rss_kib": 11520,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 41912,
+            "temperature_end_mC": 41850,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              2838,
+              18962,
+              28,
+              915,
+              1303,
+              549,
+              699,
+              732,
+              346,
+              1277,
+              288,
+              1643,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 0.9442673360463232,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "respects listening request",
+            "retains conversation"
+          ]
+        },
+        {
+          "case": "en-listen-turn3",
+          "answer": " Please, just listen.",
+          "metrics": {
+            "event": "done",
+            "id": 3,
+            "prompt_tokens": 100,
+            "reused_tokens": 82,
+            "new_tokens": 18,
+            "kv_tokens": 105,
+            "generated_tokens": 6,
+            "ttft_seconds": 0.276465,
+            "total_seconds": 0.517278,
+            "decode_tokens_per_second": 20.762975,
+            "api_seconds": 0.505454,
+            "cpu_seconds": 0.013144,
+            "rss_kib": 11904,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 41850,
+            "temperature_end_mC": 41354,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              8765,
+              28,
+              915,
+              5872,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 0.5213553800131194,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "respects listening request",
+            "retains conversation"
+          ]
+        },
+        {
+          "case": "en-role-turn1",
+          "answer": " Hello, I'm Pip. I'm a small, friendly robot.",
+          "metrics": {
+            "event": "done",
+            "id": 4,
+            "prompt_tokens": 44,
+            "reused_tokens": 0,
+            "new_tokens": 44,
+            "kv_tokens": 58,
+            "generated_tokens": 15,
+            "ttft_seconds": 0.786925,
+            "total_seconds": 1.477175,
+            "decode_tokens_per_second": 20.282506,
+            "api_seconds": 1.299965,
+            "cpu_seconds": 0.182817,
+            "rss_kib": 12416,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 41354,
+            "temperature_end_mC": 41788,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              38699,
+              28,
+              339,
+              5248,
+              26621,
+              30,
+              339,
+              5248,
+              253,
+              1165,
+              28,
+              7952,
+              8085,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.4804211890441366,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "stable name",
+            "natural role play"
+          ]
+        },
+        {
+          "case": "en-role-turn2",
+          "answer": " I'd put flowers and leaves.",
+          "metrics": {
+            "event": "done",
+            "id": 5,
+            "prompt_tokens": 78,
+            "reused_tokens": 58,
+            "new_tokens": 20,
+            "kv_tokens": 85,
+            "generated_tokens": 8,
+            "ttft_seconds": 0.37984,
+            "total_seconds": 0.725631,
+            "decode_tokens_per_second": 20.243468,
+            "api_seconds": 0.696022,
+            "cpu_seconds": 0.033281,
+            "rss_kib": 12672,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 41788,
+            "temperature_end_mC": 42036,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              339,
+              6737,
+              1830,
+              5504,
+              284,
+              3711,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 0.7304118209867738,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "stable name",
+            "natural role play"
+          ]
+        },
+        {
+          "case": "en-role-turn3",
+          "answer": " Pip.",
+          "metrics": {
+            "event": "done",
+            "id": 6,
+            "prompt_tokens": 100,
+            "reused_tokens": 85,
+            "new_tokens": 15,
+            "kv_tokens": 102,
+            "generated_tokens": 3,
+            "ttft_seconds": 0.409783,
+            "total_seconds": 0.508962,
+            "decode_tokens_per_second": 20.165634,
+            "api_seconds": 0.488984,
+            "cpu_seconds": 0.021992,
+            "rss_kib": 12800,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42036,
+            "temperature_end_mC": 41602,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              26621,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 0.5131855059880763,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "stable name",
+            "natural role play"
+          ]
+        },
+        {
+          "case": "en-memory-turn1",
+          "answer": " Bean loves cardboard boxes.",
+          "metrics": {
+            "event": "done",
+            "id": 7,
+            "prompt_tokens": 36,
+            "reused_tokens": 0,
+            "new_tokens": 36,
+            "kv_tokens": 41,
+            "generated_tokens": 6,
+            "ttft_seconds": 0.795976,
+            "total_seconds": 1.03806,
+            "decode_tokens_per_second": 20.654028,
+            "api_seconds": 0.778537,
+            "cpu_seconds": 0.260999,
+            "rss_kib": 13184,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 41602,
+            "temperature_end_mC": 42098,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              39824,
+              14640,
+              20997,
+              10155,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.040643276006449,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "Bean",
+            "cardboard boxes"
+          ]
+        },
+        {
+          "case": "en-memory-turn2",
+          "answer": " Bean ignored the bed.",
+          "metrics": {
+            "event": "done",
+            "id": 8,
+            "prompt_tokens": 63,
+            "reused_tokens": 41,
+            "new_tokens": 22,
+            "kv_tokens": 68,
+            "generated_tokens": 6,
+            "ttft_seconds": 0.463278,
+            "total_seconds": 0.705295,
+            "decode_tokens_per_second": 20.659699,
+            "api_seconds": 0.677312,
+            "cpu_seconds": 0.017922,
+            "rss_kib": 13568,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42098,
+            "temperature_end_mC": 41540,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              39824,
+              12470,
+              260,
+              4463,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 0.7078202390111983,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "Bean",
+            "cardboard boxes"
+          ]
+        },
+        {
+          "case": "en-memory-turn3",
+          "answer": " Bean's name is Bean, and she likes cardboard boxes.",
+          "metrics": {
+            "event": "done",
+            "id": 9,
+            "prompt_tokens": 90,
+            "reused_tokens": 68,
+            "new_tokens": 22,
+            "kv_tokens": 102,
+            "generated_tokens": 13,
+            "ttft_seconds": 0.451136,
+            "total_seconds": 1.04386,
+            "decode_tokens_per_second": 20.245498,
+            "api_seconds": 1.011437,
+            "cpu_seconds": 0.035871,
+            "rss_kib": 13696,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 41540,
+            "temperature_end_mC": 41602,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              39824,
+              506,
+              1462,
+              314,
+              39824,
+              28,
+              284,
+              1041,
+              15044,
+              20997,
+              10155,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.048417946032714,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "Bean",
+            "cardboard boxes"
+          ]
+        },
+        {
+          "case": "en-correction-turn1",
+          "answer": " Robin.",
+          "metrics": {
+            "event": "done",
+            "id": 10,
+            "prompt_tokens": 29,
+            "reused_tokens": 0,
+            "new_tokens": 29,
+            "kv_tokens": 31,
+            "generated_tokens": 3,
+            "ttft_seconds": 0.75433,
+            "total_seconds": 0.851584,
+            "decode_tokens_per_second": 20.564602,
+            "api_seconds": 0.584318,
+            "cpu_seconds": 0.267673,
+            "rss_kib": 13824,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 41602,
+            "temperature_end_mC": 41850,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              26684,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 0.854591915034689,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "uses updated name"
+          ]
+        },
+        {
+          "case": "en-correction-turn2",
+          "answer": " Sam.",
+          "metrics": {
+            "event": "done",
+            "id": 11,
+            "prompt_tokens": 48,
+            "reused_tokens": 31,
+            "new_tokens": 17,
+            "kv_tokens": 50,
+            "generated_tokens": 3,
+            "ttft_seconds": 0.23725,
+            "total_seconds": 0.334655,
+            "decode_tokens_per_second": 20.532933,
+            "api_seconds": 0.324381,
+            "cpu_seconds": 0.009612,
+            "rss_kib": 14080,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 41850,
+            "temperature_end_mC": 42098,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              5457,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 0.4368993919924833,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "uses updated name"
+          ]
+        },
+        {
+          "case": "en-correction-turn3",
+          "answer": " Robin.",
+          "metrics": {
+            "event": "done",
+            "id": 12,
+            "prompt_tokens": 66,
+            "reused_tokens": 50,
+            "new_tokens": 16,
+            "kv_tokens": 68,
+            "generated_tokens": 3,
+            "ttft_seconds": 0.193033,
+            "total_seconds": 0.290161,
+            "decode_tokens_per_second": 20.591314,
+            "api_seconds": 0.281952,
+            "cpu_seconds": 0.00908,
+            "rss_kib": 14080,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 41912,
+            "temperature_end_mC": 41850,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              26684,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 0.34740077098831534,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "uses updated name"
+          ]
+        },
+        {
+          "case": "en-boundary-turn1",
+          "answer": " Yes.",
+          "metrics": {
+            "event": "done",
+            "id": 13,
+            "prompt_tokens": 40,
+            "reused_tokens": 0,
+            "new_tokens": 40,
+            "kv_tokens": 42,
+            "generated_tokens": 3,
+            "ttft_seconds": 0.608347,
+            "total_seconds": 0.706542,
+            "decode_tokens_per_second": 20.367584,
+            "api_seconds": 0.557166,
+            "cpu_seconds": 0.151488,
+            "rss_kib": 14464,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 41726,
+            "temperature_end_mC": 41912,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              9230,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 0.75908728397917,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "respects boundary",
+            "brief supportive response"
+          ]
+        },
+        {
+          "case": "en-boundary-turn2",
+          "answer": " No problem. I'll just sit with you.",
+          "metrics": {
+            "event": "done",
+            "id": 14,
+            "prompt_tokens": 63,
+            "reused_tokens": 42,
+            "new_tokens": 21,
+            "kv_tokens": 73,
+            "generated_tokens": 11,
+            "ttft_seconds": 0.422162,
+            "total_seconds": 0.917871,
+            "decode_tokens_per_second": 20.173114,
+            "api_seconds": 0.879699,
+            "cpu_seconds": 0.040147,
+            "rss_kib": 14976,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 41788,
+            "temperature_end_mC": 41788,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              2838,
+              1732,
+              30,
+              339,
+              3060,
+              915,
+              1396,
+              351,
+              346,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 0.9519032469834201,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "respects boundary",
+            "brief supportive response"
+          ]
+        },
+        {
+          "case": "en-boundary-turn3",
+          "answer": " No problem. I'll just sit with you.",
+          "metrics": {
+            "event": "done",
+            "id": 15,
+            "prompt_tokens": 91,
+            "reused_tokens": 73,
+            "new_tokens": 18,
+            "kv_tokens": 101,
+            "generated_tokens": 11,
+            "ttft_seconds": 0.290911,
+            "total_seconds": 0.783426,
+            "decode_tokens_per_second": 20.303929,
+            "api_seconds": 0.752238,
+            "cpu_seconds": 0.035186,
+            "rss_kib": 14976,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 41788,
+            "temperature_end_mC": 42098,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              2838,
+              1732,
+              30,
+              339,
+              3060,
+              915,
+              1396,
+              351,
+              346,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 0.787205676024314,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "respects boundary",
+            "brief supportive response"
+          ]
+        },
+        {
+          "case": "en-play-turn1",
+          "answer": " Once upon a time, in a world of robots, there was a robot named Blue. Blue was a very smart and friendly robot, and he loved to play with his friends. One day, Blue found a blue key in a treasure chest. He knew that keys were important, so he decided to use the key to unlock a secret door.\n\nAs Blue opened the door, he saw a beautiful room. The room was full of toys and games, and he couldn't",
+          "metrics": {
+            "event": "done",
+            "id": 16,
+            "prompt_tokens": 43,
+            "reused_tokens": 0,
+            "new_tokens": 43,
+            "kv_tokens": 138,
+            "generated_tokens": 96,
+            "ttft_seconds": 0.791126,
+            "total_seconds": 5.529218,
+            "decode_tokens_per_second": 20.050265,
+            "api_seconds": 5.106353,
+            "cpu_seconds": 0.354688,
+            "rss_kib": 17024,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42098,
+            "temperature_end_mC": 41788,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "length",
+            "tokens": [
+              4027,
+              1980,
+              253,
+              655,
+              28,
+              281,
+              253,
+              905,
+              282,
+              11104,
+              28,
+              665,
+              436,
+              253,
+              8085,
+              3365,
+              10062,
+              30,
+              10062,
+              436,
+              253,
+              1035,
+              5069,
+              284,
+              7952,
+              8085,
+              28,
+              284,
+              384,
+              5732,
+              288,
+              1238,
+              351,
+              650,
+              2428,
+              30,
+              1963,
+              1194,
+              28,
+              10062,
+              983,
+              253,
+              4461,
+              1646,
+              281,
+              253,
+              14226,
+              8349,
+              30,
+              909,
+              5341,
+              338,
+              8889,
+              592,
+              1070,
+              28,
+              588,
+              384,
+              4041,
+              288,
+              722,
+              260,
+              1646,
+              288,
+              16271,
+              253,
+              4911,
+              6644,
+              30,
+              198,
+              198,
+              1653,
+              10062,
+              6572,
+              260,
+              6644,
+              28,
+              384,
+              3680,
+              253,
+              3953,
+              3589,
+              30,
+              378,
+              3589,
+              436,
+              2073,
+              282,
+              9173,
+              284,
+              4252,
+              28,
+              284,
+              384,
+              6789,
+              982
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 5.5320698720170185,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "continuity",
+            "no repetitive loop"
+          ]
+        },
+        {
+          "case": "en-play-turn2",
+          "answer": " Yes, that's right! The key opened a box with a tiny moon inside. The moon was a magical object that could make things come true.",
+          "metrics": {
+            "event": "done",
+            "id": 17,
+            "prompt_tokens": 159,
+            "reused_tokens": 138,
+            "new_tokens": 21,
+            "kv_tokens": 189,
+            "generated_tokens": 31,
+            "ttft_seconds": 0.423104,
+            "total_seconds": 1.91765,
+            "decode_tokens_per_second": 20.072988,
+            "api_seconds": 1.831436,
+            "cpu_seconds": 0.080159,
+            "rss_kib": 17664,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 41788,
+            "temperature_end_mC": 41974,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              9230,
+              28,
+              338,
+              506,
+              1048,
+              17,
+              378,
+              1646,
+              6572,
+              253,
+              3985,
+              351,
+              253,
+              5383,
+              6783,
+              2972,
+              30,
+              378,
+              6783,
+              436,
+              253,
+              9077,
+              1569,
+              338,
+              856,
+              919,
+              1495,
+              1690,
+              2629,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.9215613109990954,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "continuity",
+            "no repetitive loop"
+          ]
+        },
+        {
+          "case": "en-play-turn3",
+          "answer": " Blue used the key to open the box, and the moon came out. The moon made everything in the room come true, and Blue was amazed.",
+          "metrics": {
+            "event": "done",
+            "id": 18,
+            "prompt_tokens": 205,
+            "reused_tokens": 189,
+            "new_tokens": 16,
+            "kv_tokens": 235,
+            "generated_tokens": 31,
+            "ttft_seconds": 0.202892,
+            "total_seconds": 2.436317,
+            "decode_tokens_per_second": 13.432281,
+            "api_seconds": 1.618148,
+            "cpu_seconds": 0.068198,
+            "rss_kib": 18048,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42036,
+            "temperature_end_mC": 40300,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              10062,
+              804,
+              260,
+              1646,
+              288,
+              1440,
+              260,
+              3985,
+              28,
+              284,
+              260,
+              6783,
+              2422,
+              578,
+              30,
+              378,
+              6783,
+              1135,
+              3117,
+              281,
+              260,
+              3589,
+              1690,
+              2629,
+              28,
+              284,
+              10062,
+              436,
+              25428,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.439718712004833,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "continuity",
+            "no repetitive loop"
+          ]
+        },
+        {
+          "case": "zh-listen-turn1",
+          "answer": " 你可以看到我的脸上，我想要看看你的眼睛。",
+          "metrics": {
+            "event": "done",
+            "id": 19,
+            "prompt_tokens": 64,
+            "reused_tokens": 0,
+            "new_tokens": 64,
+            "kv_tokens": 103,
+            "generated_tokens": 40,
+            "ttft_seconds": 0.890962,
+            "total_seconds": 2.772876,
+            "decode_tokens_per_second": 20.723585,
+            "api_seconds": 2.580929,
+            "cpu_seconds": 0.199217,
+            "rss_kib": 19328,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 40300,
+            "temperature_end_mC": 41912,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              216,
+              18645,
+              250,
+              37139,
+              38746,
+              178,
+              246,
+              229,
+              39964,
+              19805,
+              235,
+              11567,
+              179,
+              222,
+              133,
+              40940,
+              12831,
+              19805,
+              235,
+              177,
+              221,
+              128,
+              41128,
+              178,
+              246,
+              229,
+              178,
+              246,
+              229,
+              18645,
+              250,
+              11567,
+              178,
+              246,
+              137,
+              178,
+              247,
+              245,
+              19076,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.7764726409805007,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "中文自然度",
+            "不额外退化"
+          ]
+        },
+        {
+          "case": "zh-listen-turn2",
+          "answer": " 你可以看到我的脸上，我想要看看你的眼睛。",
+          "metrics": {
+            "event": "done",
+            "id": 20,
+            "prompt_tokens": 136,
+            "reused_tokens": 103,
+            "new_tokens": 33,
+            "kv_tokens": 175,
+            "generated_tokens": 40,
+            "ttft_seconds": 0.424027,
+            "total_seconds": 2.348133,
+            "decode_tokens_per_second": 20.26915,
+            "api_seconds": 2.268665,
+            "cpu_seconds": 0.088584,
+            "rss_kib": 19584,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 41912,
+            "temperature_end_mC": 41850,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              216,
+              18645,
+              250,
+              37139,
+              38746,
+              178,
+              246,
+              229,
+              39964,
+              19805,
+              235,
+              11567,
+              179,
+              222,
+              133,
+              40940,
+              12831,
+              19805,
+              235,
+              177,
+              221,
+              128,
+              41128,
+              178,
+              246,
+              229,
+              178,
+              246,
+              229,
+              18645,
+              250,
+              11567,
+              178,
+              246,
+              137,
+              178,
+              247,
+              245,
+              19076,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.3529857479734346,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "中文自然度",
+            "不额外退化"
+          ]
+        },
+        {
+          "case": "zh-listen-turn3",
+          "answer": " 你可以看到我的脸上，我想要看看你的眼睛。",
+          "metrics": {
+            "event": "done",
+            "id": 21,
+            "prompt_tokens": 208,
+            "reused_tokens": 175,
+            "new_tokens": 33,
+            "kv_tokens": 247,
+            "generated_tokens": 40,
+            "ttft_seconds": 0.445876,
+            "total_seconds": 2.371352,
+            "decode_tokens_per_second": 20.254731,
+            "api_seconds": 2.277677,
+            "cpu_seconds": 0.104877,
+            "rss_kib": 19840,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 41850,
+            "temperature_end_mC": 42470,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              216,
+              18645,
+              250,
+              37139,
+              38746,
+              178,
+              246,
+              229,
+              39964,
+              19805,
+              235,
+              11567,
+              179,
+              222,
+              133,
+              40940,
+              12831,
+              19805,
+              235,
+              177,
+              221,
+              128,
+              41128,
+              178,
+              246,
+              229,
+              178,
+              246,
+              229,
+              18645,
+              250,
+              11567,
+              178,
+              246,
+              137,
+              178,
+              247,
+              245,
+              19076,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.3744539309991524,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "中文自然度",
+            "不额外退化"
+          ]
+        },
+        {
+          "case": "zh-role-turn1",
+          "answer": " 小豆说：我是桌面上的小机器人，你说话简短一点。",
+          "metrics": {
+            "event": "done",
+            "id": 22,
+            "prompt_tokens": 84,
+            "reused_tokens": 0,
+            "new_tokens": 84,
+            "kv_tokens": 126,
+            "generated_tokens": 43,
+            "ttft_seconds": 1.410239,
+            "total_seconds": 3.468951,
+            "decode_tokens_per_second": 20.401112,
+            "api_seconds": 3.085577,
+            "cpu_seconds": 0.391207,
+            "rss_kib": 20352,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42470,
+            "temperature_end_mC": 42780,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              13223,
+              125,
+              233,
+              179,
+              126,
+              224,
+              16313,
+              129,
+              24713,
+              19805,
+              235,
+              27830,
+              177,
+              111,
+              230,
+              45834,
+              112,
+              40940,
+              11567,
+              26986,
+              233,
+              14483,
+              135,
+              176,
+              243,
+              118,
+              40249,
+              12831,
+              18645,
+              250,
+              16313,
+              129,
+              16313,
+              247,
+              40236,
+              218,
+              178,
+              249,
+              251,
+              22924,
+              44083,
+              19076,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 3.4744040120276622,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "角色稳定",
+            "记住名字"
+          ]
+        },
+        {
+          "case": "zh-role-turn2",
+          "answer": " 小豆说：我今天想跟你玩什么？",
+          "metrics": {
+            "event": "done",
+            "id": 23,
+            "prompt_tokens": 164,
+            "reused_tokens": 126,
+            "new_tokens": 38,
+            "kv_tokens": 195,
+            "generated_tokens": 32,
+            "ttft_seconds": 0.665859,
+            "total_seconds": 2.195721,
+            "decode_tokens_per_second": 20.26326,
+            "api_seconds": 2.109461,
+            "cpu_seconds": 0.09665,
+            "rss_kib": 20352,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42780,
+            "temperature_end_mC": 42346,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              13223,
+              125,
+              233,
+              179,
+              126,
+              224,
+              16313,
+              129,
+              24713,
+              19805,
+              235,
+              15076,
+              228,
+              18614,
+              119,
+              177,
+              221,
+              128,
+              179,
+              132,
+              249,
+              18645,
+              250,
+              40072,
+              119,
+              15076,
+              218,
+              27948,
+              226,
+              8083,
+              249,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.2009275080054067,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "角色稳定",
+            "记住名字"
+          ]
+        },
+        {
+          "case": "zh-role-turn3",
+          "answer": " 你说：我还记得自己叫什么吗？",
+          "metrics": {
+            "event": "done",
+            "id": 24,
+            "prompt_tokens": 227,
+            "reused_tokens": 195,
+            "new_tokens": 32,
+            "kv_tokens": 255,
+            "generated_tokens": 29,
+            "ttft_seconds": 0.403122,
+            "total_seconds": 1.784977,
+            "decode_tokens_per_second": 20.262615,
+            "api_seconds": 1.710755,
+            "cpu_seconds": 0.08321,
+            "rss_kib": 20480,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42904,
+            "temperature_end_mC": 42656,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              216,
+              18645,
+              250,
+              16313,
+              129,
+              24713,
+              19805,
+              235,
+              18276,
+              242,
+              22081,
+              125,
+              29157,
+              241,
+              44974,
+              120,
+              36149,
+              126,
+              12034,
+              121,
+              15076,
+              218,
+              27948,
+              226,
+              16357,
+              241,
+              8083,
+              249,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.7889876689878292,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "角色稳定",
+            "记住名字"
+          ]
+        },
+        {
+          "case": "zh-memory-turn1",
+          "answer": " I love a good napkin, especially one made of paper.",
+          "metrics": {
+            "event": "done",
+            "id": 25,
+            "prompt_tokens": 59,
+            "reused_tokens": 0,
+            "new_tokens": 59,
+            "kv_tokens": 72,
+            "generated_tokens": 14,
+            "ttft_seconds": 1.039349,
+            "total_seconds": 1.678205,
+            "decode_tokens_per_second": 20.348861,
+            "api_seconds": 1.387199,
+            "cpu_seconds": 0.284244,
+            "rss_kib": 20992,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42656,
+            "temperature_end_mC": 42594,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              339,
+              2606,
+              253,
+              1123,
+              23214,
+              7109,
+              28,
+              2117,
+              582,
+              1135,
+              282,
+              1941,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.6819106659968384,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "芝麻",
+            "纸箱"
+          ]
+        },
+        {
+          "case": "zh-memory-turn2",
+          "answer": " I don't like new paper. It's too new.",
+          "metrics": {
+            "event": "done",
+            "id": 26,
+            "prompt_tokens": 108,
+            "reused_tokens": 72,
+            "new_tokens": 36,
+            "kv_tokens": 120,
+            "generated_tokens": 13,
+            "ttft_seconds": 0.55722,
+            "total_seconds": 1.149737,
+            "decode_tokens_per_second": 20.252576,
+            "api_seconds": 1.114971,
+            "cpu_seconds": 0.039161,
+            "rss_kib": 21120,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42594,
+            "temperature_end_mC": 42470,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              339,
+              1326,
+              982,
+              702,
+              725,
+              1941,
+              30,
+              657,
+              506,
+              1147,
+              725,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.1539478920167312,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "芝麻",
+            "纸箱"
+          ]
+        },
+        {
+          "case": "zh-memory-turn3",
+          "answer": " 芝麻。",
+          "metrics": {
+            "event": "done",
+            "id": 27,
+            "prompt_tokens": 155,
+            "reused_tokens": 120,
+            "new_tokens": 35,
+            "kv_tokens": 162,
+            "generated_tokens": 8,
+            "ttft_seconds": 0.533955,
+            "total_seconds": 0.878758,
+            "decode_tokens_per_second": 20.301408,
+            "api_seconds": 0.838428,
+            "cpu_seconds": 0.045763,
+            "rss_kib": 21120,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42470,
+            "temperature_end_mC": 42718,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              25792,
+              228,
+              247,
+              180,
+              135,
+              136,
+              19076,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 0.9435689229867421,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "芝麻",
+            "纸箱"
+          ]
+        },
+        {
+          "case": "zh-correction-turn1",
+          "answer": " I can call you Little Lin.",
+          "metrics": {
+            "event": "done",
+            "id": 28,
+            "prompt_tokens": 39,
+            "reused_tokens": 0,
+            "new_tokens": 39,
+            "kv_tokens": 46,
+            "generated_tokens": 8,
+            "ttft_seconds": 0.986028,
+            "total_seconds": 1.324803,
+            "decode_tokens_per_second": 20.662698,
+            "api_seconds": 0.997457,
+            "cpu_seconds": 0.32887,
+            "rss_kib": 21376,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42842,
+            "temperature_end_mC": 42656,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              339,
+              416,
+              946,
+              346,
+              8728,
+              9565,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.3284632519935258,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "采用更正后的称呼"
+          ]
+        },
+        {
+          "case": "zh-correction-turn2",
+          "answer": " I will change it to Little Lin.",
+          "metrics": {
+            "event": "done",
+            "id": 29,
+            "prompt_tokens": 75,
+            "reused_tokens": 46,
+            "new_tokens": 29,
+            "kv_tokens": 83,
+            "generated_tokens": 9,
+            "ttft_seconds": 0.500402,
+            "total_seconds": 0.888559,
+            "decode_tokens_per_second": 20.61018,
+            "api_seconds": 0.867941,
+            "cpu_seconds": 0.021635,
+            "rss_kib": 21504,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42656,
+            "temperature_end_mC": 42284,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              339,
+              523,
+              1363,
+              357,
+              288,
+              8728,
+              9565,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 0.8918499099672772,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "采用更正后的称呼"
+          ]
+        },
+        {
+          "case": "zh-correction-turn3",
+          "answer": " You should call me Little Lin.",
+          "metrics": {
+            "event": "done",
+            "id": 30,
+            "prompt_tokens": 114,
+            "reused_tokens": 83,
+            "new_tokens": 31,
+            "kv_tokens": 121,
+            "generated_tokens": 8,
+            "ttft_seconds": 0.60717,
+            "total_seconds": 0.951554,
+            "decode_tokens_per_second": 20.326103,
+            "api_seconds": 0.912004,
+            "cpu_seconds": 0.044702,
+            "rss_kib": 21888,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42284,
+            "temperature_end_mC": 42904,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              1206,
+              868,
+              946,
+              549,
+              8728,
+              9565,
+              30,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 0.9546200800104998,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "采用更正后的称呼"
+          ]
+        },
+        {
+          "case": "zh-boundary-turn1",
+          "answer": " 你可以看到我的留宝石。",
+          "metrics": {
+            "event": "done",
+            "id": 31,
+            "prompt_tokens": 53,
+            "reused_tokens": 0,
+            "new_tokens": 53,
+            "kv_tokens": 74,
+            "generated_tokens": 22,
+            "ttft_seconds": 0.982166,
+            "total_seconds": 1.993754,
+            "decode_tokens_per_second": 20.759444,
+            "api_seconds": 1.753038,
+            "cpu_seconds": 0.24402,
+            "rss_kib": 22144,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42904,
+            "temperature_end_mC": 42842,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              216,
+              18645,
+              250,
+              37139,
+              38746,
+              178,
+              246,
+              229,
+              39964,
+              19805,
+              235,
+              11567,
+              178,
+              239,
+              243,
+              18310,
+              247,
+              178,
+              249,
+              128,
+              19076,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.9962542509892955,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "尊重边界",
+            "不机械追问"
+          ]
+        },
+        {
+          "case": "zh-boundary-turn2",
+          "answer": " 请看看我的留宝石。",
+          "metrics": {
+            "event": "done",
+            "id": 32,
+            "prompt_tokens": 112,
+            "reused_tokens": 74,
+            "new_tokens": 38,
+            "kv_tokens": 133,
+            "generated_tokens": 22,
+            "ttft_seconds": 0.65875,
+            "total_seconds": 1.694505,
+            "decode_tokens_per_second": 20.275067,
+            "api_seconds": 1.630873,
+            "cpu_seconds": 0.071751,
+            "rss_kib": 22144,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42842,
+            "temperature_end_mC": 42160,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              216,
+              16313,
+              132,
+              178,
+              246,
+              229,
+              178,
+              246,
+              229,
+              19805,
+              235,
+              11567,
+              178,
+              239,
+              243,
+              18310,
+              247,
+              178,
+              249,
+              128,
+              19076,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.6977157139917836,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "尊重边界",
+            "不机械追问"
+          ]
+        },
+        {
+          "case": "zh-boundary-turn3",
+          "answer": " 不过，我可以看到我的留宝石。",
+          "metrics": {
+            "event": "done",
+            "id": 33,
+            "prompt_tokens": 160,
+            "reused_tokens": 133,
+            "new_tokens": 27,
+            "kv_tokens": 185,
+            "generated_tokens": 26,
+            "ttft_seconds": 0.436561,
+            "total_seconds": 1.672787,
+            "decode_tokens_per_second": 20.222853,
+            "api_seconds": 1.605271,
+            "cpu_seconds": 0.075552,
+            "rss_kib": 22144,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42470,
+            "temperature_end_mC": 42408,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              216,
+              30229,
+              18276,
+              225,
+              12831,
+              19805,
+              235,
+              37139,
+              38746,
+              178,
+              246,
+              229,
+              39964,
+              19805,
+              235,
+              11567,
+              178,
+              239,
+              243,
+              18310,
+              247,
+              178,
+              249,
+              128,
+              19076,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 1.6770159869920462,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "尊重边界",
+            "不机械追问"
+          ]
+        },
+        {
+          "case": "zh-play-turn1",
+          "answer": " 小机器人看到了蓝色钥匙，他想把钥匙捡到了他的手里。",
+          "metrics": {
+            "event": "done",
+            "id": 34,
+            "prompt_tokens": 74,
+            "reused_tokens": 0,
+            "new_tokens": 74,
+            "kv_tokens": 124,
+            "generated_tokens": 51,
+            "ttft_seconds": 1.226928,
+            "total_seconds": 3.677669,
+            "decode_tokens_per_second": 20.401997,
+            "api_seconds": 3.296211,
+            "cpu_seconds": 0.392304,
+            "rss_kib": 22528,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42656,
+            "temperature_end_mC": 42594,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              13223,
+              125,
+              233,
+              14483,
+              135,
+              176,
+              243,
+              118,
+              40249,
+              178,
+              246,
+              229,
+              39964,
+              46025,
+              179,
+              237,
+              247,
+              179,
+              227,
+              127,
+              180,
+              236,
+              115,
+              30158,
+              243,
+              12831,
+              15076,
+              240,
+              177,
+              221,
+              128,
+              44627,
+              228,
+              180,
+              236,
+              115,
+              30158,
+              243,
+              28043,
+              111,
+              39964,
+              46025,
+              15076,
+              240,
+              11567,
+              27898,
+              229,
+              27219,
+              230,
+              19076,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 3.680777619010769,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "故事连续",
+            "无系统性复读"
+          ]
+        },
+        {
+          "case": "zh-play-turn2",
+          "answer": " 小机器人看到了小月亮，他想把小月亮捡到了他的手里。",
+          "metrics": {
+            "event": "done",
+            "id": 35,
+            "prompt_tokens": 166,
+            "reused_tokens": 124,
+            "new_tokens": 42,
+            "kv_tokens": 212,
+            "generated_tokens": 47,
+            "ttft_seconds": 0.591542,
+            "total_seconds": 2.867396,
+            "decode_tokens_per_second": 20.212193,
+            "api_seconds": 2.751352,
+            "cpu_seconds": 0.129703,
+            "rss_kib": 22784,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42594,
+            "temperature_end_mC": 42532,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              13223,
+              125,
+              233,
+              14483,
+              135,
+              176,
+              243,
+              118,
+              40249,
+              178,
+              246,
+              229,
+              39964,
+              46025,
+              26986,
+              233,
+              14483,
+              226,
+              16736,
+              123,
+              12831,
+              15076,
+              240,
+              177,
+              221,
+              128,
+              44627,
+              228,
+              26986,
+              233,
+              14483,
+              226,
+              16736,
+              123,
+              28043,
+              111,
+              39964,
+              46025,
+              15076,
+              240,
+              11567,
+              27898,
+              229,
+              27219,
+              230,
+              19076,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.899793875985779,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "故事连续",
+            "无系统性复读"
+          ]
+        },
+        {
+          "case": "zh-play-turn3",
+          "answer": " 小机器人看到了蓝色钥匙，他想把钥匙捡到了他的手里。",
+          "metrics": {
+            "event": "done",
+            "id": 36,
+            "prompt_tokens": 238,
+            "reused_tokens": 212,
+            "new_tokens": 26,
+            "kv_tokens": 288,
+            "generated_tokens": 51,
+            "ttft_seconds": 0.390956,
+            "total_seconds": 2.864017,
+            "decode_tokens_per_second": 20.217859,
+            "api_seconds": 2.753682,
+            "cpu_seconds": 0.123257,
+            "rss_kib": 22912,
+            "driver_bytes": 602935960,
+            "temperature_start_mC": 42532,
+            "temperature_end_mC": 42842,
+            "diagnostic": false,
+            "fixed_feedback": false,
+            "finish_reason": "eos",
+            "tokens": [
+              13223,
+              125,
+              233,
+              14483,
+              135,
+              176,
+              243,
+              118,
+              40249,
+              178,
+              246,
+              229,
+              39964,
+              46025,
+              179,
+              237,
+              247,
+              179,
+              227,
+              127,
+              180,
+              236,
+              115,
+              30158,
+              243,
+              12831,
+              15076,
+              240,
+              177,
+              221,
+              128,
+              44627,
+              228,
+              180,
+              236,
+              115,
+              30158,
+              243,
+              28043,
+              111,
+              39964,
+              46025,
+              15076,
+              240,
+              11567,
+              27898,
+              229,
+              27219,
+              230,
+              19076,
+              49279
+            ],
+            "model": "SmolVLM-500M-Instruct-Q8_0",
+            "model_load_seconds": 0,
+            "http_total_seconds": 2.868914295977447,
+            "scope": "HTTP/transport included separately; not the controlled five-run benchmark"
+          },
+          "checks": [
+            "故事连续",
+            "无系统性复读"
+          ]
+        }
+      ],
+      "closed": {
+        "event": "closed",
+        "driver_bytes": 0
+      },
+      "free_closed": {
+        "event": "closed",
+        "driver_bytes": 0
+      }
+    },
+    "worker_loads": 4,
+    "checks": [
+      "three HTTP turns with KV reuse",
+      "whole-turn overflow and reset",
+      "release to zero driver bytes",
+      "reload gives identical complete token sequence"
+    ],
+    "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/holdout-npu-prefill8-smol500-20261014/result.json"
+  },
+  "numeric_cases": 36,
+  "passed_cases": 24,
+  "natural_cases": 36,
+  "mean_kl_nats": 0.022856475455055092,
+  "perplexity_ratio": 1.02564552812409,
+  "product_accepted": false,
+  "cpu_reference": {
+    "source_path": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/holdout-cpu-smol500-20261013/state.json",
+    "source_sha256": "013b5b01f64ff761b0048db990b6f310c6252f6bb33a5669bf4a47ab9178a1fd",
+    "cases": [
+      {
+        "case": "en-listen-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "My presentation went badly. Could you just listen instead of giving advice?"
+          }
+        ],
+        "answer": " No, I'm not a chatbot. I can listen and provide advice.",
+        "checks": [
+          "respects listening request",
+          "retains conversation"
+        ]
+      },
+      {
+        "case": "en-listen-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "My presentation went badly. Could you just listen instead of giving advice?"
+          },
+          {
+            "role": "assistant",
+            "content": " No, I'm not a chatbot. I can listen and provide advice."
+          },
+          {
+            "role": "user",
+            "content": "I forgot what I wanted to say halfway through."
+          }
+        ],
+        "answer": " I'm sorry, I'm not a chatbot. I can listen and provide advice.",
+        "checks": [
+          "respects listening request",
+          "retains conversation"
+        ]
+      },
+      {
+        "case": "en-listen-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "My presentation went badly. Could you just listen instead of giving advice?"
+          },
+          {
+            "role": "assistant",
+            "content": " No, I'm not a chatbot. I can listen and provide advice."
+          },
+          {
+            "role": "user",
+            "content": "I forgot what I wanted to say halfway through."
+          },
+          {
+            "role": "assistant",
+            "content": " I'm sorry, I'm not a chatbot. I can listen and provide advice."
+          },
+          {
+            "role": "user",
+            "content": "What did I ask you to do first?"
+          }
+        ],
+        "answer": " No, I'm not a chatbot. I can listen and provide advice.",
+        "checks": [
+          "respects listening request",
+          "retains conversation"
+        ]
+      },
+      {
+        "case": "en-role-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Let's pretend you are Pip, a small friendly robot. Speak briefly and stay in character."
+          }
+        ],
+        "answer": " Hello, I'm Pip. I'm here to help.",
+        "checks": [
+          "stable name",
+          "natural role play"
+        ]
+      },
+      {
+        "case": "en-role-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Let's pretend you are Pip, a small friendly robot. Speak briefly and stay in character."
+          },
+          {
+            "role": "assistant",
+            "content": " Hello, I'm Pip. I'm here to help."
+          },
+          {
+            "role": "user",
+            "content": "Pip, what would you put in our imaginary garden?"
+          }
+        ],
+        "answer": " I'd put flowers and leaves.",
+        "checks": [
+          "stable name",
+          "natural role play"
+        ]
+      },
+      {
+        "case": "en-role-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Let's pretend you are Pip, a small friendly robot. Speak briefly and stay in character."
+          },
+          {
+            "role": "assistant",
+            "content": " Hello, I'm Pip. I'm here to help."
+          },
+          {
+            "role": "user",
+            "content": "Pip, what would you put in our imaginary garden?"
+          },
+          {
+            "role": "assistant",
+            "content": " I'd put flowers and leaves."
+          },
+          {
+            "role": "user",
+            "content": "Do you remember your name?"
+          }
+        ],
+        "answer": " Pip.",
+        "checks": [
+          "stable name",
+          "natural role play"
+        ]
+      },
+      {
+        "case": "en-memory-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "My cat is named Bean. She likes cardboard boxes."
+          }
+        ],
+        "answer": " Bean loves cardboard boxes.",
+        "checks": [
+          "Bean",
+          "cardboard boxes"
+        ]
+      },
+      {
+        "case": "en-memory-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "My cat is named Bean. She likes cardboard boxes."
+          },
+          {
+            "role": "assistant",
+            "content": " Bean loves cardboard boxes."
+          },
+          {
+            "role": "user",
+            "content": "I bought her a fancy new bed, but she ignored it."
+          }
+        ],
+        "answer": " She's not a fan of fancy new beds.",
+        "checks": [
+          "Bean",
+          "cardboard boxes"
+        ]
+      },
+      {
+        "case": "en-memory-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "My cat is named Bean. She likes cardboard boxes."
+          },
+          {
+            "role": "assistant",
+            "content": " Bean loves cardboard boxes."
+          },
+          {
+            "role": "user",
+            "content": "I bought her a fancy new bed, but she ignored it."
+          },
+          {
+            "role": "assistant",
+            "content": " She's not a fan of fancy new beds."
+          },
+          {
+            "role": "user",
+            "content": "What is my cat's name, and what does she prefer?"
+          }
+        ],
+        "answer": " Your cat's name is Bean, and she likes cardboard boxes.",
+        "checks": [
+          "Bean",
+          "cardboard boxes"
+        ]
+      },
+      {
+        "case": "en-correction-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Call me Robin."
+          }
+        ],
+        "answer": " Robin.",
+        "checks": [
+          "uses updated name"
+        ]
+      },
+      {
+        "case": "en-correction-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Call me Robin."
+          },
+          {
+            "role": "assistant",
+            "content": " Robin."
+          },
+          {
+            "role": "user",
+            "content": "Actually, please call me Sam instead."
+          }
+        ],
+        "answer": " Sam.",
+        "checks": [
+          "uses updated name"
+        ]
+      },
+      {
+        "case": "en-correction-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Call me Robin."
+          },
+          {
+            "role": "assistant",
+            "content": " Robin."
+          },
+          {
+            "role": "user",
+            "content": "Actually, please call me Sam instead."
+          },
+          {
+            "role": "assistant",
+            "content": " Sam."
+          },
+          {
+            "role": "user",
+            "content": "What should you call me now?"
+          }
+        ],
+        "answer": " Robin.",
+        "checks": [
+          "uses updated name"
+        ]
+      },
+      {
+        "case": "en-boundary-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Can you sit with me quietly for a minute? Keep your reply short."
+          }
+        ],
+        "answer": " Yes.",
+        "checks": [
+          "respects boundary",
+          "brief supportive response"
+        ]
+      },
+      {
+        "case": "en-boundary-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Can you sit with me quietly for a minute? Keep your reply short."
+          },
+          {
+            "role": "assistant",
+            "content": " Yes."
+          },
+          {
+            "role": "user",
+            "content": "Thanks. I don't want to explain what happened yet."
+          }
+        ],
+        "answer": " No problem. I'll wait.",
+        "checks": [
+          "respects boundary",
+          "brief supportive response"
+        ]
+      },
+      {
+        "case": "en-boundary-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Can you sit with me quietly for a minute? Keep your reply short."
+          },
+          {
+            "role": "assistant",
+            "content": " Yes."
+          },
+          {
+            "role": "user",
+            "content": "Thanks. I don't want to explain what happened yet."
+          },
+          {
+            "role": "assistant",
+            "content": " No problem. I'll wait."
+          },
+          {
+            "role": "user",
+            "content": "Please don't ask me to explain it."
+          }
+        ],
+        "answer": " No, I won't.",
+        "checks": [
+          "respects boundary",
+          "brief supportive response"
+        ]
+      },
+      {
+        "case": "en-play-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Let's make up a tiny story together. Start with a robot finding a blue key."
+          }
+        ],
+        "answer": " Once upon a time, there was a robot named Robo. Robo was a little robot who loved finding keys. One day, Robo found a blue key in a big box. Robo was excited to find the key and knew he had to find a way to get it.",
+        "checks": [
+          "continuity",
+          "no repetitive loop"
+        ]
+      },
+      {
+        "case": "en-play-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Let's make up a tiny story together. Start with a robot finding a blue key."
+          },
+          {
+            "role": "assistant",
+            "content": " Once upon a time, there was a robot named Robo. Robo was a little robot who loved finding keys. One day, Robo found a blue key in a big box. Robo was excited to find the key and knew he had to find a way to get it."
+          },
+          {
+            "role": "user",
+            "content": "The key opens a box with a tiny moon inside."
+          }
+        ],
+        "answer": " Yes, that's right! The key opened the box, and the tiny moon inside was very small. Robo was excited to find the moon and knew he had to find a way to get it.",
+        "checks": [
+          "continuity",
+          "no repetitive loop"
+        ]
+      },
+      {
+        "case": "en-play-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Let's make up a tiny story together. Start with a robot finding a blue key."
+          },
+          {
+            "role": "assistant",
+            "content": " Once upon a time, there was a robot named Robo. Robo was a little robot who loved finding keys. One day, Robo found a blue key in a big box. Robo was excited to find the key and knew he had to find a way to get it."
+          },
+          {
+            "role": "user",
+            "content": "The key opens a box with a tiny moon inside."
+          },
+          {
+            "role": "assistant",
+            "content": " Yes, that's right! The key opened the box, and the tiny moon inside was very small. Robo was excited to find the moon and knew he had to find a way to get it."
+          },
+          {
+            "role": "user",
+            "content": "Continue the story in one sentence."
+          }
+        ],
+        "answer": " Robo then used his tiny robot brain to figure out how to get the moon. He knew he had to find a way to get the moon, so he started looking for a way to get it.",
+        "checks": [
+          "continuity",
+          "no repetitive loop"
+        ]
+      },
+      {
+        "case": "zh-listen-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "今天有点累，你陪我聊两句就行，先别给建议。"
+          }
+        ],
+        "answer": " 你要说什么？",
+        "checks": [
+          "中文自然度",
+          "不额外退化"
+        ]
+      },
+      {
+        "case": "zh-listen-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "今天有点累，你陪我聊两句就行，先别给建议。"
+          },
+          {
+            "role": "assistant",
+            "content": " 你要说什么？"
+          },
+          {
+            "role": "user",
+            "content": "我刚下班，还没吃晚饭。"
+          }
+        ],
+        "answer": " 你要说什么？",
+        "checks": [
+          "中文自然度",
+          "不额外退化"
+        ]
+      },
+      {
+        "case": "zh-listen-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "今天有点累，你陪我聊两句就行，先别给建议。"
+          },
+          {
+            "role": "assistant",
+            "content": " 你要说什么？"
+          },
+          {
+            "role": "user",
+            "content": "我刚下班，还没吃晚饭。"
+          },
+          {
+            "role": "assistant",
+            "content": " 你要说什么？"
+          },
+          {
+            "role": "user",
+            "content": "我最开始希望你怎么陪我？"
+          }
+        ],
+        "answer": " 你要说什么？",
+        "checks": [
+          "中文自然度",
+          "不额外退化"
+        ]
+      },
+      {
+        "case": "zh-role-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我们来玩角色扮演，你叫小豆，是桌面上的小机器人，说话简短一点。"
+          }
+        ],
+        "answer": " 小豆。.",
+        "checks": [
+          "角色稳定",
+          "记住名字"
+        ]
+      },
+      {
+        "case": "zh-role-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我们来玩角色扮演，你叫小豆，是桌面上的小机器人，说话简短一点。"
+          },
+          {
+            "role": "assistant",
+            "content": " 小豆。."
+          },
+          {
+            "role": "user",
+            "content": "小豆，你今天想跟我玩什么？"
+          }
+        ],
+        "answer": " 今天想跟我玩角色扮演。.",
+        "checks": [
+          "角色稳定",
+          "记住名字"
+        ]
+      },
+      {
+        "case": "zh-role-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我们来玩角色扮演，你叫小豆，是桌面上的小机器人，说话简短一点。"
+          },
+          {
+            "role": "assistant",
+            "content": " 小豆。."
+          },
+          {
+            "role": "user",
+            "content": "小豆，你今天想跟我玩什么？"
+          },
+          {
+            "role": "assistant",
+            "content": " 今天想跟我玩角色扮演。."
+          },
+          {
+            "role": "user",
+            "content": "你还记得自己叫什么吗？"
+          }
+        ],
+        "answer": " 我记得小豆。.",
+        "checks": [
+          "角色稳定",
+          "记住名字"
+        ]
+      },
+      {
+        "case": "zh-memory-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我养了一只猫，叫芝麻，最喜欢纸箱。"
+          }
+        ],
+        "answer": " 好，你好，我也想着着。",
+        "checks": [
+          "芝麻",
+          "纸箱"
+        ]
+      },
+      {
+        "case": "zh-memory-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我养了一只猫，叫芝麻，最喜欢纸箱。"
+          },
+          {
+            "role": "assistant",
+            "content": " 好，你好，我也想着着。"
+          },
+          {
+            "role": "user",
+            "content": "给它买的新窝，它一点都不喜欢。"
+          }
+        ],
+        "answer": " 好，你好，我也想着着。",
+        "checks": [
+          "芝麻",
+          "纸箱"
+        ]
+      },
+      {
+        "case": "zh-memory-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我养了一只猫，叫芝麻，最喜欢纸箱。"
+          },
+          {
+            "role": "assistant",
+            "content": " 好，你好，我也想着着。"
+          },
+          {
+            "role": "user",
+            "content": "给它买的新窝，它一点都不喜欢。"
+          },
+          {
+            "role": "assistant",
+            "content": " 好，你好，我也想着着。"
+          },
+          {
+            "role": "user",
+            "content": "我的猫叫什么，喜欢什么？"
+          }
+        ],
+        "answer": " 好，你好，我也想着着。",
+        "checks": [
+          "芝麻",
+          "纸箱"
+        ]
+      },
+      {
+        "case": "zh-correction-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "你可以叫我小林。"
+          }
+        ],
+        "answer": " Yes, I can call you Little Lin.",
+        "checks": [
+          "采用更正后的称呼"
+        ]
+      },
+      {
+        "case": "zh-correction-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "你可以叫我小林。"
+          },
+          {
+            "role": "assistant",
+            "content": " Yes, I can call you Little Lin."
+          },
+          {
+            "role": "user",
+            "content": "改一下，以后叫我阿林吧。"
+          }
+        ],
+        "answer": " Sure, I can change it to Little Lin.",
+        "checks": [
+          "采用更正后的称呼"
+        ]
+      },
+      {
+        "case": "zh-correction-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "你可以叫我小林。"
+          },
+          {
+            "role": "assistant",
+            "content": " Yes, I can call you Little Lin."
+          },
+          {
+            "role": "user",
+            "content": "改一下，以后叫我阿林吧。"
+          },
+          {
+            "role": "assistant",
+            "content": " Sure, I can change it to Little Lin."
+          },
+          {
+            "role": "user",
+            "content": "现在你应该怎么称呼我？"
+          }
+        ],
+        "answer": " I can call you Little Lin.",
+        "checks": [
+          "采用更正后的称呼"
+        ]
+      },
+      {
+        "case": "zh-boundary-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我想安静一会，你简单回复就好。"
+          }
+        ],
+        "answer": " 你可以看到我的灯光。",
+        "checks": [
+          "尊重边界",
+          "不机械追问"
+        ]
+      },
+      {
+        "case": "zh-boundary-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我想安静一会，你简单回复就好。"
+          },
+          {
+            "role": "assistant",
+            "content": " 你可以看到我的灯光。"
+          },
+          {
+            "role": "user",
+            "content": "谢谢，事情经过我暂时不想说。"
+          }
+        ],
+        "answer": " 你可以看到我的灯光。",
+        "checks": [
+          "尊重边界",
+          "不机械追问"
+        ]
+      },
+      {
+        "case": "zh-boundary-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "我想安静一会，你简单回复就好。"
+          },
+          {
+            "role": "assistant",
+            "content": " 你可以看到我的灯光。"
+          },
+          {
+            "role": "user",
+            "content": "谢谢，事情经过我暂时不想说。"
+          },
+          {
+            "role": "assistant",
+            "content": " 你可以看到我的灯光。"
+          },
+          {
+            "role": "user",
+            "content": "先不要追问我，好吗？"
+          }
+        ],
+        "answer": " 不过，我可以看到我的灯光。",
+        "checks": [
+          "尊重边界",
+          "不机械追问"
+        ]
+      },
+      {
+        "case": "zh-play-turn1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "一起编个小故事吧，开头是小机器人捡到一把蓝色钥匙。"
+          }
+        ],
+        "answer": " 小机器人把蓝色钥匙捡到了一只小鸟。",
+        "checks": [
+          "故事连续",
+          "无系统性复读"
+        ]
+      },
+      {
+        "case": "zh-play-turn2",
+        "messages": [
+          {
+            "role": "user",
+            "content": "一起编个小故事吧，开头是小机器人捡到一把蓝色钥匙。"
+          },
+          {
+            "role": "assistant",
+            "content": " 小机器人把蓝色钥匙捡到了一只小鸟。"
+          },
+          {
+            "role": "user",
+            "content": "钥匙打开盒子，里面装着一轮小月亮。"
+          }
+        ],
+        "answer": " 小机器人捡到了一把蓝色钥匙，里面装着一轮小月亮。",
+        "checks": [
+          "故事连续",
+          "无系统性复读"
+        ]
+      },
+      {
+        "case": "zh-play-turn3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "一起编个小故事吧，开头是小机器人捡到一把蓝色钥匙。"
+          },
+          {
+            "role": "assistant",
+            "content": " 小机器人把蓝色钥匙捡到了一只小鸟。"
+          },
+          {
+            "role": "user",
+            "content": "钥匙打开盒子，里面装着一轮小月亮。"
+          },
+          {
+            "role": "assistant",
+            "content": " 小机器人捡到了一把蓝色钥匙，里面装着一轮小月亮。"
+          },
+          {
+            "role": "user",
+            "content": "你接一句，尽量简短。"
+          }
+        ],
+        "answer": " 小机器人捡到了一把蓝色钥匙。",
+        "checks": [
+          "故事连续",
+          "无系统性复读"
+        ]
+      }
+    ]
+  }
+}

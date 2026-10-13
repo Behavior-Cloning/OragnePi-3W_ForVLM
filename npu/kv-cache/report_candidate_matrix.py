@@ -37,7 +37,7 @@ def main():
         if d.get('status')!='complete':return
         v=next(v for v in d['config']['variants'] if v['label']==label)
         # Exclude the older product-range repair baseline and all failed MLP/head trials.
-        combo=args.finalists and v['remote'].endswith(('/full-intern1b-c1280-cap1-headmse','/full-intern1b-c768-cap1-headmse'))
+        combo=args.finalists and v['remote'].endswith(('/full-intern1b-c1280-cap1-headmse','/full-intern1b-c768-cap1-headmse','/full-intern1b-c768-cap1-originalhead'))
         if not combo:
             if not any(s in v['remote'] for s in ('dfpgateup','dfpmse')):return
             if any(s in v['remote'] for s in ('headmse','dfpmlp')):return
@@ -84,6 +84,8 @@ def main():
                 for band in row.get('bands',{}).values():
                     collect(Path(band['result']),'candidate')
     if args.finalists:collect(ROOT/'cap1-headmse-short-trial-20261014/performance.json','candidate')
+    if args.finalists:collect(ROOT/'cap1-originalhead-short-trial-20261014/performance.json','candidate')
+    if args.finalists:collect(ROOT/'smol500-prefill8-trial-20261014/performance.json','candidate')
     search=read(ROOT/'cpu-q8-search-20261013/state.json')
     low_path=ROOT/'cpu-q8-low-finalists-20261013/state.json'
     low_search=read(low_path) if low_path.exists() else {'cases':{}}
@@ -92,7 +94,7 @@ def main():
     description=('500M沿用gate/up峰值DFP；1B1024历史为cap1＋新输出头组合，512历史在各格完成验证后列出组合，否则保留原gate/up MSE＋prefill16并明确版本。与CPU配置搜索五轮入围的最快decode方案重新回灌对齐；本表不把旧1B长历史候选冒充组合方案。' if args.finalists else
                  '500M gate/up峰值DFP，1B gate/up MSE DFP＋prefill16，1024历史另有已验证product范围修复。此表不混入旧NPU基线、质量失败的MLP候选或尚未验证的新输出头。')
     lines=['# '+title,'',description+'全部32/24层、完整词表、固定128预测、预热＋五轮。','',
-           f'当前候选五轮完成{len(candidates)}/24格；“待测”不是0速度。独立留出仍单独验收，不能以开发轨迹通过自动推广产品。','',
+           f'当前候选五轮完成{len(candidates)}/24格；“待测”不是0速度。各格版本显式标注，这是研发候选对照，尚未形成同一固定权重覆盖全部场景的产品；未测试运行时切换这些量化权重，也未把切换开销算作零。独立留出仍单独验收，不能以开发轨迹通过自动推广产品。','',
            '| 模型 / 历史＋新增 / 起温 | NPU配置 | NPU token/s | NPU首token s | 同温CPU token/s | CPU首token s | 对齐/基线状态 |',
            '| --- | --- | ---: | ---: | ---: | ---: | --- |']
     for model in ('smol500','intern1b'):
@@ -112,6 +114,8 @@ def main():
                         else:lines.append(f'| {display} | — | 待测 | — | — | — | — |')
                         continue
                     version=('cap1＋headMSE' if c['variant']['remote'].endswith('cap1-headmse') else
+                             'cap1＋原head' if c['variant']['remote'].endswith('cap1-originalhead') else
+                             '峰值DFP＋t8' if c['variant']['remote'].endswith('dfpgateup-prefill8') else
                              '峰值DFP' if model=='smol500' else 'DFP MSE＋t16')
                     cpu_path=cpu_result_path(ROOT/'thermal-aligned-20261013',case,band)
                     note='原矩阵Q8配置，尚非本格最优确认'

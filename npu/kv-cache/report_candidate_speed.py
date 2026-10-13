@@ -38,7 +38,13 @@ def main():
          '组合方案单独完整开发验证和五轮，与原gate/up MSE对照；不把两个独立收益相加。独立v2为33/36单例通过，未过整套质量。本行CPU是原匹配轨迹'),
         ('1B短历史cap1＋输出头DFP MSE',512,64,ROOT/'cap1-headmse-short-trial-20261014/performance.json','candidate',
          ROOT/'cpu-q8-search-20261013/intern1b-h512-n64-final-fa-off/results.json',
-         '全24层容量768、t16、完整词表，直接使用当前最快CPU五轮轨迹；与原DFP MSE交替五轮。容量改变后的完整开发门槛单独检查，不能继承长历史组合独立质量')]
+         '全24层容量768、t16、完整词表，直接使用当前最快CPU五轮轨迹；与原DFP MSE交替五轮。容量改变后的完整开发门槛单独检查，不能继承长历史组合独立质量'),
+        ('1B短历史cap1＋原输出头',512,32,ROOT/'cap1-originalhead-short-trial-20261014/performance.json','candidate',
+         ROOT/'cpu-q8-search-20261013/intern1b-h512-n32-final-fa-off/results.json',
+         '组合headMSE在本开发场景PPL比1.053872未过；保留cap1 decoder、恢复原head后完整执行及原Q8门槛通过，PPL比1.048677，仍接近边界。无独立质量通过结论'),
+        ('500M DFP＋prefill8',512,64,ROOT/'smol500-prefill8-trial-20261014/performance.json','candidate',
+         ROOT/'cpu-q8-search-20261013/smol500-h512-n64-final-fa-off/results.json',
+         '全部32层，原decode与head不变，仅t32改t8；同温五轮首字改善，decode基本持平。原Q8开发门槛通过，冻结陪伴套件回归另列，非产品验收')]
     records=[]
     frontier=[]
     lines=['# 全深度加速候选：速度与系统开销','',
@@ -58,7 +64,7 @@ def main():
         c=cpu['medians'];gain=100*(n['decode_tokens_per_second']/b['decode_tokens_per_second']-1)
         engine_ttft=statistics.median(r['timings']['prompt_ms']/1000 for r in cpu['runs'] if r['phase']=='measure')
         display=f'{name} / {history}＋{new}'
-        lines.append(f'| {display} | {b["decode_tokens_per_second"]:.3f}→{n["decode_tokens_per_second"]:.3f} | +{gain:.2f}% | {b["ttft_seconds"]:.3f}→{n["ttft_seconds"]:.3f} | {c["decode_tokens_per_second"]:.3f} | {engine_ttft:.3f} |')
+        lines.append(f'| {display} | {b["decode_tokens_per_second"]:.3f}→{n["decode_tokens_per_second"]:.3f} | {gain:+.2f}% | {b["ttft_seconds"]:.3f}→{n["ttft_seconds"]:.3f} | {c["decode_tokens_per_second"]:.3f} | {engine_ttft:.3f} |')
         records.append({'name':display,'history_tokens':history,'new_tokens':new,
                         'source':str(path),'source_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
                         'cpu_timing':{'decode_tokens_per_second':c['decode_tokens_per_second'],

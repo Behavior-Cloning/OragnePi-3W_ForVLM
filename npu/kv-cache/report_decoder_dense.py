@@ -53,6 +53,18 @@ def main():
               'smol500_profiles': smol}
     dfp=[summarize(ROOT/'gateup-w8dfp', path) for path in sorted((ROOT/'npd-gateup-w8dfp').glob('*.npd'))]
     report['dfp_profiles']=dfp
+    cap1_profile=[]
+    cap1_check=ROOT/'npd-cap1-l0/board-validation.json'
+    if cap1_check.exists():
+        cap1_result=json.loads(cap1_check.read_text())
+        assert cap1_result['gate']['passed']
+        assert sha(ROOT/'gateup-w8dfp-mse-cap1-trace/export_nbg_unify/network_binary.nb')==sha(ROOT/'gateup-w8dfp-mse-cap1/export_nbg_unify/network_binary.nb')
+        assert cap1_result['input_sha256']==probes['probe-gateup-w8dfp-mse-cap1']['input_sha256']
+        cap1_profile=[summarize(ROOT/'gateup-w8dfp-mse-cap1-trace',p) for p in sorted((ROOT/'npd-cap1-l0').glob('*.npd'))]
+        assert len(cap1_profile)==5
+        report['cap1_profiles']={'traces':cap1_profile,'validation':cap1_result,
+                                 'binary_identical_to_timed_cap1':True,'input_identical_to_timed_cap1':True,
+                                 'source':str(cap1_check),'source_sha256':sha(cap1_check)}
     fullroot=HERE.parent/'results/full-intern1b-sharded-v2-c128/w8-fused2-c768-dfpgateup/board-dfpgateup-intern1b-h512-n64'
     report['full_dfp']={}
     for name in ('full-validation-w8.json','full-validation.json'):
@@ -121,6 +133,21 @@ def main():
     if dfp:
         gain=1-statistics.median(t['summed_busy_cycles'] for t in dfp)/statistics.median(t['summed_busy_cycles'] for t in traces)
         lines+=['',f'DFP权重路径硬件计数：相同两层累计busy cycles减少{gain:.2%}，出现fullconnect+swish与fullconnect+multiply融合节点。这提供编译执行路径变化证据，不能把计数比例当作完整模型速度。']
+    if cap1_profile:
+        gain=1-statistics.median(t['summed_busy_cycles'] for t in cap1_profile)/statistics.median(t['summed_busy_cycles'] for t in traces)
+        lines+=['','## 当前cap1路径硬件计数','',
+                '使用相同真实抓取输入，trace编译产物与已计时cap1二进制SHA256相同，五次完整输出门槛通过。以下只用于定位，NPD开启时的API耗时不计作候选速度。fullconnect与其融合激活归为同一类，不猜测重复UID对应的某一层。','',
+                '| 算子类 | 累计busy cycles中位 | 占该两层全部busy cycles |',
+                '| --- | ---: | ---: |']
+        for group in ('fullconnect及融合','matmul','其他'):
+            values=[];fractions=[]
+            for t in cap1_profile:
+                def category(op):
+                    return 'fullconnect及融合' if 'fullconnect' in op.split('+') else 'matmul' if 'matmul' in op.split('+') else '其他'
+                cycles=sum(v['cycles'] for op,v in t['by_op'].items() if category(op)==group)
+                values.append(cycles);fractions.append(cycles/t['summed_busy_cycles'])
+            lines.append(f'| {group} | {statistics.median(values):.0f} | {statistics.median(fractions):.2%} |')
+        lines+=['',f'相对最初相同两层逐通道基线，累计busy cycles减少{gain:.2%}；该比例不是端到端加速比，也不是DDR带宽。完整模型以五轮对照报告为准。']
     if report['full_dfp']:
         lines+=['','## 完整DFP候选：精度尚未接受','',
                 '1B、512＋64、全部24层和完整输出头：导出常量执行门槛通过，但相对原Q8的完整logits L2约12.60%、开发轨迹PPL比1.05738，超过预设1.05质量线。诊断运行写大logits，速度不列为正式成绩；不推广这一候选。','',

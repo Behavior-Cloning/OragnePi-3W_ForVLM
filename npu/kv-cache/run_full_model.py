@@ -155,8 +155,10 @@ if files:
         if not reuse_source_tag(name):required+=src.stat().st_size
     available=int(subprocess.check_output(ssh+['python3 -c '+shlex.quote(
         'import shutil; print(shutil.disk_usage("/opt/opi-vlm/npu-kv-probe").free)')],text=True,timeout=20))
-    if available<required+256*1024**2:
-        raise RuntimeError(f'insufficient board space: {available} free, {required} plus 256 MiB reserve needed')
+    # Keep the same free-space floor as the performance runner. A successful
+    # upload must not consume the reserve needed by other queued experiments.
+    if available<required+512*1024**2:
+        raise RuntimeError(f'insufficient board space: {available} free, {required} plus 512 MiB reserve needed')
     subprocess.run(ssh+['mkdir -p '+remote],check=True,timeout=30)
     hashes=[]
     for source,name in files:

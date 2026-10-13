@@ -35,7 +35,10 @@ def main():
          '完整24层gate/up权重MSE额外小数位最多＋1；原Q8开发门槛通过，本行CPU是原匹配轨迹，不继承其他组合独立质量'),
         ('1B cap1＋输出头DFP MSE',1024,32,ROOT/'cap1-headmse-trial-20261013/performance.json','candidate',
          ROOT/'thermal-aligned-20261013/intern1b-h1024-n32-medium-cpu/results.json',
-         '组合方案单独完整开发验证和五轮，与原gate/up MSE对照；不把两个独立收益相加。独立v2为33/36单例通过，未过整套质量。本行CPU是原匹配轨迹')]
+         '组合方案单独完整开发验证和五轮，与原gate/up MSE对照；不把两个独立收益相加。独立v2为33/36单例通过，未过整套质量。本行CPU是原匹配轨迹'),
+        ('1B短历史cap1＋输出头DFP MSE',512,64,ROOT/'cap1-headmse-short-trial-20261014/performance.json','candidate',
+         ROOT/'cpu-q8-search-20261013/intern1b-h512-n64-final-fa-off/results.json',
+         '全24层容量768、t16、完整词表，直接使用当前最快CPU五轮轨迹；与原DFP MSE交替五轮。容量改变后的完整开发门槛单独检查，不能继承长历史组合独立质量')]
     records=[]
     frontier=[]
     lines=['# 全深度加速候选：速度与系统开销','',

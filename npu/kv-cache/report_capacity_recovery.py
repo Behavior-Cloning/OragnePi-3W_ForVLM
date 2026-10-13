@@ -14,6 +14,13 @@ def main():
         path=ROOT/(name+'.json');raw=path.read_bytes();data=json.loads(raw)
         assert data.get('status','complete')=='complete'
         evidence[name]={**data,'source':str(path),'source_sha256':hashlib.sha256(raw).hexdigest()}
+    recent_path=ROOT/'archived-board-dumps-prune-20261014.json'
+    recent=None
+    if recent_path.exists():
+        raw=recent_path.read_bytes();recent=json.loads(raw)
+        if recent['status']=='complete':
+            evidence['archived-board-dumps-prune-20261014']={**recent,'source':str(recent_path),'source_sha256':hashlib.sha256(raw).hexdigest()}
+        else:recent=None  # A running cleanup has not established its final free space.
     archive=HERE/'evidence-attack-20261013/capacity-recovery.json'
     archive.write_text(json.dumps(evidence,indent=2)+'\n')
     lines=['# TF容量恢复与可恢复归档','',
@@ -28,6 +35,11 @@ def main():
            'Git保留清单、代码和小型结果；大logits、模型和SDK仍只在本机忽略目录，Git备份并不包含这些大文件本身。','',
            '续跑使用新attempt，不覆写失败证据。部署器检查新增上传/诊断大小并预留256MiB；性能runner在开始时预留全部完整logits及512MiB。已有19项本地验证和两模型resident实板检查通过，容量恢复不等于长期稳定性验收。','',
            '[完整校验与恢复清单](evidence-attack-20261013/capacity-recovery.json)。','']
+    if recent:
+        lines+=['## 2026-10-14增量归档','',
+                '01:33只读检查发现TF仅余1013825536字节（0.94GiB）；新实验继续沿用同一保护与恢复流程。','',
+                f'本批仅移除板端已经有本机完整SHA256备份的诊断副本{len(recent["files"])}份，合计{recent["removed_bytes"]/2**30:.3f}GiB。清理前可用{recent["free_before"]/2**30:.3f}GiB，结束时{recent["free_after"]/2**30:.3f}GiB；这是结束时快照，新图和后续诊断会占用空间。模型、系统、编译图和结果JSON保留。每份原路径、备份路径、字节数与哈希均加入上面的恢复清单。','',
+                '本轮有一项低温测量在开始前因剩余空间低于诊断所需大小＋512MiB被保护拒绝；清理后使用新attempt恢复，旧失败不覆盖。部署器的额外空间下限同步从256提高到512MiB，避免上传成功后只剩性能runner无法使用的余量。','']
     (HERE/'TF容量恢复与归档.md').write_text('\n'.join(lines))
     print('recovery manifest archived')
 

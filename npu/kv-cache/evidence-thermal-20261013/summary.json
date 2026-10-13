@@ -1,13 +1,13 @@
 {
   "status": "running",
   "counts": {
-    "cpu": 5,
-    "npu": 5,
-    "failed_cases": 0
+    "cpu": 21,
+    "npu": 19,
+    "failed_cases": 1
   },
   "low_medium_counts": {
-    "cpu": 5,
-    "npu": 5
+    "cpu": 21,
+    "npu": 19
   },
   "bands_mC": {
     "low": [
@@ -35,7 +35,8 @@
         "decode_tokens_per_second": 21.180741269240077,
         "total_seconds": 6.402634765006951,
         "response_cpu_seconds": 12.780000000000001,
-        "preparation_seconds": 3.8625981910008704
+        "preparation_seconds": 3.8625981910008704,
+        "engine_ttft_seconds": 0.402311
       },
       "npu": {
         "decode_tokens_per_second": 17.981386,
@@ -46,7 +47,8 @@
         "decode_decoder_api_seconds": 6.179903,
         "decode_head_api_seconds": 0.695003,
         "max_rss_kib": 23296,
-        "load_seconds": 0.77402
+        "load_seconds": 0.77402,
+        "engine_ttft_seconds": 0.472169
       }
     },
     {
@@ -60,7 +62,8 @@
         "decode_tokens_per_second": 21.18780503348841,
         "total_seconds": 6.400479297008133,
         "response_cpu_seconds": 12.770000000000003,
-        "preparation_seconds": 3.8649151169956895
+        "preparation_seconds": 3.8649151169956895,
+        "engine_ttft_seconds": 0.402424
       },
       "npu": {
         "decode_tokens_per_second": 18.060989,
@@ -71,7 +74,8 @@
         "decode_decoder_api_seconds": 6.17092,
         "decode_head_api_seconds": 0.686058,
         "max_rss_kib": 23296,
-        "load_seconds": 0.773831
+        "load_seconds": 0.773831,
+        "engine_ttft_seconds": 0.472984
       }
     },
     {
@@ -92,7 +96,8 @@
         "decode_tokens_per_second": 21.17748836322027,
         "total_seconds": 6.781137009005761,
         "response_cpu_seconds": 13.530000000000001,
-        "preparation_seconds": 3.8635485690028872
+        "preparation_seconds": 3.8635485690028872,
+        "engine_ttft_seconds": 0.7783289999999999
       },
       "npu": {
         "decode_tokens_per_second": 18.048809,
@@ -103,7 +108,8 @@
         "decode_decoder_api_seconds": 6.176334,
         "decode_head_api_seconds": 0.690977,
         "max_rss_kib": 23424,
-        "load_seconds": 0.773852
+        "load_seconds": 0.773852,
+        "engine_ttft_seconds": 0.93656
       }
     },
     {
@@ -117,7 +123,8 @@
         "decode_tokens_per_second": 21.176845670485616,
         "total_seconds": 6.675701585000013,
         "response_cpu_seconds": 13.319999999999993,
-        "preparation_seconds": 3.8643365020000147
+        "preparation_seconds": 3.8643365020000147,
+        "engine_ttft_seconds": 0.674153
       },
       "npu": {
         "decode_tokens_per_second": 18.057461,
@@ -128,7 +135,8 @@
         "decode_decoder_api_seconds": 6.17422,
         "decode_head_api_seconds": 0.689409,
         "max_rss_kib": 24320,
-        "load_seconds": 0.714522
+        "load_seconds": 0.714522,
+        "engine_ttft_seconds": 0.937907
       }
     },
     {
@@ -149,7 +157,8 @@
         "decode_tokens_per_second": 21.12084499345337,
         "total_seconds": 7.402676969999902,
         "response_cpu_seconds": 14.780000000000001,
-        "preparation_seconds": 3.8654216909999377
+        "preparation_seconds": 3.8654216909999377,
+        "engine_ttft_seconds": 1.389334
       },
       "npu": {
         "decode_tokens_per_second": 18.00273,
@@ -160,7 +169,8 @@
         "decode_decoder_api_seconds": 6.177371,
         "decode_head_api_seconds": 0.691298,
         "max_rss_kib": 24576,
-        "load_seconds": 0.721751
+        "load_seconds": 0.721751,
+        "engine_ttft_seconds": 1.865381
       }
     },
     {
@@ -168,7 +178,27 @@
       "model": "smol500",
       "history": 512,
       "new_tokens": 128,
-      "band": "medium"
+      "band": "medium",
+      "cpu": {
+        "ttft_seconds": 1.3630465239998557,
+        "decode_tokens_per_second": 21.0026082924251,
+        "total_seconds": 7.316532999999708,
+        "response_cpu_seconds": 14.599999999999994,
+        "preparation_seconds": 3.862250652000057,
+        "engine_ttft_seconds": 1.265302
+      },
+      "npu": {
+        "decode_tokens_per_second": 17.992287,
+        "ttft_seconds": 1.866877,
+        "total_seconds": 8.924802,
+        "cpu_seconds": 0.249455,
+        "driver_allocated_bytes": 736570344,
+        "decode_decoder_api_seconds": 6.177141,
+        "decode_head_api_seconds": 0.690076,
+        "max_rss_kib": 23936,
+        "load_seconds": 0.722769,
+        "engine_ttft_seconds": 1.866877
+      }
     },
     {
       "case": "smol500-h512-n128",
@@ -182,14 +212,54 @@
       "model": "smol500",
       "history": 1024,
       "new_tokens": 32,
-      "band": "low"
+      "band": "low",
+      "cpu": {
+        "ttft_seconds": 0.8896787579997181,
+        "decode_tokens_per_second": 17.57017243256547,
+        "total_seconds": 8.004488361999847,
+        "response_cpu_seconds": 15.969999999999999,
+        "preparation_seconds": 9.150153616000352,
+        "engine_ttft_seconds": 0.769764
+      },
+      "npu": {
+        "decode_tokens_per_second": 17.066374,
+        "ttft_seconds": 0.61941,
+        "total_seconds": 8.060841,
+        "cpu_seconds": 0.206435,
+        "driver_allocated_bytes": 800861672,
+        "decode_decoder_api_seconds": 6.579347,
+        "decode_head_api_seconds": 0.685225,
+        "max_rss_kib": 28948,
+        "load_seconds": 0.96583,
+        "engine_ttft_seconds": 0.61941
+      }
     },
     {
       "case": "smol500-h1024-n32",
       "model": "smol500",
       "history": 1024,
       "new_tokens": 32,
-      "band": "medium"
+      "band": "medium",
+      "cpu": {
+        "ttft_seconds": 0.7317131439999685,
+        "decode_tokens_per_second": 17.5809523255793,
+        "total_seconds": 7.842954202999863,
+        "response_cpu_seconds": 15.66000000000001,
+        "preparation_seconds": 9.152937155000018,
+        "engine_ttft_seconds": 0.6147480000000001
+      },
+      "npu": {
+        "decode_tokens_per_second": 17.045972,
+        "ttft_seconds": 0.621959,
+        "total_seconds": 8.072202,
+        "cpu_seconds": 0.21652,
+        "driver_allocated_bytes": 800861672,
+        "decode_decoder_api_seconds": 6.582125,
+        "decode_head_api_seconds": 0.688529,
+        "max_rss_kib": 28688,
+        "load_seconds": 0.963625,
+        "engine_ttft_seconds": 0.621959
+      }
     },
     {
       "case": "smol500-h1024-n32",
@@ -203,14 +273,54 @@
       "model": "smol500",
       "history": 1024,
       "new_tokens": 64,
-      "band": "low"
+      "band": "low",
+      "cpu": {
+        "ttft_seconds": 1.2067880019999393,
+        "decode_tokens_per_second": 17.559306211072265,
+        "total_seconds": 8.32508867200022,
+        "response_cpu_seconds": 16.609999999999985,
+        "preparation_seconds": 9.15153294899983,
+        "engine_ttft_seconds": 1.087484
+      },
+      "npu": {
+        "decode_tokens_per_second": 17.027738,
+        "ttft_seconds": 1.234174,
+        "total_seconds": 8.692866,
+        "cpu_seconds": 0.226401,
+        "driver_allocated_bytes": 800861672,
+        "decode_decoder_api_seconds": 6.58316,
+        "decode_head_api_seconds": 0.68844,
+        "max_rss_kib": 28688,
+        "load_seconds": 0.958457,
+        "engine_ttft_seconds": 1.234174
+      }
     },
     {
       "case": "smol500-h1024-n64",
       "model": "smol500",
       "history": 1024,
       "new_tokens": 64,
-      "band": "medium"
+      "band": "medium",
+      "cpu": {
+        "ttft_seconds": 1.046654516000217,
+        "decode_tokens_per_second": 17.5489626421276,
+        "total_seconds": 8.169976530999975,
+        "response_cpu_seconds": 16.310000000000002,
+        "preparation_seconds": 9.171600549999766,
+        "engine_ttft_seconds": 0.930029
+      },
+      "npu": {
+        "decode_tokens_per_second": 17.015525,
+        "ttft_seconds": 1.23644,
+        "total_seconds": 8.700212,
+        "cpu_seconds": 0.231295,
+        "driver_allocated_bytes": 800861672,
+        "decode_decoder_api_seconds": 6.582951,
+        "decode_head_api_seconds": 0.688669,
+        "max_rss_kib": 28692,
+        "load_seconds": 0.959869,
+        "engine_ttft_seconds": 1.23644
+      }
     },
     {
       "case": "smol500-h1024-n64",
@@ -224,14 +334,54 @@
       "model": "smol500",
       "history": 1024,
       "new_tokens": 128,
-      "band": "low"
+      "band": "low",
+      "cpu": {
+        "ttft_seconds": 1.9671549380000215,
+        "decode_tokens_per_second": 17.478350241916882,
+        "total_seconds": 9.120147576000818,
+        "response_cpu_seconds": 18.19999999999999,
+        "preparation_seconds": 9.148588320999806,
+        "engine_ttft_seconds": 1.847322
+      },
+      "npu": {
+        "decode_tokens_per_second": 16.976842,
+        "ttft_seconds": 2.463583,
+        "total_seconds": 9.944362,
+        "cpu_seconds": 0.259439,
+        "driver_allocated_bytes": 800861672,
+        "decode_decoder_api_seconds": 6.589233,
+        "decode_head_api_seconds": 0.696178,
+        "max_rss_kib": 28944,
+        "load_seconds": 0.971307,
+        "engine_ttft_seconds": 2.463583
+      }
     },
     {
       "case": "smol500-h1024-n128",
       "model": "smol500",
       "history": 1024,
       "new_tokens": 128,
-      "band": "medium"
+      "band": "medium",
+      "cpu": {
+        "ttft_seconds": 1.805680009999378,
+        "decode_tokens_per_second": 17.49530588544845,
+        "total_seconds": 8.951109655999971,
+        "response_cpu_seconds": 17.870000000000005,
+        "preparation_seconds": 9.144039071000407,
+        "engine_ttft_seconds": 1.6886349999999999
+      },
+      "npu": {
+        "decode_tokens_per_second": 16.975857,
+        "ttft_seconds": 2.466181,
+        "total_seconds": 9.952643,
+        "cpu_seconds": 0.263349,
+        "driver_allocated_bytes": 800861672,
+        "decode_decoder_api_seconds": 6.58726,
+        "decode_head_api_seconds": 0.693254,
+        "max_rss_kib": 28812,
+        "load_seconds": 0.959249,
+        "engine_ttft_seconds": 2.466181
+      }
     },
     {
       "case": "smol500-h1024-n128",
@@ -245,14 +395,54 @@
       "model": "intern1b",
       "history": 512,
       "new_tokens": 32,
-      "band": "low"
+      "band": "low",
+      "cpu": {
+        "ttft_seconds": 0.5336805050001203,
+        "engine_ttft_seconds": 0.529946,
+        "decode_tokens_per_second": 18.23671107377611,
+        "total_seconds": 7.498535445000016,
+        "response_cpu_seconds": 14.939999999999998,
+        "preparation_seconds": 3.905539281999154
+      },
+      "npu": {
+        "decode_tokens_per_second": 13.802387,
+        "ttft_seconds": 0.49998,
+        "total_seconds": 9.7007,
+        "cpu_seconds": 0.284589,
+        "driver_allocated_bytes": 868388808,
+        "decode_decoder_api_seconds": 6.648972,
+        "decode_head_api_seconds": 2.31062,
+        "max_rss_kib": 31764,
+        "load_seconds": 0.680929,
+        "engine_ttft_seconds": 0.49998
+      }
     },
     {
       "case": "intern1b-h512-n32",
       "model": "intern1b",
       "history": 512,
       "new_tokens": 32,
-      "band": "medium"
+      "band": "medium",
+      "cpu": {
+        "ttft_seconds": 0.3729442010007915,
+        "engine_ttft_seconds": 0.37099,
+        "decode_tokens_per_second": 18.25033335599057,
+        "total_seconds": 7.333678002999477,
+        "response_cpu_seconds": 14.609999999999985,
+        "preparation_seconds": 3.903859275999821
+      },
+      "npu": {
+        "decode_tokens_per_second": 13.796734,
+        "ttft_seconds": 0.503375,
+        "total_seconds": 9.707311,
+        "cpu_seconds": 0.298715,
+        "driver_allocated_bytes": 868388808,
+        "decode_decoder_api_seconds": 6.649455,
+        "decode_head_api_seconds": 2.312977,
+        "max_rss_kib": 33560,
+        "load_seconds": 0.669542,
+        "engine_ttft_seconds": 0.503375
+      }
     },
     {
       "case": "intern1b-h512-n32",
@@ -266,14 +456,54 @@
       "model": "intern1b",
       "history": 512,
       "new_tokens": 64,
-      "band": "low"
+      "band": "low",
+      "cpu": {
+        "ttft_seconds": 0.7929678370001056,
+        "engine_ttft_seconds": 0.789149,
+        "decode_tokens_per_second": 18.27615821914812,
+        "total_seconds": 7.742214775999855,
+        "response_cpu_seconds": 15.430000000000007,
+        "preparation_seconds": 3.904627175999849
+      },
+      "npu": {
+        "decode_tokens_per_second": 13.75679,
+        "ttft_seconds": 0.981229,
+        "total_seconds": 10.213129,
+        "cpu_seconds": 0.279995,
+        "driver_allocated_bytes": 868388808,
+        "decode_decoder_api_seconds": 6.658539,
+        "decode_head_api_seconds": 2.345344,
+        "max_rss_kib": 33176,
+        "load_seconds": 0.660208,
+        "engine_ttft_seconds": 0.981229
+      }
     },
     {
       "case": "intern1b-h512-n64",
       "model": "intern1b",
       "history": 512,
       "new_tokens": 64,
-      "band": "medium"
+      "band": "medium",
+      "cpu": {
+        "ttft_seconds": 0.6307121320005535,
+        "engine_ttft_seconds": 0.628808,
+        "decode_tokens_per_second": 18.254897882532465,
+        "total_seconds": 7.589304949000507,
+        "response_cpu_seconds": 15.120000000000005,
+        "preparation_seconds": 3.9038616440002443
+      },
+      "npu": {
+        "decode_tokens_per_second": 13.789135,
+        "ttft_seconds": 0.982616,
+        "total_seconds": 10.192699,
+        "cpu_seconds": 0.288308,
+        "driver_allocated_bytes": 868388808,
+        "decode_decoder_api_seconds": 6.650481,
+        "decode_head_api_seconds": 2.323771,
+        "max_rss_kib": 33052,
+        "load_seconds": 0.655884,
+        "engine_ttft_seconds": 0.982616
+      }
     },
     {
       "case": "intern1b-h512-n64",
@@ -287,14 +517,54 @@
       "model": "intern1b",
       "history": 512,
       "new_tokens": 128,
-      "band": "low"
+      "band": "low",
+      "cpu": {
+        "ttft_seconds": 1.3418447229996673,
+        "engine_ttft_seconds": 1.338069,
+        "decode_tokens_per_second": 18.176046603955967,
+        "total_seconds": 8.329763855999772,
+        "response_cpu_seconds": 16.599999999999994,
+        "preparation_seconds": 3.906750653999552
+      },
+      "npu": {
+        "decode_tokens_per_second": 13.74424,
+        "ttft_seconds": 1.946104,
+        "total_seconds": 11.186368,
+        "cpu_seconds": 0.287118,
+        "driver_allocated_bytes": 868388808,
+        "decode_decoder_api_seconds": 6.65828,
+        "decode_head_api_seconds": 2.350652,
+        "max_rss_kib": 32792,
+        "load_seconds": 0.772673,
+        "engine_ttft_seconds": 1.946104
+      }
     },
     {
       "case": "intern1b-h512-n128",
       "model": "intern1b",
       "history": 512,
       "new_tokens": 128,
-      "band": "medium"
+      "band": "medium",
+      "cpu": {
+        "ttft_seconds": 1.1814746390009532,
+        "engine_ttft_seconds": 1.179459,
+        "decode_tokens_per_second": 18.228102164637367,
+        "total_seconds": 8.149415698999292,
+        "response_cpu_seconds": 16.25,
+        "preparation_seconds": 3.907610657999612
+      },
+      "npu": {
+        "decode_tokens_per_second": 13.805599,
+        "ttft_seconds": 1.945222,
+        "total_seconds": 11.149955,
+        "cpu_seconds": 0.290399,
+        "driver_allocated_bytes": 868388808,
+        "decode_decoder_api_seconds": 6.652688,
+        "decode_head_api_seconds": 2.325882,
+        "max_rss_kib": 32660,
+        "load_seconds": 0.750093,
+        "engine_ttft_seconds": 1.945222
+      }
     },
     {
       "case": "intern1b-h512-n128",
@@ -308,14 +578,30 @@
       "model": "intern1b",
       "history": 1024,
       "new_tokens": 32,
-      "band": "low"
+      "band": "low",
+      "cpu": {
+        "ttft_seconds": 0.6704690139995364,
+        "engine_ttft_seconds": 0.665705,
+        "decode_tokens_per_second": 16.77073767740337,
+        "total_seconds": 8.2455009589994,
+        "response_cpu_seconds": 16.430000000000007,
+        "preparation_seconds": 8.802504318000501
+      }
     },
     {
       "case": "intern1b-h1024-n32",
       "model": "intern1b",
       "history": 1024,
       "new_tokens": 32,
-      "band": "medium"
+      "band": "medium",
+      "cpu": {
+        "ttft_seconds": 0.5091775429991685,
+        "engine_ttft_seconds": 0.506863,
+        "decode_tokens_per_second": 16.75587742086146,
+        "total_seconds": 8.089277434000905,
+        "response_cpu_seconds": 16.120000000000005,
+        "preparation_seconds": 8.79181290499946
+      }
     },
     {
       "case": "intern1b-h1024-n32",
@@ -329,7 +615,27 @@
       "model": "intern1b",
       "history": 1024,
       "new_tokens": 64,
-      "band": "low"
+      "band": "low",
+      "cpu": {
+        "ttft_seconds": 0.9652835870001581,
+        "engine_ttft_seconds": 0.960419,
+        "decode_tokens_per_second": 16.77775876885599,
+        "total_seconds": 8.5363582760001,
+        "response_cpu_seconds": 17.01000000000002,
+        "preparation_seconds": 8.795694712000113
+      },
+      "npu": {
+        "decode_tokens_per_second": 13.560161,
+        "ttft_seconds": 1.255418,
+        "total_seconds": 10.621104,
+        "cpu_seconds": 0.276457,
+        "driver_allocated_bytes": 910977960,
+        "decode_decoder_api_seconds": 6.815586,
+        "decode_head_api_seconds": 2.328448,
+        "max_rss_kib": 43932,
+        "load_seconds": 0.916053,
+        "engine_ttft_seconds": 1.255418
+      }
     },
     {
       "case": "intern1b-h1024-n64",
@@ -637,6 +943,938 @@
         1008.0,
         1008.0
       ]
+    },
+    {
+      "case": "smol500-h512-n128",
+      "band": "medium",
+      "backend": "cpu",
+      "start_min_c": 60.388,
+      "start_max_c": 63.922,
+      "response_sample_min_c": 60.388,
+      "response_sample_max_c": 70.151,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 14.599999999999994,
+      "process_rss_mib": 817.76171875,
+      "driver_mib": null,
+      "min_available_ram_mib": 4014.67578125,
+      "swap_used_mib_range": [
+        5.25,
+        5.25
+      ],
+      "all_phase_peak_system_cpu_percent": 26.55777374470659,
+      "conditioning_seconds_median": 0.40147995500001343,
+      "speed_min": 20.99824325720781,
+      "speed_max": 21.007666640420865
+    },
+    {
+      "case": "smol500-h512-n128",
+      "band": "medium",
+      "backend": "npu",
+      "start_min_c": 60.574,
+      "start_max_c": 61.814,
+      "response_sample_min_c": 45.694,
+      "response_sample_max_c": 61.814,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.249455,
+      "process_rss_mib": 23.375,
+      "driver_mib": 702.4482192993164,
+      "min_available_ram_mib": 3693.4375,
+      "swap_used_mib_range": [
+        6.75,
+        6.75
+      ],
+      "all_phase_peak_system_cpu_percent": 100.0,
+      "conditioning_seconds_median": 11.371198,
+      "speed_min": 17.950888,
+      "speed_max": 18.016334,
+      "npu_frequency_mhz_range": [
+        1008.0,
+        1008.0
+      ]
+    },
+    {
+      "case": "smol500-h1024-n32",
+      "band": "low",
+      "backend": "cpu",
+      "start_min_c": 48.484,
+      "start_max_c": 48.98,
+      "response_sample_min_c": 48.484,
+      "response_sample_max_c": 66.67,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 15.969999999999999,
+      "process_rss_mib": 839.94921875,
+      "driver_mib": null,
+      "min_available_ram_mib": 3987.015625,
+      "swap_used_mib_range": [
+        6.75,
+        6.75
+      ],
+      "all_phase_peak_system_cpu_percent": 26.497277676951004,
+      "conditioning_seconds_median": 4.016164675000255,
+      "speed_min": 17.56370646759289,
+      "speed_max": 17.575324797537792
+    },
+    {
+      "case": "smol500-h1024-n32",
+      "band": "low",
+      "backend": "npu",
+      "start_min_c": 45.632,
+      "start_max_c": 46.314,
+      "response_sample_min_c": 39.618,
+      "response_sample_max_c": 46.314,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.206435,
+      "process_rss_mib": 28.26953125,
+      "driver_mib": 763.7612075805664,
+      "min_available_ram_mib": 3622.875,
+      "swap_used_mib_range": [
+        105.5,
+        110.75
+      ],
+      "all_phase_peak_system_cpu_percent": 51.46520146520146,
+      "conditioning_seconds_median": 1.330783,
+      "speed_min": 17.042504,
+      "speed_max": 17.113265,
+      "npu_frequency_mhz_range": [
+        1008.0,
+        1008.0
+      ]
+    },
+    {
+      "case": "smol500-h1024-n32",
+      "band": "medium",
+      "backend": "cpu",
+      "start_min_c": 60.698,
+      "start_max_c": 63.24,
+      "response_sample_min_c": 60.698,
+      "response_sample_max_c": 71.803,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 15.66000000000001,
+      "process_rss_mib": 840.01171875,
+      "driver_mib": null,
+      "min_available_ram_mib": 4011.3359375,
+      "swap_used_mib_range": [
+        110.75,
+        110.75
+      ],
+      "all_phase_peak_system_cpu_percent": 26.877234803337302,
+      "conditioning_seconds_median": 0.4017052180001883,
+      "speed_min": 17.57679641433353,
+      "speed_max": 17.58293121031207
+    },
+    {
+      "case": "smol500-h1024-n32",
+      "band": "medium",
+      "backend": "npu",
+      "start_min_c": 60.822,
+      "start_max_c": 61.938,
+      "response_sample_min_c": 45.942,
+      "response_sample_max_c": 61.938,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.21652,
+      "process_rss_mib": 28.015625,
+      "driver_mib": 763.7612075805664,
+      "min_available_ram_mib": 3618.09765625,
+      "swap_used_mib_range": [
+        130.75,
+        136.75
+      ],
+      "all_phase_peak_system_cpu_percent": 100.0,
+      "conditioning_seconds_median": 14.179903,
+      "speed_min": 17.012542,
+      "speed_max": 17.060927,
+      "npu_frequency_mhz_range": [
+        1008.0,
+        1008.0
+      ]
+    },
+    {
+      "case": "smol500-h1024-n64",
+      "band": "low",
+      "backend": "cpu",
+      "start_min_c": 48.546,
+      "start_max_c": 48.98,
+      "response_sample_min_c": 48.546,
+      "response_sample_max_c": 66.316,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 16.609999999999985,
+      "process_rss_mib": 839.99609375,
+      "driver_mib": null,
+      "min_available_ram_mib": 4009.06640625,
+      "swap_used_mib_range": [
+        136.75,
+        136.75
+      ],
+      "all_phase_peak_system_cpu_percent": 26.57384987893463,
+      "conditioning_seconds_median": 4.4172943140001735,
+      "speed_min": 17.554129263355478,
+      "speed_max": 17.564967212291716
+    },
+    {
+      "case": "smol500-h1024-n64",
+      "band": "low",
+      "backend": "npu",
+      "start_min_c": 45.57,
+      "start_max_c": 46.314,
+      "response_sample_min_c": 39.494,
+      "response_sample_max_c": 46.314,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.226401,
+      "process_rss_mib": 28.015625,
+      "driver_mib": 763.7612075805664,
+      "min_available_ram_mib": 3620.9140625,
+      "swap_used_mib_range": [
+        140.0,
+        140.0
+      ],
+      "all_phase_peak_system_cpu_percent": 51.125989044430916,
+      "conditioning_seconds_median": 1.334654,
+      "speed_min": 17.011696,
+      "speed_max": 17.03763,
+      "npu_frequency_mhz_range": [
+        1008.0,
+        1008.0
+      ]
+    },
+    {
+      "case": "smol500-h1024-n64",
+      "band": "medium",
+      "backend": "cpu",
+      "start_min_c": 62.124,
+      "start_max_c": 63.484,
+      "response_sample_min_c": 62.124,
+      "response_sample_max_c": 72.806,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 16.310000000000002,
+      "process_rss_mib": 840.15625,
+      "driver_mib": null,
+      "min_available_ram_mib": 4008.625,
+      "swap_used_mib_range": [
+        140.0,
+        140.0
+      ],
+      "all_phase_peak_system_cpu_percent": 27.140255009107474,
+      "conditioning_seconds_median": 0.40165513500005545,
+      "speed_min": 17.541938008448586,
+      "speed_max": 17.55354210438221
+    },
+    {
+      "case": "smol500-h1024-n64",
+      "band": "medium",
+      "backend": "npu",
+      "start_min_c": 60.76,
+      "start_max_c": 61.814,
+      "response_sample_min_c": 45.446,
+      "response_sample_max_c": 61.814,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.231295,
+      "process_rss_mib": 28.01953125,
+      "driver_mib": 763.7612075805664,
+      "min_available_ram_mib": 3613.60546875,
+      "swap_used_mib_range": [
+        140.5,
+        142.5
+      ],
+      "all_phase_peak_system_cpu_percent": 100.0,
+      "conditioning_seconds_median": 13.762512,
+      "speed_min": 16.998791,
+      "speed_max": 17.053636,
+      "npu_frequency_mhz_range": [
+        1008.0,
+        1008.0
+      ]
+    },
+    {
+      "case": "smol500-h1024-n128",
+      "band": "low",
+      "backend": "cpu",
+      "start_min_c": 48.608,
+      "start_max_c": 48.98,
+      "response_sample_min_c": 48.608,
+      "response_sample_max_c": 67.378,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 18.19999999999999,
+      "process_rss_mib": 840.140625,
+      "driver_mib": null,
+      "min_available_ram_mib": 4010.2421875,
+      "swap_used_mib_range": [
+        142.5,
+        142.5
+      ],
+      "all_phase_peak_system_cpu_percent": 26.739261947973382,
+      "conditioning_seconds_median": 4.417815610000616,
+      "speed_min": 17.47551948045693,
+      "speed_max": 17.480399929527838
+    },
+    {
+      "case": "smol500-h1024-n128",
+      "band": "low",
+      "backend": "npu",
+      "start_min_c": 45.942,
+      "start_max_c": 46.996,
+      "response_sample_min_c": 39.184,
+      "response_sample_max_c": 46.996,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.259439,
+      "process_rss_mib": 28.265625,
+      "driver_mib": 763.7612075805664,
+      "min_available_ram_mib": 3616.65625,
+      "swap_used_mib_range": [
+        142.75,
+        144.0
+      ],
+      "all_phase_peak_system_cpu_percent": 53.9779681762546,
+      "conditioning_seconds_median": 1.34946,
+      "speed_min": 16.95462,
+      "speed_max": 16.99968,
+      "npu_frequency_mhz_range": [
+        1008.0,
+        1008.0
+      ]
+    },
+    {
+      "case": "smol500-h1024-n128",
+      "band": "medium",
+      "backend": "cpu",
+      "start_min_c": 61.814,
+      "start_max_c": 63.55,
+      "response_sample_min_c": 61.814,
+      "response_sample_max_c": 73.219,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 17.870000000000005,
+      "process_rss_mib": 840.0234375,
+      "driver_mib": null,
+      "min_available_ram_mib": 4000.55859375,
+      "swap_used_mib_range": [
+        144.0,
+        144.0
+      ],
+      "all_phase_peak_system_cpu_percent": 26.59768715763846,
+      "conditioning_seconds_median": 0.4016197580003791,
+      "speed_min": 17.48990405617041,
+      "speed_max": 17.498873596128753,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 26.520557254502208,
+        "covered_seconds": 7.396292802000062,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      }
+    },
+    {
+      "case": "smol500-h1024-n128",
+      "band": "medium",
+      "backend": "npu",
+      "start_min_c": 60.698,
+      "start_max_c": 61.132,
+      "response_sample_min_c": 45.136,
+      "response_sample_max_c": 61.132,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.263349,
+      "process_rss_mib": 28.13671875,
+      "driver_mib": 763.7612075805664,
+      "min_available_ram_mib": 3604.76953125,
+      "swap_used_mib_range": [
+        144.0,
+        144.25
+      ],
+      "all_phase_peak_system_cpu_percent": 100.0,
+      "conditioning_seconds_median": 13.741241,
+      "speed_min": 16.937568,
+      "speed_max": 17.006167,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 1.1124677791344457,
+        "covered_seconds": 9.230434283999784,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      },
+      "npu_frequency_mhz_range": [
+        1008.0,
+        1008.0
+      ]
+    },
+    {
+      "case": "intern1b-h512-n32",
+      "band": "low",
+      "backend": "cpu",
+      "start_min_c": 48.298,
+      "start_max_c": 48.856,
+      "response_sample_min_c": 48.298,
+      "response_sample_max_c": 67.496,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 14.939999999999998,
+      "process_rss_mib": 1106.04296875,
+      "driver_mib": null,
+      "min_available_ram_mib": 4000.46484375,
+      "swap_used_mib_range": [
+        144.25,
+        144.25
+      ],
+      "all_phase_peak_system_cpu_percent": 26.913730255164037,
+      "conditioning_seconds_median": 3.8141940510004133,
+      "speed_min": 18.219373305203767,
+      "speed_max": 18.245488012929872,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 26.738916256157637,
+        "covered_seconds": 6.359574816000531,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      }
+    },
+    {
+      "case": "intern1b-h512-n32",
+      "band": "low",
+      "backend": "npu",
+      "start_min_c": 41.168,
+      "start_max_c": 47.306,
+      "response_sample_min_c": 40.61,
+      "response_sample_max_c": 47.306,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.284589,
+      "process_rss_mib": 31.01953125,
+      "driver_mib": 828.1601028442383,
+      "min_available_ram_mib": 3585.13671875,
+      "swap_used_mib_range": [
+        358.25,
+        375.75
+      ],
+      "all_phase_peak_system_cpu_percent": 41.47831398900428,
+      "conditioning_seconds_median": 1.004149,
+      "speed_min": 13.764031,
+      "speed_max": 13.855961,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 1.2987012987012987,
+        "covered_seconds": 8.269131433000439,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      },
+      "npu_frequency_mhz_range": [
+        1008.0,
+        1008.0
+      ]
+    },
+    {
+      "case": "intern1b-h512-n32",
+      "band": "medium",
+      "backend": "cpu",
+      "start_min_c": 62.062,
+      "start_max_c": 62.992,
+      "response_sample_min_c": 62.062,
+      "response_sample_max_c": 72.216,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 14.609999999999985,
+      "process_rss_mib": 1103.47265625,
+      "driver_mib": null,
+      "min_available_ram_mib": 4004.71484375,
+      "swap_used_mib_range": [
+        375.75,
+        375.75
+      ],
+      "all_phase_peak_system_cpu_percent": 27.020506634499398,
+      "conditioning_seconds_median": 0.4016920490003031,
+      "speed_min": 18.245917906874272,
+      "speed_max": 18.31633375648391,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 26.69172932330827,
+        "covered_seconds": 6.337547615000403,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      }
+    },
+    {
+      "case": "intern1b-h512-n32",
+      "band": "medium",
+      "backend": "npu",
+      "start_min_c": 60.884,
+      "start_max_c": 61.938,
+      "response_sample_min_c": 45.508,
+      "response_sample_max_c": 61.938,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.298715,
+      "process_rss_mib": 32.7734375,
+      "driver_mib": 828.1601028442383,
+      "min_available_ram_mib": 3575.9921875,
+      "swap_used_mib_range": [
+        485.5,
+        501.25
+      ],
+      "all_phase_peak_system_cpu_percent": 100.0,
+      "conditioning_seconds_median": 10.700534,
+      "speed_min": 13.715017,
+      "speed_max": 13.81139,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 1.214574898785425,
+        "covered_seconds": 9.227107357000023,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      },
+      "npu_frequency_mhz_range": [
+        1008.0,
+        1008.0
+      ]
+    },
+    {
+      "case": "intern1b-h512-n64",
+      "band": "low",
+      "backend": "cpu",
+      "start_min_c": 48.484,
+      "start_max_c": 48.98,
+      "response_sample_min_c": 48.484,
+      "response_sample_max_c": 68.853,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 15.430000000000007,
+      "process_rss_mib": 1104.02734375,
+      "driver_mib": null,
+      "min_available_ram_mib": 3995.2578125,
+      "swap_used_mib_range": [
+        501.25,
+        501.25
+      ],
+      "all_phase_peak_system_cpu_percent": 27.002427184466015,
+      "conditioning_seconds_median": 3.8162258560005284,
+      "speed_min": 18.266413775119737,
+      "speed_max": 18.2810435510596,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 26.69172932330827,
+        "covered_seconds": 6.338367053999718,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      }
+    },
+    {
+      "case": "intern1b-h512-n64",
+      "band": "low",
+      "backend": "npu",
+      "start_min_c": 46.004,
+      "start_max_c": 47.492,
+      "response_sample_min_c": 40.238,
+      "response_sample_max_c": 47.492,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.279995,
+      "process_rss_mib": 32.3984375,
+      "driver_mib": 828.1601028442383,
+      "min_available_ram_mib": 3578.63671875,
+      "swap_used_mib_range": [
+        561.25,
+        561.75
+      ],
+      "all_phase_peak_system_cpu_percent": 40.57004244996968,
+      "conditioning_seconds_median": 1.055705,
+      "speed_min": 13.739848,
+      "speed_max": 13.843879,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 1.180461329715061,
+        "covered_seconds": 9.204697086999658,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      },
+      "npu_frequency_mhz_range": [
+        1008.0,
+        1008.0
+      ]
+    },
+    {
+      "case": "intern1b-h512-n64",
+      "band": "medium",
+      "backend": "cpu",
+      "start_min_c": 61.132,
+      "start_max_c": 63.72,
+      "response_sample_min_c": 61.132,
+      "response_sample_max_c": 73.514,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 15.120000000000005,
+      "process_rss_mib": 1106.234375,
+      "driver_mib": null,
+      "min_available_ram_mib": 3998.11328125,
+      "swap_used_mib_range": [
+        561.75,
+        561.75
+      ],
+      "all_phase_peak_system_cpu_percent": 26.682838083687088,
+      "conditioning_seconds_median": 0.40170071400007146,
+      "speed_min": 18.2511857522334,
+      "speed_max": 18.2780178626607,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 26.509497964721845,
+        "covered_seconds": 6.321366912000485,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      }
+    },
+    {
+      "case": "intern1b-h512-n64",
+      "band": "medium",
+      "backend": "npu",
+      "start_min_c": 60.76,
+      "start_max_c": 62.248,
+      "response_sample_min_c": 45.384,
+      "response_sample_max_c": 62.248,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.288308,
+      "process_rss_mib": 32.27734375,
+      "driver_mib": 828.1601028442383,
+      "min_available_ram_mib": 3571.53125,
+      "swap_used_mib_range": [
+        561.75,
+        568.25
+      ],
+      "all_phase_peak_system_cpu_percent": 100.0,
+      "conditioning_seconds_median": 11.483326,
+      "speed_min": 13.771298,
+      "speed_max": 13.840112,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 1.1290980818936198,
+        "covered_seconds": 9.214565163999396,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      },
+      "npu_frequency_mhz_range": [
+        1008.0,
+        1008.0
+      ]
+    },
+    {
+      "case": "intern1b-h512-n128",
+      "band": "low",
+      "backend": "cpu",
+      "start_min_c": 48.174,
+      "start_max_c": 48.918,
+      "response_sample_min_c": 48.174,
+      "response_sample_max_c": 67.555,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 16.599999999999994,
+      "process_rss_mib": 1106.23046875,
+      "driver_mib": null,
+      "min_available_ram_mib": 3990.83203125,
+      "swap_used_mib_range": [
+        568.25,
+        568.25
+      ],
+      "all_phase_peak_system_cpu_percent": 26.888217522658607,
+      "conditioning_seconds_median": 3.8152798200007965,
+      "speed_min": 18.16846169637639,
+      "speed_max": 18.18862231497624,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 26.667792602600912,
+        "covered_seconds": 7.38886955199996,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      }
+    },
+    {
+      "case": "intern1b-h512-n128",
+      "band": "low",
+      "backend": "npu",
+      "start_min_c": 45.88,
+      "start_max_c": 46.686,
+      "response_sample_min_c": 39.804,
+      "response_sample_max_c": 46.686,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.287118,
+      "process_rss_mib": 32.0234375,
+      "driver_mib": 828.1601028442383,
+      "min_available_ram_mib": 3555.5625,
+      "swap_used_mib_range": [
+        629.75,
+        650.75
+      ],
+      "all_phase_peak_system_cpu_percent": 44.16615760537569,
+      "conditioning_seconds_median": 1.187803,
+      "speed_min": 13.719307,
+      "speed_max": 13.78156,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 1.217878455730118,
+        "covered_seconds": 10.298125736999282,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      },
+      "npu_frequency_mhz_range": [
+        1008.0,
+        1008.0
+      ]
+    },
+    {
+      "case": "intern1b-h512-n128",
+      "band": "medium",
+      "backend": "cpu",
+      "start_min_c": 59.024,
+      "start_max_c": 63.72,
+      "response_sample_min_c": 59.024,
+      "response_sample_max_c": 74.045,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 16.25,
+      "process_rss_mib": 1105.5234375,
+      "driver_mib": null,
+      "min_available_ram_mib": 3993.79296875,
+      "swap_used_mib_range": [
+        650.75,
+        650.75
+      ],
+      "all_phase_peak_system_cpu_percent": 26.77165354330708,
+      "conditioning_seconds_median": 0.4016925470004935,
+      "speed_min": 18.22656655545591,
+      "speed_max": 18.234375473357925,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 26.54639175257732,
+        "covered_seconds": 6.33071811300033,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      }
+    },
+    {
+      "case": "intern1b-h512-n128",
+      "band": "medium",
+      "backend": "npu",
+      "start_min_c": 61.132,
+      "start_max_c": 62.682,
+      "response_sample_min_c": 44.516,
+      "response_sample_max_c": 62.682,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.290399,
+      "process_rss_mib": 31.89453125,
+      "driver_mib": 828.1601028442383,
+      "min_available_ram_mib": 3549.890625,
+      "swap_used_mib_range": [
+        663.5,
+        680.0
+      ],
+      "all_phase_peak_system_cpu_percent": 100.0,
+      "conditioning_seconds_median": 11.737515,
+      "speed_min": 13.682912,
+      "speed_max": 13.810743,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 1.1373364314540786,
+        "covered_seconds": 10.251004562000162,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      },
+      "npu_frequency_mhz_range": [
+        1008.0,
+        1008.0
+      ]
+    },
+    {
+      "case": "intern1b-h1024-n32",
+      "band": "low",
+      "backend": "cpu",
+      "start_min_c": 48.298,
+      "start_max_c": 48.98,
+      "response_sample_min_c": 48.298,
+      "response_sample_max_c": 68.381,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 16.430000000000007,
+      "process_rss_mib": 1112.8984375,
+      "driver_mib": null,
+      "min_available_ram_mib": 4001.15625,
+      "swap_used_mib_range": [
+        674.5,
+        674.5
+      ],
+      "all_phase_peak_system_cpu_percent": 26.930091185410333,
+      "conditioning_seconds_median": 4.818019373000425,
+      "speed_min": 16.766347221545626,
+      "speed_max": 16.77145524728652,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 26.666666666666668,
+        "covered_seconds": 6.386634919001153,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      }
+    },
+    {
+      "case": "intern1b-h1024-n32",
+      "band": "medium",
+      "backend": "cpu",
+      "start_min_c": 60.45,
+      "start_max_c": 63.922,
+      "response_sample_min_c": 60.45,
+      "response_sample_max_c": 75.284,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 16.120000000000005,
+      "process_rss_mib": 1090.88671875,
+      "driver_mib": null,
+      "min_available_ram_mib": 4005.640625,
+      "swap_used_mib_range": [
+        778.5,
+        778.5
+      ],
+      "all_phase_peak_system_cpu_percent": 26.811594202898547,
+      "conditioning_seconds_median": 0.4016346619991964,
+      "speed_min": 16.754882663050076,
+      "speed_max": 16.759771375603766,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 26.598077247427895,
+        "covered_seconds": 7.436710284999208,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      }
+    },
+    {
+      "case": "intern1b-h1024-n64",
+      "band": "low",
+      "backend": "cpu",
+      "start_min_c": 48.546,
+      "start_max_c": 48.98,
+      "response_sample_min_c": 48.546,
+      "response_sample_max_c": 70.033,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 2002.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 17.01000000000002,
+      "process_rss_mib": 1108.5078125,
+      "driver_mib": null,
+      "min_available_ram_mib": 4004.015625,
+      "swap_used_mib_range": [
+        827.25,
+        827.25
+      ],
+      "all_phase_peak_system_cpu_percent": 26.844014510278114,
+      "conditioning_seconds_median": 5.019156027999998,
+      "speed_min": 16.774984192549347,
+      "speed_max": 16.7807227285508,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 26.613451086956523,
+        "covered_seconds": 7.392773071000192,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      }
+    },
+    {
+      "case": "intern1b-h1024-n64",
+      "band": "low",
+      "backend": "npu",
+      "start_min_c": 45.88,
+      "start_max_c": 46.748,
+      "response_sample_min_c": 39.308,
+      "response_sample_max_c": 46.748,
+      "response_time_series_available": true,
+      "temperature_time_series_source": "sysfs-direct",
+      "a76_min_sample_mhz": 416.0,
+      "a76_max_sample_mhz": 2002.0,
+      "cpu_seconds": 0.276457,
+      "process_rss_mib": 42.90234375,
+      "driver_mib": 868.7762832641602,
+      "min_available_ram_mib": 3527.328125,
+      "swap_used_mib_range": [
+        999.25,
+        1012.0
+      ],
+      "all_phase_peak_system_cpu_percent": 51.00060642813826,
+      "conditioning_seconds_median": 1.315744,
+      "speed_min": 13.546484,
+      "speed_max": 13.608,
+      "direct_response_resources": {
+        "scope": "5-run medians; only direct counter intervals fully within response",
+        "system_cpu_percent": 1.2178619756427604,
+        "covered_seconds": 9.266643688999466,
+        "swap_in_bytes": 0,
+        "swap_out_bytes": 0
+      },
+      "npu_frequency_mhz_range": [
+        1008.0,
+        1008.0
+      ]
     }
   ],
   "gates": [
@@ -659,6 +1897,62 @@
       "l2": 0.04669877514243126,
       "cos": 0.9950805306434631,
       "argmax": 127,
+      "passed": true
+    },
+    {
+      "case": "smol500-h1024-n32",
+      "l2": 0.048278938978910446,
+      "cos": 0.9914977550506592,
+      "argmax": 128,
+      "passed": true
+    },
+    {
+      "case": "smol500-h1024-n64",
+      "l2": 0.046940069645643234,
+      "cos": 0.9962937235832214,
+      "argmax": 128,
+      "passed": true
+    },
+    {
+      "case": "smol500-h1024-n128",
+      "l2": 0.0462939627468586,
+      "cos": 0.9944897890090942,
+      "argmax": 127,
+      "passed": true
+    },
+    {
+      "case": "intern1b-h512-n32",
+      "l2": 0.04026646539568901,
+      "cos": 0.9978320002555847,
+      "argmax": 124,
+      "passed": true
+    },
+    {
+      "case": "intern1b-h512-n64",
+      "l2": 0.048132963478565216,
+      "cos": 0.9959872961044312,
+      "argmax": 126,
+      "passed": true
+    },
+    {
+      "case": "intern1b-h512-n128",
+      "l2": 0.0422133170068264,
+      "cos": 0.997722327709198,
+      "argmax": 126,
+      "passed": true
+    },
+    {
+      "case": "intern1b-h1024-n32",
+      "l2": 0.04755241796374321,
+      "cos": 0.9761946797370911,
+      "argmax": 126,
+      "passed": false
+    },
+    {
+      "case": "intern1b-h1024-n64",
+      "l2": 0.04796629026532173,
+      "cos": 0.9969614148139954,
+      "argmax": 126,
       "passed": true
     }
   ]

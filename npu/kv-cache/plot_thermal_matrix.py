@@ -11,7 +11,7 @@ data=json.loads((here/'evidence-thermal-20261013/summary.json').read_text())
 plt.rcParams.update({'svg.hashsalt':'opi-thermal-matrix-v1','font.size':9})
 colors={'low':'#1676b8','medium':'#df920d','high':'#c93d48'}
 bands={'low':'40–50°C','medium':'55–<65°C','high':'65–80°C'}
-for metric,label,name in [('decode_tokens_per_second','Decode (token/s)','decode'),('ttft_seconds','Time to first token (s)','ttft')]:
+for metric,label,name in [('decode_tokens_per_second','Decode (token/s)','decode'),('engine_ttft_seconds','Engine time to first token (s)','ttft')]:
     fig,axes=plt.subplots(2,2,figsize=(10,7),sharex=True)
     fig.subplots_adjust(top=.80,bottom=.12,hspace=.42,wspace=.22)
     for ax,(model,history) in zip(axes.flat,[(m,h) for m in ('smol500','intern1b') for h in (512,1024)]):
@@ -31,7 +31,7 @@ for metric,label,name in [('decode_tokens_per_second','Decode (token/s)','decode
     fig.suptitle('Full language model · 128 predictions · median of 5 runs\nStart-temperature bands; temperature may change during inference',y=.98,fontsize=11)
     note='Only quality-passed, completed results shown. Missing points are pending/failed.'
     if metric=='decode_tokens_per_second':note+=' Dotted 6 token/s line: approximate speech reference, language/tokenizer dependent.'
-    else:note+=' CPU includes local HTTP/SSE; NPU is in-process timing.'
+    else:note+=' Engine timing on both backends; excludes HTTP/SSE and visible-text buffering.'
     fig.text(.5,.02,note,ha='center',fontsize=7)
     fig.savefig(here/f'thermal-{name}.png',dpi=160,bbox_inches='tight')
     path=here/f'thermal-{name}.svg'

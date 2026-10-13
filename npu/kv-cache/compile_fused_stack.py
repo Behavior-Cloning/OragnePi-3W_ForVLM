@@ -37,6 +37,10 @@ p.add_argument('--node-trace',action='store_true')
 p.add_argument('--fp16-kv-cache',action='store_true')
 p.add_argument('--attention-probability-i16',action='store_true')
 p.add_argument('--sdk-option',action='append',default=[])
+p.add_argument('--fc-input-int8',choices=('gateup','all-w8'))
+p.add_argument('--fc-input-range-bits',type=int,choices=(0,1),default=0)
+p.add_argument('--fc-weight-dfp',choices=('gateup','all-w8'))
+p.add_argument('--fc-weight-dfp-method',choices=('peak','mse'),default='peak')
 p.add_argument('--reuse-blocks-from', help='reuse immutable blocks only when every source hash and graph option matches')
 a = p.parse_args()
 source = a.source.resolve()
@@ -47,6 +51,14 @@ count = len(m['layers'])
 assert count % a.width == 0
 base_records = json.loads((source / a.base / 'stack-conversion.json').read_text())
 def compatible(record, first):
+    if record.get('mlp_product_headroom'):
+        return False  # Explicitly changed range is never silently reused.
+    if record.get('fc_weight_dfp') != a.fc_weight_dfp:
+        return False
+    if record.get('fc_weight_dfp_method','peak') != a.fc_weight_dfp_method:
+        return False
+    if record.get('fc_input_int8') != a.fc_input_int8 or record.get('fc_input_range_bits',0) != a.fc_input_range_bits:
+        return False
     if record.get('fusion_width') != a.width or record.get('first_layer') != first:
         return False
     if record.get('compact_gqa', False) != a.compact_gqa:
@@ -130,6 +142,8 @@ def compile_block(first):
                 (['--fp16-kv-cache'] if a.fp16_kv_cache else []) +
                 (['--attention-probability-i16'] if a.attention_probability_i16 else []) +
                 [v for opt in a.sdk_option for v in ('--sdk-option',opt)] +
+                (['--fc-input-int8',a.fc_input_int8,'--fc-input-range-bits',str(a.fc_input_range_bits)] if a.fc_input_int8 else []) +
+                (['--fc-weight-dfp',a.fc_weight_dfp,'--fc-weight-dfp-method',a.fc_weight_dfp_method] if a.fc_weight_dfp else []) +
                 (['--compact-gqa'] if a.compact_gqa else []),
                 stdout=log, stderr=subprocess.STDOUT, check=True, timeout=340)
         record = json.loads((folder / 'conversion.json').read_text())

@@ -166,7 +166,7 @@
       "finished": 1791861388.6825314
     },
     "smol500-h512-n128": {
-      "status": "running",
+      "status": "partial",
       "started": 1791861389.5569777,
       "config": {
         "case": "smol500-h512-n128",
@@ -206,8 +206,581 @@
           "performance": "npu/results/thermal-aligned-20261013/smol500-h512-n128-low-npu.json"
         },
         "medium": {
-          "status": "running",
-          "cpu_path": "npu/results/thermal-aligned-20261013/smol500-h512-n128-medium-cpu"
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/smol500-h512-n128-medium-cpu",
+          "cpu": {
+            "ttft_seconds": 1.3630465239998557,
+            "decode_tokens_per_second": 21.0026082924251,
+            "total_seconds": 7.316532999999708,
+            "response_cpu_seconds": 14.599999999999994,
+            "preparation_seconds": 3.862250652000057
+          },
+          "npu": {
+            "decode_tokens_per_second": 17.992287,
+            "ttft_seconds": 1.866877,
+            "total_seconds": 8.924802,
+            "cpu_seconds": 0.249455,
+            "driver_allocated_bytes": 736570344,
+            "decode_decoder_api_seconds": 6.177141,
+            "decode_head_api_seconds": 0.690076,
+            "max_rss_kib": 23936,
+            "load_seconds": 0.722769
+          },
+          "performance": "npu/results/thermal-aligned-20261013/smol500-h512-n128-medium-npu.json"
+        }
+      },
+      "execution_gate": {
+        "applicable": true,
+        "relative_l2_limit": 0.05,
+        "min_cosine_limit": 0.99,
+        "argmax_match_min": 0.95,
+        "passed": true,
+        "scope": "execution on this trajectory only; not holdout quality acceptance"
+      },
+      "finished": 1791863121.963005
+    },
+    "smol500-h1024-n32": {
+      "status": "partial",
+      "started": 1791863122.9019556,
+      "config": {
+        "case": "smol500-h1024-n32",
+        "model": "smol500",
+        "model_id": "smolvlm-500m",
+        "history": 1024,
+        "new_tokens": 32,
+        "capacity": 1280,
+        "folder": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/aligned-20261013r2/smol500-h1024-n32",
+        "prompt_sha256": "86b76355596a196e8f7ddf64204b489e9cc96057375fcbeefb3cd73732ccfbe6",
+        "history_sha256": "7d7bca8f6c71cf5a6ba7becb3520aa7174d99f76fb3a50ef7be5283c2483d490"
+      },
+      "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-smol500-stable-v3-c128/w8-fused2-c1280-splitkv-transk/board-thermal3-smol500-h1024-n32",
+      "tag": "full-smol500-c1280-aligned32",
+      "bands": {
+        "low": {
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/smol500-h1024-n32-low-cpu",
+          "cpu": {
+            "ttft_seconds": 0.8896787579997181,
+            "decode_tokens_per_second": 17.57017243256547,
+            "total_seconds": 8.004488361999847,
+            "response_cpu_seconds": 15.969999999999999,
+            "preparation_seconds": 9.150153616000352
+          },
+          "npu": {
+            "decode_tokens_per_second": 17.066374,
+            "ttft_seconds": 0.61941,
+            "total_seconds": 8.060841,
+            "cpu_seconds": 0.206435,
+            "driver_allocated_bytes": 800861672,
+            "decode_decoder_api_seconds": 6.579347,
+            "decode_head_api_seconds": 0.685225,
+            "max_rss_kib": 28948,
+            "load_seconds": 0.96583
+          },
+          "performance": "npu/results/thermal-aligned-20261013/smol500-h1024-n32-low-npu.json"
+        },
+        "medium": {
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/smol500-h1024-n32-medium-cpu",
+          "cpu": {
+            "ttft_seconds": 0.7317131439999685,
+            "decode_tokens_per_second": 17.5809523255793,
+            "total_seconds": 7.842954202999863,
+            "response_cpu_seconds": 15.66000000000001,
+            "preparation_seconds": 9.152937155000018
+          },
+          "npu": {
+            "decode_tokens_per_second": 17.045972,
+            "ttft_seconds": 0.621959,
+            "total_seconds": 8.072202,
+            "cpu_seconds": 0.21652,
+            "driver_allocated_bytes": 800861672,
+            "decode_decoder_api_seconds": 6.582125,
+            "decode_head_api_seconds": 0.688529,
+            "max_rss_kib": 28688,
+            "load_seconds": 0.963625
+          },
+          "performance": "npu/results/thermal-aligned-20261013/smol500-h1024-n32-medium-npu.json"
+        }
+      },
+      "execution_gate": {
+        "applicable": true,
+        "relative_l2_limit": 0.05,
+        "min_cosine_limit": 0.99,
+        "argmax_match_min": 0.95,
+        "passed": true,
+        "scope": "execution on this trajectory only; not holdout quality acceptance"
+      },
+      "finished": 1791864088.36554
+    },
+    "smol500-h1024-n64": {
+      "status": "partial",
+      "started": 1791864089.3799496,
+      "config": {
+        "case": "smol500-h1024-n64",
+        "model": "smol500",
+        "model_id": "smolvlm-500m",
+        "history": 1024,
+        "new_tokens": 64,
+        "capacity": 1280,
+        "folder": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/aligned-20261013r2/smol500-h1024-n64",
+        "prompt_sha256": "4193c63b2ed8ec3499809c7e9c706893b19d32e0733ca2116da3685f30f28adf",
+        "history_sha256": "7d7bca8f6c71cf5a6ba7becb3520aa7174d99f76fb3a50ef7be5283c2483d490"
+      },
+      "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-smol500-stable-v3-c128/w8-fused2-c1280-splitkv-transk/board-thermal3-smol500-h1024-n64",
+      "tag": "full-smol500-c1280-aligned32",
+      "bands": {
+        "low": {
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/smol500-h1024-n64-low-cpu",
+          "cpu": {
+            "ttft_seconds": 1.2067880019999393,
+            "decode_tokens_per_second": 17.559306211072265,
+            "total_seconds": 8.32508867200022,
+            "response_cpu_seconds": 16.609999999999985,
+            "preparation_seconds": 9.15153294899983
+          },
+          "npu": {
+            "decode_tokens_per_second": 17.027738,
+            "ttft_seconds": 1.234174,
+            "total_seconds": 8.692866,
+            "cpu_seconds": 0.226401,
+            "driver_allocated_bytes": 800861672,
+            "decode_decoder_api_seconds": 6.58316,
+            "decode_head_api_seconds": 0.68844,
+            "max_rss_kib": 28688,
+            "load_seconds": 0.958457
+          },
+          "performance": "npu/results/thermal-aligned-20261013/smol500-h1024-n64-low-npu.json"
+        },
+        "medium": {
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/smol500-h1024-n64-medium-cpu",
+          "cpu": {
+            "ttft_seconds": 1.046654516000217,
+            "decode_tokens_per_second": 17.5489626421276,
+            "total_seconds": 8.169976530999975,
+            "response_cpu_seconds": 16.310000000000002,
+            "preparation_seconds": 9.171600549999766
+          },
+          "npu": {
+            "decode_tokens_per_second": 17.015525,
+            "ttft_seconds": 1.23644,
+            "total_seconds": 8.700212,
+            "cpu_seconds": 0.231295,
+            "driver_allocated_bytes": 800861672,
+            "decode_decoder_api_seconds": 6.582951,
+            "decode_head_api_seconds": 0.688669,
+            "max_rss_kib": 28692,
+            "load_seconds": 0.959869
+          },
+          "performance": "npu/results/thermal-aligned-20261013/smol500-h1024-n64-medium-npu.json"
+        }
+      },
+      "execution_gate": {
+        "applicable": true,
+        "relative_l2_limit": 0.05,
+        "min_cosine_limit": 0.99,
+        "argmax_match_min": 0.95,
+        "passed": true,
+        "scope": "execution on this trajectory only; not holdout quality acceptance"
+      },
+      "finished": 1791864960.8051956
+    },
+    "smol500-h1024-n128": {
+      "status": "partial",
+      "started": 1791864961.902671,
+      "config": {
+        "case": "smol500-h1024-n128",
+        "model": "smol500",
+        "model_id": "smolvlm-500m",
+        "history": 1024,
+        "new_tokens": 128,
+        "capacity": 1280,
+        "folder": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/aligned-20261013r2/smol500-h1024-n128",
+        "prompt_sha256": "054992387d7feaf686057d4338f58e6224ea0b740afba103513afa688f1bec99",
+        "history_sha256": "7d7bca8f6c71cf5a6ba7becb3520aa7174d99f76fb3a50ef7be5283c2483d490"
+      },
+      "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-smol500-stable-v3-c128/w8-fused2-c1280-splitkv-transk/board-thermal3-smol500-h1024-n128",
+      "tag": "full-smol500-c1280-aligned32",
+      "bands": {
+        "low": {
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/smol500-h1024-n128-low-cpu",
+          "cpu": {
+            "ttft_seconds": 1.9671549380000215,
+            "decode_tokens_per_second": 17.478350241916882,
+            "total_seconds": 9.120147576000818,
+            "response_cpu_seconds": 18.19999999999999,
+            "preparation_seconds": 9.148588320999806
+          },
+          "npu": {
+            "decode_tokens_per_second": 16.976842,
+            "ttft_seconds": 2.463583,
+            "total_seconds": 9.944362,
+            "cpu_seconds": 0.259439,
+            "driver_allocated_bytes": 800861672,
+            "decode_decoder_api_seconds": 6.589233,
+            "decode_head_api_seconds": 0.696178,
+            "max_rss_kib": 28944,
+            "load_seconds": 0.971307
+          },
+          "performance": "npu/results/thermal-aligned-20261013/smol500-h1024-n128-low-npu.json"
+        },
+        "medium": {
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/smol500-h1024-n128-medium-cpu",
+          "cpu": {
+            "ttft_seconds": 1.805680009999378,
+            "decode_tokens_per_second": 17.49530588544845,
+            "total_seconds": 8.951109655999971,
+            "response_cpu_seconds": 17.870000000000005,
+            "preparation_seconds": 9.144039071000407
+          },
+          "npu": {
+            "decode_tokens_per_second": 16.975857,
+            "ttft_seconds": 2.466181,
+            "total_seconds": 9.952643,
+            "cpu_seconds": 0.263349,
+            "driver_allocated_bytes": 800861672,
+            "decode_decoder_api_seconds": 6.58726,
+            "decode_head_api_seconds": 0.693254,
+            "max_rss_kib": 28812,
+            "load_seconds": 0.959249
+          },
+          "performance": "npu/results/thermal-aligned-20261013/smol500-h1024-n128-medium-npu.json"
+        }
+      },
+      "execution_gate": {
+        "applicable": true,
+        "relative_l2_limit": 0.05,
+        "min_cosine_limit": 0.99,
+        "argmax_match_min": 0.95,
+        "passed": true,
+        "scope": "execution on this trajectory only; not holdout quality acceptance"
+      },
+      "finished": 1791865867.1728585
+    },
+    "intern1b-h512-n32": {
+      "status": "partial",
+      "started": 1791865868.368495,
+      "config": {
+        "case": "intern1b-h512-n32",
+        "model": "intern1b",
+        "model_id": "internvl3-1b",
+        "history": 512,
+        "new_tokens": 32,
+        "capacity": 768,
+        "folder": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/aligned-20261013r2/intern1b-h512-n32",
+        "prompt_sha256": "5ce41b83c51cd9a168f1261e3e1b2f1668fe35163812ce48d3b1d6603f41c5ab",
+        "history_sha256": "5b28419d66a90051c941ec145ffabebb972c873c12b2bdc3996dafe921d00560"
+      },
+      "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c768-splitkv-i16mm/board-thermal3-intern1b-h512-n32",
+      "tag": "full-intern1b-c768-aligned32",
+      "bands": {
+        "low": {
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/intern1b-h512-n32-low-cpu",
+          "cpu": {
+            "ttft_seconds": 0.5336805050001203,
+            "engine_ttft_seconds": 0.529946,
+            "decode_tokens_per_second": 18.23671107377611,
+            "total_seconds": 7.498535445000016,
+            "response_cpu_seconds": 14.939999999999998,
+            "preparation_seconds": 3.905539281999154
+          },
+          "npu": {
+            "decode_tokens_per_second": 13.802387,
+            "ttft_seconds": 0.49998,
+            "total_seconds": 9.7007,
+            "cpu_seconds": 0.284589,
+            "driver_allocated_bytes": 868388808,
+            "decode_decoder_api_seconds": 6.648972,
+            "decode_head_api_seconds": 2.31062,
+            "max_rss_kib": 31764,
+            "load_seconds": 0.680929
+          },
+          "performance": "npu/results/thermal-aligned-20261013/intern1b-h512-n32-low-npu.json"
+        },
+        "medium": {
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/intern1b-h512-n32-medium-cpu",
+          "cpu": {
+            "ttft_seconds": 0.3729442010007915,
+            "engine_ttft_seconds": 0.37099,
+            "decode_tokens_per_second": 18.25033335599057,
+            "total_seconds": 7.333678002999477,
+            "response_cpu_seconds": 14.609999999999985,
+            "preparation_seconds": 3.903859275999821
+          },
+          "npu": {
+            "decode_tokens_per_second": 13.796734,
+            "ttft_seconds": 0.503375,
+            "total_seconds": 9.707311,
+            "cpu_seconds": 0.298715,
+            "driver_allocated_bytes": 868388808,
+            "decode_decoder_api_seconds": 6.649455,
+            "decode_head_api_seconds": 2.312977,
+            "max_rss_kib": 33560,
+            "load_seconds": 0.669542
+          },
+          "performance": "npu/results/thermal-aligned-20261013/intern1b-h512-n32-medium-npu.json"
+        }
+      },
+      "execution_gate": {
+        "applicable": true,
+        "relative_l2_limit": 0.05,
+        "min_cosine_limit": 0.99,
+        "argmax_match_min": 0.95,
+        "passed": true,
+        "scope": "execution on this trajectory only; not holdout quality acceptance"
+      },
+      "finished": 1791866964.4789162
+    },
+    "intern1b-h512-n64": {
+      "status": "partial",
+      "started": 1791866965.861511,
+      "config": {
+        "case": "intern1b-h512-n64",
+        "model": "intern1b",
+        "model_id": "internvl3-1b",
+        "history": 512,
+        "new_tokens": 64,
+        "capacity": 768,
+        "folder": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/aligned-20261013r2/intern1b-h512-n64",
+        "prompt_sha256": "e901734edafcaa82021fae567fa1af90ccb91a116272f0bc7540902918a26d30",
+        "history_sha256": "5b28419d66a90051c941ec145ffabebb972c873c12b2bdc3996dafe921d00560"
+      },
+      "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c768-splitkv-i16mm/board-thermal3-intern1b-h512-n64",
+      "tag": "full-intern1b-c768-aligned32",
+      "bands": {
+        "low": {
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/intern1b-h512-n64-low-cpu",
+          "cpu": {
+            "ttft_seconds": 0.7929678370001056,
+            "engine_ttft_seconds": 0.789149,
+            "decode_tokens_per_second": 18.27615821914812,
+            "total_seconds": 7.742214775999855,
+            "response_cpu_seconds": 15.430000000000007,
+            "preparation_seconds": 3.904627175999849
+          },
+          "npu": {
+            "decode_tokens_per_second": 13.75679,
+            "ttft_seconds": 0.981229,
+            "total_seconds": 10.213129,
+            "cpu_seconds": 0.279995,
+            "driver_allocated_bytes": 868388808,
+            "decode_decoder_api_seconds": 6.658539,
+            "decode_head_api_seconds": 2.345344,
+            "max_rss_kib": 33176,
+            "load_seconds": 0.660208
+          },
+          "performance": "npu/results/thermal-aligned-20261013/intern1b-h512-n64-low-npu.json"
+        },
+        "medium": {
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/intern1b-h512-n64-medium-cpu",
+          "cpu": {
+            "ttft_seconds": 0.6307121320005535,
+            "engine_ttft_seconds": 0.628808,
+            "decode_tokens_per_second": 18.254897882532465,
+            "total_seconds": 7.589304949000507,
+            "response_cpu_seconds": 15.120000000000005,
+            "preparation_seconds": 3.9038616440002443
+          },
+          "npu": {
+            "decode_tokens_per_second": 13.789135,
+            "ttft_seconds": 0.982616,
+            "total_seconds": 10.192699,
+            "cpu_seconds": 0.288308,
+            "driver_allocated_bytes": 868388808,
+            "decode_decoder_api_seconds": 6.650481,
+            "decode_head_api_seconds": 2.323771,
+            "max_rss_kib": 33052,
+            "load_seconds": 0.655884
+          },
+          "performance": "npu/results/thermal-aligned-20261013/intern1b-h512-n64-medium-npu.json"
+        }
+      },
+      "execution_gate": {
+        "applicable": true,
+        "relative_l2_limit": 0.05,
+        "min_cosine_limit": 0.99,
+        "argmax_match_min": 0.95,
+        "passed": true,
+        "scope": "execution on this trajectory only; not holdout quality acceptance"
+      },
+      "finished": 1791868307.3539505
+    },
+    "intern1b-h512-n128": {
+      "status": "partial",
+      "started": 1791868308.9493747,
+      "config": {
+        "case": "intern1b-h512-n128",
+        "model": "intern1b",
+        "model_id": "internvl3-1b",
+        "history": 512,
+        "new_tokens": 128,
+        "capacity": 768,
+        "folder": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/aligned-20261013r2/intern1b-h512-n128",
+        "prompt_sha256": "de9196cfa5548e4101f7ae713f7bc50c0ff258b3dbde4460c0ed32f7ad99b125",
+        "history_sha256": "5b28419d66a90051c941ec145ffabebb972c873c12b2bdc3996dafe921d00560"
+      },
+      "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c768-splitkv-i16mm/board-thermal3-intern1b-h512-n128",
+      "tag": "full-intern1b-c768-aligned32",
+      "bands": {
+        "low": {
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/intern1b-h512-n128-low-cpu",
+          "cpu": {
+            "ttft_seconds": 1.3418447229996673,
+            "engine_ttft_seconds": 1.338069,
+            "decode_tokens_per_second": 18.176046603955967,
+            "total_seconds": 8.329763855999772,
+            "response_cpu_seconds": 16.599999999999994,
+            "preparation_seconds": 3.906750653999552
+          },
+          "npu": {
+            "decode_tokens_per_second": 13.74424,
+            "ttft_seconds": 1.946104,
+            "total_seconds": 11.186368,
+            "cpu_seconds": 0.287118,
+            "driver_allocated_bytes": 868388808,
+            "decode_decoder_api_seconds": 6.65828,
+            "decode_head_api_seconds": 2.350652,
+            "max_rss_kib": 32792,
+            "load_seconds": 0.772673
+          },
+          "performance": "npu/results/thermal-aligned-20261013/intern1b-h512-n128-low-npu.json"
+        },
+        "medium": {
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/intern1b-h512-n128-medium-cpu",
+          "cpu": {
+            "ttft_seconds": 1.1814746390009532,
+            "engine_ttft_seconds": 1.179459,
+            "decode_tokens_per_second": 18.228102164637367,
+            "total_seconds": 8.149415698999292,
+            "response_cpu_seconds": 16.25,
+            "preparation_seconds": 3.907610657999612
+          },
+          "npu": {
+            "decode_tokens_per_second": 13.805599,
+            "ttft_seconds": 1.945222,
+            "total_seconds": 11.149955,
+            "cpu_seconds": 0.290399,
+            "driver_allocated_bytes": 868388808,
+            "decode_decoder_api_seconds": 6.652688,
+            "decode_head_api_seconds": 2.325882,
+            "max_rss_kib": 32660,
+            "load_seconds": 0.750093
+          },
+          "performance": "npu/results/thermal-aligned-20261013/intern1b-h512-n128-medium-npu.json"
+        }
+      },
+      "execution_gate": {
+        "applicable": true,
+        "relative_l2_limit": 0.05,
+        "min_cosine_limit": 0.99,
+        "argmax_match_min": 0.95,
+        "passed": true,
+        "scope": "execution on this trajectory only; not holdout quality acceptance"
+      },
+      "finished": 1791869851.7078018
+    },
+    "intern1b-h1024-n32": {
+      "status": "quality-failed",
+      "started": 1791869853.4733775,
+      "config": {
+        "case": "intern1b-h1024-n32",
+        "model": "intern1b",
+        "model_id": "internvl3-1b",
+        "history": 1024,
+        "new_tokens": 32,
+        "capacity": 1280,
+        "folder": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/aligned-20261013r2/intern1b-h1024-n32",
+        "prompt_sha256": "13a126ec7f408c3a21773c836e52b128a05a2eda473fb72530ddea02d8b4e857",
+        "history_sha256": "5e3f9e93f6763f5c156ae8e3574fe1cc951c5ad62adef172f7b33538a304e6ae"
+      },
+      "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-splitkv-i16mm/board-thermal3-intern1b-h1024-n32",
+      "tag": "full-intern1b-c1280-aligned32",
+      "bands": {
+        "low": {
+          "status": "npu-quality-failed",
+          "cpu_path": "npu/results/thermal-aligned-20261013/intern1b-h1024-n32-low-cpu",
+          "cpu": {
+            "ttft_seconds": 0.6704690139995364,
+            "engine_ttft_seconds": 0.665705,
+            "decode_tokens_per_second": 16.77073767740337,
+            "total_seconds": 8.2455009589994,
+            "response_cpu_seconds": 16.430000000000007,
+            "preparation_seconds": 8.802504318000501
+          }
+        },
+        "medium": {
+          "status": "npu-quality-failed",
+          "cpu_path": "npu/results/thermal-aligned-20261013/intern1b-h1024-n32-medium-cpu",
+          "cpu": {
+            "ttft_seconds": 0.5091775429991685,
+            "engine_ttft_seconds": 0.506863,
+            "decode_tokens_per_second": 16.75587742086146,
+            "total_seconds": 8.089277434000905,
+            "response_cpu_seconds": 16.120000000000005,
+            "preparation_seconds": 8.79181290499946
+          }
+        }
+      },
+      "execution_gate": {
+        "applicable": true,
+        "relative_l2_limit": 0.05,
+        "min_cosine_limit": 0.99,
+        "argmax_match_min": 0.95,
+        "passed": false,
+        "scope": "execution on this trajectory only; not holdout quality acceptance"
+      },
+      "finished": 1791871387.5933762
+    },
+    "intern1b-h1024-n64": {
+      "status": "running",
+      "started": 1791871389.4941316,
+      "config": {
+        "case": "intern1b-h1024-n64",
+        "model": "intern1b",
+        "model_id": "internvl3-1b",
+        "history": 1024,
+        "new_tokens": 64,
+        "capacity": 1280,
+        "folder": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/aligned-20261013r2/intern1b-h1024-n64",
+        "prompt_sha256": "32d64fe25d0730a1118931f8c0661d456366c8a2c262b54107d0c9ed4b4e9cc2",
+        "history_sha256": "5e3f9e93f6763f5c156ae8e3574fe1cc951c5ad62adef172f7b33538a304e6ae"
+      },
+      "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-splitkv-i16mm/board-thermal3-intern1b-h1024-n64",
+      "tag": "full-intern1b-c1280-aligned32",
+      "bands": {
+        "low": {
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/intern1b-h1024-n64-low-cpu",
+          "cpu": {
+            "ttft_seconds": 0.9652835870001581,
+            "engine_ttft_seconds": 0.960419,
+            "decode_tokens_per_second": 16.77775876885599,
+            "total_seconds": 8.5363582760001,
+            "response_cpu_seconds": 17.01000000000002,
+            "preparation_seconds": 8.795694712000113
+          },
+          "npu": {
+            "decode_tokens_per_second": 13.560161,
+            "ttft_seconds": 1.255418,
+            "total_seconds": 10.621104,
+            "cpu_seconds": 0.276457,
+            "driver_allocated_bytes": 910977960,
+            "decode_decoder_api_seconds": 6.815586,
+            "decode_head_api_seconds": 2.328448,
+            "max_rss_kib": 43932,
+            "load_seconds": 0.916053
+          },
+          "performance": "npu/results/thermal-aligned-20261013/intern1b-h1024-n64-low-npu.json"
         }
       },
       "execution_gate": {

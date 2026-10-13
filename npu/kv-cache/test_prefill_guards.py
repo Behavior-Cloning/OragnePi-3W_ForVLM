@@ -28,10 +28,13 @@ with tempfile.TemporaryDirectory(prefix='prefill-guards-',dir=root) as folder:
         records.append({'case':label,'exit_code':p.returncode,'stderr_tail':p.stderr.decode()[-180:]})
 print(json.dumps({'passed':True,'cases':records}))
 '''
-prefix=[str(Path.home()/'.local/bin/sshpass'),'-e'] if 'SSHPASS' in os.environ else []
-r=subprocess.run(prefix+['ssh','-o','ForwardX11=no','root@192.168.88.29',
-    'flock -w 1800 /run/opi-npu-kv-benchmark.lock python3 -c '+shlex.quote(code)],
-    check=True,capture_output=True,text=True,timeout=2400)
-result=json.loads(r.stdout)
-(Path(__file__).resolve().parents[2]/'npu/results/prefill-guards.json').write_text(json.dumps(result,indent=2)+'\n')
-print(json.dumps(result,indent=2))
+if __name__=='__main__':
+    from board_host_lock import lock_board_from_host
+    lock_board_from_host()
+    prefix=[str(Path.home()/'.local/bin/sshpass'),'-e'] if 'SSHPASS' in os.environ else []
+    r=subprocess.run(prefix+['ssh','-o','ForwardX11=no','root@192.168.88.29',
+        'flock -w 1800 /run/opi-npu-kv-benchmark.lock python3 -c '+shlex.quote(code)],
+        check=True,capture_output=True,text=True,timeout=2400)
+    result=json.loads(r.stdout)
+    (Path(__file__).resolve().parents[2]/'npu/results/prefill-guards.json').write_text(json.dumps(result,indent=2)+'\n')
+    print(json.dumps(result,indent=2))

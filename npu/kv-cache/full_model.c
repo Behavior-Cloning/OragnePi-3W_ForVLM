@@ -98,6 +98,19 @@ static void append_key(Tensor *dst,Tensor *src,int capacity,int pos,int tokens) 
 }
 /* Opt-in diagnostic readback, excluded from all performance results. */
 static FILE *audit_file;
+static void capture_decode_io(Layer *layer,unsigned ports,int output,int pos,int block) {
+    if(atoi(getenv("OPI_DECODE_CAPTURE_POSITION"))!=pos||
+       atoi(getenv("OPI_DECODE_CAPTURE_BLOCK"))!=block)return;
+    char path[1024];snprintf(path,sizeof(path),"%s-%s.f32",getenv("OPI_DECODE_CAPTURE_PREFIX"),output?"output":"input");
+    FILE *file=fopen(path,"wb");if(!file)exit(2);
+    for(unsigned port=0;port<ports;port++){
+        Tensor *t=output?&layer->out[port]:&layer->in[port];
+        for(unsigned j=0;j<t->count;j++){
+            float value=get(t,j);if(!isfinite(value)||fwrite(&value,sizeof(value),1,file)!=1)exit(2);
+        }
+    }
+    fclose(file);
+}
 static void audit_outputs(Layer *layer,unsigned no,const char *stage,int pos,int block) {
     if(!audit_file)return;
     for(unsigned o=0;o<no;o++){
@@ -165,6 +178,12 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     if((thermal_low||thermal_high)&&(thermal_low<35000||thermal_high>80000||thermal_high-thermal_low<5000))return 2;
     int group_size=getenv("OPI_DECODER_GROUP")?atoi(getenv("OPI_DECODER_GROUP")):0;
     if(group_size<0||group_size>blocks)return 2;
+    int capture_decode=getenv("OPI_DECODE_CAPTURE_PREFIX")!=NULL;
+    if(capture_decode){
+        if(performance||group_size||!getenv("OPI_DECODE_CAPTURE_POSITION")||!getenv("OPI_DECODE_CAPTURE_BLOCK"))return 2;
+        int position=atoi(getenv("OPI_DECODE_CAPTURE_POSITION")),block=atoi(getenv("OPI_DECODE_CAPTURE_BLOCK"));
+        if(position<prompt_count||position>=prompt_count+max_new-1||block<0||block>=blocks)return 2;
+    }
     FILE *token_file=fopen(argv[8],"w"),*logits_file=performance?NULL:fopen(argv[9],"wb");
     if(!token_file||(!performance&&!logits_file))return 2;
     const char *trace_path=getenv("OPI_FULL_TRACE");
@@ -173,6 +192,10 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     if(performance&&trace_path){fprintf(stderr,"performance and trace are exclusive\n");return 2;}
     FILE *trace_file=trace_path?fopen(trace_path,"wb"):NULL;
     if(trace_path&&!trace_file)return 2;
+    const char *block_trace_path=getenv("OPI_DECODE_BLOCK_TRACE");
+    if(block_trace_path&&(performance||trace_path))return 2;
+    FILE *block_trace=block_trace_path?fopen(block_trace_path,"wb"):NULL;
+    if(block_trace_path&&!block_trace)return 2;
     Layer *decoder=calloc(blocks,sizeof(*decoder)),head[HEAD_SHARDS];
     memset(head,0,sizeof(head));
     float *x=calloc(DIM,sizeof(float)),*logits=calloc(vocab,sizeof(float));
@@ -334,16 +357,18 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
                         put(&l->in[IN_COS(k)],j,rope_cos[j]);put(&l->in[IN_SIN(k)],j,rope_sin[j]);
                     }
                 }
+                if(capture_decode)capture_decode_io(l,ni,0,pos,i);
                 double prior=run_seconds;execute(l,ni,no,&run_seconds);
+                if(capture_decode)capture_decode_io(l,no,1,pos,i);
                 layer_seconds[i]+=run_seconds-prior;
                 if(pos>=prompt_count){
                     decode_decoder_seconds+=run_seconds-prior;decode_block_seconds[i]+=run_seconds-prior;
                 }
             }else{
-                for(unsigned j=(i==blocks-1||trace_file)?0:1;j<no;j++)check(vip_flush_buffer(l->out[j].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read grouped output");
+                for(unsigned j=(i==blocks-1||trace_file||(block_trace&&pos>=prompt_count))?0:1;j<no;j++)check(vip_flush_buffer(l->out[j].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read grouped output");
             }
             audit_outputs(l,no,"scalar",pos,i);
-            for(int j=0;(!group_size||i==blocks-1||trace_file)&&j<DIM;j++){
+            for(int j=0;(!group_size||i==blocks-1||trace_file||(block_trace&&pos>=prompt_count))&&j<DIM;j++){
                 x[j]=get(&l->out[0],j);
                 if(!isfinite(x[j])){fprintf(stderr,"NONFINITE position=%d layer=%d component=%d value=%g\n",pos,i,j,x[j]);return 3;}
             }
@@ -352,6 +377,7 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
                 for(int h=0;h<KV;h++)copy_values(&l->in[IN_V(k)],(h*capacity+pos)*HD,&l->out[OUT_V(k)],h*HD,HD);
             }
             if(trace_file&&fwrite(x,sizeof(float),DIM,trace_file)!=(size_t)DIM)return 2;
+            if(block_trace&&pos>=prompt_count&&fwrite(x,sizeof(float),DIM,block_trace)!=(size_t)DIM)return 2;
         }
         }
         if(pos<prompt_count-1)continue;
@@ -452,12 +478,15 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     fprintf(token_file,",\"prefill_scalar_block\":%d",prefill_tokens?batch.scalar_block:-1);
     fprintf(token_file,",\"key_cache_transposed\":%s,\"key_cache_layout_revision\":2",KEY_CACHE_TRANSPOSED?"true":"false");
     fprintf(token_file,",\"grouped_head\":%s",grouped_head?"true":"false");
+    fprintf(token_file,",\"capture_decode\":%s",capture_decode?"true":"false");
+    fprintf(token_file,",\"decode_block_trace\":%s",block_trace?"true":"false");
     fprintf(token_file,",\"max_response_temperature_mC\":%d,\"response_start_temperature_mC\":%d,\"response_cooldown_seconds\":%.6f",max_response_temp,response_temp,response_cooldown_seconds);
     fprintf(token_file,",\"thermal_low_mC\":%d,\"thermal_high_mC\":%d",thermal_low,thermal_high);
     fprintf(token_file,",\"response_start_monotonic_seconds\":%.6f",response_start_monotonic);
     fprintf(token_file,",\"prefill_rebind_outputs\":%s,\"poison_prefill_output\":%s,\"prefill_flush_output\":%s,\"capture_prefill\":%s",getenv("OPI_PREFILL_REBIND_OUTPUTS")?"true":"false",getenv("OPI_PREFILL_POISON_OUTPUT")?"true":"false",getenv("OPI_PREFILL_FLUSH_OUTPUT")?"true":"false",getenv("OPI_CAPTURE_PREFIX")?"true":"false");
     fprintf(token_file,",\"prefill_scalar_prefix\":%d,\"performance_mode\":%s,\"host_revision\":10,\"decoder_group_size\":%d,\"fusion_width\":%d,\"max_start_temperature_mC\":%d,\"npu_frequency_before_hz\":%lld,\"npu_frequency_after_hz\":%lld,\"cpu6_frequency_before_khz\":%lld,\"cpu6_frequency_after_khz\":%lld,\"fast_greedy\":%s,\"rss_after_inference_kib\":%ld,\"init_buffer_flush\":%s,\"audit_outputs\":%s}\n",scalar_prefix,performance?"true":"false",group_size,FUSED_LAYERS,max_start_temp,npu_freq_before,npu_freq_after,cpu_freq_before,cpu_freq_after,fast_greedy?"true":"false",rss_after_inference,getenv("OPI_INIT_BUFFER_FLUSH")?"true":"false",audit_file?"true":"false");
     if(trace_file)fclose(trace_file);
+    if(block_trace)fclose(block_trace);
     if(audit_file){fclose(audit_file);audit_file=NULL;}
     free(decode_block_seconds);
     fclose(token_file);if(logits_file)fclose(logits_file);munmap((void*)emb,emb_stat.st_size);munmap((void*)prompt,prompt_stat.st_size);

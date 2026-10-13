@@ -1,0 +1,290 @@
+{
+  "scope": "independent standard-library FP32 using dequantized GGUF Q8; workstation only; not original BF16 quality or CPU speed",
+  "transformers_version": "4.57.6",
+  "torch_version": "2.7.0+cu128",
+  "model_sha256": "e87f98e2945c91da1a324034143f2f3bad014dcf6b34d440fcf885c00704378f",
+  "script_sha256": "26ae1be641164417367c438821ad8ef84a72842550898052e548b101b8be0776",
+  "custom_oracle_source_sha256": "b1c87f33110c5c815fbed265c702ba86cf376a5f3b97d23e56e93b70d420e485",
+  "reference": "npu/results/full-intern1b-sharded-v2-c128/w8-fused2-c1280-splitkv-i16mm/board-thermal3-intern1b-h1024-n32",
+  "npu_logits_sha256": "4d729dd7a4cc2fe6cd32f48412f86f9918d63d84305371003121b7777fec22c2",
+  "config": {
+    "vocab_size": 151674,
+    "max_position_embeddings": 32768,
+    "hidden_size": 896,
+    "intermediate_size": 4864,
+    "num_hidden_layers": 24,
+    "num_attention_heads": 14,
+    "use_sliding_window": false,
+    "sliding_window": null,
+    "max_window_layers": 28,
+    "num_key_value_heads": 2,
+    "hidden_act": "silu",
+    "initializer_range": 0.02,
+    "rms_norm_eps": 9.999999974752427e-07,
+    "use_cache": true,
+    "rope_theta": 1000000.0,
+    "rope_scaling": null,
+    "attention_dropout": 0.0,
+    "layer_types": [
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention"
+    ],
+    "return_dict": true,
+    "output_hidden_states": false,
+    "torchscript": false,
+    "dtype": null,
+    "pruned_heads": {},
+    "tie_word_embeddings": false,
+    "chunk_size_feed_forward": 0,
+    "is_encoder_decoder": false,
+    "is_decoder": false,
+    "cross_attention_hidden_size": null,
+    "add_cross_attention": false,
+    "tie_encoder_decoder": false,
+    "architectures": null,
+    "finetuning_task": null,
+    "id2label": {
+      "0": "LABEL_0",
+      "1": "LABEL_1"
+    },
+    "label2id": {
+      "LABEL_0": 0,
+      "LABEL_1": 1
+    },
+    "task_specific_params": null,
+    "problem_type": null,
+    "tokenizer_class": null,
+    "prefix": null,
+    "bos_token_id": null,
+    "pad_token_id": null,
+    "eos_token_id": null,
+    "sep_token_id": null,
+    "decoder_start_token_id": null,
+    "max_length": 20,
+    "min_length": 0,
+    "do_sample": false,
+    "early_stopping": false,
+    "num_beams": 1,
+    "temperature": 1.0,
+    "top_k": 50,
+    "top_p": 1.0,
+    "typical_p": 1.0,
+    "repetition_penalty": 1.0,
+    "length_penalty": 1.0,
+    "no_repeat_ngram_size": 0,
+    "encoder_no_repeat_ngram_size": 0,
+    "bad_words_ids": null,
+    "num_return_sequences": 1,
+    "output_scores": false,
+    "return_dict_in_generate": false,
+    "forced_bos_token_id": null,
+    "forced_eos_token_id": null,
+    "remove_invalid_values": false,
+    "exponential_decay_length_penalty": null,
+    "suppress_tokens": null,
+    "begin_suppress_tokens": null,
+    "num_beam_groups": 1,
+    "diversity_penalty": 0.0,
+    "_name_or_path": "",
+    "transformers_version": "4.57.6",
+    "tf_legacy_loss": false,
+    "use_bfloat16": false,
+    "model_type": "qwen2",
+    "output_attentions": false
+  },
+  "layers": 24,
+  "history": 1024,
+  "new_tokens": 32,
+  "generated_predictions": 128,
+  "layer_errors": [
+    {
+      "layer": 0,
+      "relative_l2": 1.3339719532521268e-06,
+      "max_abs": 1.3232231140136719e-05,
+      "cosine": 0.9999999999990119
+    },
+    {
+      "layer": 1,
+      "relative_l2": 1.8724309255965347e-06,
+      "max_abs": 1.2874603271484375e-05,
+      "cosine": 0.9999999999981407
+    },
+    {
+      "layer": 2,
+      "relative_l2": 7.572992675925961e-07,
+      "max_abs": 2.5510787963867188e-05,
+      "cosine": 0.9999999999996844
+    },
+    {
+      "layer": 3,
+      "relative_l2": 4.381968759549534e-07,
+      "max_abs": 2.491474151611328e-05,
+      "cosine": 0.9999999999999051
+    },
+    {
+      "layer": 4,
+      "relative_l2": 4.359210903634074e-07,
+      "max_abs": 2.86102294921875e-05,
+      "cosine": 0.9999999999998783
+    },
+    {
+      "layer": 5,
+      "relative_l2": 4.177764237880933e-07,
+      "max_abs": 2.5033950805664062e-05,
+      "cosine": 0.9999999999998844
+    },
+    {
+      "layer": 6,
+      "relative_l2": 4.3117250854485475e-07,
+      "max_abs": 2.0287930965423584e-05,
+      "cosine": 0.9999999999998992
+    },
+    {
+      "layer": 7,
+      "relative_l2": 4.489362949119545e-07,
+      "max_abs": 2.384185791015625e-05,
+      "cosine": 0.9999999999998729
+    },
+    {
+      "layer": 8,
+      "relative_l2": 5.369082926568779e-07,
+      "max_abs": 2.944469451904297e-05,
+      "cosine": 0.9999999999998299
+    },
+    {
+      "layer": 9,
+      "relative_l2": 5.273049416055418e-07,
+      "max_abs": 2.872943878173828e-05,
+      "cosine": 0.9999999999998568
+    },
+    {
+      "layer": 10,
+      "relative_l2": 5.456645568327564e-07,
+      "max_abs": 2.8848648071289062e-05,
+      "cosine": 0.9999999999998309
+    },
+    {
+      "layer": 11,
+      "relative_l2": 5.290263694944936e-07,
+      "max_abs": 2.6226043701171875e-05,
+      "cosine": 0.9999999999998432
+    },
+    {
+      "layer": 12,
+      "relative_l2": 5.33090930127931e-07,
+      "max_abs": 2.574920654296875e-05,
+      "cosine": 0.9999999999998347
+    },
+    {
+      "layer": 13,
+      "relative_l2": 5.457901003112403e-07,
+      "max_abs": 2.345442771911621e-05,
+      "cosine": 0.9999999999998332
+    },
+    {
+      "layer": 14,
+      "relative_l2": 5.3456981364682e-07,
+      "max_abs": 2.485513687133789e-05,
+      "cosine": 0.9999999999998112
+    },
+    {
+      "layer": 15,
+      "relative_l2": 5.842549656857025e-07,
+      "max_abs": 3.147125244140625e-05,
+      "cosine": 0.9999999999997874
+    },
+    {
+      "layer": 16,
+      "relative_l2": 6.691810053389273e-07,
+      "max_abs": 3.361701965332031e-05,
+      "cosine": 0.999999999999727
+    },
+    {
+      "layer": 17,
+      "relative_l2": 6.985214630054543e-07,
+      "max_abs": 4.1484832763671875e-05,
+      "cosine": 0.9999999999997093
+    },
+    {
+      "layer": 18,
+      "relative_l2": 7.875517505366209e-07,
+      "max_abs": 5.340576171875e-05,
+      "cosine": 0.9999999999996131
+    },
+    {
+      "layer": 19,
+      "relative_l2": 8.89001145648693e-07,
+      "max_abs": 6.29425048828125e-05,
+      "cosine": 0.9999999999995165
+    },
+    {
+      "layer": 20,
+      "relative_l2": 9.633872153912626e-07,
+      "max_abs": 7.343292236328125e-05,
+      "cosine": 0.9999999999994517
+    },
+    {
+      "layer": 21,
+      "relative_l2": 1.2188776356682082e-06,
+      "max_abs": 0.00013256072998046875,
+      "cosine": 0.9999999999992003
+    },
+    {
+      "layer": 22,
+      "relative_l2": 1.3583543054117939e-06,
+      "max_abs": 0.0001201629638671875,
+      "cosine": 0.9999999999989845
+    },
+    {
+      "layer": 23,
+      "relative_l2": 1.7803104019422264e-06,
+      "max_abs": 0.00040435791015625,
+      "cosine": 0.9999999999983068
+    }
+  ],
+  "custom_vs_standard": {
+    "relative_l2": 2.24420309474536e-06,
+    "max_abs": 8.20159912109375e-05,
+    "cosine": 0.999999999996886
+  },
+  "standard_scalar_cache_vs_full": {
+    "relative_l2": 1.17286279300398e-06,
+    "max_abs": 3.1948089599609375e-05,
+    "cosine": 0.9999999999986774
+  },
+  "npu_vs_standard_q8": {
+    "relative_l2": 0.061938141632753956,
+    "max_abs": 3.606781005859375,
+    "cosine": 0.9981195372921373
+  },
+  "npu_mean_kl_vs_standard_q8": 0.003795616328716278,
+  "custom_argmax_matches_standard": 128,
+  "npu_argmax_matches_standard": 124,
+  "gate": {
+    "max_relative_l2": 0.0001,
+    "passed": true,
+    "scope": "oracle and standard cache consistency only; NPU quality has separate gates"
+  }
+}

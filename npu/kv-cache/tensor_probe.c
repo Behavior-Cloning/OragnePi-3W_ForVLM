@@ -18,6 +18,14 @@ int main(int argc,char **argv) {
     if(ni>TENSOR_MAX_INPUTS||no>TENSOR_MAX_OUTPUTS)return 2;
     int npd=getenv("OPI_PROBE_NPD")!=NULL;
     if(npd){vip_bool_e enabled=1;check(vip_set_network(layer.net,VIP_NETWORK_PROP_SET_ENABLE_NPD,&enabled),"enable NPD");}
+    int preload=getenv("OPI_PROBE_SRAM_PRELOAD")?atoi(getenv("OPI_PROBE_SRAM_PRELOAD")):-1;
+    vip_status_e preload_status=VIP_SUCCESS;
+    if(preload>=0){
+        if(preload>1)return 2;
+        vip_bool_e enabled=preload;
+        preload_status=vip_set_network(layer.net,VIP_NETWORK_PROP_SET_VIPSRAM_PRELOAD,&enabled);
+        fprintf(stderr,"SRAM preload requested=%d status=%d\n",preload,(int)preload_status);
+    }
     check(vip_prepare_network(layer.net),"prepare");
     for(unsigned output_flag=0;output_flag<2;output_flag++)for(unsigned i=0;i<(output_flag?no:ni);i++){
         unsigned dims=0,sizes[6]={0},count=1;
@@ -51,7 +59,11 @@ int main(int argc,char **argv) {
     size_t output_count=0;for(unsigned i=0;i<no;i++)output_count+=layer.out[i].count;
     float *first=calloc(output_count*(alternate?2:1),sizeof(float));if(!first)return 2;
     unsigned long long mismatches=0;int differing_repeats=0;
-    double seconds=0,resident_seconds=0;unsigned long long resident_mismatches=0;
+    double seconds=0,resident_seconds=0,api_seconds[100]={0};unsigned long long resident_mismatches=0;
+    int warmup=getenv("OPI_PROBE_WARMUP")?atoi(getenv("OPI_PROBE_WARMUP")):0;
+    if(warmup<0||warmup>10||(warmup&&npd))return 2;
+    double warmup_seconds=0;
+    for(int i=0;i<warmup;i++)execute(&layer,ni,no,&warmup_seconds);
     for(int i=0;i<repeats;i++){
         int phase=alternate?i%2:0;
         if(alternate){
@@ -62,7 +74,7 @@ int main(int argc,char **argv) {
             for(unsigned o=0;o<ni;o++)copy_values(&copies[c].in[o],0,&layer.in[o],0,layer.in[o].count);
             execute(&copies[c],ni,no,&resident_seconds);
         }
-        execute(&layer,ni,no,&seconds);size_t offset=0;int changed=0;
+        execute(&layer,ni,no,&api_seconds[i]);seconds+=api_seconds[i];size_t offset=0;int changed=0;
         for(unsigned o=0;o<no;o++)for(unsigned j=0;j<layer.out[o].count;j++,offset++){
             float value=get(&layer.out[o],j);if(!isfinite(value))return 3;
             size_t at=phase*output_count+offset;
@@ -85,5 +97,10 @@ int main(int argc,char **argv) {
     free(copies);free_net(&layer,ni,no);check(vip_destroy(),"destroy");
     FILE *result=fopen(argv[5],"w");if(!result)return 2;
     fprintf(result,"{\"repeats\":%d,\"mean_api_seconds\":%.9f,\"allocated_bytes\":%lld,\"released_bytes\":%lld,\"differing_repeats\":%d,\"mismatched_elements\":%llu,\"npd_enabled\":%s,\"temperature_before_mC\":%d,\"temperature_after_mC\":%d,\"cpu_seconds\":%.6f,\"resident_copies\":%d,\"resident_mismatched_elements\":%llu,\"resident_api_seconds\":%.6f}\n",repeats,seconds/repeats,allocated,npu_bytes(),differing_repeats,mismatches,npd?"true":"false",start_temp,temperature(),cpu_time()-cpu_start,resident,resident_mismatches,resident_seconds);
+    /* Append bounded probe diagnostics without changing production execution. */
+    if(fseek(result,-2,SEEK_CUR))return 2;
+    fprintf(result,",\"sram_preload_requested\":%d,\"sram_preload_status\":%d,\"warmup_repeats\":%d,\"api_seconds\":[",preload,(int)preload_status,warmup);
+    for(int i=0;i<repeats;i++)fprintf(result,"%s%.9f",i?",":"",api_seconds[i]);
+    fprintf(result,"]}\n");
     fclose(result);return 0;
 }

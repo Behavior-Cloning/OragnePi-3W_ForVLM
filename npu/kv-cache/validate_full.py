@@ -29,6 +29,9 @@ hidden=torch.from_numpy(embedding[tokens][None].copy())
 trace_path=board/'hidden-trace.f32'
 trace=np.fromfile(trace_path,np.float32).reshape(len(tokens),manifest['language_layers_total'],manifest['dim']) if trace_path.exists() else None
 trace_errors=[];constant_records=[]
+block_path=board/'decode-block-trace.f32'
+block_trace=np.fromfile(block_path,np.float32).reshape(result['generated_tokens']-1,manifest['language_layers_total']//fusion,manifest['dim']) if block_path.exists() else None
+block_errors=[]
 with torch.inference_mode():
     for index in range(manifest['language_layers_total']):
         layer=TrainedDecoder(reader,index).eval()
@@ -43,6 +46,12 @@ with torch.inference_mode():
                 for key,value in layer.state_dict().items():
                     assert torch.equal(value,batch_layer.state_dict()[key]), 'batch/decode constants differ: '+key
         hidden=layer.full(hidden)
+        if block_trace is not None and index%fusion==fusion-1:
+            ref=hidden.numpy()[0,len(prompt['token_ids']):];observed=block_trace[:,index//fusion,:]
+            assert observed.shape==ref.shape
+            relative_block=np.linalg.norm(observed-ref,axis=-1)/np.maximum(np.linalg.norm(ref,axis=-1),1e-20)
+            block_errors.append({'last_layer':index,'relative_l2':float(np.linalg.norm(observed-ref)/np.linalg.norm(ref)),
+                                 'step_relative_l2':relative_block.tolist(),'first_prediction_index':1})
         if trace is not None:
             ref=hidden.numpy()[0];actual_hidden=trace[:,index,:]
             relative_hidden=np.linalg.norm(actual_hidden-ref,axis=-1)/np.maximum(np.linalg.norm(ref,axis=-1),1e-20)
@@ -101,6 +110,7 @@ if result.get('fixed_feedback'):
         'perplexity_ratio':float(np.exp(actual_nll-reference_nll)),
         'scope':'development continuation, not independent holdout acceptance'}
 if trace is not None:summary['hidden_trace_errors']=trace_errors
+if block_trace is not None:summary['decode_block_errors']=block_errors
 reference=board/'cpu-full-reference.json'
 if not reference.exists():
     candidate=args.source/'cpu-full-reference.json'

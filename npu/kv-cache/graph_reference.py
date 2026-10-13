@@ -3,7 +3,7 @@ import torch
 import torch.nn.functional as F
 
 
-def evaluate(graph, data, feeds):
+def evaluate(graph, data, feeds, *, return_intermediates=False):
     nodes=graph['Layers'];cache={}
     def visit(key):
         if key in cache:return cache[key]
@@ -37,4 +37,5 @@ def evaluate(graph, data, feeds):
         assert torch.isfinite(y).all(),key
         cache[key]=y
         return y
-    return {node['name']:visit(key) for key,node in nodes.items() if node['op']=='output'}
+    outputs = {node['name']:visit(key) for key,node in nodes.items() if node['op']=='output'}
+    return (outputs, cache) if return_intermediates else outputs

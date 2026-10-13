@@ -53,7 +53,8 @@ def main():
                     assert gate and gate['execution_gate_v1']['passed']
                     assert data['config']['layers']==depth
                     assert data['config']['temperature_band_mC']==[low,high] or (band=='medium' and data['config']['temperature_band_mC']==[55000,65000] and high==64999)
-                    med=data['medians']['batch32'];runtime=[r['result'] for r in measures]
+                    med=dict(data['medians']['batch32']);runtime=[r['result'] for r in measures]
+                    med['engine_ttft_seconds']=med['ttft_seconds']
                     assert all(r['decoder_layers']==depth and r['head_on_npu'] and r['generated_tokens']==128 for r in runtime)
                     assert all(r['driver_after_release_bytes']==0 and r['feedback_tokens']==gate['runtime']['feedback_tokens'] for r in runtime)
                     assert data['config']['prompt_sha256']==c['prompt_sha256']
@@ -74,7 +75,8 @@ def main():
                         assert r['timings']['predicted_n']==128
                         assert abs(r['timings']['predicted_per_second']-127000/r['timings']['predicted_ms'])<1e-6
                         if gate:assert r['tokens']==gate['runtime']['feedback_tokens']
-                    med=data['medians'];runtime=measures;cpu_s=med['response_cpu_seconds'];driver=None
+                    med=dict(data['medians']);runtime=measures;cpu_s=med['response_cpu_seconds'];driver=None
+                    med['engine_ttft_seconds']=statistics.median(r['timings']['prompt_ms']/1000 for r in measures)
                     allsamples=[s for r in measures for s in r['system_samples']]
                     response_samples=[s for r in measures for s in r['system_samples']
                         if s['elapsed']>=r.get('response_observation_start_seconds',float('inf'))]
@@ -100,6 +102,14 @@ def main():
                     'conditioning_seconds_median':statistics.median(conditioning),
                     'speed_min':min(r['decode_tokens_per_second'] if backend=='npu' else r['timings']['predicted_per_second'] for r in runtime),
                     'speed_max':max(r['decode_tokens_per_second'] if backend=='npu' else r['timings']['predicted_per_second'] for r in runtime)}
+                direct=[r['resource_summary'] for r in measures if r.get('resource_summary',{}).get('intervals')]
+                if len(direct)==5:
+                    stats['direct_response_resources']={
+                        'scope':'5-run medians; only direct counter intervals fully within response',
+                        'system_cpu_percent':statistics.median(r['cpu']['cpu']['busy_percent'] for r in direct),
+                        'covered_seconds':statistics.median(r['covered_seconds'] for r in direct),
+                        'swap_in_bytes':statistics.median(r['swap_in_bytes'] for r in direct),
+                        'swap_out_bytes':statistics.median(r['swap_out_bytes'] for r in direct)}
                 if backend=='npu':
                     npu_freq=[s['health']['npu_frequency_hz']/1e6 for s in response_samples if 'npu_frequency_hz' in s['health']]
                     stats['npu_frequency_mhz_range']=[min(npu_freq),max(npu_freq)] if npu_freq else None
@@ -135,7 +145,7 @@ def main():
         '每模型：缓存512/1024 token × 新增32/64/128 token × 三温档，共36格。新增包含模板标记，CPU/NPU每格输入二进制相同；固定CPU greedy轨迹回灌，128步全词表预测，忽略EOS仅用于固定工作量。每温档独立诊断完整logits与已通过的参考逐字节相同，预热1次、正式5次。','',
         'CPU为历史筛选较快的llama.cpp Q8_0、2线程/两A76；尚未穷举长历史所有配置。NPU主体W8、敏感down FP16、KV与多数激活INT16；32-token批量prefill，500M转置K，1B普通K。CPU客户端TTFT含本机HTTP/SSE、可能受UTF-8输出缓冲影响；NPU是运行器首预测、不含HTTP。decode双方均统计首token之后127步。','',
         '## 五轮中位数','',
-        '| 模型 | 历史 | 新增 | 温档 | CPU token/s | NPU token/s | NPU/CPU | CPU TTFT s | NPU TTFT s | CPU总响应 s | NPU总响应 s |',
+        '| 模型 | 历史 | 新增 | 温档 | CPU token/s | NPU token/s | NPU/CPU | CPU HTTP首事件 s | NPU引擎首token s | CPU总响应 s | NPU总响应 s |',
         '| --- | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |']
     if state.get('status')=='blocked-storage':
         recovery=('用户已授权重启，但SSH认证成功后无法启动命令，普通重启和systemd正常重启信号请求均超时，是否执行未能确认；网页也超时。已请求现场断电再上电，等待恢复核查。[重启尝试记录](evidence-thermal-20261013/reboot-attempt.json)。'
@@ -151,6 +161,21 @@ def main():
         lines.append('| '+' | '.join([r['model'],str(r['history']),str(r['new_tokens']),names[r['band']],
             fmt(cpu.get('decode_tokens_per_second')),fmt(npu.get('decode_tokens_per_second')),fmt(ratio),
             fmt(cpu.get('ttft_seconds')),fmt(npu.get('ttft_seconds')),fmt(cpu.get('total_seconds')),fmt(npu.get('total_seconds'))])+' |')
+    lines+=['','## 统一引擎首token计时','',
+        '核对固定llama.cpp d812350源代码：server slot在prompt开始计时，首次完成采样时update_prompt_last；因此timings.prompt_ms包含新增prefill和首次采样，可与NPU进程内首预测对齐。此表排除HTTP/SSE和UTF-8缓冲，前表保留原客户端观测，历史原始数据不改写。真实网页首可见字仍需同接口验收。CPU runner revision5另修正响应结束后等待采样线程的计时偏差，并开始直接/proc资源采样；旧结果的总响应计时范围保留说明。','',
+        '| 模型 | 历史 | 新增 | 温档 | CPU引擎首token s | NPU引擎首token s |',
+        '| --- | ---: | ---: | --- | ---: | ---: |']
+    for r in rows:
+        if r['band']=='high' or not r.get('cpu') or not r.get('npu'):continue
+        lines.append('| '+' | '.join([r['model'],str(r['history']),str(r['new_tokens']),names[r['band']],
+            fmt(r['cpu']['engine_ttft_seconds']),fmt(r['npu']['engine_ttft_seconds'])])+' |')
+    lines+=['','## 直接采样的响应内资源','',
+        '新增记录只统计起止都在响应内的/proc计数区间，排除预热重叠；边界缺口用覆盖秒数披露。没有此记录的旧实验不填为0。系统CPU百分比以8核总时间为100%，swap为覆盖区间实际换入/换出增量。原始记录另含每核CPU、内存、PSS、驱动分配及物理磁盘I/O。','',
+        '| 场景 | 温档/后端 | 整机CPU % | 覆盖秒数 | swap换入/换出 MiB |',
+        '| --- | --- | ---: | ---: | ---: |']
+    for s in system:
+        d=s.get('direct_response_resources')
+        if d:lines.append(f'| {s["case"]} | {names[s["band"]]}/{s["backend"]} | {d["system_cpu_percent"]:.2f} | {d["covered_seconds"]:.2f} | {d["swap_in_bytes"]/2**20:.3f}/{d["swap_out_bytes"]/2**20:.3f} |')
     lines+=['','## 实测温度、频率与开销','',
         '1秒采样可能漏峰；早期时间序列读网页2秒缓存，响应边界可能混入先前预热温度，不能将其最高值认作推理时刻真实峰值。新版直接读取sysfs温度，每条来源归档；所有入档起温/终温一直为直接读取，不受网页缓存影响。频率降低可能是负载/调频策略变化，不能仅据频率低就判定热降频。CPU RSS为独立server进程，NPU RSS为宿主进程，驱动分配另列，不能仅比RSS。响应温度含起/终点；首格低温CPU缺分段时间标记，仅能给起/终点范围，完整流程采样仍归档。','',
         '| 场景 | 温档/后端 | 起温°C | 响应采样°C | A76采样MHz | 响应CPU s | RSS MiB | 驱动MiB | 温控准备 s |',
@@ -167,7 +192,7 @@ def main():
         lines+=['','## 未完成原因','']+[f'- {case}: {error}' for case,error in failures]
     lines+=['','## 曲线','',
         '![完整模型decode对比](thermal-decode.png)','',
-        '![完整模型首token延迟](thermal-ttft.png)','',
+        '![完整模型引擎首token延迟，两端均排除HTTP缓冲](thermal-ttft.png)','',
         '未分温档的过渡结果见[精确长度报告](精确长度全深度对标.md)，不混入本表。旧500M64新增对1B20新增的TTFT差异主要来自工作量不同；本轮用相同新增token档位替代比较。','',
         '图、模型、完整logits留本地；代码和小型证据进入Git。[归档汇总](evidence-thermal-20261013/summary.json)。重建命令：`npu/.venv/bin/python npu/kv-cache/report_thermal_matrix.py --root npu/results/thermal-aligned-20261013`。','']
     (here/'三温档全深度对标.md').write_text('\n'.join(lines))

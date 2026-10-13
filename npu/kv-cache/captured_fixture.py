@@ -30,7 +30,6 @@ for key in conversion['input_order']:
     node=graph['Layers'][key];shape=node['parameters']['shape'];count=int(np.prod(shape))
     feeds[node['name']]=torch.from_numpy(raw[offset:offset+count].reshape(shape).copy());offset+=count
 assert offset==raw.size and np.isfinite(raw).all()
-assert not conversion.get('key_cache_transposed'), 'original KV layout required'
 reader=gguf.GGUFReader(a.model)
 width=conversion['fusion_width'];n=conversion['query_tokens']
 def reference(exported):
@@ -39,6 +38,9 @@ def reference(exported):
         layer=TrainedDecoder(reader,conversion['first_layer']+i,True).eval()
         if exported:apply_exported_int8(layer,source,prefix=f'b{i}_')
         f={k:feeds[f'b{i}_'+k] for k in ('past_k','past_v','rope_cos','rope_sin')}
+        if conversion.get('key_cache_transposed'):
+            assert tuple(f['past_k'].shape[-2:]) == (layer.hd, conversion['capacity'])
+            f['past_k']=f['past_k'].transpose(-2,-1)
         x,k,v=layer(x,f['past_k'],f['past_v'],feeds[f'b{i}_mask'][:,:,:n],f['rope_cos'],f['rope_sin'])
         values.update({f'b{i}_attach_new_k/out0':k,f'b{i}_attach_new_v/out0':v})
     values[f'b{width-1}_attach_hidden_out/out0']=x
@@ -52,10 +54,12 @@ with torch.inference_mode():
     expected=reference(True)
     outputs=[graph['Layers'][k]['name'] for k in conversion['output_order']]
     np.concatenate([expected[k].numpy().ravel() for k in outputs]).tofile(a.output/'probe-reference.f32')
+    np.concatenate([original[k].numpy().ravel() for k in outputs]).tofile(a.output/'probe-original-reference.f32')
 shutil.copyfile(a.capture,a.output/'probe-input.f32')
 report={'scope':'actual captured NPU inputs, independent per-layer reference with exported constants',
     'capture_path':str(a.capture.resolve()),'capture_sha256':hashlib.sha256(a.capture.read_bytes()).hexdigest(),
     'capacity':conversion['capacity'],'query_tokens':n,'first_layer':conversion['first_layer'],
+    'key_cache_transposed':conversion.get('key_cache_transposed',False),
     'fp32_graph_errors':graph_errors,'outputs':[(k,expected[k].numel()) for k in outputs]}
 (a.output/'probe-fixture.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps(report,indent=2))

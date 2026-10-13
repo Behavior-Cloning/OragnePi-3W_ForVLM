@@ -47,9 +47,12 @@ with tempfile.TemporaryDirectory(prefix='feedback-guards-',dir=root) as name:
     assert fixed['result']['generated_tokens']==2 and fixed['result']['fixed_feedback']
 print(json.dumps({'cases':records,'passed':True}))
 '''.replace('REMOTE',repr(remote),1)
-p=subprocess.run(ssh+['flock -w 60 /run/opi-npu-kv-benchmark.lock python3 -c '+shlex.quote(code)],
-    capture_output=True,text=True,timeout=240,check=True)
-report=json.loads(p.stdout)
-path=root/'npu/results/fixed-feedback-guards.json'
-path.write_text(json.dumps(report,indent=2)+'\n')
-print('PASS: malformed feedback/capacity rejected; EOS override and complete logits verified.')
+if __name__=='__main__':
+    from board_host_lock import lock_board_from_host
+    lock_board_from_host()
+    p=subprocess.run(ssh+['flock -w 60 /run/opi-npu-kv-benchmark.lock python3 -c '+shlex.quote(code)],
+        capture_output=True,text=True,timeout=240,check=True)
+    report=json.loads(p.stdout)
+    path=root/'npu/results/fixed-feedback-guards.json'
+    path.write_text(json.dumps(report,indent=2)+'\n')
+    print('PASS: malformed feedback/capacity rejected; EOS override and complete logits verified.')

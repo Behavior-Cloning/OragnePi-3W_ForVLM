@@ -12,6 +12,8 @@ p=argparse.ArgumentParser();p.add_argument('--folder',type=Path,required=True);p
 p.add_argument('--max-l2',type=float,default=.05);p.add_argument('--min-cosine',type=float,default=.99)
 p.add_argument('--repeats',type=int,default=5)
 p.add_argument('--npd',action='store_true',help='enable SDK operator profiling; timing is diagnostic only')
+p.add_argument('--sram-preload',type=int,choices=(0,1),help='probe SDK coefficient preload capability; unsupported status fails acceptance')
+p.add_argument('--warmup',type=int,default=0,choices=range(11),help='unmeasured graph warmups, incompatible with NPD')
 p.add_argument('--result-dir',type=Path,help='retain each new measurement without overwriting fixture evidence')
 p.add_argument('--cpu-affinity',help='optional taskset CPU list')
 p.add_argument('--resident-copies',type=int,default=0,help='diagnostic identical prepared graphs interleaved before primary execution')
@@ -25,6 +27,8 @@ result_dir=a.result_dir or a.folder
 if a.result_dir:result_dir.mkdir(parents=True,exist_ok=False)
 assert 1<=a.repeats<=100
 assert 0<=a.resident_copies<=16 and not (a.npd and a.resident_copies)
+assert not (a.npd and a.warmup)
+assert not (a.resident_copies and a.sram_preload is not None), 'preload probe currently primary network only'
 from board_host_lock import lock_board_from_host
 lock_board_from_host()
 scripts=Path(__file__).resolve().parent;remote='/opt/opi-vlm/npu-kv-probe/'+a.tag
@@ -42,6 +46,8 @@ for source,name in files:subprocess.run(scp+[str(source),'root@192.168.88.29:'+r
 command='cd '+remote+' && cc -O2 -Wall -Wextra -Werror -DFUSED_LAYERS='+str(fusion_width)+' tensor_probe.c -lNBGlinker -lVIPhal -lm -o probe && ./probe model.nb input.f32 output.f32 '+str(a.repeats)+' timing.json'
 if a.alternate:command=command.replace('&& ./probe','&& OPI_PROBE_ALTERNATE=alternate.f32 ./probe')
 if a.npd:command=command.replace('./probe model.nb','env OPI_PROBE_NPD=1 ./probe model.nb')
+if a.sram_preload is not None:command=command.replace('./probe model.nb','env OPI_PROBE_SRAM_PRELOAD='+str(a.sram_preload)+' ./probe model.nb')
+if a.warmup:command=command.replace('./probe model.nb','env OPI_PROBE_WARMUP='+str(a.warmup)+' ./probe model.nb')
 if a.resident_copies:command=command.replace('./probe model.nb','env OPI_PROBE_RESIDENT_COPIES='+str(a.resident_copies)+' ./probe model.nb')
 if a.cpu_affinity:command=command.replace('./probe model.nb','taskset -c '+a.cpu_affinity+' ./probe model.nb')
 with (result_dir/'board-probe.log').open('w') as log:
@@ -61,8 +67,10 @@ for name,count in fixture['outputs']:
 assert offset==expected.size and rows, 'fixture must cover every output element'
 timing=json.loads((result_dir/'timing.json').read_text())
 passed=all(r['relative_l2']<=a.max_l2 and r['cosine']>=a.min_cosine for r in rows) and timing['differing_repeats']==0 and timing.get('resident_mismatched_elements',0)==0 and timing['released_bytes']==0
+passed=passed and timing.get('sram_preload_status',0)==0
 report={'fixture':fixture,'folder':str(a.folder),'cpu_affinity':a.cpu_affinity,'fusion_width':fusion_width,
         'binary_sha256':hashlib.sha256((a.folder/'export_nbg_unify/network_binary.nb').read_bytes()).hexdigest(),
+        'probe_source_sha256':hashlib.sha256((scripts/'tensor_probe.c').read_bytes()).hexdigest(),
         'input_sha256':hashlib.sha256((a.folder/'probe-input.f32').read_bytes()).hexdigest(),
         'alternate_fixture':json.loads((a.alternate/'probe-fixture.json').read_text()) if a.alternate else None,'errors':rows,'timing':timing,
         'gate':{'max_relative_l2':a.max_l2,'min_cosine':a.min_cosine,'passed':passed}}

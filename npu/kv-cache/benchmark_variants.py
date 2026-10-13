@@ -102,7 +102,7 @@ if a.fixed_feedback:
         assert expected.get('prefill_clear_output',False)==v['prefill_clear_output']
         assert expected.get('prefill_scalar_block',-1)==v['scalar_block']
         assert not any(expected.get(k,False) for k in ('poison_prefill_output','capture_prefill','prefill_rebind_outputs'))
-        assert not expected.get('audit_outputs',False), 'fingerprint readback is diagnostic only'
+        assert not any(expected.get(k,False) for k in ('audit_outputs','capture_decode','decode_block_trace')), 'readback is diagnostic only'
         assert (folder/'prompt.i32').read_bytes()==(a.reference/'prompt.i32').read_bytes()
         assert validation['execution_gate_v1']['passed'] and validation['runtime']==expected
         v['expected_tokens']=expected['tokens']
@@ -124,6 +124,8 @@ c = {'variants': variants, 'experiment': a.experiment, 'repeats': a.repeats,
      'logits_sha256': hashlib.sha256((a.reference / 'logits.f32').read_bytes()).hexdigest()}
 c['max_response_temperature_mC']=a.max_response_temp_mc
 c['temperature_band_mC']=a.temperature_band_mc
+sampler_source=Path(__file__).with_name('resource_sampler.py').read_text()
+c['resource_sampler_sha256']=hashlib.sha256(sampler_source.encode()).hexdigest()
 code = '''
 import hashlib,json,os,pathlib,subprocess,threading,time,urllib.request
 c=CONFIG
@@ -167,6 +169,8 @@ for phase in ('diagnostic','warmup','measure'):
             env.pop('OPI_FEEDBACK_FILE',None)
             env.pop('OPI_AUDIT_OUTPUTS',None);env.pop('OPI_INIT_BUFFER_FLUSH',None)
             env.pop('OPI_CAPTURE_PREFIX',None)
+            for key in ('OPI_DECODE_CAPTURE_PREFIX','OPI_DECODE_CAPTURE_POSITION','OPI_DECODE_CAPTURE_BLOCK'):env.pop(key,None)
+            env.pop('OPI_DECODE_BLOCK_TRACE',None)
             env.pop('OPI_HOST_OUTPUT_BUFFERS',None);env.pop('OPI_PREFILL_HOST_HIDDEN',None)
             for key in ('OPI_PREFILL_POISON_OUTPUT','OPI_PREFILL_REBIND_OUTPUTS','OPI_PREFILL_FLUSH_OUTPUT','OPI_PREFILL_CLEAR_OUTPUT','OPI_PREFILL_SCALAR_BLOCK'):env.pop(key,None)
             if v['scalar_block']>=0:env['OPI_PREFILL_SCALAR_BLOCK']=str(v['scalar_block'])
@@ -196,16 +200,24 @@ for phase in ('diagnostic','warmup','measure'):
                 'embeddings.f32',v['case']+'-prompt.i32',str(len(c['tokens'])),str(folder/'tokens.json'),
                 str(folder/'logits.f32'),str(c['eos'])]
             if c['host_cpu_affinity']:command=['taskset','-c',c['host_cpu_affinity']]+command
-            observations=[{'elapsed':0.,'monotonic_seconds':time.monotonic(),'health':health()}];errors=[];stop=threading.Event();started=time.monotonic()
+            resource_sampler=DirectSampler()
+            observations=[{'elapsed':0.,'monotonic_seconds':time.monotonic(),'health':health(),
+                           'resources':resource_sampler.snapshot()}];errors=[];stop=threading.Event();started=time.monotonic()
             def observe():
                 while not stop.wait(1):
-                    try:observations.append({'elapsed':time.monotonic()-started,'monotonic_seconds':time.monotonic(),'health':health()})
+                    try:observations.append({'elapsed':time.monotonic()-started,'monotonic_seconds':time.monotonic(),'health':health(),
+                                             'resources':resource_sampler.snapshot(child.pid)})
                     except Exception as exc:errors.append(str(exc))
-            observer=threading.Thread(target=observe);observer.start()
             with (folder/'run.stdout').open('w') as out,(folder/'run.stderr').open('w') as err:
-                try:subprocess.run(command,env=env,stdout=out,stderr=err,check=True,timeout=600)
-                finally:stop.set();observer.join()
-            observations.append({'elapsed':time.monotonic()-started,'monotonic_seconds':time.monotonic(),'health':health()})
+                with subprocess.Popen(command,env=env,stdout=out,stderr=err) as child:
+                    observer=threading.Thread(target=observe);observer.start()
+                    try:
+                        if child.wait(timeout=600):raise RuntimeError('NPU runner failed; see run.stderr')
+                    except BaseException:
+                        child.kill();child.wait();raise
+                    finally:stop.set();observer.join()
+            observations.append({'elapsed':time.monotonic()-started,'monotonic_seconds':time.monotonic(),'health':health(),
+                                 'resources':resource_sampler.snapshot()})
             assert not errors,errors
             r=json.loads((folder/'tokens.json').read_text())
             assert r['tokens']==v.get('expected_tokens',c['tokens']), 'prediction trajectory changed'
@@ -221,6 +233,7 @@ for phase in ('diagnostic','warmup','measure'):
             assert r.get('prefill_flush_output',False)==v['prefill_flush_output']
             assert r.get('prefill_clear_output',False)==v['prefill_clear_output']
             assert r.get('prefill_scalar_block',-1)==v['scalar_block']
+            assert not r.get('capture_decode',False)
             if 'key_cache_transposed' in v:
                 assert r.get('key_cache_transposed',False)==v['key_cache_transposed']
             assert r['driver_after_release_bytes']==0
@@ -232,7 +245,9 @@ for phase in ('diagnostic','warmup','measure'):
                 assert r['thermal_low_mC']==lo and r['thermal_high_mC']==hi
                 assert lo<=r['response_start_temperature_mC']<=hi, 'response outside requested temperature band'
             record={'phase':phase,'repeat':repeat,'label':v['label'],'result':r,'system_samples':observations,
-                    'monitor_scope':'1-second health snapshots; short concurrent requests between samples may be missed'}
+                    'resource_summary':response_summary([s['resources'] for s in observations],
+                        r['response_start_monotonic_seconds'],r['response_start_monotonic_seconds']+r['total_seconds']),
+                    'monitor_scope':'1-second direct proc/sys counters plus web readiness checks; boundary-overlapping intervals excluded'}
             if phase=='diagnostic':
                 digest=digest_file(folder/'logits.f32')
                 assert digest==v.get('expected_logits_sha256',c['logits_sha256']), 'complete logits changed'
@@ -242,6 +257,8 @@ for phase in ('diagnostic','warmup','measure'):
                 assert r['max_start_temperature_mC']==c['max_start_temperature_mC']
             print(json.dumps(record),flush=True)
 '''.replace('CONFIG', repr(c), 1)
+code = sampler_source + '\n' + code
+compile(code, '<remote-benchmark>', 'exec')
 prefix = [str(Path.home() / '.local/bin/sshpass'), '-e'] if 'SSHPASS' in os.environ else []
 ssh = prefix + ['ssh', '-o', 'ForwardX11=no', '-o', 'ConnectTimeout=8', 'root@192.168.88.29']
 report = {'config': c, 'status': 'running', 'runs': []}

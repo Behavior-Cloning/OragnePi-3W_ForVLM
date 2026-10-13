@@ -49,7 +49,17 @@ p.add_argument('--split-probability-identity',action='store_true',help='material
 p.add_argument('--split-softmax-i16',action='store_true',help='retain softmax arithmetic but quantize its probabilities to INT16 at the producer')
 p.add_argument('--split-current-matmul',action='store_true',help='use outer-product matmul for current V instead of cross-axis broadcasting')
 p.add_argument('--sdk-option',action='append',default=[],metavar='VIV_VX_NAME=VALUE',help='explicit SDK experiment, recorded in provenance')
+p.add_argument('--fc-input-int8',choices=('gateup','all-w8'),help='diagnostic local A8 converters for selected W8 matrices; preserve KV and outputs')
+p.add_argument('--fc-input-range-bits',type=int,choices=(0,1),default=0)
+p.add_argument('--fc-weight-dfp',choices=('gateup','all-w8'),help='diagnostic W8 single-scale weight encoding; separate from A8 trials')
+p.add_argument('--fc-weight-dfp-method',choices=('peak','mse'),default='peak')
+p.add_argument('--mlp-product-headroom',type=int,nargs=2,action='append',default=[],metavar=('LAYER','BITS'))
 a = p.parse_args()
+product_headroom=dict(a.mlp_product_headroom)
+assert len(product_headroom)==len(a.mlp_product_headroom)
+assert all(a.first<=layer<a.first+a.width and 1<=bits<=4 for layer,bits in product_headroom.items())
+assert a.fc_weight_dfp or a.fc_weight_dfp_method=='peak'
+assert not (a.fc_input_int8 and a.fc_weight_dfp), 'isolate activation and weight encoding trials'
 assert not (a.attention_fp16 and a.attention_fp16_convert)
 assert not (a.split_kv_side != 'both' or any((a.split_probability_i16, a.split_value_heads,
     a.split_value_fp16, a.split_value_transposed, a.split_probability_identity,
@@ -69,6 +79,9 @@ key_layout_changes = []
 attention_changes = []
 split_kv_changes = []
 fp16_kv_changes = []
+fc_input_changes = []
+fc_weight_changes = []
+product_range_changes = []
 manifest = json.loads((a.source / 'trained-manifest.json').read_text())
 previous_hidden = None
 for offset in range(a.width):
@@ -76,6 +89,17 @@ for offset in range(a.width):
     graph = json.loads((folder / 'decoder.json').read_text())
     q = yaml.safe_load((folder / 'decoder.quantize').read_text())
     data = np.load(folder / 'decoder.data', allow_pickle=True).item()
+    if a.first+offset in product_headroom:
+        from activation_ranges import widen_mlp_product
+        product_range_changes.append({'layer':a.first+offset,**widen_mlp_product(graph,q,product_headroom[a.first+offset])})
+    if a.fc_weight_dfp:
+        from fc_input_precision import convert_fc_weights_dfp
+        fc_weight_changes.append({'layer':a.first+offset,**convert_fc_weights_dfp(
+            graph,q,data,manifest['dim'],a.fc_weight_dfp,a.fc_weight_dfp_method)})
+    if a.fc_input_int8:
+        from fc_input_precision import convert_fc_inputs
+        fc_input_changes.append({'layer':a.first+offset,**convert_fc_inputs(
+            graph,q,data,manifest['dim'],a.fc_input_int8,a.fc_input_range_bits)})
     if a.value_output_fp16:
         for key,node in graph['Layers'].items():
             if node['name']=='attach_new_v/out0':
@@ -248,6 +272,9 @@ with (out / 'export.log').open('w') as log:
         subprocess.run(['docker', 'stop', '-t', '2', container], stdout=log, stderr=subprocess.STDOUT, timeout=15)
         status = 124
 report = {'first_layer': a.first, 'fusion_width': a.width, 'sources': sources,
+    'fc_input_int8':a.fc_input_int8,'fc_input_range_bits':a.fc_input_range_bits,'fc_input_changes':fc_input_changes,
+    'fc_weight_dfp':a.fc_weight_dfp,'fc_weight_dfp_method':a.fc_weight_dfp_method,'fc_weight_changes':fc_weight_changes,
+    'mlp_product_headroom':a.mlp_product_headroom,'mlp_product_changes':product_range_changes,
     'node_trace':a.node_trace,
     'fp16_kv_cache':a.fp16_kv_cache,'fp16_kv_changes':fp16_kv_changes,
     'attention_probability_i16':a.attention_probability_i16,

@@ -25,6 +25,8 @@ p.add_argument('--group-head',action='store_true',help='submit all complete outp
 p.add_argument('--init-buffer-flush',action='store_true',help='diagnostic explicit initialization cache flush')
 p.add_argument('--audit-outputs',action='store_true',help='diagnostic per-block output fingerprints; changes readback overhead')
 p.add_argument('--capture-prefill',type=int,nargs=2,metavar=('POSITION','BLOCK'),help='capture one real prefill graph input/output for isolated replay')
+p.add_argument('--capture-decode',type=int,nargs=2,metavar=('POSITION','BLOCK'),help='capture one real decode graph call; diagnostic ungrouped decoder only')
+p.add_argument('--trace-decode-blocks',action='store_true',help='diagnostic complete-stack hidden at every fused block for scalar decode positions')
 p.add_argument('--prefill-host-hidden',action='store_true',help='diagnostic host transfer between prefill blocks instead of aliasing')
 p.add_argument('--host-output-buffers',action='store_true',help='diagnostic SDK host-backed cached output allocations')
 p.add_argument('--prefill-rebind-outputs',action='store_true',help='diagnostic output rebinding before every batch call')
@@ -37,13 +39,18 @@ p.add_argument('--feedback-from',type=Path,help='tokens.json of a frozen continu
 p.add_argument('--reuse-tag',help='reuse immutable binaries from this deployed tag, hash-checking all reused files')
 p.add_argument('--reuse-prefill',action='store_true',help='also hard-link unchanged prefill binaries from reuse-tag; SHA checks remain mandatory')
 p.add_argument('--deploy-layers',type=int,nargs='+',default=[],help='new binaries to upload when --reuse-tag is used')
+p.add_argument('--deploy-prefill-layers',type=int,nargs='+',default=[],help='upload selected changed prefill graphs while hard-linking the others')
 p.add_argument('--prompt-folder',type=Path,help='case-specific prompt directory');args=p.parse_args()
 from board_host_lock import lock_board_from_host
 lock_board_from_host()
 if not args.tag.replace('-','').isalnum():raise ValueError('invalid tag')
 if args.trace and args.performance:raise ValueError('performance and trace are exclusive')
+assert not args.trace_decode_blocks or not any((args.performance,args.trace,args.capture_decode,args.capture_prefill))
 if args.capture_prefill:
     assert args.prefill_variant and not args.performance and min(args.capture_prefill)>=0
+if args.capture_decode:
+    assert not args.capture_prefill and not args.performance and not args.decoder_group
+    assert min(args.capture_decode)>=0
 assert not(args.poison_prefill_output and args.performance)
 assert not(args.audit_outputs and args.performance)
 if any((args.prefill_host_hidden,args.prefill_rebind_outputs,args.poison_prefill_output,args.prefill_flush_output,args.prefill_clear_output)):
@@ -53,6 +60,7 @@ if args.cpu_affinity:assert 0<len(args.cpu_affinity)<=24 and all(c in '01234567,
 if args.reuse_tag and (not args.reuse_tag.replace('-','').isalnum() or args.reuse_tag==args.tag or args.skip_deploy):
     raise ValueError('invalid reuse tag or conflicting skip-deploy')
 assert not args.reuse_prefill or (args.reuse_tag and args.prefill_variant)
+assert not args.deploy_prefill_layers or args.reuse_prefill
 if args.case and not args.case.replace('-','').isalnum():raise ValueError('invalid case')
 manifest=json.loads((args.source/'trained-manifest.json').read_text())
 count=len(manifest['layers'])
@@ -80,6 +88,7 @@ assert len(records)==count//args.fusion_width+len(head_shards) and not any(r['ex
 assert {r['layer'] for r in records}==set(range(0,count,args.fusion_width))|set(range(count,count+len(head_shards)))
 assert all(r.get('fusion_width',1)==args.fusion_width for r in records if r['layer']<count)
 assert set(args.deploy_layers).issubset({r['layer'] for r in records}), 'unknown replacement layer'
+assert set(args.deploy_prefill_layers).issubset({r['layer'] for r in prefill_records}), 'unknown replacement prefill layer'
 remote='/opt/opi-vlm/npu-kv-probe/'+args.tag
 prefix=[str(Path.home()/'.local/bin/sshpass'),'-e'] if 'SSHPASS' in os.environ else []
 ssh=prefix+['ssh','-o','ForwardX11=no','-o','ConnectTimeout=8','root@192.168.88.29']
@@ -100,6 +109,8 @@ assert prompt_count+args.max_new-1<=capacity
     'scalar_prefix':args.prefill_scalar_prefix,'init_buffer_flush':args.init_buffer_flush,
     'audit_outputs':args.audit_outputs,'decoder_group':args.decoder_group,
     'capture_prefill':args.capture_prefill,'prefill_host_hidden':args.prefill_host_hidden,
+    'capture_decode':args.capture_decode,
+    'decode_block_trace':args.trace_decode_blocks,
     'host_output_buffers':args.host_output_buffers,'prefill_rebind_outputs':args.prefill_rebind_outputs,
     'poison_prefill_output':args.poison_prefill_output,'prefill_flush_output':args.prefill_flush_output,
     'prefill_clear_output':args.prefill_clear_output,'prefill_scalar_block':args.prefill_scalar_block,
@@ -126,7 +137,7 @@ if files:
     hashes=[]
     for source,name in files:
         reuse=args.reuse_tag and (name=='embeddings.f32' or
-            (args.reuse_prefill and name.startswith('prefill-layer') and name.endswith('.nb')) or
+            (args.reuse_prefill and name.startswith('prefill-layer') and name.endswith('.nb') and int(name[13:-3]) not in args.deploy_prefill_layers) or
             (name.startswith('layer') and name.endswith('.nb') and int(name[5:-3]) not in args.deploy_layers))
         if reuse:
             original='/opt/opi-vlm/npu-kv-probe/'+args.reuse_tag+'/'+name
@@ -153,6 +164,7 @@ for name in ('prompt.json','prompt.i32'):
 command=(f'cd {remote} && mkdir -p {result_name} && timeout 600 ./{executable} . {len(manifest["layers"])} {capacity} '
          f'{manifest["vocab_size"]} embeddings.f32 {prompt_name} {args.max_new} {result_name}/tokens.json {result_name}/logits.f32 {manifest["eos_token_ids"][0]}')
 if args.trace:command=command.replace('timeout 600',f'OPI_FULL_TRACE={result_name}/hidden-trace.f32 timeout 600')
+if args.trace_decode_blocks:command=command.replace('timeout 600',f'OPI_DECODE_BLOCK_TRACE={result_name}/decode-block-trace.f32 timeout 600')
 if args.performance:command=command.replace('timeout 600','OPI_PERFORMANCE=1 timeout 600')
 if args.decoder_group:command=command.replace('timeout 600',f'OPI_DECODER_GROUP={args.decoder_group} timeout 600')
 if args.fast_greedy:command=command.replace('timeout 600','OPI_FAST_GREEDY=1 timeout 600')
@@ -169,6 +181,10 @@ if args.capture_prefill:
     position,block=args.capture_prefill
     assert block<count//args.fusion_width and position+prefill_tokens<=prompt_count
     command=command.replace('timeout 600',f'OPI_CAPTURE_POSITION={position} OPI_CAPTURE_BLOCK={block} OPI_CAPTURE_PREFIX={result_name}/capture timeout 600')
+if args.capture_decode:
+    position,block=args.capture_decode
+    assert block<count//args.fusion_width and prompt_count<=position<prompt_count+args.max_new-1
+    command=command.replace('timeout 600',f'OPI_DECODE_CAPTURE_POSITION={position} OPI_DECODE_CAPTURE_BLOCK={block} OPI_DECODE_CAPTURE_PREFIX={result_name}/decode-capture timeout 600')
 if args.prefill_variant:command=command.replace('timeout 600',f'OPI_PREFILL_TOKENS={prefill_tokens} timeout 600')
 if args.prefill_host_hidden:command=command.replace('timeout 600','OPI_PREFILL_HOST_HIDDEN=1 timeout 600')
 if args.cached_prefix:command=command.replace('timeout 600',f'OPI_CACHED_PREFIX={args.cached_prefix} timeout 600')
@@ -181,7 +197,7 @@ with (result_dir/'run.stdout').open('w') as out,(result_dir/'run.stderr').open('
     result=subprocess.run(ssh+[command],stdout=out,stderr=err,timeout=2500)
 (result_dir/'exit.json').write_text(json.dumps({'exit_code':result.returncode})+'\n')
 if result.returncode:raise SystemExit(result.returncode)
-for name in ('tokens.json',)+ (() if args.performance else ('logits.f32',))+ (('hidden-trace.f32',) if args.trace else ()) + (('output-audit.tsv',) if args.audit_outputs else ()) + (('capture-input.f32','capture-output.f32') if args.capture_prefill else ()):
+for name in ('tokens.json',)+ (() if args.performance else ('logits.f32',))+ (('hidden-trace.f32',) if args.trace else ()) + (('decode-block-trace.f32',) if args.trace_decode_blocks else ()) + (('output-audit.tsv',) if args.audit_outputs else ()) + (('capture-input.f32','capture-output.f32') if args.capture_prefill else ()) + (('decode-capture-input.f32','decode-capture-output.f32') if args.capture_decode else ()):
     subprocess.run(scp+['root@192.168.88.29:'+remote+'/'+result_name+'/'+name,str(result_dir/name)],check=True,timeout=120)
 result=json.loads((result_dir/'tokens.json').read_text())
 if result['prompt_tokens']!=len(json.loads((result_dir/'prompt.json').read_text())['token_ids']):

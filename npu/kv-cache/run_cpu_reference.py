@@ -13,6 +13,15 @@ p.add_argument('--context',type=int,required=True)
 p.add_argument('--tag',required=True)
 p.add_argument('--output',type=Path,required=True)
 p.add_argument('--repeats',type=int,default=5)
+p.add_argument('--threads',type=int,default=2)
+p.add_argument('--threads-batch',type=int)
+p.add_argument('--cpu-affinity',default='6,7')
+p.add_argument('--cpu-affinity-batch')
+p.add_argument('--batch-size',type=int,default=2048)
+p.add_argument('--ubatch-size',type=int,default=512)
+p.add_argument('--flash-attn',choices=['on','off','auto'],default='auto')
+p.add_argument('--binary',default='/opt/opi-vlm/bin/llama-server')
+p.add_argument('--max-start-temp-mc',type=int,default=68000)
 p.add_argument('--temperature-band-mc',type=int,nargs=2)
 a=p.parse_args()
 from board_host_lock import lock_board_from_host
@@ -28,6 +37,7 @@ scp=prefix+['scp','-o','ForwardX11=no','-o','ConnectTimeout=8']
 remote='/opt/opi-vlm/npu-kv-probe/'+a.tag
 subprocess.run(ssh+['mkdir -p '+remote],check=True,timeout=20)
 subprocess.run(scp+[str(Path(__file__).with_name('cpu_incremental_reference.py')),
+    str(Path(__file__).with_name('resource_sampler.py')),
     str(Path(__file__).with_name('thermal_condition.py')),
     str(Path(__file__).with_name('thermal_heater.c')),
     str(a.prompt_folder/'prompt.json'),'root@192.168.88.29:'+remote+'/'],check=True,timeout=60)
@@ -35,6 +45,12 @@ command=['python3',remote+'/cpu_incremental_reference.py','--model','/opt/opi-vl
     '--prompt',remote+'/prompt.json','--cached-prefix',str(prompt['cached_prefix']),
     '--context',str(a.context),'--steps','128','--repeats',str(a.repeats),'--output',remote+'/result']
 command.append('--capture-nonstream')
+command+=['--threads',str(a.threads),'--cpu-affinity',a.cpu_affinity,
+          '--batch-size',str(a.batch_size),'--ubatch-size',str(a.ubatch_size),'--flash-attn',a.flash_attn,
+          '--binary',a.binary]
+command+=['--max-start-temp-mc',str(a.max_start_temp_mc)]
+if a.threads_batch:command+=['--threads-batch',str(a.threads_batch)]
+if a.cpu_affinity_batch:command+=['--cpu-affinity-batch',a.cpu_affinity_batch]
 if a.temperature_band_mc:command+=['--temperature-band-mc',*map(str,a.temperature_band_mc)]
 build='cc -O3 -Wall -Wextra -Werror -march=armv8-a+simd '+remote+'/thermal_heater.c -pthread -o '+remote+'/thermal_heater'
 result_run=subprocess.run(ssh+['flock -w 1800 /run/opi-npu-kv-benchmark.lock sh -c '+shlex.quote(build+' && '+shlex.join(command))],timeout=3500)

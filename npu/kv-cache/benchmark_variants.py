@@ -18,6 +18,7 @@ p.add_argument('--output', type=Path, required=True)
 p.add_argument('--max-start-temp-mc', type=int, default=55000,
                help='explicit supplementary thermal condition; default preserves the original 55C protocol')
 p.add_argument('--fast-greedy',action='append',default=[],help='enable exact integer argmax for these variant labels')
+p.add_argument('--group-head',action='append',default=[],help='submit all vocabulary shards as one NPU group for these labels')
 p.add_argument('--init-buffer-flush',action='append',default=[],help='enable diagnostic buffer initialization flush for these labels')
 p.add_argument('--host-output-buffers',action='append',default=[],help='use SDK host-backed output allocations for these labels')
 p.add_argument('--prefill-host-hidden',action='append',default=[],help='host transfer between prefill blocks for these labels')
@@ -54,12 +55,14 @@ for label, tag, case, group, fusion in a.variant:
     assert 0 <= group <= len(m['layers']) // fusion
     variants.append({'label': label, 'remote': '/opt/opi-vlm/npu-kv-probe/' + tag,
                      'case': 'board-' + case, 'group': group, 'fusion': fusion,'fast_greedy':label in a.fast_greedy,
+                     'grouped_head':label in a.group_head,
                      'init_buffer_flush':label in a.init_buffer_flush,
                      'host_output_buffers':label in a.host_output_buffers,'prefill_host_hidden':label in a.prefill_host_hidden,
                      'prefill_flush_output':label in a.prefill_flush_output,
                      'prefill_clear_output':label in a.prefill_clear_output})
 assert len({v['label'] for v in variants}) == len(variants)
 assert set(a.fast_greedy).issubset({v['label'] for v in variants})
+assert set(a.group_head).issubset({v['label'] for v in variants})
 assert set(a.init_buffer_flush).issubset({v['label'] for v in variants})
 assert set(a.host_output_buffers).issubset({v['label'] for v in variants})
 assert set(a.prefill_host_hidden).issubset({v['label'] for v in variants})
@@ -133,6 +136,10 @@ def health():
     result['frequencies']={p.name:{n:(p/n).read_text().strip() for n in ('scaling_cur_freq','scaling_max_freq','scaling_governor')}
         for p in pathlib.Path('/sys/devices/system/cpu/cpufreq').glob('policy*')}
     result['npu_frequency_hz']=int(pathlib.Path('/sys/class/devfreq/3600000.npu/cur_freq').read_text())
+    result['metrics']['web_cached_temperature_c']=result['metrics']['temperature_c']
+    result['metrics']['temperature_c']=int(pathlib.Path('/sys/class/thermal/thermal_zone0/temp').read_text())/1000
+    result['temperature_sample_monotonic_seconds']=time.monotonic()
+    result['temperature_source']='sysfs-direct'
     return result
 def digest_file(path):
     digest=hashlib.sha256()
@@ -176,6 +183,8 @@ for phase in ('diagnostic','warmup','measure'):
             env['OPI_DECODER_GROUP']=str(v['group'])
             env.pop('OPI_FAST_GREEDY',None)
             if v['fast_greedy']:env['OPI_FAST_GREEDY']='1'
+            env.pop('OPI_GROUP_HEAD',None)
+            if v['grouped_head']:env['OPI_GROUP_HEAD']='1'
             env['OPI_MAX_START_TEMP_MC']=str(c['max_start_temperature_mC'])
             env.pop('OPI_MAX_RESPONSE_TEMP_MC',None)
             if c['max_response_temperature_mC']:env['OPI_MAX_RESPONSE_TEMP_MC']=str(c['max_response_temperature_mC'])
@@ -206,6 +215,7 @@ for phase in ('diagnostic','warmup','measure'):
             assert r.get('prefill_batch_size',0)==v['prefill_tokens'] and r.get('cached_prefix_tokens',0)==c['cached_prefix']
             assert r.get('prefill_scalar_prefix',0)==v['scalar_prefix']
             assert r.get('init_buffer_flush',False)==v['init_buffer_flush']
+            assert r.get('grouped_head',False)==v['grouped_head']
             assert r.get('host_output_buffers',False)==v['host_output_buffers']
             assert r.get('prefill_host_hidden',False)==v['prefill_host_hidden']
             assert r.get('prefill_flush_output',False)==v['prefill_flush_output']

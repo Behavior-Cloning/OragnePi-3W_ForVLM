@@ -90,6 +90,7 @@ def main():
                 stats={'case':case,'band':band,'backend':backend,'start_min_c':min(starts),'start_max_c':max(starts),
                     'response_sample_min_c':min(temps),'response_sample_max_c':max(temps),
                     'response_time_series_available':bool(response_samples),
+                    'temperature_time_series_source':'sysfs-direct' if response_samples and all(s['health'].get('temperature_source')=='sysfs-direct' for s in response_samples) else 'web-cache-up-to-2s; start/end are direct sysfs',
                     'a76_min_sample_mhz':min(frequencies)/1000 if frequencies else None,
                     'a76_max_sample_mhz':max(frequencies)/1000 if frequencies else None,
                     'cpu_seconds':cpu_s,'process_rss_mib':rss,'driver_mib':driver,
@@ -107,12 +108,13 @@ def main():
                 for run in data['runs']:
                     for sample in run.get('system_samples',[]):
                         sample['health']={k:v for k,v in sample['health'].items() if k in
-                            ('model_id','backend','ready','busy','loading','maintenance','metrics','frequencies','npu_frequency_hz')}
+                            ('model_id','backend','ready','busy','loading','maintenance','metrics','frequencies','npu_frequency_hz','temperature_source','temperature_sample_monotonic_seconds')}
                     for key in ('health_before','health_after'):
                         if key in run:run[key]={k:v for k,v in run[key].items() if k in ('model_id','backend','ready','busy','loading','maintenance','metrics')}
                 keep({'source_sha256':digest(path),'report':data,'summary':stats},case+'-'+band+'-'+backend+'.json')
             rows.append(row)
-    keep({'status':state['status'],'counts':counts,'bands_mC':state['bands_mC'],'rows':rows,'system':system,'gates':gates},'summary.json')
+    focus_counts={backend:sum(backend in r for r in rows if r['band'] in ('low','medium')) for backend in ('cpu','npu')}
+    keep({'status':state['status'],'counts':counts,'low_medium_counts':focus_counts,'bands_mC':state['bands_mC'],'rows':rows,'system':system,'gates':gates},'summary.json')
     keep(state,'state.json')
     attempts=[]
     for path in sorted(a.root.glob('*npu*.json')):
@@ -126,7 +128,7 @@ def main():
     keep(attempts,'attempts.json')
     lines=['# 三温档、精确token、完整深度CPU/NPU对标','',
         '2026-10-13。正式范围为SmolVLM-500M全部32层、InternVL3-1B全部24层，最终Norm、完整词表输出头及采样；仅语言部分，不测视觉编码。','',
-        f'完成CPU {counts["cpu"]}/36、通过完整数值门槛及五轮测速的NPU {counts["npu"]}/36；失败或精度未通过的输入场景 {counts["failed_cases"]}。空格为未完成，不能作为零速度。','',
+        f'当前优先低/中温：CPU {focus_counts["cpu"]}/24、通过完整数值门槛及五轮测速的NPU {focus_counts["npu"]}/24。含暂缓高温的原总矩阵仍为CPU {counts["cpu"]}/36、NPU {counts["npu"]}/36；失败或精度未通过的输入场景 {counts["failed_cases"]}。空格为未完成，不能作为零速度。','',
         '| 起始温档 | 实测温度范围 |','| --- | --- |','| 低温 | 40–50°C |','| 中温 | 55–低于65°C |','| 高温 | 65–80°C |','',
         '原高温设70–80°C，停预热后结温陡降导致两次无法进入/保持起温范围，尚无成功高温数据时改为65–80°C；旧失败记录保留，不重新贴标签。之前中温成功数据仍逐条检查实际温度<65°C。','',
         '温度在历史KV已准备好、增量响应开始时归档。预热使用独立CPU负载，正式计时前终止并等待所有预热线程退出；等待散热/预热单列，KV始终驻留。停止CPU负载后结温下降很快，当前预热停止阈值最多80°C，实际起测仍须落入标注温档，预热采样峰值另外保存。初版85°C阈值难以达到，失败日志保留。不修改系统温控和频率限制。推理期间允许自然升降温，因此是起温档位试验，不是恒温/稳态试验。温区不可达时记录失败，不强行填表。','',
@@ -140,6 +142,8 @@ def main():
                   if state.get('reboot_attempt',{}).get('status')=='awaiting-physical-power-cycle'
                   else '已停止后续排队和预热，存储恢复尚未验证。')
         lines[4:4]=['**当前因板端TF存储I/O阻塞暂停。** 内核报告SDMMC `wait dma hold bit clear timeout`，结果写入阻塞于`ext4_setattr`，多个系统进程也处于D状态；降至约35°C后仍未恢复。'+recovery+'不能据此直接判定TF卡损坏，供电、控制器调谐和温度相关性尚未定位。[只读故障证据](evidence-thermal-20261013/storage-fault.json)。高温CPU仅完成预热和1次，未计正式结果。','']
+    elif state.get('storage_recovery',{}).get('passed'):
+        lines[4:4]=['**断电重启后已恢复，续测限低/中温档。** 1 MiB临时文件写入、fsync、丢弃该文件页缓存后读回一致，36个部署图/embedding/CPU模型哈希匹配；核查时无D态进程、无启动10秒后的存储错误，网页ready。启动调谐阶段仍出现DMA hold timeout后成功挂载，不能认定故障只由过热引起，也不能凭小测试保证TF长期稳定。高温档暂缓，之前仅1次测量未计入正式结果。[恢复证据](evidence-thermal-20261013/storage-recovery.json)。','']
     names={'low':'低','medium':'中','high':'高'}
     def fmt(x):return '—' if x is None else f'{x:.3f}'
     for r in rows:
@@ -148,7 +152,7 @@ def main():
             fmt(cpu.get('decode_tokens_per_second')),fmt(npu.get('decode_tokens_per_second')),fmt(ratio),
             fmt(cpu.get('ttft_seconds')),fmt(npu.get('ttft_seconds')),fmt(cpu.get('total_seconds')),fmt(npu.get('total_seconds'))])+' |')
     lines+=['','## 实测温度、频率与开销','',
-        '1秒采样可能漏峰；频率降低可能是负载/调频策略变化，不能仅据频率低就判定热降频。CPU RSS为独立server进程，NPU RSS为宿主进程，驱动分配另列，不能仅比RSS。响应温度含起/终点；首格低温CPU缺分段时间标记，仅能给起/终点范围，完整流程采样仍归档。','',
+        '1秒采样可能漏峰；早期时间序列读网页2秒缓存，响应边界可能混入先前预热温度，不能将其最高值认作推理时刻真实峰值。新版直接读取sysfs温度，每条来源归档；所有入档起温/终温一直为直接读取，不受网页缓存影响。频率降低可能是负载/调频策略变化，不能仅据频率低就判定热降频。CPU RSS为独立server进程，NPU RSS为宿主进程，驱动分配另列，不能仅比RSS。响应温度含起/终点；首格低温CPU缺分段时间标记，仅能给起/终点范围，完整流程采样仍归档。','',
         '| 场景 | 温档/后端 | 起温°C | 响应采样°C | A76采样MHz | 响应CPU s | RSS MiB | 驱动MiB | 温控准备 s |',
         '| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |']
     for s in system:

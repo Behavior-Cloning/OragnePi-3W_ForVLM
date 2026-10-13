@@ -150,6 +150,7 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     }
     int performance=getenv("OPI_PERFORMANCE")!=NULL;
     int fast_greedy=getenv("OPI_FAST_GREEDY")!=NULL;
+    int grouped_head=getenv("OPI_GROUP_HEAD")!=NULL;
     if(performance&&(getenv("OPI_AUDIT_OUTPUTS")||getenv("OPI_CAPTURE_PREFIX")||getenv("OPI_PREFILL_POISON_OUTPUT")))return 2;
     if(getenv("OPI_AUDIT_OUTPUTS")){
         if(performance)return 2;
@@ -235,6 +236,13 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
         char path[1024];snprintf(path,sizeof(path),"%s/layer%d.nb",argv[1],count+s);
         unsigned width=(unsigned)(vocab-s*head_chunk<head_chunk?vocab-s*head_chunk:head_chunk);
         unsigned head_in[]={DIM},head_out[]={width};load_net(&head[s],path,1,1,head_in,head_out);
+    }
+    vip_group head_group=0;
+    if(grouped_head){
+        unsigned timeout=30000;
+        check(vip_create_group(HEAD_SHARDS,&head_group),"create output-head group");
+        check(vip_set_group(head_group,VIP_GROUP_PROP_SET_TIME_OUT,&timeout),"head group timeout");
+        for(int s=0;s<HEAD_SHARDS;s++)check(vip_add_network(head_group,head[s].net),"add output-head shard");
     }
     BatchPrefill batch=load_prefill(argv[1],prefill_tokens,blocks,capacity,decoder);
     double load_seconds=now()-load_start;long long allocated=npu_bytes();
@@ -348,11 +356,25 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
         }
         if(pos<prompt_count-1)continue;
         int fast_best=-1;float fast_value=-INFINITY;
+        if(grouped_head){
+            /* Preserve each shard's calibrated input scale and every output.
+             * Only submission/synchronization is grouped, not vocabulary work. */
+            for(int s=0;s<HEAD_SHARDS;s++){
+                for(int j=0;j<DIM;j++)put(&head[s].in[0],j,x[j]);
+                check(vip_flush_buffer(head[s].in[0].b,VIP_BUFFER_OPER_TYPE_FLUSH),"flush head group input");
+            }
+            double stamp=now();check(vip_run_group(head_group,HEAD_SHARDS),"run output-head group");
+            double elapsed=now()-stamp;run_seconds+=elapsed;head_seconds+=elapsed;
+            if(pos>=prompt_count)decode_head_seconds+=elapsed;
+            for(int s=0;s<HEAD_SHARDS;s++)check(vip_flush_buffer(head[s].out[0].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"read head group output");
+        }
         for(int s=0;s<HEAD_SHARDS;s++){
-            for(int j=0;j<DIM;j++)put(&head[s].in[0],j,x[j]);
-            double prior=run_seconds;execute(&head[s],1,1,&run_seconds);
-            head_seconds+=run_seconds-prior;
-            if(pos>=prompt_count)decode_head_seconds+=run_seconds-prior;
+            if(!grouped_head){
+                for(int j=0;j<DIM;j++)put(&head[s].in[0],j,x[j]);
+                double prior=run_seconds;execute(&head[s],1,1,&run_seconds);
+                head_seconds+=run_seconds-prior;
+                if(pos>=prompt_count)decode_head_seconds+=run_seconds-prior;
+            }
             Tensor *output=&head[s].out[0];
             if(fast_greedy){
                 unsigned best=0;
@@ -398,6 +420,7 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     long long npu_freq_after=read_frequency("/sys/class/devfreq/3600000.npu/cur_freq");
     long long cpu_freq_after=read_frequency("/sys/devices/system/cpu/cpu6/cpufreq/scaling_cur_freq");
     for(int g=0;g<group_count;g++)check(vip_destroy_group(groups[g]),"destroy decoder group");
+    if(grouped_head)check(vip_destroy_group(head_group),"destroy output-head group");
     free_prefill(&batch);
     for(int i=0;i<blocks;i++){free_net(&decoder[i],ni,no);}
     for(int s=0;s<HEAD_SHARDS;s++)free_net(&head[s],1,1);
@@ -428,6 +451,7 @@ int OPI_FULL_MODEL_ENTRY(int argc,char **argv) {
     fprintf(token_file,",\"prefill_clear_output\":%s",getenv("OPI_PREFILL_CLEAR_OUTPUT")?"true":"false");
     fprintf(token_file,",\"prefill_scalar_block\":%d",prefill_tokens?batch.scalar_block:-1);
     fprintf(token_file,",\"key_cache_transposed\":%s,\"key_cache_layout_revision\":2",KEY_CACHE_TRANSPOSED?"true":"false");
+    fprintf(token_file,",\"grouped_head\":%s",grouped_head?"true":"false");
     fprintf(token_file,",\"max_response_temperature_mC\":%d,\"response_start_temperature_mC\":%d,\"response_cooldown_seconds\":%.6f",max_response_temp,response_temp,response_cooldown_seconds);
     fprintf(token_file,",\"thermal_low_mC\":%d,\"thermal_high_mC\":%d",thermal_low,thermal_high);
     fprintf(token_file,",\"response_start_monotonic_seconds\":%.6f",response_start_monotonic);

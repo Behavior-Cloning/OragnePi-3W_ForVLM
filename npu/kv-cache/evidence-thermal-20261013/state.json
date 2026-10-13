@@ -15,7 +15,7 @@
   },
   "cases": {
     "smol500-h512-n32": {
-      "status": "blocked-storage",
+      "status": "partial",
       "started": 1791856891.4171424,
       "config": {
         "case": "smol500-h512-n32",
@@ -89,11 +89,10 @@
         "passed": true,
         "scope": "execution on this trajectory only; not holdout quality acceptance"
       },
-      "error": "high-cpu: exit 1, see npu/results/thermal-aligned-20261013/smol500-h512-n32-high-cpu-attempt2.log",
-      "finished": 1791859153.364113
+      "finished": 1791861108.7111938
     },
     "smol500-h512-n64": {
-      "status": "paused",
+      "status": "partial",
       "started": 1791857286.5607212,
       "config": {
         "case": "smol500-h512-n64",
@@ -131,6 +130,84 @@
             "max_rss_kib": 23424,
             "load_seconds": 0.773852
           }
+        },
+        "medium": {
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/smol500-h512-n64-medium-cpu",
+          "cpu": {
+            "ttft_seconds": 0.7711966530000041,
+            "decode_tokens_per_second": 21.176845670485616,
+            "total_seconds": 6.675701585000013,
+            "response_cpu_seconds": 13.319999999999993,
+            "preparation_seconds": 3.8643365020000147
+          },
+          "npu": {
+            "decode_tokens_per_second": 18.057461,
+            "ttft_seconds": 0.937907,
+            "total_seconds": 7.97143,
+            "cpu_seconds": 0.214395,
+            "driver_allocated_bytes": 736570344,
+            "decode_decoder_api_seconds": 6.17422,
+            "decode_head_api_seconds": 0.689409,
+            "max_rss_kib": 24320,
+            "load_seconds": 0.714522
+          },
+          "performance": "npu/results/thermal-aligned-20261013/smol500-h512-n64-medium-npu.json"
+        }
+      },
+      "execution_gate": {
+        "applicable": true,
+        "relative_l2_limit": 0.05,
+        "min_cosine_limit": 0.99,
+        "argmax_match_min": 0.95,
+        "passed": true,
+        "scope": "execution on this trajectory only; not holdout quality acceptance"
+      },
+      "finished": 1791861388.6825314
+    },
+    "smol500-h512-n128": {
+      "status": "running",
+      "started": 1791861389.5569777,
+      "config": {
+        "case": "smol500-h512-n128",
+        "model": "smol500",
+        "model_id": "smolvlm-500m",
+        "history": 512,
+        "new_tokens": 128,
+        "capacity": 768,
+        "folder": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/aligned-20261013r2/smol500-h512-n128",
+        "prompt_sha256": "2d5086231a37a9f5f89aaf51f093576844226afcc64554ff29b909cb5a12af35",
+        "history_sha256": "f36317f952b674a7e772d8fc23d480ba4b58c8a1dc8318c6974706554a978a0f"
+      },
+      "reference": "/media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w/npu/results/full-smol500-stable-v3-c128/w8-fused2-c768-splitkv-transk/board-thermal3-smol500-h512-n128",
+      "tag": "full-smol500-c768-aligned32",
+      "bands": {
+        "low": {
+          "status": "complete",
+          "cpu_path": "npu/results/thermal-aligned-20261013/smol500-h512-n128-low-cpu",
+          "cpu": {
+            "ttft_seconds": 1.4868078380000043,
+            "decode_tokens_per_second": 21.12084499345337,
+            "total_seconds": 7.402676969999902,
+            "response_cpu_seconds": 14.780000000000001,
+            "preparation_seconds": 3.8654216909999377
+          },
+          "npu": {
+            "decode_tokens_per_second": 18.00273,
+            "ttft_seconds": 1.865381,
+            "total_seconds": 8.919921,
+            "cpu_seconds": 0.245931,
+            "driver_allocated_bytes": 736570344,
+            "decode_decoder_api_seconds": 6.177371,
+            "decode_head_api_seconds": 0.691298,
+            "max_rss_kib": 24576,
+            "load_seconds": 0.721751
+          },
+          "performance": "npu/results/thermal-aligned-20261013/smol500-h512-n128-low-npu.json"
+        },
+        "medium": {
+          "status": "running",
+          "cpu_path": "npu/results/thermal-aligned-20261013/smol500-h512-n128-medium-cpu"
         }
       },
       "execution_gate": {
@@ -143,11 +220,22 @@
       }
     }
   },
-  "status": "blocked-storage",
+  "status": "running",
+  "storage_recovery": {
+    "evidence": "npu/kv-cache/evidence-thermal-20261013/storage-recovery.json",
+    "boot_id": "85fe2c18-1fc3-4f08-ac4f-a60e87678a1d",
+    "passed": true,
+    "resume_bands": [
+      "low",
+      "medium"
+    ],
+    "high_band": "deferred pending storage stability investigation",
+    "scope": "1 MiB fsynced write/read and 36 graph/model hashes passed; boot tuning timeouts remain; not proof of long-term stability"
+  },
   "reboot_attempt": {
-    "status": "awaiting-physical-power-cycle",
+    "status": "physical-power-cycle-confirmed",
     "evidence": "npu/kv-cache/evidence-thermal-20261013/reboot-attempt.json",
-    "reboot_confirmed": false
+    "reboot_confirmed": true
   },
   "protocol_revisions": [
     {
@@ -180,5 +268,9 @@
     ],
     "host_queue_stopped": true,
     "scope": "filesystem I/O failure is not model latency or an accepted high-temperature run"
-  }
+  },
+  "active_bands": [
+    "low",
+    "medium"
+  ]
 }

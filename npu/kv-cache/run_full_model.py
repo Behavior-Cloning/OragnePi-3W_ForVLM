@@ -21,6 +21,7 @@ p.add_argument('--prefill-variant',help='compatible batched graph stack, loaded 
 p.add_argument('--cached-prefix',type=int,default=0,help='prepare prefix KV before incremental TTFT timer starts')
 p.add_argument('--prefill-scalar-prefix',type=int,default=0,help='keep first N absolute positions on the proven single-token path')
 p.add_argument('--fast-greedy',action='store_true',help='compare shard integer maxima, checking against full FP32 argmax in diagnostic mode')
+p.add_argument('--group-head',action='store_true',help='submit all complete output-head shards in one group, preserving per-shard quantization')
 p.add_argument('--init-buffer-flush',action='store_true',help='diagnostic explicit initialization cache flush')
 p.add_argument('--audit-outputs',action='store_true',help='diagnostic per-block output fingerprints; changes readback overhead')
 p.add_argument('--capture-prefill',type=int,nargs=2,metavar=('POSITION','BLOCK'),help='capture one real prefill graph input/output for isolated replay')
@@ -93,6 +94,7 @@ prompt_count=len(json.loads((prompt_folder/'prompt.json').read_text())['token_id
 assert 0<=args.cached_prefix<prompt_count and 0<=args.prefill_scalar_prefix<=prompt_count
 assert prompt_count+args.max_new-1<=capacity
 (result_dir/'runner-config.json').write_text(json.dumps({'decode_variant':args.dtype,'prefill_variant':args.prefill_variant,
+    'grouped_head':args.group_head,
     'key_cache_transposed':key_cache_transposed,
     'capacity':capacity,'query_tokens':prefill_tokens,'cached_prefix':args.cached_prefix,
     'scalar_prefix':args.prefill_scalar_prefix,'init_buffer_flush':args.init_buffer_flush,
@@ -154,6 +156,7 @@ if args.trace:command=command.replace('timeout 600',f'OPI_FULL_TRACE={result_nam
 if args.performance:command=command.replace('timeout 600','OPI_PERFORMANCE=1 timeout 600')
 if args.decoder_group:command=command.replace('timeout 600',f'OPI_DECODER_GROUP={args.decoder_group} timeout 600')
 if args.fast_greedy:command=command.replace('timeout 600','OPI_FAST_GREEDY=1 timeout 600')
+if args.group_head:command=command.replace('timeout 600','OPI_GROUP_HEAD=1 timeout 600')
 if args.init_buffer_flush:command=command.replace('timeout 600','OPI_INIT_BUFFER_FLUSH=1 timeout 600')
 if args.host_output_buffers:command=command.replace('timeout 600','OPI_HOST_OUTPUT_BUFFERS=1 timeout 600')
 if args.prefill_rebind_outputs:command=command.replace('timeout 600','OPI_PREFILL_REBIND_OUTPUTS=1 timeout 600')

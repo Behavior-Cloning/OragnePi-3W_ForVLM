@@ -39,6 +39,10 @@ def api(path,body=None):
 def health():
     with opener.open('http://127.0.0.1:8080/api/health',timeout=5) as r:v=json.load(r)
     assert v['ready'] and not any(v[k] for k in ('busy','loading','maintenance'))
+    v['metrics']['web_cached_temperature_c']=v['metrics']['temperature_c']
+    v['metrics']['temperature_c']=temperature()/1000
+    v['temperature_sample_monotonic_seconds']=time.monotonic()
+    v['temperature_source']='sysfs-direct'
     return v
 def temperature():return int(Path('/sys/class/thermal/thermal_zone0/temp').read_text())
 def process_metrics(pid):

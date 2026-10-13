@@ -46,6 +46,8 @@ def main():
     state=json.loads(state_path.read_text()) if state_path.exists() else {'bands_mC':BANDS,'cases':{},'status':'running'}
     if state.get('status')=='blocked-storage':
         raise RuntimeError('board root TF storage stalled; verify storage recovery before explicitly clearing this status')
+    state['status']='running'
+    state['active_bands']=a.band or list(BANDS)
     if state['bands_mC']!={k:list(v) for k,v in BANDS.items()}:
         assert not any(e['bands'].get('high',{}).get('status')=='complete' for e in state['cases'].values())
         state.setdefault('protocol_revisions',[]).append({'old_bands_mC':state['bands_mC'],

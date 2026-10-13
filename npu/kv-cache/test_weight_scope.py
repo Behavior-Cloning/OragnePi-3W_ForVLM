@@ -6,6 +6,18 @@ from fc_input_precision import convert_fc_weights_dfp
 
 
 class WeightScopeTest(unittest.TestCase):
+    def test_mse_scale_limit_is_enforced_for_outlier_matrix(self):
+        graph={'Layers':{'gate':{'op':'fullconnect'}}}
+        quant={'quantize_parameters':{'@gate:weight':{'qtype':'i8','quantizer':'perchannel_symmetric_affine'}}}
+        matrix=np.full((4,65536),.13,np.float32);matrix[0,0]=32
+        data={'gate':{'weight':matrix}}
+        full=convert_fc_weights_dfp(graph,copy.deepcopy(quant),data,4,'gateup','mse')
+        limited=convert_fc_weights_dfp(graph,copy.deepcopy(quant),data,4,'gateup','mse',1)
+        peak=full['changes'][0]['scale_search'][0]['fl']
+        self.assertEqual([r['fl'] for r in limited['changes'][0]['scale_search']],[peak,peak+1])
+        self.assertLessEqual(limited['changes'][0]['after']['fl'],peak+1)
+        self.assertGreater(full['changes'][0]['after']['fl'],peak+1)
+
     def test_mlp_preserves_attention_v_fix_and_sensitive_weights(self):
         sizes = {'q': (4, 4), 'k': (4, 2), 'v': (4, 2), 'o': (4, 4),
                  'gate': (4, 12), 'up': (4, 12), 'down': (12, 4), 'sensitive': (12, 4)}

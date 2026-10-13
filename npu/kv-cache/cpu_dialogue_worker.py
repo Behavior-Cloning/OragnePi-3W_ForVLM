@@ -99,7 +99,11 @@ def main():
                     'cache_prompt': not request['reset'], 'stream': False,
                     'temperature': 0, 'seed': 42, 'ignore_eos': False,
                     'repeat_penalty': 1.0, 'return_tokens': True})
-                assert not aborts and result['tokens'], 'empty CPU token sequence or thermal abort'
+                # llama.cpp may return no visible tokens on immediate EOS.
+                # Preserve that as a quality failure instead of losing the
+                # remainder of the independent suite to a harness assertion.
+                assert not aborts, 'thermal abort'
+                assert isinstance(result['tokens'], list)
                 emit({'event': 'done', 'id': request['id'], 'result': result,
                       'elapsed_seconds': time.monotonic() - start,
                       'temperature_start_mC': before, 'temperature_end_mC': temperature()})

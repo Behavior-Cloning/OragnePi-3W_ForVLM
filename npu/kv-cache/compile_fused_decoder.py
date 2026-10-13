@@ -53,12 +53,14 @@ p.add_argument('--fc-input-int8',choices=('gateup','all-w8'),help='diagnostic lo
 p.add_argument('--fc-input-range-bits',type=int,choices=(0,1),default=0)
 p.add_argument('--fc-weight-dfp',choices=('gateup','mlp','all-w8'),help='diagnostic W8 single-scale weight encoding; separate from A8 trials')
 p.add_argument('--fc-weight-dfp-method',choices=('peak','mse'),default='peak')
+p.add_argument('--fc-weight-dfp-max-extra-bits',type=int,choices=range(7),default=6)
 p.add_argument('--mlp-product-headroom',type=int,nargs=2,action='append',default=[],metavar=('LAYER','BITS'))
 a = p.parse_args()
 product_headroom=dict(a.mlp_product_headroom)
 assert len(product_headroom)==len(a.mlp_product_headroom)
 assert all(a.first<=layer<a.first+a.width and 1<=bits<=4 for layer,bits in product_headroom.items())
 assert a.fc_weight_dfp or a.fc_weight_dfp_method=='peak'
+assert a.fc_weight_dfp_max_extra_bits==6 or (a.fc_weight_dfp and a.fc_weight_dfp_method=='mse')
 assert not (a.fc_input_int8 and a.fc_weight_dfp), 'isolate activation and weight encoding trials'
 assert not (a.attention_fp16 and a.attention_fp16_convert)
 assert not (a.split_kv_side != 'both' or any((a.split_probability_i16, a.split_value_heads,
@@ -95,7 +97,7 @@ for offset in range(a.width):
     if a.fc_weight_dfp:
         from fc_input_precision import convert_fc_weights_dfp
         fc_weight_changes.append({'layer':a.first+offset,**convert_fc_weights_dfp(
-            graph,q,data,manifest['dim'],a.fc_weight_dfp,a.fc_weight_dfp_method)})
+            graph,q,data,manifest['dim'],a.fc_weight_dfp,a.fc_weight_dfp_method,a.fc_weight_dfp_max_extra_bits)})
     if a.fc_input_int8:
         from fc_input_precision import convert_fc_inputs
         fc_input_changes.append({'layer':a.first+offset,**convert_fc_inputs(
@@ -274,6 +276,7 @@ with (out / 'export.log').open('w') as log:
 report = {'first_layer': a.first, 'fusion_width': a.width, 'sources': sources,
     'fc_input_int8':a.fc_input_int8,'fc_input_range_bits':a.fc_input_range_bits,'fc_input_changes':fc_input_changes,
     'fc_weight_dfp':a.fc_weight_dfp,'fc_weight_dfp_method':a.fc_weight_dfp_method,'fc_weight_changes':fc_weight_changes,
+    'fc_weight_dfp_max_extra_bits':a.fc_weight_dfp_max_extra_bits,
     'mlp_product_headroom':a.mlp_product_headroom,'mlp_product_changes':product_range_changes,
     'node_trace':a.node_trace,
     'fp16_kv_cache':a.fp16_kv_cache,'fp16_kv_changes':fp16_kv_changes,

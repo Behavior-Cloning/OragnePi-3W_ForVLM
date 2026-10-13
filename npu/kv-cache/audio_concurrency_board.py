@@ -18,7 +18,7 @@ import time
 import urllib.request
 
 from resident_worker import ResidentWorker
-from resource_sampler import DirectSampler, response_summary
+from resource_sampler import DirectSampler, response_summary, process_snapshot
 from thermal_condition import condition, temperature
 
 
@@ -207,13 +207,25 @@ def main():
                     if enabled:
                         audio.begin()
                     sampler = DirectSampler()
-                    samples = [sampler.snapshot(pid)]
+                    def snapshot():
+                        sample=sampler.snapshot(pid)
+                        # The ASR model is resident even with compute disabled;
+                        # show its own memory instead of attributing it to LLM.
+                        try:
+                            proc,err=process_snapshot(Path('/proc')/str(audio.process.pid),audio.process.pid,False)
+                            sample['asr_process']=proc
+                            sample['errors'].update({'asr_'+k:v for k,v in err.items()})
+                        except (OSError,KeyError) as exc:
+                            sample['errors']['asr_process']=str(exc)
+                        sample['sampling_seconds']=time.monotonic()-sample['monotonic_seconds']
+                        return sample
+                    samples = [snapshot()]
                     errors = []
                     stop = threading.Event()
                     def observe():
                         while not stop.wait(.25):
                             try:
-                                samples.append(sampler.snapshot(pid))
+                                samples.append(snapshot())
                             except Exception as exc:
                                 errors.append(str(exc))
                     observer = threading.Thread(target=observe)

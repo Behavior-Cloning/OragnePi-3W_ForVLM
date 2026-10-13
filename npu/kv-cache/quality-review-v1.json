@@ -1,0 +1,49 @@
+{
+  "suite_sha256": "5ff6c053a14c75d9364c17b8616817c7c32ae4b75b1762239824acb5d0e0ebb0",
+  "reviewer": "Codex qualitative review of complete three-turn transcripts; not a blinded human panel",
+  "scope": "Acceptance observations only. Do not use these cases for tuning and still claim independent v1 acceptance.",
+  "models": {
+    "smol500": {
+      "reference_sha256": "36d65929aed70455c058da4a673914b9bccfa3d5945fb76c65bf19e3bfe13d51",
+      "npu_result_sha256": "42d23ba5841d539d322949cd6342c0e17e89348525694faed962b9e562222413",
+      "board_cpu_review": "pending actual llama.cpp answers",
+      "companion_accepted": false,
+      "summary": "英语能维持Pip角色和Bean/纸箱记忆，但双方均未保留更正后的Sam。中文有明显能力不足，NPU另有角色丢失和机械复读；不能据聚合数值通过宣称陪伴质量通过。",
+      "scenarios": [
+        {"id":"en-listen","reference":"未满足","npu":"未满足","observation":"标准参考称可以提供建议，NPU拒绝倾听；第3轮双方都未回忆最初的倾听要求。"},
+        {"id":"en-role","reference":"满足","npu":"满足","observation":"三轮均维持Pip角色，第3轮正确回答Pip。"},
+        {"id":"en-memory","reference":"部分满足","npu":"满足","observation":"双方第3轮保留Bean与纸箱；标准参考第2轮错误称猫喜欢新床，NPU正确复述忽略新床。"},
+        {"id":"en-correction","reference":"未满足","npu":"未满足","observation":"虽第2轮回应Sam，第3轮双方都退回Robin。"},
+        {"id":"en-boundary","reference":"满足","npu":"满足","observation":"都较简短，没有继续追问事情经过。"},
+        {"id":"en-play","reference":"部分满足","npu":"满足","observation":"标准参考首轮达到96token并截断；NPU更简短，第3轮继续了盒子与月亮的故事。"},
+        {"id":"zh-listen","reference":"未满足","npu":"未满足","observation":"标准参考复读或复述问题；NPU三轮重复‘你要说什么？’。"},
+        {"id":"zh-role","reference":"部分满足","npu":"未满足","observation":"标准参考前两轮机械复述但最终记得小豆；NPU后两轮重复‘说话简短一点’并未回答名字。"},
+        {"id":"zh-memory","reference":"未满足","npu":"部分满足","observation":"标准参考前两轮无关，末轮只说芝麻；NPU前两轮用英语误谈餐巾，末轮正确回答芝麻与纸箱。"},
+        {"id":"zh-correction","reference":"未满足","npu":"未满足","observation":"双方继续以Little Lin回答而未明确采用阿林；NPU末轮还混淆用户与助手称呼。"},
+        {"id":"zh-boundary","reference":"未满足","npu":"未满足","observation":"标准参考反复谈灯光，NPU反复谈留宝石，均不自然且偏离安静陪伴。"},
+        {"id":"zh-play","reference":"未满足","npu":"未满足","observation":"标准参考反复说捡到钥匙；NPU反复把钥匙或月亮捡到手机，缺少自然推进。"}
+      ]
+    },
+    "intern1b": {
+      "reference_sha256": "518c29550b9b3234174311a7366f613df5f2349e44bb0d5cbe35f319f020eadf",
+      "npu_result_sha256": "9f96dddb05c86b64e09aad4397b214fa90cfa841b4c29a437db32fa3dd504c81",
+      "board_cpu_review": "pending actual llama.cpp answers",
+      "companion_accepted": false,
+      "summary": "36条固定轨迹逐例与聚合数值均过线，Pip、Bean、Sam及阿林可记住。自由回答仍有违背‘只听不建议’、中文机械复述和询问已知猫名等问题；数值通过不等于陪伴产品通过。",
+      "scenarios": [
+        {"id":"en-listen","reference":"部分满足","npu":"未满足","observation":"双方第3轮正确复述最初要求；NPU前两轮主动提供指导和建议列表，违反只倾听要求，标准参考也带引导式建议。"},
+        {"id":"en-role","reference":"满足","npu":"满足","observation":"双方保持Pip名称与友好机器人角色，NPU花园回答相对简短。"},
+        {"id":"en-memory","reference":"满足","npu":"满足","observation":"双方正确处理忽略新床，并在第3轮回答Bean与纸箱。"},
+        {"id":"en-correction","reference":"满足","npu":"满足","observation":"双方第3轮均采用更正后的Sam。"},
+        {"id":"en-boundary","reference":"部分满足","npu":"部分满足","observation":"双方没有要求解释事情，但多次使用客服式‘How can I assist’；NPU后两轮偏长，安静陪伴不够自然。"},
+        {"id":"en-play","reference":"部分满足","npu":"部分满足","observation":"双方能延续故事，但首轮达到96token并截断；末轮标准参考超过一句，NPU满足一句但回到阁楼线索。"},
+        {"id":"zh-listen","reference":"未满足","npu":"未满足","observation":"标准参考未回忆最初要求；NPU首轮机械复述，后两轮重复追问吃了什么，没有利用尚未吃饭的信息。"},
+        {"id":"zh-role","reference":"部分满足","npu":"部分满足","observation":"双方前两轮有角色混淆或复述，第3轮均能说自己叫小豆。"},
+        {"id":"zh-memory","reference":"部分满足","npu":"未满足","observation":"双方前两轮可谈芝麻与新窝但啰嗦；NPU末轮提到芝麻后又要求用户告诉名字，未回答纸箱偏好。标准参考也无关地索要更多信息。"},
+        {"id":"zh-correction","reference":"满足","npu":"满足","observation":"双方采用阿林，NPU末轮简短回答阿林。"},
+        {"id":"zh-boundary","reference":"部分满足","npu":"满足","observation":"标准参考第2轮仍主动询问可帮什么；NPU三轮简短，后两轮说明不会打扰。"},
+        {"id":"zh-play","reference":"部分满足","npu":"未满足","observation":"标准参考首两轮过长，但末轮加入月亮对话；NPU前两轮简短衔接，末轮退回复读开头。"}
+      ]
+    }
+  }
+}

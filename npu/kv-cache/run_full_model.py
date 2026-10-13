@@ -210,7 +210,9 @@ with (result_dir/'run.stdout').open('w') as out,(result_dir/'run.stderr').open('
 (result_dir/'exit.json').write_text(json.dumps({'exit_code':result.returncode})+'\n')
 if result.returncode:raise SystemExit(result.returncode)
 for name in ('tokens.json',)+ (() if args.performance else ('logits.f32',))+ (('hidden-trace.f32',) if args.trace else ()) + (('decode-block-trace.f32',) if args.trace_decode_blocks else ()) + (('output-audit.tsv',) if args.audit_outputs else ()) + (('capture-input.f32','capture-output.f32') if args.capture_prefill else ()) + (('decode-capture-input.f32','decode-capture-output.f32') if args.capture_decode else ()):
-    subprocess.run(scp+['root@192.168.88.29:'+remote+'/'+result_name+'/'+name,str(result_dir/name)],check=True,timeout=120)
+    temporary=result_dir/(name+'.download')
+    subprocess.run(scp+['root@192.168.88.29:'+remote+'/'+result_name+'/'+name,str(temporary)],check=True,timeout=120)
+    temporary.replace(result_dir/name)
 result=json.loads((result_dir/'tokens.json').read_text())
 if result['prompt_tokens']!=len(json.loads((result_dir/'prompt.json').read_text())['token_ids']):
     raise ValueError('deployed prompt length mismatch')

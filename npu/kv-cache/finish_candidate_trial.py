@@ -32,13 +32,18 @@ def main():
     candidate=a.source/a.dtype/('board-'+a.case)
     try:
         save();deadline=time.monotonic()+10800
-        while not (candidate/'tokens.json').exists():
+        manifest=json.loads((a.source/'trained-manifest.json').read_text())
+        while True:
             if (candidate/'exit.json').exists():
                 assert json.loads((candidate/'exit.json').read_text())['exit_code']==0,'full runner failed'
+            try:
+                runtime=json.loads((candidate/'tokens.json').read_text())
+                if (candidate/'logits.f32').stat().st_size==runtime['generated_tokens']*manifest['vocab_size']*4:
+                    break
+            except (FileNotFoundError,json.JSONDecodeError):
+                pass  # A queued full runner may still be retrieving evidence.
             assert time.monotonic()<deadline,'full runner did not finish before deadline'
             time.sleep(15)
-        runtime=json.loads((candidate/'tokens.json').read_text())
-        manifest=json.loads((a.source/'trained-manifest.json').read_text())
         assert runtime['decoder_layers']==manifest['language_layers_total']
         assert runtime['generated_tokens']==128 and runtime['head_on_npu'] and runtime['fixed_feedback']
         state['status']='validating-full-logits';save()

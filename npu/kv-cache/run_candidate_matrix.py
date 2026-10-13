@@ -63,7 +63,19 @@ def main():
                 time.sleep(15)
             if request.get('wait_reference'):
                 row['active']='waiting-existing-full-run';save()
-                while not (reference/'tokens.json').exists():
+                expected_bytes=128*json.loads((source/'trained-manifest.json').read_text())['vocab_size']*4
+                # The producer owns validation too. Waiting only for tokens
+                # allowed a second runner to overwrite its validation files.
+                def reference_ready():
+                    try:
+                        if (reference/'logits.f32').stat().st_size != expected_bytes:
+                            return False
+                        for name in ('tokens.json', 'full-validation-w8.json', 'full-validation.json'):
+                            json.loads((reference/name).read_text())
+                        return True
+                    except (FileNotFoundError, json.JSONDecodeError):
+                        return False
+                while not reference_ready():
                     if (reference/'exit.json').exists():
                         assert json.loads((reference/'exit.json').read_text())['exit_code']==0, 'dependent full run failed'
                     if time.monotonic()>deadline:

@@ -244,10 +244,32 @@
             "path": "npu/results/cpu-q8-search-20261013/smol500-h1024-n64-fa-off/results.json",
             "repeats": 2,
             "quality": "same frozen greedy predictions; independent holdout not yet accepted"
+          },
+          "decode2-prefill6-strict": {
+            "config": {
+              "threads": 2,
+              "affinity": "6,7",
+              "threads_batch": 6,
+              "ubatch": 512,
+              "flash": "auto",
+              "affinity_batch": "2-7"
+            },
+            "aligned": true,
+            "medians": {
+              "ttft_seconds": 1.1648035924990836,
+              "engine_ttft_seconds": 1.045356,
+              "decode_tokens_per_second": 17.614651191451344,
+              "total_seconds": 8.258862038499501,
+              "response_cpu_seconds": 19.85000000000001,
+              "preparation_seconds": 7.217582103501627
+            },
+            "path": "npu/results/cpu-q8-search-20261013/smol500-h1024-n64-decode2-prefill6-strict/results.json",
+            "repeats": 2,
+            "quality": "same frozen greedy predictions; independent holdout not yet accepted"
           }
         },
         "status": "running",
-        "active": "decode2-prefill6-strict"
+        "active": "final-fa-off"
       },
       "smol500-h512-n64": {
         "runs": {

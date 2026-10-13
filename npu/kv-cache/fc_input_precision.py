@@ -8,9 +8,10 @@ import math
 import numpy as np
 
 
-def convert_fc_weights_dfp(graph, quant, data, hidden_dim, selection, method='peak'):
+def convert_fc_weights_dfp(graph, quant, data, hidden_dim, selection, method='peak', max_extra_bits=6):
     """Compare per-channel vs one-scale signed W8; activations are unchanged."""
     assert selection in ('gateup', 'mlp', 'all-w8') and method in ('peak', 'mse')
+    assert type(max_extra_bits) is int and 0<=max_extra_bits<=6
     qp=quant['quantize_parameters'];changes=[]
     for name,node in graph['Layers'].items():
         if node['op']!='fullconnect':continue
@@ -25,7 +26,7 @@ def convert_fc_weights_dfp(graph, quant, data, hidden_dim, selection, method='pe
         # A few outlier weights can waste most of a max-range INT8 grid.
         # Retain the old max-range candidate and report every clipping tradeoff.
         trials=[]
-        for fl in ([peak_fl] if method=='peak' else range(peak_fl,peak_fl+7)):
+        for fl in ([peak_fl] if method=='peak' else range(peak_fl,peak_fl+max_extra_bits+1)):
             integer=np.rint(matrix*2.**fl)
             restored=np.clip(integer,-128,127)*2.**(-fl)
             delta=matrix.astype(np.float64)-restored
@@ -41,7 +42,7 @@ def convert_fc_weights_dfp(graph, quant, data, hidden_dim, selection, method='pe
                         'scale_search':trials,'clipped_fraction':best['clipped_fraction'],
                         'weight_relative_l2':float(np.linalg.norm(matrix-restored)/np.linalg.norm(matrix))})
     assert changes
-    return {'selection':selection,'method':method,'changes':changes}
+    return {'selection':selection,'method':method,'max_extra_bits':max_extra_bits,'changes':changes}
 
 
 def convert_fc_inputs(graph, quant, data, hidden_dim, selection, range_bits=0):

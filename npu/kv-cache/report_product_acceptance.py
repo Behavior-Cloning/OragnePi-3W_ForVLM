@@ -168,6 +168,26 @@ def main():
                 lines += ['', f'![{row["label"]}连续多轮]({figure})', '']
     lines += ['', 'cached为实际前缀复用；window-rebuild为超窗整轮裁剪后的历史重建；uncached-other含首轮。重建轮不能归入32/64/128新增缓存命中首字。自然生成长度与内容不同，此表用于发现产品延迟，不与固定128步五轮CPU成绩直接相除。', '',
               '窗口满后当前实现重建保留历史，因此会出现明显首字尖峰。后续可比较提前裁剪保留余量、不同保留历史长度和位置/KV重用方案；需注明记忆损失并重验质量，不能隐去重建耗时。', '',
+              '## 超窗保留余量试验', '',
+              '默认策略保持不变。新试验只在实际超窗后按完整轮次裁剪到约768个prompt token，保留system和最新问题。比较原30分钟的前20轮与新策略20轮，各自使用真实生成历史；这会牺牲旧记忆，且后续回答轨迹可能不同，不当作同输入的内核加速比。', '',
+              '| 模型 / 策略 | 状态 / 已测轮 | 重建次数 | 首token中位 / P95 s | 累计首token等待 s | 丢弃消息数 |',
+              '| --- | --- | ---: | ---: | ---: | ---: |']
+    for model,row in evidence['models'].items():
+        data=snapshot(ROOT/f'resident-retain768-{model}-20261013/result.json')
+        trial=stability_summary(data) if data else None
+        row['retention_experiment']=trial or {'status':'queued'}
+        if trial:
+            trial['retain_after_overflow']=data.get('retain_after_overflow')
+            trial['scope']='20-turn development experiment; own generated histories; not independent holdout or kernel speed'
+        for label,summary in [('原策略前20轮',row.get('stability')),('超窗保留768',trial)]:
+            if not summary or not summary.get('rows'):
+                lines.append(f'| {row["label"]} / {label} | 等待实测 | — | — | — | — |');continue
+            rows=summary['rows'][:20]
+            first=dist([r['ttft_seconds'] for r in rows])
+            lines.append(f'| {row["label"]} / {label} | {summary["status"]} / {len(rows)} | '
+                         f'{sum(r["dropped_messages"]>0 for r in rows)} | {first["median"]:.3f} / {first["p95_nearest_rank"]:.3f} | '
+                         f'{sum(r["ttft_seconds"] for r in rows):.3f} | {sum(r["dropped_messages"] for r in rows)} |')
+    lines += ['', '单轮重建时延、记忆保留、回答质量和重建频率需一起判断；少重建但丢更多旧对话不能称为无代价收益。试验未接入生产8080。', '',
               '## 独立留出', '',
               '冻结的v1为12个中英场景，每个3轮。固定标准Q8参考轨迹检查全部logits；自然生成另用NPU自己的历史。门槛KL≤0.05、PPL比≤1.05，人工对话评阅另列。看到留出后不得据其失败调参并继续声称v1独立。', '',
               '| 模型 | 状态 | 数值案例 / 36 | 聚合KL | 聚合PPL比 | 聚合通过 / 每例通过 |',
@@ -216,10 +236,25 @@ def main():
                           'NPU：', '', '> ' + (c['answer'] or '（空回答）').replace('\n', '\n> '), '']
                 if c['case'] in cpus:
                     lines += ['板端llama.cpp Q8：', '', '> ' + (cpus[c['case']]['answer'] or '（空回答）').replace('\n', '\n> '), '']
-    lines += ['', '产品状态：未验收。CPU配对自然回答、人工角色/自然度评阅、板端独立服务、真实音频并发仍须完成；若留出未通过，速度候选只保留研发身份。', '',
+    review_path=HERE/'quality-review-v1.json'
+    if review_path.exists():
+        review=json.loads(review_path.read_text())
+        assert review['suite_sha256']==hashlib.sha256((HERE/'quality-holdout-v1.json').read_bytes()).hexdigest()
+        evidence['qualitative_review']=review
+        lines += ['', '## 对话原文质性评阅', '',
+                  '以下为Codex按完整三轮原文逐项核对，未做盲评或人群统计。“满足”只指本场景要求，不代表模型整体质量；标准参考是反量化Q8的FP32，实际板端CPU回答另列。']
+        for model,reviewed in review['models'].items():
+            model_evidence=evidence['models'][model]
+            assert reviewed['reference_sha256']==model_evidence['quality_reference']['source_sha256']
+            assert reviewed['npu_result_sha256']==model_evidence['holdout']['source_sha256']
+            lines += ['', model_evidence['label']+'：'+reviewed['summary'], '',
+                      '| 场景 | 标准Q8参考 | NPU | 原文观察 |','| --- | --- | --- | --- |']
+            for c in reviewed['scenarios']:
+                lines.append(f'| {c["id"]} | {c["reference"]} | {c["npu"]} | {c["observation"]} |')
+    lines += ['', '产品状态：未验收。实际CPU配对、角色/自然度完整评阅、板端独立服务、真实音频并发仍按各项证据推进；聚合数值通过不能覆盖单例退化或真实对话失败。', '',
               '复现：`npu/.venv/bin/python npu/kv-cache/report_product_acceptance.py`。',
               '[紧凑证据](evidence-attack-20261013/product-acceptance.json)。', '']
-    (HERE / '独立质量与连续多轮验收.md').write_text('\n'.join(lines))
+    (HERE / '独立质量与连续多轮验收.md').write_text('\n'.join(line.rstrip() for line in '\n'.join(lines).splitlines())+'\n')
     (HERE / 'evidence-attack-20261013/product-acceptance.json').write_text(json.dumps(evidence, ensure_ascii=False, indent=2) + '\n')
     print({k: {'stability': v.get('stability', {}).get('status'), 'holdout': v['holdout']['status']}
            for k, v in evidence['models'].items()})

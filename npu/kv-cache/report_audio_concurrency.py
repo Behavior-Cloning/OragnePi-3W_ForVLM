@@ -41,7 +41,7 @@ def main():
             speed='decode_tokens_per_second';ttft='engine_ttft_seconds';total='total_seconds'
             lines.append(f'| {model} / {backend} | {a[speed]:.3f}→{b[speed]:.3f} | '
                          f'{100*(b[speed]/a[speed]-1):+.2f}% | {a[ttft]:.3f}→{b[ttft]:.3f} | {a[total]:.3f}→{b[total]:.3f} |')
-    lines+=['','| 模型 / 后端 / ASR | 整机CPU % | LLM RSS MiB | NPU驱动 MiB | 最低可用RAM MiB | 换入＋换出 KiB | ASR重叠比例 |',
+    lines+=['','| 模型 / 后端 / ASR | 整机CPU % | LLM / ASR RSS MiB | NPU驱动 MiB | 最低可用RAM MiB | 换入＋换出 KiB | ASR重叠比例 |',
             '| --- | ---: | ---: | ---: | ---: | ---: | ---: |']
     for model,row in evidence['models'].items():
         data=row['result']
@@ -52,13 +52,16 @@ def main():
                 assert len(runs)==5
                 samples=[[s for s in r['resource_samples'] if s.get('process')] for r in runs]
                 rss=statistics.median(max(s['process']['rss_kib'] for s in ss)/1024 for ss in samples)
+                asr_peaks=[max(s['asr_process']['rss_kib'] for s in ss if s.get('asr_process'))/1024
+                           for ss in samples if any(s.get('asr_process') for s in ss)]
+                asr_rss=f'{statistics.median(asr_peaks):.2f}' if len(asr_peaks)==5 else '缺测'
                 busy=statistics.median(r['resource_summary']['cpu']['cpu']['busy_percent'] for r in runs)
                 avail=statistics.median(min(s['memory_kib']['MemAvailable'] for s in ss)/1024 for ss in samples)
                 driver=statistics.median(max(s.get('npu_driver_bytes',0) for s in ss)/2**20 for ss in samples)
                 swap=statistics.median((r['resource_summary']['swap_in_bytes']+r['resource_summary']['swap_out_bytes'])/1024 for r in runs)
                 overlap=statistics.median(r['asr_overlap_fraction'] for r in runs)
-                lines.append(f'| {model} / {backend} / {"开" if enabled else "关"} | {busy:.2f} | {rss:.2f} | {driver:.2f} | {avail:.1f} | {swap:.0f} | {overlap:.1%} |')
-    lines+=['','整机CPU以8核合计100%计算。RSS只指待测语言进程，不包含ASR；驱动不是独立显存。换页和系统负载只统计完全位于响应内的直接采样区间。不能由CPU占用推算整板功率。','',
+                lines.append(f'| {model} / {backend} / {"开" if enabled else "关"} | {busy:.2f} | {rss:.2f} / {asr_rss} | {driver:.2f} | {avail:.1f} | {swap:.0f} | {overlap:.1%} |')
+    lines+=['','整机CPU以8核合计100%计算。LLM与ASR的RSS分别列出，驱动不是独立显存；RSS与驱动不能直接相加当作去重物理内存。换页和系统负载只统计完全位于响应内的直接采样区间。不能由CPU占用推算整板功率。','',
             '| 模型 / 语言后端 | 与响应重叠的ASR调用 | ASR整次识别中位 s | ASR整次RTF中位 |',
             '| --- | ---: | ---: | ---: |']
     for model,row in evidence['models'].items():

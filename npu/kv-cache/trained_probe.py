@@ -45,10 +45,11 @@ class LMHead(nn.Module):
 
 
 class TrainedDecoder(nn.Module):
-    def __init__(self, reader, index, stable_norm=False, norm_version=3):
+    def __init__(self, reader, index, stable_norm=False, norm_version=3, strict_mask=False):
         super().__init__()
         self.stable_norm=stable_norm
         self.norm_version=norm_version
+        self.strict_mask=strict_mask
         self.arch = reader.fields['general.architecture'].contents()
         if self.arch not in ('llama', 'qwen2', 'qwen3', 'qwen2vl'):
             raise ValueError(f'Unsupported architecture: {self.arch}')
@@ -109,7 +110,20 @@ class TrainedDecoder(nn.Module):
         q,k,v = self.project(hidden, rope_cos, rope_sin)
         keys = torch.cat((past_k,k),2).repeat_interleave(self.heads//self.kv,1)
         values = torch.cat((past_v,v),2).repeat_interleave(self.heads//self.kv,1)
-        attention = torch.softmax(q @ keys.transpose(-1,-2)/self.hd**.5 + mask,-1) @ values
+        scores=q @ keys.transpose(-1,-2)/self.hd**.5
+        if self.strict_mask:
+            # Additive -10000 is not a valid mask when legitimate Qwen QK
+            # logits can be below -10000. Normalize only over valid slots.
+            valid=mask==0
+            # A huge sentinel destroys fixed-point calibration (and overflows
+            # FP16). The actual row minimum is <= every valid score, so it
+            # preserves the valid maximum without expanding the value range.
+            selected=torch.where(valid,scores,scores.amin(-1,keepdim=True))
+            shifted=scores-selected.amax(-1,keepdim=True)
+            scores=torch.where(valid,shifted,torch.full_like(scores,-10000))
+        else:
+            scores=scores+mask
+        attention = torch.softmax(scores,-1) @ values
         return self.finish(hidden,attention),k,v
 
     def full(self, hidden):
@@ -137,6 +151,8 @@ def main():
     p.add_argument('--tokens', type=int, help='defaults to capacity')
     p.add_argument('--stable-norm',action='store_true')
     p.add_argument('--norm-version',type=int,choices=(1,3),default=3)
+    p.add_argument('--strict-mask',action='store_true',help='exclude invalid slots before max-subtraction; handles Qwen logits below -10000')
+    p.add_argument('--host-atol',type=float,help='explicit FP32 exporter absolute tolerance; relative L2 remains 1e-4, not a change to NPU acceptance')
     args = p.parse_args()
     torch.set_num_threads(1)
     reader = gguf.GGUFReader(args.model)
@@ -145,7 +161,7 @@ def main():
     count=args.layers or total_layers
     tokens=args.tokens or args.capacity
     if not 1<=count<=total_layers or not 1<=tokens<=args.capacity:raise ValueError('invalid layers/tokens')
-    layers = [TrainedDecoder(reader,i,stable_norm=args.stable_norm,norm_version=args.norm_version).eval() for i in range(count)]
+    layers = [TrainedDecoder(reader,i,stable_norm=args.stable_norm,norm_version=args.norm_version,strict_mask=args.strict_mask).eval() for i in range(count)]
     layer = layers[0]
     args.output.mkdir(parents=True,exist_ok=True)
     emb = next(t for t in reader.tensors if t.name=='token_embd.weight')
@@ -163,6 +179,7 @@ def main():
                 if layer.arch=='llama' else ['<|im_start|>','user','Ċ','Hello','!','<|im_end|>','Ċ','<|im_start|>','assistant','Ċ'])
         sequences[0]=prefix+sequences[0]
     report = {'model':args.model.name,'sha256':hashlib.file_digest(args.model.open('rb'),'sha256').hexdigest(),
+              'strict_mask':args.strict_mask,
               'architecture':layer.arch,'stable_norm':args.stable_norm,'norm_version':args.norm_version if args.stable_norm else None,'language_layers_total':reader.fields[layer.arch+'.block_count'].contents(),
               'gguf_tensor_elements':sum(int(np.prod(t.shape)) for t in reader.tensors),
               'tested_layer_parameters':sum(b.numel() for l in layers for b in l.buffers()),
@@ -170,6 +187,9 @@ def main():
               'kv_heads':layer.kv,'head_dim':layer.hd,'rope_base':layer.base,
               'scope':f'{count} trained decoder layers, no final norm/logits or language generation',
               'host_tolerance':{'atol':5e-4 if layer.arch=='qwen2vl' else (1e-4 if count==2 else 1e-3),'rtol':3e-4,'relative_l2':1e-4},'cases':[]}
+    if args.host_atol is not None:
+        assert 0<args.host_atol<=.005
+        report['host_tolerance']['atol']=args.host_atol
     head=LMHead(reader,layer.eps,stable_norm=args.stable_norm,norm_version=args.norm_version).eval() if count==total_layers else None
     if head is not None:
         report['scope']='all decoder layers plus final RMSNorm/LM head; board validation pending'

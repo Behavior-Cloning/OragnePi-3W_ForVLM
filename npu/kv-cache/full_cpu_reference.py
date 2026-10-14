@@ -8,6 +8,7 @@ import urllib.request
 
 p=argparse.ArgumentParser();p.add_argument('--model',required=True)
 p.add_argument('--folder',type=Path,required=True);p.add_argument('--max-new',type=int,default=32)
+p.add_argument('--quantization-label',default='Q8_0')
 args=p.parse_args();prompt=json.loads((args.folder/'prompt.json').read_text())
 opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
 def api(path,body=None,timeout=180):
@@ -38,7 +39,7 @@ with (args.folder/'llama-cpu.log').open('w') as log:
         start=time.monotonic()
         response=api('/completion',{'prompt':tokens,'n_predict':args.max_new,'temperature':0,
             'seed':42,'cache_prompt':True,'return_tokens':True,'n_probs':5,'repeat_penalty':1.0})
-        report={'backend':'llama.cpp CPU Q8_0','threads':2,'affinity':[6,7],
+        report={'backend':'llama.cpp CPU '+args.quantization_label,'threads':2,'affinity':[6,7],
                 'prompt_token_ids':tokens,
                 'tokenizer_exact_match':match,'load_seconds':load,'request_seconds':time.monotonic()-start,
                 'command':command,'response':response}

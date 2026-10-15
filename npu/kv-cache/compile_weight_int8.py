@@ -21,6 +21,7 @@ p.add_argument('--expected-linears',type=int,default=7)
 p.add_argument('--only-linear',nargs='+',help='quantize only these imported linear layer names')
 p.add_argument('--dfp-linear',nargs='+',default=[],help='use DFP INT8 for these names, retaining per-channel INT8 elsewhere')
 p.add_argument('--value-dfp',action='store_true',help='resolve the V projection by graph dependencies and use DFP INT8')
+p.add_argument('--value-bits',type=int,choices=[8],help='with value-dfp, retain V at eight bits while other matrices keep weight-bits')
 p.add_argument('--float-nonlinear',action='store_true',help='retain INT16 linear boundaries but use FP16 for nonlinear graph tensors')
 p.add_argument('--float-residual',action='store_true',help='keep decoder input/output and residual sums in FP16')
 p.add_argument('--float-sensitive',action='store_true',help='FP16 RMSNorm internals and masked softmax; keep INT16 linear boundaries')
@@ -34,6 +35,8 @@ p.add_argument('--float-scores',action='store_true',help='FP16 QK product and sc
 p.add_argument('--float-head-norm',action='store_true',help='FP16 internal head norm; retain calibrated matrix boundaries and external IO')
 p.add_argument('--node-trace',action='store_true',help='emit SDK node mapping for hardware profiling')
 args=p.parse_args();root=Path(__file__).resolve().parents[2]/'npu/results'
+assert not args.value_bits or args.value_dfp
+value_linear=set()
 assert args.dfp_method=='peak' or (args.weight_mode=='dfp' and args.weight_bits==8)
 base=args.base.resolve();out=args.output.resolve();relative=out.relative_to(root)
 out.mkdir(parents=True,exist_ok=True)
@@ -193,8 +196,9 @@ for name,parameters in data.items():
             quant['quantize_parameters'].pop('@'+name+':bias',None)
             changed.append({'name':name,'shape':list(weight.shape),'dtype':'float16'})
             continue
-        limit=2**(args.weight_bits-1)-1
-        qtype=f'i{args.weight_bits}'
+        bits=args.value_bits if args.value_bits and name in value_linear else args.weight_bits
+        limit=2**(bits-1)-1
+        qtype=f'i{bits}'
         scales=np.maximum(np.max(np.abs(weight),axis=0)/limit,np.finfo(np.float32).tiny)
         if args.weight_mode=='perchannel' and name not in args.dfp_linear:
             quant['quantize_parameters'][key]={'qtype':qtype,'quantizer':'perchannel_symmetric_affine',
@@ -203,7 +207,7 @@ for name,parameters in data.items():
             fl=int(np.floor(np.log2(limit/max(float(np.abs(weight).max()),1e-12))))
             quant['quantize_parameters'][key]={'qtype':qtype,'quantizer':'dynamic_fixed_point',
                 'rounding':'rtne','fl':fl,'max_value':float(weight.max()),'min_value':float(weight.min())}
-        changed.append({'name':name,'shape':list(weight.shape),'dtype':f'int{args.weight_bits}'})
+        changed.append({'name':name,'shape':list(weight.shape),'dtype':f'int{bits}'})
 assert len(changed)==args.expected_linears, 'unexpected linear projection count'
 dfp_search=None
 if args.dfp_method=='mse':
@@ -219,6 +223,7 @@ report={'scope':'one decoder with explicit per-matrix weight and sensitive-activ
         'int8_matrices':sum(w['dtype']=='int8' for w in changed),
         'int4_matrices':sum(w['dtype']=='int4' for w in changed),
         'weight_bits_requested':args.weight_bits,
+        'value_bits_requested':args.value_bits,
         'dfp_method':args.dfp_method,'dfp_scale_search':dfp_search,
         'fp16_matrices':sum(w['dtype']=='float16' for w in changed),
         'base':str(base.relative_to(root)),'weights':changed,'weight_mode':args.weight_mode,'dfp_linear':args.dfp_linear,'float_nonlinear':args.float_nonlinear,'float_residual':args.float_residual,

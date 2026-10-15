@@ -16,6 +16,7 @@ p.add_argument('--float-nonlinear',action='store_true',help='FP16 outside calibr
 p.add_argument('--float-sensitive',action='store_true')
 p.add_argument('--float-residual',action='store_true')
 p.add_argument('--value-dfp',action='store_true')
+p.add_argument('--value-bits',type=int,choices=[8])
 p.add_argument('--decoder-weight-mode',choices=['perchannel','dfp'],default='perchannel')
 a=p.parse_args();source=a.source.resolve();scripts=Path(__file__).resolve().parent
 m=json.loads((source/'trained-manifest.json').read_text());n=m['language_layers_total']
@@ -35,6 +36,7 @@ def compile_one(i):
         if a.float_nonlinear:cmds[-1].append('--float-nonlinear')
         if i<n:
             cmds[-1]+=['--weight-mode',a.decoder_weight_mode]
+            if a.value_bits:cmds[-1]+=['--value-bits',str(a.value_bits)]
             for flag in ('float_sensitive','float_residual','value_dfp'):
                 if getattr(a,flag):cmds[-1].append('--'+flag.replace('_','-'))
         # Safe normalization graph, but retain canonical fixed INT16 IO so
@@ -51,6 +53,7 @@ def compile_one(i):
             'float_sensitive':a.float_sensitive if i<n else False,
             'float_residual':a.float_residual if i<n else False,
             'value_dfp':a.value_dfp if i<n else False,
+            'value_bits':a.value_bits if i<n else None,
             'decoder_weight_mode':a.decoder_weight_mode if i<n else None,
             'precision':f'W{a.bits} '+(a.decoder_weight_mode if i<n else 'perchannel')+' / A16'+(' with FP16 nonlinear/IO' if a.float_nonlinear else '')+'; execution type requires device audit'}
     print(json.dumps(result),flush=True);return result

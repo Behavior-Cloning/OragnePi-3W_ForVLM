@@ -34,3 +34,5 @@
 ## 空间及安全
 
 TF接近满，所有测试用共享host lock和板端flock。仅清理了两个已失败Qwen实验的decoder远端副本，均逐文件校验本地SHA，可恢复；embedding、head、日志、生产模型未删除。当前候选部署标签`full-qwen15-vdfp-c128`与`full-qwen15-last2w8-c128`。不要并发板端测量，也不要为了腾空间删除历史500M/1B模型。
+
+2026-10-15继续：fusion-width=2完整实测4.840659 token/s、TTFT8.363703秒，输出与group28一致，但慢于group28中位5.032149 token/s；不采用融合图。当前最快仍是单层图+decoder-group=28+group-head+fast-greedy，质量仍未通过。

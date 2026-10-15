@@ -32,6 +32,7 @@ p.add_argument('--int8-mlp-projections',nargs='+',choices=['gate','up'],default=
 p.add_argument('--mlp-headroom-bits',type=int,help='separate range headroom for restored MLP projections (default: activation headroom)')
 p.add_argument('--float-scores',action='store_true',help='FP16 QK product and score scaling, stopping before projection tensors')
 p.add_argument('--float-head-norm',action='store_true',help='FP16 internal head norm; retain calibrated matrix boundaries and external IO')
+p.add_argument('--node-trace',action='store_true',help='emit SDK node mapping for hardware profiling')
 args=p.parse_args();root=Path(__file__).resolve().parents[2]/'npu/results'
 assert args.dfp_method=='peak' or (args.weight_mode=='dfp' and args.weight_bits==8)
 base=args.base.resolve();out=args.output.resolve();relative=out.relative_to(root)
@@ -243,6 +244,8 @@ command=['docker','run','--rm','--name',container,'--network','none','--cpus','4
     '--pack-nbg-unify','--optimize','VIP9000NANODI_PLUS_PID0X1000003B',
     '--viv-sdk','/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools','--output-path','export/decoder']
 start=time.monotonic()
+if args.node_trace:command[2:2]=['-e','VIV_VX_DUMP_NODE_TRACE_DB=1']
+report['node_trace']=args.node_trace
 with (out/'export.log').open('w') as log:
     try:
         proc=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT,timeout=args.timeout)

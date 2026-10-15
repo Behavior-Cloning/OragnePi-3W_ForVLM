@@ -1,5 +1,7 @@
 # 1.5B NPU研究接续入口
 
+2026-10-15更新：优先读[新提速报告](Qwen15提速-20261015.md)。完整28层提交分组筛选已完成，组28五次中位5.032token/s、TTFT8.042秒、输出一致，质量仍复读。第26层硬件busy周期约89%在fullconnect。全部DFP W4的局部“快35%”伴随严重权重退化，已拒绝；DFP W8未提速。不要部署全DFP W4编译产物。
+
 本分支为`research/qwen15-rwkv`，工作目录`/home/ubuntu/Documents/ChatGPT/端侧minibot/qwen15-rwkv-worktree`。这是独立研究分支；根目录旧handoff的关机状态是历史记录，当前用户已上电并授权继续测试。生产网页仍为CPU，未替换。
 
 ## 当前结论

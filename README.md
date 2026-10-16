@@ -1,7 +1,15 @@
 # Orange Pi Zero 3W 项目目录
 
-本目录是机器人项目的统一 Git 仓库：硬件调研、设计文档、源码、脚本和测试一起维护。
-后续开发以这里为准：
+本仓库用于Orange Pi Zero 3W端侧桌面陪伴机器人：硬件调研、设计文档、源码、脚本和测试一起维护。
+2026-10-16当前研究工作树为`research/qwen15-rwkv`，主要推进Qwen2.5-1.5B NPU；最新候选仍有复读，生产网页保持板端CPU服务。实时状态和详细边界见下方handoff。
+
+当前研究工作树：
+
+```text
+/home/ubuntu/Documents/ChatGPT/端侧minibot/qwen15-rwkv-worktree
+```
+
+原项目工作树（`main`）及历史资产目录：
 
 ```text
 /media/ubuntu/2e819926-8686-430b-9faf-c1a95a1c87b9/yejy/Files/orangepi-zero3w
@@ -10,7 +18,12 @@
 ## 开发入口
 
 - [文档总导航](docs/README.md)：当前报告、部署手册、硬件选型与历史资料。
-- [全深度候选提速与负载](npu/kv-cache/全深度候选提速与负载.md)：2026-10-13最新五轮速度、统一引擎首字、直接系统采样和持续提高的CPU目标线；仍未超过最快CPU。
+- [项目总 handoff](docs/HANDOFF.md)：项目定位、硬件/软件架构、当前进展、风险和接管步骤。
+- [TODO 清单](docs/TODO.md)：WSL 开发环境、焊接开关机/重启、NPU 优化与产品化任务。
+- [1.5B研究接管](docs/research/Qwen15-HANDOFF.md)：全28层、当前5.032 token/s短场景、量化质量失败、原始证据和下一步。
+- [RWKV与模型选型](docs/research/RWKV与1.5B选型-20261014.md)：唯一视觉RWKV候选、HellaSwag/TextVQA及板端部署边界。
+- [Windows WSL方案](docs/WSL开发环境说明.md)、[无屏配网方案](docs/配网程序说明.md)：均为待实施设计。
+- [全深度候选提速与负载](npu/kv-cache/全深度候选提速与负载.md)：500M/1B阶段五轮速度、统一引擎首字、直接系统采样和CPU目标线；仍未超过最快CPU。
 - [独立质量与连续多轮验收](npu/kv-cache/独立质量与连续多轮验收.md)：30分钟、超窗首字尖峰、CPU/NPU自然回答与独立数值留出；运行中项目明确标注。
 - [NPU实验网页验证](npu/kv-cache/HTTP多轮接口验证.md)：全层常驻KV、真实浏览器多轮、停止与重载；主机网关连接板端NPU，尚非独立板端生产部署。
 - [批量Prefill与CPU对标](npu/kv-cache/批量Prefill与CPU对标.md)：500M首字1.92→0.86秒；1B增量首字1.21→0.316秒，decode仍未超过CPU，含失败样例与内存代价。
@@ -41,7 +54,7 @@
 
 ## Git 管理
 
-代码与文档放在同一个仓库，主分支为 `main`。系统镜像、模型权重、下载的参考仓库、
+代码与文档放在同一个仓库，主分支为 `main`，当前1.5B研究提交在 `research/qwen15-rwkv`，不要默认已经合并至main。系统镜像、模型权重、下载的参考仓库、
 运行日志和密码配置通过 `.gitignore` 排除；这些本地文件仍保留在磁盘上。
 需要记录的实验结论、模型来源与校验值放进文档，不依赖未跟踪的大文件。
 

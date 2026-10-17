@@ -1,0 +1,138 @@
+{
+  "scope": "official public demo smoke, no human reference transcripts or household evaluation",
+  "speaker": {
+    "registered": [
+      "fangjun",
+      "leijun"
+    ],
+    "held_out_identity": "liudehua",
+    "threshold": 0.6,
+    "margin": 0.1,
+    "threshold_source": "predeclared illustrative policy, not calibrated",
+    "enrollment_disjoint_from_test": true,
+    "tests": [
+      {
+        "file": "fangjun-test-sr-1.wav",
+        "expected": "fangjun",
+        "predicted": "fangjun",
+        "scores": {
+          "fangjun": 0.830447256565094,
+          "leijun": 0.24233795702457428
+        },
+        "seconds": 1.3079783769971982,
+        "correct": true
+      },
+      {
+        "file": "fangjun-test-sr-2.wav",
+        "expected": "fangjun",
+        "predicted": "fangjun",
+        "scores": {
+          "fangjun": 0.789010763168335,
+          "leijun": 0.28401148319244385
+        },
+        "seconds": 0.5081005359970732,
+        "correct": true
+      },
+      {
+        "file": "leijun-test-sr-1.wav",
+        "expected": "leijun",
+        "predicted": "leijun",
+        "scores": {
+          "leijun": 0.8598737120628357,
+          "fangjun": 0.17630384862422943
+        },
+        "seconds": 1.9078501440017135,
+        "correct": true
+      },
+      {
+        "file": "leijun-test-sr-2.wav",
+        "expected": "leijun",
+        "predicted": "leijun",
+        "scores": {
+          "leijun": 0.8346116542816162,
+          "fangjun": 0.1555657982826233
+        },
+        "seconds": 1.6010591060003208,
+        "correct": true
+      },
+      {
+        "file": "leijun-test-sr-3.wav",
+        "expected": "leijun",
+        "predicted": "leijun",
+        "scores": {
+          "leijun": 0.8066557049751282,
+          "fangjun": 0.13127879798412323
+        },
+        "seconds": 0.9673516100010602,
+        "correct": true
+      },
+      {
+        "file": "liudehua-test-sr-1.wav",
+        "expected": "unknown",
+        "predicted": "unknown",
+        "scores": {
+          "leijun": 0.2758415937423706,
+          "fangjun": -0.015960104763507843
+        },
+        "seconds": 0.8656509609973,
+        "correct": true
+      },
+      {
+        "file": "liudehua-test-sr-2.wav",
+        "expected": "unknown",
+        "predicted": "unknown",
+        "scores": {
+          "leijun": 0.34162449836730957,
+          "fangjun": 0.007006712257862091
+        },
+        "seconds": 0.7230992589975358,
+        "correct": true
+      }
+    ],
+    "correct": 7,
+    "total": 7,
+    "resources": {
+      "VmHWM": 132440,
+      "VmRSS": 132440,
+      "Threads": 1,
+      "Pss_kib": 125220,
+      "peak_rss_kib": 132440,
+      "temperature_mC": 41726
+    }
+  },
+  "denoise": {
+    "seconds": 3.1637946299997566,
+    "input_seconds": 5.592,
+    "output": {
+      "output_samples": 89472,
+      "input_samples": 89472,
+      "output_rms": 0.1094093844294548,
+      "frame_shift_samples": 256,
+      "output_sha256": "de11e731f621a3884a8b291abe2cf6873081f0e8b1db0b62ad0524c056fa6c0a"
+    },
+    "synthetic_noise": "0dB white noise, common scaling, no clipping",
+    "before": {
+      "si_sdr_db": 0.015165964141488075,
+      "alignment_lag_samples": 0
+    },
+    "after": {
+      "si_sdr_db": 11.153234481811523,
+      "alignment_lag_samples": 0
+    },
+    "asr_comparison": {
+      "clean": {
+        "text": "放时间早上九点至下午五点",
+        "seconds": 2.675939472999744
+      },
+      "noisy": {
+        "text": "开饭时间早上九点至下午五点",
+        "seconds": 2.60794267899837
+      },
+      "denoised": {
+        "text": "开饭时间早上九点至下午五点",
+        "seconds": 2.604425789002562
+      }
+    },
+    "quality_limit": "Transcript agreement is a diagnostic; clean-model output is not ground truth. SI-SDR uses synthetic clean reference; no subjective/MOS/PESQ claim."
+  }
+}

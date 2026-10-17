@@ -1,0 +1,365 @@
+{
+  "strategy": "profile_fts",
+  "records": 500,
+  "sqlite": "3.37.2",
+  "open_ms": 76.31924300221726,
+  "reopen_ms": 1.9225500000175089,
+  "first_query_after_reopen_ms": 2.652928000316024,
+  "first_query_scope": "same process, DB connection reopened; OS page cache not flushed",
+  "bulk_insert": {
+    "elapsed_ms": 261.00786500319373,
+    "cpu_ms": 246.23937500000002,
+    "rows": 500
+  },
+  "commit_ms_p50": 8.723203500267118,
+  "commit_ms_p95": 11.786800001573283,
+  "retrieval_ms_p50": 1.7053824994945899,
+  "retrieval_ms_p95": 5.080895996798063,
+  "query_cpu_ms_p50": 1.71068750000003,
+  "query_cpu_ms_p95": 5.087249999999988,
+  "peak_process_rss_kib": 17908,
+  "quality_by_category": {
+    "identity": {
+      "count": 2,
+      "hits": 2,
+      "empty": 0
+    },
+    "lexical": {
+      "count": 13,
+      "hits": 13,
+      "empty": 0
+    },
+    "paraphrase": {
+      "count": 4,
+      "hits": 2,
+      "empty": 0
+    },
+    "preference": {
+      "count": 1,
+      "hits": 1,
+      "empty": 0
+    },
+    "project": {
+      "count": 1,
+      "hits": 1,
+      "empty": 0
+    },
+    "safety": {
+      "count": 1,
+      "hits": 1,
+      "empty": 0
+    },
+    "unknown": {
+      "count": 4,
+      "hits": 0,
+      "empty": 0
+    },
+    "update": {
+      "count": 2,
+      "hits": 2,
+      "empty": 0
+    }
+  },
+  "hit_at_3": 0.9166666666666666,
+  "positive_queries": 24,
+  "unknown_false_returns": 4,
+  "unknown_queries": 4,
+  "trials": [
+    {
+      "category": "safety",
+      "query": "我有什么食物过敏？",
+      "expected": "allergy",
+      "retrieved": [
+        "allergy",
+        "gift"
+      ],
+      "hit": true
+    },
+    {
+      "category": "lexical",
+      "query": "我喜欢在哪儿慢跑？",
+      "expected": "exercise",
+      "retrieved": [
+        "exercise",
+        "drink",
+        "book"
+      ],
+      "hit": true
+    },
+    {
+      "category": "lexical",
+      "query": "母亲生日准备送什么？",
+      "expected": "gift",
+      "retrieved": [
+        "gift",
+        "allergy",
+        "keys"
+      ],
+      "hit": true
+    },
+    {
+      "category": "preference",
+      "query": "给我推荐喝什么饮品？",
+      "expected": "drink",
+      "retrieved": [
+        "drink",
+        "sleep"
+      ],
+      "hit": true
+    },
+    {
+      "category": "paraphrase",
+      "query": "我的宠物今年多大？",
+      "expected": "cat",
+      "retrieved": [
+        "cat",
+        "gift",
+        "travel"
+      ],
+      "hit": true
+    },
+    {
+      "category": "paraphrase",
+      "query": "那场演出我和谁一起去的？",
+      "expected": "concert",
+      "retrieved": [
+        "concert",
+        "travel"
+      ],
+      "hit": true
+    },
+    {
+      "category": "unknown",
+      "query": "我的银行卡余额是多少？",
+      "expected": null,
+      "retrieved": [
+        "meeting"
+      ],
+      "hit": null
+    },
+    {
+      "category": "lexical",
+      "query": "书房摄像头什么时候调试？",
+      "expected": "camera",
+      "retrieved": [
+        "camera",
+        "exercise"
+      ],
+      "hit": true
+    },
+    {
+      "category": "identity",
+      "query": "你应该怎么称呼我？",
+      "expected": "name",
+      "retrieved": [
+        "name"
+      ],
+      "hit": true
+    },
+    {
+      "category": "unknown",
+      "query": "我的护照号码是多少？",
+      "expected": null,
+      "retrieved": [
+        "secret",
+        "noise-0",
+        "noise-1"
+      ],
+      "hit": null
+    },
+    {
+      "category": "lexical",
+      "query": "机器人左侧轮子怎么修好的？",
+      "expected": "repair",
+      "retrieved": [
+        "repair",
+        "keys",
+        "food"
+      ],
+      "hit": true
+    },
+    {
+      "category": "lexical",
+      "query": "家里的猫叫什么？",
+      "expected": "cat",
+      "retrieved": [
+        "name",
+        "cat",
+        "project"
+      ],
+      "hit": true
+    },
+    {
+      "category": "paraphrase",
+      "query": "晚上失眠可能和什么饮品有关？",
+      "expected": "sleep",
+      "retrieved": [
+        "drink",
+        "exercise",
+        "keys"
+      ],
+      "hit": false
+    },
+    {
+      "category": "lexical",
+      "query": "十一去哪里旅行？",
+      "expected": "travel",
+      "retrieved": [
+        "travel",
+        "concert"
+      ],
+      "hit": true
+    },
+    {
+      "category": "lexical",
+      "query": "银杏项目会议几点开始？",
+      "expected": "meeting",
+      "retrieved": [
+        "meeting",
+        "project",
+        "doctor"
+      ],
+      "hit": true
+    },
+    {
+      "category": "paraphrase",
+      "query": "家里应急开门的东西藏哪了？",
+      "expected": "keys",
+      "retrieved": [
+        "cat",
+        "food",
+        "noise-3"
+      ],
+      "hit": false
+    },
+    {
+      "category": "lexical",
+      "query": "爵士音乐会是在哪里听的？",
+      "expected": "concert",
+      "retrieved": [
+        "concert",
+        "meeting",
+        "sleep"
+      ],
+      "hit": true
+    },
+    {
+      "category": "identity",
+      "query": "我的名字是什么？",
+      "expected": "name",
+      "retrieved": [
+        "name"
+      ],
+      "hit": true
+    },
+    {
+      "category": "lexical",
+      "query": "三体里我最喜欢哪一部？",
+      "expected": "book",
+      "retrieved": [
+        "book",
+        "drink",
+        "exercise"
+      ],
+      "hit": true
+    },
+    {
+      "category": "update",
+      "query": "记得我的居住地吗？",
+      "expected": "city",
+      "retrieved": [
+        "city",
+        "concert",
+        "meeting"
+      ],
+      "hit": true
+    },
+    {
+      "category": "lexical",
+      "query": "牙科复诊是什么时间？",
+      "expected": "doctor",
+      "retrieved": [
+        "doctor",
+        "exercise",
+        "camera"
+      ],
+      "hit": true
+    },
+    {
+      "category": "lexical",
+      "query": "番茄牛腩味道怎么样？",
+      "expected": "food",
+      "retrieved": [
+        "food"
+      ],
+      "hit": true
+    },
+    {
+      "category": "lexical",
+      "query": "为什么下午不喝咖啡？",
+      "expected": "sleep",
+      "retrieved": [
+        "drink",
+        "sleep",
+        "meeting"
+      ],
+      "hit": true
+    },
+    {
+      "category": "update",
+      "query": "我现在住在哪个城市？",
+      "expected": "city",
+      "retrieved": [
+        "city"
+      ],
+      "hit": true
+    },
+    {
+      "category": "lexical",
+      "query": "备用钥匙放在哪儿？",
+      "expected": "keys",
+      "retrieved": [
+        "keys",
+        "gift",
+        "noise-0"
+      ],
+      "hit": true
+    },
+    {
+      "category": "project",
+      "query": "我的项目叫什么？",
+      "expected": "project",
+      "retrieved": [
+        "project",
+        "name",
+        "meeting"
+      ],
+      "hit": true
+    },
+    {
+      "category": "unknown",
+      "query": "我毕业于哪所大学？",
+      "expected": null,
+      "retrieved": [
+        "travel"
+      ],
+      "hit": null
+    },
+    {
+      "category": "unknown",
+      "query": "我们第一次去南极是哪一年？",
+      "expected": null,
+      "retrieved": [
+        "travel",
+        "cat",
+        "concert"
+      ],
+      "hit": null
+    }
+  ],
+  "process_io_delta": {
+    "read_bytes": 0,
+    "write_bytes": 0
+  },
+  "db_bytes": 446464
+}

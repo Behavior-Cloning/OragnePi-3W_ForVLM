@@ -1,0 +1,466 @@
+{
+  "strategy": "profile_fts_guarded",
+  "original_probes": {
+    "positive_hit": 20,
+    "positive_count": 24,
+    "unknown_false_returns": 0,
+    "unknown_count": 4,
+    "trials": [
+      {
+        "category": "identity",
+        "query": "你应该怎么称呼我？",
+        "expected": "name",
+        "retrieved": [
+          "name"
+        ],
+        "hit": true,
+        "latency_ms": 0.6241689989110455
+      },
+      {
+        "category": "identity",
+        "query": "我的名字是什么？",
+        "expected": "name",
+        "retrieved": [
+          "name"
+        ],
+        "hit": true,
+        "latency_ms": 0.23833499653846957
+      },
+      {
+        "category": "update",
+        "query": "我现在住在哪个城市？",
+        "expected": "city",
+        "retrieved": [
+          "city"
+        ],
+        "hit": true,
+        "latency_ms": 0.4135849994781893
+      },
+      {
+        "category": "update",
+        "query": "记得我的居住地吗？",
+        "expected": "city",
+        "retrieved": [
+          "city"
+        ],
+        "hit": true,
+        "latency_ms": 0.5040440009906888
+      },
+      {
+        "category": "preference",
+        "query": "给我推荐喝什么饮品？",
+        "expected": "drink",
+        "retrieved": [
+          "drink"
+        ],
+        "hit": true,
+        "latency_ms": 0.6368359972839244
+      },
+      {
+        "category": "safety",
+        "query": "我有什么食物过敏？",
+        "expected": "allergy",
+        "retrieved": [
+          "allergy"
+        ],
+        "hit": true,
+        "latency_ms": 0.45945999954710715
+      },
+      {
+        "category": "project",
+        "query": "我的项目叫什么？",
+        "expected": "project",
+        "retrieved": [
+          "project",
+          "meeting"
+        ],
+        "hit": true,
+        "latency_ms": 0.5182940003578551
+      },
+      {
+        "category": "lexical",
+        "query": "三体里我最喜欢哪一部？",
+        "expected": "book",
+        "retrieved": [
+          "book",
+          "drink",
+          "exercise"
+        ],
+        "hit": true,
+        "latency_ms": 0.6860870016680565
+      },
+      {
+        "category": "lexical",
+        "query": "爵士音乐会是在哪里听的？",
+        "expected": "concert",
+        "retrieved": [
+          "concert"
+        ],
+        "hit": true,
+        "latency_ms": 0.6515020031656604
+      },
+      {
+        "category": "lexical",
+        "query": "银杏项目会议几点开始？",
+        "expected": "meeting",
+        "retrieved": [
+          "meeting",
+          "project"
+        ],
+        "hit": true,
+        "latency_ms": 0.9201290013152175
+      },
+      {
+        "category": "lexical",
+        "query": "备用钥匙放在哪儿？",
+        "expected": "keys",
+        "retrieved": [
+          "keys"
+        ],
+        "hit": true,
+        "latency_ms": 0.5145020004420076
+      },
+      {
+        "category": "lexical",
+        "query": "家里的猫叫什么？",
+        "expected": "cat",
+        "retrieved": [
+          "cat"
+        ],
+        "hit": true,
+        "latency_ms": 0.4989600020053331
+      },
+      {
+        "category": "lexical",
+        "query": "母亲生日准备送什么？",
+        "expected": "gift",
+        "retrieved": [
+          "gift"
+        ],
+        "hit": true,
+        "latency_ms": 0.6696279997413512
+      },
+      {
+        "category": "lexical",
+        "query": "十一去哪里旅行？",
+        "expected": "travel",
+        "retrieved": [],
+        "hit": false,
+        "latency_ms": 0.44950200026505627
+      },
+      {
+        "category": "lexical",
+        "query": "为什么下午不喝咖啡？",
+        "expected": "sleep",
+        "retrieved": [
+          "sleep",
+          "meeting"
+        ],
+        "hit": true,
+        "latency_ms": 0.6787940001231618
+      },
+      {
+        "category": "lexical",
+        "query": "机器人左侧轮子怎么修好的？",
+        "expected": "repair",
+        "retrieved": [
+          "repair",
+          "keys"
+        ],
+        "hit": true,
+        "latency_ms": 0.7912949986348394
+      },
+      {
+        "category": "lexical",
+        "query": "番茄牛腩味道怎么样？",
+        "expected": "food",
+        "retrieved": [
+          "food"
+        ],
+        "hit": true,
+        "latency_ms": 0.6258779976633377
+      },
+      {
+        "category": "lexical",
+        "query": "牙科复诊是什么时间？",
+        "expected": "doctor",
+        "retrieved": [
+          "doctor"
+        ],
+        "hit": true,
+        "latency_ms": 0.6948780028324109
+      },
+      {
+        "category": "lexical",
+        "query": "我喜欢在哪儿慢跑？",
+        "expected": "exercise",
+        "retrieved": [
+          "exercise",
+          "drink",
+          "book"
+        ],
+        "hit": true,
+        "latency_ms": 0.559169002372073
+      },
+      {
+        "category": "lexical",
+        "query": "书房摄像头什么时候调试？",
+        "expected": "camera",
+        "retrieved": [
+          "camera"
+        ],
+        "hit": true,
+        "latency_ms": 0.6938779988558963
+      },
+      {
+        "category": "paraphrase",
+        "query": "那场演出我和谁一起去的？",
+        "expected": "concert",
+        "retrieved": [],
+        "hit": false,
+        "latency_ms": 0.6281690002651885
+      },
+      {
+        "category": "paraphrase",
+        "query": "家里应急开门的东西藏哪了？",
+        "expected": "keys",
+        "retrieved": [],
+        "hit": false,
+        "latency_ms": 0.6913780016475357
+      },
+      {
+        "category": "paraphrase",
+        "query": "我的宠物今年多大？",
+        "expected": "cat",
+        "retrieved": [
+          "cat"
+        ],
+        "hit": true,
+        "latency_ms": 0.557418999960646
+      },
+      {
+        "category": "paraphrase",
+        "query": "晚上失眠可能和什么饮品有关？",
+        "expected": "sleep",
+        "retrieved": [
+          "exercise"
+        ],
+        "hit": false,
+        "latency_ms": 0.8810040017124265
+      },
+      {
+        "category": "unknown",
+        "query": "我的护照号码是多少？",
+        "expected": null,
+        "retrieved": [],
+        "hit": null,
+        "latency_ms": 0.503960000060033
+      },
+      {
+        "category": "unknown",
+        "query": "我毕业于哪所大学？",
+        "expected": null,
+        "retrieved": [],
+        "hit": null,
+        "latency_ms": 0.49358599790139124
+      },
+      {
+        "category": "unknown",
+        "query": "我的银行卡余额是多少？",
+        "expected": null,
+        "retrieved": [],
+        "hit": null,
+        "latency_ms": 0.5793769996671472
+      },
+      {
+        "category": "unknown",
+        "query": "我们第一次去南极是哪一年？",
+        "expected": null,
+        "retrieved": [],
+        "hit": null,
+        "latency_ms": 0.6760450014553498
+      }
+    ]
+  },
+  "extra_probes": {
+    "positive_hit": 6,
+    "positive_count": 10,
+    "unknown_false_returns": 4,
+    "unknown_count": 8,
+    "trials": [
+      {
+        "category": "positive",
+        "query": "记住的本人姓名是什么",
+        "expected": "name",
+        "retrieved": [],
+        "hit": false,
+        "latency_ms": 0.5989189994579647
+      },
+      {
+        "category": "positive",
+        "query": "能告诉我居住在哪座城市吗",
+        "expected": "city",
+        "retrieved": [],
+        "hit": false,
+        "latency_ms": 0.6198360024427529
+      },
+      {
+        "category": "positive",
+        "query": "我的饮食禁忌有哪些",
+        "expected": "allergy",
+        "retrieved": [
+          "allergy"
+        ],
+        "hit": true,
+        "latency_ms": 0.5150850010977592
+      },
+      {
+        "category": "positive",
+        "query": "机器人名字是什么",
+        "expected": "project",
+        "retrieved": [
+          "repair"
+        ],
+        "hit": false,
+        "latency_ms": 0.4807939985767007
+      },
+      {
+        "category": "positive",
+        "query": "银杏项目是在星期几开会",
+        "expected": "meeting",
+        "retrieved": [
+          "meeting",
+          "project"
+        ],
+        "hit": true,
+        "latency_ms": 0.8257110021077096
+      },
+      {
+        "category": "positive",
+        "query": "母亲过生日送的礼物是什么",
+        "expected": "gift",
+        "retrieved": [
+          "gift"
+        ],
+        "hit": true,
+        "latency_ms": 0.723627999832388
+      },
+      {
+        "category": "positive",
+        "query": "去年备用钥匙的存放位置",
+        "expected": "keys",
+        "retrieved": [
+          "keys"
+        ],
+        "hit": true,
+        "latency_ms": 0.8495030015183147
+      },
+      {
+        "category": "positive",
+        "query": "我的猫几岁了",
+        "expected": "cat",
+        "retrieved": [],
+        "hit": false,
+        "latency_ms": 0.3232929993828293
+      },
+      {
+        "category": "positive",
+        "query": "复诊预约在几点",
+        "expected": "doctor",
+        "retrieved": [
+          "doctor"
+        ],
+        "hit": true,
+        "latency_ms": 0.6168359977891669
+      },
+      {
+        "category": "positive",
+        "query": "周末去听的爵士演出在哪里",
+        "expected": "concert",
+        "retrieved": [
+          "concert",
+          "camera"
+        ],
+        "hit": true,
+        "latency_ms": 0.943295999604743
+      },
+      {
+        "category": "unknown",
+        "query": "我的驾照有效期是哪天",
+        "expected": null,
+        "retrieved": [],
+        "hit": null,
+        "latency_ms": 0.5520859995158389
+      },
+      {
+        "category": "unknown",
+        "query": "我的手机号码是多少",
+        "expected": null,
+        "retrieved": [],
+        "hit": null,
+        "latency_ms": 0.5577109986916184
+      },
+      {
+        "category": "unknown",
+        "query": "弟弟在哪家公司上班",
+        "expected": null,
+        "retrieved": [],
+        "hit": null,
+        "latency_ms": 0.657627999316901
+      },
+      {
+        "category": "unknown",
+        "query": "这台机器人的电池电压是多少",
+        "expected": null,
+        "retrieved": [
+          "repair"
+        ],
+        "hit": null,
+        "latency_ms": 0.796878997789463
+      },
+      {
+        "category": "unknown",
+        "query": "我喜欢的电影叫什么名字",
+        "expected": null,
+        "retrieved": [
+          "drink",
+          "exercise",
+          "book"
+        ],
+        "hit": null,
+        "latency_ms": 0.7786700007272884
+      },
+      {
+        "category": "unknown",
+        "query": "母亲的银行卡密码是多少",
+        "expected": null,
+        "retrieved": [
+          "gift",
+          "secret"
+        ],
+        "hit": null,
+        "latency_ms": 0.7951699990371708
+      },
+      {
+        "category": "unknown",
+        "query": "我的项目预算是多少",
+        "expected": null,
+        "retrieved": [
+          "project",
+          "meeting"
+        ],
+        "hit": null,
+        "latency_ms": 0.576252001337707
+      },
+      {
+        "category": "unknown",
+        "query": "请告诉我朋友的姓名",
+        "expected": null,
+        "retrieved": [],
+        "hit": null,
+        "latency_ms": 0.29029299912508577
+      }
+    ]
+  },
+  "caveat": "small synthetic set; no calibration claim; ambiguous related-topic negatives are deliberate"
+}

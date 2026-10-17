@@ -12,6 +12,7 @@ import numpy as np
 import yaml
 
 p=argparse.ArgumentParser();p.add_argument('--base',type=Path,required=True)
+p.add_argument('--results-root',type=Path,default=Path(__file__).resolve().parents[2]/'npu/results')
 p.add_argument('--output',type=Path,required=True);p.add_argument('--timeout',type=int,default=180)
 p.add_argument('--weight-mode',choices=['perchannel','dfp'],default='perchannel')
 p.add_argument('--dfp-method',choices=['peak','mse'],default='peak',
@@ -32,7 +33,7 @@ p.add_argument('--int8-mlp-projections',nargs='+',choices=['gate','up'],default=
 p.add_argument('--mlp-headroom-bits',type=int,help='separate range headroom for restored MLP projections (default: activation headroom)')
 p.add_argument('--float-scores',action='store_true',help='FP16 QK product and score scaling, stopping before projection tensors')
 p.add_argument('--float-head-norm',action='store_true',help='FP16 internal head norm; retain calibrated matrix boundaries and external IO')
-args=p.parse_args();root=Path(__file__).resolve().parents[2]/'npu/results'
+args=p.parse_args();root=args.results_root.resolve()
 assert args.dfp_method=='peak' or (args.weight_mode=='dfp' and args.weight_bits==8)
 base=args.base.resolve();out=args.output.resolve();relative=out.relative_to(root)
 out.mkdir(parents=True,exist_ok=True)

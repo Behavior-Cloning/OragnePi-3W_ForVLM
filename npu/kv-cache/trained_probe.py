@@ -1,4 +1,4 @@
-"""Export first two trained llama/Qwen2 language layers with incremental KV.
+"""Export trained llama/Qwen2 language layers with incremental KV.
 
 GGUF Q8_0 is dequantized before ACUITY conversion; this is not native NPU Q8.
 This checks layer arithmetic, not full-model language quality.
@@ -163,6 +163,7 @@ def main():
                 if layer.arch=='llama' else ['<|im_start|>','user','Ċ','Hello','!','<|im_end|>','Ċ','<|im_start|>','assistant','Ċ'])
         sequences[0]=prefix+sequences[0]
     report = {'model':args.model.name,'sha256':hashlib.file_digest(args.model.open('rb'),'sha256').hexdigest(),
+              'source_identity':{'format':'GGUF','intermediate_quantization':'source GGUF quantization'},
               'architecture':layer.arch,'stable_norm':args.stable_norm,'norm_version':args.norm_version if args.stable_norm else None,'language_layers_total':reader.fields[layer.arch+'.block_count'].contents(),
               'gguf_tensor_elements':sum(int(np.prod(t.shape)) for t in reader.tensors),
               'tested_layer_parameters':sum(b.numel() for l in layers for b in l.buffers()),
@@ -197,7 +198,13 @@ def main():
             token_ids=([ids[v] for v in pieces]*((tokens//len(pieces))+1))[:tokens]
             hidden=embeddings[token_ids][None].copy()
             oracle=torch.from_numpy(hidden)
-            for l in layers:oracle=l.full(oracle)
+            for i,l in enumerate(layers):
+                oracle=l.full(oracle)
+                if case==1 and i==1:oracle.numpy().tofile(args.output/'reference-first2.f32')
+            (args.output/f'case{case}-token-ids.json').write_text(json.dumps(token_ids))
+            oracle.numpy().tofile(args.output/f'case{case}-hidden.f32')
+            if head is not None:
+                head(oracle).numpy().tofile(args.output/f'case{case}-logits.f32')
             if head is not None and case==0:
                 entries=[]
                 for pos in sorted({0,1,2,4,8,tokens//2,tokens-1}):
@@ -207,7 +214,7 @@ def main():
             if case==1:
                 hidden.tofile(args.output/'hidden.f32');oracle.numpy().tofile(args.output/'reference.f32')
             caches=np.zeros((count,2,1,layer.kv,args.capacity,layer.hd),np.float32)
-            datasets=[[] for _ in layers];max_error=0.
+            datasets=[[] for _ in layers];max_error=0.;max_relative_error=0.
             for pos in range(tokens):
                 x=hidden[:,pos:pos+1]
                 for i,session in enumerate(sessions):
@@ -225,11 +232,12 @@ def main():
                 # on Qwen. Also require a tight scale-normalized error bound.
                 np.testing.assert_allclose(x,expected,atol=report['host_tolerance']['atol'],rtol=3e-4)
                 relative_error=float(np.linalg.norm(x-expected)/max(np.linalg.norm(expected),1e-12))
+                max_relative_error=max(max_relative_error,relative_error)
                 assert relative_error<report['host_tolerance']['relative_l2'], (case,pos,relative_error,float(np.max(np.abs(x-expected))))
             if case==0:
                 for i,entries in enumerate(datasets):(args.output/f'layer{i}-dataset.txt').write_text('\n'.join(entries)+'\n')
             report['cases'].append({'case':case,'bpe_pieces':pieces,'tokens':len(token_ids),
-                                    'max_abs_error':max_error,'host_ort_check':'PASS'})
+                                    'max_abs_error':max_error,'max_relative_l2':max_relative_error,'host_ort_check':'PASS'})
     (args.output/'trained-manifest.json').write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps(report,indent=2))
 

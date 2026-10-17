@@ -20,6 +20,7 @@ from fused_contract import verify_contract
 
 p = argparse.ArgumentParser()
 p.add_argument('--source', type=Path, required=True)
+p.add_argument('--results-root',type=Path,default=Path(__file__).resolve().parents[2]/'npu/results')
 p.add_argument('--variant', required=True)
 p.add_argument('--first', type=int, required=True)
 p.add_argument('--width', type=int, choices=(2, 4), default=2)
@@ -73,7 +74,7 @@ assert not (a.split_kv_side != 'both' or any((a.split_probability_i16, a.split_v
 assert not a.split_kv_attention or a.tokens == 1 or a.split_current_matmul
 assert all(re.fullmatch(r'VIV_VX_[A-Z0-9_]+=[A-Za-z0-9_.-]+', v) for v in a.sdk_option)
 assert len({v.split('=')[0] for v in a.sdk_option}) == len(a.sdk_option)
-root = Path(__file__).resolve().parents[2] / 'npu/results'
+root = a.results_root.resolve()
 out = a.output.resolve()
 relative = out.relative_to(root)
 out.mkdir(parents=True, exist_ok=False)

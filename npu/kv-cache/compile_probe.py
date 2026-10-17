@@ -15,6 +15,7 @@ RESULTS = ROOT / 'npu/results'
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--source', type=Path, required=True)
+    p.add_argument('--results-root', type=Path, default=RESULTS, help='common bind-mount root for source and output')
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--layer', type=int, default=0)
     p.add_argument('--dtype', choices=['int8', 'int16', 'fp16', 'bf16'], default='int16')
@@ -22,15 +23,16 @@ def main():
     args = p.parse_args()
     source = args.source.resolve()
     out = args.output.resolve()
-    source_rel = source.relative_to(RESULTS)
-    out_rel = out.relative_to(RESULTS)
+    results = args.results_root.resolve()
+    source_rel = source.relative_to(results)
+    out_rel = out.relative_to(results)
     out.mkdir(parents=True, exist_ok=True)
     image = 'ubuntu-npu:v2.0.10.2'
     base = ['docker', 'run', '--rm', '--network', 'none', '--cpus', '4', '--memory', '8g',
             '-e', 'TF_CPP_MIN_LOG_LEVEL=3', '-e', 'OMP_NUM_THREADS=4',
             '-e', 'VSIMULATOR_SHADER_CORE_COUNT=1',
             '-e', 'VSIMULATOR_CONFIG=VIP9000NANODI_PLUS_PID0X1000003B',
-            '-v', f'{RESULTS}:/work', '-w', f'/work/{out_rel}', image,
+            '-v', f'{results}:/work', '-w', f'/work/{out_rel}', image,
             'python3', '/root/acuity-toolkit-whl-6.30.22/bin/pegasus.py']
     report = {'image': image, 'target': 'VIP9000NANODI_PLUS_PID0X1000003B',
               'dtype': args.dtype, 'source': str(source_rel), 'layer': args.layer, 'stages': []}

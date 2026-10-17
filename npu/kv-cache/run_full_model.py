@@ -37,6 +37,7 @@ p.add_argument('--prefill-clear-output',action='store_true',help='clear and flus
 p.add_argument('--prefill-scalar-block',type=int,default=-1,help='run one sensitive block through the single-token NPU graph during batch prefill')
 p.add_argument('--cpu-affinity',help='taskset CPU list for the NPU host process')
 p.add_argument('--feedback-from',type=Path,help='tokens.json of a frozen continuation; teacher forcing for matched work, not free generation')
+p.add_argument('--feedback-file',type=Path,help='replay an archived little-endian int32 feedback file exactly')
 p.add_argument('--reuse-tag',help='reuse immutable binaries from this deployed tag, hash-checking all reused files')
 p.add_argument('--reuse-head-tag',help='reuse complete output-head binaries from a second deployed tag; SHA checks remain mandatory')
 p.add_argument('--reuse-prefill',action='store_true',help='also hard-link unchanged prefill binaries from reuse-tag; SHA checks remain mandatory')
@@ -97,9 +98,8 @@ assert set(args.deploy_layers).issubset({r['layer'] for r in records}), 'unknown
 assert not args.reuse_head_tag or not any(layer>=count for layer in args.deploy_layers), 'head reuse conflicts with upload'
 assert set(args.deploy_prefill_layers).issubset({r['layer'] for r in prefill_records}), 'unknown replacement prefill layer'
 remote='/opt/opi-vlm/npu-kv-probe/'+args.tag
-prefix=[str(Path.home()/'.local/bin/sshpass'),'-e'] if 'SSHPASS' in os.environ else []
-ssh=prefix+['ssh','-o','ForwardX11=no','-o','ConnectTimeout=8','root@192.168.88.29']
-scp=prefix+['scp','-o','ForwardX11=no','-o','ConnectTimeout=8']
+from board_connection import board_transport
+board_host, ssh, scp = board_transport()
 scripts=Path(__file__).resolve().parent
 result_name='board'+('-'+args.case if args.case else '')
 prompt_name=result_name+'-prompt.i32'
@@ -124,6 +124,14 @@ assert prompt_count+args.max_new-1<=capacity
     'prefill_clear_output':args.prefill_clear_output,'prefill_scalar_block':args.prefill_scalar_block,
     'host_cpu_affinity':args.cpu_affinity},indent=2)+'\n')
 feedback_file=None
+assert not (args.feedback_file and args.feedback_from), 'choose one feedback source'
+if args.feedback_file:
+    data=args.feedback_file.read_bytes()
+    assert len(data)==args.max_new*4, 'feedback length must match max-new'
+    values=struct.unpack('<'+'i'*args.max_new,data)
+    assert all(0<=t<manifest['vocab_size'] for t in values), 'invalid feedback token'
+    feedback_file=result_dir/'feedback.i32'
+    feedback_file.write_bytes(data)
 if args.feedback_from:
     feedback=json.loads(args.feedback_from.read_text())
     assert not feedback.get('fixed_feedback'), 'use a natural generation as the fixed trajectory'
@@ -168,7 +176,7 @@ if files:
             # Hard links make this variant independent of later path replacement.
             subprocess.run(ssh+['ln '+shlex.quote(original)+' '+shlex.quote(remote+'/'+name)],check=True,timeout=30)
         else:
-            subprocess.run(scp+[str(source),'root@192.168.88.29:'+remote+'/'+name],check=True,timeout=600)
+            subprocess.run(scp+[str(source),board_host+':'+remote+'/'+name],check=True,timeout=600)
         hashes.append(hashlib.file_digest(source.open('rb'),'sha256').hexdigest()+'  '+name)
         print('uploaded',name,flush=True)
     verification='cd '+remote+' && sha256sum -c -'
@@ -224,7 +232,7 @@ with (result_dir/'run.stdout').open('w') as out,(result_dir/'run.stderr').open('
 if result.returncode:raise SystemExit(result.returncode)
 for name in ('tokens.json',)+ (() if args.performance else ('logits.f32',))+ (('hidden-trace.f32',) if args.trace else ()) + (('decode-block-trace.f32',) if args.trace_decode_blocks else ()) + (('output-audit.tsv',) if args.audit_outputs else ()) + (('capture-input.f32','capture-output.f32') if args.capture_prefill else ()) + (('decode-capture-input.f32','decode-capture-output.f32') if args.capture_decode else ()):
     temporary=result_dir/(name+'.download')
-    subprocess.run(scp+['root@192.168.88.29:'+remote+'/'+result_name+'/'+name,str(temporary)],check=True,timeout=120)
+    subprocess.run(scp+[board_host+':'+remote+'/'+result_name+'/'+name,str(temporary)],check=True,timeout=120)
     temporary.replace(result_dir/name)
 result=json.loads((result_dir/'tokens.json').read_text())
 if result['prompt_tokens']!=len(json.loads((result_dir/'prompt.json').read_text())['token_ids']):

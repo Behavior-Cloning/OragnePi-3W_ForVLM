@@ -36,6 +36,11 @@ class ThermalTests(unittest.TestCase):
         self.assertEqual(result['after_mC'],62000)
         self.assertEqual(result['heater_workers_alive'],0)
 
+    def test_heater_plateau_below_old_overshoot_is_admitted(self):
+        result,heater,_=self.execute([40000,40000,64500,59000])
+        self.assertTrue(heater.stopped and heater.reaped)
+        self.assertEqual(result['after_mC'],59000)
+
     def test_timeout_reaps_heater(self):
         with self.assertRaises(TimeoutError):self.execute([40000,40000,45000],[0,1,301])
 

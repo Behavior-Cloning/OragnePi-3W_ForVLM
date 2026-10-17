@@ -275,8 +275,8 @@ for phase in ('diagnostic','warmup','measure'):
 '''.replace('CONFIG', repr(c), 1)
 code = sampler_source + '\n' + code
 compile(code, '<remote-benchmark>', 'exec')
-prefix = [str(Path.home() / '.local/bin/sshpass'), '-e'] if 'SSHPASS' in os.environ else []
-ssh = prefix + ['ssh', '-o', 'ForwardX11=no', '-o', 'ConnectTimeout=8', 'root@192.168.88.29']
+from board_connection import board_transport
+_, ssh, _ = board_transport()
 report = {'config': c, 'status': 'running', 'runs': []}
 a.output.parent.mkdir(parents=True, exist_ok=True)
 def save():

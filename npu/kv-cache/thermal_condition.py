@@ -21,9 +21,9 @@ def temperature():
 def condition(low,high,timeout=300):
     assert 35000<=low<high<=80000 and high-low>=5000
     started=time.monotonic();before=temperature();workers=[];heated=False;peak=before
-    # Junction temperature drops sharply as the CPU heater exits. A bounded
-    # preconditioning overshoot is allowed, but measured response must be in-band.
-    heater_stop=min(high+5000,80000)
+    # Stop inside the admission band, then recheck after reaping the heater.
+    # Waiting for high+5C can deadlock on a cooler board that plateaus below it.
+    heater_stop=high-1000
     original_affinity=os.sched_getaffinity(0)
     try:
         os.sched_setaffinity(0,{6,7})

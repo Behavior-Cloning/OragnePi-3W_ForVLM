@@ -57,3 +57,7 @@ python3 research/resident-agent/summarize.py /mnt/f/Files/OPi-Lab/results/reside
 ## 对照缓存控制修正
 
 30分钟长测中两条ASR交替处理相同语音并共用NPU session，后一条可能命中前一条prompt的额外KV，因此路径延迟比较有偏，保留为混合缓存稳定性/资源证据。后续优化短测在每轮唤醒前调用system-only prepare，恢复64-token固定前缀；新请求逐轮断言/检查reused_tokens=64。prepare在命令播放前，不属于说完后延迟，单独保存prefix_prepare_seconds。
+
+## 流式与非流式横向时序图
+
+`plot_timeline.py ROWS OUTPUT --font FONT_PATH` 从 `memoryonly-both-turns.jsonl` 取 source_id=2 的两条配对实测，核对prompt token和回答完全相同后绘制PNG/SVG/PDF。命令输入起点为0，system/KWS准备在图外；说话末尾用VAD段末代理，非人工标注。前端以斜线运行窗口表示，不能当作逐帧API追踪或连续CPU忙碌。端点、首字、结束为实测锚点；ASR和记忆边界根据耗时回推，保留调度误差说明。该图是单个真实配对样本，不是拼接P50。

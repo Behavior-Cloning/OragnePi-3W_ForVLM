@@ -29,14 +29,17 @@ for ax,x in zip(axs,pair):
  bar(2,0,speech,colors['speech'])
  ax.text(speech/2,2,f'说话 / 命令输入  [0, {speech:.3f}] s',color='white',ha='center',va='center')
  bar(2,speech,ep,colors['wait'],'等静音\n1.022 s')
- group='降噪 → KWS → VAD：逐帧串行' if mode=='para' else '流式片段式处理：每 16 ms 输入一帧，各模型按需执行'
+ group='降噪 → KWS → VAD：逐帧串行' if mode=='para' else '降噪 → KWS → VAD：随输入逐帧处理'
  bar(1,0,ep,colors['front'],group,hatch='///')
- if mode=='stream':
-  ax.plot([0],[1],marker='>',markersize=10,color='#247a6b',clip_on=False,zorder=5)
-  ax.annotate('前处理起点 t=0\n随首帧开始；非一次长调用',xy=(0,1.27),xytext=(.10,2.60),ha='left',va='bottom',fontsize=10.5,color='#176354',arrowprops={'arrowstyle':'->','color':'#247a6b','lw':1},zorder=6)
  bar(1,ep,end,'#eaf2ef','继续处理模拟静音（与 LLM 并行）',hatch='///')
  # Aggregate post-endpoint chain. Memory boundary reconstructed backwards
  # from LLM start and measured packing duration; small dispatch gaps remain.
+ if mode=='stream':
+  # Orange interval is the streaming ASR processing window, not an invented
+  # per-kernel trace. Hatching denotes intermittent chunk execution.
+  ax.barh(0,ep,left=0,height=.54,color=colors['asr'],edgecolor='#a87629',hatch='///',linewidth=0,zorder=3)
+  ax.text(ep/2,0,'流式 ASR：从 t≈0 按片段持续识别',ha='center',va='center',fontsize=12,zorder=4,color='#382b15')
+  ax.text(.03,-.60,'↑ t≈0 开始处理语音',ha='left',fontsize=10.5,color='#91601c')
  bar(0,ep,asr_end,colors['asr'])
  if mem>asr_end:bar(0,asr_end,mem,'#dce3e9')
  bar(0,mem,llm,colors['memory'])
@@ -47,14 +50,14 @@ for ax,x in zip(axs,pair):
  for v,label,color,yy in [(speech,f'话音末尾* {speech:.3f}s','#3277b3',2.55),(ep,f'VAD判停 {ep:.3f}s','#7f692f',2.91),(first,f'首字 {first:.3f}s','#754a9b',.51),(end,f'输出结束 {end:.3f}s','#2c7151',.51)]:
   ax.axvline(v,color=color,lw=.8,ls='--',alpha=.7,zorder=1);ax.text(v+.04,yy,label,color=color,fontsize=10.5,ha='left')
  ax.text(9.8,2.0,f'话音末尾*→首字\n{first-speech:.3f} s',ha='right',va='center',fontsize=14,fontweight='bold',color='#23364c')
- ax.set_yticks([2,1,0],['说话人 / 输入','持续语音前端\nCPU6（逻辑串行）','端点后串行链\nASR → 记忆 → LLM'])
+ ax.set_yticks([2,1,0],['说话人 / 输入','前处理\n降噪 / KWS / VAD','识别与回复链\nASR → 记忆 → LLM'])
  ax.tick_params(axis='y',length=0,pad=12);ax.set_ylim(-1.0,3.15);ax.set_xlim(0,10);ax.set_xticks(range(11));ax.grid(axis='x',alpha=.17,zorder=0);ax.set_axisbelow(True)
  ax.tick_params(axis='x',labelbottom=True);ax.set_xlabel('从命令语音开始计时（秒）',labelpad=7)
  intervals.append({'mode':mode,'speech_proxy':[0,speech],'endpoint':ep,'asr_or_drain':[ep,asr_end],'dispatch_gap':[asr_end,mem],'memory_approx':[mem,llm],'llm_to_first':[llm,first],'llm_remaining':[first,end],'source_turn':x['turn'],'boundary_note':'Memory start/end reconstructed from duration and LLM start; frontend windows are not continuous busy spans.'})
 fig.text(.13,.137,'* 话音末尾采用 VAD 语段末样本代理（4.088 s），不是人工标注；原 WAV 结束于4.810 s，末尾含静音。',fontsize=11,color='#455468')
-fig.text(.13,.104,'斜线带＝流式片段式处理窗口，非一次长推理：16 ms 输入帧；VAD 累积32 ms；ASR 满足内部块条件时才执行。',fontsize=11,color='#455468')
-fig.text(.13,.071,'毫秒级 ASR/记忆边界按累计耗时还原，包含少量调度误差；VAD判停、LLM首字、输出结束来自实测时间戳。',fontsize=11,color='#455468')
-fig.text(.13,.038,'t=0 为本轮首帧输入的逻辑起点，非首个算子精确时间戳；模型已常驻。此前唤醒、加载和 KV 准备不计入本图。',fontsize=11,color='#455468')
+fig.text(.13,.104,'橘色斜线带＝流式 ASR 的片段处理窗口；末端实色橘块＝判停后的收尾。没有逐片段时间戳，斜线不代表真实调用次数。',fontsize=11,color='#455468')
+fig.text(.13,.071,'前处理与流式 ASR 都随输入推进，按模型所需块长执行；两行表示重叠处理窗口，不表示它们在不同 CPU 线程同时执行。',fontsize=11,color='#455468')
+fig.text(.13,.038,'t≈0 为首帧输入的逻辑起点；毫秒级 API 边界按耗时还原。模型已常驻，此前唤醒、加载和 KV 准备不计入本图。',fontsize=11,color='#455468')
 a.output.parent.mkdir(parents=True,exist_ok=True)
 for ext in ['png','svg','pdf']:fig.savefig(a.output.with_suffix('.'+ext),dpi=180,facecolor='white')
 a.output.with_suffix('.json').write_text(json.dumps({'source':str(a.rows),'reference':pair[0]['reference'],'intervals':intervals},ensure_ascii=False,indent=2))

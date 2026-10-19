@@ -39,6 +39,25 @@ static void reset_session(Session *s) {
     }
 }
 
+/* Causal prefix entries are independent of a discarded dynamic suffix.
+ * Close every stale mask column before reusing the prefix; batch masks only
+ * open columns monotonically during generation, so rewinding the cursor alone
+ * is insufficient. Stale finite K/V values remain unreachable behind masks. */
+static void truncate_session(Session *s,int keep) {
+    s->valid=keep;s->batch.previous_position=keep;
+    for(int i=0;i<s->blocks;i++)for(int k=0;k<FUSED_LAYERS;k++){
+        Tensor *m=&s->decoder[i].in[IN_MASK(k)];
+        for(int j=0;j<s->capacity;j++)put(m,j,j<keep?0:-10000);
+        put(m,s->capacity,0);
+        if(s->batch.tokens){
+            m=&s->batch.layers[i].in[IN_MASK(k)];
+            int n=s->batch.tokens,c=s->capacity,repeat=DIM/(KV*HD);
+            for(int r=0;r<repeat;r++)for(int t=0;t<n;t++)for(int j=0;j<c+n;j++)
+                put(m,(r*n+t)*(c+n)+j,(j<keep||(j>=c&&j<=c+t))?0:-10000);
+        }
+    }
+}
+
 static void session_scalar(Session *s,int token,int pos,double *api) {
     Layer *d=s->decoder;
     for(int j=0;j<DIM;j++)put(&d[0].in[0],j,s->embedding[(size_t)token*DIM+j]);
@@ -181,10 +200,14 @@ int main(int argc,char **argv) {
         }
         double start=now(),cpu_start=cpu_time(),api=0,first=0;
         int temp_start=temperature();if(temp_start<0||temp_start>=80000)return 2;
-        int reused=s.valid;
-        if(header[5]||reused>=n||memcmp(s.history,prompt,(size_t)(reused<n?reused:n)*sizeof(int32_t))){
-            reset_session(&s);reused=0;
-        }
+        int reused=0;
+        if(!header[5])while(reused<s.valid&&reused<n-1&&s.history[reused]==prompt[reused])reused++;
+        /* Retain complete prefill batches, so the same prefix is computed with
+         * the same scalar/batch partition as a fresh request. Re-evaluate at
+         * least the final prompt token: hidden stores the previous request. */
+        if(s.batch.tokens)reused-=reused%s.batch.tokens;
+        if(!reused)reset_session(&s);
+        else truncate_session(&s,reused);
         int generated=0,last=-1;
         for(int pos=reused;pos<n+limit-1;pos++){
             if((pos-reused)%32==0&&temperature()>=80000)return 2;

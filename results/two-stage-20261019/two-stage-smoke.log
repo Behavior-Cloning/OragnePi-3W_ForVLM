@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/opt/opi-vlm/resident-agent-20261019/two_stage.py", line 173, in <module>
+    if __name__=='__main__':main()
+  File "/opt/opi-vlm/resident-agent-20261019/two_stage.py", line 162, in main
+    response=final.result();candidate_results=[f.result() for f in futures]
+  File "/usr/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+    return self.__get_result()
+  File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+    raise self._exception
+  File "/usr/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/opi-vlm/resident-agent-20261019/two_stage.py", line 81, in final
+    os.sched_setaffinity(0,{7});begin=time.monotonic();pack=self.prompt(text);prompt=pack['prompt_token_ids']
+  File "/opt/opi-vlm/resident-agent-20261019/two_stage.py", line 71, in prompt
+    records=self.memory.retrieve('synthetic-user',text)
+  File "/opt/opi-vlm/resident-agent-20261019/memory_lab.py", line 176, in retrieve
+    lexical=self._lexical(namespace,query,now)
+  File "/opt/opi-vlm/resident-agent-20261019/memory_lab.py", line 165, in _lexical
+    return list(self.db.execute('''SELECT m.*,bm25(memory_fts) AS rank FROM memory_fts
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 548289725472 and this is thread id 548078088480.

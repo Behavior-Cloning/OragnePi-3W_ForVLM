@@ -1,0 +1,28 @@
+{
+  "status": "failed",
+  "soft_s": 0.4,
+  "hard_s": 1.0,
+  "asr": "resident Paraformer Small INT8; full denoised prefix snapshots",
+  "noise_snr_db": null,
+  "noise_type": "none",
+  "prefix_tokens": 64,
+  "npu_ready": {
+    "event": "ready",
+    "layers": 24,
+    "capacity": 1280,
+    "load_seconds": 1.977589,
+    "driver_bytes": 753274680
+  },
+  "source_sha256": "c357b61a97a644d5617c392bc137521ae63c1e67812f560232ea2f1f3714bb65",
+  "cancellation": "logical revision invalidation, in-flight one-token prefill finishes; no NPU kernel preemption",
+  "memory": "read-only retrieval during speculative and confirmed turns",
+  "clock_reference": "VAD segment-end proxy, not human annotation",
+  "error": "ProgrammingError('SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 548289725472 and this is thread id 548078088480.')",
+  "traceback": "Traceback (most recent call last):\n  File \"/opt/opi-vlm/resident-agent-20261019/two_stage.py\", line 162, in main\n    response=final.result();candidate_results=[f.result() for f in futures]\n  File \"/usr/lib/python3.10/concurrent/futures/_base.py\", line 451, in result\n    return self.__get_result()\n  File \"/usr/lib/python3.10/concurrent/futures/_base.py\", line 403, in __get_result\n    raise self._exception\n  File \"/usr/lib/python3.10/concurrent/futures/thread.py\", line 58, in run\n    result = self.fn(*self.args, **self.kwargs)\n  File \"/opt/opi-vlm/resident-agent-20261019/two_stage.py\", line 81, in final\n    os.sched_setaffinity(0,{7});begin=time.monotonic();pack=self.prompt(text);prompt=pack['prompt_token_ids']\n  File \"/opt/opi-vlm/resident-agent-20261019/two_stage.py\", line 71, in prompt\n    records=self.memory.retrieve('synthetic-user',text)\n  File \"/opt/opi-vlm/resident-agent-20261019/memory_lab.py\", line 176, in retrieve\n    lexical=self._lexical(namespace,query,now)\n  File \"/opt/opi-vlm/resident-agent-20261019/memory_lab.py\", line 165, in _lexical\n    return list(self.db.execute('''SELECT m.*,bm25(memory_fts) AS rank FROM memory_fts\nsqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 548289725472 and this is thread id 548078088480.\n",
+  "turns": 0,
+  "elapsed_s": 12.534302657004446,
+  "closed": {
+    "event": "closed",
+    "driver_bytes": 0
+  }
+}

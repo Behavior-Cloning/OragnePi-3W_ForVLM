@@ -1,0 +1,455 @@
+{
+  "meta": {
+    "status": "complete",
+    "soft_s": 0.4,
+    "hard_s": 1.0,
+    "asr": "resident Paraformer Small INT8; full denoised prefix snapshots",
+    "noise_snr_db": null,
+    "noise_type": "none",
+    "prefix_tokens": 64,
+    "npu_ready": {
+      "event": "ready",
+      "layers": 24,
+      "capacity": 1280,
+      "load_seconds": 1.961614,
+      "driver_bytes": 753274680
+    },
+    "source_sha256": "084e57ff17bfa7c088c37e866812b7459a8c3152b36df6f95454fe1928b3e4fc",
+    "cancellation": "logical revision invalidation, in-flight one-token prefill finishes; no NPU kernel preemption",
+    "memory": "read-only retrieval during speculative and confirmed turns",
+    "clock_reference": "VAD segment-end proxy, not human annotation",
+    "turns": 24,
+    "elapsed_s": 281.94392301200423,
+    "closed": {
+      "event": "closed",
+      "driver_bytes": 0
+    }
+  },
+  "policies": {
+    "baseline": {
+      "turns": 12,
+      "proxy_to_first_s": {
+        "n": 12,
+        "min": 1.6892226139898412,
+        "p50": 1.9057590099982917,
+        "p95": 2.460781674977625,
+        "max": 2.460781674977625,
+        "mean": 1.984715180658289
+      },
+      "endpoint_to_first_s": {
+        "n": 12,
+        "min": 0.6706716959888581,
+        "p50": 0.8864802140014945,
+        "p95": 1.441918661003001,
+        "max": 1.441918661003001,
+        "mean": 0.9644131070842074
+      },
+      "proxy_to_complete_s": {
+        "n": 12,
+        "min": 2.749616133980453,
+        "p50": 3.6785128699993948,
+        "p95": 5.7638477479922585,
+        "max": 5.7638477479922585,
+        "mean": 3.9003987547427337
+      },
+      "cache_hits": 0,
+      "candidate_count": 0,
+      "stale_candidates": 0,
+      "speech_resumptions": 9,
+      "gate_violations": 0,
+      "cer_errors": 0,
+      "cer_characters": 196,
+      "cer": 0.0,
+      "active_turn_cpu_percent": 7.267226215795913,
+      "active_turn_temperature_C": {
+        "n": 184,
+        "min": 39.246,
+        "p50": 41.912,
+        "p95": 43.152,
+        "max": 44.392,
+        "mean": 41.81259782608696
+      }
+    },
+    "speculative": {
+      "turns": 12,
+      "proxy_to_first_s": {
+        "n": 12,
+        "min": 1.1791578789998312,
+        "p50": 1.3105388760013739,
+        "p95": 1.518105591996573,
+        "max": 1.518105591996573,
+        "mean": 1.3196191719107446
+      },
+      "endpoint_to_first_s": {
+        "n": 12,
+        "min": 0.16058132098987699,
+        "p50": 0.2911309275077656,
+        "p95": 0.49823694900260307,
+        "max": 0.49823694900260307,
+        "mean": 0.29825517708377447
+      },
+      "proxy_to_complete_s": {
+        "n": 12,
+        "min": 2.115664596989518,
+        "p50": 3.2787615559936967,
+        "p95": 5.486913672997616,
+        "max": 5.486913672997616,
+        "mean": 3.462997777077059
+      },
+      "cache_hits": 12,
+      "candidate_count": 21,
+      "stale_candidates": 9,
+      "speech_resumptions": 9,
+      "gate_violations": 0,
+      "cer_errors": 0,
+      "cer_characters": 196,
+      "cer": 0.0,
+      "active_turn_cpu_percent": 8.205665874803202,
+      "active_turn_temperature_C": {
+        "n": 173,
+        "min": 39.804,
+        "p50": 42.16,
+        "p95": 44.02,
+        "max": 46.066,
+        "mean": 42.184728323699424
+      }
+    }
+  },
+  "pairs": [
+    {
+      "source_id": 1,
+      "reference": "今天下班有点累，你陪我聊一会儿吧。",
+      "asr_equal": true,
+      "prompt_equal": true,
+      "tokens_equal": true,
+      "first_saved_s": 0.579457801009994,
+      "baseline_first_s": 1.8334409089875408,
+      "speculative_first_s": 1.2539831079775468,
+      "speculative_hit": true,
+      "baseline_reply": "好的，我在这里陪你聊天。有什么想聊的吗？",
+      "speculative_reply": "好的，我在这里陪你聊天。有什么想聊的吗？",
+      "tentative_texts": [
+        "今天下班有点累",
+        "今天下班有点累你陪我聊一会儿吧"
+      ],
+      "final_text": "今天下班有点累你陪我聊一会儿吧",
+      "candidate_statuses": [
+        "discarded_after_prefill",
+        "ready"
+      ],
+      "stale_candidates": 1
+    },
+    {
+      "source_id": 2,
+      "reference": "我想泡一杯茶，你还记得我喜欢喝什么吗？",
+      "asr_equal": true,
+      "prompt_equal": true,
+      "tokens_equal": true,
+      "first_saved_s": 0.6400825629825704,
+      "baseline_first_s": 2.0128317539929412,
+      "speculative_first_s": 1.3727491910103709,
+      "speculative_hit": true,
+      "baseline_reply": "当然，如果你喜欢绿茶，可以尝试泡一杯绿茶。绿茶含有丰富的抗氧化剂，有助于提神醒脑。你可以选择绿茶的浓淡，或者加入一些花草茶包来增加风味。",
+      "speculative_reply": "当然，如果你喜欢绿茶，可以尝试泡一杯绿茶。绿茶含有丰富的抗氧化剂，有助于提神醒脑。你可以选择绿茶的浓淡，或者加入一些花草茶包来增加风味。",
+      "tentative_texts": [
+        "我想泡一杯茶你还记得我喜欢喝什么吗"
+      ],
+      "final_text": "我想泡一杯茶你还记得我喜欢喝什么吗",
+      "candidate_statuses": [
+        "ready"
+      ],
+      "stale_candidates": 0
+    },
+    {
+      "source_id": 3,
+      "reference": "明天早上八点我要去超市，帮我想想买什么。",
+      "asr_equal": true,
+      "prompt_equal": true,
+      "tokens_equal": true,
+      "first_saved_s": 0.6159533759928308,
+      "baseline_first_s": 1.9780771110090427,
+      "speculative_first_s": 1.3621237350162119,
+      "speculative_hit": true,
+      "baseline_reply": "明天早上八点，你计划去超市购物，想买什么？",
+      "speculative_reply": "明天早上八点，你计划去超市购物，想买什么？",
+      "tentative_texts": [
+        "明天早上八点我要去超市",
+        "明天早上八点我要去超市帮我想想买什么"
+      ],
+      "final_text": "明天早上八点我要去超市帮我想想买什么",
+      "candidate_statuses": [
+        "discarded_after_prefill",
+        "ready"
+      ],
+      "stale_candidates": 1
+    },
+    {
+      "source_id": 4,
+      "reference": "冰箱里有鸡蛋和番茄，晚饭可以做什么？",
+      "asr_equal": true,
+      "prompt_equal": true,
+      "tokens_equal": true,
+      "first_saved_s": 0.49799744799383916,
+      "baseline_first_s": 1.7538257839914877,
+      "speculative_first_s": 1.2558283359976485,
+      "speculative_hit": true,
+      "baseline_reply": "冰箱里有鸡蛋和番茄，可以做以下几种菜：\n\n1. **番茄鸡蛋炒饭**：将鸡蛋打散，加入少许盐和胡椒粉，炒至熟透。将番茄切成小块，与鸡蛋",
+      "speculative_reply": "冰箱里有鸡蛋和番茄，可以做以下几种菜：\n\n1. **番茄鸡蛋炒饭**：将鸡蛋打散，加入少许盐和胡椒粉，炒至熟透。将番茄切成小块，与鸡蛋",
+      "tentative_texts": [
+        "冰箱里有鸡蛋和番茄",
+        "冰箱里有鸡蛋和番茄晚饭可以做什么"
+      ],
+      "final_text": "冰箱里有鸡蛋和番茄晚饭可以做什么",
+      "candidate_statuses": [
+        "discarded_after_prefill",
+        "ready"
+      ],
+      "stale_candidates": 1
+    },
+    {
+      "source_id": 5,
+      "reference": "我今天不想喝咖啡，晚上想早点睡觉。",
+      "asr_equal": true,
+      "prompt_equal": true,
+      "tokens_equal": true,
+      "first_saved_s": 0.536169739003526,
+      "baseline_first_s": 1.7751171829877421,
+      "speculative_first_s": 1.238947443984216,
+      "speculative_hit": true,
+      "baseline_reply": "如果你不想喝咖啡，晚上想早点睡觉，可以考虑喝一杯温牛奶或一杯热牛奶，它们都是不错的选择。",
+      "speculative_reply": "如果你不想喝咖啡，晚上想早点睡觉，可以考虑喝一杯温牛奶或一杯热牛奶，它们都是不错的选择。",
+      "tentative_texts": [
+        "我今天不想喝咖啡晚上想早点睡觉"
+      ],
+      "final_text": "我今天不想喝咖啡晚上想早点睡觉",
+      "candidate_statuses": [
+        "ready"
+      ],
+      "stale_candidates": 0
+    },
+    {
+      "source_id": 6,
+      "reference": "我的项目叫什么名字，你还记得吗？",
+      "asr_equal": true,
+      "prompt_equal": true,
+      "tokens_equal": true,
+      "first_saved_s": 1.0599535910005216,
+      "baseline_first_s": 2.4203412069764454,
+      "speculative_first_s": 1.3603876159759238,
+      "speculative_hit": true,
+      "baseline_reply": "你的项目叫小白机器人。",
+      "speculative_reply": "你的项目叫小白机器人。",
+      "tentative_texts": [
+        "我的项目叫什么名字",
+        "我的项目叫什么名字你还记得吗"
+      ],
+      "final_text": "我的项目叫什么名字你还记得吗",
+      "candidate_statuses": [
+        "discarded_after_prefill",
+        "ready"
+      ],
+      "stale_candidates": 1
+    },
+    {
+      "source_id": 7,
+      "reference": "周末如果下雨，在家可以做什么有趣的事情？",
+      "asr_equal": true,
+      "prompt_equal": true,
+      "tokens_equal": true,
+      "first_saved_s": 0.44219645601697266,
+      "baseline_first_s": 1.6892226139898412,
+      "speculative_first_s": 1.2470261579728685,
+      "speculative_hit": true,
+      "baseline_reply": "周末如果下雨在家，可以尝试以下有趣的事情：\n\n1. **室内活动**：可以进行一些室内活动，如看一场电影、听音乐、玩游戏或进行一些简单的手工制作，如拼图、绘画或编织。\n\n",
+      "speculative_reply": "周末如果下雨在家，可以尝试以下有趣的事情：\n\n1. **室内活动**：可以进行一些室内活动，如看一场电影、听音乐、玩游戏或进行一些简单的手工制作，如拼图、绘画或编织。\n\n",
+      "tentative_texts": [
+        "周末如果下雨",
+        "周末如果下雨在家可以做什么有趣的事情"
+      ],
+      "final_text": "周末如果下雨在家可以做什么有趣的事情",
+      "candidate_statuses": [
+        "discarded_after_prefill",
+        "ready"
+      ],
+      "stale_candidates": 1
+    },
+    {
+      "source_id": 8,
+      "reference": "我对什么食物过敏，做饭的时候要注意什么？",
+      "asr_equal": true,
+      "prompt_equal": true,
+      "tokens_equal": true,
+      "first_saved_s": 0.9443361739977263,
+      "baseline_first_s": 2.3176120319985785,
+      "speculative_first_s": 1.3732758580008522,
+      "speculative_hit": true,
+      "baseline_reply": "在做饭时，如果你对花生过敏，需要注意以下几点：\n\n1. **彻底洗手**：在处理任何食物之前，确保彻底洗手，以避免花生过敏的传播。\n2. **使用密封容器**：将花生放在",
+      "speculative_reply": "在做饭时，如果你对花生过敏，需要注意以下几点：\n\n1. **彻底洗手**：在处理任何食物之前，确保彻底洗手，以避免花生过敏的传播。\n2. **使用密封容器**：将花生放在",
+      "tentative_texts": [
+        "我对什么食物过敏",
+        "我对什么食物过敏做饭的时候要注意什么"
+      ],
+      "final_text": "我对什么食物过敏做饭的时候要注意什么",
+      "candidate_statuses": [
+        "discarded_after_prefill",
+        "ready"
+      ],
+      "stale_candidates": 1
+    },
+    {
+      "source_id": 9,
+      "reference": "请用两句话教我整理书桌。",
+      "asr_equal": true,
+      "prompt_equal": true,
+      "tokens_equal": true,
+      "first_saved_s": 0.56443590199342,
+      "baseline_first_s": 1.7435937809932511,
+      "speculative_first_s": 1.1791578789998312,
+      "speculative_hit": true,
+      "baseline_reply": "1. 使用文件夹分类书籍，保持整洁。\n2. 按照重要性或使用频率整理文件，确保高效利用空间。",
+      "speculative_reply": "1. 使用文件夹分类书籍，保持整洁。\n2. 按照重要性或使用频率整理文件，确保高效利用空间。",
+      "tentative_texts": [
+        "请用两句话教我整理书桌"
+      ],
+      "final_text": "请用两句话教我整理书桌",
+      "candidate_statuses": [
+        "ready"
+      ],
+      "stale_candidates": 0
+    },
+    {
+      "source_id": 10,
+      "reference": "我住在哪个城市？你还记得我说过的信息吗？",
+      "asr_equal": true,
+      "prompt_equal": true,
+      "tokens_equal": true,
+      "first_saved_s": 0.9426760829810519,
+      "baseline_first_s": 2.460781674977625,
+      "speculative_first_s": 1.518105591996573,
+      "speculative_hit": true,
+      "baseline_reply": "你住在杭州。",
+      "speculative_reply": "你住在杭州。",
+      "tentative_texts": [
+        "我住在哪个城市",
+        "我住在哪个城市你还记得我说过的信息吗"
+      ],
+      "final_text": "我住在哪个城市你还记得我说过的信息吗",
+      "candidate_statuses": [
+        "discarded_after_prefill",
+        "ready"
+      ],
+      "stale_candidates": 1
+    },
+    {
+      "source_id": 11,
+      "reference": "买三个苹果和两盒牛奶，一共需要买几件东西？",
+      "asr_equal": true,
+      "prompt_equal": true,
+      "tokens_equal": true,
+      "first_saved_s": 0.6446831670182291,
+      "baseline_first_s": 2.057838176988298,
+      "speculative_first_s": 1.413155009970069,
+      "speculative_hit": true,
+      "baseline_reply": "买三个苹果和两盒牛奶一共需要买四件东西。",
+      "speculative_reply": "买三个苹果和两盒牛奶一共需要买四件东西。",
+      "tentative_texts": [
+        "买三个苹果和两盒牛奶",
+        "买三个苹果和两盒牛奶一共需要买几件东西"
+      ],
+      "final_text": "买三个苹果和两盒牛奶一共需要买几件东西",
+      "candidate_statuses": [
+        "discarded_after_prefill",
+        "ready"
+      ],
+      "stale_candidates": 1
+    },
+    {
+      "source_id": 12,
+      "reference": "我有点紧张，你可以说一句鼓励我的话吗？",
+      "asr_equal": true,
+      "prompt_equal": true,
+      "tokens_equal": true,
+      "first_saved_s": 0.5132098049798515,
+      "baseline_first_s": 1.7738999410066754,
+      "speculative_first_s": 1.260690136026824,
+      "speculative_hit": true,
+      "baseline_reply": "当然可以！无论你遇到什么挑战，我都会在这里支持你。记住，你并不孤单，我在这里陪伴着你。",
+      "speculative_reply": "当然可以！无论你遇到什么挑战，我都会在这里支持你。记住，你并不孤单，我在这里陪伴着你。",
+      "tentative_texts": [
+        "我有点紧张",
+        "我有点紧张你可以说一句鼓励我的话吗"
+      ],
+      "final_text": "我有点紧张你可以说一句鼓励我的话吗",
+      "candidate_statuses": [
+        "discarded_after_prefill",
+        "ready"
+      ],
+      "stale_candidates": 1
+    }
+  ],
+  "paired_first_saved_s": {
+    "n": 12,
+    "min": 0.44219645601697266,
+    "p50": 0.5977055885014124,
+    "p95": 1.0599535910005216,
+    "max": 1.0599535910005216,
+    "mean": 0.6650960087475445
+  },
+  "resources": {
+    "whole_cpu_mean_percent": 7.279358068574747,
+    "temperature_C": {
+      "n": 541,
+      "min": 39.246,
+      "p50": 42.036,
+      "p95": 43.524,
+      "max": 46.066,
+      "mean": 41.9424842883549
+    },
+    "mem_available_MiB": {
+      "n": 541,
+      "min": 3411.15234375,
+      "p50": 3412.71484375,
+      "p95": 3416.48828125,
+      "max": 3422.80859375,
+      "mean": 3413.004837684843
+    },
+    "swap_io_pages": {
+      "pswpin": 0,
+      "pswpout": 0
+    },
+    "frontend": {
+      "frames": 17587,
+      "overruns": 829,
+      "max_lag_s": 0.02986042623524554,
+      "stage_seconds": {
+        "denoise": 59.71841269364813,
+        "kws": 18.497233750851592,
+        "vad": 11.552171766816173
+      }
+    },
+    "python3_rss_MiB": {
+      "n": 541,
+      "min": 271.99609375,
+      "p50": 281.12109375,
+      "p95": 282.24609375,
+      "max": 282.24609375,
+      "mean": 280.8791806261553
+    },
+    "resident_rss_MiB": {
+      "n": 541,
+      "min": 20.26171875,
+      "p50": 28.63671875,
+      "p95": 33.01171875,
+      "max": 33.26171875,
+      "mean": 28.786441485674676
+    },
+    "llama-server_rss_MiB": {
+      "n": 541,
+      "min": 1130.68359375,
+      "p50": 1130.68359375,
+      "p95": 1130.68359375,
+      "max": 1130.68359375,
+      "mean": 1130.68359375
+    }
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "meta": {
+    "status": "complete",
+    "soft_s": 0.4,
+    "hard_s": 1.0,
+    "asr": "resident Paraformer Small INT8; full denoised prefix snapshots",
+    "noise_snr_db": null,
+    "noise_type": "none",
+    "prefix_tokens": 64,
+    "npu_ready": {
+      "event": "ready",
+      "layers": 24,
+      "capacity": 1280,
+      "load_seconds": 1.939153,
+      "driver_bytes": 753274680
+    },
+    "source_sha256": "084e57ff17bfa7c088c37e866812b7459a8c3152b36df6f95454fe1928b3e4fc",
+    "cancellation": "logical revision invalidation, in-flight one-token prefill finishes; no NPU kernel preemption",
+    "memory": "read-only retrieval during speculative and confirmed turns",
+    "clock_reference": "VAD segment-end proxy, not human annotation",
+    "turns": 4,
+    "elapsed_s": 49.18862472899491,
+    "closed": {
+      "event": "closed",
+      "driver_bytes": 0
+    }
+  },
+  "policies": {
+    "baseline": {
+      "turns": 2,
+      "proxy_to_first_s": {
+        "n": 2,
+        "min": 2.0126823780301493,
+        "p50": 2.2407424815028207,
+        "p95": 2.468802584975492,
+        "max": 2.468802584975492,
+        "mean": 2.2407424815028207
+      },
+      "endpoint_to_first_s": {
+        "n": 2,
+        "min": 0.9933771770156454,
+        "p50": 1.2215183945081662,
+        "p95": 1.449659612000687,
+        "max": 1.449659612000687,
+        "mean": 1.2215183945081662
+      },
+      "proxy_to_complete_s": {
+        "n": 2,
+        "min": 2.7601875549880788,
+        "p50": 3.879406994499732,
+        "p95": 4.998626434011385,
+        "max": 4.998626434011385,
+        "mean": 3.879406994499732
+      },
+      "cache_hits": 0,
+      "candidate_count": 0,
+      "stale_candidates": 0,
+      "speech_resumptions": 1,
+      "gate_violations": 0,
+      "cer_errors": 0,
+      "cer_characters": 35,
+      "cer": 0.0,
+      "active_turn_cpu_percent": 5.578546471543922,
+      "active_turn_temperature_C": {
+        "n": 33,
+        "min": 38.254,
+        "p50": 39.68,
+        "p95": 40.61,
+        "max": 40.61,
+        "mean": 39.742
+      }
+    },
+    "speculative": {
+      "turns": 2,
+      "proxy_to_first_s": {
+        "n": 2,
+        "min": 1.3746390320011415,
+        "p50": 1.4169520805007778,
+        "p95": 1.4592651290004142,
+        "max": 1.4592651290004142,
+        "mean": 1.4169520805007778
+      },
+      "endpoint_to_first_s": {
+        "n": 2,
+        "min": 0.3549545370042324,
+        "p50": 0.3972336160077248,
+        "p95": 0.43951269501121715,
+        "max": 0.43951269501121715,
+        "mean": 0.3972336160077248
+      },
+      "proxy_to_complete_s": {
+        "n": 2,
+        "min": 2.055641712009674,
+        "p50": 3.2287870940053836,
+        "p95": 4.401932476001093,
+        "max": 4.401932476001093,
+        "mean": 3.2287870940053836
+      },
+      "cache_hits": 2,
+      "candidate_count": 3,
+      "stale_candidates": 1,
+      "speech_resumptions": 1,
+      "gate_violations": 0,
+      "cer_errors": 0,
+      "cer_characters": 35,
+      "cer": 0.0,
+      "active_turn_cpu_percent": 6.417315922883162,
+      "active_turn_temperature_C": {
+        "n": 29,
+        "min": 38.874,
+        "p50": 40.362,
+        "p95": 41.788,
+        "max": 42.284,
+        "mean": 40.274344827586205
+      }
+    }
+  },
+  "pairs": [
+    {
+      "source_id": 2,
+      "reference": "我想泡一杯茶，你还记得我喜欢喝什么吗？",
+      "asr_equal": true,
+      "prompt_equal": true,
+      "tokens_equal": true,
+      "first_saved_s": 0.6380433460290078,
+      "baseline_first_s": 2.0126823780301493,
+      "speculative_first_s": 1.3746390320011415,
+      "speculative_hit": true,
+      "baseline_reply": "当然，如果你喜欢绿茶，可以尝试泡一杯绿茶。绿茶含有丰富的抗氧化剂，有助于提神醒脑。你可以选择绿茶的浓淡，或者加入一些花草茶包来增加风味。",
+      "speculative_reply": "当然，如果你喜欢绿茶，可以尝试泡一杯绿茶。绿茶含有丰富的抗氧化剂，有助于提神醒脑。你可以选择绿茶的浓淡，或者加入一些花草茶包来增加风味。",
+      "tentative_texts": [
+        "我想泡一杯茶你还记得我喜欢喝什么吗"
+      ],
+      "final_text": "我想泡一杯茶你还记得我喜欢喝什么吗",
+      "candidate_statuses": [
+        "ready"
+      ],
+      "stale_candidates": 0
+    },
+    {
+      "source_id": 10,
+      "reference": "我住在哪个城市？你还记得我说过的信息吗？",
+      "asr_equal": true,
+      "prompt_equal": true,
+      "tokens_equal": true,
+      "first_saved_s": 1.009537455975078,
+      "baseline_first_s": 2.468802584975492,
+      "speculative_first_s": 1.4592651290004142,
+      "speculative_hit": true,
+      "baseline_reply": "你住在杭州。",
+      "speculative_reply": "你住在杭州。",
+      "tentative_texts": [
+        "我住在哪个城市",
+        "我住在哪个城市你还记得我说过的信息吗"
+      ],
+      "final_text": "我住在哪个城市你还记得我说过的信息吗",
+      "candidate_statuses": [
+        "discarded_after_prefill",
+        "ready"
+      ],
+      "stale_candidates": 1
+    }
+  ],
+  "paired_first_saved_s": {
+    "n": 2,
+    "min": 0.6380433460290078,
+    "p50": 0.8237904010020429,
+    "p95": 1.009537455975078,
+    "max": 1.009537455975078,
+    "mean": 0.8237904010020429
+  },
+  "resources": {
+    "whole_cpu_mean_percent": 5.56895702020595,
+    "temperature_C": {
+      "n": 94,
+      "min": 38.254,
+      "p50": 39.99,
+      "p95": 41.044,
+      "max": 42.284,
+      "mean": 39.93393617021277
+    },
+    "mem_available_MiB": {
+      "n": 94,
+      "min": 3419.8828125,
+      "p50": 3421.515625,
+      "p95": 3426.578125,
+      "max": 3429.76171875,
+      "mean": 3422.191156914894
+    },
+    "swap_io_pages": {
+      "pswpin": 0,
+      "pswpout": 0
+    },
+    "frontend": {
+      "frames": 3056,
+      "overruns": 143,
+      "max_lag_s": 0.028550695424200967,
+      "stage_seconds": {
+        "denoise": 10.233814645529492,
+        "kws": 3.168047348881373,
+        "vad": 1.9214928927249275
+      }
+    },
+    "python3_rss_MiB": {
+      "n": 94,
+      "min": 266.36328125,
+      "p50": 274.21484375,
+      "p95": 275.08984375,
+      "max": 275.08984375,
+      "mean": 273.37333776595744
+    },
+    "resident_rss_MiB": {
+      "n": 94,
+      "min": 20.3828125,
+      "p50": 24.6328125,
+      "p95": 25.1328125,
+      "max": 25.1328125,
+      "mean": 24.166057180851062
+    },
+    "llama-server_rss_MiB": {
+      "n": 94,
+      "min": 1130.68359375,
+      "p50": 1130.68359375,
+      "p95": 1130.68359375,
+      "max": 1130.68359375,
+      "mean": 1130.68359375
+    }
+  }
+}

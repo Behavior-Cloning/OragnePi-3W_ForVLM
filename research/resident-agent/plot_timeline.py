@@ -33,7 +33,7 @@ for ax,x in zip(axs,pair):
  bar(1,0,ep,colors['front'],group,hatch='///')
  if mode=='stream':
   ax.plot([0],[1],marker='>',markersize=10,color='#247a6b',clip_on=False,zorder=5)
-  ax.annotate('前处理起点 t=0\n随首帧开始；非一次长调用',xy=(0,1.27),xytext=(.10,1.53),ha='left',va='bottom',fontsize=10.5,color='#176354',arrowprops={'arrowstyle':'->','color':'#247a6b','lw':1},zorder=6)
+  ax.annotate('前处理起点 t=0\n随首帧开始；非一次长调用',xy=(0,1.27),xytext=(.10,2.60),ha='left',va='bottom',fontsize=10.5,color='#176354',arrowprops={'arrowstyle':'->','color':'#247a6b','lw':1},zorder=6)
  bar(1,ep,end,'#eaf2ef','继续处理模拟静音（与 LLM 并行）',hatch='///')
  # Aggregate post-endpoint chain. Memory boundary reconstructed backwards
  # from LLM start and measured packing duration; small dispatch gaps remain.

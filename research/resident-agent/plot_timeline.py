@@ -29,8 +29,11 @@ for ax,x in zip(axs,pair):
  bar(2,0,speech,colors['speech'])
  ax.text(speech/2,2,f'说话 / 命令输入  [0, {speech:.3f}] s',color='white',ha='center',va='center')
  bar(2,speech,ep,colors['wait'],'等静音\n1.022 s')
- group='降噪 → KWS → VAD：逐帧串行' if mode=='para' else '降噪 → KWS → 流式 ASR → VAD：逐帧串行'
+ group='降噪 → KWS → VAD：逐帧串行' if mode=='para' else '流式片段式处理：每 16 ms 输入一帧，各模型按需执行'
  bar(1,0,ep,colors['front'],group,hatch='///')
+ if mode=='stream':
+  ax.plot([0],[1],marker='>',markersize=10,color='#247a6b',clip_on=False,zorder=5)
+  ax.annotate('前处理起点 t=0\n随首帧开始；非一次长调用',xy=(0,1.27),xytext=(.10,1.53),ha='left',va='bottom',fontsize=10.5,color='#176354',arrowprops={'arrowstyle':'->','color':'#247a6b','lw':1},zorder=6)
  bar(1,ep,end,'#eaf2ef','继续处理模拟静音（与 LLM 并行）',hatch='///')
  # Aggregate post-endpoint chain. Memory boundary reconstructed backwards
  # from LLM start and measured packing duration; small dispatch gaps remain.
@@ -49,9 +52,9 @@ for ax,x in zip(axs,pair):
  ax.tick_params(axis='x',labelbottom=True);ax.set_xlabel('从命令语音开始计时（秒）',labelpad=7)
  intervals.append({'mode':mode,'speech_proxy':[0,speech],'endpoint':ep,'asr_or_drain':[ep,asr_end],'dispatch_gap':[asr_end,mem],'memory_approx':[mem,llm],'llm_to_first':[llm,first],'llm_remaining':[first,end],'source_turn':x['turn'],'boundary_note':'Memory start/end reconstructed from duration and LLM start; frontend windows are not continuous busy spans.'})
 fig.text(.13,.137,'* 话音末尾采用 VAD 语段末样本代理（4.088 s），不是人工标注；原 WAV 结束于4.810 s，末尾含静音。',fontsize=11,color='#455468')
-fig.text(.13,.104,'斜线带表示逐帧处理的存续窗口，不表示 CPU 连续繁忙。流式 ASR 在说话时已计算；非流式 ASR 在 VAD 判停后才整段识别。',fontsize=11,color='#455468')
+fig.text(.13,.104,'斜线带＝流式片段式处理窗口，非一次长推理：16 ms 输入帧；VAD 累积32 ms；ASR 满足内部块条件时才执行。',fontsize=11,color='#455468')
 fig.text(.13,.071,'毫秒级 ASR/记忆边界按累计耗时还原，包含少量调度误差；VAD判停、LLM首字、输出结束来自实测时间戳。',fontsize=11,color='#455468')
-fig.text(.13,.038,'唤醒“小白小白”、模型加载和 system KV 准备发生在 t=0 之前，本图未计入；本例不带对话历史。',fontsize=11,color='#455468')
+fig.text(.13,.038,'t=0 为本轮首帧输入的逻辑起点，非首个算子精确时间戳；模型已常驻。此前唤醒、加载和 KV 准备不计入本图。',fontsize=11,color='#455468')
 a.output.parent.mkdir(parents=True,exist_ok=True)
 for ext in ['png','svg','pdf']:fig.savefig(a.output.with_suffix('.'+ext),dpi=180,facecolor='white')
 a.output.with_suffix('.json').write_text(json.dumps({'source':str(a.rows),'reference':pair[0]['reference'],'intervals':intervals},ensure_ascii=False,indent=2))

@@ -12,7 +12,7 @@ WSL 路径：`/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validat
 - [fixture-manifest.json](fixture-manifest.json)：样例哈希。
 - [诊断原始记录](results/board-debug-20261020/)。
 
-模型状态（2026-10-21，实验进行中）：Laya multilingual 322M、Jev-Style 0.8B Q4_K_M、OneJev1.6-0.8B、Nano-Jev 33.36M 已下载；主权重已核对来源 SHA256。Laya 和 Nano 已推送并再次核对板端哈希，正在跑模型准确率/热态延迟；OneJev 多模态前向尚未实施。详见 [本轮报告](JEV_DEPLOYMENT_20261021.md)。models/、.venv/ 与编译缓存被 .gitignore 排除。
+模型状态（2026-10-21，实验进行中）：Laya multilingual 322M、Jev-Style 0.8B Q4_K_M、OneJev1.6-0.8B、Nano-Jev 33.36M 已下载；主权重已核对来源 SHA256。Laya 和 Nano 已推送并再次核对板端哈希；三种文本 Jev 均已有板端推理记录，逐模型提速矩阵正在执行；OneJev 多模态前向尚未实施。详见 [本轮报告](JEV_DEPLOYMENT_20261021.md)。models/、.venv/ 与编译缓存被 .gitignore 排除。
 
 `collect_board_debug.py` 是第一轮诊断脚本；后续额外只读检查的结果单独保存在同一结果目录。板卡检查未修改服务与磁盘配置；随后按用户要求完成一次正常系统重启，复查结果已追加到诊断报告。诊断资料记录内网地址，分享前按实际需要处理；未包含登录密码。
 
@@ -27,3 +27,5 @@ WSL 路径：`/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validat
 ## 逐模型提速审计（2026-10-21 新要求）
 
 见 [JEV_OPTIMIZATION_AUDIT.md](JEV_OPTIMIZATION_AUDIT.md)。每个模型都必须做优化前后配对、准确率变化和常驻并发验证；仅部署成功不能勾选完成。`board_optimize.py` 执行第一轮核/线程/量化/候选批大小/runtime配置筛查，随后扩展最优配置。
+
+最新首组优化：Jev-Style槽位17→2，10候选P50 7.097→6.969秒，PSS峰2.331→1.995GB，质量和评分相同但安全样例仍未通过。每模型必须单列运行优化、质量、部署三个结论；性能配置选择还要核对Nano英文原生控制。

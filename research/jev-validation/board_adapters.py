@@ -40,6 +40,7 @@ class Adapter:
    self.tok=AutoTokenizer.from_pretrained(self.root/"models/jev08/tokenizer",local_files_only=True)
   else:raise ValueError(name)
   self.optimization={"runtime":"onnxruntime-"+os.environ["NANO_ORT"] if name=="nano33" and os.environ.get("NANO_ORT") else "torch" if name!="jev08" else "llama.cpp","threads":threads,"int8":False,"nano_batch":int(os.environ.get("NANO_BATCH","8"))}
+  if name=="jev08":self.optimization.update(n_seq_max=int(os.environ.get("JEV_N_SEQ_MAX","17")),n_ubatch=int(os.environ.get("JEV_UBATCH","1024")),context=4096,max_len=2048,head_max=2048,n_gpu_layers=0,quantization="Q4_K_M CPU GGUF")
   if name=="laya" and os.environ.get("LAYA_ORT"):self.optimization.update(runtime="onnxruntime-"+os.environ["LAYA_ORT"],intra_op_threads=threads,inter_op_threads=1,provider="CPUExecutionProvider")
   if name in ("nano33","laya") and os.environ.get("JEV_DYNAMIC_INT8")=="1":
    engines=torch.backends.quantized.supported_engines

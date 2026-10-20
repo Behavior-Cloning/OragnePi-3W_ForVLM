@@ -1,0 +1,35 @@
+{
+  "before_lines": 1673,
+  "after_lines": 1497,
+  "new_lines": 1497,
+  "counts": {
+    "mmc_errors": {
+      "before": 4,
+      "after": 0,
+      "new": 0
+    },
+    "ext4_errors": {
+      "before": 0,
+      "after": 0,
+      "new": 0
+    },
+    "oom": {
+      "before": 0,
+      "after": 0,
+      "new": 0
+    },
+    "pwm_cannot_set": {
+      "before": 61,
+      "after": 162,
+      "new": 162
+    },
+    "PD5_conflict": {
+      "before": 61,
+      "after": 161,
+      "new": 161
+    }
+  },
+  "coverage": "before and after ring snapshots have no retained line overlap; interval is incompletely observed",
+  "interpretation": "Counts called new are only lines visible in the later snapshot, not a complete interval delta. Absence of MMC/ext4/OOM messages cannot exclude such events in discarded ring-buffer contents.",
+  "pwm_note": "PWM cooling failures and PD5 pin conflicts already existed in before snapshot. Do not infer this experiment caused them or change GPIO/thermal configuration without hardware investigation."
+}

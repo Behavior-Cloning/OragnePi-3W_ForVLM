@@ -27,7 +27,7 @@ def download(repo,row):
    part.replace(dest);print(repo,fn,"verified",size,flush=True)
    return dict(file=fn,bytes=size,sha256=actual,revision=row["Revision"])
   except Exception as e:
-   print(repo,fn,"attempt",attempt+1,type(e).__name__,flush=True)
+   print(repo,fn,"attempt",attempt+1,type(e).__name__,str(e),flush=True)
    if attempt==19:raise
    time.sleep(min(60,3*(attempt+1)))
 for repo in (sys.argv[2:] or ["autotrust/JEV-9B","autotrust/JEV-27B-VL"]):
@@ -35,7 +35,7 @@ for repo in (sys.argv[2:] or ["autotrust/JEV-9B","autotrust/JEV-27B-VL"]):
  rows=sorted([r for r in meta["Data"]["Files"] if r["Type"]=="blob"],key=lambda r: (r["Size"]>10000000,r["Path"]))
  manifest={"repo":repo,"source":"ModelScope","purpose":"download archive only; no GPU required","status":"running","files":[],"errors":[]}
  m=root/repo.replace("/","--")/"download-manifest.json";m.parent.mkdir(exist_ok=True)
- with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+ with concurrent.futures.ThreadPoolExecutor(max_workers=int(os.environ.get("JEV_DOWNLOAD_WORKERS","8"))) as pool:
   futures={pool.submit(download,repo,r):r for r in rows}
   for f in concurrent.futures.as_completed(futures):
    try:manifest["files"].append(f.result())

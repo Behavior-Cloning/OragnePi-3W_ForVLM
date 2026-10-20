@@ -1,4 +1,4 @@
-import json,time,os,threading,traceback,psutil,concurrent.futures,urllib.request,sys,statistics
+import hashlib,json,time,os,threading,traceback,psutil,concurrent.futures,urllib.request,sys,statistics
 from pathlib import Path
 from board_adapters import Adapter
 r=Path(__file__).resolve().parent;sys.path.insert(0,str(r));from resident_worker import ResidentWorker
@@ -26,6 +26,14 @@ def cpu_request(tokens,n=32,cache=True):
    if x.get('stop'):last=x
  if last is None or first is None:raise RuntimeError('CPU stream missing first content or final timings')
  return dict(ttft_seconds=first,wall_seconds=time.perf_counter()-t,final=last)
+identity_file=r/'results/final-pairs-board-identity.json'
+if identity_file.exists():
+ ident=json.loads(identity_file.read_text());changes=[]
+ for item in ident['files']:
+  p=Path(item['path'])
+  if not p.exists() or (p.stat().st_size,p.stat().st_mtime_ns)!=(item['bytes'],item['mtime_ns']):changes.append(str(p))
+ if changes:raise RuntimeError('Asset metadata differs from pre-pair SHA manifest: '+str(changes))
+ emit(event='provenance',asset_manifest_sha256=hashlib.sha256(identity_file.read_bytes()).hexdigest(),sources={n:hashlib.sha256((r/n).read_bytes()).hexdigest() for n in ['board_co_resident.py','board_adapters.py','cases.json','actions.json']},environment={k:v for k,v in os.environ.items() if k in ['PAIR_MODELS','PAIR_LLMS','PAIR_CONFIGS','CO_LABEL']})
 inputs=json.loads((r/'resident-inputs.json').read_text());cases=json.loads((r/'cases.json').read_text());acts=json.loads((r/'actions.json').read_text());opts={a['id']:a['description'] for a in acts[:10]}
 default_affinity=os.sched_getaffinity(0)
 pair_configs=json.loads(os.environ.get('PAIR_CONFIGS','{}'));pair_models=os.environ.get('PAIR_MODELS','nano33,laya,jev08').split(',')
@@ -66,12 +74,18 @@ for llm in os.environ.get('PAIR_LLMS','smol500,intern1b,qwen15-cpu').split(','):
       try:os.sched_setaffinity(th.id,cfg_pair.get('cores',default_affinity))
       except ProcessLookupError:pass
     actual_affinity={str(th.id):sorted(os.sched_getaffinity(th.id)) for proc in model_procs for th in proc.threads()}
-    emit(event='pair_loaded',worker_affinities=actual_affinity,optimization=m.optimization,affinity=sorted(os.sched_getaffinity(0)),llm=llm,jev=jev,load_seconds=time.perf_counter()-t,resource=snap())
+    loaded_libraries=[]
+    if getattr(m.model,'proc',None):
+     for line in Path('/proc/'+str(m.model.proc.pid)+'/maps').read_text().splitlines():
+      bits=line.split(maxsplit=5)
+      if len(bits)==6 and bits[5].startswith('/') and bits[5] not in loaded_libraries:loaded_libraries.append(bits[5])
+    emit(event='pair_loaded',actual_mapped_files=loaded_libraries,worker_affinities=actual_affinity,optimization=m.optimization,affinity=sorted(os.sched_getaffinity(0)),llm=llm,jev=jev,load_seconds=time.perf_counter()-t,resource=snap())
     state,n=m.state(cases[0],64);m.decide(state,opts)
     def decide(i):
-     state,n=m.state(cases[i%10],64);t=time.perf_counter();z=m.decide(state,opts);return dict(seconds=time.perf_counter()-t,state_tokens=n,result=z)
+     state,n=m.state(cases[i%10],64);start=time.monotonic();t=time.perf_counter();z=m.decide(state,opts);return dict(seconds=time.perf_counter()-t,start=start,end=time.monotonic(),case_id=cases[i%10]['id'],state_tokens=n,result=z)
     for mode in ['jev_only','llm_only','concurrent','concurrent_sustained']:
      for i in range(5):
+      if max(float(x.read_text())/1000 for x in Path('/sys/class/thermal').glob('thermal_zone*/temp'))>=78:raise RuntimeError('thermal guard 78C before call')
       if mode!='jev_only':prepare()
       before=snap();t=time.perf_counter();times={};measure_samples=[];sample_stop=threading.Event()
       def monitor():
@@ -90,8 +104,8 @@ for llm in os.environ.get('PAIR_LLMS','smol500,intern1b,qwen15-cpu').split(','):
        calls=[];start=time.perf_counter()
        while not llm_finished.is_set() or not calls:
         if max(float(x.read_text())/1000 for x in Path('/sys/class/thermal').glob('thermal_zone*/temp'))>=78:raise RuntimeError('thermal guard 78C')
-        if time.perf_counter()-start>120:raise RuntimeError('sustained loop timeout')
-        calls.append(decide((i+len(calls))%10))
+        if time.perf_counter()-start>120:raise RuntimeError('loop duration check exceeded 120s; outer process timeout is hard deadline')
+        calls.append(decide(i))
        return dict(seconds=statistics.median(x['seconds'] for x in calls),duration_seconds=time.perf_counter()-start,call_count=len(calls),calls=calls,note='seconds is median per decision, not total loop')
       with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
        if mode in ['concurrent','concurrent_sustained']:
@@ -100,7 +114,7 @@ for llm in os.environ.get('PAIR_LLMS','smol500,intern1b,qwen15-cpu').split(','):
        else:result=dict(jev=decide(i))
       sample_stop.set();mt.join(timeout=3)
       emit(event='pair_measure',llm=llm,jev=jev,mode=mode,i=i,wall_seconds=time.perf_counter()-t,result=result,before=before,after=snap(),samples=measure_samples,intervals=times,overlap_seconds=max(0,min(times['llm']['end'],times['jev']['end'])-max(times['llm']['start'],times['jev']['start'])) if len(times)==2 else None)
-   except Exception as e:emit(event='pair_error',llm=llm,jev=jev,error=repr(e),trace=traceback.format_exc())
+   except Exception as e:emit(event='pair_error',llm=llm,jev=jev,error=repr(e),trace=traceback.format_exc(),partial_intervals=locals().get('times',{}),partial_samples=locals().get('measure_samples',[]))
    finally:
     if 'sample_stop' in locals():sample_stop.set();mt.join(timeout=3)
     if m:m.close();del m;m=None

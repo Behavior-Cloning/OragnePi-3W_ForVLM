@@ -19,7 +19,10 @@ try:
  emit(dict(event="provenance",machine=platform.platform(),sources={n:hashlib.sha256((r/n).read_bytes()).hexdigest() for n in ["board_optimize.py","board_adapters.py","jev_style_decision_board.py","actions.json","cases.json"]},packages={n:importlib.metadata.version(n) for n in ["torch","transformers","laya","onnxruntime"]}))
  t=time.perf_counter();m=Adapter(a.model,r,a.threads);emit(dict(event='loaded',seconds=time.perf_counter()-t,label=a.label,affinity=sorted(os.sched_getaffinity(0)),optimization=m.optimization,environment={k:os.environ.get(k) for k in ['JEV_DYNAMIC_INT8','NANO_BATCH','JEV_N_SEQ_MAX','JEV_UBATCH','NANO_ORT','LAYA_ORT']},resources=snap()))
  cases=json.loads((r/'cases.json').read_text());actions=json.loads((r/'actions.json').read_text());opts={x['id']:x['description'] for x in actions[:10]}
- for i in range(3):m.decide(m.state(cases[i],64)[0],opts)
+ for i in range(3):
+  warm_t=time.perf_counter();warm=m.decide(m.state(cases[i],64)[0],opts);emit(dict(event='warmup',i=i,seconds=time.perf_counter()-warm_t,answer=warm['answer']))
+ affinity={str(th.id):sorted(os.sched_getaffinity(th.id)) for proc in [psutil.Process(),*psutil.Process().children(recursive=True)] for th in proc.threads()}
+ emit(dict(event='post_warmup_affinity',threads=affinity))
  for i in range(20):
   c=cases[i%10]
   if snap()['temp']>=78:raise RuntimeError('thermal guard reached 78C')

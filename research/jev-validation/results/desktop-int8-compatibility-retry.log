@@ -1,0 +1,43 @@
+[W1021 00:34:30.296268282 qlinear_dynamic.cpp:251] Warning: Currently, qnnpack incorrectly ignores reduce_range when it is set to true; this may change in a future release. (function operator())
+[
+  {
+    "model": "nano33",
+    "config": {
+      "threads": 2,
+      "int8": true,
+      "nano_batch": 8,
+      "quantized_engine": "qnnpack",
+      "supported_engines": [
+        "qnnpack",
+        "none",
+        "onednn",
+        "x86",
+        "fbgemm"
+      ]
+    },
+    "result": {
+      "answer": "stop",
+      "details": {
+        "scores": {
+          "left": 0.2682848274707794,
+          "right": 0.3843395411968231,
+          "stop": 0.47674256563186646
+        },
+        "input_tokens_total": 62,
+        "tokens_per_candidate": [
+          21,
+          21,
+          20
+        ],
+        "temperature": 1.0,
+        "action_probabilities_uncalibrated": true
+      }
+    },
+    "status": "runnable_on_WSL_only"
+  },
+  {
+    "model": "laya",
+    "error": "AttributeError(\"'function' object has no attribute 'dtype'\")",
+    "trace": "Traceback (most recent call last):\n  File \"/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/desktop_int8_compatibility.py\", line 8, in <module>\n    m=Adapter(model,r,2);z=m.decide('Please look to your left.',{'left':'Look left','right':'Look right','stop':'Stop'},'Which action matches the request?');results.append({'model':model,'config':m.optimization,'result':z,'status':'runnable_on_WSL_only'});m.close();del m\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/board_adapters.py\", line 44, in decide\n    r=self.model.predict(state,q,max_len=4096,head_max_len=2048)\n      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/opi-lab/export-venv/lib/python3.11/site-packages/torch/utils/_contextlib.py\", line 116, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/.venv/lib/python3.11/site-packages/laya/agent.py\", line 1923, in system_one\n    return self.predict_batch([state], questions, lang=lang, hooks=hooks,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/opi-lab/export-venv/lib/python3.11/site-packages/torch/utils/_contextlib.py\", line 116, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/.venv/lib/python3.11/site-packages/laya/common.py\", line 66, in wrapped\n    return fn(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/.venv/lib/python3.11/site-packages/laya/agent.py\", line 1536, in predict_batch\n    logits, act = self._forward(b)\n                  ^^^^^^^^^^^^^^^^\n  File \"/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/.venv/lib/python3.11/site-packages/laya/agent.py\", line 1329, in _forward\n    logits, act = self._infer(b)\n                  ^^^^^^^^^^^^^^\n  File \"/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/.venv/lib/python3.11/site-packages/laya/agent.py\", line 1255, in _infer\n    out = run()\n          ^^^^^\n  File \"/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/.venv/lib/python3.11/site-packages/laya/agent.py\", line 1241, in run\n    out = self.model(\n          ^^^^^^^^^^^\n  File \"/opt/opi-lab/export-venv/lib/python3.11/site-packages/torch/nn/modules/module.py\", line 1751, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/opi-lab/export-venv/lib/python3.11/site-packages/torch/nn/modules/module.py\", line 1762, in _call_impl\n    return forward_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/.venv/lib/python3.11/site-packages/laya/common.py\", line 657, in forward\n    act_input = act_input.to(self.act_head[0].weight.dtype)\n                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'function' object has no attribute 'dtype'\n"
+  }
+]

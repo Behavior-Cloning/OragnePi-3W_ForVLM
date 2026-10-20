@@ -1,0 +1,9 @@
+ 15:40:27 up 0 min,  2 users,  load average: 2.46, 0.74, 0.26
+               total        used        free      shared  buff/cache   available
+Mem:            5853        1298        3204           8        1350        4485
+Swap:           2926           0        2926
+http://127.0.0.1:8081/health 200 {"status":"ok"}
+http://127.0.0.1:8081/v1/models 200 {"models":[{"name":"qwen25-15b-q4","model":"qwen25-15b-q4","modified_at":"","size":"","digest":"","type":"model","description":"","tags":[""],"capabilities":["completion"],"parameters":"","details":{"parent_model":"","format":"gguf","family":"","families":[""],"parameter_size":"","quantization_level":""}}],"object":"list","data":[{"id":"qwen25-15b-q4","aliases":["qwen25-15b-q4"],"tags":[],"object":"model","architecture":{"input_modalities":["text"],"output_modalities":["text"]},"created":1792510827,"owned_by":"llamacpp","meta":{"vocab_type":2,"n_vocab":151936,"n_ctx":4096,"n_ctx_train":32768,"n_embd":1536,"n_params":1777088000,"size":1111370240,"ftype":"Q4_K - Medium"}}]}
+    967 Ssl  2035732 /opt/opi-vlm/bin/llama-server --model /opt/opi-vlm/models/qwen25-15b-q4/qwen2.5-1.5b-instruct-q4_k_m.gguf --alias qwen25-15b-q4 --host 127.0.0.1 --port 8081 --ctx-size 4096 --parallel 1 --threads 2 --threads-batch 2 --n-gpu-layers 0 --no-mmproj-offload --cache-ram 128 --no-context-shift
+
+STDERR

@@ -1,0 +1,87 @@
+[W1021 00:35:40.903372582 qlinear_dynamic.cpp:251] Warning: Currently, qnnpack incorrectly ignores reduce_range when it is set to true; this may change in a future release. (function operator())
+[
+  {
+    "model": "nano33",
+    "config": {
+      "threads": 2,
+      "int8": true,
+      "nano_batch": 8,
+      "quantized_engine": "qnnpack",
+      "supported_engines": [
+        "qnnpack",
+        "none",
+        "onednn",
+        "x86",
+        "fbgemm"
+      ],
+      "quantization_scope": "all Linear"
+    },
+    "result": {
+      "answer": "stop",
+      "details": {
+        "scores": {
+          "left": 0.2682848274707794,
+          "right": 0.3843395411968231,
+          "stop": 0.47674256563186646
+        },
+        "input_tokens_total": 62,
+        "tokens_per_candidate": [
+          21,
+          21,
+          20
+        ],
+        "temperature": 1.0,
+        "action_probabilities_uncalibrated": true
+      }
+    },
+    "status": "runnable_on_WSL_only"
+  },
+  {
+    "model": "laya",
+    "config": {
+      "threads": 2,
+      "int8": true,
+      "nano_batch": 8,
+      "quantized_engine": "qnnpack",
+      "supported_engines": [
+        "qnnpack",
+        "none",
+        "onednn",
+        "x86",
+        "fbgemm"
+      ],
+      "quantization_scope": "encoder Linear only; decision head FP32"
+    },
+    "result": {
+      "answer": "left",
+      "details": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "action": {
+            "type": "choice",
+            "choice": "left",
+            "probabilities": {
+              "left": 0.752,
+              "right": 0.2157,
+              "stop": 0.0322
+            },
+            "confidence": 0.403,
+            "answer_confidence": 0.752,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 33,
+          "output_tokens": 0,
+          "state_tokens": 6,
+          "state_tokens_dropped": 0,
+          "truncated": false,
+          "truncated_questions": []
+        }
+      }
+    },
+    "status": "runnable_on_WSL_only"
+  }
+]

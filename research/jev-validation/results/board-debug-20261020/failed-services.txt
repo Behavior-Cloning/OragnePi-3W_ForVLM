@@ -1,0 +1,51 @@
+× dnsmasq.service - dnsmasq - A lightweight DHCP and caching DNS server
+     Loaded: loaded (/lib/systemd/system/dnsmasq.service; enabled; vendor preset: enabled)
+     Active: failed (Result: exit-code) since Fri 2026-10-16 08:17:04 UTC; 4 days ago
+    Process: 991 ExecStartPre=/etc/init.d/dnsmasq checkconfig (code=exited, status=0/SUCCESS)
+    Process: 1184 ExecStart=/etc/init.d/dnsmasq systemd-exec (code=exited, status=2)
+        CPU: 50ms
+
+Oct 16 08:17:04 orangepizero3w systemd[1]: Starting dnsmasq - A lightweight DHCP and caching DNS server...
+Oct 16 08:17:04 orangepizero3w dnsmasq[1184]: dnsmasq: failed to create listening socket for port 53: Address already in use
+Oct 16 08:17:04 orangepizero3w dnsmasq[1184]: failed to create listening socket for port 53: Address already in use
+Oct 16 08:17:04 orangepizero3w dnsmasq[1184]: FAILED to start up
+Oct 16 08:17:04 orangepizero3w systemd[1]: dnsmasq.service: Control process exited, code=exited, status=2/INVALIDARGUMENT
+Oct 16 08:17:04 orangepizero3w systemd[1]: dnsmasq.service: Failed with result 'exit-code'.
+Oct 16 08:17:04 orangepizero3w systemd[1]: Failed to start dnsmasq - A lightweight DHCP and caching DNS server.
+
+× run-rpc_pipefs.mount - RPC Pipe File System
+     Loaded: loaded (/run/systemd/generator/run-rpc_pipefs.mount; generated)
+     Active: failed (Result: exit-code) since Fri 2026-10-16 08:17:03 UTC; 4 days ago
+      Where: /run/rpc_pipefs
+       What: sunrpc
+        CPU: 5ms
+
+Oct 16 08:17:03 orangepizero3w systemd[1]: Mounting RPC Pipe File System...
+Oct 16 08:17:03 orangepizero3w mount[651]: mount: /run/rpc_pipefs: unknown filesystem type 'rpc_pipefs'.
+Oct 16 08:17:03 orangepizero3w systemd[1]: run-rpc_pipefs.mount: Mount process exited, code=exited, status=32/n/a
+Oct 16 08:17:03 orangepizero3w systemd[1]: run-rpc_pipefs.mount: Failed with result 'exit-code'.
+Oct 16 08:17:03 orangepizero3w systemd[1]: Failed to mount RPC Pipe File System.
+Oct 16 08:17:03 orangepizero3w systemd[1]: Mounting RPC Pipe File System...
+Oct 16 08:17:03 orangepizero3w mount[651]: mount: /run/rpc_pipefs: unknown filesystem type 'rpc_pipefs'.
+Oct 16 08:17:03 orangepizero3w systemd[1]: run-rpc_pipefs.mount: Mount process exited, code=exited, status=32/n/a
+Oct 16 08:17:03 orangepizero3w systemd[1]: run-rpc_pipefs.mount: Failed with result 'exit-code'.
+Oct 16 08:17:03 orangepizero3w systemd[1]: Failed to mount RPC Pipe File System.
+Oct 16 08:17:04 orangepizero3w systemd[1]: Starting dnsmasq - A lightweight DHCP and caching DNS server...
+Oct 16 08:17:04 orangepizero3w dnsmasq[1184]: dnsmasq: failed to create listening socket for port 53: Address already in use
+Oct 16 08:17:04 orangepizero3w dnsmasq[1184]: failed to create listening socket for port 53: Address already in use
+Oct 16 08:17:04 orangepizero3w dnsmasq[1184]: FAILED to start up
+Oct 16 08:17:04 orangepizero3w systemd[1]: dnsmasq.service: Control process exited, code=exited, status=2/INVALIDARGUMENT
+Oct 16 08:17:04 orangepizero3w systemd[1]: dnsmasq.service: Failed with result 'exit-code'.
+Oct 16 08:17:04 orangepizero3w systemd[1]: Failed to start dnsmasq - A lightweight DHCP and caching DNS server.
+udp   UNCONN 0      0                          127.0.0.53%lo:53        0.0.0.0:*    users:(("systemd-resolve",pid=655,fd=13))               
+tcp   LISTEN 0      4096                       127.0.0.53%lo:53        0.0.0.0:*    users:(("systemd-resolve",pid=655,fd=14))               
+Result=exit-code
+ExecStart={ path=/etc/init.d/dnsmasq ; argv[]=/etc/init.d/dnsmasq systemd-exec ; ignore_errors=no ; start_time=[Fri 2026-10-16 08:17:04 UTC] ; stop_time=[Fri 2026-10-16 08:17:04 UTC] ; pid=1184 ; code=exited ; status=2 }
+FragmentPath=/lib/systemd/system/dnsmasq.service
+Where=/run/rpc_pipefs
+What=sunrpc
+Type=rpc_pipefs
+Result=exit-code
+
+STDERR
+dnsmasq: syntax check OK.

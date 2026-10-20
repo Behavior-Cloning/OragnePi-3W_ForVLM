@@ -1,0 +1,64 @@
+  UNIT                 LOAD   ACTIVE SUB    DESCRIPTION
+● run-rpc_pipefs.mount loaded failed failed RPC Pipe File System
+● dnsmasq.service      loaded failed failed dnsmasq - A lightweight DHCP and caching DNS server
+
+LOAD   = Reflects whether the unit definition was properly loaded.
+ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
+SUB    = The low-level unit activation state, values depend on unit type.
+2 loaded units listed.
+State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess                                                  
+LISTEN 0      128          0.0.0.0:22        0.0.0.0:*    users:(("sshd",pid=1140,fd=3))                          
+LISTEN 0      4096         0.0.0.0:111       0.0.0.0:*    users:(("rpcbind",pid=654,fd=4),("systemd",pid=1,fd=30))
+LISTEN 0      4096   127.0.0.53%lo:53        0.0.0.0:*    users:(("systemd-resolve",pid=655,fd=14))               
+LISTEN 0      5          127.0.0.1:8083      0.0.0.0:*    users:(("python3",pid=1000,fd=4))                       
+LISTEN 0      512        127.0.0.1:8081      0.0.0.0:*    users:(("llama-server",pid=999,fd=3))                   
+LISTEN 0      5            0.0.0.0:8080      0.0.0.0:*    users:(("python3",pid=1001,fd=3))                       
+LISTEN 0      128             [::]:22           [::]:*    users:(("sshd",pid=1140,fd=4))                          
+LISTEN 0      4096            [::]:111          [::]:*    users:(("rpcbind",pid=654,fd=6),("systemd",pid=1,fd=32))
+    999 /opt/opi-vlm/bin/llama-server --model /opt/opi-vlm/models/qwen25-15b-q4/qwen2.5-1.5b-instruct-q4_k_m.gguf --alias qwen25-15b-q4 --host 127.0.0.1 --port 8081 --ctx-size 4096 --parallel 1 --threads 2 --threads-batch 2 --n-gpu-layers 0 --no-mmproj-offload --cache-ram 128 --no-context-shift
+   1000 /usr/bin/python3 /opt/opi-vlm/app/control.py
+   1001 /usr/bin/python3 /opt/opi-vlm/app/server.py --host 0.0.0.0 --port 8080 --control-port 8083
+crw-rw-rw- 1 root root 199, 0 Oct 16 08:17 /dev/vipcore
+
+/dev/input:
+total 0
+drwxr-xr-x 2 root root      60 Oct 16 08:17 by-path
+crw-rw---- 1 root input 13, 64 Oct 16 08:17 event0
+vipcore               245760  0
+Oct 20 01:41:34 orangepizero3w kernel: sunxi:sunxi_mmc_host-4021000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 02:17:01 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 02:17:01 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 02:42:44 orangepizero3w kernel: sunxi:sunxi_mmc_host-4021000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 03:19:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 03:19:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 03:43:54 orangepizero3w kernel: sunxi:sunxi_mmc_host-4021000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 04:24:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 05:29:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 05:29:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 06:34:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 07:39:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 07:39:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 08:44:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 08:44:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 08:49:44 orangepizero3w kernel: sunxi:sunxi_mmc_host-4021000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 09:49:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 09:50:54 orangepizero3w kernel: sunxi:sunxi_mmc_host-4021000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 10:52:04 orangepizero3w kernel: sunxi:sunxi_mmc_host-4021000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 10:52:04 orangepizero3w kernel: sunxi:sunxi_mmc_host-4021000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 10:52:04 orangepizero3w kernel: sunxi:sunxi_mmc_host-4021000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 10:54:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 10:54:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 10:54:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 11:59:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 12:54:24 orangepizero3w kernel: sunxi:sunxi_mmc_host-4021000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 13:01:42 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 13:01:42 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 13:01:42 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 14:04:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 14:04:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 15:09:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 15:09:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 15:09:58 orangepizero3w kernel: sunxi:sunxi_mmc_host-4020000.sdmmc:[ERR]: wait dma hold bit clear timeout
+Oct 20 15:15:44 orangepizero3w sshd[227165]: error: kex_exchange_identification: Connection closed by remote host
+
+STDERR

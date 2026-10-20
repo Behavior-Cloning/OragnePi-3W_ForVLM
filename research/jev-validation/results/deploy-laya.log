@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/deploy_laya.py", line 7, in <module>
+    subprocess.run(["sshpass","-e","scp","-r",*b.COMMON,str(r/"models/laya"),b.HOST+":/opt/opi-vlm/jev-lab-20261020/models/"],env=b.env(),check=True,timeout=300)
+  File "/usr/lib/python3.10/subprocess.py", line 505, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1154, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 2047, in _communicate
+    self.wait(timeout=self._remaining_time(endtime))
+  File "/usr/lib/python3.10/subprocess.py", line 1209, in wait
+    return self._wait(timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1951, in _wait
+    raise TimeoutExpired(self.args, timeout)
+subprocess.TimeoutExpired: Command '['sshpass', '-e', 'scp', '-r', '-o', 'StrictHostKeyChecking=yes', '-o', 'UserKnownHostsFile=/root/.ssh/opi_known_hosts', '-o', 'ConnectTimeout=8', '-o', 'ForwardX11=no', '/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/models/laya', 'root@192.168.10.11:/opt/opi-vlm/jev-lab-20261020/models/']' timed out after 299.9999823009998 seconds

@@ -10,7 +10,7 @@ with b.hostlock():
   b.scp(r/name,b.HOST+':'+d+'/'+name,check=True,timeout=40)
  b.scp(r.parents[1]/'npu/kv-cache/resident_worker.py',b.HOST+':'+d+'/resident_worker.py',check=True)
  b.ssh('chmod +x '+d+'/bin/jev-score '+d+'/bin/resident-smol; file '+d+'/bin/jev-score; ldd '+d+'/bin/jev-score',check=True)
- for script,label in [('board_bench.py --model jev08 --repeats 50 --warmup 10 --max-cases 40','jev08'),('board_co_resident.py','co-resident')]:
+ for script,label in [('board_bench.py --model laya --repeats 30 --warmup 5 --max-cases 20','laya-screen'),('board_bench.py --model jev08 --repeats 20 --warmup 3 --max-cases 12','jev08'),('board_co_resident.py','co-resident')]:
   cmd='export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false; timeout --kill-after=15s 3500s taskset -c 6,7 '+d+'/venv/bin/python -u '+d+'/'+script
   result=b.ssh('flock -w 10 /run/opi-npu-kv-benchmark.lock bash -o pipefail -c '+shlex.quote(cmd+' 2>&1 | tee '+d+'/results/'+label+'-run.log'),timeout=3600)
   print(label,'exit',result.returncode,flush=True)

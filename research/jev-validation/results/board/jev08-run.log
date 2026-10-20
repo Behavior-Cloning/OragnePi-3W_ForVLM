@@ -1,0 +1,9 @@
+load_error None None
+Traceback (most recent call last):
+  File "/opt/opi-vlm/jev-lab-20261020/board_bench.py", line 12, in <module>
+    try:m=Adapter(args.model,r,args.threads)
+  File "/opt/opi-vlm/jev-lab-20261020/board_adapters.py", line 25, in __init__
+    self.model=j.JevStyleDecisionGGUF(self.root/"models/jev08",quant="Q4_K_M",binary=self.root/"bin/jev-score",threads=threads,n_gpu_layers=0,max_len=2048,head_max=2048,stderr=open(self.root/"results/jev08-engine.log","a"),n_seq_max=int(os.environ.get("JEV_N_SEQ_MAX","17")),n_ubatch=int(os.environ.get("JEV_UBATCH","1024")))
+  File "/opt/opi-vlm/jev-lab-20261020/jev_style_decision_board.py", line 554, in __init__
+    raise RuntimeError(f"jev-score failed to start: {ready}")
+RuntimeError: jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}

@@ -1,0 +1,23 @@
+Loading PyTorch Agent from: /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/models/laya
+Exporting to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/models/laya/laya-fp32.onnx (this may take a minute)...
+/opt/opi-lab/export-venv/lib/python3.11/site-packages/transformers/modeling_attn_mask_utils.py:196: TracerWarning: torch.tensor results are registered as constants in the trace. You can safely ignore this warning if you use this function to create tensors out of constant variables that would be the same every time you call this function. In any other case, this might cause the trace to be incorrect.
+  inverted_mask = torch.tensor(1.0, dtype=dtype) - expanded_mask
+/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/.venv/lib/python3.11/site-packages/laya/common.py:620: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if detach_encoder:
+/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/.venv/lib/python3.11/site-packages/laya/common.py:640: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if p.size(-1) >= 2:
+Successfully exported ONNX model to: /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/models/laya/laya-fp32.onnx
+Verifying the export against PyTorch at batch 1, 2 and 3...
+  batch 1  logits     max abs prob diff vs PyTorch 0.00e+00 (raw logits 2.38e-05)
+  batch 1  act_logits max abs prob diff vs PyTorch 0.00e+00 (raw logits 4.12e-04)
+  batch 2  logits     max abs prob diff vs PyTorch 8.34e-07 (raw logits 1.34e-05)
+  batch 2  act_logits max abs prob diff vs PyTorch 0.00e+00 (raw logits 1.34e-03)
+  batch 3  logits     max abs prob diff vs PyTorch 4.05e-06 (raw logits 8.37e-05)
+  batch 3  act_logits max abs prob diff vs PyTorch 0.00e+00 (raw logits 1.71e-03)
+Verification passed: the graph runs at batch 1, 2 and 3 with 2-4 markers and
+              matches PyTorch. Width 1 is baked out by a Python branch -- see
+              verify_batch_dynamic.
+actual-shape 10 64 True
+actual-shape 10 256 True
+actual-shape 100 64 True
+actual-shape 100 256 True

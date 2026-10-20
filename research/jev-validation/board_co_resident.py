@@ -1,8 +1,8 @@
-import json,time,os,threading,traceback,psutil,concurrent.futures,urllib.request,sys
+import json,time,os,threading,traceback,psutil,concurrent.futures,urllib.request,sys,statistics
 from pathlib import Path
 from board_adapters import Adapter
 r=Path(__file__).resolve().parent;sys.path.insert(0,str(r));from resident_worker import ResidentWorker
-run=time.strftime('%Y%m%dT%H%M%S');f=(r/'results'/('co-resident-'+run+'.jsonl')).open('x',buffering=1)
+label=os.environ.get('CO_LABEL','baseline');run=label+'-'+time.strftime('%Y%m%dT%H%M%S');f=(r/'results'/('co-resident-'+run+'.jsonl')).open('x',buffering=1)
 def emit(**x):f.write(json.dumps(x,ensure_ascii=False)+'\n');print(x.get('event'),x.get('llm'),x.get('jev'),x.get('mode'),flush=True)
 def snap():
  procs=[psutil.Process(),*psutil.Process().children(recursive=True)];procs += [q for q in psutil.process_iter(['name','cmdline']) if 'llama-server' in ' '.join(q.info.get('cmdline') or []) and q.pid not in [z.pid for z in procs]];v=psutil.virtual_memory();swap=psutil.swap_memory();proc=[]
@@ -27,7 +27,9 @@ def cpu_request(tokens,n=32,cache=True):
  if last is None or first is None:raise RuntimeError('CPU stream missing first content or final timings')
  return dict(ttft_seconds=first,wall_seconds=time.perf_counter()-t,final=last)
 inputs=json.loads((r/'resident-inputs.json').read_text());cases=json.loads((r/'cases.json').read_text());acts=json.loads((r/'actions.json').read_text());opts={a['id']:a['description'] for a in acts[:10]}
-for llm in ['smol500','intern1b','qwen15-cpu']:
+default_affinity=os.sched_getaffinity(0)
+pair_configs=json.loads(os.environ.get('PAIR_CONFIGS','{}'));pair_models=os.environ.get('PAIR_MODELS','nano33,laya,jev08').split(',')
+for llm in os.environ.get('PAIR_LLMS','smol500,intern1b,qwen15-cpu').split(','):
  w=None;m=None;stop=threading.Event();mon=[]
  try:
   if llm=='qwen15-cpu':
@@ -53,13 +55,22 @@ for llm in ['smol500','intern1b','qwen15-cpu']:
   emit(event='loaded',llm=llm,resource=snap())
   for i in range(3):
    prepare();emit(event='llm_baseline',llm=llm,i=i,result=generate(i),resource=snap())
-  for jev in ['nano33','laya','jev08']:
+  for jev in pair_models:
+   cfg_pair=pair_configs.get(jev,{});os.sched_setaffinity(0,cfg_pair.get('cores',default_affinity));old_env={k:os.environ.get(k) for k in cfg_pair.get('env',{})};os.environ.update(cfg_pair.get('env',{}))
    try:
-    t=time.perf_counter();m=Adapter(jev,r,2);emit(event='pair_loaded',llm=llm,jev=jev,load_seconds=time.perf_counter()-t,resource=snap())
+    t=time.perf_counter();m=Adapter(jev,r,cfg_pair.get('threads',2))
+    # Linux affinity is per task; include existing torch/tokenizer workers and scorer child.
+    model_procs=[psutil.Process()]+([psutil.Process(m.model.proc.pid)] if getattr(m.model,'proc',None) else [])
+    for proc in model_procs:
+     for th in proc.threads():
+      try:os.sched_setaffinity(th.id,cfg_pair.get('cores',default_affinity))
+      except ProcessLookupError:pass
+    actual_affinity={str(th.id):sorted(os.sched_getaffinity(th.id)) for proc in model_procs for th in proc.threads()}
+    emit(event='pair_loaded',worker_affinities=actual_affinity,optimization=m.optimization,affinity=sorted(os.sched_getaffinity(0)),llm=llm,jev=jev,load_seconds=time.perf_counter()-t,resource=snap())
     state,n=m.state(cases[0],64);m.decide(state,opts)
     def decide(i):
      state,n=m.state(cases[i%10],64);t=time.perf_counter();z=m.decide(state,opts);return dict(seconds=time.perf_counter()-t,state_tokens=n,result=z)
-    for mode in ['jev_only','llm_only','concurrent']:
+    for mode in ['jev_only','llm_only','concurrent','concurrent_sustained']:
      for i in range(5):
       if mode!='jev_only':prepare()
       before=snap();t=time.perf_counter();times={};measure_samples=[];sample_stop=threading.Event()
@@ -68,12 +79,23 @@ for llm in ['smol500','intern1b','qwen15-cpu']:
         try:measure_samples.append(snap())
         except Exception as e:measure_samples.append({'error':repr(e)})
       mt=threading.Thread(target=monitor,daemon=True);mt.start()
-      barrier=threading.Barrier(2)
+      barrier=threading.Barrier(2);llm_finished=threading.Event()
       def timed(name,fn):
-       barrier.wait();start=time.monotonic();v=fn(i);times[name]={'start':start,'end':time.monotonic()};return v
+       barrier.wait();start=time.monotonic()
+       try:return fn(i)
+       finally:
+        times[name]={'start':start,'end':time.monotonic()}
+        if name=='llm':llm_finished.set()
+      def repeated_decide(i):
+       calls=[];start=time.perf_counter()
+       while not llm_finished.is_set() or not calls:
+        if max(float(x.read_text())/1000 for x in Path('/sys/class/thermal').glob('thermal_zone*/temp'))>=78:raise RuntimeError('thermal guard 78C')
+        if time.perf_counter()-start>120:raise RuntimeError('sustained loop timeout')
+        calls.append(decide((i+len(calls))%10))
+       return dict(seconds=statistics.median(x['seconds'] for x in calls),duration_seconds=time.perf_counter()-start,call_count=len(calls),calls=calls,note='seconds is median per decision, not total loop')
       with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
-       if mode=='concurrent':
-        a=pool.submit(timed,'llm',generate);b=pool.submit(timed,'jev',decide);result=dict(llm=a.result(),jev=b.result())
+       if mode in ['concurrent','concurrent_sustained']:
+        a=pool.submit(timed,'llm',generate);b=pool.submit(timed,'jev',repeated_decide if mode=='concurrent_sustained' else decide);result=dict(llm=a.result(),jev=b.result())
        elif mode=='llm_only':result=dict(llm=generate(i))
        else:result=dict(jev=decide(i))
       sample_stop.set();mt.join(timeout=3)
@@ -82,10 +104,14 @@ for llm in ['smol500','intern1b','qwen15-cpu']:
    finally:
     if 'sample_stop' in locals():sample_stop.set();mt.join(timeout=3)
     if m:m.close();del m;m=None
-    import gc;gc.collect()
+    import gc;gc.collect();os.sched_setaffinity(0,default_affinity)
+    for k,v in old_env.items():
+     if v is None:os.environ.pop(k,None)
+     else:os.environ[k]=v
  except Exception as e:emit(event='llm_error',llm=llm,error=repr(e),trace=traceback.format_exc())
  finally:
   if w:
    try:emit(event='npu_closed',llm=llm,result=w.close())
    except Exception as e:emit(event='close_error',llm=llm,error=repr(e))
+emit(event='complete')
 f.close()

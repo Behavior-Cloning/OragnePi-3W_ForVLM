@@ -13,3 +13,19 @@ convaiinnovations/laya-multilingual model.safetensors SHA_OK
 convaiinnovations/laya-multilingual rl_agent_config.json SHA_OK
 convaiinnovations/laya-multilingual tokenizer/tokenizer.json SHA_OK
 convaiinnovations/laya-multilingual tokenizer/tokenizer_config.json SHA_OK
+Traceback (most recent call last):
+  File "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/jev-validation/run_board_screen.py", line 17, in <module>
+    ret=b.ssh("flock -w 10 /run/opi-npu-kv-benchmark.lock sh -c 'export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false; taskset -c 6,7 "+dest+"/venv/bin/python -u "+dest+"/board_bench.py --model "+model+"' > "+dest+"/results/"+model+"-bench.log 2>&1",timeout=3600)
+  File "/mnt/f/Files/OPi-Lab/scripts/board_access.py", line 18, in ssh
+    return subprocess.run(['sshpass','-e','ssh','-T',*COMMON,HOST,command],env=env(),**kwargs)
+  File "/usr/lib/python3.10/subprocess.py", line 505, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1154, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 2047, in _communicate
+    self.wait(timeout=self._remaining_time(endtime))
+  File "/usr/lib/python3.10/subprocess.py", line 1209, in wait
+    return self._wait(timeout=timeout)
+  File "/usr/lib/python3.10/subprocess.py", line 1953, in _wait
+    time.sleep(delay)
+KeyboardInterrupt

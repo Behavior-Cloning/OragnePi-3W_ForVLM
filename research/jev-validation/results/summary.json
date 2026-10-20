@@ -1,0 +1,1293 @@
+{
+  "co-resident-20261020T165652.jsonl": {
+    "events": 116,
+    "completed": false,
+    "errors": [
+      {
+        "event": "pair_error",
+        "llm": "smol500",
+        "jev": "jev08",
+        "error": "RuntimeError(\"jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}\")",
+        "trace": "Traceback (most recent call last):\n  File \"/opt/opi-vlm/jev-lab-20261020/board_co_resident.py\", line 58, in <module>\n    t=time.perf_counter();m=Adapter(jev,r,2);emit(event='pair_loaded',llm=llm,jev=jev,load_seconds=time.perf_counter()-t,resource=snap())\n  File \"/opt/opi-vlm/jev-lab-20261020/board_adapters.py\", line 25, in __init__\n    self.model=j.JevStyleDecisionGGUF(self.root/\"models/jev08\",quant=\"Q4_K_M\",binary=self.root/\"bin/jev-score\",threads=threads,n_gpu_layers=0,max_len=2048,head_max=2048,stderr=open(self.root/\"results/jev08-engine.log\",\"a\"),n_seq_max=int(os.environ.get(\"JEV_N_SEQ_MAX\",\"17\")),n_ubatch=int(os.environ.get(\"JEV_UBATCH\",\"1024\")))\n  File \"/opt/opi-vlm/jev-lab-20261020/jev_style_decision_board.py\", line 554, in __init__\n    raise RuntimeError(f\"jev-score failed to start: {ready}\")\nRuntimeError: jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}\n"
+      },
+      {
+        "event": "pair_error",
+        "llm": "intern1b",
+        "jev": "jev08",
+        "error": "RuntimeError(\"jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}\")",
+        "trace": "Traceback (most recent call last):\n  File \"/opt/opi-vlm/jev-lab-20261020/board_co_resident.py\", line 58, in <module>\n    t=time.perf_counter();m=Adapter(jev,r,2);emit(event='pair_loaded',llm=llm,jev=jev,load_seconds=time.perf_counter()-t,resource=snap())\n  File \"/opt/opi-vlm/jev-lab-20261020/board_adapters.py\", line 25, in __init__\n    self.model=j.JevStyleDecisionGGUF(self.root/\"models/jev08\",quant=\"Q4_K_M\",binary=self.root/\"bin/jev-score\",threads=threads,n_gpu_layers=0,max_len=2048,head_max=2048,stderr=open(self.root/\"results/jev08-engine.log\",\"a\"),n_seq_max=int(os.environ.get(\"JEV_N_SEQ_MAX\",\"17\")),n_ubatch=int(os.environ.get(\"JEV_UBATCH\",\"1024\")))\n  File \"/opt/opi-vlm/jev-lab-20261020/jev_style_decision_board.py\", line 554, in __init__\n    raise RuntimeError(f\"jev-score failed to start: {ready}\")\nRuntimeError: jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}\n"
+      },
+      {
+        "event": "pair_error",
+        "llm": "qwen15-cpu",
+        "jev": "jev08",
+        "error": "RuntimeError(\"jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}\")",
+        "trace": "Traceback (most recent call last):\n  File \"/opt/opi-vlm/jev-lab-20261020/board_co_resident.py\", line 58, in <module>\n    t=time.perf_counter();m=Adapter(jev,r,2);emit(event='pair_loaded',llm=llm,jev=jev,load_seconds=time.perf_counter()-t,resource=snap())\n  File \"/opt/opi-vlm/jev-lab-20261020/board_adapters.py\", line 25, in __init__\n    self.model=j.JevStyleDecisionGGUF(self.root/\"models/jev08\",quant=\"Q4_K_M\",binary=self.root/\"bin/jev-score\",threads=threads,n_gpu_layers=0,max_len=2048,head_max=2048,stderr=open(self.root/\"results/jev08-engine.log\",\"a\"),n_seq_max=int(os.environ.get(\"JEV_N_SEQ_MAX\",\"17\")),n_ubatch=int(os.environ.get(\"JEV_UBATCH\",\"1024\")))\n  File \"/opt/opi-vlm/jev-lab-20261020/jev_style_decision_board.py\", line 554, in __init__\n    raise RuntimeError(f\"jev-score failed to start: {ready}\")\nRuntimeError: jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}\n"
+      }
+    ],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "llm": "smol500",
+        "resource": {
+          "at": 4642.480828897,
+          "available": 3749220352,
+          "system_used": 2388287488,
+          "swap_used": 524288,
+          "swap_in": 16384,
+          "swap_out": 274432,
+          "processes": [
+            {
+              "pid": 11305,
+              "rss": 212869120,
+              "pss": 207682560,
+              "cpu_seconds": 2.55
+            },
+            {
+              "pid": 11309,
+              "rss": 24248320,
+              "pss": 22999040,
+              "cpu_seconds": 3.95
+            },
+            {
+              "pid": 967,
+              "rss": 1960988672,
+              "pss": 1958155264,
+              "cpu_seconds": 6.8100000000000005
+            }
+          ],
+          "temperature": {
+            "thermal_zone2": 53.568,
+            "thermal_zone0": 54.87,
+            "thermal_zone7": 35.073,
+            "thermal_zone5": 54.87,
+            "thermal_zone3": 55.366,
+            "thermal_zone1": 54.622,
+            "thermal_zone6": 55.366,
+            "thermal_zone4": 53.754
+          },
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 1794000,
+            "cpu3": 1794000,
+            "cpu1": 1794000,
+            "cpu6": 2002000,
+            "cpu4": 1794000,
+            "cpu2": 1794000,
+            "cpu0": 1794000
+          },
+          "loadavg": [
+            2.27001953125,
+            1.97509765625,
+            1.73779296875
+          ]
+        }
+      },
+      {
+        "event": "loaded",
+        "llm": "intern1b",
+        "resource": {
+          "at": 4829.1586034,
+          "available": 2923307008,
+          "system_used": 3214200832,
+          "swap_used": 4718592,
+          "swap_in": 61440,
+          "swap_out": 4190208,
+          "processes": [
+            {
+              "pid": 11305,
+              "rss": 1054015488,
+              "pss": 1048767488,
+              "cpu_seconds": 91.22
+            },
+            {
+              "pid": 11487,
+              "rss": 20582400,
+              "pss": 19319808,
+              "cpu_seconds": 2.59
+            },
+            {
+              "pid": 967,
+              "rss": 1960726528,
+              "pss": 1957839872,
+              "cpu_seconds": 6.8100000000000005
+            }
+          ],
+          "temperature": {
+            "thermal_zone2": 46.376,
+            "thermal_zone0": 46.934,
+            "thermal_zone7": 33.399,
+            "thermal_zone5": 46.934,
+            "thermal_zone3": 46.996,
+            "thermal_zone1": 46.81,
+            "thermal_zone6": 46.996,
+            "thermal_zone4": 46.376
+          },
+          "frequency_khz": {
+            "cpu7": 416000,
+            "cpu5": 1794000,
+            "cpu3": 1794000,
+            "cpu1": 1794000,
+            "cpu6": 416000,
+            "cpu4": 1794000,
+            "cpu2": 1794000,
+            "cpu0": 1794000
+          },
+          "loadavg": [
+            3.72021484375,
+            2.81787109375,
+            2.11669921875
+          ]
+        }
+      },
+      {
+        "event": "loaded",
+        "llm": "qwen15-cpu",
+        "resource": {
+          "at": 4923.748255938,
+          "available": 3707731968,
+          "system_used": 2429775872,
+          "swap_used": 51118080,
+          "swap_in": 147456,
+          "swap_out": 50511872,
+          "processes": [
+            {
+              "pid": 11305,
+              "rss": 1061941248,
+              "pss": 1056703488,
+              "cpu_seconds": 164.36
+            },
+            {
+              "pid": 967,
+              "rss": 1912623104,
+              "pss": 1909841920,
+              "cpu_seconds": 6.86
+            }
+          ],
+          "temperature": {
+            "thermal_zone2": 46.438,
+            "thermal_zone0": 47.616,
+            "thermal_zone7": 33.672,
+            "thermal_zone5": 47.616,
+            "thermal_zone3": 48.36,
+            "thermal_zone1": 46.252,
+            "thermal_zone6": 48.36,
+            "thermal_zone4": 47.244
+          },
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 1794000,
+            "cpu3": 1794000,
+            "cpu1": 1794000,
+            "cpu6": 2002000,
+            "cpu4": 1794000,
+            "cpu2": 1794000,
+            "cpu0": 1794000
+          },
+          "loadavg": [
+            3.95263671875,
+            3.1416015625,
+            2.2998046875
+          ]
+        }
+      }
+    ],
+    "native_controls": [],
+    "pairs": {
+      "smol500/nano33/jev_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.4875431489999755,
+          "p95": 1.493640874799894,
+          "minimum": 1.4818850840001687,
+          "maximum": 1.494633053999678
+        },
+        "llm_ttft_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "decode_tokens_per_second": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 3621060608
+      },
+      "smol500/nano33/llm_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 2.648533,
+          "p95": 2.9798899999999997,
+          "minimum": 2.385194,
+          "maximum": 3.028961
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 17.48647,
+          "p95": 17.623737600000002,
+          "minimum": 17.217731,
+          "maximum": 17.631636
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 3621302272
+      },
+      "smol500/nano33/concurrent": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.5873476010001468,
+          "p95": 1.6817984975998115,
+          "minimum": 1.5606873249998898,
+          "maximum": 1.7025891579996824
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 2.693198,
+          "p95": 3.0267938,
+          "minimum": 2.434358,
+          "maximum": 3.073097
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 17.427855,
+          "p95": 17.7068512,
+          "minimum": 17.352457,
+          "maximum": 17.714256
+        },
+        "overlap_seconds": {
+          "n": 5,
+          "p50": 1.593532834999678,
+          "p95": 1.6843849909997517,
+          "minimum": 1.5623917900002198,
+          "maximum": 1.7042039139996632
+        },
+        "available_min": 3590987776
+      },
+      "smol500/laya/jev_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.3216214269996271,
+          "p95": 1.3251892582002256,
+          "minimum": 1.3114514270000655,
+          "maximum": 1.325260067000272
+        },
+        "llm_ttft_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "decode_tokens_per_second": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 2181869568
+      },
+      "smol500/laya/llm_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 2.630867,
+          "p95": 2.9742219999999997,
+          "minimum": 2.385072,
+          "maximum": 3.023554
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 17.479857,
+          "p95": 17.655465399999997,
+          "minimum": 17.29783,
+          "maximum": 17.661163
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 2180386816
+      },
+      "smol500/laya/concurrent": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.4108033339998656,
+          "p95": 1.4875494079995406,
+          "minimum": 1.3920030069994027,
+          "maximum": 1.5007780789992466
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 2.696294,
+          "p95": 3.0461834,
+          "minimum": 2.382118,
+          "maximum": 3.095488
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 17.386388,
+          "p95": 17.8629372,
+          "minimum": 17.31242,
+          "maximum": 17.915712
+        },
+        "overlap_seconds": {
+          "n": 5,
+          "p50": 1.4191906189998917,
+          "p95": 1.4895688995999081,
+          "minimum": 1.3967822770000566,
+          "maximum": 1.50276583699997
+        },
+        "available_min": 2150350848
+      },
+      "intern1b/nano33/jev_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.4589843659996404,
+          "p95": 1.4602735206002762,
+          "minimum": 1.453835053000148,
+          "maximum": 1.460298079000495
+        },
+        "llm_ttft_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "decode_tokens_per_second": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 2919456768
+      },
+      "intern1b/nano33/llm_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 0.926625,
+          "p95": 0.9671608,
+          "minimum": 0.735322,
+          "maximum": 0.974261
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 13.744462,
+          "p95": 13.895202600000001,
+          "minimum": 13.543066,
+          "maximum": 13.903679
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 2919129088
+      },
+      "intern1b/nano33/concurrent": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.5508267430004707,
+          "p95": 1.568949048599825,
+          "minimum": 1.5383837830004268,
+          "maximum": 1.5707051159997718
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 0.95099,
+          "p95": 0.9983428000000001,
+          "minimum": 0.755607,
+          "maximum": 1.008714
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 13.504043,
+          "p95": 13.627053400000001,
+          "minimum": 13.325957,
+          "maximum": 13.645241
+        },
+        "overlap_seconds": {
+          "n": 5,
+          "p50": 1.5523585820001244,
+          "p95": 1.5705128888001127,
+          "minimum": 1.5399255819993414,
+          "maximum": 1.5722699560001274
+        },
+        "available_min": 2880757760
+      },
+      "intern1b/laya/jev_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.3155186789999789,
+          "p95": 1.3232333187997938,
+          "minimum": 1.3123794120001548,
+          "maximum": 1.3239013889997295
+        },
+        "llm_ttft_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "decode_tokens_per_second": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 2112622592
+      },
+      "intern1b/laya/llm_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 0.92391,
+          "p95": 0.9656324000000001,
+          "minimum": 0.735176,
+          "maximum": 0.974767
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 13.7587,
+          "p95": 14.0353984,
+          "minimum": 13.611976,
+          "maximum": 14.04606
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 2114035712
+      },
+      "intern1b/laya/concurrent": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.405664934000015,
+          "p95": 1.42141980699962,
+          "minimum": 1.3941054580000127,
+          "maximum": 1.4246674489995712
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 0.965446,
+          "p95": 1.0123466,
+          "minimum": 0.764403,
+          "maximum": 1.023303
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 13.501543,
+          "p95": 13.6563784,
+          "minimum": 13.282924,
+          "maximum": 13.688531
+        },
+        "overlap_seconds": {
+          "n": 5,
+          "p50": 1.4077814869997383,
+          "p95": 1.4283901501994478,
+          "minimum": 1.3960755930002051,
+          "maximum": 1.4328436979994876
+        },
+        "available_min": 2114080768
+      },
+      "qwen15-cpu/nano33/jev_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.4561342349998085,
+          "p95": 1.4584721470000659,
+          "minimum": 1.4455049299995153,
+          "maximum": 1.4585437890000321
+        },
+        "llm_ttft_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "decode_tokens_per_second": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 3699597312
+      },
+      "qwen15-cpu/nano33/llm_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 1.3434498220003661,
+          "p95": 1.401764422600354,
+          "minimum": 1.1971586949994162,
+          "maximum": 1.413649142000395
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 9.762969562676817,
+          "p95": 9.961057353951512,
+          "minimum": 9.604917717871551,
+          "maximum": 9.990808456220277
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 3694489600
+      },
+      "qwen15-cpu/nano33/concurrent": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 2.865280853000513,
+          "p95": 2.878395203400396,
+          "minimum": 2.8542171300005066,
+          "maximum": 2.880285138000545
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 2.8324916430001394,
+          "p95": 2.895630651000283,
+          "minimum": 2.502353280000534,
+          "maximum": 2.909186079000392
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 9.599776587017612,
+          "p95": 9.704472072700893,
+          "minimum": 7.283745593333916,
+          "maximum": 9.72259632212186
+        },
+        "overlap_seconds": {
+          "n": 5,
+          "p50": 2.867315571999825,
+          "p95": 2.880280655000206,
+          "minimum": 2.856576225000026,
+          "maximum": 2.8821550230004505
+        },
+        "available_min": 3690745856
+      },
+      "qwen15-cpu/laya/jev_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.324743183999999,
+          "p95": 1.326078358000268,
+          "minimum": 1.3083945170001243,
+          "maximum": 1.3260877330003495
+        },
+        "llm_ttft_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "decode_tokens_per_second": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 2903355392
+      },
+      "qwen15-cpu/laya/llm_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 1.359525197000039,
+          "p95": 1.4032489054005055,
+          "minimum": 1.1951584759999605,
+          "maximum": 1.4138509350004824
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 9.666229691711713,
+          "p95": 9.888703760715785,
+          "minimum": 9.625719923635955,
+          "maximum": 9.921889921592264
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 2903212032
+      },
+      "qwen15-cpu/laya/concurrent": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 2.500515102999998,
+          "p95": 2.5305667660000837,
+          "minimum": 2.47597106000012,
+          "maximum": 2.535936326999945
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 2.6658400360001906,
+          "p95": 2.7135594236002363,
+          "minimum": 2.5120011620001605,
+          "maximum": 2.723010247000275
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 9.656109722374776,
+          "p95": 9.853173547012648,
+          "minimum": 9.575046662394069,
+          "maximum": 9.895741297048948
+        },
+        "overlap_seconds": {
+          "n": 5,
+          "p50": 2.5033923690007214,
+          "p95": 2.538511165199816,
+          "minimum": 2.4784159060000093,
+          "maximum": 2.545261207999829
+        },
+        "available_min": 2903326720
+      }
+    }
+  },
+  "jev08-screen-t2-20261020T165646-10993.jsonl": {
+    "events": 1,
+    "completed": false,
+    "errors": [
+      {
+        "event": "load_error",
+        "error": "RuntimeError(\"jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}\")",
+        "trace": "Traceback (most recent call last):\n  File \"/opt/opi-vlm/jev-lab-20261020/board_bench.py\", line 12, in <module>\n    try:m=Adapter(args.model,r,args.threads)\n  File \"/opt/opi-vlm/jev-lab-20261020/board_adapters.py\", line 25, in __init__\n    self.model=j.JevStyleDecisionGGUF(self.root/\"models/jev08\",quant=\"Q4_K_M\",binary=self.root/\"bin/jev-score\",threads=threads,n_gpu_layers=0,max_len=2048,head_max=2048,stderr=open(self.root/\"results/jev08-engine.log\",\"a\"),n_seq_max=int(os.environ.get(\"JEV_N_SEQ_MAX\",\"17\")),n_ubatch=int(os.environ.get(\"JEV_UBATCH\",\"1024\")))\n  File \"/opt/opi-vlm/jev-lab-20261020/jev_style_decision_board.py\", line 554, in __init__\n    raise RuntimeError(f\"jev-score failed to start: {ready}\")\nRuntimeError: jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}\n"
+      }
+    ],
+    "blocks": {},
+    "loaded": [],
+    "native_controls": []
+  },
+  "laya-screen-t2-20261020T164634-10370.jsonl": {
+    "events": 153,
+    "completed": true,
+    "errors": [],
+    "blocks": {
+      "measure:10-candidates-64tokens": {
+        "attempted": 30,
+        "valid": 30,
+        "errors": 0,
+        "seconds": {
+          "n": 30,
+          "p50": 1.2594396829999823,
+          "p95": 1.271344582349957,
+          "minimum": 1.2453490859998055,
+          "maximum": 1.282310341000084
+        },
+        "accuracy": 0.7,
+        "state_tokens": [
+          64,
+          66
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.9778274118878751,
+        "resources": {
+          "rss_tree_max": 1779216384,
+          "available_min": 3004239872,
+          "swap_max": 524288,
+          "temp_max": 59.21
+        }
+      },
+      "accuracy:direct": {
+        "attempted": 20,
+        "valid": 20,
+        "errors": 0,
+        "seconds": {
+          "n": 20,
+          "p50": 9.606919108499824,
+          "p95": 9.673427785549416,
+          "minimum": 9.502260094999656,
+          "maximum": 9.757433104000029
+        },
+        "accuracy": 0.3,
+        "state_tokens": [
+          64,
+          65,
+          66
+        ],
+        "by_suite": {
+          "literal": {
+            "n": 12,
+            "correct": 6
+          },
+          "safety": {
+            "n": 4,
+            "correct": 0
+          },
+          "unknown": {
+            "n": 4,
+            "correct": 0
+          }
+        },
+        "process_cpu_cores_mean": 1.9776107865537818,
+        "resources": {
+          "rss_tree_max": 1804505088,
+          "available_min": 2961862656,
+          "swap_max": 524288,
+          "temp_max": 64.914
+        }
+      },
+      "accuracy:two-stage": {
+        "attempted": 20,
+        "valid": 20,
+        "errors": 0,
+        "seconds": {
+          "n": 20,
+          "p50": 2.4815845465000166,
+          "p95": 2.5186024495502353,
+          "minimum": 2.4548246320000544,
+          "maximum": 2.5189911999996184
+        },
+        "accuracy": 0.25,
+        "state_tokens": [
+          64,
+          65,
+          66
+        ],
+        "by_suite": {
+          "literal": {
+            "n": 12,
+            "correct": 5
+          },
+          "safety": {
+            "n": 4,
+            "correct": 0
+          },
+          "unknown": {
+            "n": 4,
+            "correct": 0
+          }
+        },
+        "process_cpu_cores_mean": 1.9782868340169228,
+        "resources": {
+          "rss_tree_max": 1804484608,
+          "available_min": 2960830464,
+          "swap_max": 524288,
+          "temp_max": 66.434
+        }
+      },
+      "candidate_matrix:4-candidates": {
+        "attempted": 10,
+        "valid": 10,
+        "errors": 0,
+        "seconds": {
+          "n": 10,
+          "p50": 0.9328214104998551,
+          "p95": 0.942642527749831,
+          "minimum": 0.922843570000623,
+          "maximum": 0.94486993099963
+        },
+        "accuracy": 0.8,
+        "state_tokens": [
+          64,
+          66
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.9830208160797316,
+        "resources": {
+          "rss_tree_max": 1804484608,
+          "available_min": 2960830464,
+          "swap_max": 524288,
+          "temp_max": 66.493
+        }
+      },
+      "candidate_matrix:8-candidates": {
+        "attempted": 10,
+        "valid": 10,
+        "errors": 0,
+        "seconds": {
+          "n": 10,
+          "p50": 1.148642377499982,
+          "p95": 1.1581736098000874,
+          "minimum": 1.1360577069999636,
+          "maximum": 1.1622746379998716
+        },
+        "accuracy": 0.7,
+        "state_tokens": [
+          64,
+          66
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.9817995494043605,
+        "resources": {
+          "rss_tree_max": 1804615680,
+          "available_min": 2961088512,
+          "swap_max": 524288,
+          "temp_max": 66.316
+        }
+      },
+      "candidate_matrix:16-candidates": {
+        "attempted": 10,
+        "valid": 10,
+        "errors": 0,
+        "seconds": {
+          "n": 10,
+          "p50": 1.6209483210004692,
+          "p95": 1.6298964786995385,
+          "minimum": 1.6005747839999458,
+          "maximum": 1.6316067909992853
+        },
+        "accuracy": 0.8,
+        "state_tokens": [
+          64,
+          66
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.9812514699163102,
+        "resources": {
+          "rss_tree_max": 1804615680,
+          "available_min": 2960900096,
+          "swap_max": 524288,
+          "temp_max": 66.847
+        }
+      },
+      "candidate_matrix:32-candidates": {
+        "attempted": 10,
+        "valid": 10,
+        "errors": 0,
+        "seconds": {
+          "n": 10,
+          "p50": 2.867474911000045,
+          "p95": 2.882869708099997,
+          "minimum": 2.8565316929998517,
+          "maximum": 2.8904640529999597
+        },
+        "accuracy": 0.9,
+        "state_tokens": [
+          64,
+          66
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.9819938255613092,
+        "resources": {
+          "rss_tree_max": 1804746752,
+          "available_min": 2960588800,
+          "swap_max": 524288,
+          "temp_max": 67.142
+        }
+      },
+      "candidate_matrix:64-candidates": {
+        "attempted": 10,
+        "valid": 10,
+        "errors": 0,
+        "seconds": {
+          "n": 10,
+          "p50": 5.809190857499743,
+          "p95": 5.834137442649944,
+          "minimum": 5.787983445999998,
+          "maximum": 5.839411560999906
+        },
+        "accuracy": 0.6,
+        "state_tokens": [
+          64,
+          66
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.9811695424897817,
+        "resources": {
+          "rss_tree_max": 1809465344,
+          "available_min": 2954362880,
+          "swap_max": 524288,
+          "temp_max": 68.027
+        }
+      },
+      "candidate_matrix:100-candidates": {
+        "attempted": 10,
+        "valid": 10,
+        "errors": 0,
+        "seconds": {
+          "n": 10,
+          "p50": 9.556759063500067,
+          "p95": 9.57135288605009,
+          "minimum": 9.526658818000215,
+          "maximum": 9.573193994000576
+        },
+        "accuracy": 0.7,
+        "state_tokens": [
+          64,
+          66
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.978526249512154,
+        "resources": {
+          "rss_tree_max": 1836257280,
+          "available_min": 2945040384,
+          "swap_max": 524288,
+          "temp_max": 68.617
+        }
+      },
+      "measure:two-stage-128tokens": {
+        "attempted": 10,
+        "valid": 10,
+        "errors": 0,
+        "seconds": {
+          "n": 10,
+          "p50": 3.330854688499585,
+          "p95": 3.4084327089502495,
+          "minimum": 3.305550174000018,
+          "maximum": 3.4204356710006323
+        },
+        "accuracy": 0.1,
+        "state_tokens": [
+          128,
+          129,
+          130
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.977628854526425,
+        "resources": {
+          "rss_tree_max": 1836244992,
+          "available_min": 2944729088,
+          "swap_max": 524288,
+          "temp_max": 69.089
+        }
+      },
+      "measure:two-stage-256tokens": {
+        "attempted": 10,
+        "valid": 10,
+        "errors": 0,
+        "seconds": {
+          "n": 10,
+          "p50": 5.374928632999854,
+          "p95": 5.391002864499979,
+          "minimum": 5.339728508999542,
+          "maximum": 5.392331215000013
+        },
+        "accuracy": 0.1,
+        "state_tokens": [
+          256,
+          257,
+          258
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.982242799111682,
+        "resources": {
+          "rss_tree_max": 1836507136,
+          "available_min": 2944548864,
+          "swap_max": 524288,
+          "temp_max": 70.446
+        }
+      }
+    },
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 9.907621848000417,
+        "affinity": [
+          6,
+          7
+        ],
+        "resource": {
+          "monotonic": 4022.946068819,
+          "cpu_tree_seconds": 12.85,
+          "rss_tree_bytes": 1749069824,
+          "system_available_bytes": 3025084416,
+          "system_used_bytes": 3112423424,
+          "swap_used_bytes": 524288,
+          "temperature_c": {
+            "thermal_zone2": 41.664,
+            "thermal_zone0": 43.276,
+            "thermal_zone7": 33.002,
+            "thermal_zone5": 43.276,
+            "thermal_zone3": 45.012,
+            "thermal_zone1": 39.184,
+            "thermal_zone6": 45.012,
+            "thermal_zone4": 40.424
+          },
+          "loadavg": [
+            0.53955078125,
+            0.890625,
+            1.3544921875
+          ],
+          "cpu_system_percent": 14.0
+        }
+      }
+    ],
+    "native_controls": [],
+    "continuous_resources": {
+      "samples": 1162,
+      "rss_tree_max": 1922039808,
+      "available_min": 2861195264,
+      "swap_max": 524288,
+      "temp_max": 71.744
+    }
+  },
+  "nano33-screen-t2-20261020T160914-6913.jsonl": {
+    "events": 312,
+    "completed": false,
+    "errors": [],
+    "blocks": {
+      "measure:10-candidates-64tokens": {
+        "attempted": 200,
+        "valid": 200,
+        "errors": 0,
+        "seconds": {
+          "n": 200,
+          "p50": 1.4411173635000978,
+          "p95": 1.451966895249916,
+          "minimum": 1.428319651000038,
+          "maximum": 1.4649672230000306
+        },
+        "accuracy": 0.2,
+        "state_tokens": [
+          66
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.9641127219731775,
+        "resources": {
+          "rss_tree_max": 460382208,
+          "available_min": 4419330048,
+          "swap_max": 524288,
+          "temp_max": 67.024
+        }
+      },
+      "accuracy:direct": {
+        "attempted": 109,
+        "valid": 109,
+        "errors": 0,
+        "seconds": {
+          "n": 109,
+          "p50": 14.2064897690002,
+          "p95": 14.264899038199838,
+          "minimum": 13.358795540999836,
+          "maximum": 14.435048177000226
+        },
+        "accuracy": 0.0,
+        "state_tokens": [
+          64,
+          65,
+          66,
+          67
+        ],
+        "by_suite": {
+          "literal": {
+            "n": 100,
+            "correct": 0
+          },
+          "paraphrase": {
+            "n": 9,
+            "correct": 0
+          }
+        },
+        "process_cpu_cores_mean": 1.9678832647703446,
+        "resources": {
+          "rss_tree_max": 485707776,
+          "available_min": 4393402368,
+          "swap_max": 524288,
+          "temp_max": 72.334
+        }
+      }
+    },
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 3.7702771459998985,
+        "affinity": [
+          6,
+          7
+        ],
+        "resource": {
+          "monotonic": 1776.783314023,
+          "cpu_tree_seconds": 6.17,
+          "rss_tree_bytes": 342753280,
+          "system_available_bytes": 4446949376,
+          "system_used_bytes": 1690558464,
+          "swap_used_bytes": 524288,
+          "temperature_c": {
+            "thermal_zone2": 36.084,
+            "thermal_zone0": 39.494,
+            "thermal_zone7": 32.159,
+            "thermal_zone5": 39.494,
+            "thermal_zone3": 40.796,
+            "thermal_zone1": 39.122,
+            "thermal_zone6": 40.796,
+            "thermal_zone4": 39.308
+          },
+          "loadavg": [
+            0.86083984375,
+            0.47607421875,
+            0.3046875
+          ],
+          "cpu_system_percent": 12.9
+        }
+      }
+    ],
+    "native_controls": [
+      {
+        "event": "native_control",
+        "passage": "University College London was founded in 1826.",
+        "seconds": 0.2539145840000856,
+        "result": {
+          "answer": "answer",
+          "details": {
+            "scores": {
+              "irrelevant": 0.22665086388587952,
+              "partial": 0.39701104164123535,
+              "answer": 2.1816439628601074
+            },
+            "input_tokens_total": 95,
+            "tokens_per_candidate": [
+              31,
+              32,
+              32
+            ],
+            "temperature": 1.0,
+            "action_probabilities_uncalibrated": true
+          }
+        }
+      },
+      {
+        "event": "native_control",
+        "passage": "The cat is sleeping on the sofa.",
+        "seconds": 0.17195033899997725,
+        "result": {
+          "answer": "irrelevant",
+          "details": {
+            "scores": {
+              "irrelevant": 2.5869410037994385,
+              "partial": -1.8460556268692017,
+              "answer": -1.8733108043670654
+            },
+            "input_tokens_total": 95,
+            "tokens_per_candidate": [
+              31,
+              32,
+              32
+            ],
+            "temperature": 1.0,
+            "action_probabilities_uncalibrated": true
+          }
+        }
+      }
+    ]
+  }
+}

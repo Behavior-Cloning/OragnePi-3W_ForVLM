@@ -7,7 +7,19 @@ class Adapter:
   self.name=name;self.root=Path(root);torch.set_num_threads(threads)
   if name=="laya":
    import laya
-   self.model=laya.load(str(self.root/"models/laya"),device="cpu");self.tok=self.model.tok
+   self.laya_ort=os.environ.get("LAYA_ORT")
+   if self.laya_ort:
+    import onnxruntime as ort
+    factory=ort.InferenceSession
+    def controlled_session(path,*args,**kwargs):
+     so=ort.SessionOptions();so.intra_op_num_threads=threads;so.inter_op_num_threads=1;so.execution_mode=ort.ExecutionMode.ORT_SEQUENTIAL;so.graph_optimization_level=ort.GraphOptimizationLevel.ORT_ENABLE_ALL
+     return factory(path,sess_options=so,providers=["CPUExecutionProvider"])
+    # Native constructor does not expose SessionOptions; patch only during synchronous load.
+    ort.InferenceSession=controlled_session
+    try:self.model=laya.load(str(self.root/"models/laya"),backend="onnx",onnx_path=str(self.root/("models/laya/laya-"+self.laya_ort+".onnx")))
+    finally:ort.InferenceSession=factory
+   else:self.model=laya.load(str(self.root/"models/laya"),device="cpu")
+   self.tok=self.model.tok
   elif name=="nano33":
    from transformers import AutoTokenizer,AutoModelForSequenceClassification
    self.tok=AutoTokenizer.from_pretrained(self.root/"models/nano33",local_files_only=True)
@@ -18,6 +30,7 @@ class Adapter:
     self.model=ort.InferenceSession(str(self.root/("models/nano33/nano33-"+self.ort_mode+".onnx")),so,providers=["CPUExecutionProvider"])
    else:self.model=AutoModelForSequenceClassification.from_pretrained(self.root/"models/nano33",local_files_only=True).eval()
   elif name=="jev08":
+   os.environ["LD_LIBRARY_PATH"]=str(self.root/"bin")+":"+os.environ.get("LD_LIBRARY_PATH","")
    import sys;sys.path.insert(0,str(self.root/"models/jev08"))
    import jev_style_decision_board as j
    # Reduce allocation, not input: renderer checks max_len, never truncates.
@@ -27,6 +40,7 @@ class Adapter:
    self.tok=AutoTokenizer.from_pretrained(self.root/"models/jev08/tokenizer",local_files_only=True)
   else:raise ValueError(name)
   self.optimization={"runtime":"onnxruntime-"+os.environ["NANO_ORT"] if name=="nano33" and os.environ.get("NANO_ORT") else "torch" if name!="jev08" else "llama.cpp","threads":threads,"int8":False,"nano_batch":int(os.environ.get("NANO_BATCH","8"))}
+  if name=="laya" and os.environ.get("LAYA_ORT"):self.optimization.update(runtime="onnxruntime-"+os.environ["LAYA_ORT"],intra_op_threads=threads,inter_op_threads=1,provider="CPUExecutionProvider")
   if name in ("nano33","laya") and os.environ.get("JEV_DYNAMIC_INT8")=="1":
    engines=torch.backends.quantized.supported_engines
    engine="qnnpack" if "qnnpack" in engines else torch.backends.quantized.engine

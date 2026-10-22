@@ -1,0 +1,1232 @@
+[
+  {
+    "id": "A01",
+    "type": "atom",
+    "name": "向左转头",
+    "description": "头部缓慢转向左侧，改变视线方向，用于观察左侧目标。",
+    "tags": [
+      "head",
+      "left"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "head"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A02",
+    "type": "atom",
+    "name": "向右转头",
+    "description": "头部缓慢转向右侧，改变视线方向，用于观察右侧目标。",
+    "tags": [
+      "head",
+      "right"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "head"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A03",
+    "type": "atom",
+    "name": "抬头看",
+    "description": "头部向上仰起，视线移向较高位置，可表现期待或注意高处。",
+    "tags": [
+      "head",
+      "up"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "head"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A04",
+    "type": "atom",
+    "name": "低头看",
+    "description": "头部向下俯视，查看低处目标或表达低落、困倦。",
+    "tags": [
+      "down",
+      "head"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "head"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A05",
+    "type": "atom",
+    "name": "歪头观察",
+    "description": "头部轻微侧倾，表达疑惑、好奇，观察陌生事物。",
+    "tags": [
+      "curious",
+      "head"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "head"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A06",
+    "type": "atom",
+    "name": "轻轻点头",
+    "description": "头部小幅上下摆动，表示赞同、理解、回应。",
+    "tags": [
+      "agree",
+      "head"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "head"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A07",
+    "type": "atom",
+    "name": "轻轻摇头",
+    "description": "头部小幅左右摆动，表示否定、拒绝、不认同。",
+    "tags": [
+      "disagree",
+      "head"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "head"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A08",
+    "type": "atom",
+    "name": "注视指定目标",
+    "description": "头部与视线保持朝向已定位对象，持续关注人物或物品。",
+    "tags": [
+      "gaze",
+      "head"
+    ],
+    "energy": "low",
+    "requires_target": true,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "head"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A09",
+    "type": "atom",
+    "name": "右手挥手",
+    "description": "举起右手并往复摆动，用于见面问候或告别。",
+    "tags": [
+      "arm",
+      "greet",
+      "hand:right"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "arm"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A10",
+    "type": "atom",
+    "name": "左手挥手",
+    "description": "举起左手并往复摆动，用于见面问候或告别。",
+    "tags": [
+      "arm",
+      "greet",
+      "hand:left"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "arm"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A11",
+    "type": "atom",
+    "name": "举起右手",
+    "description": "右臂向上抬起并短暂停留，表示应答、示意或请求注意。",
+    "tags": [
+      "arm",
+      "hand:right"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "arm"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A12",
+    "type": "atom",
+    "name": "举起左手",
+    "description": "左臂向上抬起并短暂停留，表示应答、示意或请求注意。",
+    "tags": [
+      "arm",
+      "hand:left"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "arm"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A13",
+    "type": "atom",
+    "name": "双手轻微摆动",
+    "description": "两臂小幅慢摆，作为自然待机、轻松愉悦或温和陪伴动作。",
+    "tags": [
+      "arm",
+      "gentle",
+      "hand:left",
+      "hand:right"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "arm"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A14",
+    "type": "atom",
+    "name": "双臂张开",
+    "description": "两臂向两侧展开，表达欢迎、亲近、拥抱邀请。",
+    "tags": [
+      "arm",
+      "hand:left",
+      "hand:right",
+      "welcome"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "arm"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A15",
+    "type": "atom",
+    "name": "拍手",
+    "description": "双手短促合拢拍击，表达赞赏、庆祝、开心。",
+    "tags": [
+      "arm",
+      "clap",
+      "hand:left",
+      "hand:right",
+      "happy",
+      "noise"
+    ],
+    "energy": "high",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "arm"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A16",
+    "type": "atom",
+    "name": "双手抱头",
+    "description": "双手移向头部并停留，表达惊慌、懊恼或受惊。",
+    "tags": [
+      "arm",
+      "fear",
+      "hand:left",
+      "hand:right"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "arm"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A17",
+    "type": "atom",
+    "name": "弯腰低头",
+    "description": "上身前倾并低头，表达鞠躬、感谢、道歉。",
+    "tags": [
+      "bow",
+      "torso"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "head",
+      "torso"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A18",
+    "type": "atom",
+    "name": "恢复直立",
+    "description": "身体从弯曲状态回到中立直立姿态。",
+    "tags": [
+      "neutral",
+      "torso"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "torso"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A19",
+    "type": "atom",
+    "name": "身体蜷缩",
+    "description": "上身收拢，姿态缩小，表达害怕、寒冷或疲倦。",
+    "tags": [
+      "curl",
+      "torso"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "torso"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A20",
+    "type": "atom",
+    "name": "肩膀下垂",
+    "description": "双肩松弛下沉，表达疲惫、失落或放松。",
+    "tags": [
+      "tired",
+      "torso"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "torso"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A21",
+    "type": "atom",
+    "name": "伸懒腰",
+    "description": "双臂上举并舒展身体，用于醒来或缓解疲劳。",
+    "tags": [
+      "arm",
+      "hand:left",
+      "hand:right",
+      "stretch"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "arm",
+      "torso"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A22",
+    "type": "atom",
+    "name": "打哈欠表情",
+    "description": "张口缓慢闭合，表现困意、疲劳、想休息。",
+    "tags": [
+      "face",
+      "sleepy"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "face"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A23",
+    "type": "atom",
+    "name": "眼睑下垂",
+    "description": "眼睛半闭或缓慢合上，表达困倦、安静休息。",
+    "tags": [
+      "face",
+      "sleepy"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "face"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A24",
+    "type": "atom",
+    "name": "睁大眼睛",
+    "description": "眼睛张大，表达惊讶、好奇、注意新事物。",
+    "tags": [
+      "face",
+      "surprise"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "face"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A25",
+    "type": "atom",
+    "name": "微笑表情",
+    "description": "呈现笑容，表达愉悦、友善、满意。",
+    "tags": [
+      "face",
+      "happy"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "face"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A26",
+    "type": "atom",
+    "name": "平静表情",
+    "description": "回到中性柔和表情，适合等待、安静陪伴。",
+    "tags": [
+      "face",
+      "neutral"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "face"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A27",
+    "type": "atom",
+    "name": "难过表情",
+    "description": "眉眼下垂，表达失落、伤心或共情。",
+    "tags": [
+      "face",
+      "sad"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "face"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A28",
+    "type": "atom",
+    "name": "惊讶张嘴",
+    "description": "嘴部略张，表达惊奇、惊喜或意外。",
+    "tags": [
+      "face",
+      "surprise"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "face"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A30",
+    "type": "atom",
+    "name": "身体左右摇摆",
+    "description": "上身随节奏左右摆动，表现轻松、舞动或音乐律动。",
+    "tags": [
+      "dance",
+      "torso"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "torso"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A31",
+    "type": "atom",
+    "name": "身体稍微前倾",
+    "description": "上身小幅前倾，表达注意、倾听、靠近观察，不发生底盘位移。",
+    "tags": [
+      "curious",
+      "torso"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "torso"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A32",
+    "type": "atom",
+    "name": "身体后缩",
+    "description": "上身向后收回，表达谨慎、避让或受惊，不发生底盘位移。",
+    "tags": [
+      "cautious",
+      "torso"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "torso"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A33",
+    "type": "atom",
+    "name": "右手指示右侧",
+    "description": "右臂伸向右边，用于指出右侧方向。",
+    "tags": [
+      "arm",
+      "hand:right",
+      "point",
+      "right"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "arm"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A34",
+    "type": "atom",
+    "name": "左手指示左侧",
+    "description": "左臂伸向左边，用于指出左侧方向。",
+    "tags": [
+      "arm",
+      "hand:left",
+      "left",
+      "point"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "arm"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A35",
+    "type": "atom",
+    "name": "指向指定物体",
+    "description": "用手指示一个已定位的物体，帮助他人注意目标；不接触物体。",
+    "tags": [
+      "arm",
+      "point"
+    ],
+    "energy": "low",
+    "requires_target": true,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [
+      "arm"
+    ],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "A41",
+    "type": "atom",
+    "name": "保持静止",
+    "description": "保持当前姿态，暂不产生肢体运动，用于等待、监听。",
+    "tags": [
+      "still"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "steps": [],
+    "scope": "home_desktop_companion",
+    "implementation": "mock semantic primitive; hardware mapping unvalidated",
+    "actuators": [],
+    "desktop_envelope": "bounded in place; no translation, jumping, grasping or object contact"
+  },
+  {
+    "id": "H01",
+    "type": "skill",
+    "name": "迎接家人回家",
+    "description": "看到家人回到身边，用温和的笑容、右手招呼和点头回应。",
+    "steps": [
+      "A25",
+      "A09",
+      "A06"
+    ],
+    "tags": [
+      "agree",
+      "arm",
+      "face",
+      "greet",
+      "hand:right",
+      "happy",
+      "head"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "arm",
+      "face",
+      "head"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H02",
+    "type": "skill",
+    "name": "欢迎朋友来访",
+    "description": "向熟悉的朋友展开双臂表示欢迎，配合友善笑容。",
+    "steps": [
+      "A25",
+      "A14",
+      "A06"
+    ],
+    "tags": [
+      "agree",
+      "arm",
+      "face",
+      "hand:left",
+      "hand:right",
+      "happy",
+      "head",
+      "welcome"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "arm",
+      "face",
+      "head"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H03",
+    "type": "skill",
+    "name": "安静倾听倾诉",
+    "description": "对方倾诉时不打断，用柔和表情和点头回应，停留等待。",
+    "steps": [
+      "A26",
+      "A06",
+      "A41"
+    ],
+    "tags": [
+      "agree",
+      "face",
+      "head",
+      "neutral",
+      "still"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "face",
+      "head"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H04",
+    "type": "skill",
+    "name": "陪伴读书工作",
+    "description": "在桌边保持柔和平静的表情与安静姿态，减少干扰。",
+    "steps": [
+      "A26",
+      "A41"
+    ],
+    "tags": [
+      "face",
+      "neutral",
+      "still"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "face"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H05",
+    "type": "skill",
+    "name": "安慰失落的伙伴",
+    "description": "先以难过表情表示共情，再轻点头，用温和微笑安慰。",
+    "steps": [
+      "A27",
+      "A06",
+      "A25"
+    ],
+    "tags": [
+      "agree",
+      "face",
+      "happy",
+      "head",
+      "sad"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "face",
+      "head"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H06",
+    "type": "skill",
+    "name": "小声庆祝好消息",
+    "description": "用微笑、双手轻摆和点头表达高兴，避免拍击和跳跃。",
+    "steps": [
+      "A25",
+      "A13",
+      "A06"
+    ],
+    "tags": [
+      "agree",
+      "arm",
+      "face",
+      "gentle",
+      "hand:left",
+      "hand:right",
+      "happy",
+      "head"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "arm",
+      "face",
+      "head"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H07",
+    "type": "skill",
+    "name": "睡前道晚安",
+    "description": "用哈欠和慢慢合眼表现准备休息，最后安静保持姿态。",
+    "steps": [
+      "A22",
+      "A23",
+      "A41"
+    ],
+    "tags": [
+      "face",
+      "sleepy",
+      "still"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "face"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H08",
+    "type": "skill",
+    "name": "早晨醒来舒展",
+    "description": "睁开眼睛并伸展双臂身体，回到中立姿态，露出笑容。",
+    "steps": [
+      "A24",
+      "A21",
+      "A18",
+      "A25"
+    ],
+    "tags": [
+      "arm",
+      "face",
+      "hand:left",
+      "hand:right",
+      "happy",
+      "neutral",
+      "stretch",
+      "surprise",
+      "torso"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "arm",
+      "face",
+      "torso"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H09",
+    "type": "skill",
+    "name": "疲倦时放松",
+    "description": "松下肩膀、打个哈欠，随后保持安静，表现想休息。",
+    "steps": [
+      "A20",
+      "A22",
+      "A41"
+    ],
+    "tags": [
+      "face",
+      "sleepy",
+      "still",
+      "tired",
+      "torso"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "face",
+      "torso"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H10",
+    "type": "skill",
+    "name": "陪伴做休息操",
+    "description": "舒展双臂和身体，恢复中立姿势，用笑容鼓励休息。",
+    "steps": [
+      "A21",
+      "A18",
+      "A25"
+    ],
+    "tags": [
+      "arm",
+      "face",
+      "hand:left",
+      "hand:right",
+      "happy",
+      "neutral",
+      "stretch",
+      "torso"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "arm",
+      "face",
+      "torso"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H11",
+    "type": "skill",
+    "name": "随着音乐轻摆",
+    "description": "上身和双手随节拍轻摆，配合小幅点头，不移动底座。",
+    "steps": [
+      "A30",
+      "A13",
+      "A06"
+    ],
+    "tags": [
+      "agree",
+      "arm",
+      "dance",
+      "gentle",
+      "hand:left",
+      "hand:right",
+      "head",
+      "torso"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "arm",
+      "head",
+      "torso"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H12",
+    "type": "skill",
+    "name": "礼貌表达感谢",
+    "description": "小幅弯腰低头再恢复姿态，用笑容表达谢意。",
+    "steps": [
+      "A17",
+      "A18",
+      "A25"
+    ],
+    "tags": [
+      "bow",
+      "face",
+      "happy",
+      "neutral",
+      "torso"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "face",
+      "head",
+      "torso"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H13",
+    "type": "skill",
+    "name": "为打扰表示歉意",
+    "description": "轻轻弯腰低头，配合歉疚表情，然后恢复姿态。",
+    "steps": [
+      "A17",
+      "A27",
+      "A18"
+    ],
+    "tags": [
+      "bow",
+      "face",
+      "neutral",
+      "sad",
+      "torso"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "face",
+      "head",
+      "torso"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H14",
+    "type": "skill",
+    "name": "好奇观察桌面物品",
+    "description": "注视已经定位的物品，歪头并小幅前倾，不接触物品。",
+    "steps": [
+      "A08",
+      "A05",
+      "A31"
+    ],
+    "tags": [
+      "curious",
+      "gaze",
+      "head",
+      "torso"
+    ],
+    "energy": "low",
+    "requires_target": true,
+    "actuators": [
+      "head",
+      "torso"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H15",
+    "type": "skill",
+    "name": "指示已知的物品",
+    "description": "看向已定位的物品并用手指示，引导对方注意，不抓取。",
+    "steps": [
+      "A08",
+      "A35"
+    ],
+    "tags": [
+      "arm",
+      "gaze",
+      "head",
+      "point"
+    ],
+    "energy": "low",
+    "requires_target": true,
+    "actuators": [
+      "arm",
+      "head"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H16",
+    "type": "skill",
+    "name": "害羞地接受夸奖",
+    "description": "微微低头和轻摆双手，带着含蓄笑容回应表扬。",
+    "steps": [
+      "A04",
+      "A25",
+      "A13"
+    ],
+    "tags": [
+      "arm",
+      "down",
+      "face",
+      "gentle",
+      "hand:left",
+      "hand:right",
+      "happy",
+      "head"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "arm",
+      "face",
+      "head"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H17",
+    "type": "skill",
+    "name": "向家人挥手告别",
+    "description": "用右手挥动和微笑表示再见，轻点头结束。",
+    "steps": [
+      "A09",
+      "A25",
+      "A06"
+    ],
+    "tags": [
+      "agree",
+      "arm",
+      "face",
+      "greet",
+      "hand:right",
+      "happy",
+      "head"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "arm",
+      "face",
+      "head"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H18",
+    "type": "skill",
+    "name": "听到意外时惊讶",
+    "description": "睁大眼睛、略张嘴，上身轻轻后缩，表现惊讶。",
+    "steps": [
+      "A24",
+      "A28",
+      "A32"
+    ],
+    "tags": [
+      "cautious",
+      "face",
+      "surprise",
+      "torso"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "face",
+      "torso"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H19",
+    "type": "skill",
+    "name": "表达委屈和失落",
+    "description": "显出难过表情，垂下肩膀并低头。",
+    "steps": [
+      "A27",
+      "A20",
+      "A04"
+    ],
+    "tags": [
+      "down",
+      "face",
+      "head",
+      "sad",
+      "tired",
+      "torso"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "face",
+      "head",
+      "torso"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  },
+  {
+    "id": "H20",
+    "type": "skill",
+    "name": "左手问候朋友",
+    "description": "用左手挥动表示问候，配合微笑点头，右臂不动。",
+    "steps": [
+      "A10",
+      "A25",
+      "A06"
+    ],
+    "tags": [
+      "agree",
+      "arm",
+      "face",
+      "greet",
+      "hand:left",
+      "happy",
+      "head"
+    ],
+    "energy": "low",
+    "requires_target": false,
+    "actuators": [
+      "arm",
+      "face",
+      "head"
+    ],
+    "scope": "home_desktop_companion",
+    "implementation": "mock composition of atomic cards"
+  }
+]

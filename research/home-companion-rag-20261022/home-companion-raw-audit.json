@@ -1,0 +1,146 @@
+{
+  "checks": [
+    {
+      "model": "bge_small",
+      "raw_rows": 240,
+      "source_and_output_sha_match": true,
+      "complete_unique_schedule": true,
+      "full_pool_rankings": true,
+      "state_filter_matches_supplied_context_without_labels": true,
+      "unchanged_rank_order_after_removal": true,
+      "performance_statistics_recomputed": true,
+      "timing_components_add_exactly": true,
+      "two_repeats_stable": true,
+      "model_loop_seconds": 13.270864227000857,
+      "telemetry_samples": 16,
+      "sample_interval_s": 1,
+      "temperature_reported_start": 49.042,
+      "temperature_reported_max": 50.344,
+      "swap_delta": [
+        0,
+        0
+      ]
+    },
+    {
+      "model": "gte_base",
+      "raw_rows": 240,
+      "source_and_output_sha_match": true,
+      "complete_unique_schedule": true,
+      "full_pool_rankings": true,
+      "state_filter_matches_supplied_context_without_labels": true,
+      "unchanged_rank_order_after_removal": true,
+      "performance_statistics_recomputed": true,
+      "timing_components_add_exactly": true,
+      "two_repeats_stable": true,
+      "model_loop_seconds": 50.7859954580199,
+      "telemetry_samples": 90,
+      "sample_interval_s": 1,
+      "temperature_reported_start": 51.708,
+      "temperature_reported_max": 57.474,
+      "swap_delta": [
+        0,
+        0
+      ]
+    },
+    {
+      "model": "bge_base",
+      "raw_rows": 240,
+      "source_and_output_sha_match": true,
+      "complete_unique_schedule": true,
+      "full_pool_rankings": true,
+      "state_filter_matches_supplied_context_without_labels": true,
+      "unchanged_rank_order_after_removal": true,
+      "performance_statistics_recomputed": true,
+      "timing_components_add_exactly": true,
+      "two_repeats_stable": true,
+      "model_loop_seconds": 65.41754884499824,
+      "telemetry_samples": 76,
+      "sample_interval_s": 1,
+      "temperature_reported_start": 53.134,
+      "temperature_reported_max": 59.458,
+      "swap_delta": [
+        0,
+        0
+      ]
+    }
+  ],
+  "retained_hard_conflict_full_order_examples": [
+    {
+      "model": "bge_small",
+      "case": "agree-1",
+      "pool": "atom",
+      "retained_incompatible_ids": [
+        "A07"
+      ],
+      "rank": [
+        7
+      ]
+    },
+    {
+      "model": "bge_small",
+      "case": "agree-2",
+      "pool": "atom",
+      "retained_incompatible_ids": [
+        "A07"
+      ],
+      "rank": [
+        7
+      ]
+    },
+    {
+      "model": "gte_base",
+      "case": "agree-1",
+      "pool": "atom",
+      "retained_incompatible_ids": [
+        "A07"
+      ],
+      "rank": [
+        18
+      ]
+    },
+    {
+      "model": "gte_base",
+      "case": "agree-2",
+      "pool": "atom",
+      "retained_incompatible_ids": [
+        "A07"
+      ],
+      "rank": [
+        11
+      ]
+    },
+    {
+      "model": "bge_base",
+      "case": "agree-1",
+      "pool": "atom",
+      "retained_incompatible_ids": [
+        "A07"
+      ],
+      "rank": [
+        7
+      ]
+    },
+    {
+      "model": "bge_base",
+      "case": "agree-2",
+      "pool": "atom",
+      "retained_incompatible_ids": [
+        "A07"
+      ],
+      "rank": [
+        5
+      ]
+    }
+  ],
+  "interpretation": [
+    "State filtering is structural only and does not remove every semantic contradiction: agree/A07 remains in all full orders and is BGE-base agree-2 rank 5, so its filtered Top5 has one explicit contradiction. Do not claim all models have 100% no-hard-conflict.",
+    "Structured context is supplied fixture input; ASR, LLM/state parsing, actuator execution and plan orchestration excluded.",
+    "120 timing calls per pool are two repetitions of 60 paraphrased cases, not 120 independent quality samples.",
+    "Temperature is short isolated model loop (13-65 s in this snapshot); no long-duration or concurrent VLM claim.",
+    "PSS and temperature in per-pool aggregate reuse the same model-run peak, not independent pool-specific peaks.",
+    "Per-call CPU core occupancy is process CPU-time / wall-time; divide by 8 for approximate whole-board share.",
+    "Cold-load timer is model object creation under observed OS-cache state, not guaranteed cold-boot disk-cache load.",
+    "index_seconds begins before cool(force=True), so future models with index-phase cooldown include this waiting time in index_s.",
+    "Telemetry every 1 s misses short intra-call peaks, and timing snapshot endpoints are in summary rather than telemetry JSONL."
+  ]
+}

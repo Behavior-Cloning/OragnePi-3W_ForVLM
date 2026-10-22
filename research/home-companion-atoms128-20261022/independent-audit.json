@@ -1,0 +1,1156 @@
+{
+  "reviewer": "independent rag_compatibility_audit agent",
+  "reviewed_at_utc": "2026-10-22T10:50:14.100501+00:00",
+  "verdict": "accepted_as_unimplemented_design_catalog",
+  "scope": "All 128 entries and cross-entry comparisons reviewed; no board access, model run or rankings.",
+  "source_sha256": {
+    "atoms.json": "01c56af8325a4fed02d72ad6eeb13541b82a1e1dc13ad52187d61e21482fcf33",
+    "capabilities.json": "79d87b6eec3d6cf96b87f5abccc88ae69917bc48116b97b652c2844badb5dcb2",
+    "ATOMIC_ACTIONS_128.md": "08db0bd57e2abff150043b0134044e327fa59407c0d2650ee61c25cc3a8eac31",
+    "experiment-manifest.json": "e6ab38b029edc7c3487d14b1b73c28ac0979cb48d98bc7e47ae1c5007f74d00c"
+  },
+  "counts": {
+    "atoms": 128,
+    "skills": 0,
+    "mechanical": 90,
+    "display_effects": 38,
+    "unmapped": 128,
+    "enabled_on_board": 0
+  },
+  "checks_passed": [
+    "128 unique atoms and no skill steps",
+    "90 mechanical and 38 display",
+    "78 pose,35 render,15 cycle",
+    "unique name",
+    "unique code",
+    "unique canonical_effect",
+    "unique retrieval_text",
+    "all unmapped and disabled",
+    "unknown capability inventory",
+    "required capabilities declared",
+    "resources separated from affected body",
+    "mechanical global lock",
+    "wrist conservatively affects left arm",
+    "wrist conservatively affects right arm",
+    "six palm geometry requirements fixed",
+    "manifest frozen and not run"
+  ],
+  "exact_duplicate_clusters": [],
+  "parameter_only_or_alias_duplicates_found": [],
+  "near_neighbor_decisions": [
+    {
+      "ids": [
+        "H083",
+        "H084",
+        "H090",
+        "H097",
+        "H098",
+        "H104"
+      ],
+      "decision": "distinct",
+      "reason": "OK为圆环且其余三指伸开；指心为拇食交叉且三指收拢；空捏为指腹相对且三指收拢。"
+    },
+    {
+      "ids": [
+        "H001",
+        "H002",
+        "H011",
+        "H012"
+      ],
+      "decision": "distinct",
+      "reason": "机械头与屏幕瞳孔不同通道，左右方向明确。"
+    },
+    {
+      "ids": [
+        "H015",
+        "H016",
+        "H017",
+        "H018",
+        "H019",
+        "H020",
+        "H021"
+      ],
+      "decision": "distinct",
+      "reason": "作用眼、事件/持续状态及上下眼睑轮廓不同。"
+    },
+    {
+      "ids": [
+        "H056",
+        "H068",
+        "H109",
+        "H119"
+      ],
+      "decision": "distinct_under_single_controller_contract",
+      "reason": "单侧、同步双臂侧展、上举V不同终态；不是数值角度档位。"
+    },
+    {
+      "ids": [
+        "H084",
+        "H098",
+        "H112",
+        "H121"
+      ],
+      "decision": "distinct",
+      "reason": "单手指心、双手心形、屏幕爱心输出不同，不静默互换。"
+    }
+  ],
+  "findings": [
+    {
+      "id": "palm_geometry",
+      "status": "resolved_verified",
+      "ids": [
+        "H113",
+        "H114",
+        "H115",
+        "H116",
+        "H118",
+        "H120"
+      ],
+      "resolution": "固定掌板或已张开手为持续前置；握拳拒绝，不插张手动作。"
+    },
+    {
+      "id": "mechanical_coupling",
+      "status": "resolved_verified",
+      "resolution": "控制通道与潜在受影响部位分列；肩/腰联动不隐瞒。"
+    },
+    {
+      "id": "wrist_forearm",
+      "status": "resolved_verified",
+      "resolution": "机械wrist通道保守包含同侧arm影响。"
+    }
+  ],
+  "unresolved_catalog_blockers": [],
+  "limitations": [
+    "This is a design specification, not 128 physically implemented or verified actions.",
+    "All hardware inventories and preset mappings remain unknown; real runtime must exclude unmapped candidates.",
+    "Textual uniqueness is not physical uniqueness: deduplicate actual assets/trajectories after implementation.",
+    "Cancellation, mechanical noise, reachability, limits, collision safety, real kinesthetic coupling and execution sequence remain untested.",
+    "Top3/Top5 quality requires new frozen queries and compatibility review; previous 35+20 results do not apply."
+  ],
+  "entries": [
+    {
+      "id": "H001",
+      "name": "向左转头",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确头部方向/中立姿态或单周期，不含定位。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H002",
+      "name": "向右转头",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确头部方向/中立姿态或单周期，不含定位。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H003",
+      "name": "抬头",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确头部方向/中立姿态或单周期，不含定位。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H004",
+      "name": "低头",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确头部方向/中立姿态或单周期，不含定位。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H005",
+      "name": "向左歪头",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确头部方向/中立姿态或单周期，不含定位。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H006",
+      "name": "向右歪头",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确头部方向/中立姿态或单周期，不含定位。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H007",
+      "name": "头部回正",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确头部方向/中立姿态或单周期，不含定位。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H008",
+      "name": "点头一次",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确头部方向/中立姿态或单周期，不含定位。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H009",
+      "name": "摇头一次",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确头部方向/中立姿态或单周期，不含定位。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H010",
+      "name": "眼睛看正前方",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "屏幕图层状态或单次眼睑周期，不是机械头/视觉跟踪。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H011",
+      "name": "眼睛看左侧",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "屏幕图层状态或单次眼睑周期，不是机械头/视觉跟踪。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H012",
+      "name": "眼睛看右侧",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "屏幕图层状态或单次眼睑周期，不是机械头/视觉跟踪。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H013",
+      "name": "眼睛看上方",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "屏幕图层状态或单次眼睑周期，不是机械头/视觉跟踪。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H014",
+      "name": "眼睛看下方",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "屏幕图层状态或单次眼睑周期，不是机械头/视觉跟踪。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H015",
+      "name": "眨眼一次",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "屏幕图层状态或单次眼睑周期，不是机械头/视觉跟踪。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H016",
+      "name": "左眼眨一下",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "屏幕图层状态或单次眼睑周期，不是机械头/视觉跟踪。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H017",
+      "name": "右眼眨一下",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "屏幕图层状态或单次眼睑周期，不是机械头/视觉跟踪。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H018",
+      "name": "双眼闭合",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "屏幕图层状态或单次眼睑周期，不是机械头/视觉跟踪。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H019",
+      "name": "半垂眼睑",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "屏幕图层状态或单次眼睑周期，不是机械头/视觉跟踪。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H020",
+      "name": "眯眼",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "屏幕图层状态或单次眼睑周期，不是机械头/视觉跟踪。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H021",
+      "name": "睁圆眼睛",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "屏幕图层状态或单次眼睑周期，不是机械头/视觉跟踪。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H022",
+      "name": "圈圈眼",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "屏幕图层状态或单次眼睑周期，不是机械头/视觉跟踪。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H023",
+      "name": "嘴部恢复平静",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立嘴型图案，无语音。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H024",
+      "name": "微笑嘴型",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立嘴型图案，无语音。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H025",
+      "name": "难过嘴型",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立嘴型图案，无语音。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H026",
+      "name": "惊讶圆嘴",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立嘴型图案，无语音。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H027",
+      "name": "嘟嘴",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立嘴型图案，无语音。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H028",
+      "name": "咬牙嘴型",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立嘴型图案，无语音。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H029",
+      "name": "吐舌表情",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立嘴型图案，无语音。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H030",
+      "name": "为难波浪嘴",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立嘴型图案，无语音。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H031",
+      "name": "拉链嘴表情",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立嘴型图案，无语音。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H032",
+      "name": "眉毛恢复平直",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "眉毛位置与内外端关系有定义。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H033",
+      "name": "双眉上扬",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "眉毛位置与内外端关系有定义。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H034",
+      "name": "皱眉",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "眉毛位置与内外端关系有定义。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H035",
+      "name": "担忧眉",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "眉毛位置与内外端关系有定义。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H036",
+      "name": "脸颊恢复干净",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立脸颊图案，不改嘴眼。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H037",
+      "name": "脸颊泛红",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立脸颊图案，不改嘴眼。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H038",
+      "name": "脸颊汗滴",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立脸颊图案，不改嘴眼。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H039",
+      "name": "鼓腮表情",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立脸颊图案，不改嘴眼。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H040",
+      "name": "上身前倾",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "原地姿态或周期，连带头/双臂影响已注明。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H041",
+      "name": "上身后仰",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "原地姿态或周期，连带头/双臂影响已注明。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H042",
+      "name": "上身向左侧倾",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "原地姿态或周期，连带头/双臂影响已注明。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H043",
+      "name": "上身向右侧倾",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "原地姿态或周期，连带头/双臂影响已注明。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H044",
+      "name": "上身向左转",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "原地姿态或周期，连带头/双臂影响已注明。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H045",
+      "name": "上身向右转",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "原地姿态或周期，连带头/双臂影响已注明。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H046",
+      "name": "上身回正",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "原地姿态或周期，连带头/双臂影响已注明。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H047",
+      "name": "上身左右摇摆一次",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "原地姿态或周期，连带头/双臂影响已注明。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H048",
+      "name": "上身前后轻摆一次",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "原地姿态或周期，连带头/双臂影响已注明。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H049",
+      "name": "抬左肩",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "姿态或单周期，手臂被动跟随已单列。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H050",
+      "name": "抬右肩",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "姿态或单周期，手臂被动跟随已单列。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H051",
+      "name": "双肩放松",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "姿态或单周期，手臂被动跟随已单列。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H052",
+      "name": "耸肩一次",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "姿态或单周期，手臂被动跟随已单列。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H053",
+      "name": "左臂自然放下",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H054",
+      "name": "举起左手",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H055",
+      "name": "左臂向前伸",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H056",
+      "name": "左臂向外侧伸",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H057",
+      "name": "左手收在胸前",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H058",
+      "name": "左手叉腰姿态",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H059",
+      "name": "左手托腮姿态",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H060",
+      "name": "左手敬礼姿态",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H061",
+      "name": "左臂弯过头顶",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H062",
+      "name": "左手挥手一次",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H063",
+      "name": "左手招手一次",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H064",
+      "name": "左手向外摆手一次",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H065",
+      "name": "右臂自然放下",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H066",
+      "name": "举起右手",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H067",
+      "name": "右臂向前伸",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H068",
+      "name": "右臂向外侧伸",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H069",
+      "name": "右手收在胸前",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H070",
+      "name": "右手叉腰姿态",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H071",
+      "name": "右手托腮姿态",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H072",
+      "name": "右手敬礼姿态",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H073",
+      "name": "右臂弯过头顶",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H074",
+      "name": "右手挥手一次",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H075",
+      "name": "右手招手一次",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H076",
+      "name": "右手向外摆手一次",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "指定侧单一姿态或一次轨迹，无抓取/接触。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H077",
+      "name": "左手摊开手掌",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H078",
+      "name": "左手握空拳",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H079",
+      "name": "左手伸食指",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H080",
+      "name": "左手竖拇指",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H081",
+      "name": "左手倒拇指",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H082",
+      "name": "左手比V手势",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H083",
+      "name": "左手比OK手势",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H084",
+      "name": "左手比指尖心",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H085",
+      "name": "左手比三手势",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H086",
+      "name": "左手比四手势",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H087",
+      "name": "左手伸小指",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H088",
+      "name": "左手摇滚手势",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H089",
+      "name": "左手交叉双指",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H090",
+      "name": "左手空捏手势",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H091",
+      "name": "右手摊开手掌",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H092",
+      "name": "右手握空拳",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H093",
+      "name": "右手伸食指",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H094",
+      "name": "右手竖拇指",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H095",
+      "name": "右手倒拇指",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H096",
+      "name": "右手比V手势",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H097",
+      "name": "右手比OK手势",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H098",
+      "name": "右手比指尖心",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H099",
+      "name": "右手比三手势",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H100",
+      "name": "右手比四手势",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H101",
+      "name": "右手伸小指",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H102",
+      "name": "右手摇滚手势",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H103",
+      "name": "右手交叉双指",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H104",
+      "name": "右手空捏手势",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "明确指形，要求对应手指能力，固定掌板不可冒充。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H105",
+      "name": "左手掌朝上",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "单一掌面朝向；前臂影响已保守包含。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H106",
+      "name": "左手掌朝下",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "单一掌面朝向；前臂影响已保守包含。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H107",
+      "name": "右手掌朝上",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "单一掌面朝向；前臂影响已保守包含。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H108",
+      "name": "右手掌朝下",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "单一掌面朝向；前臂影响已保守包含。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H109",
+      "name": "双臂张开",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "一个同步控制合同，非多个阶段技能；双掌已有几何前置。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H110",
+      "name": "环抱姿态",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "一个同步控制合同，非多个阶段技能；双掌已有几何前置。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H111",
+      "name": "交叉抱臂",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "一个同步控制合同，非多个阶段技能；双掌已有几何前置。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H112",
+      "name": "双手比心",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "一个同步控制合同，非多个阶段技能；双掌已有几何前置。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H113",
+      "name": "双掌合十姿态",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "一个同步控制合同，非多个阶段技能；双掌已有几何前置。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H114",
+      "name": "双手捧起姿态",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "一个同步控制合同，非多个阶段技能；双掌已有几何前置。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H115",
+      "name": "双手遮眼姿态",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "一个同步控制合同，非多个阶段技能；双掌已有几何前置。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H116",
+      "name": "双手捂嘴姿态",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "一个同步控制合同，非多个阶段技能；双掌已有几何前置。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H117",
+      "name": "双手抱头姿态",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "一个同步控制合同，非多个阶段技能；双掌已有几何前置。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H118",
+      "name": "隔空拍手一次",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "一个同步控制合同，非多个阶段技能；双掌已有几何前置。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H119",
+      "name": "双臂举成V形",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "一个同步控制合同，非多个阶段技能；双掌已有几何前置。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H120",
+      "name": "双掌向前挡住姿态",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "一个同步控制合同，非多个阶段技能；双掌已有几何前置。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H121",
+      "name": "显示爱心",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立图标状态，不调用系统功能。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H122",
+      "name": "显示音符",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立图标状态，不调用系统功能。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H123",
+      "name": "显示睡眠符号",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立图标状态，不调用系统功能。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H124",
+      "name": "显示问号",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立图标状态，不调用系统功能。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H125",
+      "name": "显示太阳",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立图标状态，不调用系统功能。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H126",
+      "name": "显示月亮",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立图标状态，不调用系统功能。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H127",
+      "name": "显示小花",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立图标状态，不调用系统功能。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    },
+    {
+      "id": "H128",
+      "name": "显示暂停符号",
+      "verdict": "accepted_as_design_atom",
+      "atomicity_and_scope": "独立图标状态，不调用系统功能。",
+      "dedup_review": "Reviewed within group and across channels; no parameter-only or synonym duplicate found.",
+      "hardware": "unmapped; no deployment claim"
+    }
+  ]
+}

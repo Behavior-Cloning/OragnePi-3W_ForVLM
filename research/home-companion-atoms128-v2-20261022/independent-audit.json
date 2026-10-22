@@ -1,0 +1,126 @@
+{
+  "audit_date": "2026-10-22T11:59:03.823209+00:00",
+  "reviewer": "independent audit agent rag_compatibility_audit",
+  "verdict": "accepted_as_unimplemented_design_catalog",
+  "blocking_findings": [],
+  "input_sha256": {
+    "atoms.json": "91aa5560704c978685ece1be379a083f697db1080214736f8019996f283ab39a",
+    "capabilities.json": "f2077b2470807d4d9528e8d19bebadcf856fdbbe887e7f7365d0341e082245c8",
+    "hardware-profile.json": "ade747d61646f120a2708722fc97178244a3c4dc206d65cc1671de928e1822dc",
+    "ATOMIC_ACTIONS_128.md": "90bc048667b5117f466c9a4d68695b417f88dca807f5a31947d127fd3ce1c768"
+  },
+  "coverage": {
+    "manual_entries_reviewed": 128,
+    "reviewed_id_range": "R001-R128",
+    "group_counts": {
+      "头部": 12,
+      "腰部": 12,
+      "单臂": 40,
+      "双臂协调": 24,
+      "底盘": 20,
+      "全身同步姿态": 20
+    },
+    "kind_counts": {
+      "pose": 66,
+      "cycle": 45,
+      "stroke": 16,
+      "hold": 1
+    },
+    "review_scope": [
+      "atomicity",
+      "cross-entry semantic duplication",
+      "household scope",
+      "confirmed hardware boundaries",
+      "capability and resource consistency",
+      "entry/terminal states",
+      "base directions and circles"
+    ]
+  },
+  "independent_checks": {
+    "frozen_sha": true,
+    "exact_128_contiguous_ids": true,
+    "unique_code": true,
+    "unique_name": true,
+    "unique_description": true,
+    "all_mechanical_atoms": true,
+    "all_unmapped_disabled": true,
+    "known_command_channels": true,
+    "controlled_parts_in_affected": true,
+    "locks_cover_controls": true,
+    "capability_references_exist": true,
+    "no_finger_wrist_display_caps": true,
+    "capabilities_unverified_disabled": true,
+    "controllers_not_implemented": true,
+    "no_sequential_subactions": true,
+    "one_cycle_no_repeat_padding": true,
+    "entry_conditions_present": true,
+    "base_hold_dedicated_contract": true,
+    "base_hold_no_motion_parameters": true,
+    "fixed_heading_circles_separate_cap": true,
+    "all_20_wholebody_single_pose": true,
+    "four_mainstroke_directions_both_sides": true
+  },
+  "independent_checks_passed": 22,
+  "resolved_findings": [
+    {
+      "ids": [
+        "R103",
+        "R104"
+      ],
+      "resolution": "Fixed-heading planar circles replace tangential-heading full circles; now distinct from arc-turn sweep-angle variants. New planar-path capability stays unverified; current position must already lie on supplied circle."
+    },
+    {
+      "ids": [
+        "R036",
+        "R037",
+        "R038",
+        "R039",
+        "R056",
+        "R057",
+        "R058",
+        "R059"
+      ],
+      "resolution": "Main strokes explicitly -x/+x/-z/+z with front legal entry, separate continuous return curve, and no implicit preparation."
+    },
+    {
+      "ids": [
+        "R035",
+        "R044",
+        "R055",
+        "R064",
+        "R077",
+        "R078",
+        "R079"
+      ],
+      "resolution": "Raised transverse waves, low fore/aft oscillations and ring-opening cycle retain distinct entry-pose contracts; cannot silently prepare the pose."
+    },
+    {
+      "ids": [
+        "R095",
+        "R096",
+        "R097",
+        "R098"
+      ],
+      "resolution": "Forward/reverse longitudinal velocity uses instantaneous body axis; left/right denote heading changes."
+    },
+    {
+      "ids": [
+        "R108"
+      ],
+      "resolution": "Dedicated zero-motion hold, stopped-entry precondition, no distance/yaw/amplitude/speed inputs, no implicit repositioning or resumed command."
+    }
+  ],
+  "manual_conclusions": [
+    "No remaining synonym-only or speed/amplitude/duration-only ID padding found. Left/right and distinct control channels, target geometry or trajectory direction remain meaningful distinctions.",
+    "Twenty whole-body entries are acceptable design atoms only as one synchronized target contract, never sequential macros.",
+    "No display, eye, finger-shape, independent wrist or shoulder-elevation capability is assumed.",
+    "No sensing, planning, navigation or management API is hidden in these motion contracts."
+  ],
+  "limitations": [
+    "All 128 are unmapped and disabled; zero physical actions validated.",
+    "Axis availability, reachability, simultaneous control, limits, collision clearance, stability and cancel latency are unverified.",
+    "Profiles and typed parameter validation still need implementation: enforce circle heading invariance and reject irrelevant generic parameters.",
+    "No query relevance, Top-K sequence compatibility, model latency or board deployment test is part of this audit.",
+    "This audit performs no actuator, board or model execution."
+  ]
+}

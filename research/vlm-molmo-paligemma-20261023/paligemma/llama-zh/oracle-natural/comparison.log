@@ -1,0 +1,160 @@
+{
+  "scope": "Host FP32 arithmetic from quantized GGUF, no NPU or board performance claims; 3 examples only",
+  "source_hashes": {
+    "q4": "8bcd46580c2eb069fde82b4c16f8f2981901d653fea1340ec560b6097f08f97a",
+    "q8": "c7db2b30d2b176998db90304d1ac6dd259379bd75f9ea8b6a094be88ea47b1b4"
+  },
+  "same_prompt_ids": true,
+  "max_new": 96,
+  "greedy": true,
+  "all16_layers": true,
+  "full_vocab": 128256,
+  "first_step_top1_changed": 3,
+  "resources": {
+    "q4": {
+      "max_RSS_bytes": 6597881856,
+      "min_system_available_bytes": 7593209856,
+      "max_process_swap_bytes": 0,
+      "run_status": {
+        "label": "q4",
+        "pid": 7905,
+        "returncode": 0,
+        "guard": null,
+        "seconds": 40.054094149001685,
+        "model": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/vlm-molmo-paligemma-20261023/paligemma/llama-zh/FuseChat-Llama-3.2-1B-Instruct-Q4_K_M.gguf",
+        "build": "/opt/opi-lab/llama32-full-npu-20261023/oracle-natural/q4-source",
+        "max_new": 96,
+        "threads": 2
+      }
+    },
+    "q8": {
+      "max_RSS_bytes": 7390855168,
+      "min_system_available_bytes": 3959533568,
+      "max_process_swap_bytes": 0,
+      "run_status": {
+        "label": "q8",
+        "pid": 7422,
+        "returncode": 0,
+        "guard": null,
+        "seconds": 39.05283824499929,
+        "model": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/vlm-molmo-paligemma-20261023/paligemma/llama-zh/q8-source/FuseChat-Llama-3.2-1B-Instruct-Q8_0.gguf",
+        "build": "/opt/opi-lab/llama32-full-npu-20261023/q8-source",
+        "max_new": 96,
+        "threads": 2
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "zh0",
+      "prompt": "你好，我今天有点累。",
+      "input_tokens": 38,
+      "q4": {
+        "tokens": 81,
+        "content_tokens": 80,
+        "stopped_by": "EOS",
+        "last_token": 128009,
+        "first_token": 64022,
+        "text": "别担心，今天的疲劳是常见的。使用家庭陪伴机器人（如我）可以让你在家里享受更多的休息和娱乐，同时也能提供一些轻松的生活支持。下次感到累时，轻轻地说：“我在这里，等你好心了。”希望能让你感到更加舒适！",
+        "logits_sha256": "1549dfc21f178d76592b556f97d049ed070a7aa2865498077ef13769f770949d",
+        "logits_rows": 81,
+        "logits_columns": 128256
+      },
+      "q8": {
+        "tokens": 82,
+        "content_tokens": 81,
+        "stopped_by": "EOS",
+        "last_token": 128009,
+        "first_token": 112672,
+        "text": "当然可以，放松一下。今天的疲惫不如你想的，希望明天会更加轻松。有时候，简单的关注和支持就能让人感到更加愉悦。如果你需要什么帮助或只是想分享一下你在这天的感受，我总是乐于帮助。再次祝你好心，快休息！",
+        "logits_sha256": "c5e5a30a47936a9f333bfa591c035b394d30439fb7f9aa0512bcfe2f0dcbefec",
+        "logits_rows": 82,
+        "logits_columns": 128256
+      },
+      "same_prompt_first_step_only": {
+        "logit_centered_rmse": 0.41286248551106036,
+        "q4_top1": 64022,
+        "q8_top1": 112672,
+        "top10_overlap": 9,
+        "q4_top1_probability_in_q4": 0.06832944121251244,
+        "q8_top1_probability_in_q8": 0.07787564964976641,
+        "KL_q8_to_q4_nats": 0.07328928229296358
+      },
+      "q4_original_32step_prefix_exact": true
+    },
+    {
+      "id": "zh1",
+      "prompt": "明早七点提醒我起床。",
+      "input_tokens": 41,
+      "q4": {
+        "tokens": 96,
+        "content_tokens": 96,
+        "stopped_by": "max_new_96",
+        "last_token": 106196,
+        "first_token": 40265,
+        "text": "当你提醒7点起床时，可以考虑以下几种方式来帮助你更好地准备：\n\n1. **提醒应用**：使用智能手机或平板电脑的提醒应用（如Google Clock、Apple Watch、Fitbit等）设置提醒，确保它们能够在你起床的时间前提醒你起床。\n\n2. **音效提醒**：设置一个轻柔的起床音效，比如轻",
+        "logits_sha256": "d0d99f8d1a327a42e48a3e8e22369420216e47521aae1448982f0b4d8a8e145c",
+        "logits_rows": 96,
+        "logits_columns": 128256
+      },
+      "q8": {
+        "tokens": 96,
+        "content_tokens": 96,
+        "stopped_by": "max_new_96",
+        "last_token": 113136,
+        "first_token": 109002,
+        "text": "为了确保你在明早七点准时起床，建议合理规划你的日常生活和睡眠时间。以下是一些建议：\n\n1. **设定明确的起床时间**：在睡前一天晚上明确你的起床时间，约在7点左右。这样可以帮助你的身体和大脑逐渐习惯到这个时间点。\n\n2. **制定预先安排**：在睡",
+        "logits_sha256": "de52e589ffe2a14ff948e1ee0a13bf728063b88f8658f8738e4ca8b4d0267bd7",
+        "logits_rows": 96,
+        "logits_columns": 128256
+      },
+      "same_prompt_first_step_only": {
+        "logit_centered_rmse": 0.5012814737741633,
+        "q4_top1": 40265,
+        "q8_top1": 109002,
+        "top10_overlap": 8,
+        "q4_top1_probability_in_q4": 0.17593806082114424,
+        "q8_top1_probability_in_q8": 0.19000855733538036,
+        "KL_q8_to_q4_nats": 0.30074756967276234
+      },
+      "q4_original_32step_prefix_exact": true
+    },
+    {
+      "id": "zh2",
+      "prompt": "不要开灯，请陪我聊两句。",
+      "input_tokens": 42,
+      "q4": {
+        "tokens": 47,
+        "content_tokens": 46,
+        "stopped_by": "EOS",
+        "last_token": 128009,
+        "first_token": 112672,
+        "text": "当然可以。晚上好！我在这里等你。关于你最近的生活，最近你在忙什么？或是有任何计划或兴趣吗？希望能有一个愉快的夜晚。",
+        "logits_sha256": "73c38577d0b980333b1f342c649ecd3bfeeb9fe3c910cc8e7adbf1acb1ae1df7",
+        "logits_rows": 47,
+        "logits_columns": 128256
+      },
+      "q8": {
+        "tokens": 33,
+        "content_tokens": 32,
+        "stopped_by": "EOS",
+        "last_token": 128009,
+        "first_token": 53901,
+        "text": "好主意，晚上安静聊聊。关于你喜欢的电影或书籍，哪部作品让你感到特别愉悦？",
+        "logits_sha256": "2bac5342478926c4878f1a32dd09c5c102cf3872705718ca56502d0b59fb9dcd",
+        "logits_rows": 33,
+        "logits_columns": 128256
+      },
+      "same_prompt_first_step_only": {
+        "logit_centered_rmse": 0.4099943037028424,
+        "q4_top1": 112672,
+        "q8_top1": 53901,
+        "top10_overlap": 8,
+        "q4_top1_probability_in_q4": 0.32793765605933795,
+        "q8_top1_probability_in_q8": 0.20886885434789693,
+        "KL_q8_to_q4_nats": 0.22005455247991754
+      },
+      "q4_original_32step_prefix_exact": true
+    }
+  ]
+}

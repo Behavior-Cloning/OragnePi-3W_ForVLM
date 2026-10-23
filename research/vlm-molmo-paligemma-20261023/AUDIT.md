@@ -4,6 +4,8 @@
 
 ## 审计结论
 
+终审补充：Pali 完整 CPU 图文四请求及无图中文三请求已验收原始记录；Pali 单层 NPU 两版与 Llama 新两版15状态配对已独立复算。WSL compact 已成功，详见末尾终审。完整16层中文 Llama NPU 和后续Q8源公平比较仍是新进行中任务，本审计不标其完成。
+
 - Intern 的 grouped prefill 在本轮证据中保持数值一致，TTFT 改善约 1%–1.6%；decode 没有提升。
 - exact-prefix 从 32 个缓存 system token 改为 37 个，短 prompt TTFT 可降至约 0.33–0.38 秒；这是改变 KV 复用及 batch 分区的候选，11 条自然输入只有 8 条输出逐 token 一致，不能标成无损优化。
 - decoder/head 分组在新增基线之上约提高 0.9%–1.0% decode，驱动内存多 112,886,872 bytes（107.66 MiB）。本轮两组 logits 及 11 条文本与该新增基线一致，但收益不足以支持默认启用。
@@ -115,11 +117,11 @@ MLP FP16候选慢约4.60倍，最坏误差未改善；拒绝作为解决方案�
 
 这些图使用固定seed随机权重，是转换器兼容性实验。预训练大权重28,888,362,419bytes没有下载，不能声称完整Molmo权重加载、板端路由运行、视觉推理或整模性能。失败仅证明目前直译动态分发路径受阻，不能据此否认CPU路由+NPU静态专家等替代实现。当前无Molmo板端TTFT/decode可报。
 
-## 主报告与进行中的工作
+## 主报告与进行中的工作（早期审计记录）
 
 本次复核的主 `REPORT.md` 已正确区分：Intern文本decoder优化、Llama CPU整模、Llama NPU单层精度拒绝、Molmo内存/转换限制，以及PaliGemma仍在进行。主报告的0.638s来自fresh六例，而非0.0896s整句缓存组；Llama NPU与Molmo未被写成完整部署成功。group prefill“一致”的证据范围仍仅上述开发样例，不能扩展为一般产品质量保证。
 
-PaliGemma下载与x86 BF16参考、SFP转换/元数据修复由独立操作者继续。本审计尚未验收最终板端图文结果，不标记完成。最终应核对实际图片、输出、版本/格式、完整视觉计时和系统资源，且区分x86参考与ARM板卡。WSL回收VHDX空块需等待所有活动任务退出；当前没有在活动测试时关闭WSL，也没有将计划中的compact算入释放成果。
+本段是板测前的审计状态；Pali板端结果及WSL compact后续已完成，最终验收见末尾。先前阶段没有把x86参考当ARM速度、没有将计划中的compact提前算成释放成果。
 
 ## slim20 官方镜像补查
 
@@ -129,7 +131,7 @@ PaliGemma下载与x86 BF16参考、SFP转换/元数据修复由独立操作者�
 
 因此本次补查没有发现可替代 TF 整盘快照的官方系统镜像，并没有推翻此前恢复链存在缺口的判断。代码、用户态 VIPLite 库和应用服务快照不能重建 bootloader、DTB、特定内核及匹配 vipcore 驱动。整盘快照不是永久必须保留；但在可验证的小型系统镜像、匹配启动/驱动、机器配置与恢复步骤准备完成前，不能把“已有代码”写成等价恢复能力。未挂载或修改 TF 文件系统，未重复全盘 hash。
 
-## PaliGemma 完整 CPU 测量预审（板端结果待验收）
+## PaliGemma 完整 CPU 测量预审（执行前历史记录）
 
 已检查 `paligemma/run_pali_board.py`、`pali_board_runner.py`、`summarize_pali_board.py`、`summarize_when_done.py`、instrumented `gemma.cpp-main/gemma/run.cc` 与 patch。控制器在传输结束、板端文件 SHA 与转换产物匹配、ARM/x86 编译完成、instrumented x86 token parity 通过后，才持 hostlock 与板端 flock 执行。此处预审不表示这些条件已在板卡实际完成。
 
@@ -145,7 +147,7 @@ summary 已使用完整 token 事件重新解码，不依赖 stdout/stderr 两�
 
 x86 instrumented parity 的 building/color 与参考 token 相同，caption 也与BF16参考的11个token（含EOS）相同。这只是实现/转换 smoke parity；没有用x86延迟冒充ARM板卡速度，也不能把单张图的回答一致称为模型任务质量验收。
 
-## PaliGemma decoder layer0 NPU 预审（板端结果待验收）
+## PaliGemma decoder layer0 NPU 预审（执行前历史记录）
 
 目录：`../paligemma2-npu-compat-20261023/`。独立读取官方 safetensors 实际 layer0 的11个BF16张量，对BF16原始16-bit字节重算SHA256，全部与 export-summary 的 weight_bf16_sha256 一致；不是从GGUF再次解量化的基线。
 
@@ -156,3 +158,76 @@ x86 instrumented parity 的 building/color 与参考 token 相同，caption 也�
 两种真实NBG编译成功：FP16为156,015,160bytes，SHA256 `8c40180b2c4705cf30130d7ce6718cd25db73bbeda06dd45e307db2a8a35fcb9`；混合方案70,649,288bytes，SHA256 `b10e8ad86553da2daacd48d07395648d80497984062bdf978bf018ff263d3217`。混合方案为7个FC的INT8权重、INT16 FC边界与其余FP16，不能简写成全W8A8。编译器模拟耗时不是板端API耗时。
 
 layer_probe只验证18个冻结状态的hidden输出，KV仅有shape契约检查；返回0明确只代表执行/释放完成。当前没有以编译成功或FP32/ORT通过冒充NPU数值通过，没有单层耗时倍乘估计整模TTFT/decode。完整视觉链路、26层、词表头、连续KV及多图质量仍属于不同验收层次，待板端原始结果后补充实际精度、计时和driver释放。
+
+## 最终原始结果审计
+
+本节取代前文“待板端结果”的状态。只读取已回传到F盘的结果、WSL reference和输入，没有访问板卡，没有重新运行推理/编译。当前主REPORT已正确区分CPU整模与NPU单层，并保留新16层实验尚无实测结果的边界。
+
+### Pali CPU 图文四请求
+
+独立从 `pali-board-results.jsonl` 的 BEGIN/IMAGE/FIRST/TOKEN/END 事件重算计时与token；与summary一致，全部四请求complete exit0，telemetry guard为空。模型为SFP CPU压缩格式，不是NPU INT4。图文三个独特问题（其中building重复一次）全部token与保留的真实BF16参考一致；单张图三题仍只构成功能与转换回归。
+
+| 请求 | 图像阶段 s | 完整图文TTFT s | 内容token数 | 排首token、排EOS decode tok/s |
+| --- | ---: | ---: | ---: | ---: |
+| building_first | 10.850049 | 74.244343 | 1 | 不报告 |
+| building_hot | 13.739674 | 52.139607 | 1 | 不报告 |
+| color_hot | 10.737947 | 48.466938 | 1 | 不报告 |
+| caption_hot | 10.690903 | 48.236397 | 10 | 1.467777 |
+
+caption若保留EOS，首后10步为1.469670 tok/s；不含EOS则9个内容间隔。前三题1内容+EOS不能用于稳态decode。模型常驻mmap、每问重新执行视觉和prefix prefill、没有固定system KV；首请求不代表清空page cache的严格冷启动。TTFT是引擎首个非EOS token回调，包含视觉，不含外部网络/ASR/TTS。
+
+387次遥测中，采样RSS最高4,103,556KiB（3.91346GiB），PSS最高4,101,149KiB（3.91116GiB），温度最高67.319°C，进程Swap最高46,316KiB。全部被采到的线程亲和均是CPU6或CPU7。名义间隔0.5秒，实际最大相邻间隔约1.184秒，因此这些是采样峰值与采样保护，不能称连续硬阈值保证。MemAvailable包含可回收文件页，不能加上RSS推导物理余量；旧服务仍存在但未并发压测。
+
+**图文进程CPU无效。** 主线程comm为`P0 X00 C000`，旧代码直接对整个 `/proc/PID/stat` split，固定下标因此错读fault字段。原始图文telemetry没有raw stat，无法反推真实utime/stime；当前summary中的所有process CPU均为null、process_cpu_valid=false，validity文件保留原因。先前预审只检查了公式，没有发现字段解析问题，该部分结论在这里撤回。不得采用旧0.13核或1.67%的数字，也不能用后续文本CPU替补图文CPU。
+
+独立重算未受影响的 `/proc/stat` 系统ticks，热三问全机busy分别27.3004%、28.5299%、28.4068%；定义为前8字段总增量扣除idle与iowait，guest不重复加入。首请求未完整被采样包围所以为空。这是全系统占八核总量，不能直接归因于Pali进程。
+
+### Pali CPU 无图中文三请求及新CPU采样
+
+检查patch06：无图PALIGEMMA分支仍使用BOS+文本+换行、全prefix双向attention；没有默认为普通因果chat。三份实际执行source manifest（CLI二进制、runner、cases）的SHA均与当前对应文件一致。它是独立新CLI，不能把旧图文版记录覆盖为新版本。
+
+81条遥测均保存raw stat。审计逐条以最后右括号后的字段11/12重解析utime/stime，全部等于保存的cpu_ticks；再用连续ticks在请求边界插值重新计算CPU核数及系统busy，全部与summary一致。WSL真实带空格进程名回归的正确CPU增量20ticks、旧parser增量0，也支持修复有效。两个热请求按持续时间加权1.9883835核，即全8核24.8548%。加载初始化未被采样完整括住，CPU仍正确标未测。
+
+| 请求 | 输入tokens | TTFT s | 首后内容decode tok/s | 平均进程CPU核数 | 全机busy |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| home首请求 | 31 | 7.154482 | 1.507616 | 1.815270 | 25.5479% |
+| sleep热请求 | 28 | 6.088309 | 1.532539 | 1.996189 | 28.1598% |
+| rain热请求 | 30 | 6.473649 | 1.520301 | 1.979345 | 27.6936% |
+
+home/sleep各16内容tokens，达到上限且无EOS；rain为11内容tokens+EOS。均无视觉、没有固定system KV，三题不是分布或P95。最高采样RSS/PSS为3.17670/3.17467GiB，最高温度56.916°C，进程Swap采样均0，guard为空，complete exit0；所有采到线程亲和均在CPU6/7。实际最大采样间隔约0.753秒。
+
+独立对比板端事件tokens与WSL SFP：3/3完全一致；与真实BF16参考：home/rain一致，sleep从共同前4token后分叉，为2/3一致。不能把“SFP跨平台一致”写成“相对BF16无损”。输出仍存在复述用户指令、截断和raincoat英语混入；原BF16也存在行为问题，未通过中文陪伴质量验收。约6秒热TTFT与1.52tok/s只代表这三例CPU文本实现，不能代替NPU整模结果。
+
+### Pali NPU：36个原始hidden输出独立复算
+
+对FP16/W8各18个 `board-results-*/outputs/p*-output.f32` 按little-endian FP32读取，用独立FP64平方和计算相对L2；所有shape为2304、值有限、结果与board-summary相符。对应18份inputs与18份reference的SHA全部与fixture manifest一致。板测model-source记录的两份NBG SHA与之前编译清单一致。
+
+| 实际配置 | 18次API中位 ms | hidden相对L2范围 | driver加载bytes | 释放后bytes |
+| --- | ---: | ---: | ---: | ---: |
+| FP16 | 61.515195 | 0.167135%–0.575774% | 156,670,232 | 0 |
+| 7FC权重INT8、边界INT16、其余FP16 | 11.861215 | 0.513982%–0.852273% | 71,303,464 | 0 |
+
+18调用为3句×2种mask×3位置，只有13个唯一input SHA；与校准同源，没有独立留出数据。全部输入使用reference KV，并非连续NPU KV反馈；这里只数值检查hidden。最大误差小于1%是积极的单层兼容性证据，不是中文生成准确率或26层完整模型验收。没有将API单层时间倍乘换算整模TTFT/tok/s。
+
+### Llama NPU：新增两版15状态配对
+
+独立读取 `board-results-all-fp16-zh` 与 `board-results-attention-fp16-mlp-w8-zh` 共30份原始输出，并重算2048维hidden相对L2；与comparison及板端结果一致。30个输出SHA全部与comparison一致，15份inputs及15份reference SHA全部与heldout manifest一致；15份输入均为不同SHA。
+
+| 配置 | 15次API中位 ms | 六英文校准状态L2 | 九中文留出状态L2 | driver加载/释放bytes |
+| --- | ---: | ---: | ---: | ---: |
+| 全FP16 | 48.298940 | 0.048685%–1.104277% | 0.098556%–0.252742% | 122,347,136 → 0 |
+| attention FP16 + MLP W8 | 16.248440 | 0.632267%–4.091120% | 2.141176%–3.697810% | 67,411,824 → 0 |
+
+这是新加入的15状态对照，不能和前文旧六状态allFP16中位48.134ms混写成同一组。中文九状态来自三个未参与英文校准的句子，每句早/中/末三个位置，不是九个独立问题；使用raw中文+BOS，未套聊天模板，所有历史KV由参考提供。5%是既有单层兼容性粗筛，不能用“全部低于5%”宣称中文生成质量合格。混合候选比全FP16约快2.97倍，仍留下最高约4.09%单层误差，值得后续整模同token/logits验证；不是完整部署已经完成。
+
+所有这些Llama参考与NBG仍源自Q4_K_M GGUF中的Q4_K/Q6_K/F32张量解量化。`Q4源→FP32→W8`不是NPU原生INT4，不能还原原始BF16质量；全FP16控制也只是对Q4解量化权重采用FP16算术。与Intern公平比较必须分别披露源量化、NPU权重/激活格式、FP16例外比例、相同提示词/反馈与缓存条件。补Q8源及完整16层+词表头是正在进行的新任务，此处没有为它们给出整模速度或质量结论。
+
+### WSL compact 与重启证据
+
+已读取实际 `compact_wsl.ps1`：先 `wsl.exe --terminate OPiUbuntu`，成功后执行内置 `wsl.exe --manage OPiUbuntu --compact`，两步exit0。`maintenance/wsl-compact.json` 记录23.646秒完成。独立复核前后差值：VHDX 88,689,606,656→68,562,190,336bytes，减少20,127,416,320bytes；F空闲14,871,744,512→34,999,160,832bytes，增加同一字节数。
+
+回收为20.13GB十进制（18.7451GiB），当时F空闲约35.00GB（32.5955GiB）。这是该次压缩前后快照，不承诺后续编译后仍有相同空闲；包含早前累积空闲块，不能把全部20.13GB归因于本次6.96GB WSL文件删除。
+
+`wsl-restart-verification.json` 记录重启验证成功：checkpoint b637966e3c0fa361dd932ff4825eb16aad375b6e、Docker镜像inspect exit0、PyTorch2.7.0+cpu/Transformers4.57.6导入exit0，以及attention-FP16/MLP-W8 NBG SHA `227225b1ea4d8a44b508990b2602948d4930537dfdf5a0f8083b80a523826a8b` 未变。它验证这些关键依赖，没有声称对全部磁盘文件逐项hash或完成板卡恢复测试。压缩已结束并经父任务明确允许后，本审计才重新使用WSL读取文件。
+
+`paligemma/final-board-staging-cleanup.json` 记录本轮SFP板端副本先核SHA再删、F原件保留、临时NBG/fixtures删除以及无本任务gemma残留。记录时板卡空闲6,207,696,896bytes；这是控制器已保存证据，本审计没有为此重新登录板卡。新的整模实验仍需独立遵循自己的资源、质量与释放验收。

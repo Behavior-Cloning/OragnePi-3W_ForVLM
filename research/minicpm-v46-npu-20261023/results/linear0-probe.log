@@ -1,0 +1,11 @@
+/opt/opi-lab/minicpm-v46-npu-20261023/linear0-fp16/export_nbg_unify/network_binary.nb: No such file or directory
+Traceback (most recent call last):
+  File "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/minicpm-v46-npu-20261023/scripts/run_linear0_probe.py", line 6, in <module>
+    for p,n in [(src/'input.f32',kind+'-input.f32'),(nb,kind+'.nb')]:b.scp(p,b.HOST+':'+d+'/'+n,check=True,timeout=120)
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/f/Files/OPi-Lab/scripts/board_access.py", line 20, in scp
+    return subprocess.run(['sshpass','-e','scp',*COMMON,str(src),str(dst)],env=env(),**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['sshpass', '-e', 'scp', '-o', 'StrictHostKeyChecking=yes', '-o', 'UserKnownHostsFile=/root/.ssh/opi_known_hosts', '-o', 'ConnectTimeout=8', '-o', 'ForwardX11=no', '/opt/opi-lab/minicpm-v46-npu-20261023/linear0-fp16/export_nbg_unify/network_binary.nb', 'root@192.168.10.11:/opt/opi-vlm/minicpm-v46-npu-20261023/linear0.nb']' returned non-zero exit status 1.

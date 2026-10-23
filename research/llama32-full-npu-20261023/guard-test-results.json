@@ -1,0 +1,40 @@
+{
+  "source_sha256": "c47003c958b39131e94431b8b4e12471e86ee06f488c5fdda4b3fc12179e71e1",
+  "tests": [
+    {
+      "case": "term",
+      "returncode": 1,
+      "own_worker_abort": true,
+      "telemetry_saved": true,
+      "cleanup_event": true,
+      "guards": []
+    },
+    {
+      "case": "thermal",
+      "returncode": 1,
+      "own_worker_abort": true,
+      "telemetry_saved": true,
+      "cleanup_event": true,
+      "guards": [
+        {
+          "reason": "temperature>=78C",
+          "at": 10876.213176965
+        }
+      ]
+    },
+    {
+      "case": "memory",
+      "returncode": 1,
+      "own_worker_abort": true,
+      "telemetry_saved": true,
+      "cleanup_event": true,
+      "guards": [
+        {
+          "reason": "MemAvailable<256MiB",
+          "at": 10876.525132465
+        }
+      ]
+    }
+  ],
+  "scope": "fault-injected fake worker; no board or NPU"
+}

@@ -1,0 +1,5110 @@
+{
+  "co-resident-20261020T165652.jsonl": {
+    "events": 116,
+    "completed": false,
+    "errors": [
+      {
+        "event": "pair_error",
+        "llm": "smol500",
+        "jev": "jev08",
+        "error": "RuntimeError(\"jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}\")",
+        "trace": "Traceback (most recent call last):\n  File \"/opt/opi-vlm/jev-lab-20261020/board_co_resident.py\", line 58, in <module>\n    t=time.perf_counter();m=Adapter(jev,r,2);emit(event='pair_loaded',llm=llm,jev=jev,load_seconds=time.perf_counter()-t,resource=snap())\n  File \"/opt/opi-vlm/jev-lab-20261020/board_adapters.py\", line 25, in __init__\n    self.model=j.JevStyleDecisionGGUF(self.root/\"models/jev08\",quant=\"Q4_K_M\",binary=self.root/\"bin/jev-score\",threads=threads,n_gpu_layers=0,max_len=2048,head_max=2048,stderr=open(self.root/\"results/jev08-engine.log\",\"a\"),n_seq_max=int(os.environ.get(\"JEV_N_SEQ_MAX\",\"17\")),n_ubatch=int(os.environ.get(\"JEV_UBATCH\",\"1024\")))\n  File \"/opt/opi-vlm/jev-lab-20261020/jev_style_decision_board.py\", line 554, in __init__\n    raise RuntimeError(f\"jev-score failed to start: {ready}\")\nRuntimeError: jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}\n"
+      },
+      {
+        "event": "pair_error",
+        "llm": "intern1b",
+        "jev": "jev08",
+        "error": "RuntimeError(\"jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}\")",
+        "trace": "Traceback (most recent call last):\n  File \"/opt/opi-vlm/jev-lab-20261020/board_co_resident.py\", line 58, in <module>\n    t=time.perf_counter();m=Adapter(jev,r,2);emit(event='pair_loaded',llm=llm,jev=jev,load_seconds=time.perf_counter()-t,resource=snap())\n  File \"/opt/opi-vlm/jev-lab-20261020/board_adapters.py\", line 25, in __init__\n    self.model=j.JevStyleDecisionGGUF(self.root/\"models/jev08\",quant=\"Q4_K_M\",binary=self.root/\"bin/jev-score\",threads=threads,n_gpu_layers=0,max_len=2048,head_max=2048,stderr=open(self.root/\"results/jev08-engine.log\",\"a\"),n_seq_max=int(os.environ.get(\"JEV_N_SEQ_MAX\",\"17\")),n_ubatch=int(os.environ.get(\"JEV_UBATCH\",\"1024\")))\n  File \"/opt/opi-vlm/jev-lab-20261020/jev_style_decision_board.py\", line 554, in __init__\n    raise RuntimeError(f\"jev-score failed to start: {ready}\")\nRuntimeError: jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}\n"
+      },
+      {
+        "event": "pair_error",
+        "llm": "qwen15-cpu",
+        "jev": "jev08",
+        "error": "RuntimeError(\"jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}\")",
+        "trace": "Traceback (most recent call last):\n  File \"/opt/opi-vlm/jev-lab-20261020/board_co_resident.py\", line 58, in <module>\n    t=time.perf_counter();m=Adapter(jev,r,2);emit(event='pair_loaded',llm=llm,jev=jev,load_seconds=time.perf_counter()-t,resource=snap())\n  File \"/opt/opi-vlm/jev-lab-20261020/board_adapters.py\", line 25, in __init__\n    self.model=j.JevStyleDecisionGGUF(self.root/\"models/jev08\",quant=\"Q4_K_M\",binary=self.root/\"bin/jev-score\",threads=threads,n_gpu_layers=0,max_len=2048,head_max=2048,stderr=open(self.root/\"results/jev08-engine.log\",\"a\"),n_seq_max=int(os.environ.get(\"JEV_N_SEQ_MAX\",\"17\")),n_ubatch=int(os.environ.get(\"JEV_UBATCH\",\"1024\")))\n  File \"/opt/opi-vlm/jev-lab-20261020/jev_style_decision_board.py\", line 554, in __init__\n    raise RuntimeError(f\"jev-score failed to start: {ready}\")\nRuntimeError: jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}\n"
+      }
+    ],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "llm": "smol500",
+        "resource": {
+          "at": 4642.480828897,
+          "available": 3749220352,
+          "system_used": 2388287488,
+          "swap_used": 524288,
+          "swap_in": 16384,
+          "swap_out": 274432,
+          "processes": [
+            {
+              "pid": 11305,
+              "rss": 212869120,
+              "pss": 207682560,
+              "cpu_seconds": 2.55
+            },
+            {
+              "pid": 11309,
+              "rss": 24248320,
+              "pss": 22999040,
+              "cpu_seconds": 3.95
+            },
+            {
+              "pid": 967,
+              "rss": 1960988672,
+              "pss": 1958155264,
+              "cpu_seconds": 6.8100000000000005
+            }
+          ],
+          "temperature": {
+            "thermal_zone2": 53.568,
+            "thermal_zone0": 54.87,
+            "thermal_zone7": 35.073,
+            "thermal_zone5": 54.87,
+            "thermal_zone3": 55.366,
+            "thermal_zone1": 54.622,
+            "thermal_zone6": 55.366,
+            "thermal_zone4": 53.754
+          },
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 1794000,
+            "cpu3": 1794000,
+            "cpu1": 1794000,
+            "cpu6": 2002000,
+            "cpu4": 1794000,
+            "cpu2": 1794000,
+            "cpu0": 1794000
+          },
+          "loadavg": [
+            2.27001953125,
+            1.97509765625,
+            1.73779296875
+          ]
+        }
+      },
+      {
+        "event": "loaded",
+        "llm": "intern1b",
+        "resource": {
+          "at": 4829.1586034,
+          "available": 2923307008,
+          "system_used": 3214200832,
+          "swap_used": 4718592,
+          "swap_in": 61440,
+          "swap_out": 4190208,
+          "processes": [
+            {
+              "pid": 11305,
+              "rss": 1054015488,
+              "pss": 1048767488,
+              "cpu_seconds": 91.22
+            },
+            {
+              "pid": 11487,
+              "rss": 20582400,
+              "pss": 19319808,
+              "cpu_seconds": 2.59
+            },
+            {
+              "pid": 967,
+              "rss": 1960726528,
+              "pss": 1957839872,
+              "cpu_seconds": 6.8100000000000005
+            }
+          ],
+          "temperature": {
+            "thermal_zone2": 46.376,
+            "thermal_zone0": 46.934,
+            "thermal_zone7": 33.399,
+            "thermal_zone5": 46.934,
+            "thermal_zone3": 46.996,
+            "thermal_zone1": 46.81,
+            "thermal_zone6": 46.996,
+            "thermal_zone4": 46.376
+          },
+          "frequency_khz": {
+            "cpu7": 416000,
+            "cpu5": 1794000,
+            "cpu3": 1794000,
+            "cpu1": 1794000,
+            "cpu6": 416000,
+            "cpu4": 1794000,
+            "cpu2": 1794000,
+            "cpu0": 1794000
+          },
+          "loadavg": [
+            3.72021484375,
+            2.81787109375,
+            2.11669921875
+          ]
+        }
+      },
+      {
+        "event": "loaded",
+        "llm": "qwen15-cpu",
+        "resource": {
+          "at": 4923.748255938,
+          "available": 3707731968,
+          "system_used": 2429775872,
+          "swap_used": 51118080,
+          "swap_in": 147456,
+          "swap_out": 50511872,
+          "processes": [
+            {
+              "pid": 11305,
+              "rss": 1061941248,
+              "pss": 1056703488,
+              "cpu_seconds": 164.36
+            },
+            {
+              "pid": 967,
+              "rss": 1912623104,
+              "pss": 1909841920,
+              "cpu_seconds": 6.86
+            }
+          ],
+          "temperature": {
+            "thermal_zone2": 46.438,
+            "thermal_zone0": 47.616,
+            "thermal_zone7": 33.672,
+            "thermal_zone5": 47.616,
+            "thermal_zone3": 48.36,
+            "thermal_zone1": 46.252,
+            "thermal_zone6": 48.36,
+            "thermal_zone4": 47.244
+          },
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 1794000,
+            "cpu3": 1794000,
+            "cpu1": 1794000,
+            "cpu6": 2002000,
+            "cpu4": 1794000,
+            "cpu2": 1794000,
+            "cpu0": 1794000
+          },
+          "loadavg": [
+            3.95263671875,
+            3.1416015625,
+            2.2998046875
+          ]
+        }
+      }
+    ],
+    "native_controls": [],
+    "pairs": {
+      "smol500/nano33/jev_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.4875431489999755,
+          "p95": 1.493640874799894,
+          "minimum": 1.4818850840001687,
+          "maximum": 1.494633053999678
+        },
+        "llm_ttft_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "decode_tokens_per_second": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 3621060608
+      },
+      "smol500/nano33/llm_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 2.648533,
+          "p95": 2.9798899999999997,
+          "minimum": 2.385194,
+          "maximum": 3.028961
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 17.48647,
+          "p95": 17.623737600000002,
+          "minimum": 17.217731,
+          "maximum": 17.631636
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 3621302272
+      },
+      "smol500/nano33/concurrent": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.5873476010001468,
+          "p95": 1.6817984975998115,
+          "minimum": 1.5606873249998898,
+          "maximum": 1.7025891579996824
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 2.693198,
+          "p95": 3.0267938,
+          "minimum": 2.434358,
+          "maximum": 3.073097
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 17.427855,
+          "p95": 17.7068512,
+          "minimum": 17.352457,
+          "maximum": 17.714256
+        },
+        "overlap_seconds": {
+          "n": 5,
+          "p50": 1.593532834999678,
+          "p95": 1.6843849909997517,
+          "minimum": 1.5623917900002198,
+          "maximum": 1.7042039139996632
+        },
+        "available_min": 3590987776
+      },
+      "smol500/laya/jev_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.3216214269996271,
+          "p95": 1.3251892582002256,
+          "minimum": 1.3114514270000655,
+          "maximum": 1.325260067000272
+        },
+        "llm_ttft_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "decode_tokens_per_second": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 2181869568
+      },
+      "smol500/laya/llm_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 2.630867,
+          "p95": 2.9742219999999997,
+          "minimum": 2.385072,
+          "maximum": 3.023554
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 17.479857,
+          "p95": 17.655465399999997,
+          "minimum": 17.29783,
+          "maximum": 17.661163
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 2180386816
+      },
+      "smol500/laya/concurrent": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.4108033339998656,
+          "p95": 1.4875494079995406,
+          "minimum": 1.3920030069994027,
+          "maximum": 1.5007780789992466
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 2.696294,
+          "p95": 3.0461834,
+          "minimum": 2.382118,
+          "maximum": 3.095488
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 17.386388,
+          "p95": 17.8629372,
+          "minimum": 17.31242,
+          "maximum": 17.915712
+        },
+        "overlap_seconds": {
+          "n": 5,
+          "p50": 1.4191906189998917,
+          "p95": 1.4895688995999081,
+          "minimum": 1.3967822770000566,
+          "maximum": 1.50276583699997
+        },
+        "available_min": 2150350848
+      },
+      "intern1b/nano33/jev_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.4589843659996404,
+          "p95": 1.4602735206002762,
+          "minimum": 1.453835053000148,
+          "maximum": 1.460298079000495
+        },
+        "llm_ttft_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "decode_tokens_per_second": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 2919456768
+      },
+      "intern1b/nano33/llm_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 0.926625,
+          "p95": 0.9671608,
+          "minimum": 0.735322,
+          "maximum": 0.974261
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 13.744462,
+          "p95": 13.895202600000001,
+          "minimum": 13.543066,
+          "maximum": 13.903679
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 2919129088
+      },
+      "intern1b/nano33/concurrent": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.5508267430004707,
+          "p95": 1.568949048599825,
+          "minimum": 1.5383837830004268,
+          "maximum": 1.5707051159997718
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 0.95099,
+          "p95": 0.9983428000000001,
+          "minimum": 0.755607,
+          "maximum": 1.008714
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 13.504043,
+          "p95": 13.627053400000001,
+          "minimum": 13.325957,
+          "maximum": 13.645241
+        },
+        "overlap_seconds": {
+          "n": 5,
+          "p50": 1.5523585820001244,
+          "p95": 1.5705128888001127,
+          "minimum": 1.5399255819993414,
+          "maximum": 1.5722699560001274
+        },
+        "available_min": 2880757760
+      },
+      "intern1b/laya/jev_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.3155186789999789,
+          "p95": 1.3232333187997938,
+          "minimum": 1.3123794120001548,
+          "maximum": 1.3239013889997295
+        },
+        "llm_ttft_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "decode_tokens_per_second": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 2112622592
+      },
+      "intern1b/laya/llm_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 0.92391,
+          "p95": 0.9656324000000001,
+          "minimum": 0.735176,
+          "maximum": 0.974767
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 13.7587,
+          "p95": 14.0353984,
+          "minimum": 13.611976,
+          "maximum": 14.04606
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 2114035712
+      },
+      "intern1b/laya/concurrent": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.405664934000015,
+          "p95": 1.42141980699962,
+          "minimum": 1.3941054580000127,
+          "maximum": 1.4246674489995712
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 0.965446,
+          "p95": 1.0123466,
+          "minimum": 0.764403,
+          "maximum": 1.023303
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 13.501543,
+          "p95": 13.6563784,
+          "minimum": 13.282924,
+          "maximum": 13.688531
+        },
+        "overlap_seconds": {
+          "n": 5,
+          "p50": 1.4077814869997383,
+          "p95": 1.4283901501994478,
+          "minimum": 1.3960755930002051,
+          "maximum": 1.4328436979994876
+        },
+        "available_min": 2114080768
+      },
+      "qwen15-cpu/nano33/jev_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.4561342349998085,
+          "p95": 1.4584721470000659,
+          "minimum": 1.4455049299995153,
+          "maximum": 1.4585437890000321
+        },
+        "llm_ttft_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "decode_tokens_per_second": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 3699597312
+      },
+      "qwen15-cpu/nano33/llm_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 1.3434498220003661,
+          "p95": 1.401764422600354,
+          "minimum": 1.1971586949994162,
+          "maximum": 1.413649142000395
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 9.762969562676817,
+          "p95": 9.961057353951512,
+          "minimum": 9.604917717871551,
+          "maximum": 9.990808456220277
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 3694489600
+      },
+      "qwen15-cpu/nano33/concurrent": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 2.865280853000513,
+          "p95": 2.878395203400396,
+          "minimum": 2.8542171300005066,
+          "maximum": 2.880285138000545
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 2.8324916430001394,
+          "p95": 2.895630651000283,
+          "minimum": 2.502353280000534,
+          "maximum": 2.909186079000392
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 9.599776587017612,
+          "p95": 9.704472072700893,
+          "minimum": 7.283745593333916,
+          "maximum": 9.72259632212186
+        },
+        "overlap_seconds": {
+          "n": 5,
+          "p50": 2.867315571999825,
+          "p95": 2.880280655000206,
+          "minimum": 2.856576225000026,
+          "maximum": 2.8821550230004505
+        },
+        "available_min": 3690745856
+      },
+      "qwen15-cpu/laya/jev_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 1.324743183999999,
+          "p95": 1.326078358000268,
+          "minimum": 1.3083945170001243,
+          "maximum": 1.3260877330003495
+        },
+        "llm_ttft_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "decode_tokens_per_second": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 2903355392
+      },
+      "qwen15-cpu/laya/llm_only": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 1.359525197000039,
+          "p95": 1.4032489054005055,
+          "minimum": 1.1951584759999605,
+          "maximum": 1.4138509350004824
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 9.666229691711713,
+          "p95": 9.888703760715785,
+          "minimum": 9.625719923635955,
+          "maximum": 9.921889921592264
+        },
+        "overlap_seconds": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "minimum": null,
+          "maximum": null
+        },
+        "available_min": 2903212032
+      },
+      "qwen15-cpu/laya/concurrent": {
+        "n": 5,
+        "jev_seconds": {
+          "n": 5,
+          "p50": 2.500515102999998,
+          "p95": 2.5305667660000837,
+          "minimum": 2.47597106000012,
+          "maximum": 2.535936326999945
+        },
+        "llm_ttft_seconds": {
+          "n": 5,
+          "p50": 2.6658400360001906,
+          "p95": 2.7135594236002363,
+          "minimum": 2.5120011620001605,
+          "maximum": 2.723010247000275
+        },
+        "decode_tokens_per_second": {
+          "n": 5,
+          "p50": 9.656109722374776,
+          "p95": 9.853173547012648,
+          "minimum": 9.575046662394069,
+          "maximum": 9.895741297048948
+        },
+        "overlap_seconds": {
+          "n": 5,
+          "p50": 2.5033923690007214,
+          "p95": 2.538511165199816,
+          "minimum": 2.4784159060000093,
+          "maximum": 2.545261207999829
+        },
+        "available_min": 2903326720
+      }
+    }
+  },
+  "jev08-screen-t2-20261020T165646-10993.jsonl": {
+    "events": 1,
+    "completed": false,
+    "errors": [
+      {
+        "event": "load_error",
+        "error": "RuntimeError(\"jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}\")",
+        "trace": "Traceback (most recent call last):\n  File \"/opt/opi-vlm/jev-lab-20261020/board_bench.py\", line 12, in <module>\n    try:m=Adapter(args.model,r,args.threads)\n  File \"/opt/opi-vlm/jev-lab-20261020/board_adapters.py\", line 25, in __init__\n    self.model=j.JevStyleDecisionGGUF(self.root/\"models/jev08\",quant=\"Q4_K_M\",binary=self.root/\"bin/jev-score\",threads=threads,n_gpu_layers=0,max_len=2048,head_max=2048,stderr=open(self.root/\"results/jev08-engine.log\",\"a\"),n_seq_max=int(os.environ.get(\"JEV_N_SEQ_MAX\",\"17\")),n_ubatch=int(os.environ.get(\"JEV_UBATCH\",\"1024\")))\n  File \"/opt/opi-vlm/jev-lab-20261020/jev_style_decision_board.py\", line 554, in __init__\n    raise RuntimeError(f\"jev-score failed to start: {ready}\")\nRuntimeError: jev-score failed to start: {'ready': False, 'error': 'no output (see stderr)'}\n"
+      }
+    ],
+    "blocks": {},
+    "loaded": [],
+    "native_controls": []
+  },
+  "laya-screen-t2-20261020T164634-10370.jsonl": {
+    "events": 153,
+    "completed": true,
+    "errors": [],
+    "blocks": {
+      "measure:10-candidates-64tokens": {
+        "attempted": 30,
+        "valid": 30,
+        "errors": 0,
+        "seconds": {
+          "n": 30,
+          "p50": 1.2594396829999823,
+          "p95": 1.271344582349957,
+          "minimum": 1.2453490859998055,
+          "maximum": 1.282310341000084
+        },
+        "accuracy": 0.7,
+        "state_tokens": [
+          64,
+          66
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.9778274118878751,
+        "resources": {
+          "rss_tree_max": 1779216384,
+          "available_min": 3004239872,
+          "swap_max": 524288,
+          "temp_max": 59.21
+        }
+      },
+      "accuracy:direct": {
+        "attempted": 20,
+        "valid": 20,
+        "errors": 0,
+        "seconds": {
+          "n": 20,
+          "p50": 9.606919108499824,
+          "p95": 9.673427785549416,
+          "minimum": 9.502260094999656,
+          "maximum": 9.757433104000029
+        },
+        "accuracy": 0.3,
+        "state_tokens": [
+          64,
+          65,
+          66
+        ],
+        "by_suite": {
+          "literal": {
+            "n": 12,
+            "correct": 6
+          },
+          "safety": {
+            "n": 4,
+            "correct": 0
+          },
+          "unknown": {
+            "n": 4,
+            "correct": 0
+          }
+        },
+        "process_cpu_cores_mean": 1.9776107865537818,
+        "resources": {
+          "rss_tree_max": 1804505088,
+          "available_min": 2961862656,
+          "swap_max": 524288,
+          "temp_max": 64.914
+        }
+      },
+      "accuracy:two-stage": {
+        "attempted": 20,
+        "valid": 20,
+        "errors": 0,
+        "seconds": {
+          "n": 20,
+          "p50": 2.4815845465000166,
+          "p95": 2.5186024495502353,
+          "minimum": 2.4548246320000544,
+          "maximum": 2.5189911999996184
+        },
+        "accuracy": 0.25,
+        "state_tokens": [
+          64,
+          65,
+          66
+        ],
+        "by_suite": {
+          "literal": {
+            "n": 12,
+            "correct": 5
+          },
+          "safety": {
+            "n": 4,
+            "correct": 0
+          },
+          "unknown": {
+            "n": 4,
+            "correct": 0
+          }
+        },
+        "process_cpu_cores_mean": 1.9782868340169228,
+        "resources": {
+          "rss_tree_max": 1804484608,
+          "available_min": 2960830464,
+          "swap_max": 524288,
+          "temp_max": 66.434
+        }
+      },
+      "candidate_matrix:4-candidates": {
+        "attempted": 10,
+        "valid": 10,
+        "errors": 0,
+        "seconds": {
+          "n": 10,
+          "p50": 0.9328214104998551,
+          "p95": 0.942642527749831,
+          "minimum": 0.922843570000623,
+          "maximum": 0.94486993099963
+        },
+        "accuracy": 0.8,
+        "state_tokens": [
+          64,
+          66
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.9830208160797316,
+        "resources": {
+          "rss_tree_max": 1804484608,
+          "available_min": 2960830464,
+          "swap_max": 524288,
+          "temp_max": 66.493
+        }
+      },
+      "candidate_matrix:8-candidates": {
+        "attempted": 10,
+        "valid": 10,
+        "errors": 0,
+        "seconds": {
+          "n": 10,
+          "p50": 1.148642377499982,
+          "p95": 1.1581736098000874,
+          "minimum": 1.1360577069999636,
+          "maximum": 1.1622746379998716
+        },
+        "accuracy": 0.7,
+        "state_tokens": [
+          64,
+          66
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.9817995494043605,
+        "resources": {
+          "rss_tree_max": 1804615680,
+          "available_min": 2961088512,
+          "swap_max": 524288,
+          "temp_max": 66.316
+        }
+      },
+      "candidate_matrix:16-candidates": {
+        "attempted": 10,
+        "valid": 10,
+        "errors": 0,
+        "seconds": {
+          "n": 10,
+          "p50": 1.6209483210004692,
+          "p95": 1.6298964786995385,
+          "minimum": 1.6005747839999458,
+          "maximum": 1.6316067909992853
+        },
+        "accuracy": 0.8,
+        "state_tokens": [
+          64,
+          66
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.9812514699163102,
+        "resources": {
+          "rss_tree_max": 1804615680,
+          "available_min": 2960900096,
+          "swap_max": 524288,
+          "temp_max": 66.847
+        }
+      },
+      "candidate_matrix:32-candidates": {
+        "attempted": 10,
+        "valid": 10,
+        "errors": 0,
+        "seconds": {
+          "n": 10,
+          "p50": 2.867474911000045,
+          "p95": 2.882869708099997,
+          "minimum": 2.8565316929998517,
+          "maximum": 2.8904640529999597
+        },
+        "accuracy": 0.9,
+        "state_tokens": [
+          64,
+          66
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.9819938255613092,
+        "resources": {
+          "rss_tree_max": 1804746752,
+          "available_min": 2960588800,
+          "swap_max": 524288,
+          "temp_max": 67.142
+        }
+      },
+      "candidate_matrix:64-candidates": {
+        "attempted": 10,
+        "valid": 10,
+        "errors": 0,
+        "seconds": {
+          "n": 10,
+          "p50": 5.809190857499743,
+          "p95": 5.834137442649944,
+          "minimum": 5.787983445999998,
+          "maximum": 5.839411560999906
+        },
+        "accuracy": 0.6,
+        "state_tokens": [
+          64,
+          66
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.9811695424897817,
+        "resources": {
+          "rss_tree_max": 1809465344,
+          "available_min": 2954362880,
+          "swap_max": 524288,
+          "temp_max": 68.027
+        }
+      },
+      "candidate_matrix:100-candidates": {
+        "attempted": 10,
+        "valid": 10,
+        "errors": 0,
+        "seconds": {
+          "n": 10,
+          "p50": 9.556759063500067,
+          "p95": 9.57135288605009,
+          "minimum": 9.526658818000215,
+          "maximum": 9.573193994000576
+        },
+        "accuracy": 0.7,
+        "state_tokens": [
+          64,
+          66
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.978526249512154,
+        "resources": {
+          "rss_tree_max": 1836257280,
+          "available_min": 2945040384,
+          "swap_max": 524288,
+          "temp_max": 68.617
+        }
+      },
+      "measure:two-stage-128tokens": {
+        "attempted": 10,
+        "valid": 10,
+        "errors": 0,
+        "seconds": {
+          "n": 10,
+          "p50": 3.330854688499585,
+          "p95": 3.4084327089502495,
+          "minimum": 3.305550174000018,
+          "maximum": 3.4204356710006323
+        },
+        "accuracy": 0.1,
+        "state_tokens": [
+          128,
+          129,
+          130
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.977628854526425,
+        "resources": {
+          "rss_tree_max": 1836244992,
+          "available_min": 2944729088,
+          "swap_max": 524288,
+          "temp_max": 69.089
+        }
+      },
+      "measure:two-stage-256tokens": {
+        "attempted": 10,
+        "valid": 10,
+        "errors": 0,
+        "seconds": {
+          "n": 10,
+          "p50": 5.374928632999854,
+          "p95": 5.391002864499979,
+          "minimum": 5.339728508999542,
+          "maximum": 5.392331215000013
+        },
+        "accuracy": 0.1,
+        "state_tokens": [
+          256,
+          257,
+          258
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.982242799111682,
+        "resources": {
+          "rss_tree_max": 1836507136,
+          "available_min": 2944548864,
+          "swap_max": 524288,
+          "temp_max": 70.446
+        }
+      }
+    },
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 9.907621848000417,
+        "affinity": [
+          6,
+          7
+        ],
+        "resource": {
+          "monotonic": 4022.946068819,
+          "cpu_tree_seconds": 12.85,
+          "rss_tree_bytes": 1749069824,
+          "system_available_bytes": 3025084416,
+          "system_used_bytes": 3112423424,
+          "swap_used_bytes": 524288,
+          "temperature_c": {
+            "thermal_zone2": 41.664,
+            "thermal_zone0": 43.276,
+            "thermal_zone7": 33.002,
+            "thermal_zone5": 43.276,
+            "thermal_zone3": 45.012,
+            "thermal_zone1": 39.184,
+            "thermal_zone6": 45.012,
+            "thermal_zone4": 40.424
+          },
+          "loadavg": [
+            0.53955078125,
+            0.890625,
+            1.3544921875
+          ],
+          "cpu_system_percent": 14.0
+        }
+      }
+    ],
+    "native_controls": [],
+    "continuous_resources": {
+      "samples": 1162,
+      "rss_tree_max": 1922039808,
+      "available_min": 2861195264,
+      "swap_max": 524288,
+      "temp_max": 71.744
+    }
+  },
+  "nano33-screen-t2-20261020T160914-6913.jsonl": {
+    "events": 312,
+    "completed": false,
+    "errors": [],
+    "blocks": {
+      "measure:10-candidates-64tokens": {
+        "attempted": 200,
+        "valid": 200,
+        "errors": 0,
+        "seconds": {
+          "n": 200,
+          "p50": 1.4411173635000978,
+          "p95": 1.451966895249916,
+          "minimum": 1.428319651000038,
+          "maximum": 1.4649672230000306
+        },
+        "accuracy": 0.2,
+        "state_tokens": [
+          66
+        ],
+        "by_suite": {},
+        "process_cpu_cores_mean": 1.9641127219731775,
+        "resources": {
+          "rss_tree_max": 460382208,
+          "available_min": 4419330048,
+          "swap_max": 524288,
+          "temp_max": 67.024
+        }
+      },
+      "accuracy:direct": {
+        "attempted": 109,
+        "valid": 109,
+        "errors": 0,
+        "seconds": {
+          "n": 109,
+          "p50": 14.2064897690002,
+          "p95": 14.264899038199838,
+          "minimum": 13.358795540999836,
+          "maximum": 14.435048177000226
+        },
+        "accuracy": 0.0,
+        "state_tokens": [
+          64,
+          65,
+          66,
+          67
+        ],
+        "by_suite": {
+          "literal": {
+            "n": 100,
+            "correct": 0
+          },
+          "paraphrase": {
+            "n": 9,
+            "correct": 0
+          }
+        },
+        "process_cpu_cores_mean": 1.9678832647703446,
+        "resources": {
+          "rss_tree_max": 485707776,
+          "available_min": 4393402368,
+          "swap_max": 524288,
+          "temp_max": 72.334
+        }
+      }
+    },
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 3.7702771459998985,
+        "affinity": [
+          6,
+          7
+        ],
+        "resource": {
+          "monotonic": 1776.783314023,
+          "cpu_tree_seconds": 6.17,
+          "rss_tree_bytes": 342753280,
+          "system_available_bytes": 4446949376,
+          "system_used_bytes": 1690558464,
+          "swap_used_bytes": 524288,
+          "temperature_c": {
+            "thermal_zone2": 36.084,
+            "thermal_zone0": 39.494,
+            "thermal_zone7": 32.159,
+            "thermal_zone5": 39.494,
+            "thermal_zone3": 40.796,
+            "thermal_zone1": 39.122,
+            "thermal_zone6": 40.796,
+            "thermal_zone4": 39.308
+          },
+          "loadavg": [
+            0.86083984375,
+            0.47607421875,
+            0.3046875
+          ],
+          "cpu_system_percent": 12.9
+        }
+      }
+    ],
+    "native_controls": [
+      {
+        "event": "native_control",
+        "passage": "University College London was founded in 1826.",
+        "seconds": 0.2539145840000856,
+        "result": {
+          "answer": "answer",
+          "details": {
+            "scores": {
+              "irrelevant": 0.22665086388587952,
+              "partial": 0.39701104164123535,
+              "answer": 2.1816439628601074
+            },
+            "input_tokens_total": 95,
+            "tokens_per_candidate": [
+              31,
+              32,
+              32
+            ],
+            "temperature": 1.0,
+            "action_probabilities_uncalibrated": true
+          }
+        }
+      },
+      {
+        "event": "native_control",
+        "passage": "The cat is sleeping on the sofa.",
+        "seconds": 0.17195033899997725,
+        "result": {
+          "answer": "irrelevant",
+          "details": {
+            "scores": {
+              "irrelevant": 2.5869410037994385,
+              "partial": -1.8460556268692017,
+              "answer": -1.8733108043670654
+            },
+            "input_tokens_total": 95,
+            "tokens_per_candidate": [
+              31,
+              32,
+              32
+            ],
+            "temperature": 1.0,
+            "action_probabilities_uncalibrated": true
+          }
+        }
+      }
+    ]
+  },
+  "opt-jev08-a55-t2-20261020T175826.jsonl": {
+    "events": 22,
+    "completed": false,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 26.125211200000194,
+        "label": "a55-t2",
+        "affinity": [
+          0,
+          1
+        ],
+        "optimization": {
+          "runtime": "llama.cpp",
+          "threads": 2,
+          "int8": false,
+          "nano_batch": 8
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": null,
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": null,
+          "JEV_UBATCH": null,
+          "NANO_ORT": null,
+          "LAYA_ORT": null
+        },
+        "resources": {
+          "at": 8351.292909565,
+          "rss": 2188578816,
+          "pss": 2180168704,
+          "available": 3081347072,
+          "swap": 4194304,
+          "swap_in": 45051904,
+          "swap_out": 51499008,
+          "temp": 45.88,
+          "frequency_khz": {
+            "cpu7": 416000,
+            "cpu5": 1794000,
+            "cpu3": 1794000,
+            "cpu1": 1794000,
+            "cpu6": 416000,
+            "cpu4": 1794000,
+            "cpu2": 1794000,
+            "cpu0": 1794000
+          },
+          "loadavg": [
+            1.05615234375,
+            1.126953125,
+            1.41162109375
+          ],
+          "threads": 5
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 27.796873108500222,
+        "p95": 27.883594521849137,
+        "minimum": 27.74541819300066,
+        "maximum": 27.88741686299909
+      },
+      "timing_accuracy": 1.0,
+      "quality_n": 0,
+      "quality_correct": 0,
+      "quality_by_suite": {},
+      "answers": {},
+      "cpu_cores_mean": 1.9098187109595839
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-jev08-a76-seq2-20261020T172214.jsonl": {
+    "events": 32,
+    "completed": true,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 9.94623860899992,
+        "label": "a76-seq2",
+        "affinity": [
+          6,
+          7
+        ],
+        "optimization": {
+          "runtime": "llama.cpp",
+          "threads": 2,
+          "int8": false,
+          "nano_batch": 8
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": null,
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": "2",
+          "JEV_UBATCH": null,
+          "NANO_ORT": null,
+          "LAYA_ORT": null
+        },
+        "resources": {
+          "at": 6163.729864566,
+          "rss": 1868574720,
+          "pss": 1860162560,
+          "available": 3401269248,
+          "swap": 4194304,
+          "swap_in": 45051904,
+          "swap_out": 51355648,
+          "temp": 56.358,
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 416000,
+            "cpu3": 416000,
+            "cpu1": 416000,
+            "cpu6": 2002000,
+            "cpu4": 416000,
+            "cpu2": 416000,
+            "cpu0": 416000
+          },
+          "loadavg": [
+            2.001953125,
+            1.9130859375,
+            1.8203125
+          ],
+          "threads": 5
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 6.968772089000595,
+        "p95": 6.982378732549842,
+        "minimum": 6.949418804000743,
+        "maximum": 7.00326827400022
+      },
+      "timing_accuracy": 1.0,
+      "quality_n": 8,
+      "quality_correct": 4,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 2
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 1
+        },
+        "safety": {
+          "n": 2,
+          "correct": 0
+        },
+        "unknown": {
+          "n": 2,
+          "correct": 1
+        }
+      },
+      "answers": {
+        "literal-A000": "A000",
+        "literal-A001": "A001",
+        "para-000": "A006",
+        "para-001": "A001",
+        "unknown-0": "A007",
+        "unknown-1": "A003",
+        "stop-0": "A086",
+        "stop-1": "A061"
+      },
+      "cpu_cores_mean": 1.8677782669489504,
+      "resources": {
+        "rss_max": 2003603456,
+        "pss_max": 1995433984,
+        "available_min": 3267133440,
+        "temp_max": 68.853,
+        "swap_max": 4194304,
+        "swap_in_delta": 0,
+        "swap_out_delta": 0,
+        "sample_count": 1164
+      }
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-jev08-a76-seq2-ub256-20261020T173250.jsonl": {
+    "events": 32,
+    "completed": true,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 9.868303608000133,
+        "label": "a76-seq2-ub256",
+        "affinity": [
+          6,
+          7
+        ],
+        "optimization": {
+          "runtime": "llama.cpp",
+          "threads": 2,
+          "int8": false,
+          "nano_batch": 8
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": null,
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": "2",
+          "JEV_UBATCH": "256",
+          "NANO_ORT": null,
+          "LAYA_ORT": null
+        },
+        "resources": {
+          "at": 6799.236193335,
+          "rss": 1851539456,
+          "pss": 1843198976,
+          "available": 3419713536,
+          "swap": 4194304,
+          "swap_in": 45051904,
+          "swap_out": 51355648,
+          "temp": 59.024,
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 416000,
+            "cpu3": 416000,
+            "cpu1": 416000,
+            "cpu6": 2002000,
+            "cpu4": 416000,
+            "cpu2": 416000,
+            "cpu0": 416000
+          },
+          "loadavg": [
+            1.8544921875,
+            1.921875,
+            1.88818359375
+          ],
+          "threads": 5
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 7.132898163999926,
+        "p95": 7.150680605900152,
+        "minimum": 7.088964515000043,
+        "maximum": 7.157791050000014
+      },
+      "timing_accuracy": 1.0,
+      "quality_n": 8,
+      "quality_correct": 4,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 2
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 1
+        },
+        "safety": {
+          "n": 2,
+          "correct": 0
+        },
+        "unknown": {
+          "n": 2,
+          "correct": 1
+        }
+      },
+      "answers": {
+        "literal-A000": "A000",
+        "literal-A001": "A001",
+        "para-000": "A006",
+        "para-001": "A001",
+        "unknown-0": "A007",
+        "unknown-1": "A003",
+        "stop-0": "A086",
+        "stop-1": "A061"
+      },
+      "cpu_cores_mean": 1.8831670977042545,
+      "resources": {
+        "rss_max": 1940680704,
+        "pss_max": 1932236800,
+        "available_min": 3329880064,
+        "temp_max": 68.912,
+        "swap_max": 4194304,
+        "swap_in_delta": 0,
+        "swap_out_delta": 0,
+        "sample_count": 1161
+      }
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-jev08-a76-t1-20261020T174320.jsonl": {
+    "events": 27,
+    "completed": false,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 10.61609916099951,
+        "label": "a76-t1",
+        "affinity": [
+          6
+        ],
+        "optimization": {
+          "runtime": "llama.cpp",
+          "threads": 1,
+          "int8": false,
+          "nano_batch": 8
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": null,
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": null,
+          "JEV_UBATCH": null,
+          "NANO_ORT": null,
+          "LAYA_ORT": null
+        },
+        "resources": {
+          "at": 7429.68110549,
+          "rss": 2188546048,
+          "pss": 2181110784,
+          "available": 3080286208,
+          "swap": 4194304,
+          "swap_in": 45051904,
+          "swap_out": 51355648,
+          "temp": 57.102,
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 416000,
+            "cpu3": 416000,
+            "cpu1": 416000,
+            "cpu6": 2002000,
+            "cpu4": 416000,
+            "cpu2": 416000,
+            "cpu0": 416000
+          },
+          "loadavg": [
+            1.7431640625,
+            1.97802734375,
+            1.978515625
+          ],
+          "threads": 3
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 13.498165724000046,
+        "p95": 13.504737749999867,
+        "minimum": 13.469744129999526,
+        "maximum": 13.506266072000471
+      },
+      "timing_accuracy": 1.0,
+      "quality_n": 5,
+      "quality_correct": 3,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 2
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 1
+        },
+        "unknown": {
+          "n": 1,
+          "correct": 0
+        }
+      },
+      "answers": {
+        "literal-A000": "A000",
+        "literal-A001": "A001",
+        "para-000": "A006",
+        "para-001": "A001",
+        "unknown-0": "A007"
+      },
+      "cpu_cores_mean": 1.0004053643367548
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-jev08-a76-t2-20261020T171123.jsonl": {
+    "events": 32,
+    "completed": true,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 18.313354621000144,
+        "label": "a76-t2",
+        "affinity": [
+          6,
+          7
+        ],
+        "optimization": {
+          "runtime": "llama.cpp",
+          "threads": 2,
+          "int8": false,
+          "nano_batch": 8
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": null,
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": null,
+          "JEV_UBATCH": null,
+          "NANO_ORT": null,
+          "LAYA_ORT": null
+        },
+        "resources": {
+          "at": 5521.183580647,
+          "rss": 2187169792,
+          "pss": 2178550784,
+          "available": 3055038464,
+          "swap": 3670016,
+          "swap_in": 45051904,
+          "swap_out": 50847744,
+          "temp": 40.796,
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 416000,
+            "cpu3": 416000,
+            "cpu1": 416000,
+            "cpu6": 2002000,
+            "cpu4": 416000,
+            "cpu2": 416000,
+            "cpu0": 416000
+          },
+          "loadavg": [
+            0.556640625,
+            1.0,
+            1.5859375
+          ],
+          "threads": 5
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 7.09703828299962,
+        "p95": 7.117649532750102,
+        "minimum": 7.067073303999678,
+        "maximum": 7.119373473999985
+      },
+      "timing_accuracy": 1.0,
+      "quality_n": 8,
+      "quality_correct": 4,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 2
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 1
+        },
+        "safety": {
+          "n": 2,
+          "correct": 0
+        },
+        "unknown": {
+          "n": 2,
+          "correct": 1
+        }
+      },
+      "answers": {
+        "literal-A000": "A000",
+        "literal-A001": "A001",
+        "para-000": "A006",
+        "para-001": "A001",
+        "unknown-0": "A007",
+        "unknown-1": "A003",
+        "stop-0": "A086",
+        "stop-1": "A061"
+      },
+      "cpu_cores_mean": 1.8541693854870642,
+      "resources": {
+        "rss_max": 2339840000,
+        "pss_max": 2331338752,
+        "available_min": 2930180096,
+        "temp_max": 66.67,
+        "swap_max": 4194304,
+        "swap_in_delta": 0,
+        "swap_out_delta": 843776,
+        "sample_count": 1185
+      }
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-laya-a55-t2-20261020T183754.jsonl": {
+    "events": 32,
+    "completed": true,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 27.175206552001328,
+        "label": "a55-t2",
+        "affinity": [
+          0,
+          1
+        ],
+        "optimization": {
+          "runtime": "torch",
+          "threads": 2,
+          "int8": false,
+          "nano_batch": 8
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": null,
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": null,
+          "JEV_UBATCH": null,
+          "NANO_ORT": null,
+          "LAYA_ORT": null
+        },
+        "resources": {
+          "at": 10720.587316673,
+          "rss": 1742618624,
+          "pss": 1737160704,
+          "available": 3031818240,
+          "swap": 51118080,
+          "swap_in": 81391616,
+          "swap_out": 137764864,
+          "temp": 47.368,
+          "frequency_khz": {
+            "cpu7": 416000,
+            "cpu5": 1794000,
+            "cpu3": 1794000,
+            "cpu1": 1794000,
+            "cpu6": 416000,
+            "cpu4": 1794000,
+            "cpu2": 1794000,
+            "cpu0": 1794000
+          },
+          "loadavg": [
+            1.09716796875,
+            1.20556640625,
+            1.23095703125
+          ],
+          "threads": 5
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 5.684665806999874,
+        "p95": 5.724685292199865,
+        "minimum": 5.606539783000699,
+        "maximum": 5.737345680001454
+      },
+      "timing_accuracy": 0.8,
+      "quality_n": 8,
+      "quality_correct": 2,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 2
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 0
+        },
+        "safety": {
+          "n": 2,
+          "correct": 0
+        },
+        "unknown": {
+          "n": 2,
+          "correct": 0
+        }
+      },
+      "answers": {
+        "literal-A000": "A000",
+        "literal-A001": "A001",
+        "para-000": "A084",
+        "para-001": "A099",
+        "unknown-0": "A084",
+        "unknown-1": "A032",
+        "stop-0": "A002",
+        "stop-1": "A002"
+      },
+      "cpu_cores_mean": 1.9893366348402417,
+      "resources": {
+        "rss_max": 1905713152,
+        "pss_max": 1921214464,
+        "available_min": 2877018112,
+        "temp_max": 48.484,
+        "swap_max": 51118080,
+        "swap_in_delta": 0,
+        "swap_out_delta": 0,
+        "sample_count": 893
+      }
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-laya-a76-int8-20261020T183120.jsonl": {
+    "events": 32,
+    "completed": true,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 13.690279813001325,
+        "label": "a76-int8",
+        "affinity": [
+          6,
+          7
+        ],
+        "optimization": {
+          "runtime": "torch",
+          "threads": 2,
+          "int8": true,
+          "nano_batch": 8,
+          "quantized_modules": 88,
+          "quantized_engine": "qnnpack",
+          "supported_engines": [
+            "qnnpack",
+            "none",
+            "onednn"
+          ],
+          "quantization_scope": "encoder Linear only; decision head FP32"
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": "1",
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": null,
+          "JEV_UBATCH": null,
+          "NANO_ORT": null,
+          "LAYA_ORT": null
+        },
+        "resources": {
+          "at": 10313.108119422,
+          "rss": 1844035584,
+          "pss": 1838664704,
+          "available": 2929995776,
+          "swap": 51118080,
+          "swap_in": 81391616,
+          "swap_out": 137764864,
+          "temp": 49.042,
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 416000,
+            "cpu3": 416000,
+            "cpu1": 416000,
+            "cpu6": 2002000,
+            "cpu4": 416000,
+            "cpu2": 416000,
+            "cpu0": 416000
+          },
+          "loadavg": [
+            1.3310546875,
+            0.88671875,
+            1.12451171875
+          ],
+          "threads": 5
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 1.9321427995000704,
+        "p95": 1.9550266647499484,
+        "minimum": 1.907323371999155,
+        "maximum": 1.9572351440001512
+      },
+      "timing_accuracy": 0.7,
+      "quality_n": 8,
+      "quality_correct": 2,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 2
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 0
+        },
+        "safety": {
+          "n": 2,
+          "correct": 0
+        },
+        "unknown": {
+          "n": 2,
+          "correct": 0
+        }
+      },
+      "answers": {
+        "literal-A000": "A000",
+        "literal-A001": "A001",
+        "para-000": "A084",
+        "para-001": "A002",
+        "unknown-0": "A084",
+        "unknown-1": "A032",
+        "stop-0": "A002",
+        "stop-1": "A002"
+      },
+      "cpu_cores_mean": 1.9719439949424344,
+      "resources": {
+        "rss_max": 1977225216,
+        "pss_max": 1971190784,
+        "available_min": 2866827264,
+        "temp_max": 62.806,
+        "swap_max": 51118080,
+        "swap_in_delta": 0,
+        "swap_out_delta": 0,
+        "sample_count": 295
+      }
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-laya-a76-ort-fp32-20261020T182049.jsonl": {
+    "events": 32,
+    "completed": true,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 22.00375030699979,
+        "label": "a76-ort-fp32",
+        "affinity": [
+          6,
+          7
+        ],
+        "optimization": {
+          "runtime": "onnxruntime-fp32",
+          "threads": 2,
+          "int8": false,
+          "nano_batch": 8,
+          "intra_op_threads": 2,
+          "inter_op_threads": 1,
+          "provider": "CPUExecutionProvider"
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": null,
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": null,
+          "JEV_UBATCH": null,
+          "NANO_ORT": null,
+          "LAYA_ORT": "fp32"
+        },
+        "resources": {
+          "at": 9690.357052039,
+          "rss": 1910157312,
+          "pss": 1904555008,
+          "available": 2871095296,
+          "swap": 88866816,
+          "swap_in": 47128576,
+          "swap_out": 137764864,
+          "temp": 43.338,
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 416000,
+            "cpu3": 416000,
+            "cpu1": 416000,
+            "cpu6": 2002000,
+            "cpu4": 416000,
+            "cpu2": 416000,
+            "cpu0": 416000
+          },
+          "loadavg": [
+            0.6328125,
+            0.97509765625,
+            1.41552734375
+          ],
+          "threads": 5
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 1.0589946019999843,
+        "p95": 1.0629192441004307,
+        "minimum": 1.0321274699999776,
+        "maximum": 1.0654689319999306
+      },
+      "timing_accuracy": 0.8,
+      "quality_n": 8,
+      "quality_correct": 2,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 2
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 0
+        },
+        "safety": {
+          "n": 2,
+          "correct": 0
+        },
+        "unknown": {
+          "n": 2,
+          "correct": 0
+        }
+      },
+      "answers": {
+        "literal-A000": "A000",
+        "literal-A001": "A001",
+        "para-000": "A084",
+        "para-001": "A099",
+        "unknown-0": "A084",
+        "unknown-1": "A032",
+        "stop-0": "A002",
+        "stop-1": "A002"
+      },
+      "cpu_cores_mean": 2.002562717669885,
+      "resources": {
+        "rss_max": 2053550080,
+        "pss_max": 2048041984,
+        "available_min": 2724356096,
+        "temp_max": 63.838,
+        "swap_max": 89653248,
+        "swap_in_delta": 3514368,
+        "swap_out_delta": 85549056,
+        "sample_count": 172
+      }
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-laya-a76-ort-int8-20261020T183005.jsonl": {
+    "events": 32,
+    "completed": true,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 14.477409133000037,
+        "label": "a76-ort-int8",
+        "affinity": [
+          6,
+          7
+        ],
+        "optimization": {
+          "runtime": "onnxruntime-int8",
+          "threads": 2,
+          "int8": false,
+          "nano_batch": 8,
+          "intra_op_threads": 2,
+          "inter_op_threads": 1,
+          "provider": "CPUExecutionProvider"
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": null,
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": null,
+          "JEV_UBATCH": null,
+          "NANO_ORT": null,
+          "LAYA_ORT": "int8"
+        },
+        "resources": {
+          "at": 10238.873622146,
+          "rss": 1451094016,
+          "pss": 1445485568,
+          "available": 3339284480,
+          "swap": 51118080,
+          "swap_in": 81391616,
+          "swap_out": 137764864,
+          "temp": 42.346,
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 416000,
+            "cpu3": 416000,
+            "cpu1": 416000,
+            "cpu6": 2002000,
+            "cpu4": 416000,
+            "cpu2": 416000,
+            "cpu0": 416000
+          },
+          "loadavg": [
+            0.5771484375,
+            0.63623046875,
+            1.0673828125
+          ],
+          "threads": 5
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 0.5288592460001382,
+        "p95": 0.5337476105987662,
+        "minimum": 0.518758529000479,
+        "maximum": 0.5344489500002965
+      },
+      "timing_accuracy": 0.8,
+      "quality_n": 8,
+      "quality_correct": 2,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 2
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 0
+        },
+        "safety": {
+          "n": 2,
+          "correct": 0
+        },
+        "unknown": {
+          "n": 2,
+          "correct": 0
+        }
+      },
+      "answers": {
+        "literal-A000": "A000",
+        "literal-A001": "A001",
+        "para-000": "A084",
+        "para-001": "A002",
+        "unknown-0": "A084",
+        "unknown-1": "A032",
+        "stop-0": "A084",
+        "stop-1": "A048"
+      },
+      "cpu_cores_mean": 2.0063914757366375,
+      "resources": {
+        "rss_max": 1608511488,
+        "pss_max": 1603028992,
+        "available_min": 3178000384,
+        "temp_max": 57.102,
+        "swap_max": 51118080,
+        "swap_in_delta": 0,
+        "swap_out_delta": 0,
+        "sample_count": 109
+      }
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-laya-a76-t1-20261020T183411.jsonl": {
+    "events": 32,
+    "completed": true,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 10.21581507100018,
+        "label": "a76-t1",
+        "affinity": [
+          6
+        ],
+        "optimization": {
+          "runtime": "torch",
+          "threads": 1,
+          "int8": false,
+          "nano_batch": 8
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": null,
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": null,
+          "JEV_UBATCH": null,
+          "NANO_ORT": null,
+          "LAYA_ORT": null
+        },
+        "resources": {
+          "at": 10481.01231168,
+          "rss": 1742409728,
+          "pss": 1736842240,
+          "available": 3030339584,
+          "swap": 51118080,
+          "swap_in": 81391616,
+          "swap_out": 137764864,
+          "temp": 52.266,
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 416000,
+            "cpu3": 416000,
+            "cpu1": 416000,
+            "cpu6": 2002000,
+            "cpu4": 416000,
+            "cpu2": 416000,
+            "cpu0": 416000
+          },
+          "loadavg": [
+            1.8173828125,
+            1.3740234375,
+            1.2802734375
+          ],
+          "threads": 2
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 2.2600285364997035,
+        "p95": 2.2643630228511937,
+        "minimum": 2.239876560999619,
+        "maximum": 2.2855127370003174
+      },
+      "timing_accuracy": 0.8,
+      "quality_n": 8,
+      "quality_correct": 2,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 2
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 0
+        },
+        "safety": {
+          "n": 2,
+          "correct": 0
+        },
+        "unknown": {
+          "n": 2,
+          "correct": 0
+        }
+      },
+      "answers": {
+        "literal-A000": "A000",
+        "literal-A001": "A001",
+        "para-000": "A084",
+        "para-001": "A099",
+        "unknown-0": "A084",
+        "unknown-1": "A032",
+        "stop-0": "A002",
+        "stop-1": "A002"
+      },
+      "cpu_cores_mean": 1.0006301523244443,
+      "resources": {
+        "rss_max": 1868967936,
+        "pss_max": 1872006144,
+        "available_min": 2912587776,
+        "temp_max": 57.102,
+        "swap_max": 51118080,
+        "swap_in_delta": 0,
+        "swap_out_delta": 0,
+        "sample_count": 382
+      }
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-laya-a76-t2-20261020T181324.jsonl": {
+    "events": 32,
+    "completed": true,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 10.229724694998367,
+        "label": "a76-t2",
+        "affinity": [
+          6,
+          7
+        ],
+        "optimization": {
+          "runtime": "torch",
+          "threads": 2,
+          "int8": false,
+          "nano_batch": 8
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": null,
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": null,
+          "JEV_UBATCH": null,
+          "NANO_ORT": null,
+          "LAYA_ORT": null
+        },
+        "resources": {
+          "at": 9233.900393462,
+          "rss": 1742647296,
+          "pss": 1736927232,
+          "available": 2999238656,
+          "swap": 4456448,
+          "swap_in": 45051904,
+          "swap_out": 51847168,
+          "temp": 46.19,
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 416000,
+            "cpu3": 416000,
+            "cpu1": 416000,
+            "cpu6": 2002000,
+            "cpu4": 416000,
+            "cpu2": 416000,
+            "cpu0": 416000
+          },
+          "loadavg": [
+            1.77685546875,
+            1.91015625,
+            1.80078125
+          ],
+          "threads": 5
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 1.2744034620000093,
+        "p95": 1.2990142718497737,
+        "minimum": 1.2611439680003969,
+        "maximum": 1.3057998530002806
+      },
+      "timing_accuracy": 0.8,
+      "quality_n": 8,
+      "quality_correct": 2,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 2
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 0
+        },
+        "safety": {
+          "n": 2,
+          "correct": 0
+        },
+        "unknown": {
+          "n": 2,
+          "correct": 0
+        }
+      },
+      "answers": {
+        "literal-A000": "A000",
+        "literal-A001": "A001",
+        "para-000": "A084",
+        "para-001": "A099",
+        "unknown-0": "A084",
+        "unknown-1": "A032",
+        "stop-0": "A002",
+        "stop-1": "A002"
+      },
+      "cpu_cores_mean": 1.976356113261087,
+      "resources": {
+        "rss_max": 1886474240,
+        "pss_max": 1920619520,
+        "available_min": 2859941888,
+        "temp_max": 65.224,
+        "swap_max": 5242880,
+        "swap_in_delta": 0,
+        "swap_out_delta": 368640,
+        "sample_count": 212
+      }
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-nano33-a55-t2-20261020T190226.jsonl": {
+    "events": 50,
+    "completed": true,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 10.489306793000651,
+        "label": "a55-t2",
+        "affinity": [
+          0,
+          1
+        ],
+        "optimization": {
+          "runtime": "torch",
+          "threads": 2,
+          "int8": false,
+          "nano_batch": 8
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": null,
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": null,
+          "JEV_UBATCH": null,
+          "NANO_ORT": null,
+          "LAYA_ORT": null
+        },
+        "resources": {
+          "at": 12176.048228691,
+          "rss": 330436608,
+          "pss": 324815872,
+          "available": 4443336704,
+          "swap": 51118080,
+          "swap_in": 81391616,
+          "swap_out": 137764864,
+          "temp": 48.484,
+          "frequency_khz": {
+            "cpu7": 416000,
+            "cpu5": 1794000,
+            "cpu3": 1794000,
+            "cpu1": 1794000,
+            "cpu6": 416000,
+            "cpu4": 1794000,
+            "cpu2": 1794000,
+            "cpu0": 1794000
+          },
+          "loadavg": [
+            1.013671875,
+            1.36279296875,
+            1.564453125
+          ],
+          "threads": 4
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 7.038903956999093,
+        "p95": 7.065996167549201,
+        "minimum": 6.985511941998993,
+        "maximum": 7.067396116999589
+      },
+      "timing_accuracy": 0.1,
+      "quality_n": 8,
+      "quality_correct": 0,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 0
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 0
+        },
+        "safety": {
+          "n": 2,
+          "correct": 0
+        },
+        "unknown": {
+          "n": 2,
+          "correct": 0
+        }
+      },
+      "answers": {
+        "literal-A000": "A027",
+        "literal-A001": "A027",
+        "para-000": "A046",
+        "para-001": "A046",
+        "unknown-0": "A046",
+        "unknown-1": "A046",
+        "stop-0": "A027",
+        "stop-1": "A046"
+      },
+      "cpu_cores_mean": 1.9656814960247968,
+      "resources": {
+        "rss_max": 453488640,
+        "pss_max": 447978496,
+        "available_min": 4409561088,
+        "temp_max": 50.84,
+        "swap_max": 51118080,
+        "swap_in_delta": 0,
+        "swap_out_delta": 0,
+        "sample_count": 1364
+      }
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-nano33-a76-batch1-20261020T191521.jsonl": {
+    "events": 50,
+    "completed": true,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 3.770954220000931,
+        "label": "a76-batch1",
+        "affinity": [
+          6,
+          7
+        ],
+        "optimization": {
+          "runtime": "torch",
+          "threads": 2,
+          "int8": false,
+          "nano_batch": 1
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": null,
+          "NANO_BATCH": "1",
+          "JEV_N_SEQ_MAX": null,
+          "JEV_UBATCH": null,
+          "NANO_ORT": null,
+          "LAYA_ORT": null
+        },
+        "resources": {
+          "at": 12944.030233721,
+          "rss": 330076160,
+          "pss": 324602880,
+          "available": 4442923008,
+          "swap": 51118080,
+          "swap_in": 81391616,
+          "swap_out": 137764864,
+          "temp": 43.462,
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 416000,
+            "cpu3": 416000,
+            "cpu1": 416000,
+            "cpu6": 2002000,
+            "cpu4": 416000,
+            "cpu2": 416000,
+            "cpu0": 416000
+          },
+          "loadavg": [
+            1.806640625,
+            1.95361328125,
+            1.84228515625
+          ],
+          "threads": 4
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 1.8566262615004234,
+        "p95": 1.8626892994004265,
+        "minimum": 1.8462406329999794,
+        "maximum": 1.8634227830007148
+      },
+      "timing_accuracy": 0.1,
+      "quality_n": 8,
+      "quality_correct": 0,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 0
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 0
+        },
+        "safety": {
+          "n": 2,
+          "correct": 0
+        },
+        "unknown": {
+          "n": 2,
+          "correct": 0
+        }
+      },
+      "answers": {
+        "literal-A000": "A027",
+        "literal-A001": "A027",
+        "para-000": "A046",
+        "para-001": "A046",
+        "unknown-0": "A046",
+        "unknown-1": "A046",
+        "stop-0": "A027",
+        "stop-1": "A046"
+      },
+      "cpu_cores_mean": 1.9876592086197942,
+      "resources": {
+        "rss_max": 435064832,
+        "pss_max": 429640704,
+        "available_min": 4427706368,
+        "temp_max": 65.038,
+        "swap_max": 51118080,
+        "swap_in_delta": 0,
+        "swap_out_delta": 0,
+        "sample_count": 389
+      }
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-nano33-a76-int8-20261020T185339.jsonl": {
+    "events": 50,
+    "completed": true,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 3.974637728999369,
+        "label": "a76-int8",
+        "affinity": [
+          6,
+          7
+        ],
+        "optimization": {
+          "runtime": "torch",
+          "threads": 2,
+          "int8": true,
+          "nano_batch": 8,
+          "quantized_modules": 74,
+          "quantized_engine": "qnnpack",
+          "supported_engines": [
+            "qnnpack",
+            "none",
+            "onednn"
+          ],
+          "quantization_scope": "all Linear"
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": "1",
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": null,
+          "JEV_UBATCH": null,
+          "NANO_ORT": null,
+          "LAYA_ORT": null
+        },
+        "resources": {
+          "at": 11642.232435159,
+          "rss": 432558080,
+          "pss": 427125760,
+          "available": 4432527360,
+          "swap": 51118080,
+          "swap_in": 81391616,
+          "swap_out": 137764864,
+          "temp": 60.512,
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 416000,
+            "cpu3": 416000,
+            "cpu1": 416000,
+            "cpu6": 2002000,
+            "cpu4": 416000,
+            "cpu2": 416000,
+            "cpu0": 416000
+          },
+          "loadavg": [
+            1.79052734375,
+            1.8994140625,
+            1.71044921875
+          ],
+          "threads": 5
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 2.230059438500575,
+        "p95": 2.2384571793999384,
+        "minimum": 2.220373293999728,
+        "maximum": 2.25038246099939
+      },
+      "timing_accuracy": 0.1,
+      "quality_n": 8,
+      "quality_correct": 0,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 0
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 0
+        },
+        "safety": {
+          "n": 2,
+          "correct": 0
+        },
+        "unknown": {
+          "n": 2,
+          "correct": 0
+        }
+      },
+      "answers": {
+        "literal-A000": "A087",
+        "literal-A001": "A049",
+        "para-000": "A057",
+        "para-001": "A046",
+        "unknown-0": "A027",
+        "unknown-1": "A027",
+        "stop-0": "A067",
+        "stop-1": "A033"
+      },
+      "cpu_cores_mean": 1.9666931251517714,
+      "resources": {
+        "rss_max": 495685632,
+        "pss_max": 490252288,
+        "available_min": 4373426176,
+        "temp_max": 63.55,
+        "swap_max": 51118080,
+        "swap_in_delta": 0,
+        "swap_out_delta": 0,
+        "sample_count": 451
+      }
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-nano33-a76-ort-fp32-20261020T185009.jsonl": {
+    "events": 50,
+    "completed": true,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 5.730469190999429,
+        "label": "a76-ort-fp32",
+        "affinity": [
+          6,
+          7
+        ],
+        "optimization": {
+          "runtime": "onnxruntime-fp32",
+          "threads": 2,
+          "int8": false,
+          "nano_batch": 8
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": null,
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": null,
+          "JEV_UBATCH": null,
+          "NANO_ORT": "fp32",
+          "LAYA_ORT": null
+        },
+        "resources": {
+          "at": 11434.559700108,
+          "rss": 557940736,
+          "pss": 552381440,
+          "available": 4229578752,
+          "swap": 51118080,
+          "swap_in": 81391616,
+          "swap_out": 137764864,
+          "temp": 53.196,
+          "frequency_khz": {
+            "cpu7": 780000,
+            "cpu5": 416000,
+            "cpu3": 416000,
+            "cpu1": 416000,
+            "cpu6": 780000,
+            "cpu4": 416000,
+            "cpu2": 416000,
+            "cpu0": 416000
+          },
+          "loadavg": [
+            1.849609375,
+            1.890625,
+            1.6494140625
+          ],
+          "threads": 5
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 1.2218628410000747,
+        "p95": 1.2334076165502665,
+        "minimum": 1.2158585670003959,
+        "maximum": 1.233712805000323
+      },
+      "timing_accuracy": 0.1,
+      "quality_n": 8,
+      "quality_correct": 0,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 0
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 0
+        },
+        "safety": {
+          "n": 2,
+          "correct": 0
+        },
+        "unknown": {
+          "n": 2,
+          "correct": 0
+        }
+      },
+      "answers": {
+        "literal-A000": "A027",
+        "literal-A001": "A027",
+        "para-000": "A046",
+        "para-001": "A046",
+        "unknown-0": "A046",
+        "unknown-1": "A046",
+        "stop-0": "A027",
+        "stop-1": "A046"
+      },
+      "cpu_cores_mean": 2.00052687957496,
+      "resources": {
+        "rss_max": 581140480,
+        "pss_max": 575532032,
+        "available_min": 4207644672,
+        "temp_max": 71.626,
+        "swap_max": 51118080,
+        "swap_in_delta": 0,
+        "swap_out_delta": 0,
+        "sample_count": 249
+      }
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-nano33-a76-ort-int8-20261020T185230.jsonl": {
+    "events": 50,
+    "completed": true,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 4.739553730998523,
+        "label": "a76-ort-int8",
+        "affinity": [
+          6,
+          7
+        ],
+        "optimization": {
+          "runtime": "onnxruntime-int8",
+          "threads": 2,
+          "int8": false,
+          "nano_batch": 8
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": null,
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": null,
+          "JEV_UBATCH": null,
+          "NANO_ORT": "int8",
+          "LAYA_ORT": null
+        },
+        "resources": {
+          "at": 11574.648806372,
+          "rss": 427630592,
+          "pss": 422149120,
+          "available": 4361048064,
+          "swap": 51118080,
+          "swap_in": 81391616,
+          "swap_out": 137764864,
+          "temp": 57.412,
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 416000,
+            "cpu3": 416000,
+            "cpu1": 416000,
+            "cpu6": 2002000,
+            "cpu4": 416000,
+            "cpu2": 416000,
+            "cpu0": 416000
+          },
+          "loadavg": [
+            1.8427734375,
+            1.9150390625,
+            1.697265625
+          ],
+          "threads": 5
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 0.5522747069999241,
+        "p95": 0.5535990939006297,
+        "minimum": 0.5498360299989145,
+        "maximum": 0.5536285039997892
+      },
+      "timing_accuracy": 0.1,
+      "quality_n": 8,
+      "quality_correct": 0,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 0
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 0
+        },
+        "safety": {
+          "n": 2,
+          "correct": 0
+        },
+        "unknown": {
+          "n": 2,
+          "correct": 0
+        }
+      },
+      "answers": {
+        "literal-A000": "A048",
+        "literal-A001": "A058",
+        "para-000": "A092",
+        "para-001": "A016",
+        "unknown-0": "A019",
+        "unknown-1": "A015",
+        "stop-0": "A046",
+        "stop-1": "A046"
+      },
+      "cpu_cores_mean": 1.999144213988315,
+      "resources": {
+        "rss_max": 460529664,
+        "pss_max": 454937600,
+        "available_min": 4329308160,
+        "temp_max": 66.493,
+        "swap_max": 51118080,
+        "swap_in_delta": 0,
+        "swap_out_delta": 0,
+        "sample_count": 115
+      }
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-nano33-a76-t1-20261020T185741.jsonl": {
+    "events": 50,
+    "completed": true,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 3.710096209999392,
+        "label": "a76-t1",
+        "affinity": [
+          6
+        ],
+        "optimization": {
+          "runtime": "torch",
+          "threads": 1,
+          "int8": false,
+          "nano_batch": 8
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": null,
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": null,
+          "JEV_UBATCH": null,
+          "NANO_ORT": null,
+          "LAYA_ORT": null
+        },
+        "resources": {
+          "at": 11883.713253844,
+          "rss": 329678848,
+          "pss": 324123648,
+          "available": 4452823040,
+          "swap": 51118080,
+          "swap_in": 81391616,
+          "swap_out": 137764864,
+          "temp": 53.196,
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 416000,
+            "cpu3": 416000,
+            "cpu1": 416000,
+            "cpu6": 2002000,
+            "cpu4": 416000,
+            "cpu2": 416000,
+            "cpu0": 416000
+          },
+          "loadavg": [
+            1.8447265625,
+            1.9287109375,
+            1.7734375
+          ],
+          "threads": 2
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 2.5693248734996814,
+        "p95": 2.579522051150252,
+        "minimum": 2.558684703999461,
+        "maximum": 2.5812955900000816
+      },
+      "timing_accuracy": 0.1,
+      "quality_n": 8,
+      "quality_correct": 0,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 0
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 0
+        },
+        "safety": {
+          "n": 2,
+          "correct": 0
+        },
+        "unknown": {
+          "n": 2,
+          "correct": 0
+        }
+      },
+      "answers": {
+        "literal-A000": "A027",
+        "literal-A001": "A027",
+        "para-000": "A046",
+        "para-001": "A046",
+        "unknown-0": "A046",
+        "unknown-1": "A046",
+        "stop-0": "A027",
+        "stop-1": "A046"
+      },
+      "cpu_cores_mean": 1.0022897810780647,
+      "resources": {
+        "rss_max": 450883584,
+        "pss_max": 445425664,
+        "available_min": 4415430656,
+        "temp_max": 60.264,
+        "swap_max": 51118080,
+        "swap_in_delta": 0,
+        "swap_out_delta": 0,
+        "sample_count": 523
+      }
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  },
+  "opt-nano33-a76-t2-20261020T184729.jsonl": {
+    "events": 50,
+    "completed": true,
+    "errors": [],
+    "blocks": {},
+    "loaded": [
+      {
+        "event": "loaded",
+        "seconds": 3.851858059000733,
+        "label": "a76-t2",
+        "affinity": [
+          6,
+          7
+        ],
+        "optimization": {
+          "runtime": "torch",
+          "threads": 2,
+          "int8": false,
+          "nano_batch": 8
+        },
+        "environment": {
+          "JEV_DYNAMIC_INT8": null,
+          "NANO_BATCH": null,
+          "JEV_N_SEQ_MAX": null,
+          "JEV_UBATCH": null,
+          "NANO_ORT": null,
+          "LAYA_ORT": null
+        },
+        "resources": {
+          "at": 11271.860640785,
+          "rss": 329867264,
+          "pss": 324385792,
+          "available": 4451090432,
+          "swap": 51118080,
+          "swap_in": 81391616,
+          "swap_out": 137764864,
+          "temp": 43.586,
+          "frequency_khz": {
+            "cpu7": 2002000,
+            "cpu5": 416000,
+            "cpu3": 416000,
+            "cpu1": 416000,
+            "cpu6": 2002000,
+            "cpu4": 416000,
+            "cpu2": 416000,
+            "cpu0": 416000
+          },
+          "loadavg": [
+            1.68408203125,
+            1.85546875,
+            1.5869140625
+          ],
+          "threads": 4
+        }
+      }
+    ],
+    "native_controls": [],
+    "optimization": {
+      "seconds": {
+        "n": 20,
+        "p50": 1.4343692945003568,
+        "p95": 1.442626016749091,
+        "minimum": 1.4207035519993951,
+        "maximum": 1.4505087130000902
+      },
+      "timing_accuracy": 0.1,
+      "quality_n": 8,
+      "quality_correct": 0,
+      "quality_by_suite": {
+        "literal": {
+          "n": 2,
+          "correct": 0
+        },
+        "paraphrase": {
+          "n": 2,
+          "correct": 0
+        },
+        "safety": {
+          "n": 2,
+          "correct": 0
+        },
+        "unknown": {
+          "n": 2,
+          "correct": 0
+        }
+      },
+      "answers": {
+        "literal-A000": "A027",
+        "literal-A001": "A027",
+        "para-000": "A046",
+        "para-001": "A046",
+        "unknown-0": "A046",
+        "unknown-1": "A046",
+        "stop-0": "A027",
+        "stop-1": "A046"
+      },
+      "cpu_cores_mean": 1.9783406056300303,
+      "resources": {
+        "rss_max": 461131776,
+        "pss_max": 455760896,
+        "available_min": 4408541184,
+        "temp_max": 65.224,
+        "swap_max": 51118080,
+        "swap_in_delta": 0,
+        "swap_out_delta": 0,
+        "sample_count": 296
+      }
+    },
+    "provenance": [
+      {
+        "event": "provenance",
+        "machine": "Linux-6.6.98-sun60iw2-aarch64-with-glibc2.35",
+        "sources": {
+          "board_optimize.py": "91268ab577d601435157efed1c833a5d97c21433f1b38f64cefed89811796b70",
+          "board_adapters.py": "f09bffe913cc08d7d568ab759b56b50536d43bc621c5b26666015150617d80eb",
+          "jev_style_decision_board.py": "95ba2fc161342aa6b3b34028aa0bc65388e3972dc77bc8c41df50d23df976b0b",
+          "actions.json": "dfc13db018012bc2148b072df3a20384eeb4299dc6129b103c202966cc86619d",
+          "cases.json": "9236bd5f878f85c3d8176aca2ba1d5b0284b08d038ced693dd600853056bd92d"
+        },
+        "packages": {
+          "torch": "2.7.0",
+          "transformers": "4.57.1",
+          "laya": "0.4.12",
+          "onnxruntime": "1.23.1"
+        }
+      }
+    ]
+  }
+}
+[
+  {
+    "file": "opt-jev08-a55-t2-20261020T175826.jsonl",
+    "model": "jev08",
+    "label": "a55-t2",
+    "complete": false,
+    "errors": [],
+    "n": 20,
+    "p50": 27.796873108500222,
+    "p95": 27.883594521849137,
+    "timing_correct": 20,
+    "quality_n": 0,
+    "quality_correct": 0,
+    "cpu_cores": 1.9098187109595839,
+    "timing_answers": [
+      "A000",
+      "A001",
+      "A002",
+      "A003",
+      "A004",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009",
+      "A000",
+      "A001",
+      "A002",
+      "A003",
+      "A004",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009"
+    ],
+    "native_answers_sequence": [],
+    "unique_timing_cases": 10,
+    "quality_p50": null,
+    "quality_p95": null,
+    "quality_by_suite": {},
+    "native_n": 0,
+    "native_correct": 0,
+    "native_p50": null,
+    "native_answers": {},
+    "load_seconds": 26.125211200000194,
+    "baseline_file": "opt-jev08-a76-t2-20261020T171123.jsonl",
+    "speedup": 0.2553178645417265,
+    "paired_quality_n": 0,
+    "changed_decisions": 0,
+    "quality_correct_delta": null
+  },
+  {
+    "file": "opt-jev08-a76-seq2-20261020T172214.jsonl",
+    "model": "jev08",
+    "label": "a76-seq2",
+    "complete": true,
+    "errors": [],
+    "n": 20,
+    "p50": 6.968772089000595,
+    "p95": 6.982378732549842,
+    "timing_correct": 20,
+    "quality_n": 8,
+    "quality_correct": 4,
+    "cpu_cores": 1.8677782669489504,
+    "timing_answers": [
+      "A000",
+      "A001",
+      "A002",
+      "A003",
+      "A004",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009",
+      "A000",
+      "A001",
+      "A002",
+      "A003",
+      "A004",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009"
+    ],
+    "native_answers_sequence": [],
+    "unique_timing_cases": 10,
+    "quality_p50": 57.14056026099979,
+    "quality_p95": 57.19620811914997,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 2,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 1,
+        "n": 2
+      },
+      "safety": {
+        "correct": 0,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 1,
+        "n": 2
+      }
+    },
+    "native_n": 0,
+    "native_correct": 0,
+    "native_p50": null,
+    "native_answers": {},
+    "load_seconds": 9.94623860899992,
+    "resource": {
+      "rss_max": 2003603456,
+      "pss_max": 1995433984,
+      "temperature_max": 68.853,
+      "available_min": 3267133440,
+      "sample_n": 1164,
+      "swap_used_max": 4194304,
+      "swap_in_delta": 0,
+      "swap_out_delta": 0
+    },
+    "baseline_file": "opt-jev08-a76-t2-20261020T171123.jsonl",
+    "speedup": 1.0184058529050588,
+    "paired_quality_n": 8,
+    "changed_decisions": 0,
+    "quality_correct_delta": 0
+  },
+  {
+    "file": "opt-jev08-a76-seq2-ub256-20261020T173250.jsonl",
+    "model": "jev08",
+    "label": "a76-seq2-ub256",
+    "complete": true,
+    "errors": [],
+    "n": 20,
+    "p50": 7.132898163999926,
+    "p95": 7.150680605900152,
+    "timing_correct": 20,
+    "quality_n": 8,
+    "quality_correct": 4,
+    "cpu_cores": 1.8831670977042545,
+    "timing_answers": [
+      "A000",
+      "A001",
+      "A002",
+      "A003",
+      "A004",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009",
+      "A000",
+      "A001",
+      "A002",
+      "A003",
+      "A004",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009"
+    ],
+    "native_answers_sequence": [],
+    "unique_timing_cases": 10,
+    "quality_p50": 55.927122299000075,
+    "quality_p95": 56.03529575394973,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 2,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 1,
+        "n": 2
+      },
+      "safety": {
+        "correct": 0,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 1,
+        "n": 2
+      }
+    },
+    "native_n": 0,
+    "native_correct": 0,
+    "native_p50": null,
+    "native_answers": {},
+    "load_seconds": 9.868303608000133,
+    "resource": {
+      "rss_max": 1940680704,
+      "pss_max": 1932236800,
+      "temperature_max": 68.912,
+      "available_min": 3329880064,
+      "sample_n": 1161,
+      "swap_used_max": 4194304,
+      "swap_in_delta": 0,
+      "swap_out_delta": 0
+    },
+    "baseline_file": "opt-jev08-a76-t2-20261020T171123.jsonl",
+    "speedup": 0.994972607182128,
+    "paired_quality_n": 8,
+    "changed_decisions": 0,
+    "quality_correct_delta": 0
+  },
+  {
+    "file": "opt-jev08-a76-t1-20261020T174320.jsonl",
+    "model": "jev08",
+    "label": "a76-t1",
+    "complete": false,
+    "errors": [],
+    "n": 20,
+    "p50": 13.498165724000046,
+    "p95": 13.504737749999867,
+    "timing_correct": 20,
+    "quality_n": 5,
+    "quality_correct": 3,
+    "cpu_cores": 1.0004053643367548,
+    "timing_answers": [
+      "A000",
+      "A001",
+      "A002",
+      "A003",
+      "A004",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009",
+      "A000",
+      "A001",
+      "A002",
+      "A003",
+      "A004",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009"
+    ],
+    "native_answers_sequence": [],
+    "unique_timing_cases": 10,
+    "quality_p50": 109.27254263400027,
+    "quality_p95": 109.36737632400018,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 2,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 1,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 0,
+        "n": 1
+      }
+    },
+    "native_n": 0,
+    "native_correct": 0,
+    "native_p50": null,
+    "native_answers": {},
+    "load_seconds": 10.61609916099951,
+    "baseline_file": "opt-jev08-a76-t2-20261020T171123.jsonl",
+    "speedup": 0.5257779781426838,
+    "paired_quality_n": 5,
+    "changed_decisions": 0,
+    "quality_correct_delta": null
+  },
+  {
+    "file": "opt-jev08-a76-t2-20261020T171123.jsonl",
+    "model": "jev08",
+    "label": "a76-t2",
+    "complete": true,
+    "errors": [],
+    "n": 20,
+    "p50": 7.09703828299962,
+    "p95": 7.117649532750102,
+    "timing_correct": 20,
+    "quality_n": 8,
+    "quality_correct": 4,
+    "cpu_cores": 1.8541693854870642,
+    "timing_answers": [
+      "A000",
+      "A001",
+      "A002",
+      "A003",
+      "A004",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009",
+      "A000",
+      "A001",
+      "A002",
+      "A003",
+      "A004",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009"
+    ],
+    "native_answers_sequence": [],
+    "unique_timing_cases": 10,
+    "quality_p50": 57.56246616749968,
+    "quality_p95": 57.65827598710007,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 2,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 1,
+        "n": 2
+      },
+      "safety": {
+        "correct": 0,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 1,
+        "n": 2
+      }
+    },
+    "native_n": 0,
+    "native_correct": 0,
+    "native_p50": null,
+    "native_answers": {},
+    "load_seconds": 18.313354621000144,
+    "resource": {
+      "rss_max": 2339840000,
+      "pss_max": 2331338752,
+      "temperature_max": 66.67,
+      "available_min": 2930180096,
+      "sample_n": 1185,
+      "swap_used_max": 4194304,
+      "swap_in_delta": 0,
+      "swap_out_delta": 843776
+    },
+    "baseline_file": "opt-jev08-a76-t2-20261020T171123.jsonl",
+    "speedup": 1.0,
+    "paired_quality_n": 8,
+    "changed_decisions": 0,
+    "quality_correct_delta": 0
+  },
+  {
+    "file": "opt-laya-a55-t2-20261020T183754.jsonl",
+    "model": "laya",
+    "label": "a55-t2",
+    "complete": true,
+    "errors": [],
+    "n": 20,
+    "p50": 5.684665806999874,
+    "p95": 5.724685292199865,
+    "timing_correct": 16,
+    "quality_n": 8,
+    "quality_correct": 2,
+    "cpu_cores": 1.9893366348402417,
+    "timing_answers": [
+      "A000",
+      "A001",
+      "A002",
+      "A002",
+      "A001",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009",
+      "A000",
+      "A001",
+      "A002",
+      "A002",
+      "A001",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009"
+    ],
+    "native_answers_sequence": [],
+    "unique_timing_cases": 10,
+    "quality_p50": 50.451958302500316,
+    "quality_p95": 50.619029376299935,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 2,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 0,
+        "n": 2
+      },
+      "safety": {
+        "correct": 0,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 0,
+        "n": 2
+      }
+    },
+    "native_n": 0,
+    "native_correct": 0,
+    "native_p50": null,
+    "native_answers": {},
+    "load_seconds": 27.175206552001328,
+    "resource": {
+      "rss_max": 1905713152,
+      "pss_max": 1921214464,
+      "temperature_max": 48.484,
+      "available_min": 2877018112,
+      "sample_n": 893,
+      "swap_used_max": 51118080,
+      "swap_in_delta": 0,
+      "swap_out_delta": 0
+    },
+    "baseline_file": "opt-laya-a76-t2-20261020T181324.jsonl",
+    "speedup": 0.2241826529944397,
+    "paired_quality_n": 8,
+    "changed_decisions": 0,
+    "quality_correct_delta": 0
+  },
+  {
+    "file": "opt-laya-a76-int8-20261020T183120.jsonl",
+    "model": "laya",
+    "label": "a76-int8",
+    "complete": true,
+    "errors": [],
+    "n": 20,
+    "p50": 1.9321427995000704,
+    "p95": 1.9550266647499484,
+    "timing_correct": 14,
+    "quality_n": 8,
+    "quality_correct": 2,
+    "cpu_cores": 1.9719439949424344,
+    "timing_answers": [
+      "A000",
+      "A001",
+      "A002",
+      "A001",
+      "A001",
+      "A006",
+      "A006",
+      "A007",
+      "A008",
+      "A009",
+      "A000",
+      "A001",
+      "A002",
+      "A001",
+      "A001",
+      "A006",
+      "A006",
+      "A007",
+      "A008",
+      "A009"
+    ],
+    "native_answers_sequence": [],
+    "unique_timing_cases": 10,
+    "quality_p50": 13.056451506500707,
+    "quality_p95": 13.217691443048807,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 2,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 0,
+        "n": 2
+      },
+      "safety": {
+        "correct": 0,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 0,
+        "n": 2
+      }
+    },
+    "native_n": 0,
+    "native_correct": 0,
+    "native_p50": null,
+    "native_answers": {},
+    "load_seconds": 13.690279813001325,
+    "resource": {
+      "rss_max": 1977225216,
+      "pss_max": 1971190784,
+      "temperature_max": 62.806,
+      "available_min": 2866827264,
+      "sample_n": 295,
+      "swap_used_max": 51118080,
+      "swap_in_delta": 0,
+      "swap_out_delta": 0
+    },
+    "baseline_file": "opt-laya-a76-t2-20261020T181324.jsonl",
+    "speedup": 0.6595803696961493,
+    "paired_quality_n": 8,
+    "changed_decisions": 1,
+    "quality_correct_delta": 0
+  },
+  {
+    "file": "opt-laya-a76-ort-fp32-20261020T182049.jsonl",
+    "model": "laya",
+    "label": "a76-ort-fp32",
+    "complete": true,
+    "errors": [],
+    "n": 20,
+    "p50": 1.0589946019999843,
+    "p95": 1.0629192441004307,
+    "timing_correct": 16,
+    "quality_n": 8,
+    "quality_correct": 2,
+    "cpu_cores": 2.002562717669885,
+    "timing_answers": [
+      "A000",
+      "A001",
+      "A002",
+      "A002",
+      "A001",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009",
+      "A000",
+      "A001",
+      "A002",
+      "A002",
+      "A001",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009"
+    ],
+    "native_answers_sequence": [],
+    "unique_timing_cases": 10,
+    "quality_p50": 8.257247385999108,
+    "quality_p95": 8.267487024750153,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 2,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 0,
+        "n": 2
+      },
+      "safety": {
+        "correct": 0,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 0,
+        "n": 2
+      }
+    },
+    "native_n": 0,
+    "native_correct": 0,
+    "native_p50": null,
+    "native_answers": {},
+    "load_seconds": 22.00375030699979,
+    "resource": {
+      "rss_max": 2053550080,
+      "pss_max": 2048041984,
+      "temperature_max": 63.838,
+      "available_min": 2724356096,
+      "sample_n": 172,
+      "swap_used_max": 89653248,
+      "swap_in_delta": 3514368,
+      "swap_out_delta": 85549056
+    },
+    "baseline_file": "opt-laya-a76-t2-20261020T181324.jsonl",
+    "speedup": 1.2034088366392148,
+    "paired_quality_n": 8,
+    "changed_decisions": 0,
+    "quality_correct_delta": 0
+  },
+  {
+    "file": "opt-laya-a76-ort-int8-20261020T183005.jsonl",
+    "model": "laya",
+    "label": "a76-ort-int8",
+    "complete": true,
+    "errors": [],
+    "n": 20,
+    "p50": 0.5288592460001382,
+    "p95": 0.5337476105987662,
+    "timing_correct": 16,
+    "quality_n": 8,
+    "quality_correct": 2,
+    "cpu_cores": 2.0063914757366375,
+    "timing_answers": [
+      "A000",
+      "A001",
+      "A002",
+      "A001",
+      "A001",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009",
+      "A000",
+      "A001",
+      "A002",
+      "A001",
+      "A001",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009"
+    ],
+    "native_answers_sequence": [],
+    "unique_timing_cases": 10,
+    "quality_p50": 5.019224149500587,
+    "quality_p95": 5.029099371650773,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 2,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 0,
+        "n": 2
+      },
+      "safety": {
+        "correct": 0,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 0,
+        "n": 2
+      }
+    },
+    "native_n": 0,
+    "native_correct": 0,
+    "native_p50": null,
+    "native_answers": {},
+    "load_seconds": 14.477409133000037,
+    "resource": {
+      "rss_max": 1608511488,
+      "pss_max": 1603028992,
+      "temperature_max": 57.102,
+      "available_min": 3178000384,
+      "sample_n": 109,
+      "swap_used_max": 51118080,
+      "swap_in_delta": 0,
+      "swap_out_delta": 0
+    },
+    "baseline_file": "opt-laya-a76-t2-20261020T181324.jsonl",
+    "speedup": 2.4097214365420703,
+    "paired_quality_n": 8,
+    "changed_decisions": 3,
+    "quality_correct_delta": 0
+  },
+  {
+    "file": "opt-laya-a76-t1-20261020T183411.jsonl",
+    "model": "laya",
+    "label": "a76-t1",
+    "complete": true,
+    "errors": [],
+    "n": 20,
+    "p50": 2.2600285364997035,
+    "p95": 2.2643630228511937,
+    "timing_correct": 16,
+    "quality_n": 8,
+    "quality_correct": 2,
+    "cpu_cores": 1.0006301523244443,
+    "timing_answers": [
+      "A000",
+      "A001",
+      "A002",
+      "A002",
+      "A001",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009",
+      "A000",
+      "A001",
+      "A002",
+      "A002",
+      "A001",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009"
+    ],
+    "native_answers_sequence": [],
+    "unique_timing_cases": 10,
+    "quality_p50": 18.602036882501125,
+    "quality_p95": 18.751047551150442,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 2,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 0,
+        "n": 2
+      },
+      "safety": {
+        "correct": 0,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 0,
+        "n": 2
+      }
+    },
+    "native_n": 0,
+    "native_correct": 0,
+    "native_p50": null,
+    "native_answers": {},
+    "load_seconds": 10.21581507100018,
+    "resource": {
+      "rss_max": 1868967936,
+      "pss_max": 1872006144,
+      "temperature_max": 57.102,
+      "available_min": 2912587776,
+      "sample_n": 382,
+      "swap_used_max": 51118080,
+      "swap_in_delta": 0,
+      "swap_out_delta": 0
+    },
+    "baseline_file": "opt-laya-a76-t2-20261020T181324.jsonl",
+    "speedup": 0.5638882170814468,
+    "paired_quality_n": 8,
+    "changed_decisions": 0,
+    "quality_correct_delta": 0
+  },
+  {
+    "file": "opt-laya-a76-t2-20261020T181324.jsonl",
+    "model": "laya",
+    "label": "a76-t2",
+    "complete": true,
+    "errors": [],
+    "n": 20,
+    "p50": 1.2744034620000093,
+    "p95": 1.2990142718497737,
+    "timing_correct": 16,
+    "quality_n": 8,
+    "quality_correct": 2,
+    "cpu_cores": 1.976356113261087,
+    "timing_answers": [
+      "A000",
+      "A001",
+      "A002",
+      "A002",
+      "A001",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009",
+      "A000",
+      "A001",
+      "A002",
+      "A002",
+      "A001",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
+      "A009"
+    ],
+    "native_answers_sequence": [],
+    "unique_timing_cases": 10,
+    "quality_p50": 9.81987278050019,
+    "quality_p95": 9.949493510499725,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 2,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 0,
+        "n": 2
+      },
+      "safety": {
+        "correct": 0,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 0,
+        "n": 2
+      }
+    },
+    "native_n": 0,
+    "native_correct": 0,
+    "native_p50": null,
+    "native_answers": {},
+    "load_seconds": 10.229724694998367,
+    "resource": {
+      "rss_max": 1886474240,
+      "pss_max": 1920619520,
+      "temperature_max": 65.224,
+      "available_min": 2859941888,
+      "sample_n": 212,
+      "swap_used_max": 5242880,
+      "swap_in_delta": 0,
+      "swap_out_delta": 368640
+    },
+    "baseline_file": "opt-laya-a76-t2-20261020T181324.jsonl",
+    "speedup": 1.0,
+    "paired_quality_n": 8,
+    "changed_decisions": 0,
+    "quality_correct_delta": 0
+  },
+  {
+    "file": "opt-nano33-a55-t2-20261020T190226.jsonl",
+    "model": "nano33",
+    "label": "a55-t2",
+    "complete": true,
+    "errors": [],
+    "n": 20,
+    "p50": 7.038903956999093,
+    "p95": 7.065996167549201,
+    "timing_correct": 2,
+    "quality_n": 8,
+    "quality_correct": 0,
+    "cpu_cores": 1.9656814960247968,
+    "timing_answers": [
+      "A003",
+      "A002",
+      "A000",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A000",
+      "A003",
+      "A002",
+      "A000",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A000"
+    ],
+    "native_answers_sequence": [
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no",
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no",
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no"
+    ],
+    "unique_timing_cases": 10,
+    "quality_p50": 72.43777238500024,
+    "quality_p95": 74.25435564280079,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 0,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 0,
+        "n": 2
+      },
+      "safety": {
+        "correct": 0,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 0,
+        "n": 2
+      }
+    },
+    "native_n": 18,
+    "native_correct": 18,
+    "native_p50": 0.5464333179997993,
+    "native_answers": {
+      "relevance-positive": "answer",
+      "relevance-negative": "irrelevant",
+      "sufficient-positive": "yes",
+      "sufficient-negative": "no",
+      "grounded-positive": "yes",
+      "grounded-negative": "no"
+    },
+    "load_seconds": 10.489306793000651,
+    "resource": {
+      "rss_max": 453488640,
+      "pss_max": 447978496,
+      "temperature_max": 50.84,
+      "available_min": 4409561088,
+      "sample_n": 1364,
+      "swap_used_max": 51118080,
+      "swap_in_delta": 0,
+      "swap_out_delta": 0
+    },
+    "baseline_file": "opt-nano33-a76-t2-20261020T184729.jsonl",
+    "speedup": 0.20377736409858244,
+    "paired_quality_n": 8,
+    "changed_decisions": 0,
+    "quality_correct_delta": 0
+  },
+  {
+    "file": "opt-nano33-a76-batch1-20261020T191521.jsonl",
+    "model": "nano33",
+    "label": "a76-batch1",
+    "complete": true,
+    "errors": [],
+    "n": 20,
+    "p50": 1.8566262615004234,
+    "p95": 1.8626892994004265,
+    "timing_correct": 2,
+    "quality_n": 8,
+    "quality_correct": 0,
+    "cpu_cores": 1.9876592086197942,
+    "timing_answers": [
+      "A003",
+      "A002",
+      "A000",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A000",
+      "A003",
+      "A002",
+      "A000",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A000"
+    ],
+    "native_answers_sequence": [
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no",
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no",
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no"
+    ],
+    "unique_timing_cases": 10,
+    "quality_p50": 18.754781301999174,
+    "quality_p95": 19.025160724349917,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 0,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 0,
+        "n": 2
+      },
+      "safety": {
+        "correct": 0,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 0,
+        "n": 2
+      }
+    },
+    "native_n": 18,
+    "native_correct": 18,
+    "native_p50": 0.21632730049987003,
+    "native_answers": {
+      "relevance-positive": "answer",
+      "relevance-negative": "irrelevant",
+      "sufficient-positive": "yes",
+      "sufficient-negative": "no",
+      "grounded-positive": "yes",
+      "grounded-negative": "no"
+    },
+    "load_seconds": 3.770954220000931,
+    "resource": {
+      "rss_max": 435064832,
+      "pss_max": 429640704,
+      "temperature_max": 65.038,
+      "available_min": 4427706368,
+      "sample_n": 389,
+      "swap_used_max": 51118080,
+      "swap_in_delta": 0,
+      "swap_out_delta": 0
+    },
+    "baseline_file": "opt-nano33-a76-t2-20261020T184729.jsonl",
+    "speedup": 0.7725675997608578,
+    "paired_quality_n": 8,
+    "changed_decisions": 0,
+    "quality_correct_delta": 0
+  },
+  {
+    "file": "opt-nano33-a76-int8-20261020T185339.jsonl",
+    "model": "nano33",
+    "label": "a76-int8",
+    "complete": true,
+    "errors": [],
+    "n": 20,
+    "p50": 2.230059438500575,
+    "p95": 2.2384571793999384,
+    "timing_correct": 2,
+    "quality_n": 8,
+    "quality_correct": 0,
+    "cpu_cores": 1.9666931251517714,
+    "timing_answers": [
+      "A008",
+      "A008",
+      "A008",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A008",
+      "A008",
+      "A008",
+      "A008",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A008"
+    ],
+    "native_answers_sequence": [
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no",
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no",
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no"
+    ],
+    "unique_timing_cases": 10,
+    "quality_p50": 21.86828208499901,
+    "quality_p95": 22.33468257030081,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 0,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 0,
+        "n": 2
+      },
+      "safety": {
+        "correct": 0,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 0,
+        "n": 2
+      }
+    },
+    "native_n": 18,
+    "native_correct": 18,
+    "native_p50": 0.21326647200021398,
+    "native_answers": {
+      "relevance-positive": "answer",
+      "relevance-negative": "irrelevant",
+      "sufficient-positive": "yes",
+      "sufficient-negative": "no",
+      "grounded-positive": "yes",
+      "grounded-negative": "no"
+    },
+    "load_seconds": 3.974637728999369,
+    "resource": {
+      "rss_max": 495685632,
+      "pss_max": 490252288,
+      "temperature_max": 63.55,
+      "available_min": 4373426176,
+      "sample_n": 451,
+      "swap_used_max": 51118080,
+      "swap_in_delta": 0,
+      "swap_out_delta": 0
+    },
+    "baseline_file": "opt-nano33-a76-t2-20261020T184729.jsonl",
+    "speedup": 0.643197786452178,
+    "paired_quality_n": 8,
+    "changed_decisions": 7,
+    "quality_correct_delta": 0
+  },
+  {
+    "file": "opt-nano33-a76-ort-fp32-20261020T185009.jsonl",
+    "model": "nano33",
+    "label": "a76-ort-fp32",
+    "complete": true,
+    "errors": [],
+    "n": 20,
+    "p50": 1.2218628410000747,
+    "p95": 1.2334076165502665,
+    "timing_correct": 2,
+    "quality_n": 8,
+    "quality_correct": 0,
+    "cpu_cores": 2.00052687957496,
+    "timing_answers": [
+      "A003",
+      "A002",
+      "A000",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A000",
+      "A003",
+      "A002",
+      "A000",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A000"
+    ],
+    "native_answers_sequence": [
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no",
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no",
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no"
+    ],
+    "unique_timing_cases": 10,
+    "quality_p50": 12.221417253999789,
+    "quality_p95": 12.578632415050015,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 0,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 0,
+        "n": 2
+      },
+      "safety": {
+        "correct": 0,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 0,
+        "n": 2
+      }
+    },
+    "native_n": 18,
+    "native_correct": 18,
+    "native_p50": 0.07499140400068427,
+    "native_answers": {
+      "relevance-positive": "answer",
+      "relevance-negative": "irrelevant",
+      "sufficient-positive": "yes",
+      "sufficient-negative": "no",
+      "grounded-positive": "yes",
+      "grounded-negative": "no"
+    },
+    "load_seconds": 5.730469190999429,
+    "resource": {
+      "rss_max": 581140480,
+      "pss_max": 575532032,
+      "temperature_max": 71.626,
+      "available_min": 4207644672,
+      "sample_n": 249,
+      "swap_used_max": 51118080,
+      "swap_in_delta": 0,
+      "swap_out_delta": 0
+    },
+    "baseline_file": "opt-nano33-a76-t2-20261020T184729.jsonl",
+    "speedup": 1.1739200558111327,
+    "paired_quality_n": 8,
+    "changed_decisions": 0,
+    "quality_correct_delta": 0
+  },
+  {
+    "file": "opt-nano33-a76-ort-int8-20261020T185230.jsonl",
+    "model": "nano33",
+    "label": "a76-ort-int8",
+    "complete": true,
+    "errors": [],
+    "n": 20,
+    "p50": 0.5522747069999241,
+    "p95": 0.5535990939006297,
+    "timing_correct": 2,
+    "quality_n": 8,
+    "quality_correct": 0,
+    "cpu_cores": 1.999144213988315,
+    "timing_answers": [
+      "A008",
+      "A002",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A008",
+      "A002",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003"
+    ],
+    "native_answers_sequence": [
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no",
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no",
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no"
+    ],
+    "unique_timing_cases": 10,
+    "quality_p50": 5.328292248500475,
+    "quality_p95": 5.572426493050261,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 0,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 0,
+        "n": 2
+      },
+      "safety": {
+        "correct": 0,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 0,
+        "n": 2
+      }
+    },
+    "native_n": 18,
+    "native_correct": 18,
+    "native_p50": 0.03676402800101641,
+    "native_answers": {
+      "relevance-positive": "answer",
+      "relevance-negative": "irrelevant",
+      "sufficient-positive": "yes",
+      "sufficient-negative": "no",
+      "grounded-positive": "yes",
+      "grounded-negative": "no"
+    },
+    "load_seconds": 4.739553730998523,
+    "resource": {
+      "rss_max": 460529664,
+      "pss_max": 454937600,
+      "temperature_max": 66.493,
+      "available_min": 4329308160,
+      "sample_n": 115,
+      "swap_used_max": 51118080,
+      "swap_in_delta": 0,
+      "swap_out_delta": 0
+    },
+    "baseline_file": "opt-nano33-a76-t2-20261020T184729.jsonl",
+    "speedup": 2.5972025811070756,
+    "paired_quality_n": 8,
+    "changed_decisions": 7,
+    "quality_correct_delta": 0
+  },
+  {
+    "file": "opt-nano33-a76-t1-20261020T185741.jsonl",
+    "model": "nano33",
+    "label": "a76-t1",
+    "complete": true,
+    "errors": [],
+    "n": 20,
+    "p50": 2.5693248734996814,
+    "p95": 2.579522051150252,
+    "timing_correct": 2,
+    "quality_n": 8,
+    "quality_correct": 0,
+    "cpu_cores": 1.0022897810780647,
+    "timing_answers": [
+      "A003",
+      "A002",
+      "A000",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A000",
+      "A003",
+      "A002",
+      "A000",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A000"
+    ],
+    "native_answers_sequence": [
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no",
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no",
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no"
+    ],
+    "unique_timing_cases": 10,
+    "quality_p50": 25.923849776499992,
+    "quality_p95": 26.54346018930064,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 0,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 0,
+        "n": 2
+      },
+      "safety": {
+        "correct": 0,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 0,
+        "n": 2
+      }
+    },
+    "native_n": 18,
+    "native_correct": 18,
+    "native_p50": 0.20174871549988893,
+    "native_answers": {
+      "relevance-positive": "answer",
+      "relevance-negative": "irrelevant",
+      "sufficient-positive": "yes",
+      "sufficient-negative": "no",
+      "grounded-positive": "yes",
+      "grounded-negative": "no"
+    },
+    "load_seconds": 3.710096209999392,
+    "resource": {
+      "rss_max": 450883584,
+      "pss_max": 445425664,
+      "temperature_max": 60.264,
+      "available_min": 4415430656,
+      "sample_n": 523,
+      "swap_used_max": 51118080,
+      "swap_in_delta": 0,
+      "swap_out_delta": 0
+    },
+    "baseline_file": "opt-nano33-a76-t2-20261020T184729.jsonl",
+    "speedup": 0.5582670020808229,
+    "paired_quality_n": 8,
+    "changed_decisions": 0,
+    "quality_correct_delta": 0
+  },
+  {
+    "file": "opt-nano33-a76-t2-20261020T184729.jsonl",
+    "model": "nano33",
+    "label": "a76-t2",
+    "complete": true,
+    "errors": [],
+    "n": 20,
+    "p50": 1.4343692945003568,
+    "p95": 1.442626016749091,
+    "timing_correct": 2,
+    "quality_n": 8,
+    "quality_correct": 0,
+    "cpu_cores": 1.9783406056300303,
+    "timing_answers": [
+      "A003",
+      "A002",
+      "A000",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A000",
+      "A003",
+      "A002",
+      "A000",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A003",
+      "A000"
+    ],
+    "native_answers_sequence": [
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no",
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no",
+      "answer",
+      "irrelevant",
+      "yes",
+      "no",
+      "yes",
+      "no"
+    ],
+    "unique_timing_cases": 10,
+    "quality_p50": 14.33149435300038,
+    "quality_p95": 14.673139535049723,
+    "quality_by_suite": {
+      "literal": {
+        "correct": 0,
+        "n": 2
+      },
+      "paraphrase": {
+        "correct": 0,
+        "n": 2
+      },
+      "safety": {
+        "correct": 0,
+        "n": 2
+      },
+      "unknown": {
+        "correct": 0,
+        "n": 2
+      }
+    },
+    "native_n": 18,
+    "native_correct": 18,
+    "native_p50": 0.14539251849964785,
+    "native_answers": {
+      "relevance-positive": "answer",
+      "relevance-negative": "irrelevant",
+      "sufficient-positive": "yes",
+      "sufficient-negative": "no",
+      "grounded-positive": "yes",
+      "grounded-negative": "no"
+    },
+    "load_seconds": 3.851858059000733,
+    "resource": {
+      "rss_max": 461131776,
+      "pss_max": 455760896,
+      "temperature_max": 65.224,
+      "available_min": 4408541184,
+      "sample_n": 296,
+      "swap_used_max": 51118080,
+      "swap_in_delta": 0,
+      "swap_out_delta": 0
+    },
+    "baseline_file": "opt-nano33-a76-t2-20261020T184729.jsonl",
+    "speedup": 1.0,
+    "paired_quality_n": 8,
+    "changed_decisions": 0,
+    "quality_correct_delta": 0
+  }
+]

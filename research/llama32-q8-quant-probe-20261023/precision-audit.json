@@ -1,0 +1,3119 @@
+{
+  "layer0-allw8": {
+    "quantize_sha256": "014f2cc512a658f15762b6f201ed0f26a7f217fd1b832209cecb1a75eb2ef893",
+    "graph_sha256": "4a33c77f00aaa6aa9e72be2bc2f3363dff7ecf7b1efdab1df4f4a6b3d9062265",
+    "fc_count": 7,
+    "fc_weight_types": {
+      "i8": 7
+    },
+    "fc": [
+      {
+        "node": "fullconnect_110",
+        "name": "fullconnect",
+        "shape": [
+          8192,
+          2048
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 2048,
+          "scale_min": 0.00044608116149902344,
+          "scale_max": 0.00489044189453125
+        },
+        "inputs": [
+          {
+            "node": "@reshape_109:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 0.6421535611152649,
+              "min_value": -36.44855880737305,
+              "fl": 9
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 22.845430374145508,
+          "min_value": -11.711135864257812,
+          "fl": 10
+        }
+      },
+      {
+        "node": "fullconnect_113",
+        "name": "fullconnect",
+        "shape": [
+          2048,
+          512
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 512,
+          "scale_min": 9.85264778137207e-05,
+          "scale_max": 0.000514984130859375
+        },
+        "inputs": [
+          {
+            "node": "@reshape_112:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 4.137128829956055,
+              "min_value": -4.473643779754639,
+              "fl": 12
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.9986062049865723,
+          "min_value": -0.9654537439346313,
+          "fl": 15
+        }
+      },
+      {
+        "node": "fullconnect_116",
+        "name": "fullconnect",
+        "shape": [
+          2048,
+          2048
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 2048,
+          "scale_min": 0.00027489662170410156,
+          "scale_max": 0.002475738525390625
+        },
+        "inputs": [
+          {
+            "node": "@reshape_115:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 0.592782199382782,
+              "min_value": -0.7322285771369934,
+              "fl": 15
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.3967844843864441,
+          "min_value": -0.4361906945705414,
+          "fl": 16
+        }
+      },
+      {
+        "node": "fullconnect_119",
+        "name": "fullconnect",
+        "shape": [
+          2048,
+          512
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 512,
+          "scale_min": 0.0003306865692138672,
+          "scale_max": 0.00507354736328125
+        },
+        "inputs": [
+          {
+            "node": "@reshape_118:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 4.137128829956055,
+              "min_value": -4.473643779754639,
+              "fl": 12
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 10.894763946533203,
+          "min_value": -8.12242317199707,
+          "fl": 11
+        }
+      },
+      {
+        "node": "fullconnect_122",
+        "name": "fullconnect",
+        "shape": [
+          2048,
+          8192
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 8192,
+          "scale_min": 0.00027680397033691406,
+          "scale_max": 0.002414703369140625
+        },
+        "inputs": [
+          {
+            "node": "@reshape_121:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 2.6894896030426025,
+              "min_value": -2.4404067993164062,
+              "fl": 13
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 1.0858575105667114,
+          "min_value": -3.523132801055908,
+          "fl": 13
+        }
+      },
+      {
+        "node": "fullconnect_125",
+        "name": "fullconnect",
+        "shape": [
+          2048,
+          8192
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 8192,
+          "scale_min": 0.0002942085266113281,
+          "scale_max": 0.00467681884765625
+        },
+        "inputs": [
+          {
+            "node": "@reshape_124:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 2.6894896030426025,
+              "min_value": -2.4404067993164062,
+              "fl": 13
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 10.34582805633545,
+          "min_value": -3.454413652420044,
+          "fl": 11
+        }
+      },
+      {
+        "node": "fullconnect_128",
+        "name": "fullconnect",
+        "shape": [
+          2048,
+          2048
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 2048,
+          "scale_min": 0.00027108192443847656,
+          "scale_max": 0.005321502685546875
+        },
+        "inputs": [
+          {
+            "node": "@reshape_127:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 4.137128829956055,
+              "min_value": -4.473643779754639,
+              "fl": 12
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 14.371820449829102,
+          "min_value": -12.791254997253418,
+          "fl": 11
+        }
+      }
+    ],
+    "io": [
+      {
+        "node": "attach_hidden_out/out0_0",
+        "name": "attach_hidden_out/out0",
+        "op": "output",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "attach_new_k/out0_1",
+        "name": "attach_new_k/out0",
+        "op": "output",
+        "quant": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 10.965437889099121,
+          "min_value": -8.373693466186523,
+          "fl": 11
+        }
+      },
+      {
+        "node": "attach_new_v/out0_2",
+        "name": "attach_new_v/out0",
+        "op": "output",
+        "quant": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.9986062049865723,
+          "min_value": -0.9654537439346313,
+          "fl": 15
+        }
+      },
+      {
+        "node": "hidden_95",
+        "name": "hidden",
+        "op": "input",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "past_k_96",
+        "name": "past_k",
+        "op": "input",
+        "quant": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 10.965437889099121,
+          "min_value": -8.373693466186523,
+          "fl": 11
+        }
+      },
+      {
+        "node": "past_v_97",
+        "name": "past_v",
+        "op": "input",
+        "quant": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.9986062049865723,
+          "min_value": -0.9654537439346313,
+          "fl": 15
+        }
+      },
+      {
+        "node": "mask_98",
+        "name": "mask",
+        "op": "input",
+        "quant": {}
+      },
+      {
+        "node": "rope_cos_99",
+        "name": "rope_cos",
+        "op": "input",
+        "quant": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 1.0,
+          "min_value": -0.9873392581939697,
+          "fl": 15
+        }
+      },
+      {
+        "node": "rope_sin_100",
+        "name": "rope_sin",
+        "op": "input",
+        "quant": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.9999625086784363,
+          "min_value": -0.9165215492248535,
+          "fl": 15
+        }
+      }
+    ],
+    "activation_types": {
+      "float16": 48,
+      "i16": 65
+    },
+    "fp16_activations": [
+      {
+        "node": "@attach_hidden_out/out0_0:out0",
+        "name": "attach_hidden_out/out0",
+        "op": "output",
+        "qtype": "float16"
+      },
+      {
+        "node": "@hidden_out_5:out0",
+        "name": "hidden_out",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_4_output_0_9:out0",
+        "name": "Add_4_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_3_output_0_28:out0",
+        "name": "Mul_3_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@norm1_29:out0",
+        "name": "norm1",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_1_output_0_30:out0",
+        "name": "Div_1_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_output_0_38:out0",
+        "name": "Div_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_output_0_40:out0",
+        "name": "Add_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_12_output_0_45:out0",
+        "name": "Mul_12_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@norm2_46:out0",
+        "name": "norm2",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_4_output_0_47:out0",
+        "name": "Div_4_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_1_output_0_50:out0",
+        "name": "Mul_1_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Softmax_output_0_51:out0",
+        "name": "Softmax_output_0",
+        "op": "softmax",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_3_output_0_53:out0",
+        "name": "Div_3_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_2_output_0_57:out0",
+        "name": "Mul_2_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_output_0_58:out0",
+        "name": "Mul_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_1_output_0_59:out0",
+        "name": "Constant_1_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_3_output_0_60:out0",
+        "name": "Add_3_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_5_output_0_64:out0",
+        "name": "Add_5_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_10_output_0_66:out0",
+        "name": "Mul_10_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_9_output_0_67:out0",
+        "name": "Mul_9_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Divide_69:out0",
+        "name": "Divide",
+        "op": "divide",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_11_output_0_74:out0",
+        "name": "Mul_11_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Divide_76:out0",
+        "name": "Divide",
+        "op": "divide",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_43_output_0_77:out0",
+        "name": "Constant_43_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_1_output_0_78_acuity_mark_perm_101:out0",
+        "name": "Abs_1_output_0_78_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_3_output_0_28_acuity_mark_perm_102:out0",
+        "name": "Mul_3_output_0_28_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_2_output_0_57_acuity_mark_perm_103:out0",
+        "name": "Mul_2_output_0_57_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_12_output_0_45_acuity_mark_perm_104:out0",
+        "name": "Mul_12_output_0_45_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_11_output_0_74_acuity_mark_perm_106:out0",
+        "name": "Mul_11_output_0_74_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@hidden_95:out0",
+        "name": "hidden",
+        "op": "input",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_44_output_0_54:out0",
+        "name": "Constant_44_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Clip_output_0_48:out0",
+        "name": "Clip_output_0",
+        "op": "clipbyvalue",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_output_0_65:out0",
+        "name": "Abs_output_0",
+        "op": "abs",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Reciprocal_output_0_68:out0",
+        "name": "Reciprocal_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@ReduceMax_1_output_0_72:out0",
+        "name": "ReduceMax_1_output_0",
+        "op": "reducemax",
+        "qtype": "float16"
+      },
+      {
+        "node": "@ReduceMax_output_0_56:out0",
+        "name": "ReduceMax_output_0",
+        "op": "reducemax",
+        "qtype": "float16"
+      },
+      {
+        "node": "@ReduceMean_1_output_0_73:out0",
+        "name": "ReduceMean_1_output_0",
+        "op": "reducemean",
+        "qtype": "float16"
+      },
+      {
+        "node": "@ReduceMean_output_0_49:out0",
+        "name": "ReduceMean_output_0",
+        "op": "reducemean",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Clip_1_output_0_63:out0",
+        "name": "Clip_1_output_0",
+        "op": "clipbyvalue",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_3_output_0_53_acuity_mark_perm_107:out0",
+        "name": "Div_3_output_0_53_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Sqrt_1_output_0_55:out0",
+        "name": "Sqrt_1_output_0",
+        "op": "sqrt",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Reciprocal_1_output_0_75:out0",
+        "name": "Reciprocal_1_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Sqrt_output_0_32:out0",
+        "name": "Sqrt_output_0",
+        "op": "sqrt",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_output_0_38_acuity_mark_perm_105:out0",
+        "name": "Div_output_0_38_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_1_output_0_78:out0",
+        "name": "Abs_1_output_0",
+        "op": "abs",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_output_0_65_acuity_mark_perm_108:out0",
+        "name": "Abs_output_0_65_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_2_output_0_39:out0",
+        "name": "Constant_2_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      }
+    ],
+    "norm_softmax": [
+      {
+        "node": "Sqrt_output_0_32",
+        "name": "Sqrt_output_0",
+        "op": "sqrt",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "Softmax_output_0_51",
+        "name": "Softmax_output_0",
+        "op": "softmax",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "Sqrt_1_output_0_55",
+        "name": "Sqrt_1_output_0",
+        "op": "sqrt",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      }
+    ],
+    "note": "From retained compiler input graph and actual quantize file; NBG external IO verified separately via vip_query logs. Generated C was not retained in the first bounded build, so this is not an internal NBG disassembly."
+  },
+  "layer0-mixed": {
+    "quantize_sha256": "5a4409db182d3324fa0820f32e1e553ffd071716ee635a04eac0fd5bab36071c",
+    "graph_sha256": "4a33c77f00aaa6aa9e72be2bc2f3363dff7ecf7b1efdab1df4f4a6b3d9062265",
+    "fc_count": 7,
+    "fc_weight_types": {
+      "i8": 3,
+      "float16": 4
+    },
+    "fc": [
+      {
+        "node": "fullconnect_110",
+        "name": "fullconnect",
+        "shape": null,
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 2048,
+          "scale_min": 0.00044608116149902344,
+          "scale_max": 0.00489044189453125
+        },
+        "inputs": [
+          {
+            "node": "@reshape_109:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 0.6421535611152649,
+              "min_value": -36.44855880737305,
+              "fl": 9
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 22.845430374145508,
+          "min_value": -11.711135864257812,
+          "fl": 10
+        }
+      },
+      {
+        "node": "fullconnect_113",
+        "name": "fullconnect",
+        "shape": null,
+        "weight": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "inputs": [
+          {
+            "node": "@reshape_112:out0",
+            "quant": {
+              "qtype": "float16",
+              "quantizer": "float16"
+            }
+          }
+        ],
+        "output": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "fullconnect_116",
+        "name": "fullconnect",
+        "shape": null,
+        "weight": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "inputs": [
+          {
+            "node": "@reshape_115:out0",
+            "quant": {
+              "qtype": "float16",
+              "quantizer": "float16"
+            }
+          }
+        ],
+        "output": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "fullconnect_119",
+        "name": "fullconnect",
+        "shape": null,
+        "weight": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "inputs": [
+          {
+            "node": "@reshape_118:out0",
+            "quant": {
+              "qtype": "float16",
+              "quantizer": "float16"
+            }
+          }
+        ],
+        "output": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "fullconnect_122",
+        "name": "fullconnect",
+        "shape": null,
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 8192,
+          "scale_min": 0.00027680397033691406,
+          "scale_max": 0.002414703369140625
+        },
+        "inputs": [
+          {
+            "node": "@reshape_121:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 2.6894896030426025,
+              "min_value": -2.4404067993164062,
+              "fl": 13
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 1.0858575105667114,
+          "min_value": -3.523132801055908,
+          "fl": 13
+        }
+      },
+      {
+        "node": "fullconnect_125",
+        "name": "fullconnect",
+        "shape": null,
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 8192,
+          "scale_min": 0.0002942085266113281,
+          "scale_max": 0.00467681884765625
+        },
+        "inputs": [
+          {
+            "node": "@reshape_124:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 2.6894896030426025,
+              "min_value": -2.4404067993164062,
+              "fl": 13
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 10.34582805633545,
+          "min_value": -3.454413652420044,
+          "fl": 11
+        }
+      },
+      {
+        "node": "fullconnect_128",
+        "name": "fullconnect",
+        "shape": null,
+        "weight": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "inputs": [
+          {
+            "node": "@reshape_127:out0",
+            "quant": {
+              "qtype": "float16",
+              "quantizer": "float16"
+            }
+          }
+        ],
+        "output": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      }
+    ],
+    "io": [
+      {
+        "node": "attach_hidden_out/out0_0",
+        "name": "attach_hidden_out/out0",
+        "op": "output",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "attach_new_k/out0_1",
+        "name": "attach_new_k/out0",
+        "op": "output",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "attach_new_v/out0_2",
+        "name": "attach_new_v/out0",
+        "op": "output",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "hidden_95",
+        "name": "hidden",
+        "op": "input",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "past_k_96",
+        "name": "past_k",
+        "op": "input",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "past_v_97",
+        "name": "past_v",
+        "op": "input",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "mask_98",
+        "name": "mask",
+        "op": "input",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "rope_cos_99",
+        "name": "rope_cos",
+        "op": "input",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "rope_sin_100",
+        "name": "rope_sin",
+        "op": "input",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      }
+    ],
+    "activation_types": {
+      "float16": 86,
+      "i16": 11
+    },
+    "fp16_activations": [
+      {
+        "node": "@attach_hidden_out/out0_0:out0",
+        "name": "attach_hidden_out/out0",
+        "op": "output",
+        "qtype": "float16"
+      },
+      {
+        "node": "@attach_new_k/out0_1:out0",
+        "name": "attach_new_k/out0",
+        "op": "output",
+        "qtype": "float16"
+      },
+      {
+        "node": "@attach_new_v/out0_2:out0",
+        "name": "attach_new_v/out0",
+        "op": "output",
+        "qtype": "float16"
+      },
+      {
+        "node": "@new_v_3:out0",
+        "name": "new_v",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@new_k_4:out0",
+        "name": "new_k",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@hidden_out_5:out0",
+        "name": "hidden_out",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Reshape_2_output_0_6:out0",
+        "name": "Reshape_2_output_0",
+        "op": "reshape",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_7_output_0_7:out0",
+        "name": "Mul_7_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_8_output_0_8:out0",
+        "name": "Mul_8_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_4_output_0_9:out0",
+        "name": "Add_4_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Transpose_1_output_0_12:out0",
+        "name": "Transpose_1_output_0",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Reshape_1_output_0_13:out0",
+        "name": "Reshape_1_output_0",
+        "op": "reshape",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Concat_1_output_0_14:out0",
+        "name": "Concat_1_output_0",
+        "op": "concat",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Slice_3_output_0_15:out0",
+        "name": "Slice_3_output_0",
+        "op": "slice",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Neg_1_output_0_16:out0",
+        "name": "Neg_1_output_0",
+        "op": "neg",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_4_output_0_20:out0",
+        "name": "Mul_4_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Slice_2_output_0_23:out0",
+        "name": "Slice_2_output_0",
+        "op": "slice",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Reshape_5_output_0_24:out0",
+        "name": "Reshape_5_output_0",
+        "op": "reshape",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_3_output_0_28:out0",
+        "name": "Mul_3_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@norm1_29:out0",
+        "name": "norm1",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_1_output_0_30:out0",
+        "name": "Div_1_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Transpose_4_output_0_33:out0",
+        "name": "Transpose_4_output_0",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_output_0_38:out0",
+        "name": "Div_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_output_0_40:out0",
+        "name": "Add_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@MatMul_4_output_0_41:out0",
+        "name": "MatMul_4_output_0",
+        "op": "matmul",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Reshape_4_output_0_42:out0",
+        "name": "Reshape_4_output_0",
+        "op": "reshape",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Tile_1_output_0_44:out0",
+        "name": "Tile_1_output_0",
+        "op": "tile",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_12_output_0_45:out0",
+        "name": "Mul_12_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@norm2_46:out0",
+        "name": "norm2",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_4_output_0_47:out0",
+        "name": "Div_4_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_1_output_0_50:out0",
+        "name": "Mul_1_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Softmax_output_0_51:out0",
+        "name": "Softmax_output_0",
+        "op": "softmax",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Unsqueeze_1_output_0_52:out0",
+        "name": "Unsqueeze_1_output_0",
+        "op": "reshape",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_3_output_0_53:out0",
+        "name": "Div_3_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_2_output_0_57:out0",
+        "name": "Mul_2_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_output_0_58:out0",
+        "name": "Mul_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_1_output_0_59:out0",
+        "name": "Constant_1_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_3_output_0_60:out0",
+        "name": "Add_3_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Concat_4_output_0_61:out0",
+        "name": "Concat_4_output_0",
+        "op": "concat",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_2_output_0_62:out0",
+        "name": "Div_2_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_5_output_0_64:out0",
+        "name": "Add_5_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_10_output_0_66:out0",
+        "name": "Mul_10_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_9_output_0_67:out0",
+        "name": "Mul_9_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Divide_69:out0",
+        "name": "Divide",
+        "op": "divide",
+        "qtype": "float16"
+      },
+      {
+        "node": "@MatMul_3_output_0_70:out0",
+        "name": "MatMul_3_output_0",
+        "op": "matmul",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_11_output_0_74:out0",
+        "name": "Mul_11_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Divide_76:out0",
+        "name": "Divide",
+        "op": "divide",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_43_output_0_77:out0",
+        "name": "Constant_43_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_1_output_0_79:out0",
+        "name": "Add_1_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Transpose_3_output_0_80:out0",
+        "name": "Transpose_3_output_0",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Reshape_3_output_0_81:out0",
+        "name": "Reshape_3_output_0",
+        "op": "reshape",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_5_output_0_82:out0",
+        "name": "Mul_5_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_6_output_0_83:out0",
+        "name": "Mul_6_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Tile_output_0_84:out0",
+        "name": "Tile_output_0",
+        "op": "tile",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Transpose_output_0_85:out0",
+        "name": "Transpose_output_0",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Reshape_output_0_86:out0",
+        "name": "Reshape_output_0",
+        "op": "reshape",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Concat_output_0_87:out0",
+        "name": "Concat_output_0",
+        "op": "concat",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Slice_1_output_0_88:out0",
+        "name": "Slice_1_output_0",
+        "op": "slice",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Unsqueeze_output_0_89:out0",
+        "name": "Unsqueeze_output_0",
+        "op": "reshape",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Neg_output_0_91:out0",
+        "name": "Neg_output_0",
+        "op": "neg",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Slice_output_0_92:out0",
+        "name": "Slice_output_0",
+        "op": "slice",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Concat_2_output_0_93:out0",
+        "name": "Concat_2_output_0",
+        "op": "concat",
+        "qtype": "float16"
+      },
+      {
+        "node": "@past_k_96:out0",
+        "name": "past_k",
+        "op": "input",
+        "qtype": "float16"
+      },
+      {
+        "node": "@past_v_97:out0",
+        "name": "past_v",
+        "op": "input",
+        "qtype": "float16"
+      },
+      {
+        "node": "@rope_cos_99:out0",
+        "name": "rope_cos",
+        "op": "input",
+        "qtype": "float16"
+      },
+      {
+        "node": "@rope_sin_100:out0",
+        "name": "rope_sin",
+        "op": "input",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_1_output_0_78_acuity_mark_perm_101:out0",
+        "name": "Abs_1_output_0_78_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_3_output_0_28_acuity_mark_perm_102:out0",
+        "name": "Mul_3_output_0_28_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_2_output_0_57_acuity_mark_perm_103:out0",
+        "name": "Mul_2_output_0_57_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_12_output_0_45_acuity_mark_perm_104:out0",
+        "name": "Mul_12_output_0_45_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_11_output_0_74_acuity_mark_perm_106:out0",
+        "name": "Mul_11_output_0_74_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@reshape_112:out0",
+        "name": "reshape",
+        "op": "reshape",
+        "qtype": "float16"
+      },
+      {
+        "node": "@fullconnect_113:out0",
+        "name": "fullconnect",
+        "op": "fullconnect",
+        "qtype": "float16"
+      },
+      {
+        "node": "@reshape_114:out0",
+        "name": "reshape",
+        "op": "reshape",
+        "qtype": "float16"
+      },
+      {
+        "node": "@reshape_115:out0",
+        "name": "reshape",
+        "op": "reshape",
+        "qtype": "float16"
+      },
+      {
+        "node": "@fullconnect_116:out0",
+        "name": "fullconnect",
+        "op": "fullconnect",
+        "qtype": "float16"
+      },
+      {
+        "node": "@reshape_117:out0",
+        "name": "reshape",
+        "op": "reshape",
+        "qtype": "float16"
+      },
+      {
+        "node": "@reshape_118:out0",
+        "name": "reshape",
+        "op": "reshape",
+        "qtype": "float16"
+      },
+      {
+        "node": "@fullconnect_119:out0",
+        "name": "fullconnect",
+        "op": "fullconnect",
+        "qtype": "float16"
+      },
+      {
+        "node": "@reshape_120:out0",
+        "name": "reshape",
+        "op": "reshape",
+        "qtype": "float16"
+      },
+      {
+        "node": "@reshape_127:out0",
+        "name": "reshape",
+        "op": "reshape",
+        "qtype": "float16"
+      },
+      {
+        "node": "@fullconnect_128:out0",
+        "name": "fullconnect",
+        "op": "fullconnect",
+        "qtype": "float16"
+      },
+      {
+        "node": "@reshape_129:out0",
+        "name": "reshape",
+        "op": "reshape",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Sigmoid_output_0_35_Mul_14_output_0_26:out0",
+        "name": "swish",
+        "op": "swish",
+        "qtype": "float16"
+      },
+      {
+        "node": "@norm1_29:data",
+        "name": "norm1",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@norm2_46:data",
+        "name": "norm2",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_1_output_0_59:data",
+        "name": "Constant_1_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_43_output_0_77:data",
+        "name": "Constant_43_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@hidden_95:out0",
+        "name": "hidden",
+        "op": "input",
+        "qtype": "float16"
+      },
+      {
+        "node": "@mask_98:out0",
+        "name": "mask",
+        "op": "input",
+        "qtype": "float16"
+      }
+    ],
+    "norm_softmax": [
+      {
+        "node": "Sqrt_output_0_32",
+        "name": "Sqrt_output_0",
+        "op": "sqrt",
+        "quant": {}
+      },
+      {
+        "node": "Softmax_output_0_51",
+        "name": "Softmax_output_0",
+        "op": "softmax",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "Sqrt_1_output_0_55",
+        "name": "Sqrt_1_output_0",
+        "op": "sqrt",
+        "quant": {}
+      }
+    ],
+    "note": "From retained compiler input graph and actual quantize file; NBG external IO verified separately via vip_query logs. Generated C was not retained in the first bounded build, so this is not an internal NBG disassembly."
+  },
+  "head0-w8": {
+    "quantize_sha256": "1647d34035492c7b432f658813808c3980a7014835cbbfff94fd69f00825c2cd",
+    "graph_sha256": "97799e6f72892aa73c1459e7794d690c6cdd6bc72df982d29a14bbbb6967cfbe",
+    "fc_count": 1,
+    "fc_weight_types": {
+      "i8": 1
+    },
+    "fc": [
+      {
+        "node": "fullconnect_27",
+        "name": "fullconnect",
+        "shape": [
+          2048,
+          32064
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 32064,
+          "scale_min": 0.00036716461181640625,
+          "scale_max": 0.0017681121826171875
+        },
+        "inputs": [
+          {
+            "node": "@reshape_26:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 20.207019805908203,
+              "min_value": -34.30007553100586,
+              "fl": 9
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 14.2783203125,
+          "min_value": -12.24972915649414,
+          "fl": 11
+        }
+      }
+    ],
+    "io": [
+      {
+        "node": "attach_logits/out0_0",
+        "name": "attach_logits/out0",
+        "op": "output",
+        "quant": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 14.2783203125,
+          "min_value": -12.24972915649414,
+          "fl": 11
+        }
+      },
+      {
+        "node": "hidden_21",
+        "name": "hidden",
+        "op": "input",
+        "quant": {}
+      }
+    ],
+    "activation_types": {
+      "i16": 5,
+      "float16": 21
+    },
+    "fp16_activations": [
+      {
+        "node": "@Mul_3_output_0_4:out0",
+        "name": "Mul_3_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@scale_5:out0",
+        "name": "scale",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_output_0_6:out0",
+        "name": "Div_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_1_output_0_7:out0",
+        "name": "Div_1_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_output_0_11:out0",
+        "name": "Add_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_1_output_0_14:out0",
+        "name": "Mul_1_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_2_output_0_16:out0",
+        "name": "Mul_2_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_output_0_17:out0",
+        "name": "Mul_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_1_output_0_18:out0",
+        "name": "Constant_1_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Divide_20:out0",
+        "name": "Divide",
+        "op": "divide",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_2_output_0_16_acuity_mark_perm_22:out0",
+        "name": "Mul_2_output_0_16_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_3_output_0_4_acuity_mark_perm_23:out0",
+        "name": "Mul_3_output_0_4_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_output_0_6_acuity_mark_perm_24:out0",
+        "name": "Div_output_0_6_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Clip_output_0_9:out0",
+        "name": "Clip_output_0",
+        "op": "clipbyvalue",
+        "qtype": "float16"
+      },
+      {
+        "node": "@ReduceMax_output_0_12:out0",
+        "name": "ReduceMax_output_0",
+        "op": "reducemax",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_output_0_15:out0",
+        "name": "Abs_output_0",
+        "op": "abs",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_output_0_15_acuity_mark_perm_25:out0",
+        "name": "Abs_output_0_15_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_2_output_0_10:out0",
+        "name": "Constant_2_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Sqrt_output_0_8:out0",
+        "name": "Sqrt_output_0",
+        "op": "sqrt",
+        "qtype": "float16"
+      },
+      {
+        "node": "@ReduceMean_output_0_13:out0",
+        "name": "ReduceMean_output_0",
+        "op": "reducemean",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Reciprocal_output_0_19:out0",
+        "name": "Reciprocal_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      }
+    ],
+    "norm_softmax": [
+      {
+        "node": "Sqrt_output_0_8",
+        "name": "Sqrt_output_0",
+        "op": "sqrt",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      }
+    ],
+    "note": "From retained compiler input graph and actual quantize file; NBG external IO verified separately via vip_query logs. Generated C was not retained in the first bounded build, so this is not an internal NBG disassembly."
+  },
+  "head1-w8": {
+    "quantize_sha256": "3d9644131879b465d3b02c6f7ef2006de78a4e6a137c665be85a5bfe266efe19",
+    "graph_sha256": "97799e6f72892aa73c1459e7794d690c6cdd6bc72df982d29a14bbbb6967cfbe",
+    "fc_count": 1,
+    "fc_weight_types": {
+      "i8": 1
+    },
+    "fc": [
+      {
+        "node": "fullconnect_27",
+        "name": "fullconnect",
+        "shape": [
+          2048,
+          32064
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 32064,
+          "scale_min": 0.0004324913024902344,
+          "scale_max": 0.0013074874877929688
+        },
+        "inputs": [
+          {
+            "node": "@reshape_26:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 20.207019805908203,
+              "min_value": -34.30007553100586,
+              "fl": 9
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 16.246410369873047,
+          "min_value": -11.264973640441895,
+          "fl": 10
+        }
+      }
+    ],
+    "io": [
+      {
+        "node": "attach_logits/out0_0",
+        "name": "attach_logits/out0",
+        "op": "output",
+        "quant": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 16.246410369873047,
+          "min_value": -11.264973640441895,
+          "fl": 10
+        }
+      },
+      {
+        "node": "hidden_21",
+        "name": "hidden",
+        "op": "input",
+        "quant": {}
+      }
+    ],
+    "activation_types": {
+      "i16": 5,
+      "float16": 21
+    },
+    "fp16_activations": [
+      {
+        "node": "@Mul_3_output_0_4:out0",
+        "name": "Mul_3_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@scale_5:out0",
+        "name": "scale",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_output_0_6:out0",
+        "name": "Div_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_1_output_0_7:out0",
+        "name": "Div_1_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_output_0_11:out0",
+        "name": "Add_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_1_output_0_14:out0",
+        "name": "Mul_1_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_2_output_0_16:out0",
+        "name": "Mul_2_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_output_0_17:out0",
+        "name": "Mul_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_1_output_0_18:out0",
+        "name": "Constant_1_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Divide_20:out0",
+        "name": "Divide",
+        "op": "divide",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_2_output_0_16_acuity_mark_perm_22:out0",
+        "name": "Mul_2_output_0_16_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_3_output_0_4_acuity_mark_perm_23:out0",
+        "name": "Mul_3_output_0_4_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_output_0_6_acuity_mark_perm_24:out0",
+        "name": "Div_output_0_6_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Clip_output_0_9:out0",
+        "name": "Clip_output_0",
+        "op": "clipbyvalue",
+        "qtype": "float16"
+      },
+      {
+        "node": "@ReduceMax_output_0_12:out0",
+        "name": "ReduceMax_output_0",
+        "op": "reducemax",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_output_0_15:out0",
+        "name": "Abs_output_0",
+        "op": "abs",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_output_0_15_acuity_mark_perm_25:out0",
+        "name": "Abs_output_0_15_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_2_output_0_10:out0",
+        "name": "Constant_2_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Sqrt_output_0_8:out0",
+        "name": "Sqrt_output_0",
+        "op": "sqrt",
+        "qtype": "float16"
+      },
+      {
+        "node": "@ReduceMean_output_0_13:out0",
+        "name": "ReduceMean_output_0",
+        "op": "reducemean",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Reciprocal_output_0_19:out0",
+        "name": "Reciprocal_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      }
+    ],
+    "norm_softmax": [
+      {
+        "node": "Sqrt_output_0_8",
+        "name": "Sqrt_output_0",
+        "op": "sqrt",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      }
+    ],
+    "note": "From retained compiler input graph and actual quantize file; NBG external IO verified separately via vip_query logs. Generated C was not retained in the first bounded build, so this is not an internal NBG disassembly."
+  },
+  "head2-w8": {
+    "quantize_sha256": "0aa2bc87f67b2ecdf549ac72e4293afd3b69a887fb924451b01681bc0c783422",
+    "graph_sha256": "97799e6f72892aa73c1459e7794d690c6cdd6bc72df982d29a14bbbb6967cfbe",
+    "fc_count": 1,
+    "fc_weight_types": {
+      "i8": 1
+    },
+    "fc": [
+      {
+        "node": "fullconnect_27",
+        "name": "fullconnect",
+        "shape": [
+          2048,
+          32064
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 32064,
+          "scale_min": 0.0004191398620605469,
+          "scale_max": 0.001415252685546875
+        },
+        "inputs": [
+          {
+            "node": "@reshape_26:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 20.207019805908203,
+              "min_value": -34.30007553100586,
+              "fl": 9
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 11.86567497253418,
+          "min_value": -10.969039916992188,
+          "fl": 11
+        }
+      }
+    ],
+    "io": [
+      {
+        "node": "attach_logits/out0_0",
+        "name": "attach_logits/out0",
+        "op": "output",
+        "quant": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 11.86567497253418,
+          "min_value": -10.969039916992188,
+          "fl": 11
+        }
+      },
+      {
+        "node": "hidden_21",
+        "name": "hidden",
+        "op": "input",
+        "quant": {}
+      }
+    ],
+    "activation_types": {
+      "i16": 5,
+      "float16": 21
+    },
+    "fp16_activations": [
+      {
+        "node": "@Mul_3_output_0_4:out0",
+        "name": "Mul_3_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@scale_5:out0",
+        "name": "scale",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_output_0_6:out0",
+        "name": "Div_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_1_output_0_7:out0",
+        "name": "Div_1_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_output_0_11:out0",
+        "name": "Add_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_1_output_0_14:out0",
+        "name": "Mul_1_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_2_output_0_16:out0",
+        "name": "Mul_2_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_output_0_17:out0",
+        "name": "Mul_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_1_output_0_18:out0",
+        "name": "Constant_1_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Divide_20:out0",
+        "name": "Divide",
+        "op": "divide",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_2_output_0_16_acuity_mark_perm_22:out0",
+        "name": "Mul_2_output_0_16_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_3_output_0_4_acuity_mark_perm_23:out0",
+        "name": "Mul_3_output_0_4_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_output_0_6_acuity_mark_perm_24:out0",
+        "name": "Div_output_0_6_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Clip_output_0_9:out0",
+        "name": "Clip_output_0",
+        "op": "clipbyvalue",
+        "qtype": "float16"
+      },
+      {
+        "node": "@ReduceMax_output_0_12:out0",
+        "name": "ReduceMax_output_0",
+        "op": "reducemax",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_output_0_15:out0",
+        "name": "Abs_output_0",
+        "op": "abs",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_output_0_15_acuity_mark_perm_25:out0",
+        "name": "Abs_output_0_15_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_2_output_0_10:out0",
+        "name": "Constant_2_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Sqrt_output_0_8:out0",
+        "name": "Sqrt_output_0",
+        "op": "sqrt",
+        "qtype": "float16"
+      },
+      {
+        "node": "@ReduceMean_output_0_13:out0",
+        "name": "ReduceMean_output_0",
+        "op": "reducemean",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Reciprocal_output_0_19:out0",
+        "name": "Reciprocal_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      }
+    ],
+    "norm_softmax": [
+      {
+        "node": "Sqrt_output_0_8",
+        "name": "Sqrt_output_0",
+        "op": "sqrt",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      }
+    ],
+    "note": "From retained compiler input graph and actual quantize file; NBG external IO verified separately via vip_query logs. Generated C was not retained in the first bounded build, so this is not an internal NBG disassembly."
+  },
+  "head3-w8": {
+    "quantize_sha256": "838a53277bd190c08f21704dab22ed39b8a3377fc8d324b650225d7d2687c9cc",
+    "graph_sha256": "97799e6f72892aa73c1459e7794d690c6cdd6bc72df982d29a14bbbb6967cfbe",
+    "fc_count": 1,
+    "fc_weight_types": {
+      "i8": 1
+    },
+    "fc": [
+      {
+        "node": "fullconnect_27",
+        "name": "fullconnect",
+        "shape": [
+          2048,
+          32064
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 32064,
+          "scale_min": 0.0004229545593261719,
+          "scale_max": 0.00284576416015625
+        },
+        "inputs": [
+          {
+            "node": "@reshape_26:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 20.207019805908203,
+              "min_value": -34.30007553100586,
+              "fl": 9
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 17.23243522644043,
+          "min_value": -8.78895378112793,
+          "fl": 10
+        }
+      }
+    ],
+    "io": [
+      {
+        "node": "attach_logits/out0_0",
+        "name": "attach_logits/out0",
+        "op": "output",
+        "quant": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 17.23243522644043,
+          "min_value": -8.78895378112793,
+          "fl": 10
+        }
+      },
+      {
+        "node": "hidden_21",
+        "name": "hidden",
+        "op": "input",
+        "quant": {}
+      }
+    ],
+    "activation_types": {
+      "i16": 5,
+      "float16": 21
+    },
+    "fp16_activations": [
+      {
+        "node": "@Mul_3_output_0_4:out0",
+        "name": "Mul_3_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@scale_5:out0",
+        "name": "scale",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_output_0_6:out0",
+        "name": "Div_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_1_output_0_7:out0",
+        "name": "Div_1_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_output_0_11:out0",
+        "name": "Add_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_1_output_0_14:out0",
+        "name": "Mul_1_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_2_output_0_16:out0",
+        "name": "Mul_2_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_output_0_17:out0",
+        "name": "Mul_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_1_output_0_18:out0",
+        "name": "Constant_1_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Divide_20:out0",
+        "name": "Divide",
+        "op": "divide",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_2_output_0_16_acuity_mark_perm_22:out0",
+        "name": "Mul_2_output_0_16_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_3_output_0_4_acuity_mark_perm_23:out0",
+        "name": "Mul_3_output_0_4_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_output_0_6_acuity_mark_perm_24:out0",
+        "name": "Div_output_0_6_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Clip_output_0_9:out0",
+        "name": "Clip_output_0",
+        "op": "clipbyvalue",
+        "qtype": "float16"
+      },
+      {
+        "node": "@ReduceMax_output_0_12:out0",
+        "name": "ReduceMax_output_0",
+        "op": "reducemax",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_output_0_15:out0",
+        "name": "Abs_output_0",
+        "op": "abs",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_output_0_15_acuity_mark_perm_25:out0",
+        "name": "Abs_output_0_15_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_2_output_0_10:out0",
+        "name": "Constant_2_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Sqrt_output_0_8:out0",
+        "name": "Sqrt_output_0",
+        "op": "sqrt",
+        "qtype": "float16"
+      },
+      {
+        "node": "@ReduceMean_output_0_13:out0",
+        "name": "ReduceMean_output_0",
+        "op": "reducemean",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Reciprocal_output_0_19:out0",
+        "name": "Reciprocal_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      }
+    ],
+    "norm_softmax": [
+      {
+        "node": "Sqrt_output_0_8",
+        "name": "Sqrt_output_0",
+        "op": "sqrt",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      }
+    ],
+    "note": "From retained compiler input graph and actual quantize file; NBG external IO verified separately via vip_query logs. Generated C was not retained in the first bounded build, so this is not an internal NBG disassembly."
+  },
+  "q4-layer0-allw8": {
+    "quantize_sha256": "e5c6322000e52cd6da8c948c7b154573e588c28186367421dc19f1448ebf77d1",
+    "graph_sha256": "4a33c77f00aaa6aa9e72be2bc2f3363dff7ecf7b1efdab1df4f4a6b3d9062265",
+    "fc_count": 7,
+    "fc_weight_types": {
+      "i8": 7
+    },
+    "fc": [
+      {
+        "node": "fullconnect_110",
+        "name": "fullconnect",
+        "shape": [
+          8192,
+          2048
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 2048,
+          "scale_min": 0.0004469503473956138,
+          "scale_max": 0.004890381824225187
+        },
+        "inputs": [
+          {
+            "node": "@reshape_109:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 0.63668292760849,
+              "min_value": -36.32200622558594,
+              "fl": 9
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 22.67099952697754,
+          "min_value": -11.654759407043457,
+          "fl": 10
+        }
+      },
+      {
+        "node": "fullconnect_113",
+        "name": "fullconnect",
+        "shape": [
+          2048,
+          512
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 512,
+          "scale_min": 9.870153735391796e-05,
+          "scale_max": 0.0005177175044082105
+        },
+        "inputs": [
+          {
+            "node": "@reshape_112:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 4.119669437408447,
+              "min_value": -4.473256587982178,
+              "fl": 12
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.9975972771644592,
+          "min_value": -0.9665173888206482,
+          "fl": 15
+        }
+      },
+      {
+        "node": "fullconnect_116",
+        "name": "fullconnect",
+        "shape": [
+          2048,
+          2048
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 2048,
+          "scale_min": 0.00026989358593709767,
+          "scale_max": 0.0024827371817082167
+        },
+        "inputs": [
+          {
+            "node": "@reshape_115:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 0.5737282037734985,
+              "min_value": -0.7325928211212158,
+              "fl": 15
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.3858410716056824,
+          "min_value": -0.43226689100265503,
+          "fl": 16
+        }
+      },
+      {
+        "node": "fullconnect_119",
+        "name": "fullconnect",
+        "shape": [
+          2048,
+          512
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 512,
+          "scale_min": 0.0003309803723823279,
+          "scale_max": 0.005055176094174385
+        },
+        "inputs": [
+          {
+            "node": "@reshape_118:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 4.119669437408447,
+              "min_value": -4.473256587982178,
+              "fl": 12
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 10.847049713134766,
+          "min_value": -8.10307788848877,
+          "fl": 11
+        }
+      },
+      {
+        "node": "fullconnect_122",
+        "name": "fullconnect",
+        "shape": [
+          2048,
+          8192
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 8192,
+          "scale_min": 0.0002693078713491559,
+          "scale_max": 0.0024089361540973186
+        },
+        "inputs": [
+          {
+            "node": "@reshape_121:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 2.6981029510498047,
+              "min_value": -2.4335689544677734,
+              "fl": 13
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 1.0942449569702148,
+          "min_value": -3.5109548568725586,
+          "fl": 13
+        }
+      },
+      {
+        "node": "fullconnect_125",
+        "name": "fullconnect",
+        "shape": [
+          2048,
+          8192
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 8192,
+          "scale_min": 0.00029283808544278145,
+          "scale_max": 0.004681624937802553
+        },
+        "inputs": [
+          {
+            "node": "@reshape_124:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 2.6981029510498047,
+              "min_value": -2.4335689544677734,
+              "fl": 13
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 10.345667839050293,
+          "min_value": -3.4765610694885254,
+          "fl": 11
+        }
+      },
+      {
+        "node": "fullconnect_128",
+        "name": "fullconnect",
+        "shape": [
+          2048,
+          2048
+        ],
+        "weight": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "channel_dim": -1,
+          "scale_count": 2048,
+          "scale_min": 0.0002759704366326332,
+          "scale_max": 0.005332586355507374
+        },
+        "inputs": [
+          {
+            "node": "@reshape_127:out0",
+            "quant": {
+              "qtype": "i16",
+              "quantizer": "dynamic_fixed_point",
+              "rounding": "rtne",
+              "max_value": 4.119669437408447,
+              "min_value": -4.473256587982178,
+              "fl": 12
+            }
+          }
+        ],
+        "output": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 14.33094310760498,
+          "min_value": -12.767550468444824,
+          "fl": 11
+        }
+      }
+    ],
+    "io": [
+      {
+        "node": "attach_hidden_out/out0_0",
+        "name": "attach_hidden_out/out0",
+        "op": "output",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "attach_new_k/out0_1",
+        "name": "attach_new_k/out0",
+        "op": "output",
+        "quant": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 10.87595272064209,
+          "min_value": -8.36967658996582,
+          "fl": 11
+        }
+      },
+      {
+        "node": "attach_new_v/out0_2",
+        "name": "attach_new_v/out0",
+        "op": "output",
+        "quant": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.9975972771644592,
+          "min_value": -0.9665173888206482,
+          "fl": 15
+        }
+      },
+      {
+        "node": "hidden_95",
+        "name": "hidden",
+        "op": "input",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "past_k_96",
+        "name": "past_k",
+        "op": "input",
+        "quant": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 10.87595272064209,
+          "min_value": -8.36967658996582,
+          "fl": 11
+        }
+      },
+      {
+        "node": "past_v_97",
+        "name": "past_v",
+        "op": "input",
+        "quant": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.9975972771644592,
+          "min_value": -0.9665173888206482,
+          "fl": 15
+        }
+      },
+      {
+        "node": "mask_98",
+        "name": "mask",
+        "op": "input",
+        "quant": {}
+      },
+      {
+        "node": "rope_cos_99",
+        "name": "rope_cos",
+        "op": "input",
+        "quant": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 1.0,
+          "min_value": -0.9873392581939697,
+          "fl": 15
+        }
+      },
+      {
+        "node": "rope_sin_100",
+        "name": "rope_sin",
+        "op": "input",
+        "quant": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.9999625086784363,
+          "min_value": -0.9165215492248535,
+          "fl": 15
+        }
+      }
+    ],
+    "activation_types": {
+      "float16": 48,
+      "i16": 65
+    },
+    "fp16_activations": [
+      {
+        "node": "@attach_hidden_out/out0_0:out0",
+        "name": "attach_hidden_out/out0",
+        "op": "output",
+        "qtype": "float16"
+      },
+      {
+        "node": "@hidden_out_5:out0",
+        "name": "hidden_out",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_4_output_0_9:out0",
+        "name": "Add_4_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_3_output_0_28:out0",
+        "name": "Mul_3_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@norm1_29:out0",
+        "name": "norm1",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_1_output_0_30:out0",
+        "name": "Div_1_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_output_0_38:out0",
+        "name": "Div_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_output_0_40:out0",
+        "name": "Add_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_12_output_0_45:out0",
+        "name": "Mul_12_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@norm2_46:out0",
+        "name": "norm2",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_4_output_0_47:out0",
+        "name": "Div_4_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_1_output_0_50:out0",
+        "name": "Mul_1_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Softmax_output_0_51:out0",
+        "name": "Softmax_output_0",
+        "op": "softmax",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_3_output_0_53:out0",
+        "name": "Div_3_output_0",
+        "op": "real_div",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_2_output_0_57:out0",
+        "name": "Mul_2_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_output_0_58:out0",
+        "name": "Mul_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_1_output_0_59:out0",
+        "name": "Constant_1_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_3_output_0_60:out0",
+        "name": "Add_3_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Add_5_output_0_64:out0",
+        "name": "Add_5_output_0",
+        "op": "add",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_10_output_0_66:out0",
+        "name": "Mul_10_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_9_output_0_67:out0",
+        "name": "Mul_9_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Divide_69:out0",
+        "name": "Divide",
+        "op": "divide",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_11_output_0_74:out0",
+        "name": "Mul_11_output_0",
+        "op": "multiply",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Divide_76:out0",
+        "name": "Divide",
+        "op": "divide",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_43_output_0_77:out0",
+        "name": "Constant_43_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_1_output_0_78_acuity_mark_perm_101:out0",
+        "name": "Abs_1_output_0_78_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_3_output_0_28_acuity_mark_perm_102:out0",
+        "name": "Mul_3_output_0_28_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_2_output_0_57_acuity_mark_perm_103:out0",
+        "name": "Mul_2_output_0_57_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_12_output_0_45_acuity_mark_perm_104:out0",
+        "name": "Mul_12_output_0_45_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Mul_11_output_0_74_acuity_mark_perm_106:out0",
+        "name": "Mul_11_output_0_74_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@hidden_95:out0",
+        "name": "hidden",
+        "op": "input",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Sqrt_1_output_0_55:out0",
+        "name": "Sqrt_1_output_0",
+        "op": "sqrt",
+        "qtype": "float16"
+      },
+      {
+        "node": "@ReduceMax_1_output_0_72:out0",
+        "name": "ReduceMax_1_output_0",
+        "op": "reducemax",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_1_output_0_78:out0",
+        "name": "Abs_1_output_0",
+        "op": "abs",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Reciprocal_output_0_68:out0",
+        "name": "Reciprocal_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_output_0_38_acuity_mark_perm_105:out0",
+        "name": "Div_output_0_38_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Sqrt_output_0_32:out0",
+        "name": "Sqrt_output_0",
+        "op": "sqrt",
+        "qtype": "float16"
+      },
+      {
+        "node": "@ReduceMean_output_0_49:out0",
+        "name": "ReduceMean_output_0",
+        "op": "reducemean",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Clip_1_output_0_63:out0",
+        "name": "Clip_1_output_0",
+        "op": "clipbyvalue",
+        "qtype": "float16"
+      },
+      {
+        "node": "@ReduceMax_output_0_56:out0",
+        "name": "ReduceMax_output_0",
+        "op": "reducemax",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_output_0_65:out0",
+        "name": "Abs_output_0",
+        "op": "abs",
+        "qtype": "float16"
+      },
+      {
+        "node": "@ReduceMean_1_output_0_73:out0",
+        "name": "ReduceMean_1_output_0",
+        "op": "reducemean",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Div_3_output_0_53_acuity_mark_perm_107:out0",
+        "name": "Div_3_output_0_53_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_44_output_0_54:out0",
+        "name": "Constant_44_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Abs_output_0_65_acuity_mark_perm_108:out0",
+        "name": "Abs_output_0_65_acuity_mark_perm",
+        "op": "permute",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Reciprocal_1_output_0_75:out0",
+        "name": "Reciprocal_1_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Constant_2_output_0_39:out0",
+        "name": "Constant_2_output_0",
+        "op": "variable",
+        "qtype": "float16"
+      },
+      {
+        "node": "@Clip_output_0_48:out0",
+        "name": "Clip_output_0",
+        "op": "clipbyvalue",
+        "qtype": "float16"
+      }
+    ],
+    "norm_softmax": [
+      {
+        "node": "Sqrt_output_0_32",
+        "name": "Sqrt_output_0",
+        "op": "sqrt",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "Softmax_output_0_51",
+        "name": "Softmax_output_0",
+        "op": "softmax",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      },
+      {
+        "node": "Sqrt_1_output_0_55",
+        "name": "Sqrt_1_output_0",
+        "op": "sqrt",
+        "quant": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      }
+    ],
+    "note": "From retained compiler input graph and actual quantize file; NBG external IO verified separately via vip_query logs. Generated C was not retained in the first bounded build, so this is not an internal NBG disassembly."
+  }
+}

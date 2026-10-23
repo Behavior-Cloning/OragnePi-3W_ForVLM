@@ -1,0 +1,569 @@
+{
+  "scope": "one decoder with explicit per-matrix weight and sensitive-activation precision overrides",
+  "int8_matrices": 8,
+  "int4_matrices": 0,
+  "weight_bits_requested": 8,
+  "dfp_method": "mse",
+  "dfp_scale_search": {
+    "selection": "all-w8",
+    "method": "mse",
+    "max_extra_bits": 6,
+    "changes": [
+      {
+        "linear": "fullconnect_158",
+        "before": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "fl": 8,
+          "max_value": 0.19140625,
+          "min_value": -0.2734375
+        },
+        "after": {
+          "qtype": "i8",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "fl": 11,
+          "max_value": 0.19140625,
+          "min_value": -0.2734375
+        },
+        "scale_search": [
+          {
+            "fl": 8,
+            "mse": 1.2715856331901736e-06,
+            "clipped_fraction": 0.0
+          },
+          {
+            "fl": 9,
+            "mse": 3.1845836160606255e-07,
+            "clipped_fraction": 2.724783761160714e-07
+          },
+          {
+            "fl": 10,
+            "mse": 9.135008402524737e-08,
+            "clipped_fraction": 3.814697265625e-06
+          },
+          {
+            "fl": 11,
+            "mse": 8.096685755614714e-08,
+            "clipped_fraction": 3.596714564732143e-05
+          },
+          {
+            "fl": 12,
+            "mse": 2.052190314392689e-07,
+            "clipped_fraction": 0.0008653913225446429
+          },
+          {
+            "fl": 13,
+            "mse": 2.271077510103916e-06,
+            "clipped_fraction": 0.07213892255510602
+          },
+          {
+            "fl": 14,
+            "mse": 1.5112932698985484e-05,
+            "clipped_fraction": 0.35169873918805805
+          }
+        ],
+        "clipped_fraction": 3.596714564732143e-05,
+        "weight_relative_l2": 0.03289436921477318
+      },
+      {
+        "linear": "fullconnect_161",
+        "before": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "fl": 8,
+          "max_value": 0.37890625,
+          "min_value": -0.390625
+        },
+        "after": {
+          "qtype": "i8",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "fl": 9,
+          "max_value": 0.37890625,
+          "min_value": -0.390625
+        },
+        "scale_search": [
+          {
+            "fl": 8,
+            "mse": 1.2702495374069595e-06,
+            "clipped_fraction": 0.0
+          },
+          {
+            "fl": 9,
+            "mse": 3.3742320804113245e-07,
+            "clipped_fraction": 5.245208740234375e-06
+          },
+          {
+            "fl": 10,
+            "mse": 6.028783941699546e-07,
+            "clipped_fraction": 0.0002387364705403646
+          },
+          {
+            "fl": 11,
+            "mse": 4.246465038419266e-06,
+            "clipped_fraction": 0.004425207773844401
+          },
+          {
+            "fl": 12,
+            "mse": 2.0486877780667762e-05,
+            "clipped_fraction": 0.05536492665608724
+          },
+          {
+            "fl": 13,
+            "mse": 6.664099018044451e-05,
+            "clipped_fraction": 0.28828954696655273
+          },
+          {
+            "fl": 14,
+            "mse": 0.00013445817841766436,
+            "clipped_fraction": 0.584069569905599
+          }
+        ],
+        "clipped_fraction": 5.245208740234375e-06,
+        "weight_relative_l2": 0.03505205735564232
+      },
+      {
+        "linear": "fullconnect_164",
+        "before": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "fl": 8,
+          "max_value": 0.201171875,
+          "min_value": -0.296875
+        },
+        "after": {
+          "qtype": "i8",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "fl": 10,
+          "max_value": 0.201171875,
+          "min_value": -0.296875
+        },
+        "scale_search": [
+          {
+            "fl": 8,
+            "mse": 1.2714538102396199e-06,
+            "clipped_fraction": 0.0
+          },
+          {
+            "fl": 9,
+            "mse": 3.1982906856552396e-07,
+            "clipped_fraction": 9.5367431640625e-07
+          },
+          {
+            "fl": 10,
+            "mse": 1.490623291497842e-07,
+            "clipped_fraction": 2.193450927734375e-05
+          },
+          {
+            "fl": 11,
+            "mse": 5.12789687604253e-07,
+            "clipped_fraction": 0.0005397796630859375
+          },
+          {
+            "fl": 12,
+            "mse": 2.9490689621467355e-06,
+            "clipped_fraction": 0.018670082092285156
+          },
+          {
+            "fl": 13,
+            "mse": 1.9518404166865887e-05,
+            "clipped_fraction": 0.19178009033203125
+          },
+          {
+            "fl": 14,
+            "mse": 5.717996254462098e-05,
+            "clipped_fraction": 0.4831366539001465
+          }
+        ],
+        "clipped_fraction": 2.193450927734375e-05,
+        "weight_relative_l2": 0.030915221199393272
+      },
+      {
+        "linear": "fullconnect_167",
+        "before": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "fl": 10,
+          "max_value": 0.09033203125,
+          "min_value": -0.08203125
+        },
+        "after": {
+          "qtype": "i8",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "fl": 11,
+          "max_value": 0.09033203125,
+          "min_value": -0.08203125
+        },
+        "scale_search": [
+          {
+            "fl": 10,
+            "mse": 8.012378976214337e-08,
+            "clipped_fraction": 0.0
+          },
+          {
+            "fl": 11,
+            "mse": 2.0901956483540385e-08,
+            "clipped_fraction": 3.5422188895089287e-06
+          },
+          {
+            "fl": 12,
+            "mse": 2.2091154430005807e-08,
+            "clipped_fraction": 0.0005937303815569196
+          },
+          {
+            "fl": 13,
+            "mse": 1.896864905180899e-06,
+            "clipped_fraction": 0.074005126953125
+          },
+          {
+            "fl": 14,
+            "mse": 1.4941471734634402e-05,
+            "clipped_fraction": 0.36196817670549664
+          },
+          {
+            "fl": 15,
+            "mse": 3.5521237830341854e-05,
+            "clipped_fraction": 0.6455576760428292
+          },
+          {
+            "fl": 16,
+            "mse": 5.2594830390945985e-05,
+            "clipped_fraction": 0.8177171434674945
+          }
+        ],
+        "clipped_fraction": 3.5422188895089287e-06,
+        "weight_relative_l2": 0.016595670953392982
+      },
+      {
+        "linear": "fullconnect_170",
+        "before": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "fl": 9,
+          "max_value": 0.1337890625,
+          "min_value": -0.12890625
+        },
+        "after": {
+          "qtype": "i8",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "fl": 10,
+          "max_value": 0.1337890625,
+          "min_value": -0.12890625
+        },
+        "scale_search": [
+          {
+            "fl": 9,
+            "mse": 3.180890514390974e-07,
+            "clipped_fraction": 0.0
+          },
+          {
+            "fl": 10,
+            "mse": 8.782591132833274e-08,
+            "clipped_fraction": 0.0001220703125
+          },
+          {
+            "fl": 11,
+            "mse": 3.2063378382422577e-06,
+            "clipped_fraction": 0.00531005859375
+          },
+          {
+            "fl": 12,
+            "mse": 2.238889864381738e-05,
+            "clipped_fraction": 0.06646728515625
+          },
+          {
+            "fl": 13,
+            "mse": 7.602388510841867e-05,
+            "clipped_fraction": 0.29559326171875
+          },
+          {
+            "fl": 14,
+            "mse": 0.00014909487668591387,
+            "clipped_fraction": 0.58172607421875
+          },
+          {
+            "fl": 15,
+            "mse": 0.00020978443179265488,
+            "clipped_fraction": 0.77935791015625
+          }
+        ],
+        "clipped_fraction": 0.0001220703125,
+        "weight_relative_l2": 0.017279021441936493
+      },
+      {
+        "linear": "fullconnect_173",
+        "before": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "fl": 9,
+          "max_value": 0.1884765625,
+          "min_value": -0.1298828125
+        },
+        "after": {
+          "qtype": "i8",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "fl": 11,
+          "max_value": 0.1884765625,
+          "min_value": -0.1298828125
+        },
+        "scale_search": [
+          {
+            "fl": 9,
+            "mse": 3.190086861343795e-07,
+            "clipped_fraction": 0.0
+          },
+          {
+            "fl": 10,
+            "mse": 8.218393965425515e-08,
+            "clipped_fraction": 1.3623918805803572e-06
+          },
+          {
+            "fl": 11,
+            "mse": 5.418341407355293e-08,
+            "clipped_fraction": 0.0001049041748046875
+          },
+          {
+            "fl": 12,
+            "mse": 9.547119102906875e-07,
+            "clipped_fraction": 0.013777596609933036
+          },
+          {
+            "fl": 13,
+            "mse": 1.418968806442131e-05,
+            "clipped_fraction": 0.1942242213657924
+          },
+          {
+            "fl": 14,
+            "mse": 5.031577382137984e-05,
+            "clipped_fraction": 0.5097645350864956
+          },
+          {
+            "fl": 15,
+            "mse": 8.901531439825984e-05,
+            "clipped_fraction": 0.7406291961669922
+          }
+        ],
+        "clipped_fraction": 0.0001049041748046875,
+        "weight_relative_l2": 0.018985353410243988
+      },
+      {
+        "linear": "fullconnect_176",
+        "before": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "fl": 7,
+          "max_value": 0.197265625,
+          "min_value": -0.5
+        },
+        "after": {
+          "qtype": "i8",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "fl": 10,
+          "max_value": 0.197265625,
+          "min_value": -0.5
+        },
+        "scale_search": [
+          {
+            "fl": 7,
+            "mse": 5.087148460902349e-06,
+            "clipped_fraction": 0.0
+          },
+          {
+            "fl": 8,
+            "mse": 1.2728607521102353e-06,
+            "clipped_fraction": 0.0
+          },
+          {
+            "fl": 9,
+            "mse": 3.5381118321757637e-07,
+            "clipped_fraction": 2.384185791015625e-06
+          },
+          {
+            "fl": 10,
+            "mse": 2.5849533911119576e-07,
+            "clipped_fraction": 5.5789947509765625e-05
+          },
+          {
+            "fl": 11,
+            "mse": 1.632221087377191e-06,
+            "clipped_fraction": 0.003525257110595703
+          },
+          {
+            "fl": 12,
+            "mse": 1.6424401583425443e-05,
+            "clipped_fraction": 0.07170677185058594
+          },
+          {
+            "fl": 13,
+            "mse": 7.097686192628584e-05,
+            "clipped_fraction": 0.3257408142089844
+          }
+        ],
+        "clipped_fraction": 5.5789947509765625e-05,
+        "weight_relative_l2": 0.029228806495666504
+      },
+      {
+        "linear": "fullconnect_179",
+        "before": {
+          "qtype": "i8",
+          "quantizer": "perchannel_symmetric_affine",
+          "rounding": "rtne",
+          "fl": 9,
+          "max_value": 0.1552734375,
+          "min_value": -0.177734375
+        },
+        "after": {
+          "qtype": "i8",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "fl": 9,
+          "max_value": 0.1552734375,
+          "min_value": -0.177734375
+        },
+        "scale_search": [
+          {
+            "fl": 9,
+            "mse": 3.315899158418454e-07,
+            "clipped_fraction": 0.0
+          },
+          {
+            "fl": 10,
+            "mse": 1.0069652199684917e-06,
+            "clipped_fraction": 0.00323486328125
+          },
+          {
+            "fl": 11,
+            "mse": 6.146363259005864e-05,
+            "clipped_fraction": 0.09613037109375
+          },
+          {
+            "fl": 12,
+            "mse": 0.0003325820236449284,
+            "clipped_fraction": 0.373779296875
+          },
+          {
+            "fl": 13,
+            "mse": 0.0007047376155989548,
+            "clipped_fraction": 0.64715576171875
+          },
+          {
+            "fl": 14,
+            "mse": 0.001000112001809367,
+            "clipped_fraction": 0.82305908203125
+          },
+          {
+            "fl": 15,
+            "mse": 0.001183961847553633,
+            "clipped_fraction": 0.9117431640625
+          }
+        ],
+        "clipped_fraction": 0.0,
+        "weight_relative_l2": 0.015415099449455738
+      }
+    ]
+  },
+  "fp16_matrices": 0,
+  "base": "w8scaled-all/l0",
+  "weights": [
+    {
+      "name": "fullconnect_158",
+      "shape": [
+        3584,
+        1024
+      ],
+      "dtype": "int8"
+    },
+    {
+      "name": "fullconnect_161",
+      "shape": [
+        1024,
+        6144
+      ],
+      "dtype": "int8"
+    },
+    {
+      "name": "fullconnect_164",
+      "shape": [
+        2048,
+        1024
+      ],
+      "dtype": "int8"
+    },
+    {
+      "name": "fullconnect_167",
+      "shape": [
+        1024,
+        3584
+      ],
+      "dtype": "int8"
+    },
+    {
+      "name": "fullconnect_170",
+      "shape": [
+        1024,
+        16
+      ],
+      "dtype": "int8"
+    },
+    {
+      "name": "fullconnect_173",
+      "shape": [
+        1024,
+        3584
+      ],
+      "dtype": "int8"
+    },
+    {
+      "name": "fullconnect_176",
+      "shape": [
+        1024,
+        2048
+      ],
+      "dtype": "int8"
+    },
+    {
+      "name": "fullconnect_179",
+      "shape": [
+        1024,
+        16
+      ],
+      "dtype": "int8"
+    }
+  ],
+  "weight_mode": "dfp",
+  "dfp_linear": [],
+  "float_nonlinear": false,
+  "float_residual": false,
+  "float_sensitive": false,
+  "activation_headroom_bits": 0,
+  "float_down_output": false,
+  "float_mlp": false,
+  "int8_mlp_projections": {},
+  "mlp_headroom_bits": null,
+  "headroom_override_version": 2,
+  "compiler_script_sha256": "90d45310e7ef23a56fc1c6f2f76d620396c75f4edd495fbdde83b408ffc18e0e",
+  "float_scores": false,
+  "float_head_norm": false,
+  "source_quantize_sha256": "b8c125de7892bd61bc7f970be142ce21888173f61058cf0e257d965fcf1935ee",
+  "exit_code": 0,
+  "seconds": 25.651084781999998,
+  "binaries": [
+    {
+      "bytes": 16676568,
+      "path": "export_nbg_unify/network_binary.nb"
+    }
+  ]
+}

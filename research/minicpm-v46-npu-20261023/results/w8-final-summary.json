@@ -1,0 +1,111 @@
+{
+  "scope": "short text-only NPU microbenchmarks; not full vision or speech",
+  "runtime": {
+    "w8cal": {
+      "warm_rounds": 2,
+      "ttft_median": 7.5045533765000005,
+      "decode_median": 3.5313749999999997,
+      "load": 1.785293,
+      "driver_bytes": 743751304,
+      "cpu_cores": 0.08227420494998108,
+      "closed_zero": true,
+      "tokens_identical_all_rounds": true
+    },
+    "w8scaled": {
+      "warm_rounds": 2,
+      "ttft_median": 7.4847288755,
+      "decode_median": 3.5426235000000004,
+      "load": 1.432708,
+      "driver_bytes": 743657048,
+      "cpu_cores": 0.08371339268552186,
+      "closed_zero": true,
+      "tokens_identical_all_rounds": true
+    },
+    "w8grouped": {
+      "warm_rounds": 2,
+      "ttft_median": 7.03054344,
+      "decode_median": 3.765742,
+      "load": 0.692408,
+      "driver_bytes": 743394904,
+      "cpu_cores": 0.0759131893099595,
+      "closed_zero": true,
+      "tokens_identical_all_rounds": true
+    },
+    "w8fixed": {
+      "warm_rounds": 2,
+      "ttft_median": 4.0353388445,
+      "decode_median": 5.9169875,
+      "load": 1.376523,
+      "driver_bytes": 761917880,
+      "cpu_cores": 0.11943849765438208,
+      "closed_zero": true,
+      "tokens_identical_all_rounds": true
+    },
+    "w8fixed-linear": {
+      "warm_rounds": 2,
+      "ttft_median": 4.7838063545,
+      "decode_median": 5.176278,
+      "load": 1.201851,
+      "driver_bytes": 762434296,
+      "cpu_cores": 0.10344926195328322,
+      "closed_zero": true,
+      "tokens_identical_all_rounds": true
+    },
+    "w8fixed-attn": {
+      "warm_rounds": 2,
+      "ttft_median": 6.274620227,
+      "decode_median": 4.135629,
+      "load": 1.995816,
+      "driver_bytes": 742616344,
+      "cpu_cores": 0.08447080579587522,
+      "closed_zero": true,
+      "tokens_identical_all_rounds": true
+    },
+    "intern-comparison": {
+      "warm_rounds": 2,
+      "prompt_tokens": 31,
+      "ttft_median": 1.261454,
+      "decode_median": 15.715029,
+      "cpu_cores": 0.11803621467381367,
+      "load": 9.793858,
+      "driver_bytes": 753274680,
+      "closed_zero": true
+    },
+    "intern-same-text": {
+      "warm_rounds": 2,
+      "prompt_tokens": 27,
+      "ttft_median": 1.0101495,
+      "decode_median": 15.5227635,
+      "cpu_cores": 0.10073169691531329,
+      "load": 8.972512,
+      "driver_bytes": 753274680,
+      "closed_zero": true
+    }
+  },
+  "telemetry": {
+    "w8fixed-holdouts-telemetry.jsonl": {
+      "samples": 56,
+      "duration_seconds": 29.29542202799348,
+      "allzone_peak_c": 42.718,
+      "available_min": 3980697600,
+      "swap_used_start": 671350784,
+      "swap_used_end": 674758656,
+      "system_cpu_percent_excluding_iowait": 2.8984268125854995,
+      "iowait_percent": 0.012824897400820793,
+      "includes_load_and_reset": true,
+      "runtime_monitor_exit_race": false
+    },
+    "w8fixed-runtime-telemetry.jsonl": {
+      "samples": 41,
+      "duration_seconds": 20.959719256992685,
+      "allzone_peak_c": 41.354,
+      "available_min": 3987222528,
+      "swap_used_start": 643563520,
+      "swap_used_end": 671350784,
+      "system_cpu_percent_excluding_iowait": 3.2103784300830993,
+      "iowait_percent": 0.17337239194117296,
+      "includes_load_and_reset": true,
+      "runtime_monitor_exit_race": true
+    }
+  }
+}

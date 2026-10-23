@@ -1,0 +1,264 @@
+{
+  "name": "decoder_NCHW",
+  "target": "0x1000003b",
+  "record_size": 128,
+  "sha256": "08e942d5f3581a10779859e428858d45c27079ee3f50e06151075aec92f1b238",
+  "summed_busy_cycles": 3247351,
+  "by_op": {
+    "dtype_converter+fullconnect": {
+      "cycles": 2601110,
+      "read_bytes": 19726720,
+      "write_bytes": 0,
+      "mac_count": 14368788
+    },
+    "add": {
+      "cycles": 283671,
+      "read_bytes": 1389184,
+      "write_bytes": 526336,
+      "mac_count": 0
+    },
+    "multiply": {
+      "cycles": 208122,
+      "read_bytes": 794240,
+      "write_bytes": 540672,
+      "mac_count": 0
+    },
+    "concat": {
+      "cycles": 72871,
+      "read_bytes": 3072,
+      "write_bytes": 49152,
+      "mac_count": 0
+    },
+    "unmapped": {
+      "cycles": 28805,
+      "read_bytes": 197120,
+      "write_bytes": 0,
+      "mac_count": 0
+    },
+    "swish": {
+      "cycles": 7963,
+      "read_bytes": 12992,
+      "write_bytes": 16384,
+      "mac_count": 0
+    },
+    "slice": {
+      "cycles": 7774,
+      "read_bytes": 49408,
+      "write_bytes": 0,
+      "mac_count": 0
+    },
+    "sqrt": {
+      "cycles": 6764,
+      "read_bytes": 17280,
+      "write_bytes": 0,
+      "mac_count": 0
+    },
+    "abs": {
+      "cycles": 5514,
+      "read_bytes": 11136,
+      "write_bytes": 0,
+      "mac_count": 0
+    },
+    "real_div": {
+      "cycles": 4214,
+      "read_bytes": 9088,
+      "write_bytes": 0,
+      "mac_count": 0
+    },
+    "divide": {
+      "cycles": 4212,
+      "read_bytes": 9088,
+      "write_bytes": 0,
+      "mac_count": 0
+    },
+    "split": {
+      "cycles": 3248,
+      "read_bytes": 12672,
+      "write_bytes": 0,
+      "mac_count": 0
+    },
+    "add+multiply+real_div+reducemean+sqrt": {
+      "cycles": 2979,
+      "read_bytes": 4672,
+      "write_bytes": 0,
+      "mac_count": 0
+    },
+    "reducesum": {
+      "cycles": 2094,
+      "read_bytes": 640,
+      "write_bytes": 0,
+      "mac_count": 0
+    },
+    "reducemax": {
+      "cycles": 1640,
+      "read_bytes": 640,
+      "write_bytes": 0,
+      "mac_count": 0
+    },
+    "reducemean": {
+      "cycles": 1608,
+      "read_bytes": 640,
+      "write_bytes": 0,
+      "mac_count": 0
+    },
+    "softrelu": {
+      "cycles": 1594,
+      "read_bytes": 4288,
+      "write_bytes": 0,
+      "mac_count": 0
+    },
+    "sigmoid": {
+      "cycles": 1594,
+      "read_bytes": 4416,
+      "write_bytes": 0,
+      "mac_count": 0
+    },
+    "subtract": {
+      "cycles": 792,
+      "read_bytes": 192,
+      "write_bytes": 0,
+      "mac_count": 0
+    },
+    "clipbyvalue": {
+      "cycles": 782,
+      "read_bytes": 384,
+      "write_bytes": 0,
+      "mac_count": 0
+    }
+  },
+  "scope": "Hardware busy counters; not end-to-end latency; compiler fusion and UID ambiguity retained"
+}
+[
+  {
+    "node": 246,
+    "cycles": 758669,
+    "read_bytes": 5768960,
+    "write_bytes": 0,
+    "mac_count": 4192942,
+    "op": "dtype_converter+fullconnect",
+    "candidate_lids": [
+      "fullconnect_161",
+      "reshape_162_dtype_converter_20157"
+    ]
+  },
+  {
+    "node": 252,
+    "cycles": 449248,
+    "read_bytes": 3410816,
+    "write_bytes": 0,
+    "mac_count": 2451456,
+    "op": "dtype_converter+fullconnect",
+    "candidate_lids": [
+      "fullconnect_173",
+      "reshape_174_dtype_converter_20161"
+    ]
+  },
+  {
+    "node": 251,
+    "cycles": 448834,
+    "read_bytes": 3408768,
+    "write_bytes": 0,
+    "mac_count": 2451454,
+    "op": "dtype_converter+fullconnect",
+    "candidate_lids": [
+      "fullconnect_167",
+      "reshape_168_dtype_converter_20159"
+    ]
+  },
+  {
+    "node": 253,
+    "cycles": 436608,
+    "read_bytes": 3313792,
+    "write_bytes": 0,
+    "mac_count": 2449404,
+    "op": "dtype_converter+fullconnect",
+    "candidate_lids": [
+      "fullconnect_158",
+      "reshape_159_dtype_converter_20156"
+    ]
+  },
+  {
+    "node": 197,
+    "cycles": 273427,
+    "read_bytes": 1368256,
+    "write_bytes": 524288,
+    "mac_count": 0,
+    "op": "add",
+    "candidate_lids": [
+      "state_out_3"
+    ]
+  },
+  {
+    "node": 248,
+    "cycles": 254551,
+    "read_bytes": 1929152,
+    "write_bytes": 0,
+    "mac_count": 1400830,
+    "op": "dtype_converter+fullconnect",
+    "candidate_lids": [
+      "fullconnect_176",
+      "reshape_177_dtype_converter_20162"
+    ]
+  },
+  {
+    "node": 250,
+    "cycles": 246046,
+    "read_bytes": 1860800,
+    "write_bytes": 0,
+    "mac_count": 1400814,
+    "op": "dtype_converter+fullconnect",
+    "candidate_lids": [
+      "fullconnect_164",
+      "reshape_165_dtype_converter_20158"
+    ]
+  },
+  {
+    "node": 192,
+    "cycles": 169684,
+    "read_bytes": 684160,
+    "write_bytes": 524288,
+    "mac_count": 0,
+    "op": "multiply",
+    "candidate_lids": [
+      "Mul_16_output_0_6"
+    ]
+  },
+  {
+    "node": 161,
+    "cycles": 7296,
+    "read_bytes": 49280,
+    "write_bytes": 0,
+    "mac_count": 0,
+    "op": "unmapped",
+    "candidate_lids": []
+  },
+  {
+    "node": 160,
+    "cycles": 7263,
+    "read_bytes": 49280,
+    "write_bytes": 0,
+    "mac_count": 0,
+    "op": "unmapped",
+    "candidate_lids": []
+  },
+  {
+    "node": 163,
+    "cycles": 7221,
+    "read_bytes": 49280,
+    "write_bytes": 0,
+    "mac_count": 0,
+    "op": "unmapped",
+    "candidate_lids": []
+  },
+  {
+    "node": 162,
+    "cycles": 7025,
+    "read_bytes": 49280,
+    "write_bytes": 0,
+    "mac_count": 0,
+    "op": "unmapped",
+    "candidate_lids": []
+  }
+]
+ 
+COMPLETE

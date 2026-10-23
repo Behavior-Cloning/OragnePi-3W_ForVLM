@@ -1,0 +1,54 @@
+usage: pegasus export ovxlib [-h] --model MODEL --model-data MODEL_DATA
+                             [--model-quantize MODEL_QUANTIZE]
+                             [--output-path OUTPUT_PATH]
+                             [--customer-lids CUSTOMER_LIDS]
+                             [--customer-ops CUSTOMER_OPS] --with-input-meta
+                             WITH_INPUT_META
+                             [--postprocess-file POSTPROCESS_FILE]
+                             [--optimize OPTIMIZE]
+                             [--dtype {float,float16,float32,quantized,quantized_strict}]
+                             [--save-fused-graph] [--pack-nbg-unify]
+                             [--viv-sdk VIV_SDK] [--build-platform {make}]
+                             [--target-ide-project TARGET_IDE_PROJECT]
+                             [--batch-size BATCH_SIZE]
+                             [--force-remove-permute]
+                             [--save-trace-db SAVE_TRACE_DB]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --model MODEL         Network model input file.
+  --model-data MODEL_DATA
+                        Network coefficient input file.
+  --model-quantize MODEL_QUANTIZE
+                        Quantized tensor description file.
+  --output-path OUTPUT_PATH
+                        output filename or path
+  --customer-lids CUSTOMER_LIDS
+                        Specify which node map to customer node by the
+                        lids,and also can reframe the graph and node. Has a
+                        higher priority than "--customer-ops"
+  --customer-ops CUSTOMER_OPS
+                        Specify which op map to customer node by the op
+                        name,Has lower priority than "--customer-lids"
+  --with-input-meta WITH_INPUT_META
+                        Merge input meta into network.
+  --postprocess-file POSTPROCESS_FILE
+                        postprocess definition file
+  --optimize OPTIMIZE   Optimizer for network.
+  --dtype {float,float16,float32,quantized,quantized_strict}
+                        Export with data type. type float means floa16
+  --save-fused-graph    Wehter to save fused graph.
+  --pack-nbg-unify      pack binary graph for unify driver.
+  --viv-sdk VIV_SDK     If pack nbg given, please specify vid sdk.
+  --build-platform {make}
+                        build platform for network case, support make only
+  --target-ide-project TARGET_IDE_PROJECT
+                        target ide for network case, in linux64 and win32
+  --batch-size BATCH_SIZE
+                        Batch size for export model.
+  --force-remove-permute
+                        Try force remove permute of graph IO.
+  --save-trace-db SAVE_TRACE_DB
+                        For generating trace DB json.
+2026-10-23 01:03:19.504670: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2026-10-23 01:03:19.504691: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.

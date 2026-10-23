@@ -1,0 +1,43 @@
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+exported l0
+import 0
+inputmeta 0
+quantize 0
+export 0
+{
+  "image": "ubuntu-npu:v2.0.10.2",
+  "target": "VIP9000NANODI_PLUS_PID0X1000003B",
+  "dtype": "fp16",
+  "source": "w8scale-source/l0",
+  "layer": 0,
+  "stages": [
+    {
+      "stage": "import",
+      "exit": 0,
+      "seconds": 2.670717287000116
+    },
+    {
+      "stage": "inputmeta",
+      "exit": 0,
+      "seconds": 1.9693150989996866
+    },
+    {
+      "stage": "quantize",
+      "exit": 0,
+      "seconds": 4.78190636599993
+    },
+    {
+      "stage": "export",
+      "exit": 0,
+      "seconds": 20.201555612999982
+    }
+  ],
+  "binaries": [
+    {
+      "path": "export_nbg_unify/network_binary.nb",
+      "bytes": 43335984
+    }
+  ],
+  "status": "COMPILED_NOT_BOARD_VALIDATED"
+}
+EXIT 0

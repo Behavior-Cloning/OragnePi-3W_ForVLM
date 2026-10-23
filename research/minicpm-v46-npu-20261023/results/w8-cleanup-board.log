@@ -1,0 +1,11 @@
+{'scope': 'obsolete FP16 NBGs verified retained in WSL, superseded unscaled W8, copied single-layer probe files; current comparison models preserved', 'before_free': 2731089920, 'fully_unlinked_allocated_bytes': 2488045568, 'after_free': 5219098624, 'completed': True}
+ 
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/mmcblk1p1   58G   53G  4.9G  92% /
+               total        used        free      shared  buff/cache   available
+Mem:            5853        1188        2354          20        2310        4580
+Swap:           2926         676        2250
+ 215567 flock -n /run/opi-npu-kv-benchmark.lock sh -c df -h /; free -m; ps -eo pid,args | grep -E "mini_runtime|probe|resident" | head -15
+ 215568 sh -c df -h /; free -m; ps -eo pid,args | grep -E "mini_runtime|probe|resident" | head -15
+ 215572 grep -E mini_runtime|probe|resident
+

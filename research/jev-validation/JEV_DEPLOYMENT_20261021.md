@@ -136,3 +136,42 @@ Windows 01:22快照：F盘可用60,218,482,688B（约56.1GiB）；Windows内存�
 优化控制器PID5972持实验锁；后续队列PID6704等待优化结束再执行配置筛选与共驻。后续队列会补从未启动的配置，并保留已有超时/部分结果不冒充通过。每配置完成即回收JSONL到Windows，审计智能体仅读取回收文件，不争抢板卡。运行状态以 `results/continuation-status.json` 及控制器日志为准，PID只是本次快照。
 
 远程下载于01:39切换为每仓库最多8并发，保留此前所有已验文件和断点；新任务PID123340/123341。传输异常日志现在记录curl退出码，尚不能声称带宽改善或下载完成。
+
+## 自动回收的优化初筛结果（非最终部署验收）
+
+|模型|配置|完成|计时n|P50秒|P95秒|质量正确/8|相对基线速度倍数|
+|---|---|---|---:|---:|---:|---:|---:|
+|jev08|a55-t2|False|20|27.7969|27.8836|0/0|0.255|
+|jev08|a76-seq2|True|20|6.9688|6.9824|4/8|1.018|
+|jev08|a76-seq2-ub256|True|20|7.1329|7.1507|4/8|0.995|
+|jev08|a76-t1|False|20|13.4982|13.5047|3/5|0.526|
+|jev08|a76-t2|True|20|7.097|7.1176|4/8|1.0|
+|laya|a55-t2|True|20|5.6847|5.7247|2/8|0.224|
+|laya|a76-int8|True|20|1.9321|1.955|2/8|0.66|
+|laya|a76-ort-fp32|True|20|1.059|1.0629|2/8|1.203|
+|laya|a76-ort-int8|True|20|0.5289|0.5337|2/8|2.41|
+|laya|a76-t1|True|20|2.26|2.2644|2/8|0.564|
+|laya|a76-t2|True|20|1.2744|1.299|2/8|1.0|
+|nano33|a55-t2|True|20|7.0389|7.066|0/8|0.204|
+|nano33|a76-batch1|True|20|1.8566|1.8627|0/8|0.773|
+|nano33|a76-int8|True|20|2.2301|2.2385|0/8|0.643|
+|nano33|a76-ort-fp32|True|20|1.2219|1.2334|0/8|1.174|
+|nano33|a76-ort-int8|True|20|0.5523|0.5536|0/8|2.597|
+|nano33|a76-t1|True|20|2.5693|2.5795|0/8|0.558|
+|nano33|a76-t2|True|20|1.4344|1.4426|0/8|1.0|
+
+每格仅20次计时与8条质量初筛；原始JSONL、资源峰值、决策差异见optimization-comparison.json。Nano中文输入失效结论不因速度改善而改变。
+
+### 优胜配置实际共驻回收
+
+- co-resident-optimized-intern1b-jev08-20261020T193140.jsonl：文件结束标记=True；错误数=0；有效条件={'intern1b/jev08/jev_only': 5, 'intern1b/jev08/llm_only': 5, 'intern1b/jev08/concurrent': 5, 'intern1b/jev08/concurrent_sustained': 5}
+- co-resident-optimized-intern1b-laya-20261020T192956.jsonl：文件结束标记=True；错误数=0；有效条件={'intern1b/laya/jev_only': 5, 'intern1b/laya/llm_only': 5, 'intern1b/laya/concurrent': 5, 'intern1b/laya/concurrent_sustained': 5}
+- co-resident-optimized-intern1b-nano33-20261020T192826.jsonl：文件结束标记=True；错误数=0；有效条件={'intern1b/nano33/jev_only': 5, 'intern1b/nano33/llm_only': 5, 'intern1b/nano33/concurrent': 5, 'intern1b/nano33/concurrent_sustained': 5}
+- co-resident-optimized-qwen15-cpu-jev08-20261020T193947.jsonl：文件结束标记=True；错误数=0；有效条件={'qwen15-cpu/jev08/jev_only': 5, 'qwen15-cpu/jev08/llm_only': 5, 'qwen15-cpu/jev08/concurrent': 5, 'qwen15-cpu/jev08/concurrent_sustained': 5}
+- co-resident-optimized-qwen15-cpu-laya-20261020T193702.jsonl：文件结束标记=True；错误数=0；有效条件={'qwen15-cpu/laya/jev_only': 5, 'qwen15-cpu/laya/llm_only': 5, 'qwen15-cpu/laya/concurrent': 5, 'qwen15-cpu/laya/concurrent_sustained': 5}
+- co-resident-optimized-qwen15-cpu-nano33-20261020T193438.jsonl：文件结束标记=True；错误数=0；有效条件={'qwen15-cpu/nano33/jev_only': 5, 'qwen15-cpu/nano33/llm_only': 5, 'qwen15-cpu/nano33/concurrent': 5, 'qwen15-cpu/nano33/concurrent_sustained': 5}
+- co-resident-optimized-smol500-jev08-20261020T192447.jsonl：文件结束标记=True；错误数=0；有效条件={'smol500/jev08/jev_only': 5, 'smol500/jev08/llm_only': 5, 'smol500/jev08/concurrent': 5, 'smol500/jev08/concurrent_sustained': 5}
+- co-resident-optimized-smol500-laya-20261020T192159.jsonl：文件结束标记=True；错误数=0；有效条件={'smol500/laya/jev_only': 5, 'smol500/laya/llm_only': 5, 'smol500/laya/concurrent': 5, 'smol500/laya/concurrent_sustained': 5}
+- co-resident-optimized-smol500-nano33-20261020T191931.jsonl：文件结束标记=True；错误数=0；有效条件={'smol500/nano33/jev_only': 5, 'smol500/nano33/llm_only': 5, 'smol500/nano33/concurrent': 5, 'smol500/nano33/concurrent_sustained': 5}
+
+持续决策窗口的具体时间、每次case和LLM指标保留在原始记录中；需人工审计后再决定推荐。未涵盖视觉encoder、全语音链路、多模态OneJev、长时稳定性与1000次尾延迟，不将这些TODO勾选。

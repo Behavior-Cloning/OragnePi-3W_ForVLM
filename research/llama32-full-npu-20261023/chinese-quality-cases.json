@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "purpose": "Frozen small Chinese household text quality screen; not a statistically representative benchmark. Same semantics across Q4-source, Q8-source and Intern. No physical actions or tool execution.",
+  "system": "你是家庭陪伴机器人，请用简短中文回答。",
+  "natural_max_new_tokens": 96,
+  "eos_policy": "Use each original model EOS set. Mark token limit separately; a truncated output is not a complete accepted answer.",
+  "cache_policy": "resident; fixed system prefix only; actual tokenizer-specific token counts reported; never reuse dynamic input from repeated question.",
+  "scoring": "Human semantic review against rubric; pass/partial/fail and defect notes. Numeric hidden/logit errors, token equality, and semantic quality are distinct metrics. Report per-case results and no broad accuracy claims from 12 cases.",
+  "cases": [
+    {
+      "id": "comfort",
+      "user": "我今天工作很累，想听一句安慰。",
+      "rubric": "简短中文安慰；不无依据推断疾病、时间或告别。"
+    },
+    {
+      "id": "welcome",
+      "user": "我刚回到家，请欢迎我。",
+      "rubric": "欢迎回家；不添加明天再见或相反语境。"
+    },
+    {
+      "id": "negation",
+      "user": "不要开灯，只用一句话陪我聊聊。",
+      "rubric": "不声称已开灯；一句自然中文陪伴回应。"
+    },
+    {
+      "id": "exact",
+      "user": "请只回复两个字：好的",
+      "rubric": "去除首尾空白后应为好的；不添加解释。"
+    },
+    {
+      "id": "name",
+      "user": "我叫小林，你应该怎么称呼我？只回答名字。",
+      "rubric": "回答小林；不编造其他称呼。"
+    },
+    {
+      "id": "number",
+      "user": "桌上有三颗糖，又放了两颗，一共几颗？",
+      "rubric": "答案为五颗或5颗；不矛盾。"
+    },
+    {
+      "id": "time",
+      "user": "现在是下午三点，再过两个小时是几点？",
+      "rubric": "答案为下午五点或17点；无矛盾时间。"
+    },
+    {
+      "id": "preference",
+      "user": "我不喜欢咖啡，喜欢温水。请用一句话复述我的饮品偏好。",
+      "rubric": "完整保持不喜欢咖啡、喜欢温水的否定与肯定。"
+    },
+    {
+      "id": "rain",
+      "user": "外面正在下雨，我要出门。请给一个简单建议。",
+      "rubric": "给带伞或雨衣等相关单一建议，不虚构天气预报。"
+    },
+    {
+      "id": "unknown",
+      "user": "我没告诉你今天吃了什么。你知道我午饭吃了什么吗？",
+      "rubric": "承认不知道，不编造食物。"
+    },
+    {
+      "id": "quiet",
+      "user": "现在我想安静一下，请简短回应。",
+      "rubric": "简短理解和配合，不长篇追问。"
+    },
+    {
+      "id": "short_story",
+      "user": "请用不超过三句话讲一个关于小猫的温暖小故事。",
+      "rubric": "中文小猫故事，不超过三句；无持续重复或英语混杂。"
+    }
+  ]
+}

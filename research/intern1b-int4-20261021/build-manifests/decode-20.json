@@ -1,0 +1,209 @@
+{
+  "kind": "decode",
+  "layer": 20,
+  "source": "/opt/opi-lab/source-validation-20261017/gguf-fresh/export/w8-fused2-c1280-cap1-headmse/l20",
+  "source_hashes": {
+    "decoder.json": "546734e71a6e1b0749014254bd3191208c9a7e6392495b11a0d1a7825f1b8609",
+    "decoder.data": "0abead1943fd768a21541f041d9e17828cf3ec7be17706f3b96b4372e6c2169b",
+    "decoder.quantize": "8bb371e6355b2c67b3c08d556d0e87d7c36c6def54d869593dbb5cd6e83754a4",
+    "tensor-inputmeta.yml": "3a3813141b3586ca0f8e2133569806dba46fa0ca7725d6a5b70f43c08b7915b3"
+  },
+  "changed": [
+    {
+      "name": "b0_fullconnect_116",
+      "shape": [
+        4864,
+        896
+      ],
+      "source_type": "i8",
+      "target_type": "i4",
+      "relative_l2": 0.2162342667579651
+    },
+    {
+      "name": "b0_fullconnect_119",
+      "shape": [
+        896,
+        896
+      ],
+      "source_type": "i8",
+      "target_type": "i4",
+      "relative_l2": 0.18351495265960693
+    },
+    {
+      "name": "b0_fullconnect_122",
+      "shape": [
+        896,
+        128
+      ],
+      "source_type": "i8",
+      "target_type": "i4",
+      "relative_l2": 0.2535633444786072
+    },
+    {
+      "name": "b0_fullconnect_125",
+      "shape": [
+        896,
+        4864
+      ],
+      "source_type": "i8",
+      "target_type": "i4",
+      "relative_l2": 0.16064180433750153
+    },
+    {
+      "name": "b0_fullconnect_128",
+      "shape": [
+        896,
+        128
+      ],
+      "source_type": "i8",
+      "target_type": "i4",
+      "relative_l2": 0.17889103293418884
+    },
+    {
+      "name": "b0_fullconnect_131",
+      "shape": [
+        896,
+        4864
+      ],
+      "source_type": "i8",
+      "target_type": "i4",
+      "relative_l2": 0.1678340882062912
+    },
+    {
+      "name": "b0_fullconnect_134",
+      "shape": [
+        896,
+        896
+      ],
+      "source_type": "i8",
+      "target_type": "i4",
+      "relative_l2": 0.17551375925540924
+    },
+    {
+      "name": "b1_fullconnect_116",
+      "shape": [
+        4864,
+        896
+      ],
+      "source_type": "i8",
+      "target_type": "i4",
+      "relative_l2": 0.2021561861038208
+    },
+    {
+      "name": "b1_fullconnect_119",
+      "shape": [
+        896,
+        896
+      ],
+      "source_type": "i8",
+      "target_type": "i4",
+      "relative_l2": 0.1705327033996582
+    },
+    {
+      "name": "b1_fullconnect_122",
+      "shape": [
+        896,
+        128
+      ],
+      "source_type": "i8",
+      "target_type": "i4",
+      "relative_l2": 0.22457168996334076
+    },
+    {
+      "name": "b1_fullconnect_125",
+      "shape": [
+        896,
+        4864
+      ],
+      "source_type": "i8",
+      "target_type": "i4",
+      "relative_l2": 0.15134243667125702
+    },
+    {
+      "name": "b1_fullconnect_128",
+      "shape": [
+        896,
+        128
+      ],
+      "source_type": "i8",
+      "target_type": "i4",
+      "relative_l2": 0.19620591402053833
+    },
+    {
+      "name": "b1_fullconnect_131",
+      "shape": [
+        896,
+        4864
+      ],
+      "source_type": "i8",
+      "target_type": "i4",
+      "relative_l2": 0.15780559182167053
+    },
+    {
+      "name": "b1_fullconnect_134",
+      "shape": [
+        896,
+        896
+      ],
+      "source_type": "i8",
+      "target_type": "i4",
+      "relative_l2": 0.1828306019306183
+    }
+  ],
+  "retained": [],
+  "note": "Requested native i4 in ACUITY; hardware execution and precision unverified. Activations/KV and FP16 exceptions retained from W8; embeddings remain FP32.",
+  "script_sha256": "b4d5a7cbd32cd3762f5eea316eb5df28411924e48a8993a61545a9d8b317921e",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--name",
+    "intern-int4-decode-20",
+    "--network",
+    "none",
+    "--cpus",
+    "4",
+    "--memory",
+    "8g",
+    "-e",
+    "TF_CPP_MIN_LOG_LEVEL=3",
+    "-e",
+    "OMP_NUM_THREADS=4",
+    "-e",
+    "VSIMULATOR_SHADER_CORE_COUNT=1",
+    "-e",
+    "VSIMULATOR_CONFIG=VIP9000NANODI_PLUS_PID0X1000003B",
+    "-v",
+    "/opt/opi-lab/intern1b-int4-20261021:/work",
+    "-w",
+    "/work/decode/l20",
+    "ubuntu-npu:v2.0.10.2",
+    "python3",
+    "/root/acuity-toolkit-whl-6.30.22/bin/pegasus.py",
+    "export",
+    "ovxlib",
+    "--model",
+    "decoder.json",
+    "--model-data",
+    "decoder.data",
+    "--model-quantize",
+    "decoder.quantize",
+    "--dtype",
+    "quantized",
+    "--with-input-meta",
+    "tensor-inputmeta.yml",
+    "--target-ide-project",
+    "linux64",
+    "--pack-nbg-unify",
+    "--optimize",
+    "VIP9000NANODI_PLUS_PID0X1000003B",
+    "--viv-sdk",
+    "/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools",
+    "--output-path",
+    "export/decoder"
+  ],
+  "exit": 0,
+  "compile_seconds": 11.801431451999974,
+  "binary_bytes": 13487072,
+  "binary_sha256": "a757e60438473b5d3374313bde75561b0aa4b20475dfe9e058635544eef5424c"
+}

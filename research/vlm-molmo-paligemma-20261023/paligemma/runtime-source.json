@@ -1,0 +1,64 @@
+{
+  "source_url": "https://codeload.github.com/google/gemma.cpp/tar.gz/refs/heads/main",
+  "archive_sha256": "d00c505be80e86465403dd4a2bdaa980babda23652aad4a814bedd374ac0e80b",
+  "archive_bytes": 789246,
+  "dependencies": "deps-manifest.json",
+  "task_changes": [
+    "Binding removes nonexistent PALIGEMMA_448 enum",
+    "Converter preserves TensorInfoRegistry metadata/flattening flags",
+    "Prefix-LM last prompt token callback no longer increments a position already rewound by prefill",
+    "CMake Python extensions; ARM static NEON",
+    "Monotonic event telemetry and per-request image recomputation"
+  ],
+  "image_sha256": "01a854bbbccf7d293f3e6bc5dac34d9964a5e9cb5bde48f5be1a91565c6bfcd7",
+  "upstream_commit": "3ed403e28707c0e3eb5f48b0e487b63a446d8e2e",
+  "pinned_source_url": "https://codeload.github.com/google/gemma.cpp/tar.gz/3ed403e28707c0e3eb5f48b0e487b63a446d8e2e",
+  "patches": [
+    {
+      "path": "patches/01-configs-enum-binding.patch",
+      "sha256": "1d4d6ffa9cf426b9963f7ae075251d1f4c4cb1f16d574f1d6543801a681f455d"
+    },
+    {
+      "path": "patches/02-converter-tensor-metadata.patch",
+      "sha256": "4a005a840b4099f1792b1dbe8c2733054ff082270fb2260bf558a23ce1a6fc0e"
+    },
+    {
+      "path": "patches/03-prefix-lm-position.patch",
+      "sha256": "9b54cd999e4d0ea9dbc0a540a5884e862ad9e51391bf88e662043f5f5222b0b5"
+    },
+    {
+      "path": "patches/04-local-python-build.patch",
+      "sha256": "fe5aebd8b892165ba4c1ae381ecb8b950f6fc86143f1b04f4b416bb4c1238b0c"
+    },
+    {
+      "path": "patches/05-token-audit.patch",
+      "sha256": "860722959967055c9b47524db51c5907dafb1a61252d341f9d7bf36653329b3f"
+    }
+  ],
+  "binaries": {
+    "build-x86": {
+      "bytes": 9968352,
+      "sha256": "2e0af37b2714ebd019342ceaf544ccff517354505d5542d9ec9896b1b966481a"
+    },
+    "build-arm": {
+      "bytes": 2910920,
+      "sha256": "b7b487132771fa07520040ce906a599fcaa4dacca0e7334c32e2a3c3d0e42c5e"
+    }
+  },
+  "text_only_revision": {
+    "patch": "patches/06-paligemma-text-prefix.patch",
+    "patch_sha256": "48e4de5d74840fd34da6e91cdcec7a232c203d2a3acc9d03cbf4bc607b58c986",
+    "run_cc_sha256": "d0558f1d5780798a3cf528e2dc6d34ca1b97087e04892535274e1638d31ff769",
+    "binaries": {
+      "build-x86": {
+        "bytes": 9968352,
+        "sha256": "3476f5cc4419f7f1834fe43f4169fdcae00493669a06bb46ff2f21cd263ab339"
+      },
+      "build-arm": {
+        "bytes": 2906672,
+        "sha256": "2ecab8736a266880872814625ee9aa7c1ebea9a5319d488ecf014733f555463d"
+      }
+    },
+    "note": "Different CLI binary from finished visual experiment; no-image Pali uses bidirectional prefix and BOS/text/newline wrapping"
+  }
+}

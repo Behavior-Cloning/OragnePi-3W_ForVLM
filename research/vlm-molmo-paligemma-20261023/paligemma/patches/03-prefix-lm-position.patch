@@ -1,0 +1,13 @@
+--- a/gemma/gemma.cc
++++ b/gemma/gemma.cc
+@@ -543,7 +543,9 @@
+     const size_t pos = qbatch.Pos(qi);  // during prefill, pos is still correct.
+     // In autoregressive mode, we have not prefilled the last token, so do
+     // not advance.
+-    const bool update_pos = (qbatch.Pos(qi) < qbatch.PrefixEnd(qi));
++    // PrefillTBatch rewinds the last prefix token; Transformer must run at
++    // that same position, just as in causal mode. Streaming is bookkeeping.
++    const bool update_pos = false;
+     StreamAndUpdateEOS(qi, pos, qbatch.Prompt(qi)[last_pos_in_prompt], 0.0f,
+                        config, runtime_config, qbatch, update_pos, non_eos);
+   }

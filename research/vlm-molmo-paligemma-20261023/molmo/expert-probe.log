@@ -1,0 +1,46 @@
+/opt/opi-lab/export-venv/lib/python3.11/site-packages/torch/onnx/symbolic_opset9.py:5350: UserWarning: Exporting aten::index operator of advanced indexing in opset 13 is achieved by combination of multiple ONNX operators, including Reshape, Transpose, Concat, and Gather. If indices include negative values, the exported graph will produce incorrect results.
+  warnings.warn(
+import 1
+import failed; see /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/vlm-molmo-paligemma-20261023/molmo/compiled/dynamic-one-expert/import.log
+PROBE dynamic-one-expert 1
+import 0
+inputmeta 0
+quantize 0
+export 0
+{
+  "image": "ubuntu-npu:v2.0.10.2",
+  "target": "VIP9000NANODI_PLUS_PID0X1000003B",
+  "dtype": "fp16",
+  "source": "probe/static-one-expert",
+  "layer": 0,
+  "stages": [
+    {
+      "stage": "import",
+      "exit": 0,
+      "seconds": 2.171722205000151
+    },
+    {
+      "stage": "inputmeta",
+      "exit": 0,
+      "seconds": 1.8204878590004228
+    },
+    {
+      "stage": "quantize",
+      "exit": 0,
+      "seconds": 2.8233977800000503
+    },
+    {
+      "stage": "export",
+      "exit": 0,
+      "seconds": 5.530343663999702
+    }
+  ],
+  "binaries": [
+    {
+      "path": "export_nbg_unify/network_binary.nb",
+      "bytes": 12608056
+    }
+  ],
+  "status": "COMPILED_NOT_BOARD_VALIDATED"
+}
+PROBE static-one-expert 0

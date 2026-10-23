@@ -1,0 +1,101 @@
+--- a/gemma/run.cc
++++ b/gemma/run.cc
+@@ -16,6 +16,7 @@
+ // Command line text interface to gemma.
+ 
+ #include <stdio.h>
++#include <chrono>
+ 
+ #include <iostream>
+ #include <string>
+@@ -45,6 +46,11 @@
+ 
+ namespace gcpp {
+ 
++static double OpiNow() {
++  return std::chrono::duration<double>(std::chrono::steady_clock::now().time_since_epoch()).count();
++}
++
++
+ static constexpr std::string_view kAsciiArtBanner = R""(
+   __ _  ___ _ __ ___  _ __ ___   __ _   ___ _ __  _ __
+  / _` |/ _ \ '_ ` _ \| '_ ` _ \ / _` | / __| '_ \| '_ \
+@@ -107,7 +113,10 @@
+                  : Extents2D(0, 0),
+       env.ctx.allocator, MatPadding::kOdd);
+   image_tokens.AllocateAndAttachRowPtrs(env.row_ptrs);
++  auto generate_image = [&]() {
+   if (have_image) {
++    const double opi_image_start = OpiNow();
++    fprintf(stderr, "OPI_IMAGE_BEGIN t=%.9f\n", opi_image_start);
+     HWY_ASSERT(config.wrapping == PromptWrapping::PALIGEMMA ||
+                config.wrapping == PromptWrapping::GEMMA_VLM);
+     HWY_ASSERT(image.ReadPPM(inference.image_file.path));
+@@ -124,7 +133,10 @@
+               "\n\n[ Timing info ] Image token generation took: %d ms\n",
+               static_cast<int>(image_tokens_duration * 1000));
+     }
+-  }
++    fprintf(stderr, "OPI_IMAGE_END t=%.9f seconds=%.9f\n", OpiNow(), OpiNow()-opi_image_start);
++  }
++  };
++  double request_begin = 0;
+ 
+   // callback function invoked for each generated token.
+   auto batch_stream_token = [&](size_t query_idx, size_t pos, int token,
+@@ -132,10 +144,12 @@
+     std::string token_text;
+     HWY_ASSERT(gemma.Tokenizer().Decode(std::vector<int>{token}, &token_text));
+ 
++    if (pos != abs_pos) fprintf(stderr, "OPI position mismatch got=%zu expected=%zu\n", pos, abs_pos);
+     HWY_ASSERT(pos == abs_pos);
+     ++abs_pos;
+     const bool in_prompt = tokens_generated_this_turn < prompt_size;
+     const bool first_response_token = tokens_generated_this_turn == prompt_size;
++    if (!in_prompt) fprintf(stderr, "OPI_TOKEN id=%d pos=%zu t=%.9f\n", token, pos, OpiNow());
+     ++tokens_generated_this_turn;
+     if (in_prompt) {
+       if (inference.verbosity >= 1) {
+@@ -149,6 +163,7 @@
+       return true;
+     }
+     if (first_response_token) {
++      fprintf(stderr, "OPI_FIRST_TOKEN t=%.9f ttft=%.9f\n", OpiNow(), OpiNow()-request_begin);
+       token_text.erase(0, token_text.find_first_not_of(" \t\n"));
+       if (inference.verbosity >= 1) {
+         std::cout << "\n\n";
+@@ -180,6 +195,10 @@
+         continue;
+       }
+     }
++
++    request_begin = OpiNow();
++    fprintf(stderr, "OPI_REQUEST_BEGIN t=%.9f\n", request_begin);
++    generate_image();
+ 
+     // Set up runtime config.
+     TimingInfo timing_info = {.verbosity = inference.verbosity};
+@@ -225,6 +244,7 @@
+     if (abs_pos > 0) --abs_pos;
+     gemma.Generate(runtime_config, prompt, abs_pos, prefix_end, kv_cache, env,
+                    timing_info);
++    fprintf(stderr, "OPI_REQUEST_END t=%.9f seconds=%.9f prompt_tokens=%zu\n", OpiNow(), OpiNow()-request_begin, prompt_size);
+     std::cout << "\n\n";
+ 
+     // In non-interactive mode, we only process one prompt/turn.
+@@ -252,6 +272,7 @@
+          const InferenceArgs& inference) {
+   PROFILER_ZONE("Run.misc");
+ 
++  const double opi_load_start = OpiNow();
+   ThreadingContext ctx(threading);
+   MatMulEnv env(ctx);
+   if (inference.verbosity >= 3) env.print_best = true;
+@@ -289,6 +310,7 @@
+     }
+   }
+ 
++  fprintf(stderr, "OPI_MODEL_READY t=%.9f load_s=%.9f\n", OpiNow(), OpiNow()-opi_load_start);
+   ReplGemma(threading, inference, gemma, kv_cache, env);
+ }
+ 

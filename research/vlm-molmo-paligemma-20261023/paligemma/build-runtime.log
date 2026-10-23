@@ -1,0 +1,15 @@
+dependency ready highway 3655180
+Traceback (most recent call last):
+  File "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/vlm-molmo-paligemma-20261023/paligemma/build_runtime.py", line 14, in <module>
+    folder=t.getmembers()[0].name.split('/')[0];t.extractall(D,filter='data')
+  File "/usr/lib/python3.10/tarfile.py", line 2302, in extractall
+    tarinfo = self._get_extract_tarinfo(member, filter_function, path)
+  File "/usr/lib/python3.10/tarfile.py", line 2358, in _get_extract_tarinfo
+    self._handle_fatal_error(e)
+  File "/usr/lib/python3.10/tarfile.py", line 2356, in _get_extract_tarinfo
+    tarinfo = filter_function(tarinfo, path)
+  File "/usr/lib/python3.10/tarfile.py", line 819, in data_filter
+    new_attrs = _get_filtered_attrs(member, dest_path, True)
+  File "/usr/lib/python3.10/tarfile.py", line 806, in _get_filtered_attrs
+    raise LinkOutsideDestinationError(member, target_path)
+tarfile.LinkOutsideDestinationError: 'sentencepiece-53de76561cfc149d3c01037f0595669ad32a5e7c/python/test/botchan.txt' would link to '/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/vlm-molmo-paligemma-20261023/data/botchan.txt', which is outside the destination

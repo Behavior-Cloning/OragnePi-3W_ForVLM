@@ -1,0 +1,23 @@
+--- a/python/convert_from_safetensors.py
++++ b/python/convert_from_safetensors.py
+@@ -331,6 +331,7 @@
+   ][:-64]
+ 
+   writer = compression.SbsWriter(sbs_file)
++  tensor_registry = configs.TensorInfoRegistry(configs.ModelConfig(model_specifier))
+   metadata = []
+   scales = {}
+   dims = _get_dimensions(params)
+@@ -381,9 +382,9 @@
+     sys.stdout.flush()
+ 
+     # Add the data to the writer.
+-    info = configs.TensorInfo()
+-    info.name = sbs_name
+-    info.shape = data.shape
++    info = tensor_registry.tensor_info_from_name(sbs_name)
++    assert info.shape, f"Missing runtime tensor metadata: {sbs_name}"
++    assert np.prod(info.shape) == data.size, (sbs_name, info.shape, data.shape)
+     writer.insert(sbs_name, value, packed, info)
+ 
+   def add_qkv_einsum(i):  # Handle qkv for layer i.

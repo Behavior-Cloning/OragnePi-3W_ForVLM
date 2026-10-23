@@ -1,0 +1,182 @@
+[32mI 15:38:38 Namespace(import='onnx', input_dtype_list=None, input_size_list=None, inputs=None, model='/work/probe/static-one-expert/layer0.onnx', output_data='decoder.data', output_model='decoder.json', outputs=None, size_with_batch=None, which='import')[0m
+[32mI 15:38:38 Set vsinn project dir to /work/compiled/static-one-expert[0m
+[32mI 15:38:38 Start importing onnx...[0m
+[32mI 15:38:38 Current ONNX Model use ir_version 7 opset_version 13[0m
+[32mI 15:38:38 try optimize eliminate_option_const ...[0m
+[32mI 15:38:38 Call acuity onnx optimize 'eliminate_option_const' success[0m
+[32mI 15:38:38 try optimize froze_if ...[0m
+[32mI 15:38:38 Call acuity onnx optimize 'froze_if' success[0m
+[32mI 15:38:38 try optimize merge_sequence_construct_concat_from_sequence ...[0m
+[32mI 15:38:38 Call acuity onnx optimize 'merge_sequence_construct_concat_from_sequence' success[0m
+[32mI 15:38:38 try optimize merge_lrn_lowlevel_implement ...[0m
+[32mI 15:38:38 Call acuity onnx optimize 'merge_lrn_lowlevel_implement' success[0m
+[32mI 15:38:38 try optimize merge_splittosequence_sequenceat ...[0m
+[32mI 15:38:38 Call acuity onnx optimize 'merge_splittosequence_sequenceat' success[0m
+[36mD 15:38:38 Calc tensor Initializer_onnx::MatMul_31 shape: [2048, 1024][0m
+[36mD 15:38:38 Calc tensor Initializer_onnx::MatMul_32 shape: [2048, 1024][0m
+[36mD 15:38:38 Calc tensor Initializer_onnx::MatMul_33 shape: [1024, 2048][0m
+[36mD 15:38:38 Calc tensor Initializer_/Constant_output_0 shape: [1][0m
+[36mD 15:38:38 Calc tensor Initializer_/Constant_1_output_0 shape: [1][0m
+[36mD 15:38:38 Calc tensor Initializer_/Constant_2_output_0 shape: [1][0m
+[36mD 15:38:38 Calc tensor Initializer_/Constant_3_output_0 shape: [1][0m
+[36mD 15:38:38 Calc tensor MatMul_/gate/MatMul_output_0 shape: [1, 1024][0m
+[36mD 15:38:38 Calc tensor MatMul_/up/MatMul_output_0 shape: [1, 1024][0m
+[36mD 15:38:38 Calc tensor Slice_/Slice_output_0 shape: [1, 1][0m
+[36mD 15:38:38 Calc tensor Sigmoid_/Sigmoid_output_0 shape: [1, 1024][0m
+[36mD 15:38:38 Calc tensor Mul_/Mul_output_0 shape: [1, 1024][0m
+[36mD 15:38:38 Calc tensor Mul_/Mul_1_output_0 shape: [1, 1024][0m
+[36mD 15:38:38 Calc tensor MatMul_/down/MatMul_output_0 shape: [1, 2048][0m
+[36mD 15:38:38 Calc tensor Mul_expert_output shape: [1, 2048][0m
+[32mI 15:38:38 build output layer attach_expert_output:out0[0m
+[32mI 15:38:38 Try match expert_output:out0[0m
+[32mI 15:38:38 Match r_mul [['expert_output']] [['Mul']] to [['multiply']][0m
+[32mI 15:38:38 multiply lid: expert_output_1[0m
+[32mI 15:38:38 Try match down/MatMul_output_0:out0[0m
+[32mI 15:38:38 Match r_mm [['down/MatMul_output_0', 'onnx__MatMul_33']] [['MatMul', 'Constant_0']] to [['fullconnect']][0m
+[32mI 15:38:38 fullconnect lid: down/MatMul_output_0_2[0m
+[32mI 15:38:38 Try match Slice_output_0:out0[0m
+[32mI 15:38:38 Match r_slice_2 [['Slice_output_0', 'Constant_1_output_0', 'Constant_2_output_0', 'Constant_output_0', 'Constant_3_output_0']] [['Slice', 'Constant', 'Constant_1', 'Constant_2', 'Constant_3']] to [['slice']][0m
+[32mI 15:38:38 slice lid: Slice_output_0_3[0m
+[32mI 15:38:38 Try match Mul_1_output_0:out0[0m
+[32mI 15:38:38 Match r_mul [['Mul_1_output_0']] [['Mul']] to [['multiply']][0m
+[32mI 15:38:38 multiply lid: Mul_1_output_0_4[0m
+[32mI 15:38:38 Try match up/MatMul_output_0:out0[0m
+[32mI 15:38:38 Match r_mm [['up/MatMul_output_0', 'onnx__MatMul_32']] [['MatMul', 'Constant_0']] to [['fullconnect']][0m
+[32mI 15:38:38 fullconnect lid: up/MatMul_output_0_5[0m
+[32mI 15:38:38 Try match Mul_output_0:out0[0m
+[32mI 15:38:38 Match r_mul [['Mul_output_0']] [['Mul']] to [['multiply']][0m
+[32mI 15:38:38 multiply lid: Mul_output_0_6[0m
+[32mI 15:38:38 Try match Sigmoid_output_0:out0[0m
+[32mI 15:38:38 Match r_sigmoid [['Sigmoid_output_0']] [['Sigmoid']] to [['Sigmoid']][0m
+[32mI 15:38:38 Sigmoid lid: Sigmoid_output_0_7[0m
+[32mI 15:38:38 Try match gate/MatMul_output_0:out0[0m
+[32mI 15:38:38 Match r_mm [['gate/MatMul_output_0', 'onnx__MatMul_31']] [['MatMul', 'Constant_0']] to [['fullconnect']][0m
+[32mI 15:38:38 fullconnect lid: gate/MatMul_output_0_8[0m
+[32mI 15:38:38 build input layer hidden:out0[0m
+[32mI 15:38:38 build input layer routing_weights:out0[0m
+[36mD 15:38:38 connect down/MatMul_output_0_2 0  ~ expert_output_1 0[0m
+[36mD 15:38:38 connect Slice_output_0_3 0  ~ expert_output_1 1[0m
+[36mD 15:38:38 connect Mul_1_output_0_4 0  ~ down/MatMul_output_0_2 0[0m
+[36mD 15:38:38 connect routing_weights_10 0  ~ Slice_output_0_3 0[0m
+[36mD 15:38:38 connect Mul_output_0_6 0  ~ Mul_1_output_0_4 0[0m
+[36mD 15:38:38 connect up/MatMul_output_0_5 0  ~ Mul_1_output_0_4 1[0m
+[36mD 15:38:38 connect hidden_9 0  ~ up/MatMul_output_0_5 0[0m
+[36mD 15:38:38 connect gate/MatMul_output_0_8 0  ~ Mul_output_0_6 0[0m
+[36mD 15:38:38 connect Sigmoid_output_0_7 0  ~ Mul_output_0_6 1[0m
+[36mD 15:38:38 connect gate/MatMul_output_0_8 0  ~ Sigmoid_output_0_7 0[0m
+[36mD 15:38:38 connect hidden_9 0  ~ gate/MatMul_output_0_8 0[0m
+[36mD 15:38:38 connect expert_output_1 0  ~ attach_expert_output/out0_0 0[0m
+[36mD 15:38:38 Process hidden_9 ...[0m
+[36mD 15:38:38 Acuity output shape(input): (1 2048)[0m
+[36mD 15:38:38 Tensor @hidden_9:out0 type: float32[0m
+[36mD 15:38:38 Process routing_weights_10 ...[0m
+[36mD 15:38:38 Acuity output shape(input): (1 8)[0m
+[36mD 15:38:38 Tensor @routing_weights_10:out0 type: float32[0m
+[36mD 15:38:38 Process up/MatMul_output_0_5 ...[0m
+[36mD 15:38:38 Acuity output shape(fullconnect): (1 1024)[0m
+[36mD 15:38:38 Tensor @up/MatMul_output_0_5:out0 type: float32[0m
+[36mD 15:38:38 Process gate/MatMul_output_0_8 ...[0m
+[36mD 15:38:38 Acuity output shape(fullconnect): (1 1024)[0m
+[36mD 15:38:38 Tensor @gate/MatMul_output_0_8:out0 type: float32[0m
+[36mD 15:38:38 Process Slice_output_0_3 ...[0m
+[36mD 15:38:38 Acuity output shape(slice): (1 1)[0m
+[36mD 15:38:38 Tensor @Slice_output_0_3:out0 type: float32[0m
+[36mD 15:38:38 Process Sigmoid_output_0_7 ...[0m
+[36mD 15:38:38 Acuity output shape(sigmoid): (1 1024)[0m
+[36mD 15:38:38 Tensor @Sigmoid_output_0_7:out0 type: float32[0m
+[36mD 15:38:38 Process Mul_output_0_6 ...[0m
+[36mD 15:38:38 Acuity output shape(multiply): (1 1024)[0m
+[36mD 15:38:38 Tensor @Mul_output_0_6:out0 type: float32[0m
+[36mD 15:38:38 Process Mul_1_output_0_4 ...[0m
+[36mD 15:38:38 Acuity output shape(multiply): (1 1024)[0m
+[36mD 15:38:38 Tensor @Mul_1_output_0_4:out0 type: float32[0m
+[36mD 15:38:38 Process down/MatMul_output_0_2 ...[0m
+[36mD 15:38:38 Acuity output shape(fullconnect): (1 2048)[0m
+[36mD 15:38:38 Tensor @down/MatMul_output_0_2:out0 type: float32[0m
+[36mD 15:38:38 Process expert_output_1 ...[0m
+[36mD 15:38:38 Acuity output shape(multiply): (1 2048)[0m
+[36mD 15:38:38 Tensor @expert_output_1:out0 type: float32[0m
+[36mD 15:38:38 Process attach_expert_output/out0_0 ...[0m
+[36mD 15:38:38 Acuity output shape(output): (1 2048)[0m
+[36mD 15:38:38 Tensor @attach_expert_output/out0_0:out0 type: float32[0m
+[32mI 15:38:38 Build main_graph complete.[0m
+[32mI 15:38:38 Start C2T Switcher...[0m
+[36mD 15:38:38 Optimizing network with broadcast_op[0m
+[32mI 15:38:38 End C2T Switcher...[0m
+[36mD 15:38:38 Process hidden_9 ...[0m
+[36mD 15:38:38 Acuity output shape(input): (1 2048)[0m
+[36mD 15:38:38 Tensor @hidden_9:out0 type: float32[0m
+[36mD 15:38:38 Process routing_weights_10 ...[0m
+[36mD 15:38:38 Acuity output shape(input): (1 8)[0m
+[36mD 15:38:38 Tensor @routing_weights_10:out0 type: float32[0m
+[36mD 15:38:38 Process up/MatMul_output_0_5 ...[0m
+[36mD 15:38:38 Acuity output shape(fullconnect): (1 1024)[0m
+[36mD 15:38:38 Tensor @up/MatMul_output_0_5:out0 type: float32[0m
+[36mD 15:38:38 Process gate/MatMul_output_0_8 ...[0m
+[36mD 15:38:38 Acuity output shape(fullconnect): (1 1024)[0m
+[36mD 15:38:38 Tensor @gate/MatMul_output_0_8:out0 type: float32[0m
+[36mD 15:38:38 Process Slice_output_0_3 ...[0m
+[36mD 15:38:38 Acuity output shape(slice): (1 1)[0m
+[36mD 15:38:38 Tensor @Slice_output_0_3:out0 type: float32[0m
+[36mD 15:38:38 Process Sigmoid_output_0_7 ...[0m
+[36mD 15:38:38 Acuity output shape(sigmoid): (1 1024)[0m
+[36mD 15:38:38 Tensor @Sigmoid_output_0_7:out0 type: float32[0m
+[36mD 15:38:38 Process Mul_output_0_6 ...[0m
+[36mD 15:38:38 Acuity output shape(multiply): (1 1024)[0m
+[36mD 15:38:38 Tensor @Mul_output_0_6:out0 type: float32[0m
+[36mD 15:38:38 Process Mul_1_output_0_4 ...[0m
+[36mD 15:38:38 Acuity output shape(multiply): (1 1024)[0m
+[36mD 15:38:38 Tensor @Mul_1_output_0_4:out0 type: float32[0m
+[36mD 15:38:38 Process down/MatMul_output_0_2 ...[0m
+[36mD 15:38:38 Acuity output shape(fullconnect): (1 2048)[0m
+[36mD 15:38:38 Tensor @down/MatMul_output_0_2:out0 type: float32[0m
+[36mD 15:38:38 Process expert_output_1 ...[0m
+[36mD 15:38:38 Acuity output shape(multiply): (1 2048)[0m
+[36mD 15:38:38 Tensor @expert_output_1:out0 type: float32[0m
+[36mD 15:38:38 Process attach_expert_output/out0_0 ...[0m
+[36mD 15:38:38 Acuity output shape(output): (1 2048)[0m
+[36mD 15:38:38 Tensor @attach_expert_output/out0_0:out0 type: float32[0m
+[32mI 15:38:38 Build main_graph complete.[0m
+[36mD 15:38:38 Optimizing network with force_1d_tensor, special_clip_to_relun, swapper, merge_duplicate_quantize_dequantize, fold_quantize_dequantize, batchmatmul_add_to_fc, merge_layer, resize_nearest_transformer, auto_fill_multiply, compute_gather_negative, auto_fill_zero_bias, proposal_opt_import, extend_gather_to_gather_reshape, extend_stack_to_stack_reshape, input_to_output[0m
+[36mD 15:38:38 Merge ['Sigmoid_output_0_7', 'Mul_output_0_6'] (swish)[0m
+[36mD 15:38:38 Fill zero bias for down/MatMul_output_0_2 (fullconnect)[0m
+[36mD 15:38:38 Fill zero bias for up/MatMul_output_0_5 (fullconnect)[0m
+[36mD 15:38:38 Fill zero bias for gate/MatMul_output_0_8 (fullconnect)[0m
+[36mD 15:38:38 Optimizing network with auto_fill_bn, auto_fill_l2normalizescale, auto_fill_instancenormalize, merge_layer[0m
+[36mD 15:38:38 Optimizing network with special_add_to_conv2d[0m
+[32mI 15:38:38 start process output layer attach_expert_output/out0_0[0m
+[36mD 15:38:38 Process hidden_9 ...[0m
+[36mD 15:38:38 Acuity output shape(input): (1 2048)[0m
+[36mD 15:38:38 Tensor @hidden_9:out0 type: float32[0m
+[36mD 15:38:38 Process routing_weights_10 ...[0m
+[36mD 15:38:38 Acuity output shape(input): (1 8)[0m
+[36mD 15:38:38 Tensor @routing_weights_10:out0 type: float32[0m
+[36mD 15:38:38 Process up/MatMul_output_0_5 ...[0m
+[36mD 15:38:38 Acuity output shape(fullconnect): (1 1024)[0m
+[36mD 15:38:38 Tensor @up/MatMul_output_0_5:out0 type: float32[0m
+[36mD 15:38:38 Process gate/MatMul_output_0_8 ...[0m
+[36mD 15:38:38 Acuity output shape(fullconnect): (1 1024)[0m
+[36mD 15:38:38 Tensor @gate/MatMul_output_0_8:out0 type: float32[0m
+[36mD 15:38:38 Process Slice_output_0_3 ...[0m
+[36mD 15:38:38 Acuity output shape(slice): (1 1)[0m
+[36mD 15:38:38 Tensor @Slice_output_0_3:out0 type: float32[0m
+[36mD 15:38:38 Process Sigmoid_output_0_7_Mul_output_0_6 ...[0m
+[36mD 15:38:38 Acuity output shape(swish): (1 1024)[0m
+[36mD 15:38:38 Tensor @Sigmoid_output_0_7_Mul_output_0_6:out0 type: float32[0m
+[36mD 15:38:38 Process Mul_1_output_0_4 ...[0m
+[36mD 15:38:38 Acuity output shape(multiply): (1 1024)[0m
+[36mD 15:38:38 Tensor @Mul_1_output_0_4:out0 type: float32[0m
+[36mD 15:38:38 Process down/MatMul_output_0_2 ...[0m
+[36mD 15:38:38 Acuity output shape(fullconnect): (1 2048)[0m
+[36mD 15:38:38 Tensor @down/MatMul_output_0_2:out0 type: float32[0m
+[36mD 15:38:38 Process expert_output_1 ...[0m
+[36mD 15:38:38 Acuity output shape(multiply): (1 2048)[0m
+[36mD 15:38:38 Tensor @expert_output_1:out0 type: float32[0m
+[36mD 15:38:38 Process attach_expert_output/out0_0 ...[0m
+[36mD 15:38:38 Acuity output shape(output): (1 2048)[0m
+[36mD 15:38:38 Tensor @attach_expert_output/out0_0:out0 type: float32[0m
+[32mI 15:38:38 Build main_graph complete.[0m
+[32mI 15:38:38 End importing onnx...[0m
+[32mI 15:38:38 Dump net to /work/compiled/static-one-expert/decoder.json[0m
+[32mI 15:38:38 Save net to /work/compiled/static-one-expert/decoder.data[0m
+[32mI 15:38:38 ----------------Error(0),Warning(0)----------------[0m

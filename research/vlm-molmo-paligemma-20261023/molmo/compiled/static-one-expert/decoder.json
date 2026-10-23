@@ -1,0 +1,169 @@
+{
+    "MetaData": {
+        "Name": "main_graph",
+        "AcuityVersion": "6",
+        "Platform": "tensorflow",
+        "Org_Platform": "onnx"
+    },
+    "Layers": {
+        "attach_expert_output/out0_0": {
+            "name": "attach_expert_output/out0",
+            "op": "output",
+            "parameters": {},
+            "inputs": [
+                "@expert_output_1:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "expert_output_1": {
+            "name": "expert_output",
+            "op": "multiply",
+            "parameters": {
+                "axis": 1,
+                "bias": false
+            },
+            "inputs": [
+                "@down/MatMul_output_0_2:out0",
+                "@Slice_output_0_3:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "down/MatMul_output_0_2": {
+            "name": "down/MatMul_output_0",
+            "op": "fullconnect",
+            "parameters": {
+                "weights": 2048,
+                "bias": true,
+                "regularize": false,
+                "axis": 1
+            },
+            "inputs": [
+                "@Mul_1_output_0_4:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "Slice_output_0_3": {
+            "name": "Slice_output_0",
+            "op": "slice",
+            "parameters": {
+                "begin": [
+                    0,
+                    0
+                ],
+                "size": [
+                    1,
+                    1
+                ]
+            },
+            "inputs": [
+                "@routing_weights_10:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "Mul_1_output_0_4": {
+            "name": "Mul_1_output_0",
+            "op": "multiply",
+            "parameters": {
+                "axis": 1,
+                "bias": false
+            },
+            "inputs": [
+                "@Sigmoid_output_0_7_Mul_output_0_6:out0",
+                "@up/MatMul_output_0_5:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "up/MatMul_output_0_5": {
+            "name": "up/MatMul_output_0",
+            "op": "fullconnect",
+            "parameters": {
+                "weights": 1024,
+                "bias": true,
+                "regularize": false,
+                "axis": 1
+            },
+            "inputs": [
+                "@hidden_9:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "gate/MatMul_output_0_8": {
+            "name": "gate/MatMul_output_0",
+            "op": "fullconnect",
+            "parameters": {
+                "weights": 1024,
+                "bias": true,
+                "regularize": false,
+                "axis": 1
+            },
+            "inputs": [
+                "@hidden_9:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "hidden_9": {
+            "name": "hidden",
+            "op": "input",
+            "parameters": {
+                "size": "",
+                "channels": 1,
+                "shape": [
+                    1,
+                    2048
+                ],
+                "is_scalar": false,
+                "type": "float32"
+            },
+            "inputs": [],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "routing_weights_10": {
+            "name": "routing_weights",
+            "op": "input",
+            "parameters": {
+                "size": "",
+                "channels": 1,
+                "shape": [
+                    1,
+                    8
+                ],
+                "is_scalar": false,
+                "type": "float32"
+            },
+            "inputs": [],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "Sigmoid_output_0_7_Mul_output_0_6": {
+            "name": "swish",
+            "op": "swish",
+            "parameters": {
+                "beta": 1.0
+            },
+            "inputs": [
+                "@gate/MatMul_output_0_8:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        }
+    },
+    "quantize_info": {}
+}

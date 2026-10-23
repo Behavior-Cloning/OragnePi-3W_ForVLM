@@ -1,0 +1,139 @@
+[32mI 14:51:44 Namespace(batch_size=None, build_platform='make', customer_lids=None, customer_ops=None, dtype='quantized', export='ovxlib', force_remove_permute=False, model='decoder.json', model_data='decoder.data', model_quantize='decoder.quantize', optimize='VIP9000NANODI_PLUS_PID0X1000003B', output_path='export/decoder', pack_nbg_unify=True, postprocess_file=None, save_fused_graph=False, save_trace_db=False, target_ide_project='linux64', viv_sdk='/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools', which='export', with_input_meta='tensor-inputmeta.yml')[0m
+[32mI 14:51:44 Set vsinn project dir to /work/compiled/topk-router[0m
+[32mI 14:51:44 Load model in /work/compiled/topk-router/decoder.json[0m
+[32mI 14:51:44 Load data in /work/compiled/topk-router/decoder.data[0m
+[32mI 14:51:44 Load input meta /work/compiled/topk-router/tensor-inputmeta.yml[0m
+[32mI 14:51:44 Load quantization tensor table /work/compiled/topk-router/decoder.quantize[0m
+[32mI 14:51:44 Start exporting ovxlib case...[0m
+[36mD 14:51:44 Process hidden_7 ...[0m
+[36mD 14:51:44 Acuity output shape(input): (1 2048)[0m
+[36mD 14:51:44 Tensor @hidden_7:out0 type: float32(fake float16)[0m
+[36mD 14:51:44 Process gate/MatMul_output_0_6 ...[0m
+[36mD 14:51:44 Acuity output shape(fullconnect): (1 64)[0m
+[36mD 14:51:44 Tensor @gate/MatMul_output_0_6:out0 type: float32(fake float16)[0m
+[36mD 14:51:44 Process Cast_output_0_5 ...[0m
+[36mD 14:51:44 Acuity output shape(cast): (1 64)[0m
+[36mD 14:51:44 Tensor @Cast_output_0_5:out0 type: float32[0m
+[36mD 14:51:44 Process Softmax_output_0_4 ...[0m
+[36mD 14:51:44 Acuity output shape(softmax): (1 64)[0m
+[36mD 14:51:44 Tensor @Softmax_output_0_4:out0 type: float32[0m
+[36mD 14:51:44 Process values_2 ...[0m
+[36mD 14:51:44 Acuity output shape(topk): (1 8) (1 8)[0m
+[36mD 14:51:44 Tensor @values_2:out0 type: float32(fake float16)[0m
+[36mD 14:51:44 Tensor @values_2:out1 type: int32[0m
+[36mD 14:51:44 Process attach_values/out0_0 ...[0m
+[36mD 14:51:44 Acuity output shape(output): (1 8)[0m
+[36mD 14:51:44 Tensor @attach_values/out0_0:out0 type: float32[0m
+[36mD 14:51:44 Process cast_3 ...[0m
+[36mD 14:51:44 Acuity output shape(cast): (1 8)[0m
+[36mD 14:51:44 Tensor @cast_3:out0 type: int64[0m
+[36mD 14:51:44 Process attach_values/out1_1 ...[0m
+[36mD 14:51:44 Acuity output shape(output): (1 8)[0m
+[36mD 14:51:44 Tensor @attach_values/out1_1:out0 type: int64[0m
+[32mI 14:51:44 Build main_graph complete.[0m
+[32mI 14:51:44 Initialzing network optimizer by VIP9000NANODI_PLUS_PID0X1000003B ...[0m
+[32mI 14:51:44 Optimize config VIP9000NANODI_PLUS_PID0X1000003B with 'Default' optimization rules.[0m
+[36mD 14:51:44 Optimizing network with split_squared_difference, merge_ximum, qnt_adjust_coef, adjust_qnt_reshape, multiply_transform, add_extra_io, format_input_ops, auto_fill_zero_bias, conv_kernel_transform, auto_fill_reshape_zero, strip_op, extend_unstack_split, convert_matmul_trans_ab, merge_layer, transform_layer, broadcast_op, strip_op, adjust_output_attrs, insert_dtype_converter, layernorm_to_moments_bnsingle, pow_to_square, average_to_add_divide, optimize_einsum[0m
+[32mI 14:51:44 Start T2C Switcher...[0m
+[36mD 14:51:44 Optimizing network with broadcast_op, t2c_fc[0m
+[32mI 14:51:44 End T2C Switcher...[0m
+[36mD 14:51:44 Optimizing network with strip_op_layout_sensitive[0m
+[36mD 14:51:44 Process hidden_7 ...[0m
+[36mD 14:51:44 Acuity output shape(input): (1 2048)[0m
+[36mD 14:51:44 Tensor @hidden_7:out0 type: float32(fake float16)[0m
+[36mD 14:51:44 Process gate/MatMul_output_0_6 ...[0m
+[36mD 14:51:44 Acuity output shape(fullconnect): (1 64)[0m
+[36mD 14:51:44 Tensor @gate/MatMul_output_0_6:out0 type: float32(fake float16)[0m
+[36mD 14:51:44 Process Cast_output_0_5 ...[0m
+[36mD 14:51:44 Acuity output shape(cast): (1 64)[0m
+[36mD 14:51:44 Tensor @Cast_output_0_5:out0 type: float32[0m
+[36mD 14:51:44 Process Softmax_output_0_4 ...[0m
+[36mD 14:51:44 Acuity output shape(softmax): (1 64)[0m
+[36mD 14:51:44 Tensor @Softmax_output_0_4:out0 type: float32[0m
+[36mD 14:51:44 Process values_2 ...[0m
+[36mD 14:51:44 Acuity output shape(topk): (1 8) (1 8)[0m
+[36mD 14:51:44 Tensor @values_2:out0 type: float32(fake float16)[0m
+[36mD 14:51:44 Tensor @values_2:out1 type: int32[0m
+[36mD 14:51:44 Process attach_values/out0_0 ...[0m
+[36mD 14:51:44 Acuity output shape(output): (1 8)[0m
+[36mD 14:51:44 Tensor @attach_values/out0_0:out0 type: float32(fake float16)[0m
+[36mD 14:51:44 Process cast_3 ...[0m
+[36mD 14:51:44 Acuity output shape(cast): (1 8)[0m
+[36mD 14:51:44 Tensor @cast_3:out0 type: int64[0m
+[36mD 14:51:44 Process attach_values/out1_1 ...[0m
+[36mD 14:51:44 Acuity output shape(output): (1 8)[0m
+[36mD 14:51:44 Tensor @attach_values/out1_1:out0 type: int64[0m
+[32mI 14:51:44 Build main_graph complete.[0m
+[36mD 14:51:44 Optimizing network with merge_mark_permute[0m
+[36mD 14:51:44 Optimizing network with insert_reshape_for_layernorm, c2drv_adjust_extra_io, c2drv_nhwc_resize, conv_1xn_transform, proposal_opt, c2drv_convert_axis, c2drv_convert_shape, c2drv_convert_array, c2drv_cast_dtype, c2drv_trans_data, c2drv_custom_opt[0m
+[32mI 14:51:44 Building data ...[0m
+[32mI 14:51:44 Convert tensor @attach_values/out1_1:out0 type from int64 to int32[0m
+[32mI 14:51:44 Convert tensor @cast_3:out0 type from int64 to int32[0m
+[32mI 14:51:44 Packing data ...[0m
+[36mD 14:51:44 Packing gate/MatMul_output_0_6 ...[0m
+[32mI 14:51:44 Saving data to /work/compiled/topk-router/export/decoder.export.data[0m
+[32mI 14:51:44 Export ovxlib case with version 1.1.83[0m
+[32mI 14:51:44 Save vx network source file to /work/compiled/topk-router/export/vnn_decoder.c[0m
+[32mI 14:51:44 Save vx network source file to /work/compiled/topk-router/export/vnn_decoder.h[0m
+[32mI 14:51:44 Save vx network source file to /work/compiled/topk-router/export/vnn_post_process.c[0m
+[32mI 14:51:44 Save vx network source file to /work/compiled/topk-router/export/vnn_post_process.h[0m
+[32mI 14:51:44 Save vx network source file to /work/compiled/topk-router/export/vnn_pre_process.c[0m
+[32mI 14:51:44 Save vx network source file to /work/compiled/topk-router/export/vnn_pre_process.h[0m
+[32mI 14:51:44 Save vx network source file to /work/compiled/topk-router/export/vnn_global.h[0m
+[32mI 14:51:44 Save vx network source file to /work/compiled/topk-router/export/main.c[0m
+[32mI 14:51:44 Save vx network source file to /work/compiled/topk-router/export/BUILD[0m
+[32mI 14:51:44 Save vx network source file to /work/compiled/topk-router/export/decoder.vcxproj[0m
+[32mI 14:51:44 Save vx network source file to /work/compiled/topk-router/export/decoder.2012.vcxproj[0m
+[32mI 14:51:44 Save vx network source file to /work/compiled/topk-router/export/makefile.linux[0m
+[32mI 14:51:44 Save vx network source file to /work/compiled/topk-router/export/.cproject[0m
+[32mI 14:51:44 Save vx network source file to /work/compiled/topk-router/export/.project[0m
+[36mD 14:51:44 Generate fake input /work/compiled/topk-router/export/hidden_7_0.tensor[0m
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_decoder.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_pre_process.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+vnn_pre_process.c: In function ‘_handle_multiple_inputs’:
+vnn_pre_process.c:639:11: warning: variable ‘p1’ set but not used [-Wunused-but-set-variable]
+  639 |     char *p1 = NULL;
+      |           ^~
+At top level:
+vnn_pre_process.c:599:13: warning: ‘_get_image_handle_buffer’ defined but not used [-Wunused-function]
+  599 | static void _get_image_handle_buffer
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c main.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_post_process.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -O3  vnn_decoder.o vnn_pre_process.o main.o vnn_post_process.o -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/../common/lib/ -lvdtproxy /root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/../common/lib/libjpeg.a -o gen_nbg
+Create Neural Network: 178ms or 178181us
+Verify...
+Verify Graph: 590ms or 590724us
+Start run graph [1] times...
+Run the 1 time: 19.49ms or 19492.60us
+vxProcessGraph execution time:
+Total   19.50ms or 19496.99us
+Average 19.50ms or 19496.99us
+ --- Top5 ---
+  0: 0.000000
+  1: 0.000000
+  2: 0.000000
+  3: 0.000000
+  4: 0.000000
+[32mI 14:51:47 Export ovxlib case with version 1.1.83[0m
+[32mI 14:51:47 Dump nbg input meta to /work/compiled/topk-router/export_nbg_unify/nbg_meta.json[0m
+[32mI 14:51:47 Save vx network source file to /work/compiled/topk-router/export_nbg_unify/vnn_decoder.c[0m
+[32mI 14:51:47 Save vx network source file to /work/compiled/topk-router/export_nbg_unify/vnn_decoder.h[0m
+[32mI 14:51:47 Save vx network source file to /work/compiled/topk-router/export_nbg_unify/vnn_post_process.c[0m
+[32mI 14:51:47 Save vx network source file to /work/compiled/topk-router/export_nbg_unify/vnn_post_process.h[0m
+[32mI 14:51:47 Save vx network source file to /work/compiled/topk-router/export_nbg_unify/vnn_pre_process.c[0m
+[32mI 14:51:47 Save vx network source file to /work/compiled/topk-router/export_nbg_unify/vnn_pre_process.h[0m
+[32mI 14:51:47 Save vx network source file to /work/compiled/topk-router/export_nbg_unify/vnn_global.h[0m
+[32mI 14:51:47 Save vx network source file to /work/compiled/topk-router/export_nbg_unify/main.c[0m
+[32mI 14:51:47 Save vx network source file to /work/compiled/topk-router/export_nbg_unify/BUILD[0m
+[32mI 14:51:47 Save vx network source file to /work/compiled/topk-router/export_nbg_unify/decoder.vcxproj[0m
+[32mI 14:51:47 Save vx network source file to /work/compiled/topk-router/export_nbg_unify/decoder.2012.vcxproj[0m
+[32mI 14:51:47 Save vx network source file to /work/compiled/topk-router/export_nbg_unify/makefile.linux[0m
+[32mI 14:51:47 Save vx network source file to /work/compiled/topk-router/export_nbg_unify/.cproject[0m
+[32mI 14:51:47 Save vx network source file to /work/compiled/topk-router/export_nbg_unify/.project[0m
+[32mI 14:51:47 End exporting ovxlib case...[0m
+[32mI 14:51:47 ----------------Error(0),Warning(0)----------------[0m

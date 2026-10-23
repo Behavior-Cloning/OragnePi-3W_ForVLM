@@ -1,0 +1,67 @@
+
+  __ _  ___ _ __ ___  _ __ ___   __ _   ___ _ __  _ __
+ / _` |/ _ \ '_ ` _ \| '_ ` _ \ / _` | / __| '_ \| '_ \
+| (_| |  __/ | | | | | | | | | | (_| || (__| |_) | |_) |
+ \__, |\___|_| |_| |_|_| |_| |_|\__,_(_)___| .__/| .__/
+  __/ |                                    | |   | |
+ |___/                                     |_|   |_|
+
+
+gemma.cpp : a lightweight, standalone C++ inference engine
+==========================================================
+
+To run with pre-2025 weights, specify --tokenizer and --weights.
+With the single-file weights format, specify just --weights.
+
+*Example Usage*
+
+./gemma --tokenizer tokenizer.spm --weights gemma2-2b-it-sfp.sbs
+
+*Model Loading Arguments*
+
+  --tokenizer : Path name of tokenizer model; only required for pre-2025 format.
+  --weights : Path name of model weights (.sbs) file.
+  Required argument.
+
+  --map : Enable memory-mapping? -1 = auto, 0 = no, 1 = yes.
+  --to_bf16 : Convert weights to bf16? -1 = auto, 0 = no, 1 = yes.
+  --wrapping : Enable prompt wrapping? Specify 0 for pre-2025 format PT models.
+
+*Threading Arguments*
+
+  --skip_packages : Index of the first socket to use; default 0 = unlimited.
+  --skip_clusters : Index of the first CCX to use; default 0 = unlimited.
+  --max_clusters : Max CCXs to use; default 0 = unlimited.
+  --skip_lps : Index of the first LP to use; default 0 = unlimited.
+  --max_lps : Max LPs to use; default 0 = unlimited.
+  --num_threads : Max threads to use; default 0 = unlimited.
+  --pin : Pin threads? -1 = auto, 0 = no, 1 = yes.
+  --spin : Use spin waits? -1 = auto, 0 = no, 1 = yes.
+  --bind : Bind memory to sockets? -1 = auto, 0 = no, 1 = yes.
+
+*Inference Arguments*
+
+  --verbosity : Show verbose developer information
+    0 = only print generation output
+    1 = standard user-facing terminal ui
+    2 = show developer/debug info).
+    Default = 1.
+  --seq_len : Sequence length, capped by ModelConfig.max_seq_len.
+  --max_generated_tokens : Maximum number of tokens to generate.
+  --prefill_tbatch : Prefill: max tokens per batch.
+  --decode_qbatch : Decode: max queries per batch.
+  --temperature : Temperature for top-K
+  --top_k : Number of top-K tokens to sample from
+  --deterministic : Make top-k sampling deterministic
+  --multiturn : Multiturn mode
+    0 = clear KV cache after every interaction
+    1 = continue KV cache after every interaction
+    Default : 0 (conversation resets every turn)
+  --image_file : Image file to load.
+  --port : Server port (default: 8080)
+  --model : Model name for API endpoints (default: gemma3-4b)
+  --prompt : Initial prompt for non-interactive mode. When specified, generates a response and exits.
+  --prompt_file : Path to file containing the prompt for non-interactive mode. When  specified, generates a response and exits.
+  --eot_line : End of turn line. When you specify this, the prompt will be all lines before the line where only the given string appears.
+    Default = When a newline is encountered, that signals the end of the turn.
+

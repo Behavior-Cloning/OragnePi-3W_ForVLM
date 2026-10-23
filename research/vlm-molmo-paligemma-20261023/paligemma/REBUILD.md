@@ -1,0 +1,24 @@
+# Rebuild provenance and local compatibility fixes
+
+The downloaded gemma.cpp tar has SHA256 `d00c505be80e86465403dd4a2bdaa980babda23652aad4a814bedd374ac0e80b` (789246 bytes). Its PAX comment identifies upstream commit `3ed403e28707c0e3eb5f48b0e487b63a446d8e2e`. The immutable source URL is https://codeload.github.com/google/gemma.cpp/tar.gz/3ed403e28707c0e3eb5f48b0e487b63a446d8e2e . That URL may have a different archive root/name than the original `main` archive; the retained original tar SHA is the exact downloaded input.
+
+`patches/01` removes an expired Python enum binding. `02` obtains TensorInfo from the runtime registry, preserving flattening flags, instead of reconstructing incomplete shape metadata. `03` fixes prefix-LM last-prompt-token position bookkeeping while retaining the CLI position assertion. `04` adds task-local Python compression/config bindings. `05` adds monotonic event timing and re-runs image preprocessing/encoding for every resident request. `patch-replay-verification.json` confirms all five patches apply to the retained original tar and reproduce the actual built files byte-for-byte. Upstream and initial failure logs remain available.
+
+Dependencies and exact SHA/revisions are in `deps-manifest.json`. Extract tar members with Python `tarfile` data filter and skip symlinks/hardlinks; never use fully_trusted. The skipped sentencepiece test symlinks are not runtime requirements.
+
+From this directory in WSL, set `TASK_PY=/opt/opi-lab/export-venv/bin/python`. The local `python-deps/` supplies pybind11 2.13.6, absl-py 2.1.0, Pillow 11.1.0 and sentencepiece 0.2.0. PyTorch and safetensors are in the export venv. `build_runtime.py` records dependency download and initial build commands; `finish_runtime.py` records successful Python-module/ARM settings, but its old PID wait is historical. For a clean rebuild, extract the tar into gemma.cpp-main, apply patches in numeric order using `patch -p1`, use the following final CMake settings rather than rerunning historical failed configurations:
+
+- `CMAKE_BUILD_TYPE=Release`, `CMAKE_POSITION_INDEPENDENT_CODE=ON`, `SPM_ENABLE_SHARED=OFF`, `SPM_ABSL_PROVIDER=internal`, `HWY_ENABLE_TESTS=OFF`, `HWY_ENABLE_EXAMPLES=OFF`, `HWY_ENABLE_CONTRIB=ON`, `GEMMA_ENABLE_TESTS=OFF`.
+- Set `FETCHCONTENT_SOURCE_DIR_HIGHWAY`, `SENTENCEPIECE`, `JSON`, `HTTPLIB`, `BENCHMARK` from deps-manifest.json to use the pinned local directories.
+- x86: `GEMMA_BUILD_TASK_PYTHON=ON`, `TASK_PYTHON=$TASK_PY`; build targets `gemma configs compression`.
+- ARM: use arm-toolchain.cmake, `CMAKE_CXX_FLAGS=-march=armv8.2-a+dotprod -DHWY_COMPILE_ONLY_STATIC=1`, and `CMAKE_DISABLE_FIND_PACKAGE_OpenSSL=TRUE`; build only target `gemma`. Static Highway selects NEON on A733 and avoids GCC11 unsupported SVE vector operators.
+
+The exact conversion command is saved in sfp-manifest.json. It uses model_specifier paligemma2-3b-224-sfp, both source safetensors shards, and the tokenizer.model with provenance in tokenizer-source.json. The source BF16 is preserved. Text linears use SFP (not native NPU INT4), text embedding and vision remain BF16, biases F32. The invalid initial compressed artifact was regenerated; only corrected SHA c3bea2caf002da77624d807b79f26519455fc8326eca99442b21b3e270c44b73 may be deployed.
+
+Run `verify_patch_layout.py` for actual-image patch convolution parity, `verify_instrumented_wsl.py` for two questions in one resident process with vision recomputed each time. `instrumented-wsl-parity.json` records successful [44201,1,7384,1] matching the original BF16 church/white answers. These two questions are a smoke regression, not a broad quality benchmark.
+
+`transfer_pali_board.py` uses rsync partial/append-verify and exact SHA verification. `run_pali_board.py` is the current controller; its PID waits are specific to this run. For reruns, remove completed historical waits after confirming no prior controller is running. All board operations require the shared hostlock and /run/opi-npu-kv-benchmark.lock. Preserve >=1GiB board disk free and >=8GiB F disk free. The board runner keeps model resident, re-runs vision each request, uses A76 CPU6/7 and two threads, and terminates at 78C or MemAvailable<256MiB. It does not implement a fixed-system KV cache for PaliGemma.
+
+## Later text-only revision
+
+Patch06 (applied after01–05) makes no-image Pali requests use BOS/text/newline and a bidirectional text prefix, matching Transformers inference with pixel_values=None. Both runtimes were rebuilt; runtime-source.json retains the earlier visual binary hashes plus text_only_revision hashes. patch-replay-text-verification.json verifies all six patches. The text tests use the same4.045GB SFP weights, no vision. Their repaired process-stat parser is recorded as after-final-rparen-v2; original visual CPU process fields are invalidated separately without changing raw telemetry.

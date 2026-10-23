@@ -1,0 +1,18 @@
+{"no_pixel_values": true, "weights_not_loaded": true, "mode": "official text-only inference mask function; no image-dependent branch", "shape": [1, 1, 4, 4], "mask": [[[[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]]], "future_visible": true}
+6         pixel_values: Optional[torch.FloatTensor] = None,
+12         inputs_embeds: Optional[torch.FloatTensor] = None,
+48         if (input_ids is None) ^ (inputs_embeds is not None):
+49             raise ValueError("You must specify exactly one of input_ids or inputs_embeds")
+67         if inputs_embeds is None:
+68             inputs_embeds = self.get_input_embeddings()(llm_input_ids)
+73                 past_seen_tokens, past_seen_tokens + inputs_embeds.shape[1], device=inputs_embeds.device
+80         if pixel_values is not None:
+81             image_features = self.get_image_features(pixel_values)
+82             image_features = image_features.to(inputs_embeds.device, inputs_embeds.dtype)
+84                 input_ids, inputs_embeds=inputs_embeds, image_features=image_features
+86             inputs_embeds = inputs_embeds.masked_scatter(special_image_mask, image_features)
+88         causal_mask = self._update_causal_mask(
+89             attention_mask, token_type_ids, past_key_values, cache_position, inputs_embeds, is_training
+92             attention_mask=causal_mask,
+95             inputs_embeds=inputs_embeds,
+109             image_hidden_states=image_features if pixel_values is not None else None,

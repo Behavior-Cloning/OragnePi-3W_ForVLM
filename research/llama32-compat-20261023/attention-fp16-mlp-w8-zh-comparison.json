@@ -1,0 +1,629 @@
+{
+  "scope": "Same six English calibration states and nine unseen Chinese states from three independent sentences; one layer, no generation. Source is Q4 GGUF dequantized, not original BF16.",
+  "coarse_threshold": 0.05,
+  "threshold_warning": "5% is a legacy layer compatibility screening threshold, not Chinese accuracy or full-model approval.",
+  "summary": {
+    "all_fp16": {
+      "subsets": {
+        "english_calibration": {
+          "n": 6,
+          "relative_l2_min": 0.0004868546223434059,
+          "relative_l2_max": 0.011042772518670594,
+          "api_median_seconds": 0.04829257,
+          "coarse_screen_pass_count": 6
+        },
+        "chinese_heldout": {
+          "n": 9,
+          "relative_l2_min": 0.0009855587776069772,
+          "relative_l2_max": 0.002527420011277845,
+          "api_median_seconds": 0.04830144,
+          "coarse_screen_pass_count": 9
+        }
+      },
+      "closed": {
+        "event": "closed",
+        "driver_loaded": 122347136,
+        "driver_released": 0,
+        "worst_hidden_relative_l2": 0.01104277
+      },
+      "api_median_seconds": 0.04829894
+    },
+    "attention_fp16_mlp_w8": {
+      "subsets": {
+        "english_calibration": {
+          "n": 6,
+          "relative_l2_min": 0.006322674037522869,
+          "relative_l2_max": 0.04091119729920759,
+          "api_median_seconds": 0.016075065,
+          "coarse_screen_pass_count": 6
+        },
+        "chinese_heldout": {
+          "n": 9,
+          "relative_l2_min": 0.02141176027453436,
+          "relative_l2_max": 0.0369781029933455,
+          "api_median_seconds": 0.01634031,
+          "coarse_screen_pass_count": 9
+        }
+      },
+      "closed": {
+        "event": "closed",
+        "driver_loaded": 67411824,
+        "driver_released": 0,
+        "worst_hidden_relative_l2": 0.0409112
+      },
+      "api_median_seconds": 0.01624844
+    }
+  },
+  "results": {
+    "0": {
+      "all_fp16": {
+        "event": "fixture",
+        "fixture_id": 0,
+        "run_seconds": 0.04829378,
+        "hidden_relative_l2": 0.00048685,
+        "hidden_max_abs": 0.01271629,
+        "temperature_mC": 40424,
+        "independent_relative_l2": 0.0004868546223434059,
+        "cosine": 0.9999999236156877,
+        "output_sha256": "ccbc618d85b0d6c0cdda71ee41652a385201626948eb36f558c2bf6fcee37a7b",
+        "subset": "english_calibration",
+        "fixture": {
+          "actual_position": 0
+        }
+      },
+      "attention_fp16_mlp_w8": {
+        "event": "fixture",
+        "fixture_id": 0,
+        "run_seconds": 0.01608052,
+        "hidden_relative_l2": 0.00632267,
+        "hidden_max_abs": 0.06611061,
+        "temperature_mC": 39866,
+        "independent_relative_l2": 0.006322674037522869,
+        "cosine": 0.9999800456870509,
+        "output_sha256": "c056a482e3ce077e1ed22ec4c2a466924746707a949e9caa1e5889469fd49932",
+        "subset": "english_calibration",
+        "fixture": {
+          "actual_position": 0
+        }
+      }
+    },
+    "1": {
+      "all_fp16": {
+        "event": "fixture",
+        "fixture_id": 1,
+        "run_seconds": 0.04823832,
+        "hidden_relative_l2": 0.00114449,
+        "hidden_max_abs": 0.00057572,
+        "temperature_mC": 40052,
+        "independent_relative_l2": 0.0011444920633027884,
+        "cosine": 0.9999995692220477,
+        "output_sha256": "add07dee24b6947f6f24c61cee1644a3cda05c02f75c9a4a29ce3c293f70d832",
+        "subset": "english_calibration",
+        "fixture": {
+          "actual_position": 1
+        }
+      },
+      "attention_fp16_mlp_w8": {
+        "event": "fixture",
+        "fixture_id": 1,
+        "run_seconds": 0.01606961,
+        "hidden_relative_l2": 0.02404567,
+        "hidden_max_abs": 0.0036931,
+        "temperature_mC": 39866,
+        "independent_relative_l2": 0.02404566588849583,
+        "cosine": 0.9997110985049461,
+        "output_sha256": "1e7c435dc27ef0f6c0efd0333853cd95e488810ac8886e71eefd7d620ef8fe9e",
+        "subset": "english_calibration",
+        "fixture": {
+          "actual_position": 1
+        }
+      }
+    },
+    "2": {
+      "all_fp16": {
+        "event": "fixture",
+        "fixture_id": 2,
+        "run_seconds": 0.04829136,
+        "hidden_relative_l2": 0.00100956,
+        "hidden_max_abs": 0.00011648,
+        "temperature_mC": 38998,
+        "independent_relative_l2": 0.0010095553806660875,
+        "cosine": 0.9999994993346687,
+        "output_sha256": "ec86e96a4cc5e5f4f556ac0f446b62099775a5a174c31a97521f28639fdf2578",
+        "subset": "english_calibration",
+        "fixture": {
+          "actual_position": 2
+        }
+      },
+      "attention_fp16_mlp_w8": {
+        "event": "fixture",
+        "fixture_id": 2,
+        "run_seconds": 0.01605827,
+        "hidden_relative_l2": 0.0323543,
+        "hidden_max_abs": 0.00320809,
+        "temperature_mC": 39866,
+        "independent_relative_l2": 0.03235429507324274,
+        "cosine": 0.9994765994646793,
+        "output_sha256": "1c490f638a4b4657695e1681cdfa72d4446f9827b724edcd0071031ed2e2d63d",
+        "subset": "english_calibration",
+        "fixture": {
+          "actual_position": 2
+        }
+      }
+    },
+    "4": {
+      "all_fp16": {
+        "event": "fixture",
+        "fixture_id": 4,
+        "run_seconds": 0.04832203,
+        "hidden_relative_l2": 0.00092206,
+        "hidden_max_abs": 0.00026488,
+        "temperature_mC": 38998,
+        "independent_relative_l2": 0.0009220591223128608,
+        "cosine": 0.9999995755455476,
+        "output_sha256": "fd423d873c736325627cb1d52bf113c69cb2d72df3e2f45712028096e0c795a5",
+        "subset": "english_calibration",
+        "fixture": {
+          "actual_position": 4
+        }
+      },
+      "attention_fp16_mlp_w8": {
+        "event": "fixture",
+        "fixture_id": 4,
+        "run_seconds": 0.0160609,
+        "hidden_relative_l2": 0.0266533,
+        "hidden_max_abs": 0.00355952,
+        "temperature_mC": 40052,
+        "independent_relative_l2": 0.026653296080910695,
+        "cosine": 0.9996450483305647,
+        "output_sha256": "b46da6ba23ffb51222034140e30200893e1790e8c6f09a210101114a22a115ef",
+        "subset": "english_calibration",
+        "fixture": {
+          "actual_position": 4
+        }
+      }
+    },
+    "8": {
+      "all_fp16": {
+        "event": "fixture",
+        "fixture_id": 8,
+        "run_seconds": 0.0482839,
+        "hidden_relative_l2": 0.01041667,
+        "hidden_max_abs": 0.00221115,
+        "temperature_mC": 39432,
+        "independent_relative_l2": 0.010416668482067742,
+        "cosine": 0.9999530229108824,
+        "output_sha256": "4c18721f0ac5e499546743e2f910951f08bbb804f003f8be4ee9e3caf0248ff7",
+        "subset": "english_calibration",
+        "fixture": {
+          "actual_position": 8
+        }
+      },
+      "attention_fp16_mlp_w8": {
+        "event": "fixture",
+        "fixture_id": 8,
+        "run_seconds": 0.01624844,
+        "hidden_relative_l2": 0.03874838,
+        "hidden_max_abs": 0.00340224,
+        "temperature_mC": 40052,
+        "independent_relative_l2": 0.03874838249119138,
+        "cosine": 0.9992622248179648,
+        "output_sha256": "8ee81d83dc84954be7305e7c15c764d018987f10ffe7120e4148edb9d95bd763",
+        "subset": "english_calibration",
+        "fixture": {
+          "actual_position": 8
+        }
+      }
+    },
+    "14": {
+      "all_fp16": {
+        "event": "fixture",
+        "fixture_id": 14,
+        "run_seconds": 0.04829894,
+        "hidden_relative_l2": 0.01104277,
+        "hidden_max_abs": 0.00201957,
+        "temperature_mC": 39432,
+        "independent_relative_l2": 0.011042772518670594,
+        "cosine": 0.9999477153822857,
+        "output_sha256": "4efea6228bc906b6af1a9dbac47b3d7802a45a483ec1de3726081c25305f24d5",
+        "subset": "english_calibration",
+        "fixture": {
+          "actual_position": 14
+        }
+      },
+      "attention_fp16_mlp_w8": {
+        "event": "fixture",
+        "fixture_id": 14,
+        "run_seconds": 0.01623052,
+        "hidden_relative_l2": 0.0409112,
+        "hidden_max_abs": 0.00301686,
+        "temperature_mC": 40052,
+        "independent_relative_l2": 0.04091119729920759,
+        "cosine": 0.9991773248309641,
+        "output_sha256": "5644f711a1208cd480345dc229499ffae865640a5148018fae45e6b904f7615c",
+        "subset": "english_calibration",
+        "fixture": {
+          "actual_position": 14
+        }
+      }
+    },
+    "100": {
+      "all_fp16": {
+        "event": "fixture",
+        "fixture_id": 100,
+        "run_seconds": 0.04830019,
+        "hidden_relative_l2": 0.00098556,
+        "hidden_max_abs": 0.00020481,
+        "temperature_mC": 39308,
+        "independent_relative_l2": 0.0009855587776069772,
+        "cosine": 0.9999995697235812,
+        "output_sha256": "25eb7e13beb0385340449872d5865b672a3b56eb74f1539808244d44159c91a8",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 100,
+          "actual_position": 2,
+          "token_id": 18904,
+          "reference_crosscheck_rel_l2": 6.609403726542951e-07,
+          "text": "我回家了，陪我聊聊天。",
+          "case_id": 0
+        }
+      },
+      "attention_fp16_mlp_w8": {
+        "event": "fixture",
+        "fixture_id": 100,
+        "run_seconds": 0.0162394,
+        "hidden_relative_l2": 0.02557367,
+        "hidden_max_abs": 0.00535083,
+        "temperature_mC": 40052,
+        "independent_relative_l2": 0.025573665902240677,
+        "cosine": 0.9996760092997625,
+        "output_sha256": "83a67c1d4ab59eb4b925a6d47d907d1f490e9695791998bc513dac7b5c86c53f",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 100,
+          "actual_position": 2,
+          "token_id": 18904,
+          "reference_crosscheck_rel_l2": 6.609403726542951e-07,
+          "text": "我回家了，陪我聊聊天。",
+          "case_id": 0
+        }
+      }
+    },
+    "101": {
+      "all_fp16": {
+        "event": "fixture",
+        "fixture_id": 101,
+        "run_seconds": 0.04913153,
+        "hidden_relative_l2": 0.0009867,
+        "hidden_max_abs": 0.00055936,
+        "temperature_mC": 39308,
+        "independent_relative_l2": 0.000986699115259073,
+        "cosine": 0.9999996305487385,
+        "output_sha256": "7a05c7e4bd064a778f63571c8b5a52bc2e57fe1d255c3cb867f51ccda83f9bf7",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 101,
+          "actual_position": 6,
+          "token_id": 14309,
+          "reference_crosscheck_rel_l2": 6.644854124715494e-07,
+          "text": "我回家了，陪我聊聊天。",
+          "case_id": 0
+        }
+      },
+      "attention_fp16_mlp_w8": {
+        "event": "fixture",
+        "fixture_id": 101,
+        "run_seconds": 0.01617698,
+        "hidden_relative_l2": 0.02141176,
+        "hidden_max_abs": 0.00455788,
+        "temperature_mC": 39680,
+        "independent_relative_l2": 0.02141176027453436,
+        "cosine": 0.9997723917586971,
+        "output_sha256": "0699b6e0177e6c46a20ecdc7dcf9b435157f0102613db24925f126c593702f64",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 101,
+          "actual_position": 6,
+          "token_id": 14309,
+          "reference_crosscheck_rel_l2": 6.644854124715494e-07,
+          "text": "我回家了，陪我聊聊天。",
+          "case_id": 0
+        }
+      }
+    },
+    "102": {
+      "all_fp16": {
+        "event": "fixture",
+        "fixture_id": 102,
+        "run_seconds": 0.04831957,
+        "hidden_relative_l2": 0.00252742,
+        "hidden_max_abs": 0.00051931,
+        "temperature_mC": 39122,
+        "independent_relative_l2": 0.002527420011277845,
+        "cosine": 0.9999977592729687,
+        "output_sha256": "6a4b41678bfb2021584abb9ed234d9fcdc84873d703fea07227a7518b5c99dd7",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 102,
+          "actual_position": 12,
+          "token_id": 1811,
+          "reference_crosscheck_rel_l2": 5.963561306998599e-07,
+          "text": "我回家了，陪我聊聊天。",
+          "case_id": 0
+        }
+      },
+      "attention_fp16_mlp_w8": {
+        "event": "fixture",
+        "fixture_id": 102,
+        "run_seconds": 0.01645236,
+        "hidden_relative_l2": 0.0369781,
+        "hidden_max_abs": 0.00317178,
+        "temperature_mC": 39680,
+        "independent_relative_l2": 0.0369781029933455,
+        "cosine": 0.9993186787784496,
+        "output_sha256": "3283ff8e7feca797fdab368aa0d92c638f88dc293348745aded4d8be40d695bf",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 102,
+          "actual_position": 12,
+          "token_id": 1811,
+          "reference_crosscheck_rel_l2": 5.963561306998599e-07,
+          "text": "我回家了，陪我聊聊天。",
+          "case_id": 0
+        }
+      }
+    },
+    "110": {
+      "all_fp16": {
+        "event": "fixture",
+        "fixture_id": 110,
+        "run_seconds": 0.04830457,
+        "hidden_relative_l2": 0.00100874,
+        "hidden_max_abs": 0.00053161,
+        "temperature_mC": 39122,
+        "independent_relative_l2": 0.0010087413942974723,
+        "cosine": 0.9999995310597021,
+        "output_sha256": "be53330ed24b8595650eea55531e34df67216730ffa36ac5cf683aa89cecc6cc",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 110,
+          "actual_position": 2,
+          "token_id": 122155,
+          "reference_crosscheck_rel_l2": 6.679800321762741e-07,
+          "text": "今天有点累，能安慰我吗？",
+          "case_id": 1
+        }
+      },
+      "attention_fp16_mlp_w8": {
+        "event": "fixture",
+        "fixture_id": 110,
+        "run_seconds": 0.01646186,
+        "hidden_relative_l2": 0.02452501,
+        "hidden_max_abs": 0.00384889,
+        "temperature_mC": 39680,
+        "independent_relative_l2": 0.024525011396418626,
+        "cosine": 0.9996993497452445,
+        "output_sha256": "d125cc9d84edaaa51466f0e8cf5ec7dbd72626e45f93e20477b29e3c9b4e0c59",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 110,
+          "actual_position": 2,
+          "token_id": 122155,
+          "reference_crosscheck_rel_l2": 6.679800321762741e-07,
+          "text": "今天有点累，能安慰我吗？",
+          "case_id": 1
+        }
+      }
+    },
+    "111": {
+      "all_fp16": {
+        "event": "fixture",
+        "fixture_id": 111,
+        "run_seconds": 0.04829223,
+        "hidden_relative_l2": 0.00159239,
+        "hidden_max_abs": 0.00087285,
+        "temperature_mC": 39432,
+        "independent_relative_l2": 0.0015923934700798395,
+        "cosine": 0.9999992521540545,
+        "output_sha256": "58c17ab5a8de9f8732963e02177b2143bb6c3e9baee783283709f5b205d7d5ec",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 111,
+          "actual_position": 6,
+          "token_id": 51385,
+          "reference_crosscheck_rel_l2": 6.542024379996292e-07,
+          "text": "今天有点累，能安慰我吗？",
+          "case_id": 1
+        }
+      },
+      "attention_fp16_mlp_w8": {
+        "event": "fixture",
+        "fixture_id": 111,
+        "run_seconds": 0.01646577,
+        "hidden_relative_l2": 0.02443821,
+        "hidden_max_abs": 0.00335256,
+        "temperature_mC": 39680,
+        "independent_relative_l2": 0.02443821234740785,
+        "cosine": 0.9997021344172418,
+        "output_sha256": "15379a8ab7ee54fbc1ae975da0c8ac1a195943f917408b2f105664fab15352a3",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 111,
+          "actual_position": 6,
+          "token_id": 51385,
+          "reference_crosscheck_rel_l2": 6.542024379996292e-07,
+          "text": "今天有点累，能安慰我吗？",
+          "case_id": 1
+        }
+      }
+    },
+    "112": {
+      "all_fp16": {
+        "event": "fixture",
+        "fixture_id": 112,
+        "run_seconds": 0.04829627,
+        "hidden_relative_l2": 0.0011574,
+        "hidden_max_abs": 0.00016189,
+        "temperature_mC": 39122,
+        "independent_relative_l2": 0.0011573980929312588,
+        "cosine": 0.9999993753666576,
+        "output_sha256": "411b9ebd8b75c8763ea594f05b86d935fc94d476333054bb5dfaa0e8015a3e88",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 112,
+          "actual_position": 11,
+          "token_id": 11571,
+          "reference_crosscheck_rel_l2": 6.812199444539146e-07,
+          "text": "今天有点累，能安慰我吗？",
+          "case_id": 1
+        }
+      },
+      "attention_fp16_mlp_w8": {
+        "event": "fixture",
+        "fixture_id": 112,
+        "run_seconds": 0.01634031,
+        "hidden_relative_l2": 0.03333513,
+        "hidden_max_abs": 0.00418842,
+        "temperature_mC": 39680,
+        "independent_relative_l2": 0.033335125676252235,
+        "cosine": 0.9994453822924271,
+        "output_sha256": "ac7cee39e52d33821430e3af38212327bfa270a896d483cb513632fa225d34bd",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 112,
+          "actual_position": 11,
+          "token_id": 11571,
+          "reference_crosscheck_rel_l2": 6.812199444539146e-07,
+          "text": "今天有点累，能安慰我吗？",
+          "case_id": 1
+        }
+      }
+    },
+    "120": {
+      "all_fp16": {
+        "event": "fixture",
+        "fixture_id": 120,
+        "run_seconds": 0.04831403,
+        "hidden_relative_l2": 0.00212104,
+        "hidden_max_abs": 0.00061204,
+        "temperature_mC": 39122,
+        "independent_relative_l2": 0.0021210350946006236,
+        "cosine": 0.9999986150492424,
+        "output_sha256": "f4aef273820b710592fb7b28d517bd677aeba70e2fda6756cfa4be21cdd85846",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 120,
+          "actual_position": 2,
+          "token_id": 115889,
+          "reference_crosscheck_rel_l2": 1.2042441994708497e-06,
+          "text": "提醒我喝水，然后轻轻挥手。",
+          "case_id": 2
+        }
+      },
+      "attention_fp16_mlp_w8": {
+        "event": "fixture",
+        "fixture_id": 120,
+        "run_seconds": 0.01637282,
+        "hidden_relative_l2": 0.02839184,
+        "hidden_max_abs": 0.00346171,
+        "temperature_mC": 39308,
+        "independent_relative_l2": 0.028391835360372125,
+        "cosine": 0.9995980089981279,
+        "output_sha256": "be263f30e310b5f17ee0285f9df71e89fcda7caf84aec1bcf946c9d1477beb47",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 120,
+          "actual_position": 2,
+          "token_id": 115889,
+          "reference_crosscheck_rel_l2": 1.2042441994708497e-06,
+          "text": "提醒我喝水，然后轻轻挥手。",
+          "case_id": 2
+        }
+      }
+    },
+    "121": {
+      "all_fp16": {
+        "event": "fixture",
+        "fixture_id": 121,
+        "run_seconds": 0.04830144,
+        "hidden_relative_l2": 0.00173496,
+        "hidden_max_abs": 0.00032081,
+        "temperature_mC": 38688,
+        "independent_relative_l2": 0.001734956129707496,
+        "cosine": 0.999998722607742,
+        "output_sha256": "af4ff0f5165ffe2c5f407e7de2a00ca1f46da8d2eaaad9bbd48b78e26ec875b4",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 121,
+          "actual_position": 6,
+          "token_id": 3922,
+          "reference_crosscheck_rel_l2": 7.363923373304715e-07,
+          "text": "提醒我喝水，然后轻轻挥手。",
+          "case_id": 2
+        }
+      },
+      "attention_fp16_mlp_w8": {
+        "event": "fixture",
+        "fixture_id": 121,
+        "run_seconds": 0.01631282,
+        "hidden_relative_l2": 0.03517217,
+        "hidden_max_abs": 0.00548556,
+        "temperature_mC": 39308,
+        "independent_relative_l2": 0.035172170521532785,
+        "cosine": 0.9993835737422624,
+        "output_sha256": "b1a79c6492d32c336ab891a82f6cc2f012fc8201cbdf8a4a889c789f711b1439",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 121,
+          "actual_position": 6,
+          "token_id": 3922,
+          "reference_crosscheck_rel_l2": 7.363923373304715e-07,
+          "text": "提醒我喝水，然后轻轻挥手。",
+          "case_id": 2
+        }
+      }
+    },
+    "122": {
+      "all_fp16": {
+        "event": "fixture",
+        "fixture_id": 122,
+        "run_seconds": 0.0482804,
+        "hidden_relative_l2": 0.00182015,
+        "hidden_max_abs": 0.00044493,
+        "temperature_mC": 38688,
+        "independent_relative_l2": 0.0018201516980376991,
+        "cosine": 0.9999988415358476,
+        "output_sha256": "f5c00ceeafe1d92fd2806b6817736cc1758402aebf69c13a40c7ea75d6e6f6a5",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 122,
+          "actual_position": 12,
+          "token_id": 1811,
+          "reference_crosscheck_rel_l2": 6.472899940490606e-07,
+          "text": "提醒我喝水，然后轻轻挥手。",
+          "case_id": 2
+        }
+      },
+      "attention_fp16_mlp_w8": {
+        "event": "fixture",
+        "fixture_id": 122,
+        "run_seconds": 0.01632002,
+        "hidden_relative_l2": 0.03556635,
+        "hidden_max_abs": 0.00370763,
+        "temperature_mC": 39308,
+        "independent_relative_l2": 0.03556635143392555,
+        "cosine": 0.999367630641418,
+        "output_sha256": "4e937ef41c114b12e8414a2a94ae3c7bbde2502e561df0c6e2ad9068f65d0651",
+        "subset": "chinese_heldout",
+        "fixture": {
+          "fixture_id": 122,
+          "actual_position": 12,
+          "token_id": 1811,
+          "reference_crosscheck_rel_l2": 6.472899940490606e-07,
+          "text": "提醒我喝水，然后轻轻挥手。",
+          "case_id": 2
+        }
+      }
+    }
+  }
+}

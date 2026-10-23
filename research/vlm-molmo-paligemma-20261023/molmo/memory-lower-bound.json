@@ -1,0 +1,14 @@
+{
+  "source": "config.json + MolmoeMLP gate/up/down dimensions",
+  "layers": 16,
+  "experts_per_layer": 64,
+  "hidden": 2048,
+  "expert_ffn": 1024,
+  "expert_weight_parameters_only": 6442450944,
+  "int8_expert_weight_bytes_only": 6442450944,
+  "int8_expert_GiB_only": 6.0,
+  "board_total_MiB": 5853,
+  "board_total_bytes": 6137315328,
+  "excludes": "attention, embeddings, vision, KV, graph workspace, runtime and OS",
+  "conclusion": "All experts resident in INT8 alone exceed physical board RAM; packed INT4/dynamic loading would need a different implementation and measurement."
+}

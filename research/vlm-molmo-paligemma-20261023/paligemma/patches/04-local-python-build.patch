@@ -1,0 +1,20 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -268,3 +268,17 @@
+ # API client for testing
+ add_executable(gemma_api_client gemma/api_client.cc)
+ target_link_libraries(gemma_api_client libgemma hwy hwy_contrib nlohmann_json::nlohmann_json httplib_interface)
++
++# Task-local Python extension targets; original source preserved in gemma-tar.tar.gz.
++if(GEMMA_BUILD_TASK_PYTHON)
++execute_process(COMMAND ${TASK_PYTHON} -c "import sysconfig;print(sysconfig.get_path('include'))" OUTPUT_VARIABLE TASK_PYTHON_INCLUDE OUTPUT_STRIP_TRAILING_WHITESPACE)
++add_library(configs MODULE python/configs.cc)
++add_library(compression MODULE compression/python/compression_extension.cc compression/python/compression_clif_aux.cc)
++foreach(m configs compression)
++ target_include_directories(${m} PRIVATE ${TASK_PYTHON_INCLUDE} ${CMAKE_CURRENT_SOURCE_DIR}/../python-deps/pybind11/include ${CMAKE_CURRENT_SOURCE_DIR})
++ target_link_libraries(${m} PRIVATE libgemma hwy hwy_contrib)
++ set_target_properties(${m} PROPERTIES PREFIX "" SUFFIX ".so")
++endforeach()
++set_target_properties(configs PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/python)
++set_target_properties(compression PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/compression/python)
++endif()

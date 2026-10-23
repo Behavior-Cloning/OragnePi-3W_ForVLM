@@ -1,0 +1,82 @@
+import 0
+inputmeta 0
+quantize 0
+export 0
+{
+  "image": "ubuntu-npu:v2.0.10.2",
+  "target": "VIP9000NANODI_PLUS_PID0X1000003B",
+  "dtype": "fp16",
+  "source": "probe/topk-router",
+  "layer": 0,
+  "stages": [
+    {
+      "stage": "import",
+      "exit": 0,
+      "seconds": 3.9271990009997353
+    },
+    {
+      "stage": "inputmeta",
+      "exit": 0,
+      "seconds": 1.6211629110002832
+    },
+    {
+      "stage": "quantize",
+      "exit": 0,
+      "seconds": 1.671142153999881
+    },
+    {
+      "stage": "export",
+      "exit": 0,
+      "seconds": 4.729096842999752
+    }
+  ],
+  "binaries": [
+    {
+      "path": "export_nbg_unify/network_binary.nb",
+      "bytes": 343984
+    }
+  ],
+  "status": "COMPILED_NOT_BOARD_VALIDATED"
+}
+PROBE topk-router 0 12.037270740000167
+import 0
+inputmeta 0
+quantize 0
+export 0
+{
+  "image": "ubuntu-npu:v2.0.10.2",
+  "target": "VIP9000NANODI_PLUS_PID0X1000003B",
+  "dtype": "fp16",
+  "source": "probe/softmax-control",
+  "layer": 0,
+  "stages": [
+    {
+      "stage": "import",
+      "exit": 0,
+      "seconds": 1.7204681530001835
+    },
+    {
+      "stage": "inputmeta",
+      "exit": 0,
+      "seconds": 1.5694275730002119
+    },
+    {
+      "stage": "quantize",
+      "exit": 0,
+      "seconds": 1.7208311869999307
+    },
+    {
+      "stage": "export",
+      "exit": 0,
+      "seconds": 4.1777559029997064
+    }
+  ],
+  "binaries": [
+    {
+      "path": "export_nbg_unify/network_binary.nb",
+      "bytes": 276072
+    }
+  ],
+  "status": "COMPILED_NOT_BOARD_VALIDATED"
+}
+PROBE softmax-control 0 9.26044244600007

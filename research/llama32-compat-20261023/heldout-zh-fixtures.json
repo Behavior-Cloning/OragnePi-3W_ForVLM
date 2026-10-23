@@ -1,0 +1,248 @@
+{
+  "scope": "Layer0 same GGUF reference. Nine Chinese states are heldout from unchanged English calibration; each prompt has separate reference KV. Not a generation-quality benchmark.",
+  "tokenizer": "Transformers convert_gguf_tokenizer, exact GGUF tokens/merges/model/type; raw Chinese+BOS, no chat template",
+  "capacity": 32,
+  "cases": [
+    {
+      "case_id": 0,
+      "text": "我回家了，陪我聊聊天。",
+      "token_ids": [
+        128000,
+        37046,
+        18904,
+        46729,
+        35287,
+        3922,
+        14309,
+        103,
+        37046,
+        114824,
+        114824,
+        36827,
+        1811
+      ],
+      "tokenizer_roundtrip_exact": true,
+      "states": [
+        {
+          "fixture_id": 100,
+          "actual_position": 2,
+          "token_id": 18904,
+          "reference_crosscheck_rel_l2": 6.609403726542951e-07
+        },
+        {
+          "fixture_id": 101,
+          "actual_position": 6,
+          "token_id": 14309,
+          "reference_crosscheck_rel_l2": 6.644854124715494e-07
+        },
+        {
+          "fixture_id": 102,
+          "actual_position": 12,
+          "token_id": 1811,
+          "reference_crosscheck_rel_l2": 5.963561306998599e-07
+        }
+      ]
+    },
+    {
+      "case_id": 1,
+      "text": "今天有点累，能安慰我吗？",
+      "token_ids": [
+        128000,
+        110916,
+        122155,
+        116011,
+        3922,
+        27327,
+        51385,
+        101557,
+        108,
+        37046,
+        103054,
+        11571
+      ],
+      "tokenizer_roundtrip_exact": true,
+      "states": [
+        {
+          "fixture_id": 110,
+          "actual_position": 2,
+          "token_id": 122155,
+          "reference_crosscheck_rel_l2": 6.679800321762741e-07
+        },
+        {
+          "fixture_id": 111,
+          "actual_position": 6,
+          "token_id": 51385,
+          "reference_crosscheck_rel_l2": 6.542024379996292e-07
+        },
+        {
+          "fixture_id": 112,
+          "actual_position": 11,
+          "token_id": 11571,
+          "reference_crosscheck_rel_l2": 6.812199444539146e-07
+        }
+      ]
+    },
+    {
+      "case_id": 2,
+      "text": "提醒我喝水，然后轻轻挥手。",
+      "token_ids": [
+        128000,
+        29172,
+        115889,
+        37046,
+        116337,
+        53610,
+        3922,
+        109530,
+        106196,
+        106196,
+        115683,
+        46034,
+        1811
+      ],
+      "tokenizer_roundtrip_exact": true,
+      "states": [
+        {
+          "fixture_id": 120,
+          "actual_position": 2,
+          "token_id": 115889,
+          "reference_crosscheck_rel_l2": 1.2042441994708497e-06
+        },
+        {
+          "fixture_id": 121,
+          "actual_position": 6,
+          "token_id": 3922,
+          "reference_crosscheck_rel_l2": 7.363923373304715e-07
+        },
+        {
+          "fixture_id": 122,
+          "actual_position": 12,
+          "token_id": 1811,
+          "reference_crosscheck_rel_l2": 6.472899940490606e-07
+        }
+      ]
+    }
+  ],
+  "files": {
+    "p2-reference.f32": {
+      "bytes": 8192,
+      "sha256": "97e28fb8fa57ff78988219543d000e61a165165a37f74344e3907d0fcf0048f3"
+    },
+    "p112-inputs.f32": {
+      "bytes": 139908,
+      "sha256": "73493747a93cd27b46644b46b4f2306d6468bd68a9b0dd644cfa4513e8fe31f2"
+    },
+    "p102-reference.f32": {
+      "bytes": 8192,
+      "sha256": "b2b6aa027a30d4e9ab3a0a090fe713c1021e16c948de8a009b0b9e79897bce9a"
+    },
+    "p110-inputs.f32": {
+      "bytes": 139908,
+      "sha256": "9058dc00e70d7132b79a0fce36665309fbb52e4298bae1c6ec7e66eaa1c915c2"
+    },
+    "p100-reference.f32": {
+      "bytes": 8192,
+      "sha256": "43fce132dfe91748d4457899f349b4744df3611f0d7f4f2a90fb48b9f153ba79"
+    },
+    "p8-inputs.f32": {
+      "bytes": 139908,
+      "sha256": "2d86ab1dfce61d19e09bb3c13707dbc24f01106018bc0d000b3b734d221b1341"
+    },
+    "p112-reference.f32": {
+      "bytes": 8192,
+      "sha256": "39e555be3a6564d9cb122baf967c0d3d3a96bed7f484bb236e8d26d1f3fbc213"
+    },
+    "p101-inputs.f32": {
+      "bytes": 139908,
+      "sha256": "c9b1df2bf11ec97fabd26946022f69249b65979439d9442c074932377e7df7dc"
+    },
+    "p102-inputs.f32": {
+      "bytes": 139908,
+      "sha256": "20f91bc9323c5af10d6526e14c97b4c1292ff96fe5fcbd39433db6d9a51d2ff4"
+    },
+    "p121-reference.f32": {
+      "bytes": 8192,
+      "sha256": "994852de307083b4b97982a65207a033b483ff106c22eed55b9624254fc17999"
+    },
+    "p101-reference.f32": {
+      "bytes": 8192,
+      "sha256": "3ab4dcfbe7e45783fb3369ae77aac4a31ac6e5ebe7a32ef9a87b1d4bf8a091d2"
+    },
+    "p4-reference.f32": {
+      "bytes": 8192,
+      "sha256": "d8e99caa013708244e91ffeae8d7789fb29d6a88afbbd459c9049f66fb89c283"
+    },
+    "p111-reference.f32": {
+      "bytes": 8192,
+      "sha256": "14c8c179a28534d533306f51e51523c3272c6223a455caaaf95ccf2a76199a1a"
+    },
+    "p110-reference.f32": {
+      "bytes": 8192,
+      "sha256": "48d71e9bea892d03d3fbf66333698d429a1a0f248c8d63535349f1535cd65890"
+    },
+    "p14-inputs.f32": {
+      "bytes": 139908,
+      "sha256": "3761f1cf457f8a2094e4caaf1dd4341c33b638277ae9c550cdc65d8573e32764"
+    },
+    "p100-inputs.f32": {
+      "bytes": 139908,
+      "sha256": "e4245cac4662d28d5d97d2409ef0c9bd3eb08677db0296ec5ee2aa582d05239f"
+    },
+    "p2-inputs.f32": {
+      "bytes": 139908,
+      "sha256": "f91b40a084832ebbb45f686f560ba7e97da64544e1fd4790921bd256d334703b"
+    },
+    "p120-inputs.f32": {
+      "bytes": 139908,
+      "sha256": "62edf4a2e7211548d4fcde2ee3a90004b696ebb6356bf56a42dcc8188678e007"
+    },
+    "p0-reference.f32": {
+      "bytes": 8192,
+      "sha256": "a4e2f2a91770e6a901729661016546218f41f85e2bea0bd75d7e22c680243d2d"
+    },
+    "p0-inputs.f32": {
+      "bytes": 139908,
+      "sha256": "a368786c8110e1038a1f192d4550f56598a5c0873df6ebbb1cd1717f3ef998c4"
+    },
+    "p120-reference.f32": {
+      "bytes": 8192,
+      "sha256": "fb3d6b5e11f934cfd5345a61426740833075df41adef01d0b0cf51a5b9547161"
+    },
+    "p121-inputs.f32": {
+      "bytes": 139908,
+      "sha256": "746f82e8b12133dca19e69dc5e2bcbe1f965d037dd1af42912aa8a49013fe642"
+    },
+    "p122-reference.f32": {
+      "bytes": 8192,
+      "sha256": "c509fe0303f71cd2b69b52b5edf54e57ec0ae40459e948e64e9373a0a8a2012e"
+    },
+    "p1-reference.f32": {
+      "bytes": 8192,
+      "sha256": "8fe676a9ecebf349a25a88c2be2fe3c2bf63b77e9ae517c85bca4da1dd0334db"
+    },
+    "p111-inputs.f32": {
+      "bytes": 139908,
+      "sha256": "b5722bd33b616074355b1412aecb2871a0e3f9007ff5e76c756b5c08d34223bc"
+    },
+    "p4-inputs.f32": {
+      "bytes": 139908,
+      "sha256": "188404b21179735debf9c25137e459a1191c24f697b1a989db80ac2f3410b1d1"
+    },
+    "p8-reference.f32": {
+      "bytes": 8192,
+      "sha256": "f5eb9909f276732649cbbcb0edae735881d98769d3831c5ccd81193de4dc4402"
+    },
+    "p14-reference.f32": {
+      "bytes": 8192,
+      "sha256": "8ff37f4aeb68f6a743842dff16019f422d461cd379f7577a94bb1c51764390f1"
+    },
+    "p122-inputs.f32": {
+      "bytes": 139908,
+      "sha256": "77d0f5ba4ea4858ef69f0d49b0c827092c07c2223e9dcac3c861285a04a91d46"
+    },
+    "p1-inputs.f32": {
+      "bytes": 139908,
+      "sha256": "1d10898c3611158b6c8f47560eab45a700718e262df0b5b532592e8708cffcd2"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+[32mI 14:51:52 Namespace(MLE=False, algorithm='normal', batch_size=0, compute_entropy=False, device='CPU', divergence_first_quantize_bits=11, divergence_nbins=0, hybrid=False, iterations=1, model='decoder.json', model_data='decoder.data', model_quantize='decoder.quantize', moving_average_weight=0.01, output_dir=None, qtype='float16', quantizer='float16', rebuild=True, rebuild_all=False, which='quantize', with_input_meta='tensor-inputmeta.yml')[0m
+[32mI 14:51:52 Set vsinn project dir to /work/compiled/softmax-control[0m
+[32mI 14:51:52 Load model in /work/compiled/softmax-control/decoder.json[0m
+[32mI 14:51:52 Load data in /work/compiled/softmax-control/decoder.data[0m
+[32mI 14:51:52 Load input meta /work/compiled/softmax-control/tensor-inputmeta.yml[0m
+[32mI 14:51:52 Start quantization...[0m
+[32mI 14:51:52 Quantization start...[0m
+[36mD 14:51:52 Process hidden_4 ...[0m
+[36mD 14:51:52 Acuity output shape(input): (1 2048)[0m
+[36mD 14:51:52 Tensor @hidden_4:out0 type: float32[0m
+[36mD 14:51:52 Process gate/MatMul_output_0_3 ...[0m
+[36mD 14:51:52 Acuity output shape(fullconnect): (1 64)[0m
+[36mD 14:51:52 Tensor @gate/MatMul_output_0_3:out0 type: float32[0m
+[36mD 14:51:52 Process Cast_output_0_2 ...[0m
+[36mD 14:51:52 Acuity output shape(cast): (1 64)[0m
+[36mD 14:51:52 Tensor @Cast_output_0_2:out0 type: float32[0m
+[36mD 14:51:52 Process probabilities_1 ...[0m
+[36mD 14:51:52 Acuity output shape(softmax): (1 64)[0m
+[36mD 14:51:52 Tensor @probabilities_1:out0 type: float32[0m
+[36mD 14:51:52 Process attach_probabilities/out0_0 ...[0m
+[36mD 14:51:52 Acuity output shape(output): (1 64)[0m
+[36mD 14:51:52 Tensor @attach_probabilities/out0_0:out0 type: float32[0m
+[32mI 14:51:52 Build main_graph complete.[0m
+[36mD 14:51:52 set up a quantize net[0m
+[36mD 14:51:52 Thinning network with DeadChannelRemoval, to zeros: True.[0m
+[36mD 14:51:52 Build analyzer ...[0m
+[36mD 14:51:52 Forward analyze range.[0m
+[36mD 14:51:52 Backward analyze range.[0m
+[36mD 14:51:52 Forward analyze range.[0m
+[36mD 14:51:52 Backward analyze range.[0m
+[36mD 14:51:52 Analyze range done.[0m
+[36mD 14:51:52 Process hidden_4 ...[0m
+[36mD 14:51:52 Acuity output shape(input): (1 2048)[0m
+[36mD 14:51:52 Tensor @hidden_4:out0 type: float32[0m
+[36mD 14:51:52 Process gate/MatMul_output_0_3 ...[0m
+[36mD 14:51:52 Acuity output shape(fullconnect): (1 64)[0m
+[36mD 14:51:52 Tensor @gate/MatMul_output_0_3:out0 type: float32[0m
+[36mD 14:51:52 Process Cast_output_0_2 ...[0m
+[36mD 14:51:52 Acuity output shape(cast): (1 64)[0m
+[36mD 14:51:52 Tensor @Cast_output_0_2:out0 type: float32[0m
+[36mD 14:51:52 Process probabilities_1 ...[0m
+[36mD 14:51:52 Acuity output shape(softmax): (1 64)[0m
+[36mD 14:51:52 Tensor @probabilities_1:out0 type: float32[0m
+[36mD 14:51:52 Process attach_probabilities/out0_0 ...[0m
+[36mD 14:51:52 Acuity output shape(output): (1 64)[0m
+[36mD 14:51:52 Tensor @attach_probabilities/out0_0:out0 type: float32[0m
+[32mI 14:51:52 Build main_graph complete.[0m
+W:tensorflow:AutoGraph could not transform <acuitylib.core.execution.BackendFunction object at 0x74e2450f86d0> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: Non-function: <class 'cython_function_or_method'>
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+[32mI 14:51:52 Running 1 iteration(s)[0m
+[36mD 14:51:52 *********** Setup database (1) ***********[0m
+[36mD 14:51:52 Setup dataset "TEXT":[0m
+[36mD 14:51:52 Lids: ['hidden_4'][0m
+[36mD 14:51:52 Layouts: ['nchw'][0m
+[36mD 14:51:52 Shapes: [[1, 2048]][0m
+[36mD 14:51:52 Data types: ['float32'][0m
+[36mD 14:51:52 Sparse tensors: [][0m
+[36mD 14:51:52 Tensor names(H5FS only): [][0m
+[36mD 14:51:52 0(100.00%)[0m
+[36mD 14:51:52 Calibrating ...[0m
+[32mI 14:51:52 Clean.[0m
+[36mD 14:51:52 Optimizing network with subnet_quantize, align_quantize, broadcast_quantize, qnt_adjust_coef, qnt_adjust_param[0m
+[32mI 14:51:52 End quantization...[0m
+[32mI 14:51:52 Dump net quantize tensor table to /work/compiled/softmax-control/decoder.quantize[0m
+[32mI 14:51:52 Save net to /work/compiled/softmax-control/decoder.data[0m
+[32mI 14:51:52 ----------------Error(0),Warning(0)----------------[0m

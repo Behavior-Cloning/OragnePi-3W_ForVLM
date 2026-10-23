@@ -1,0 +1,124 @@
+{
+    "MetaData": {
+        "Name": "main_graph",
+        "AcuityVersion": "6",
+        "Platform": "tensorflow",
+        "Org_Platform": "onnx"
+    },
+    "Layers": {
+        "attach_values/out0_0": {
+            "name": "attach_values/out0",
+            "op": "output",
+            "parameters": {},
+            "inputs": [
+                "@values_2:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "attach_values/out1_1": {
+            "name": "attach_values/out1",
+            "op": "output",
+            "parameters": {},
+            "inputs": [
+                "@cast_3:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "values_2": {
+            "name": "values",
+            "op": "topk",
+            "parameters": {
+                "k": 8,
+                "axis": -1
+            },
+            "inputs": [
+                "@Softmax_output_0_4:out0"
+            ],
+            "outputs": [
+                "out0",
+                "out1"
+            ]
+        },
+        "cast_3": {
+            "name": "cast",
+            "op": "cast",
+            "parameters": {
+                "in_data_type": 0,
+                "out_data_type": "int64"
+            },
+            "inputs": [
+                "@values_2:out1"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "Softmax_output_0_4": {
+            "name": "Softmax_output_0",
+            "op": "softmax",
+            "parameters": {
+                "sf_axis": -1,
+                "beta": 1.0
+            },
+            "inputs": [
+                "@Cast_output_0_5:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "Cast_output_0_5": {
+            "name": "Cast_output_0",
+            "op": "cast",
+            "parameters": {
+                "in_data_type": "float32",
+                "out_data_type": "float32"
+            },
+            "inputs": [
+                "@gate/MatMul_output_0_6:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "gate/MatMul_output_0_6": {
+            "name": "gate/MatMul_output_0",
+            "op": "fullconnect",
+            "parameters": {
+                "weights": 64,
+                "bias": true,
+                "regularize": false,
+                "axis": 1
+            },
+            "inputs": [
+                "@hidden_7:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "hidden_7": {
+            "name": "hidden",
+            "op": "input",
+            "parameters": {
+                "size": "",
+                "channels": 1,
+                "shape": [
+                    1,
+                    2048
+                ],
+                "is_scalar": false,
+                "type": "float32"
+            },
+            "inputs": [],
+            "outputs": [
+                "out0"
+            ]
+        }
+    },
+    "quantize_info": {}
+}

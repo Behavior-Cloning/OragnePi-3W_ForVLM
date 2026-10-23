@@ -1,0 +1,117 @@
+Warn at topology.cc:227: Too restrictive cluster_slice or enabled_lps, no clusters left.
+Warn at topology.cc:971: skipping partially-detected L1, error 2
+
+Warn at topology.cc:971: skipping partially-detected L2, error 2
+
+Warn at topology.cc:971: skipping partially-detected L3, error 2
+
+Warn at topology.cc:1021: sysfs detected L1=0 L2=0, err 2
+
+skip_packages                 : 0
+skip_clusters                 : 0
+max_clusters                  : 0
+skip_lps                      : 0
+max_lps                       : 0
+num_threads                   : 2
+pin                           : default
+spin                          : default
+bind                          : default
+tokenizer                     : [no path specified]
+weights                       : /opt/opi-vlm/vlm-ne ... -3b-mix-224-sfp.sbs
+map                           : true
+to_bf16                       : false
+wrapping                      : default
+verbosity                     : 2
+seq_len                       : 512
+max_generated_tokens          : 32
+prefill_tbatch                : 256
+decode_qbatch                 : 16
+temperature                   : 0.000000
+top_k                         : 1
+deterministic                 : 1
+multiturn                     : 0
+image_file                    : /opt/opi-vlm/vlm-new-models-20261023/image.ppm
+prompt                        : 
+prompt_file                   : [no path specified]
+eot_line                      : 
+Model                         : paligemma2-3b-224-sfp, to_bf16 0, mmap 1 => Map
+Date & Time                   : Fri Oct 23 08:23:09 2026
+CPU                           : ?, bind -1
+CPU topology                  : LPs=2, pinned, cache unknown
+Instruction set               : NEON_WITHOUT_AES (128 bits)
+Compiled config               : opt, profiler 0
+Memory MiB                    : 5853
+OPI_MODEL_READY t=233008.097651504 load_s=0.298375975
+OPI_REQUEST_BEGIN t=233008.100045180
+OPI_IMAGE_BEGIN t=233008.100052680
+
+
+[ Timing info ] Image token generation took: 10813 ms
+OPI_IMAGE_END t=233018.950101299 seconds=10.850048702
+
+[ Reading prompt ] 
+
+[ Timing info ] Prefill: 39006 ms for 264 prompt tokens (6.77 tokens / sec); Time to first token: 63378 ms
+OPI_TOKEN id=44201 pos=265 t=233082.344372730
+OPI_FIRST_TOKEN t=233082.344388355 ttft=74.244343259
+OPI_TOKEN id=1 pos=266 t=233091.345329312
+
+[ Timing info ] Generate: 33373 ms for 2 tokens (0.06 tokens / sec)
+OPI_REQUEST_END t=233091.350413623 seconds=83.250368526 prompt_tokens=265
+OPI_REQUEST_BEGIN t=233091.353137175
+OPI_IMAGE_BEGIN t=233091.353144884
+
+
+[ Timing info ] Image token generation took: 13732 ms
+OPI_IMAGE_END t=233105.092818405 seconds=13.739673604
+
+[ Reading prompt ] 
+
+[ Timing info ] Prefill: 37668 ms for 264 prompt tokens (7.01 tokens / sec); Time to first token: 38388 ms
+OPI_TOKEN id=44201 pos=265 t=233143.492731098
+OPI_FIRST_TOKEN t=233143.492743765 ttft=52.139606673
+OPI_TOKEN id=1 pos=266 t=233144.165302235
+
+[ Timing info ] Generate: 1394 ms for 2 tokens (1.43 tokens / sec)
+OPI_REQUEST_END t=233144.167311992 seconds=52.814174859 prompt_tokens=265
+OPI_REQUEST_BEGIN t=233144.168224704
+OPI_IMAGE_BEGIN t=233144.168229871
+
+
+[ Timing info ] Image token generation took: 10736 ms
+OPI_IMAGE_END t=233154.906176883 seconds=10.737947095
+
+[ Reading prompt ] 
+
+[ Timing info ] Prefill: 37043 ms for 263 prompt tokens (7.10 tokens / sec); Time to first token: 37726 ms
+OPI_TOKEN id=7384 pos=264 t=233192.635147613
+OPI_FIRST_TOKEN t=233192.635162821 ttft=48.466938159
+OPI_TOKEN id=1 pos=265 t=233193.318202664
+
+[ Timing info ] Generate: 1366 ms for 2 tokens (1.46 tokens / sec)
+OPI_REQUEST_END t=233193.336033692 seconds=49.167809071 prompt_tokens=264
+OPI_REQUEST_BEGIN t=233193.337684531
+OPI_IMAGE_BEGIN t=233193.337689573
+
+
+[ Timing info ] Image token generation took: 10689 ms
+OPI_IMAGE_END t=233204.028592987 seconds=10.690903497
+
+[ Reading prompt ] 
+
+[ Timing info ] Prefill: 36827 ms for 264 prompt tokens (7.17 tokens / sec); Time to first token: 37542 ms
+OPI_TOKEN id=235280 pos=265 t=233241.574065883
+OPI_FIRST_TOKEN t=233241.574081509 ttft=48.236397019
+OPI_TOKEN id=2910 pos=266 t=233242.289188184
+OPI_TOKEN id=8068 pos=267 t=233243.005532615
+OPI_TOKEN id=675 pos=268 t=233243.676412953
+OPI_TOKEN id=1378 pos=269 t=233244.347414083
+OPI_TOKEN id=42711 pos=270 t=233245.018654381
+OPI_TOKEN id=611 pos=271 t=233245.690007972
+OPI_TOKEN id=3906 pos=272 t=233246.361206395
+OPI_TOKEN id=2857 pos=273 t=233247.034252491
+OPI_TOKEN id=235265 pos=274 t=233247.705789415
+OPI_TOKEN id=1 pos=275 t=233248.378316468
+
+[ Timing info ] Generate: 7520 ms for 11 tokens (1.46 tokens / sec)
+OPI_REQUEST_END t=233248.413994731 seconds=55.076310283 prompt_tokens=265

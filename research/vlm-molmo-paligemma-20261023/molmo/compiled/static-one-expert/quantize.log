@@ -1,0 +1,100 @@
+[32mI 15:38:42 Namespace(MLE=False, algorithm='normal', batch_size=0, compute_entropy=False, device='CPU', divergence_first_quantize_bits=11, divergence_nbins=0, hybrid=False, iterations=1, model='decoder.json', model_data='decoder.data', model_quantize='decoder.quantize', moving_average_weight=0.01, output_dir=None, qtype='float16', quantizer='float16', rebuild=True, rebuild_all=False, which='quantize', with_input_meta='tensor-inputmeta.yml')[0m
+[32mI 15:38:42 Set vsinn project dir to /work/compiled/static-one-expert[0m
+[32mI 15:38:42 Load model in /work/compiled/static-one-expert/decoder.json[0m
+[32mI 15:38:42 Load data in /work/compiled/static-one-expert/decoder.data[0m
+[32mI 15:38:42 Load input meta /work/compiled/static-one-expert/tensor-inputmeta.yml[0m
+[32mI 15:38:42 Start quantization...[0m
+[32mI 15:38:42 Quantization start...[0m
+[36mD 15:38:42 Process hidden_9 ...[0m
+[36mD 15:38:42 Acuity output shape(input): (1 2048)[0m
+[36mD 15:38:42 Tensor @hidden_9:out0 type: float32[0m
+[36mD 15:38:42 Process routing_weights_10 ...[0m
+[36mD 15:38:42 Acuity output shape(input): (1 8)[0m
+[36mD 15:38:42 Tensor @routing_weights_10:out0 type: float32[0m
+[36mD 15:38:42 Process up/MatMul_output_0_5 ...[0m
+[36mD 15:38:42 Acuity output shape(fullconnect): (1 1024)[0m
+[36mD 15:38:42 Tensor @up/MatMul_output_0_5:out0 type: float32[0m
+[36mD 15:38:42 Process gate/MatMul_output_0_8 ...[0m
+[36mD 15:38:42 Acuity output shape(fullconnect): (1 1024)[0m
+[36mD 15:38:42 Tensor @gate/MatMul_output_0_8:out0 type: float32[0m
+[36mD 15:38:42 Process Slice_output_0_3 ...[0m
+[36mD 15:38:42 Acuity output shape(slice): (1 1)[0m
+[36mD 15:38:42 Tensor @Slice_output_0_3:out0 type: float32[0m
+[36mD 15:38:42 Process Sigmoid_output_0_7_Mul_output_0_6 ...[0m
+[36mD 15:38:42 Acuity output shape(swish): (1 1024)[0m
+[36mD 15:38:42 Tensor @Sigmoid_output_0_7_Mul_output_0_6:out0 type: float32[0m
+[36mD 15:38:42 Process Mul_1_output_0_4 ...[0m
+[36mD 15:38:42 Acuity output shape(multiply): (1 1024)[0m
+[36mD 15:38:42 Tensor @Mul_1_output_0_4:out0 type: float32[0m
+[36mD 15:38:42 Process down/MatMul_output_0_2 ...[0m
+[36mD 15:38:42 Acuity output shape(fullconnect): (1 2048)[0m
+[36mD 15:38:42 Tensor @down/MatMul_output_0_2:out0 type: float32[0m
+[36mD 15:38:42 Process expert_output_1 ...[0m
+[36mD 15:38:42 Acuity output shape(multiply): (1 2048)[0m
+[36mD 15:38:42 Tensor @expert_output_1:out0 type: float32[0m
+[36mD 15:38:42 Process attach_expert_output/out0_0 ...[0m
+[36mD 15:38:42 Acuity output shape(output): (1 2048)[0m
+[36mD 15:38:42 Tensor @attach_expert_output/out0_0:out0 type: float32[0m
+[32mI 15:38:42 Build main_graph complete.[0m
+[36mD 15:38:42 set up a quantize net[0m
+[36mD 15:38:42 Thinning network with DeadChannelRemoval, to zeros: True.[0m
+[36mD 15:38:42 Build analyzer ...[0m
+[36mD 15:38:42 Forward analyze range.[0m
+[36mD 15:38:42 Backward analyze range.[0m
+[36mD 15:38:42 Forward analyze range.[0m
+[36mD 15:38:43 Backward analyze range.[0m
+[36mD 15:38:43 Analyze range done.[0m
+[36mD 15:38:43 Process hidden_9 ...[0m
+[36mD 15:38:43 Acuity output shape(input): (1 2048)[0m
+[36mD 15:38:43 Tensor @hidden_9:out0 type: float32[0m
+[36mD 15:38:43 Process routing_weights_10 ...[0m
+[36mD 15:38:43 Acuity output shape(input): (1 8)[0m
+[36mD 15:38:43 Tensor @routing_weights_10:out0 type: float32[0m
+[36mD 15:38:43 Process up/MatMul_output_0_5 ...[0m
+[36mD 15:38:43 Acuity output shape(fullconnect): (1 1024)[0m
+[36mD 15:38:43 Tensor @up/MatMul_output_0_5:out0 type: float32[0m
+[36mD 15:38:43 Process gate/MatMul_output_0_8 ...[0m
+[36mD 15:38:43 Acuity output shape(fullconnect): (1 1024)[0m
+[36mD 15:38:43 Tensor @gate/MatMul_output_0_8:out0 type: float32[0m
+[36mD 15:38:43 Process Slice_output_0_3 ...[0m
+[36mD 15:38:43 Acuity output shape(slice): (1 1)[0m
+[36mD 15:38:43 Tensor @Slice_output_0_3:out0 type: float32[0m
+[36mD 15:38:43 Process Sigmoid_output_0_7_Mul_output_0_6 ...[0m
+[36mD 15:38:43 Acuity output shape(swish): (1 1024)[0m
+[36mD 15:38:43 Tensor @Sigmoid_output_0_7_Mul_output_0_6:out0 type: float32[0m
+[36mD 15:38:43 Process Mul_1_output_0_4 ...[0m
+[36mD 15:38:43 Acuity output shape(multiply): (1 1024)[0m
+[36mD 15:38:43 Tensor @Mul_1_output_0_4:out0 type: float32[0m
+[36mD 15:38:43 Process down/MatMul_output_0_2 ...[0m
+[36mD 15:38:43 Acuity output shape(fullconnect): (1 2048)[0m
+[36mD 15:38:43 Tensor @down/MatMul_output_0_2:out0 type: float32[0m
+[36mD 15:38:43 Process expert_output_1 ...[0m
+[36mD 15:38:43 Acuity output shape(multiply): (1 2048)[0m
+[36mD 15:38:43 Tensor @expert_output_1:out0 type: float32[0m
+[36mD 15:38:43 Process attach_expert_output/out0_0 ...[0m
+[36mD 15:38:43 Acuity output shape(output): (1 2048)[0m
+[36mD 15:38:43 Tensor @attach_expert_output/out0_0:out0 type: float32[0m
+[32mI 15:38:43 Build main_graph complete.[0m
+W:tensorflow:AutoGraph could not transform <acuitylib.core.execution.BackendFunction object at 0x70a285f1acd0> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: Non-function: <class 'cython_function_or_method'>
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+[32mI 15:38:43 Running 1 iteration(s)[0m
+[36mD 15:38:43 *********** Setup database (1) ***********[0m
+[36mD 15:38:43 Setup dataset "TEXT":[0m
+[36mD 15:38:43 Lids: ['hidden_9', 'routing_weights_10'][0m
+[36mD 15:38:43 Layouts: ['nchw', 'nchw'][0m
+[36mD 15:38:43 Shapes: [[1, 2048], [1, 8]][0m
+[36mD 15:38:43 Data types: ['float32', 'float32'][0m
+[36mD 15:38:43 Sparse tensors: [][0m
+[36mD 15:38:43 Tensor names(H5FS only): [][0m
+/usr/local/lib/python3.8/dist-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  return array(a, dtype, copy=False, order=order)
+[36mD 15:38:43 0(100.00%)[0m
+[36mD 15:38:43 Calibrating ...[0m
+[32mI 15:38:43 Clean.[0m
+[36mD 15:38:43 Optimizing network with subnet_quantize, align_quantize, broadcast_quantize, qnt_adjust_coef, qnt_adjust_param[0m
+[32mI 15:38:43 End quantization...[0m
+[32mI 15:38:43 Dump net quantize tensor table to /work/compiled/static-one-expert/decoder.quantize[0m
+[32mI 15:38:43 Save net to /work/compiled/static-one-expert/decoder.data[0m
+[32mI 15:38:43 ----------------Error(0),Warning(0)----------------[0m

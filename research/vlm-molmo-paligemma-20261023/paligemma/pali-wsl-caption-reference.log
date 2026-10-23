@@ -1,0 +1,7 @@
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  5.07it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00,  8.89it/s]
+{'event': 'loaded', 'load_s': 1.613770499000566, 'parameters': 3032242416, 'rss_peak_kb': 793976}
+You are passing both `text` and `images` to `PaliGemmaProcessor`. The processor expects special image tokens in the text, as many tokens as there are images per each text. It is recommended to add `<image>` tokens in the very beginning of your text. For this call, we will infer how many images each text has and add special tokens.
+{'event': 'output', 'prompt': 'Describe this image in one sentence.', 'input_tokens': 265, 'output_ids': [235280, 2910, 8068, 675, 1378, 42711, 611, 3906, 2857, 235265, 1], 'text': 'A large church with two towers on either side.', 'wall_s': 36.49656096199942, 'rss_peak_kb': 6683992}
+{'event': 'complete'}

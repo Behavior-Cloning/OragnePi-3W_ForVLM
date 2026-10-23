@@ -1,0 +1,102 @@
+{
+  "parameter_groups": {
+    "embedding": {
+      "params": 592625664,
+      "bytes": 1185251328,
+      "tensors": 1
+    },
+    "decoder_layers": {
+      "params": 2024515584,
+      "bytes": 4049031168,
+      "tensors": 286
+    },
+    "projector_other": {
+      "params": 2656512,
+      "bytes": 5313024,
+      "tensors": 2
+    },
+    "vision": {
+      "params": 412442352,
+      "bytes": 824884704,
+      "tensors": 437
+    },
+    "other_language": {
+      "params": 2304,
+      "bytes": 4608,
+      "tensors": 1
+    }
+  },
+  "mixed_payload": {
+    "decoder": {
+      "int8_matrix_payload_bytes": 2024275968,
+      "other_bf16_payload_bytes": 479232,
+      "all_fp16_payload_bytes": 4049031168,
+      "int8_plus_fp16_payload_bytes": 2024755200,
+      "per_output_channel_scale_bytes": 2822144
+    },
+    "vision": {
+      "int8_matrix_payload_bytes": 411747840,
+      "other_bf16_payload_bytes": 1389024,
+      "all_fp16_payload_bytes": 824884704,
+      "int8_plus_fp16_payload_bytes": 413136864,
+      "per_output_channel_scale_bytes": 1091520,
+      "note": "Only Conv/FC weights INT8. Position embeddings remain BF16/FP16."
+    },
+    "projector": {
+      "int8_matrix_payload_bytes": 2654208,
+      "other_bf16_payload_bytes": 4608,
+      "all_fp16_payload_bytes": 5313024,
+      "int8_plus_fp16_payload_bytes": 2658816,
+      "per_output_channel_scale_bytes": 9216
+    }
+  },
+  "embedding": {
+    "bf16": 1185251328,
+    "float32": 2370502656,
+    "int8_head": 592625664,
+    "head_scale": 1028864
+  },
+  "kv_bytes": {
+    "512": 54525952,
+    "768": 81788928,
+    "1024": 109051904,
+    "1280": 136314880,
+    "4096": 436207616
+  },
+  "vision_attention_fp16_single_layer": 2097152,
+  "prefill_attention_fp16_single_layer": {
+    "288": 1327104,
+    "384": 2359296,
+    "512": 4194304,
+    "768": 9437184
+  },
+  "host_hidden_fp16": {
+    "384": 1769472,
+    "512": 2359296,
+    "768": 3538944
+  },
+  "layer0_nbg_bytes": {
+    "fp16": 156015160,
+    "w8": 70649288
+  },
+  "layer0_nbg_times26": {
+    "fp16": 4056394160,
+    "w8": 1836881488
+  },
+  "scope": "Raw payloads and tensor sizes exact; full compiled NBG/driver allocation cannot be exact before compilation+board load. Layer0 multiplication only an illustrative estimate, not validated all-layer size.",
+  "budget_scenarios": {
+    "single_shared_decoder_W8_plus_vision_W8_weight_payload": 3038132896,
+    "single_shared_decoder_plus_KV768": 3119921824,
+    "plus_all_host_BF16_embedding_pages_resident": 4305173152,
+    "independent_decode_prefill_weight_copies_plus_KV768": 5147499168,
+    "all_fp16_model_weights_without_host_embedding_duplicate": 6064484832,
+    "notes": "Not driver predictions: excludes compiler packing, command buffers, allocator alignment, activations, IO duplication, process/OS/audio. NPU head is separately materialized from tied embedding. Host embedding RSS is demand-paged unless pre-touched/pinned. Decode/prefill weight sharing API is untested for Pali."
+  },
+  "active_scope": "Chinese text-only; vision deferred",
+  "text_only_scenarios": {
+    "weight_payload_and_KV512": 2675762432,
+    "plus_fully_resident_host_bf16_embedding": 3861013760,
+    "independent_decode_prefill_copies_and_KV512": 4703339776,
+    "fp16_text_weights_only": 5234287104
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "model": "google/paligemma2-3b-mix-224",
+  "image": "gemma.cpp-main/paligemma/testdata/image.ppm",
+  "cases": [
+    {
+      "id": "building_type",
+      "prompt": "What type of building is it?",
+      "expected_concept": "church"
+    },
+    {
+      "id": "building_color",
+      "prompt": "What color is the church?",
+      "expected_concept": "gray"
+    },
+    {
+      "id": "short_caption",
+      "prompt": "Describe the image briefly",
+      "expected_concept": "church/building near water"
+    }
+  ],
+  "max_new_tokens": 32,
+  "measure": [
+    "image_encoder_time",
+    "prefill_time",
+    "first_generated_token",
+    "decode_tokens_per_s",
+    "RSS",
+    "thermal"
+  ],
+  "status": "prepared; not executed"
+}

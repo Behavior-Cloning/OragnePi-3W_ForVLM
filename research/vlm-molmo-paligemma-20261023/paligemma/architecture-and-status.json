@@ -1,0 +1,36 @@
+{
+  "selected_checkpoint": "google/paligemma2-3b-mix-224",
+  "mirror": "https://modelscope.cn/models/google/paligemma2-3b-mix-224",
+  "sources": [
+    "https://huggingface.co/google/paligemma2-3b-mix-224",
+    "https://github.com/google/gemma.cpp"
+  ],
+  "checkpoint_bytes": 6064583376,
+  "text_layers": 26,
+  "hidden_size": 2304,
+  "query_heads": 8,
+  "kv_heads": 4,
+  "head_dim": 256,
+  "image_tokens": 256,
+  "image_resolution": 224,
+  "vision_layers": 27,
+  "vision_hidden": 1152,
+  "vision_patch": 14,
+  "attention_logits_softcap": 50,
+  "final_logits_softcap": 30,
+  "sliding_window": 4096,
+  "decode_context_note": "Gemma2 local/global alternation; PaliGemma image+prompt prefix bidirectional attention must be preserved. Text-only decoder timing excludes image encoder and is not full VLM TTFT.",
+  "conversion_obstacles_inference": [
+    "Gemma2 GELU-tanh, four RMSNorms, softcapping, hybrid attention differ from current Intern Qwen2 path. Need exact numerics before NPU speed claims.",
+    "Image encoder must be included in genuine VLM execution; 256 image tokens cause prefill work absent from short text baseline."
+  ],
+  "downloads": "Original BF16 shards and tokenizer assets verified against ModelScope mirror manifest; mirror account name does not independently establish uploader identity.",
+  "runtime": "CPU full visual four requests and Chinese text-only three requests complete on board. Chinese hot TTFT6.09/6.47s, decode~1.52tokens/s. Pali real layer0 FP16/W8 NPU18fixtures each passed execution; whole-model NPU not deployed.",
+  "sfp_manifest": "sfp-manifest.json",
+  "cpu_llama_results": "llama-fresh-summary.json",
+  "board_reports": [
+    "REPORT.md",
+    "pali-board-summary.json",
+    "pali-text-board-summary.json"
+  ]
+}

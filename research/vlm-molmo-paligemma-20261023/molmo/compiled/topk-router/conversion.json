@@ -1,0 +1,36 @@
+{
+  "image": "ubuntu-npu:v2.0.10.2",
+  "target": "VIP9000NANODI_PLUS_PID0X1000003B",
+  "dtype": "fp16",
+  "source": "probe/topk-router",
+  "layer": 0,
+  "stages": [
+    {
+      "stage": "import",
+      "exit": 0,
+      "seconds": 3.9271990009997353
+    },
+    {
+      "stage": "inputmeta",
+      "exit": 0,
+      "seconds": 1.6211629110002832
+    },
+    {
+      "stage": "quantize",
+      "exit": 0,
+      "seconds": 1.671142153999881
+    },
+    {
+      "stage": "export",
+      "exit": 0,
+      "seconds": 4.729096842999752
+    }
+  ],
+  "binaries": [
+    {
+      "path": "export_nbg_unify/network_binary.nb",
+      "bytes": 343984
+    }
+  ],
+  "status": "COMPILED_NOT_BOARD_VALIDATED"
+}

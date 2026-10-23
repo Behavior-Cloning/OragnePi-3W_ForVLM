@@ -1,0 +1,93 @@
+[32mI 14:51:49 Namespace(import='onnx', input_dtype_list=None, input_size_list=None, inputs=None, model='/work/probe/softmax-control/layer0.onnx', output_data='decoder.data', output_model='decoder.json', outputs=None, size_with_batch=None, which='import')[0m
+[32mI 14:51:49 Set vsinn project dir to /work/compiled/softmax-control[0m
+[32mI 14:51:49 Start importing onnx...[0m
+[32mI 14:51:49 Current ONNX Model use ir_version 7 opset_version 13[0m
+[32mI 14:51:49 try optimize eliminate_option_const ...[0m
+[32mI 14:51:49 Call acuity onnx optimize 'eliminate_option_const' success[0m
+[32mI 14:51:49 try optimize froze_if ...[0m
+[32mI 14:51:49 Call acuity onnx optimize 'froze_if' success[0m
+[32mI 14:51:49 try optimize merge_sequence_construct_concat_from_sequence ...[0m
+[32mI 14:51:49 Call acuity onnx optimize 'merge_sequence_construct_concat_from_sequence' success[0m
+[32mI 14:51:49 try optimize merge_lrn_lowlevel_implement ...[0m
+[32mI 14:51:49 Call acuity onnx optimize 'merge_lrn_lowlevel_implement' success[0m
+[32mI 14:51:49 try optimize merge_splittosequence_sequenceat ...[0m
+[32mI 14:51:49 Call acuity onnx optimize 'merge_splittosequence_sequenceat' success[0m
+[36mD 14:51:49 Calc tensor Initializer_onnx::MatMul_6 shape: [2048, 64][0m
+[36mD 14:51:49 Calc tensor MatMul_/gate/MatMul_output_0 shape: [1, 64][0m
+[36mD 14:51:49 Calc tensor Cast_/Cast_output_0 shape: [1, 64][0m
+[36mD 14:51:49 Calc tensor Softmax_probabilities shape: [1, 64][0m
+[32mI 14:51:49 build output layer attach_probabilities:out0[0m
+[32mI 14:51:49 Try match probabilities:out0[0m
+[32mI 14:51:49 Match r_softmax [['probabilities']] [['Softmax']] to [['softmax']][0m
+[32mI 14:51:49 softmax lid: probabilities_1[0m
+[32mI 14:51:49 Try match Cast_output_0:out0[0m
+[32mI 14:51:49 Match r_cast [['Cast_output_0']] [['Cast']] to [['cast']][0m
+[32mI 14:51:49 cast lid: Cast_output_0_2[0m
+[32mI 14:51:49 Try match gate/MatMul_output_0:out0[0m
+[32mI 14:51:49 Match r_mm [['gate/MatMul_output_0', 'onnx__MatMul_6']] [['MatMul', 'Constant_0']] to [['fullconnect']][0m
+[32mI 14:51:49 fullconnect lid: gate/MatMul_output_0_3[0m
+[32mI 14:51:49 build input layer hidden:out0[0m
+[36mD 14:51:49 connect Cast_output_0_2 0  ~ probabilities_1 0[0m
+[36mD 14:51:49 connect gate/MatMul_output_0_3 0  ~ Cast_output_0_2 0[0m
+[36mD 14:51:49 connect hidden_4 0  ~ gate/MatMul_output_0_3 0[0m
+[36mD 14:51:49 connect probabilities_1 0  ~ attach_probabilities/out0_0 0[0m
+[36mD 14:51:49 Process hidden_4 ...[0m
+[36mD 14:51:49 Acuity output shape(input): (1 2048)[0m
+[36mD 14:51:49 Tensor @hidden_4:out0 type: float32[0m
+[36mD 14:51:49 Process gate/MatMul_output_0_3 ...[0m
+[36mD 14:51:49 Acuity output shape(fullconnect): (1 64)[0m
+[36mD 14:51:49 Tensor @gate/MatMul_output_0_3:out0 type: float32[0m
+[36mD 14:51:49 Process Cast_output_0_2 ...[0m
+[36mD 14:51:49 Acuity output shape(cast): (1 64)[0m
+[36mD 14:51:49 Tensor @Cast_output_0_2:out0 type: float32[0m
+[36mD 14:51:49 Process probabilities_1 ...[0m
+[36mD 14:51:49 Acuity output shape(softmax): (1 64)[0m
+[36mD 14:51:49 Tensor @probabilities_1:out0 type: float32[0m
+[36mD 14:51:49 Process attach_probabilities/out0_0 ...[0m
+[36mD 14:51:49 Acuity output shape(output): (1 64)[0m
+[36mD 14:51:49 Tensor @attach_probabilities/out0_0:out0 type: float32[0m
+[32mI 14:51:49 Build main_graph complete.[0m
+[32mI 14:51:49 Start C2T Switcher...[0m
+[36mD 14:51:49 Optimizing network with broadcast_op[0m
+[32mI 14:51:49 End C2T Switcher...[0m
+[36mD 14:51:49 Process hidden_4 ...[0m
+[36mD 14:51:49 Acuity output shape(input): (1 2048)[0m
+[36mD 14:51:49 Tensor @hidden_4:out0 type: float32[0m
+[36mD 14:51:49 Process gate/MatMul_output_0_3 ...[0m
+[36mD 14:51:49 Acuity output shape(fullconnect): (1 64)[0m
+[36mD 14:51:49 Tensor @gate/MatMul_output_0_3:out0 type: float32[0m
+[36mD 14:51:49 Process Cast_output_0_2 ...[0m
+[36mD 14:51:49 Acuity output shape(cast): (1 64)[0m
+[36mD 14:51:49 Tensor @Cast_output_0_2:out0 type: float32[0m
+[36mD 14:51:49 Process probabilities_1 ...[0m
+[36mD 14:51:49 Acuity output shape(softmax): (1 64)[0m
+[36mD 14:51:49 Tensor @probabilities_1:out0 type: float32[0m
+[36mD 14:51:49 Process attach_probabilities/out0_0 ...[0m
+[36mD 14:51:49 Acuity output shape(output): (1 64)[0m
+[36mD 14:51:49 Tensor @attach_probabilities/out0_0:out0 type: float32[0m
+[32mI 14:51:49 Build main_graph complete.[0m
+[36mD 14:51:49 Optimizing network with force_1d_tensor, special_clip_to_relun, swapper, merge_duplicate_quantize_dequantize, fold_quantize_dequantize, batchmatmul_add_to_fc, merge_layer, resize_nearest_transformer, auto_fill_multiply, compute_gather_negative, auto_fill_zero_bias, proposal_opt_import, extend_gather_to_gather_reshape, extend_stack_to_stack_reshape, input_to_output[0m
+[36mD 14:51:49 Fill zero bias for gate/MatMul_output_0_3 (fullconnect)[0m
+[36mD 14:51:49 Optimizing network with auto_fill_bn, auto_fill_l2normalizescale, auto_fill_instancenormalize, merge_layer[0m
+[36mD 14:51:49 Optimizing network with special_add_to_conv2d[0m
+[32mI 14:51:49 start process output layer attach_probabilities/out0_0[0m
+[36mD 14:51:49 Process hidden_4 ...[0m
+[36mD 14:51:49 Acuity output shape(input): (1 2048)[0m
+[36mD 14:51:49 Tensor @hidden_4:out0 type: float32[0m
+[36mD 14:51:49 Process gate/MatMul_output_0_3 ...[0m
+[36mD 14:51:49 Acuity output shape(fullconnect): (1 64)[0m
+[36mD 14:51:49 Tensor @gate/MatMul_output_0_3:out0 type: float32[0m
+[36mD 14:51:49 Process Cast_output_0_2 ...[0m
+[36mD 14:51:49 Acuity output shape(cast): (1 64)[0m
+[36mD 14:51:49 Tensor @Cast_output_0_2:out0 type: float32[0m
+[36mD 14:51:49 Process probabilities_1 ...[0m
+[36mD 14:51:49 Acuity output shape(softmax): (1 64)[0m
+[36mD 14:51:49 Tensor @probabilities_1:out0 type: float32[0m
+[36mD 14:51:49 Process attach_probabilities/out0_0 ...[0m
+[36mD 14:51:49 Acuity output shape(output): (1 64)[0m
+[36mD 14:51:49 Tensor @attach_probabilities/out0_0:out0 type: float32[0m
+[32mI 14:51:49 Build main_graph complete.[0m
+[32mI 14:51:49 End importing onnx...[0m
+[32mI 14:51:49 Dump net to /work/compiled/softmax-control/decoder.json[0m
+[32mI 14:51:49 Save net to /work/compiled/softmax-control/decoder.data[0m
+[32mI 14:51:49 ----------------Error(0),Warning(0)----------------[0m

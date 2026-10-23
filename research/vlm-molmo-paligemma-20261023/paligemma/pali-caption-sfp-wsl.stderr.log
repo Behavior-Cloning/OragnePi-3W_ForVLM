@@ -1,0 +1,62 @@
+Warn at timer.cc:39: TSC not constant/invariant, may vary frequency or jump.
+Warn at timer.cc:39: TSC not constant/invariant, may vary frequency or jump.
+skip_packages                 : 0
+skip_clusters                 : 0
+max_clusters                  : 0
+skip_lps                      : 0
+max_lps                       : 0
+num_threads                   : 2
+pin                           : default
+spin                          : default
+bind                          : default
+tokenizer                     : [no path specified]
+weights                       : /mnt/f/Files/OPi-La ... -3b-mix-224-sfp.sbs
+map                           : true
+to_bf16                       : false
+wrapping                      : default
+verbosity                     : 2
+seq_len                       : 512
+max_generated_tokens          : 32
+prefill_tbatch                : 256
+decode_qbatch                 : 16
+temperature                   : 0.000000
+top_k                         : 1
+deterministic                 : 1
+multiturn                     : 0
+image_file                    : /mnt/f/Files/OPi-La ... /testdata/image.ppm
+prompt                        : 
+prompt_file                   : [no path specified]
+eot_line                      : 
+Model                         : paligemma2-3b-224-sfp, to_bf16 0, mmap 1 => Map
+Date & Time                   : Fri Oct 23 16:04:11 2026
+CPU                           : 13th Gen Intel(R) Core(TM) i7-13700KF, bind -1
+CPU topology                  : 1S 1X 12C 2H, using 1X 12C (nodes=1), pinned, L1 48K=64*64@12, L2 2048K=2048*64@16 L3 2560K=3413*64@12
+Instruction set               : AVX2 (256 bits)
+Compiled config               : opt, profiler 0
+Memory MiB                    : 15895
+OPI_MODEL_READY t=6440.050477227 load_s=0.225988740
+OPI_REQUEST_BEGIN t=6440.050501327
+OPI_IMAGE_BEGIN t=6440.050502327
+
+
+[ Timing info ] Image token generation took: 2636 ms
+OPI_IMAGE_END t=6442.719779666 seconds=2.669277239
+
+[ Reading prompt ] 
+
+[ Timing info ] Prefill: 9312 ms for 264 prompt tokens (28.35 tokens / sec); Time to first token: 10959 ms
+OPI_TOKEN id=235280 pos=265 t=6453.679606681
+OPI_FIRST_TOKEN t=6453.679614781 ttft=13.629113454
+OPI_TOKEN id=2910 pos=266 t=6453.820855158
+OPI_TOKEN id=8068 pos=267 t=6453.959405146
+OPI_TOKEN id=675 pos=268 t=6454.088176169
+OPI_TOKEN id=1378 pos=269 t=6454.216324995
+OPI_TOKEN id=42711 pos=270 t=6454.345395118
+OPI_TOKEN id=611 pos=271 t=6454.485096301
+OPI_TOKEN id=3906 pos=272 t=6454.623896088
+OPI_TOKEN id=2857 pos=273 t=6454.762910874
+OPI_TOKEN id=235265 pos=274 t=6454.892187194
+OPI_TOKEN id=1 pos=275 t=6455.020895016
+
+[ Timing info ] Generate: 2988 ms for 11 tokens (3.68 tokens / sec)
+OPI_REQUEST_END t=6455.021157715 seconds=14.970656288 prompt_tokens=265

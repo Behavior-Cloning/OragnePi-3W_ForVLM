@@ -1,0 +1,88 @@
+[32mI 14:51:42 Namespace(MLE=False, algorithm='normal', batch_size=0, compute_entropy=False, device='CPU', divergence_first_quantize_bits=11, divergence_nbins=0, hybrid=False, iterations=1, model='decoder.json', model_data='decoder.data', model_quantize='decoder.quantize', moving_average_weight=0.01, output_dir=None, qtype='float16', quantizer='float16', rebuild=True, rebuild_all=False, which='quantize', with_input_meta='tensor-inputmeta.yml')[0m
+[32mI 14:51:42 Set vsinn project dir to /work/compiled/topk-router[0m
+[32mI 14:51:42 Load model in /work/compiled/topk-router/decoder.json[0m
+[32mI 14:51:42 Load data in /work/compiled/topk-router/decoder.data[0m
+[32mI 14:51:42 Load input meta /work/compiled/topk-router/tensor-inputmeta.yml[0m
+[32mI 14:51:42 Start quantization...[0m
+[32mI 14:51:42 Quantization start...[0m
+[36mD 14:51:42 Process hidden_7 ...[0m
+[36mD 14:51:42 Acuity output shape(input): (1 2048)[0m
+[36mD 14:51:42 Tensor @hidden_7:out0 type: float32[0m
+[36mD 14:51:42 Process gate/MatMul_output_0_6 ...[0m
+[36mD 14:51:42 Acuity output shape(fullconnect): (1 64)[0m
+[36mD 14:51:42 Tensor @gate/MatMul_output_0_6:out0 type: float32[0m
+[36mD 14:51:42 Process Cast_output_0_5 ...[0m
+[36mD 14:51:42 Acuity output shape(cast): (1 64)[0m
+[36mD 14:51:42 Tensor @Cast_output_0_5:out0 type: float32[0m
+[36mD 14:51:42 Process Softmax_output_0_4 ...[0m
+[36mD 14:51:42 Acuity output shape(softmax): (1 64)[0m
+[36mD 14:51:42 Tensor @Softmax_output_0_4:out0 type: float32[0m
+[36mD 14:51:42 Process values_2 ...[0m
+[36mD 14:51:42 Acuity output shape(topk): (1 8) (1 8)[0m
+[36mD 14:51:42 Tensor @values_2:out0 type: float32[0m
+[36mD 14:51:42 Tensor @values_2:out1 type: int32[0m
+[36mD 14:51:42 Process attach_values/out0_0 ...[0m
+[36mD 14:51:42 Acuity output shape(output): (1 8)[0m
+[36mD 14:51:42 Tensor @attach_values/out0_0:out0 type: float32[0m
+[36mD 14:51:42 Process cast_3 ...[0m
+[36mD 14:51:42 Acuity output shape(cast): (1 8)[0m
+[36mD 14:51:42 Tensor @cast_3:out0 type: int64[0m
+[36mD 14:51:42 Process attach_values/out1_1 ...[0m
+[36mD 14:51:42 Acuity output shape(output): (1 8)[0m
+[36mD 14:51:42 Tensor @attach_values/out1_1:out0 type: int64[0m
+[32mI 14:51:42 Build main_graph complete.[0m
+[36mD 14:51:42 set up a quantize net[0m
+[36mD 14:51:42 Thinning network with DeadChannelRemoval, to zeros: True.[0m
+[36mD 14:51:42 Build analyzer ...[0m
+[36mD 14:51:42 Forward analyze range.[0m
+[36mD 14:51:42 Backward analyze range.[0m
+[36mD 14:51:42 Forward analyze range.[0m
+[36mD 14:51:42 Backward analyze range.[0m
+[36mD 14:51:42 Analyze range done.[0m
+[36mD 14:51:42 Process hidden_7 ...[0m
+[36mD 14:51:42 Acuity output shape(input): (1 2048)[0m
+[36mD 14:51:42 Tensor @hidden_7:out0 type: float32[0m
+[36mD 14:51:42 Process gate/MatMul_output_0_6 ...[0m
+[36mD 14:51:42 Acuity output shape(fullconnect): (1 64)[0m
+[36mD 14:51:42 Tensor @gate/MatMul_output_0_6:out0 type: float32[0m
+[36mD 14:51:42 Process Cast_output_0_5 ...[0m
+[36mD 14:51:42 Acuity output shape(cast): (1 64)[0m
+[36mD 14:51:42 Tensor @Cast_output_0_5:out0 type: float32[0m
+[36mD 14:51:42 Process Softmax_output_0_4 ...[0m
+[36mD 14:51:42 Acuity output shape(softmax): (1 64)[0m
+[36mD 14:51:42 Tensor @Softmax_output_0_4:out0 type: float32[0m
+[36mD 14:51:42 Process values_2 ...[0m
+[36mD 14:51:42 Acuity output shape(topk): (1 8) (1 8)[0m
+[36mD 14:51:42 Tensor @values_2:out0 type: float32[0m
+[36mD 14:51:42 Tensor @values_2:out1 type: int32[0m
+[36mD 14:51:42 Process attach_values/out0_0 ...[0m
+[36mD 14:51:42 Acuity output shape(output): (1 8)[0m
+[36mD 14:51:42 Tensor @attach_values/out0_0:out0 type: float32[0m
+[36mD 14:51:42 Process cast_3 ...[0m
+[36mD 14:51:42 Acuity output shape(cast): (1 8)[0m
+[36mD 14:51:42 Tensor @cast_3:out0 type: int64[0m
+[36mD 14:51:42 Process attach_values/out1_1 ...[0m
+[36mD 14:51:42 Acuity output shape(output): (1 8)[0m
+[36mD 14:51:42 Tensor @attach_values/out1_1:out0 type: int64[0m
+[32mI 14:51:42 Build main_graph complete.[0m
+W:tensorflow:AutoGraph could not transform <acuitylib.core.execution.BackendFunction object at 0x71819f987df0> and will run it as-is.
+Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
+Cause: Non-function: <class 'cython_function_or_method'>
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+[32mI 14:51:42 Running 1 iteration(s)[0m
+[36mD 14:51:42 *********** Setup database (1) ***********[0m
+[36mD 14:51:42 Setup dataset "TEXT":[0m
+[36mD 14:51:42 Lids: ['hidden_7'][0m
+[36mD 14:51:42 Layouts: ['nchw'][0m
+[36mD 14:51:42 Shapes: [[1, 2048]][0m
+[36mD 14:51:42 Data types: ['float32'][0m
+[36mD 14:51:42 Sparse tensors: [][0m
+[36mD 14:51:42 Tensor names(H5FS only): [][0m
+[36mD 14:51:42 0(100.00%)[0m
+[36mD 14:51:42 Calibrating ...[0m
+[32mI 14:51:42 Clean.[0m
+[36mD 14:51:42 Optimizing network with subnet_quantize, align_quantize, broadcast_quantize, qnt_adjust_coef, qnt_adjust_param[0m
+[32mI 14:51:42 End quantization...[0m
+[32mI 14:51:42 Dump net quantize tensor table to /work/compiled/topk-router/decoder.quantize[0m
+[32mI 14:51:42 Save net to /work/compiled/topk-router/decoder.data[0m
+[32mI 14:51:42 ----------------Error(0),Warning(0)----------------[0m

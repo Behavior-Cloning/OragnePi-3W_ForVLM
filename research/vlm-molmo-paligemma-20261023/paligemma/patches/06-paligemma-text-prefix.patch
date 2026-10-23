@@ -1,0 +1,25 @@
+--- a/gemma/run.cc
++++ b/gemma/run.cc
+@@ -224,9 +224,19 @@
+         runtime_config.prefill_tbatch_size = prompt_size;
+       }
+     } else {
+-      prompt = WrapAndTokenize(gemma.Tokenizer(), gemma.ChatTemplate(),
+-                               config.wrapping, abs_pos, prompt_string);
+-      prompt_size = prompt.size();
++      if (config.wrapping == PromptWrapping::PALIGEMMA) {
++        // HF PaliGemma inference uses a bidirectional text prefix even without
++        // pixel_values. Keep its BOS + text + newline task boundary as well.
++        prompt = WrapAndTokenize(gemma.Tokenizer(), gemma.ChatTemplate(),
++                                config.wrapping, abs_pos, prompt_string, 0);
++        prompt_size = prompt.size();
++        prefix_end = prompt_size;
++        runtime_config.prefill_tbatch_size = prompt_size;
++      } else {
++        prompt = WrapAndTokenize(gemma.Tokenizer(), gemma.ChatTemplate(),
++                                config.wrapping, abs_pos, prompt_string);
++        prompt_size = prompt.size();
++      }
+     }
+ 
+     if constexpr (kVerboseLogTokens) {

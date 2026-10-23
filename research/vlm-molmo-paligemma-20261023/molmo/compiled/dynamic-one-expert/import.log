@@ -1,0 +1,18 @@
+[32mI 15:38:35 Namespace(import='onnx', input_dtype_list=None, input_size_list=None, inputs=None, model='/work/probe/dynamic-one-expert/layer0.onnx', output_data='decoder.data', output_model='decoder.json', outputs=None, size_with_batch=None, which='import')[0m
+[32mI 15:38:35 Set vsinn project dir to /work/compiled/dynamic-one-expert[0m
+[32mI 15:38:35 Start importing onnx...[0m
+[32mI 15:38:36 Current ONNX Model use ir_version 7 opset_version 13[0m
+[31mE 15:38:36 Acuity can not support NonZero op in specified dynamic shape model for now.[0m
+[33mW 15:38:36 ----------------Error(1),Warning(0)----------------[0m
+Traceback (most recent call last):
+  File "/root/acuity-toolkit-whl-6.30.22/bin/pegasus.py", line 131, in <module>
+    main(args)
+  File "/root/acuity-toolkit-whl-6.30.22/bin/pegasus.py", line 112, in main
+    ret = importer.execute(args)
+  File "acuitylib/app/importer/commands.py", line 253, in acuitylib.app.importer.commands.execute
+  File "acuitylib/vsi_nn.py", line 122, in acuitylib.vsi_nn.VSInn.load_onnx
+  File "acuitylib/interface/importer.py", line 149, in acuitylib.interface.importer.OnnxLoader.load
+  File "acuitylib/app/importer/import_onnx.py", line 106, in acuitylib.app.importer.import_onnx.Importonnx.run
+  File "acuitylib/converter/onnx/convert_onnx.py", line 69, in acuitylib.converter.onnx.convert_onnx.OnnxLoader.__init__
+  File "acuitylib/acuitylog.py", line 260, in acuitylib.acuitylog.AcuityLog.e
+acuitylib.acuityerror.AcuityError: ('Acuity can not support NonZero op in specified dynamic shape model for now.', None)

@@ -1,0 +1,25 @@
+Consolidate compiler generated dependencies of target sentencepiece-static
+[ 35%] Built target sentencepiece-static
+[ 45%] Built target hwy
+[ 70%] Built target hwy_contrib
+[ 98%] Built target libgemma
+Consolidate compiler generated dependencies of target configs
+[ 98%] Building CXX object CMakeFiles/configs.dir/python/configs.cc.o
+In file included from /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/vlm-molmo-paligemma-20261023/paligemma/gemma.cpp-main/compression/types.h:25,
+                 from /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/vlm-molmo-paligemma-20261023/paligemma/gemma.cpp-main/gemma/configs.h:28,
+                 from /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/vlm-molmo-paligemma-20261023/paligemma/gemma.cpp-main/python/configs.cc:16:
+/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/vlm-molmo-paligemma-20261023/paligemma/gemma.cpp-main/util/basics.h:195:73: warning: ‘unused’ attribute ignored [-Wattributes]
+  195 |   HWY_MAYBE_UNUSED uint8_t padding_[HWY_ALIGNMENT - 16 - sizeof(engine_)];
+      |                                                                         ^
+/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/vlm-molmo-paligemma-20261023/paligemma/gemma.cpp-main/python/configs.cc: In function ‘void pybind11::pybind11_init_configs(pybind11::module_&)’:
+/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/vlm-molmo-paligemma-20261023/paligemma/gemma.cpp-main/python/configs.cc:94:48: error: expected ‘;’ before ‘class_’
+   94 |       .value("GEMMA3_270M", Model::GEMMA3_270M)
+      |                                                ^
+      |                                                ;
+   95 | 
+   96 |   class_<TensorInfo>(py_module, "TensorInfo")
+      |   ~~~~~~                                        
+gmake[3]: *** [CMakeFiles/configs.dir/build.make:76: CMakeFiles/configs.dir/python/configs.cc.o] Error 1
+gmake[2]: *** [CMakeFiles/Makefile2:521: CMakeFiles/configs.dir/all] Error 2
+gmake[1]: *** [CMakeFiles/Makefile2:528: CMakeFiles/configs.dir/rule] Error 2
+gmake: *** [Makefile:293: configs] Error 2

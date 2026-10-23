@@ -1,0 +1,84 @@
+{
+    "MetaData": {
+        "Name": "main_graph",
+        "AcuityVersion": "6",
+        "Platform": "tensorflow",
+        "Org_Platform": "onnx"
+    },
+    "Layers": {
+        "attach_probabilities/out0_0": {
+            "name": "attach_probabilities/out0",
+            "op": "output",
+            "parameters": {},
+            "inputs": [
+                "@probabilities_1:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "probabilities_1": {
+            "name": "probabilities",
+            "op": "softmax",
+            "parameters": {
+                "sf_axis": -1,
+                "beta": 1.0
+            },
+            "inputs": [
+                "@Cast_output_0_2:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "Cast_output_0_2": {
+            "name": "Cast_output_0",
+            "op": "cast",
+            "parameters": {
+                "in_data_type": "float32",
+                "out_data_type": "float32"
+            },
+            "inputs": [
+                "@gate/MatMul_output_0_3:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "gate/MatMul_output_0_3": {
+            "name": "gate/MatMul_output_0",
+            "op": "fullconnect",
+            "parameters": {
+                "weights": 64,
+                "bias": true,
+                "regularize": false,
+                "axis": 1
+            },
+            "inputs": [
+                "@hidden_4:out0"
+            ],
+            "outputs": [
+                "out0"
+            ]
+        },
+        "hidden_4": {
+            "name": "hidden",
+            "op": "input",
+            "parameters": {
+                "size": "",
+                "channels": 1,
+                "shape": [
+                    1,
+                    2048
+                ],
+                "is_scalar": false,
+                "type": "float32"
+            },
+            "inputs": [],
+            "outputs": [
+                "out0"
+            ]
+        }
+    },
+    "quantize_info": {}
+}

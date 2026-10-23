@@ -1,0 +1,9 @@
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  4.44it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00,  7.67it/s]
+{'event': 'loaded', 'load_s': 1.672308831999544, 'parameters': 3032242416, 'rss_peak_kb': 794664}
+You are passing both `text` and `images` to `PaliGemmaProcessor`. The processor expects special image tokens in the text, as many tokens as there are images per each text. It is recommended to add `<image>` tokens in the very beginning of your text. For this call, we will infer how many images each text has and add special tokens.
+{'event': 'output', 'prompt': 'What type of building is it?', 'input_tokens': 265, 'output_ids': [44201, 1], 'text': 'church', 'wall_s': 39.58150135199958, 'rss_peak_kb': 6662148}
+You are passing both `text` and `images` to `PaliGemmaProcessor`. The processor expects special image tokens in the text, as many tokens as there are images per each text. It is recommended to add `<image>` tokens in the very beginning of your text. For this call, we will infer how many images each text has and add special tokens.
+{'event': 'output', 'prompt': 'What color is the church?', 'input_tokens': 264, 'output_ids': [7384, 1], 'text': 'white', 'wall_s': 24.954112305999843, 'rss_peak_kb': 6662148}
+{'event': 'complete'}

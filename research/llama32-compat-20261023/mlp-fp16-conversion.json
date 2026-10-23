@@ -1,0 +1,91 @@
+{
+  "scope": "one decoder with explicit per-matrix weight and sensitive-activation precision overrides",
+  "int8_matrices": 4,
+  "int4_matrices": 0,
+  "weight_bits_requested": 8,
+  "dfp_method": "peak",
+  "dfp_scale_search": null,
+  "fp16_matrices": 3,
+  "base": "llama32-compat-20261023/compiled",
+  "weights": [
+    {
+      "name": "fullconnect_110",
+      "shape": [
+        8192,
+        2048
+      ],
+      "dtype": "float16"
+    },
+    {
+      "name": "fullconnect_113",
+      "shape": [
+        2048,
+        512
+      ],
+      "dtype": "int8"
+    },
+    {
+      "name": "fullconnect_116",
+      "shape": [
+        2048,
+        2048
+      ],
+      "dtype": "int8"
+    },
+    {
+      "name": "fullconnect_119",
+      "shape": [
+        2048,
+        512
+      ],
+      "dtype": "int8"
+    },
+    {
+      "name": "fullconnect_122",
+      "shape": [
+        2048,
+        8192
+      ],
+      "dtype": "float16"
+    },
+    {
+      "name": "fullconnect_125",
+      "shape": [
+        2048,
+        8192
+      ],
+      "dtype": "float16"
+    },
+    {
+      "name": "fullconnect_128",
+      "shape": [
+        2048,
+        2048
+      ],
+      "dtype": "int8"
+    }
+  ],
+  "weight_mode": "perchannel",
+  "dfp_linear": [],
+  "float_nonlinear": false,
+  "float_residual": true,
+  "float_sensitive": true,
+  "activation_headroom_bits": 0,
+  "float_down_output": false,
+  "float_mlp": true,
+  "int8_mlp_projections": {},
+  "mlp_headroom_bits": null,
+  "headroom_override_version": 2,
+  "compiler_script_sha256": "24e0d5ea43ec86f6bcf9f8cc98c6f831d9ee043e91b18b405318cb655e517cd5",
+  "float_scores": false,
+  "float_head_norm": false,
+  "source_quantize_sha256": "091d752adf7d02e306708289c03574020eea12611971b3600621c907253e34cd",
+  "exit_code": 0,
+  "seconds": 17.27338014599991,
+  "binaries": [
+    {
+      "bytes": 110227896,
+      "path": "export_nbg_unify/network_binary.nb"
+    }
+  ]
+}

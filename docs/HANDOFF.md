@@ -1,3 +1,11 @@
+## 2026-10-25 32-token摘要配对已完成
+
+两组各300秒/88推理：仅32正文+8模板，system86；模型TTFT P50 1.618→1.023s，P95 2.682→1.446s，尚未稳定<1s。32组26/88基本门控拒绝、输出长列表/超能力，质量未过关。见research/async-agent-20261025/PAIR32_REPORT.md。ttft-32-64-matrix已自动开始，勿重复启动；runtime比较old/tail8/group/group-exact/old-repeat，等待结果。
+
+## 2026-10-25 1小时结果与32-token后续
+
+stress60-v2板端225000帧/3600秒、1022推理完成，driver释放0；控制器SSH收尾3840s超时，已独立回收日志，不能称控制器exit0。事件→首token P50 2.348s、mock动作开始2.584s、decode13.50t/s，最高49.29°C，CPU平均6.237%，PSS峰585.66MiB且后期仍约0.20MiB/min增长。RAG动作兼容性仍未合格。详见research/async-agent-20261025/results/stress60-v2/REPORT.md。随后pair300-v2与pair300-32由run_pair32.py顺序执行，独立目录/锁；不要重复启动。
+
 ## 2026-10-25 异步常驻Agent harness
 
 见research/async-agent-20261025/REPORT.md。v1完成900秒/257推理，CPU平均6.47%、温度最高49.414°C、decode13.67t/s、事件→首token2.43s/动作开始3.56s(P50)。性能稳定但决策失败：仅30/257明确运动，拒绝/物品操作仍被RAG映射mock。v2提示+基本门控75秒回归完成，仍有弯腰→抬头兼容性错误，未通过动作验收，也未完成v2长期测试。没有物理电机动作。两个版本证据分开保留，板卡无本次harness任务运行，driver释放0。后续优先修RAG兼容门控、规划评测、2h内存增长验证。

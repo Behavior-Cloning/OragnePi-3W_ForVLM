@@ -1,12 +1,20 @@
-## 2026-10-25 对齐静态64/128与动态32/64的评测运行中
+## 2026-10-25 同输入首字优化已完成：32正文小样本<1s，64正文未达标
 
-用户要求同格固定完整token序列后才比较算法效率。ttft-aligned-matrix-v2已由controller_aligned.py启动，WSL PID2842；仅查WSL状态，不绕锁轮询板卡。静态64/128含system模板5，正文59/123；动态正文32/64+模板8，总104/136/168/200，new40/72、reuse64/128，输出1。各算法同binary/量化/亲和/语音负载；plain、tail8、group、mask、group-repeat共180计时+60自然输出，另独立4步logits与mask字节校验。分析工具analyze_aligned.py ttft-aligned-matrix-v2。首次run因tokenizer文件SHA在加载前失败，0计时；已保留失败证据、对54项fixture核对两tokenizer编码一致，并用板端导出文件重新冻结。勿重复启动。
+运行ttft-aligned-matrix-v2完成returncode=0：180速度请求、60自然输出、24份完整logits诊断，6次driver关闭均0。控制器已结束，不要重复启动。报告：research/async-agent-20261025/results/ttft-aligned-matrix-v2/REPORT.md；统计analysis.json，独立数值numerical-audit.json。
 
-前一轮固定86前缀mask优化已完成：动态正文32+模板8/new46，TTFT P50 1.091534→0.972596s，P95 0.983510s，9/9<1s仅开发小样本；完整logits逐字节一致，driver0。独立报告research/async-agent-20261025/results/ttft-mask-matrix/REPORT.md。不能当作新对齐矩阵结果，也不是完整语音端到端<1s。
+输入契约：固定前缀64/128=system正文59/123+模板5；动态正文32/64另加模板8。总输入104/136/168/200，reuse64/128，实际new40/72，速度输出1。每请求只缓存system，同格完整IDs一致，未用exact或上一轮动态缓存。精确长度含标点填充，静态128重复相同核心；自然质量另测。
+
+按静态64/128、动态32/64四格：plain TTFT P50=1.152739/1.759670/1.180238/1.798044s；tail8+group+mask=0.959470/1.591648/0.974067/1.607835s。32正文各9/9<1s，P95=0.962396/0.984416；64正文各0/9<1s。每格仅3场景×3次，P95为最大值，不是长期保证。64正文prefill本身1.56–1.58s，后续需图内/批图优化，宿主setup已约2–5ms。本候选尚未替换完整Agent默认运行时，未重跑优化版一小时。
+
+group→mask四组4步全词表logits逐字节一致；plain→tail8分区已有2.69–3.06%相对L2变化，16/16argmax和12/12自然输出一致只代表开发小集合。任务完成静态64为4/6，128为5/6，弯腰退回静止，历史RAG兼容性错误未修。Top3存在摇头/移动等冲突，不能全执行。全程mock无电机。
+
+语音常驻合成录音，RAG仅质量阶段调用，Intern NPU仅文本无视觉。约15.93分钟；整机CPU均7.87%，温度峰49.91°C，harness+resident PSS峰589.52MiB（不含其他常驻服务，driver另计），MemAvailable最低3279.84MiB，swap0。音频60586帧/150端点，最大帧滞后0.601s，不能说全链路无滞后或端到端<1s。
+
+首次无v2因tokenizer SHA不符在加载前失败（0计时），已用板端原文件重新冻结完成v2。保留两份输入及失败证据，不能混用。候选源码提交ce1dbe3；结果报告另行提交。前阶段固定86的mask报告results/ttft-mask-matrix/REPORT.md已完成，勿拿它替代本对齐矩阵。
 
 ## 用户要求：所有性能汇报必须标出token口径
 
-system正文、固定前缀含模板、完整动态正文min/P50/max、额外动态模板、总prompt、实际reused/new-prefill与输出token必须一起报。当前system正文81+system模板5=固定86；pair300-v2完整动态正文57/115/126，pair300-32为5/30/32；额外模板均8。勿把旧版摘要64上限误报为完整动态64，也勿把固定前缀86叫作纯正文86。
+system正文、固定前缀含模板、完整动态正文min/P50/max、额外动态模板、总prompt、实际reused/new-prefill与输出token必须一起报。旧配对方案system正文81+system模板5=固定86；pair300-v2完整动态正文57/115/126，pair300-32为5/30/32；额外模板均8。勿把旧版摘要64上限误报为完整动态64，也勿把固定前缀86叫作纯正文86。
 
 ## 2026-10-25 首字运行时矩阵完成
 
@@ -14,15 +22,15 @@ system正文、固定前缀含模板、完整动态正文min/P50/max、额外动
 
 ## 2026-10-25 32-token摘要配对已完成
 
-两组各300秒/88推理：仅32正文+8模板，system86；模型TTFT P50 1.618→1.023s，P95 2.682→1.446s，尚未稳定<1s。32组26/88基本门控拒绝、输出长列表/超能力，质量未过关。见research/async-agent-20261025/PAIR32_REPORT.md。ttft-32-64-matrix已自动开始，勿重复启动；runtime比较old/tail8/group/group-exact/old-repeat，等待结果。
+两组各300秒/88推理：仅32正文+8模板，system86；模型TTFT P50 1.618→1.023s，P95 2.682→1.446s，尚未稳定<1s。32组26/88基本门控拒绝、输出长列表/超能力，质量未过关。见research/async-agent-20261025/PAIR32_REPORT.md。ttft-32-64-matrix已完成；runtime比较old/tail8/group/group-exact/old-repeat，结果见上文独立报告。
 
 ## 2026-10-25 1小时结果与32-token后续
 
-stress60-v2板端225000帧/3600秒、1022推理完成，driver释放0；控制器SSH收尾3840s超时，已独立回收日志，不能称控制器exit0。事件→首token P50 2.348s、mock动作开始2.584s、decode13.50t/s，最高49.29°C，CPU平均6.237%，PSS峰585.66MiB且后期仍约0.20MiB/min增长。RAG动作兼容性仍未合格。详见research/async-agent-20261025/results/stress60-v2/REPORT.md。随后pair300-v2与pair300-32由run_pair32.py顺序执行，独立目录/锁；不要重复启动。
+stress60-v2板端225000帧/3600秒、1022推理完成，driver释放0；控制器SSH收尾3840s超时，已独立回收日志，不能称控制器exit0。事件→首token P50 2.348s、mock动作开始2.584s、decode13.50t/s，最高49.29°C，CPU平均6.237%，PSS峰585.66MiB且后期仍约0.20MiB/min增长。RAG动作兼容性仍未合格。详见research/async-agent-20261025/results/stress60-v2/REPORT.md。随后pair300-v2与pair300-32已由run_pair32.py顺序完成，独立目录/锁；不要重复启动。
 
 ## 2026-10-25 异步常驻Agent harness
 
-见research/async-agent-20261025/REPORT.md。v1完成900秒/257推理，CPU平均6.47%、温度最高49.414°C、decode13.67t/s、事件→首token2.43s/动作开始3.56s(P50)。性能稳定但决策失败：仅30/257明确运动，拒绝/物品操作仍被RAG映射mock。v2提示+基本门控75秒回归完成，仍有弯腰→抬头兼容性错误，未通过动作验收，也未完成v2长期测试。没有物理电机动作。两个版本证据分开保留，板卡无本次harness任务运行，driver释放0。后续优先修RAG兼容门控、规划评测、2h内存增长验证。
+见research/async-agent-20261025/REPORT.md。v1完成900秒/257推理，CPU平均6.47%、温度最高49.414°C、decode13.67t/s、事件→首token2.43s/动作开始3.56s(P50)。性能稳定但决策失败：仅30/257明确运动，拒绝/物品操作仍被RAG映射mock。v2提示+基本门控75秒回归完成，仍有弯腰→抬头兼容性错误，未通过动作验收；后续v2长期测试已完成，见本文件更晚日期记录。没有物理电机动作。两个版本证据分开保留，板卡无本次harness任务运行，driver释放0。后续优先修RAG兼容门控、规划评测、2h内存增长验证。
 
 ## 2026-10-22：无屏幕、无手指的128动作v2
 

@@ -1,3 +1,9 @@
+## 2026-10-25 对齐静态64/128与动态32/64的评测运行中
+
+用户要求同格固定完整token序列后才比较算法效率。ttft-aligned-matrix-v2已由controller_aligned.py启动，WSL PID2842；仅查WSL状态，不绕锁轮询板卡。静态64/128含system模板5，正文59/123；动态正文32/64+模板8，总104/136/168/200，new40/72、reuse64/128，输出1。各算法同binary/量化/亲和/语音负载；plain、tail8、group、mask、group-repeat共180计时+60自然输出，另独立4步logits与mask字节校验。分析工具analyze_aligned.py ttft-aligned-matrix-v2。首次run因tokenizer文件SHA在加载前失败，0计时；已保留失败证据、对54项fixture核对两tokenizer编码一致，并用板端导出文件重新冻结。勿重复启动。
+
+前一轮固定86前缀mask优化已完成：动态正文32+模板8/new46，TTFT P50 1.091534→0.972596s，P95 0.983510s，9/9<1s仅开发小样本；完整logits逐字节一致，driver0。独立报告research/async-agent-20261025/results/ttft-mask-matrix/REPORT.md。不能当作新对齐矩阵结果，也不是完整语音端到端<1s。
+
 ## 用户要求：所有性能汇报必须标出token口径
 
 system正文、固定前缀含模板、完整动态正文min/P50/max、额外动态模板、总prompt、实际reused/new-prefill与输出token必须一起报。当前system正文81+system模板5=固定86；pair300-v2完整动态正文57/115/126，pair300-32为5/30/32；额外模板均8。勿把旧版摘要64上限误报为完整动态64，也勿把固定前缀86叫作纯正文86。

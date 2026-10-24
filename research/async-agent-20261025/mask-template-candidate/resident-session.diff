@@ -1,0 +1,69 @@
+--- intern1b-operator-opt-20261023/resident_session.c
++++ mask-template-candidate/resident_session.c
+@@ -20,20 +20,24 @@
+     const float *embedding;
+     float *hidden;
+ } Session;
++#include "mask_templates.h"
+ 
+ static void reset_session(Session *s) {
++    int templated=getenv("OPI_MASK_TEMPLATE")!=NULL;
+     s->valid=0;s->batch.previous_position=0;
+     for(int i=0;i<s->blocks;i++)for(int k=0;k<FUSED_LAYERS;k++){
+         Layer *l=&s->decoder[i];
+-        for(int j=0;j<s->capacity;j++)put(&l->in[IN_MASK(k)],j,-10000);
+-        put(&l->in[IN_MASK(k)],s->capacity,0);
++        if(templated)restore_mask_template(&l->in[IN_MASK(k)],s->capacity,0,1,0);
++        else{for(int j=0;j<s->capacity;j++)put(&l->in[IN_MASK(k)],j,-10000);
++             put(&l->in[IN_MASK(k)],s->capacity,0);}
+         for(unsigned j=0;j<l->in[IN_K(k)].count;j++){
+             put(&l->in[IN_K(k)],j,0);put(&l->in[IN_V(k)],j,0);
+         }
+         if(s->batch.tokens){
+             Tensor *m=&s->batch.layers[i].in[IN_MASK(k)];
+             int n=s->batch.tokens,c=s->capacity,repeat=DIM/(KV*HD);
+-            for(int r=0;r<repeat;r++)for(int t=0;t<n;t++)for(int j=0;j<c+n;j++)
++            if(templated)restore_mask_template(m,c,n,repeat,0);
++            else for(int r=0;r<repeat;r++)for(int t=0;t<n;t++)for(int j=0;j<c+n;j++)
+                 put(m,(r*n+t)*(c+n)+j,(j>=c&&j<=c+t)?0:-10000);
+         }
+     }
+@@ -44,15 +48,18 @@
+  * open columns monotonically during generation, so rewinding the cursor alone
+  * is insufficient. Stale finite K/V values remain unreachable behind masks. */
+ static void truncate_session(Session *s,int keep) {
++    int templated=getenv("OPI_MASK_TEMPLATE")!=NULL;
+     s->valid=keep;s->batch.previous_position=keep;
+     for(int i=0;i<s->blocks;i++)for(int k=0;k<FUSED_LAYERS;k++){
+         Tensor *m=&s->decoder[i].in[IN_MASK(k)];
+-        for(int j=0;j<s->capacity;j++)put(m,j,j<keep?0:-10000);
+-        put(m,s->capacity,0);
++        if(templated)restore_mask_template(m,s->capacity,0,1,keep);
++        else{for(int j=0;j<s->capacity;j++)put(m,j,j<keep?0:-10000);
++             put(m,s->capacity,0);}
+         if(s->batch.tokens){
+             m=&s->batch.layers[i].in[IN_MASK(k)];
+             int n=s->batch.tokens,c=s->capacity,repeat=DIM/(KV*HD);
+-            for(int r=0;r<repeat;r++)for(int t=0;t<n;t++)for(int j=0;j<c+n;j++)
++            if(templated)restore_mask_template(m,c,n,repeat,keep);
++            else for(int r=0;r<repeat;r++)for(int t=0;t<n;t++)for(int j=0;j<c+n;j++)
+                 put(m,(r*n+t)*(c+n)+j,(j<keep||(j>=c&&j<=c+t))?0:-10000);
+         }
+     }
+@@ -182,6 +189,7 @@
+     }
+     s.batch=load_prefill(argv[1],batch_tokens,s.blocks,s.capacity,s.decoder);
+     reset_session(&s);
++    fprintf(stderr,"mask_templates enabled=%d host_bytes=%zu\n",getenv("OPI_MASK_TEMPLATE")!=NULL,mask_template_bytes);
+     fprintf(events,"{\"event\":\"ready\",\"layers\":%d,\"capacity\":%d,\"load_seconds\":%.6f,\"driver_bytes\":%lld}\n",s.layers,s.capacity,now()-load_start,npu_bytes());
+     uint32_t header[8];size_t header_bytes;
+     while((header_bytes=fread(header,1,sizeof(header),stdin))!=0){
+@@ -251,7 +259,7 @@
+     check(vip_destroy_group(s.head_group),"session free head group");free_prefill(&s.batch);
+     for(int i=0;i<s.blocks;i++)free_net(&s.decoder[i],TENSOR_MAX_INPUTS,TENSOR_MAX_OUTPUTS);
+     for(int i=0;i<HEAD_SHARDS;i++)free_net(&s.head[i],1,1);
+-    check(vip_destroy(),"session release");
++    check(vip_destroy(),"session release");free_mask_templates();
+     fprintf(events,"{\"event\":\"closed\",\"driver_bytes\":%lld}\n",npu_bytes());
+     fclose(events);free(s.decoder);free(s.hidden);free(s.history);free(prompt);free(feedback);
+     munmap((void*)s.embedding,st.st_size);close(emb_fd);return 0;

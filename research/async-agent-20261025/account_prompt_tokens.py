@@ -1,11 +1,11 @@
 from pathlib import Path
-import ast,json,statistics
+import ast,json,statistics,hashlib
 from tokenizers import Tokenizer
 p=Path(__file__).resolve().parent
-t=Tokenizer.from_file('/opt/opi-lab/source-validation-20261017/official-InternVL3-1B/tokenizer.json');enc=lambda s:t.encode(s,add_special_tokens=False).ids
+tokenizer_file=p/'models/tokenizer-board.json';t=Tokenizer.from_file(str(tokenizer_file));enc=lambda s:t.encode(s,add_special_tokens=False).ids
 prefix=next(n.value.value for n in ast.walk(ast.parse((p/'harness.py').read_text())) if isinstance(n,ast.Assign) and any(isinstance(x,ast.Name) and x.id=='prefix' for x in n.targets) and isinstance(n.value,ast.Constant))
 system=prefix.removeprefix('<|im_start|>system\n').removesuffix('<|im_end|>\n')
-result={'system_text_tokens':len(enc(system)),'fixed_system_prefix_tokens':len(enc(prefix)),'system_template_tokens':len(enc(prefix))-len(enc(system)),'variants':{}}
+result={'tokenizer_file':str(tokenizer_file),'tokenizer_sha256':hashlib.sha256(tokenizer_file.read_bytes()).hexdigest(),'system_text_tokens':len(enc(system)),'fixed_system_prefix_tokens':len(enc(prefix)),'system_template_tokens':len(enc(prefix))-len(enc(system)),'variants':{}}
 for f in ['pair300-v2','pair300-32']:
  rows=[json.loads(x) for x in (p/'results'/f/'events.jsonl').open() if '"event": "brain_done"' in x];stats=[]
  for x in rows:

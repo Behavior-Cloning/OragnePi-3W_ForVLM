@@ -10,10 +10,12 @@ v2：64token摘要+单列partial+动态说明/动作要求。32版本：partial�
 
 | 指标 | v2 | 32正文 |
 |---|---:|---:|
-| 正文摘要 P50 / max |60 /64|30 /32|
+| 摘要正文 P50 / max |60 /64|30 /32|
+| 完整动态正文 min / P50 / max |57 /115 /126|5 /30 /32|
+| system正文（不含模板） |81|81|
 | 总输入 P50 |209|124|
-| 固定system |86|86|
-| 32方案额外聊天模板 |—|8|
+| 固定system前缀（81正文+5模板） |86|86|
+| 动态user/assistant额外聊天模板 |8|8|
 | 真正新prefill P50 |65|28|
 | 首token P50 / P95 |1.618 /2.682s|1.023 /1.446s|
 | 事件→首token P50 / P95 |1.711 /2.688s|1.071 /1.561s|
@@ -44,3 +46,7 @@ v2的17次弯腰也全部匹配抬头。RAG兼容性不是本轮输入压缩已�
 正在跑ttft-32-64-matrix：正文精确32/48/64（标点补齐，仅性能fixture），相同system86、每请求只命中system，比较旧runtime、tail8、group、group-exact、旧runtime末尾复测。语音和RAG常驻，另6条自然输出对照。精确KV可能改变数值，不能因更快直接默认启用。
 
 继续采用仅32正文方向，但需要把输入资料边界与单动作约束写入system并验证；不能为提速把必要约束彻底丢掉。较长正文64在当前16-token prefill图上可能仍受批次数限制，以实测为准。
+
+## 后续汇报固定口径
+
+每次性能表必须列：system正文token、含system模板的固定前缀token、完整动态正文token（范围/P50；不能只报摘要子集）、动态聊天模板token、总prompt token、实际reused/new-prefill token、输出token和TTFT起止。全部使用实际部署的Intern tokenizer，模板不计入正文。复算依据见results/prompt-token-accounting.json及account_prompt_tokens.py。

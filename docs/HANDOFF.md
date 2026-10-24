@@ -1,3 +1,11 @@
+## 用户要求：所有性能汇报必须标出token口径
+
+system正文、固定前缀含模板、完整动态正文min/P50/max、额外动态模板、总prompt、实际reused/new-prefill与输出token必须一起报。当前system正文81+system模板5=固定86；pair300-v2完整动态正文57/115/126，pair300-32为5/30/32；额外模板均8。勿把旧版摘要64上限误报为完整动态64，也勿把固定前缀86叫作纯正文86。
+
+## 2026-10-25 首字运行时矩阵完成
+
+135计时+30自然输出，5组关闭driver0；尾部批处理将正文32/48/64首字P50从1.450/1.765/2.103s降至1.064/1.375/1.672s，仍未稳定<1s。候选6/6自然输出与旧版逐token一致，RAG弯腰→抬头缺陷未修。report: research/async-agent-20261025/results/ttft-32-64-matrix/REPORT.md。正文32实际new46，模板8+system尾6。继续检查truncate_session的mask构造setup开销，尚未部署该新候选；勿重复跑已完成矩阵。
+
 ## 2026-10-25 32-token摘要配对已完成
 
 两组各300秒/88推理：仅32正文+8模板，system86；模型TTFT P50 1.618→1.023s，P95 2.682→1.446s，尚未稳定<1s。32组26/88基本门控拒绝、输出长列表/超能力，质量未过关。见research/async-agent-20261025/PAIR32_REPORT.md。ttft-32-64-matrix已自动开始，勿重复启动；runtime比较old/tail8/group/group-exact/old-repeat，等待结果。

@@ -1,0 +1,29 @@
+{
+  "command": [
+    "aarch64-linux-gnu-gcc",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-DMODEL_DIM=896",
+    "-DMODEL_KV=2",
+    "-DMODEL_HD=64",
+    "-DROPE_BASE=1000000.0",
+    "-DFUSED_LAYERS=2",
+    "-DKEY_CACHE_TRANSPOSED=0",
+    "-DHEAD_SHARDS=4",
+    "-DHEAD_CHUNK=49152",
+    "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/async-agent-20261025/mask-template-candidate/resident_session.c",
+    "-L/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-Wl,-rpath-link,/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-lNBGlinker",
+    "-lVIPhal",
+    "-lm",
+    "-o",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/async-agent-20261025/mask-template-candidate/resident_mask"
+  ],
+  "returncode": 0,
+  "stderr": "",
+  "binary_sha256": "dc86c20e39707e617ef25453092bf652ffd619c293cf26809e27872d2ef1c49c"
+}

@@ -1,0 +1,24 @@
+{
+  "command": [
+    "gcc",
+    "-std=gnu11",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/async-agent-20261025/mask-template-candidate/test_mask_templates.c",
+    "-lm",
+    "-o",
+    "/tmp/test_mask_templates"
+  ],
+  "compile_returncode": 1,
+  "compile_stderr": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/async-agent-20261025/mask-template-candidate/test_mask_templates.c: In function \u2018put\u2019:\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/async-agent-20261025/mask-template-candidate/test_mask_templates.c:2:16: error: \u2018_Float16\u2019 is not supported on this target\n    2 | #define __fp16 _Float16\n      |                ^~~~~~~~\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/async-agent-20261025/mask-template-candidate/test_mask_templates.c:12:53: note: in expansion of macro \u2018__fp16\u2019\n   12 |     if(t->p.data_format==VIP_BUFFER_FORMAT_FP16) {((__fp16 *)t->data)[i]=x;return;}\n      |                                                     ^~~~~~\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/async-agent-20261025/mask-template-candidate/mask_templates.h: In function \u2018mask_encode\u2019:\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/async-agent-20261025/mask-template-candidate/test_mask_templates.c:2:16: error: \u2018_Float16\u2019 is not supported on this target\n    2 | #define __fp16 _Float16\n      |                ^~~~~~~~\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/async-agent-20261025/mask-template-candidate/mask_templates.h:24:34: note: in expansion of macro \u2018__fp16\u2019\n   24 |     union {uint32_t word;float f;__fp16 h;int16_t i16;int8_t i8;unsigned char bytes[4];} storage={0};\n      |                                  ^~~~~~\n",
+  "runs": [],
+  "scope": "WSL x86 CPU byte correctness only; not board performance",
+  "source_sha256": {
+    "mask_templates.h": "55b8fb3cbb404c11ef3a41ffc1b8c8d9df32d4f95ce9c78dd39b26f141e96fa8",
+    "test_mask_templates.c": "905b37b7df0a10aa7416918d8c3ad8adc52c8cde3126608efd9d35ce5e0de6f1",
+    "resident_session.c": "28688d390f39e4016ce0320a433e0062253b81e74bcce578df3d0bf9e9bce425"
+  }
+}

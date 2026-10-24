@@ -1,0 +1,46 @@
+{
+  "command": [
+    "gcc",
+    "-std=gnu11",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/async-agent-20261025/mask-template-candidate/test_mask_templates.c",
+    "-lm",
+    "-o",
+    "/tmp/test_mask_templates"
+  ],
+  "compile_returncode": 0,
+  "runs": [
+    {
+      "returncode": 0,
+      "result": {
+        "cases": 408,
+        "mismatches": 0,
+        "guard_bytes_intact": true,
+        "allocated_template_bytes": 3078306,
+        "validation_mode": false
+      }
+    },
+    {
+      "returncode": 0,
+      "result": {
+        "cases": 408,
+        "mismatches": 0,
+        "guard_bytes_intact": true,
+        "allocated_template_bytes": 3078306,
+        "validation_mode": true
+      }
+    }
+  ],
+  "scope": "Host byte/canary/cache correctness only; not board performance",
+  "fp16_note": "GCC11 x86 has no _Float16. Host put uses exact IEEE encodings for only allowed mask values 0/-10000; actual ARM original put remains unchanged and OPI_MASK_TEMPLATE_VALIDATE checks it on board.",
+  "fp16_negative_bits": "0xf0e2",
+  "source_sha256": {
+    "mask_templates.h": "55b8fb3cbb404c11ef3a41ffc1b8c8d9df32d4f95ce9c78dd39b26f141e96fa8",
+    "test_mask_templates.c": "8b4e4c8b23e42c0245657a07414642299ad6f873bb3763b0db261d1160bb6c38",
+    "resident_session.c": "28688d390f39e4016ce0320a433e0062253b81e74bcce578df3d0bf9e9bce425"
+  }
+}

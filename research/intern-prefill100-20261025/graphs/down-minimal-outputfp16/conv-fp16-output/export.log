@@ -1,0 +1,117 @@
+[32mI 03:19:27 Namespace(batch_size=None, build_platform='make', customer_lids=None, customer_ops=None, dtype='quantized', export='ovxlib', force_remove_permute=False, model='decoder.json', model_data='decoder.data', model_quantize='decoder.quantize', optimize='VIP9000NANODI_PLUS_PID0X1000003B', output_path='export/decoder', pack_nbg_unify=True, postprocess_file=None, save_fused_graph=False, save_trace_db=False, target_ide_project='linux64', viv_sdk='/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools', which='export', with_input_meta='tensor-inputmeta.yml')[0m
+[32mI 03:19:27 Set vsinn project dir to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output[0m
+[32mI 03:19:27 Load model in /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/decoder.json[0m
+[32mI 03:19:27 Load data in /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/decoder.data[0m
+[32mI 03:19:27 Load input meta /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/tensor-inputmeta.yml[0m
+[32mI 03:19:27 Load quantization tensor table /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/decoder.quantize[0m
+[32mI 03:19:27 Start exporting ovxlib case...[0m
+[36mD 03:19:27 Process input_1 ...[0m
+[36mD 03:19:27 Acuity output shape(input): (1 1 32 4864)[0m
+[36mD 03:19:27 Tensor @input_1:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 03:19:27 Process project_2 ...[0m
+[36mD 03:19:27 Acuity output shape(convolution): (1 1 32 896)[0m
+[36mD 03:19:27 Tensor @project_2:out0 type: float32(fake float16)[0m
+[36mD 03:19:27 Process output_0 ...[0m
+[36mD 03:19:27 Acuity output shape(output): (1 1 32 896)[0m
+[36mD 03:19:27 Tensor @output_0:out0 type: float32(fake float16)[0m
+[32mI 03:19:27 Build down_probe complete.[0m
+[32mI 03:19:27 Initialzing network optimizer by VIP9000NANODI_PLUS_PID0X1000003B ...[0m
+[32mI 03:19:27 Optimize config VIP9000NANODI_PLUS_PID0X1000003B with 'Default' optimization rules.[0m
+[36mD 03:19:27 Optimizing network with split_squared_difference, merge_ximum, qnt_adjust_coef, adjust_qnt_reshape, multiply_transform, add_extra_io, format_input_ops, auto_fill_zero_bias, conv_kernel_transform, auto_fill_reshape_zero, strip_op, extend_unstack_split, convert_matmul_trans_ab, merge_layer, transform_layer, broadcast_op, strip_op, adjust_output_attrs, insert_dtype_converter, layernorm_to_moments_bnsingle, pow_to_square, average_to_add_divide, optimize_einsum[0m
+[32mI 03:19:27 Start T2C Switcher...[0m
+[36mD 03:19:27 Optimizing network with broadcast_op, t2c_fc[0m
+[36mD 03:19:27 insert permute project_2_acuity_mark_perm_3 before project_2[0m
+[36mD 03:19:27 insert permute output_0_acuity_mark_perm_4 before output_0[0m
+[32mI 03:19:27 End T2C Switcher...[0m
+[36mD 03:19:27 Optimizing network with strip_op_layout_sensitive[0m
+[36mD 03:19:27 Process input_1 ...[0m
+[36mD 03:19:27 Acuity output shape(input): (1 1 32 4864)[0m
+[36mD 03:19:27 Tensor @input_1:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 03:19:27 Process project_2_acuity_mark_perm_3 ...[0m
+[36mD 03:19:27 Acuity output shape(permute): (1 4864 1 32)[0m
+[36mD 03:19:27 Tensor @project_2_acuity_mark_perm_3:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 03:19:27 Process project_2 ...[0m
+[36mD 03:19:27 Acuity output shape(convolution): (1 896 1 32)[0m
+[36mD 03:19:27 Tensor @project_2:out0 type: float32(fake float16)[0m
+[36mD 03:19:27 Process output_0_acuity_mark_perm_4 ...[0m
+[36mD 03:19:27 Acuity output shape(permute): (1 1 32 896)[0m
+[36mD 03:19:27 Tensor @output_0_acuity_mark_perm_4:out0 type: float32(fake float16)[0m
+[36mD 03:19:27 Process output_0 ...[0m
+[36mD 03:19:27 Acuity output shape(output): (1 1 32 896)[0m
+[36mD 03:19:27 Tensor @output_0:out0 type: float32(fake float16)[0m
+[32mI 03:19:27 Build down_probe complete.[0m
+[36mD 03:19:27 Optimizing network with merge_mark_permute[0m
+[36mD 03:19:27 Optimizing network with insert_reshape_for_layernorm, c2drv_adjust_extra_io, c2drv_nhwc_resize, conv_1xn_transform, proposal_opt, c2drv_convert_axis, c2drv_convert_shape, c2drv_convert_array, c2drv_cast_dtype, c2drv_trans_data, c2drv_custom_opt[0m
+[32mI 03:19:27 Building data ...[0m
+[32mI 03:19:27 Packing data ...[0m
+[36mD 03:19:27 Packing project_2 ...[0m
+[36mD 03:19:27 Quantize @project_2:bias to dynamic_fixed_point.[0m
+[36mD 03:19:27 Quantize @project_2:weight to dynamic_fixed_point.[0m
+[32mI 03:19:27 Saving data to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/decoder.export.data[0m
+[32mI 03:19:27 Export ovxlib case with version 1.1.83[0m
+[32mI 03:19:27 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/vnn_decoder.c[0m
+[32mI 03:19:27 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/vnn_decoder.h[0m
+[32mI 03:19:27 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/vnn_post_process.c[0m
+[32mI 03:19:27 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/vnn_post_process.h[0m
+[32mI 03:19:27 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/vnn_pre_process.c[0m
+[32mI 03:19:27 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/vnn_pre_process.h[0m
+[32mI 03:19:27 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/vnn_global.h[0m
+[32mI 03:19:27 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/main.c[0m
+[32mI 03:19:27 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/BUILD[0m
+[32mI 03:19:27 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/decoder.vcxproj[0m
+[32mI 03:19:27 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/decoder.2012.vcxproj[0m
+[32mI 03:19:27 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/makefile.linux[0m
+[32mI 03:19:27 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/.cproject[0m
+[32mI 03:19:27 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/.project[0m
+[36mD 03:19:27 Generate fake input /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/input_1_0.tensor[0m
+make: Warning: File '/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export/makefile.linux' has modification time 0.67 s in the future
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_decoder.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_pre_process.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+vnn_pre_process.c: In function ‘_handle_multiple_inputs’:
+vnn_pre_process.c:641:11: warning: variable ‘p1’ set but not used [-Wunused-but-set-variable]
+  641 |     char *p1 = NULL;
+      |           ^~
+At top level:
+vnn_pre_process.c:601:13: warning: ‘_get_image_handle_buffer’ defined but not used [-Wunused-function]
+  601 | static void _get_image_handle_buffer
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c main.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_post_process.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -O3  vnn_decoder.o vnn_pre_process.o main.o vnn_post_process.o -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/../common/lib/ -lvdtproxy /root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/../common/lib/libjpeg.a -o gen_nbg
+make: warning:  Clock skew detected.  Your build may be incomplete.
+Create Neural Network: 30ms or 30961us
+Verify...
+Verify Graph: 225ms or 225138us
+Start run graph [1] times...
+Run the 1 time: 53.94ms or 53940.29us
+vxProcessGraph execution time:
+Total   53.95ms or 53945.03us
+Average 53.95ms or 53945.03us
+ --- Top5 ---
+  0: 0.000000
+  1: 0.000000
+  2: 0.000000
+  3: 0.000000
+  4: 0.000000
+[32mI 03:19:29 Export ovxlib case with version 1.1.83[0m
+[32mI 03:19:29 Dump nbg input meta to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export_nbg_unify/nbg_meta.json[0m
+[32mI 03:19:29 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export_nbg_unify/vnn_decoder.c[0m
+[32mI 03:19:29 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export_nbg_unify/vnn_decoder.h[0m
+[32mI 03:19:29 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export_nbg_unify/vnn_post_process.c[0m
+[32mI 03:19:29 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export_nbg_unify/vnn_post_process.h[0m
+[32mI 03:19:29 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export_nbg_unify/vnn_pre_process.c[0m
+[32mI 03:19:29 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export_nbg_unify/vnn_pre_process.h[0m
+[32mI 03:19:29 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export_nbg_unify/vnn_global.h[0m
+[32mI 03:19:29 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export_nbg_unify/main.c[0m
+[32mI 03:19:29 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export_nbg_unify/BUILD[0m
+[32mI 03:19:29 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export_nbg_unify/decoder.vcxproj[0m
+[32mI 03:19:29 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export_nbg_unify/decoder.2012.vcxproj[0m
+[32mI 03:19:29 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export_nbg_unify/makefile.linux[0m
+[32mI 03:19:29 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export_nbg_unify/.cproject[0m
+[32mI 03:19:29 Save vx network source file to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/down-minimal-outputfp16/conv-fp16-output/export_nbg_unify/.project[0m
+[32mI 03:19:29 End exporting ovxlib case...[0m
+[32mI 03:19:29 ----------------Error(0),Warning(0)----------------[0m

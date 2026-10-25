@@ -1,0 +1,41 @@
+{
+  "source": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/candidates-down-i16-range16/c512-m32-l2",
+  "changes": [
+    {
+      "key": "@b0_fullconnect_116:out0",
+      "before": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 1.4047414064407349,
+        "min_value": -1.4047414064407349,
+        "fl": 14
+      },
+      "after": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      }
+    },
+    {
+      "key": "@b1_fullconnect_116:out0",
+      "before": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 2.2983908653259277,
+        "min_value": -2.2983908653259277,
+        "fl": 13
+      },
+      "after": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      }
+    }
+  ],
+  "same_graph": true,
+  "same_source_payload": true,
+  "input_ranges": "unchanged from range16: b0 fl12 (~8), b1 fl11 (~16); unsafe at first system chunk; not fixed by FP16 output",
+  "weight_grids": "unchanged I16 fl16/fl15; not original FP16 weight precision",
+  "actual_payload_audit_pending": true,
+  "actual_ports_pending": true
+}

@@ -1,0 +1,178 @@
+{
+  "status": "complete",
+  "pid": 35174,
+  "started": 1792955950.626441,
+  "scope": "SDK isolated mixed I16 input/weight to FP16 output support test; no board, speed or quality claims",
+  "cases": [
+    {
+      "case": "fc-i16-control",
+      "returncode": 0,
+      "seconds": 7.035577299000579,
+      "nb_sha256": "5fd55bbfd1a03408b4a04faf7d0abc11595202d67bdc715c98d8d22f8bcb26a4",
+      "nb_bytes": 6827336,
+      "errors": [],
+      "graph_sha256": "e62966633e17c64ee723ef28ee921d20623480376aeb82b2e6d4dbef33cc809b",
+      "quant_sha256": "53e843237fc8c4b78c7628e9bfa346f2eaa8a8c50d956b3297449d281333b965",
+      "data_sha256": "db29b89ad6a2da32818c5542233a757b62cf478db0f6109f3a61b0734ebcfcc3",
+      "source_data_sha256": "db29b89ad6a2da32818c5542233a757b62cf478db0f6109f3a61b0734ebcfcc3",
+      "quantize_parameters": {
+        "@input_1:out0": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 4.964869916439056,
+          "min_value": -4.964869916439056,
+          "fl": 12
+        },
+        "@project_2:weight": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.4374732971191406,
+          "min_value": -0.4374732971191406,
+          "fl": 16
+        },
+        "@project_2:out0": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 1.4047414064407349,
+          "min_value": -1.4047414064407349,
+          "fl": 14
+        },
+        "@output_0:out0": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 1.4047414064407349,
+          "min_value": -1.4047414064407349,
+          "fl": 14
+        }
+      }
+    },
+    {
+      "case": "fc-fp16-output",
+      "returncode": 0,
+      "seconds": 4.087566934000279,
+      "nb_sha256": "e254505988a7fb8496e9cb4265a888615c191c71b65967f202528d0b1acc71ba",
+      "nb_bytes": 6827336,
+      "errors": [],
+      "graph_sha256": "e62966633e17c64ee723ef28ee921d20623480376aeb82b2e6d4dbef33cc809b",
+      "quant_sha256": "0193613cd62974e4832ad70c0166d223e0bf63f15b7e2b7500104efeece9e97e",
+      "data_sha256": "db29b89ad6a2da32818c5542233a757b62cf478db0f6109f3a61b0734ebcfcc3",
+      "source_data_sha256": "db29b89ad6a2da32818c5542233a757b62cf478db0f6109f3a61b0734ebcfcc3",
+      "quantize_parameters": {
+        "@input_1:out0": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 4.964869916439056,
+          "min_value": -4.964869916439056,
+          "fl": 12
+        },
+        "@project_2:weight": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.4374732971191406,
+          "min_value": -0.4374732971191406,
+          "fl": 16
+        },
+        "@project_2:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@output_0:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      }
+    },
+    {
+      "case": "conv-i16-control",
+      "returncode": 0,
+      "seconds": 4.138508309999452,
+      "nb_sha256": "5d90ea4be1e1440c835084b51ffd0dbf3033ae5d60e624bd90c0060dfc64d41d",
+      "nb_bytes": 6827336,
+      "errors": [],
+      "graph_sha256": "90b8a02888cfbd3e760ad381a4b2778dbd530746bc7dfab079daf81714e57861",
+      "quant_sha256": "53e843237fc8c4b78c7628e9bfa346f2eaa8a8c50d956b3297449d281333b965",
+      "data_sha256": "856d55efaac738cea9e99cda1d6a0dfb1ead8faf83c49ffdf1d861f5fe998c8f",
+      "source_data_sha256": "856d55efaac738cea9e99cda1d6a0dfb1ead8faf83c49ffdf1d861f5fe998c8f",
+      "quantize_parameters": {
+        "@input_1:out0": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 4.964869916439056,
+          "min_value": -4.964869916439056,
+          "fl": 12
+        },
+        "@project_2:weight": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.4374732971191406,
+          "min_value": -0.4374732971191406,
+          "fl": 16
+        },
+        "@project_2:out0": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 1.4047414064407349,
+          "min_value": -1.4047414064407349,
+          "fl": 14
+        },
+        "@output_0:out0": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 1.4047414064407349,
+          "min_value": -1.4047414064407349,
+          "fl": 14
+        }
+      }
+    },
+    {
+      "case": "conv-fp16-output",
+      "returncode": 0,
+      "seconds": 4.193479174000458,
+      "nb_sha256": "c3c845761b2198a681e5e5c6adb47a1151a349b80bf8a9a7a9f8198159ea1d1d",
+      "nb_bytes": 6827336,
+      "errors": [],
+      "graph_sha256": "90b8a02888cfbd3e760ad381a4b2778dbd530746bc7dfab079daf81714e57861",
+      "quant_sha256": "0193613cd62974e4832ad70c0166d223e0bf63f15b7e2b7500104efeece9e97e",
+      "data_sha256": "856d55efaac738cea9e99cda1d6a0dfb1ead8faf83c49ffdf1d861f5fe998c8f",
+      "source_data_sha256": "856d55efaac738cea9e99cda1d6a0dfb1ead8faf83c49ffdf1d861f5fe998c8f",
+      "quantize_parameters": {
+        "@input_1:out0": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 4.964869916439056,
+          "min_value": -4.964869916439056,
+          "fl": 12
+        },
+        "@project_2:weight": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.4374732971191406,
+          "min_value": -0.4374732971191406,
+          "fl": 16
+        },
+        "@project_2:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@output_0:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      }
+    }
+  ],
+  "current": "conv-fp16-output",
+  "ended": 1792955970.0064855
+}

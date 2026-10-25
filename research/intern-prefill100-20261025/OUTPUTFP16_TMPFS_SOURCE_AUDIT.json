@@ -1,0 +1,49 @@
+{
+  "status": "PASS_FOR_BOUNDED_TMPFS_SINGLE_BLOCK_PROBE_NOT_QUALIFICATION",
+  "audited_utc": "2026-10-25T19:58:32.116636+00:00",
+  "source_sha256": {
+    "controller_down_outputfp16.py": "d76b32af54462b8d6f7bc5687b4a9ff4ba79d9e16eeb97a30df00eb4500aaca9",
+    "controller_down_outputfp16_tmpfs.py": "59d2936d6f22ffdddf3433d9fdf2ab3865eb4cfcad785d2b6e420578c314043d",
+    "down-outputfp16-c512-m32-tmpfs-r1-config.json": "95430f105fcb839b3f768ddd562e34c9f9d7df1754e6d161de93913ddd3bfaf7",
+    "board_probe_suite.py": "28efcf567d0aec9e412b96cf38409c32b8d67f8463c8a7dee0414a2d133980c9",
+    "analyze_down_outputfp16.py": "abc2fd0535a1c039f591c6131d09efa51278a8df3f3b3dddb4f6bd33bb6d20dd"
+  },
+  "auditor_board_calls": 0,
+  "auditor_sdk_calls": 0,
+  "original_disk_controller_unchanged": true,
+  "contract_unchanged": [
+    "probe eed89e71",
+    "4-way original/prior-range16/output-FP16/original",
+    "3warm+30timed each",
+    "same canonical input/reference SHA and actual graph SHA",
+    "same actual external16port evidence",
+    "diagnostic forbidden and same offline analyzer"
+  ],
+  "tmpfs_policy": {
+    "root": "/dev/shm",
+    "executable_check": "findmnt FSTYPE tmpfs and no noexec; mkdir/upload/chmod later check actual access",
+    "artifact_staging": "graphs,binary,runner,config,logs,outputs all tmpfs; canonical input separate unique tmpfs path",
+    "scratch_free_guard": "free > graph_and_code_bytes + input_bytes +1178599424",
+    "mem_available_guard": "MemAvailable > graph_and_code_bytes +input_bytes+1178599424+268435456",
+    "input_extra_guard": "unique path and .part absent; tmpfree>2*input+16MiB",
+    "explicit_disk_artifact_writes": 0,
+    "system_swap_disk_writes_excluded_from_zero_claim": true
+  },
+  "resolved_finding": "Initial scratch-free check omitted input bytes already on same filesystem; now includes it. No reserve reduction.",
+  "locks_and_recovery": [
+    "parentConvcomplete/rc0/meta gate before board operations",
+    "hostlock + board flock",
+    "frozen source hashes beforelock, afterlock and beforeupload; remote hash",
+    "success input hash then remove; other scratch files retained for verifiedcleanup",
+    "failure partial archive recovery with bothlocks; no automatic restart",
+    "tmpfs volatile across reboot/powerloss; recover evidence promptly"
+  ],
+  "analyzer_compatible": true,
+  "analyzer_compatibility": "Run ID-based result path, cfg paths read as data, controller key dynamically checked; no hardcoded /opt staging dependency; input_tmpfs_removed still required.",
+  "limitations": [
+    "Single fused2 C512M32 block with same32rows/FP32-derivedhistory128 only",
+    "tmpfs placement can affect loading/hostIO/resources; those excluded from API timing, so no full endtoend equivalence claim",
+    "Actual current remote capacity/mount evidence supplied by root; auditor did not call board",
+    "No actual measurements started or results reviewed by this audit"
+  ]
+}

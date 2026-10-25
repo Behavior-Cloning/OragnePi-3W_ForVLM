@@ -1,0 +1,90 @@
+{
+  "scope": "single fused2 output-FP16 L2/M32 API original/prior-I16/new-output-FP16/original, not full-model TTFT, no audio/RAG residency",
+  "phase": "timing-only; NPD and IO profiling forbidden",
+  "binary": "/dev/shm/opi-prefill100-probe-down-outputfp16-c512-m32-tmpfs-r1/tensor-probe",
+  "binary_sha256": "eed89e71c0030ea15fb90d490611b6d6efdcf88a530906fdc57a1c42498e4da3",
+  "warmup": 3,
+  "repeats": 30,
+  "sequence": [
+    {
+      "run_id": "original-before",
+      "query_tokens": 32,
+      "first_layer": 2,
+      "capacity": 512,
+      "nb": "/dev/shm/opi-prefill100-probe-down-outputfp16-c512-m32-tmpfs-r1/original.nb",
+      "nb_sha256": "34f3b3a2f8aec80ae712c5bd52a9bcbade6ca178bbff073ca54907cd1c08b250",
+      "input": "/dev/shm/opi-prefill100-down-outputfp16-c512-m32-tmpfs-r1-input.f32",
+      "input_sha256": "5063e49e2504abbaf6ab3e151060b800f2aa3d852a3848fa3b1c5b6ddbc20ca7",
+      "reference_sha256": "534a370d5dd76214954e30d947d31fca9787431f58f8fd52ea78792fd87a874e",
+      "variant": "original-fp16-down",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m32-l2/probe-reference.f32"
+    },
+    {
+      "run_id": "prior-i16",
+      "query_tokens": 32,
+      "first_layer": 2,
+      "capacity": 512,
+      "nb": "/dev/shm/opi-prefill100-probe-down-outputfp16-c512-m32-tmpfs-r1/prior-i16.nb",
+      "nb_sha256": "b5014320464596fb92593a962a08b9d2a14b13f9e8ee23c8579bf44c8af62cd4",
+      "input": "/dev/shm/opi-prefill100-down-outputfp16-c512-m32-tmpfs-r1-input.f32",
+      "input_sha256": "5063e49e2504abbaf6ab3e151060b800f2aa3d852a3848fa3b1c5b6ddbc20ca7",
+      "reference_sha256": "534a370d5dd76214954e30d947d31fca9787431f58f8fd52ea78792fd87a874e",
+      "variant": "prior-down-i16-range16",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m32-l2/probe-reference.f32"
+    },
+    {
+      "run_id": "candidate",
+      "query_tokens": 32,
+      "first_layer": 2,
+      "capacity": 512,
+      "nb": "/dev/shm/opi-prefill100-probe-down-outputfp16-c512-m32-tmpfs-r1/candidate.nb",
+      "nb_sha256": "a10a3aa5c978509852d4607b40117fab7d1947cc624cb10b510e4897e6ca3c75",
+      "input": "/dev/shm/opi-prefill100-down-outputfp16-c512-m32-tmpfs-r1-input.f32",
+      "input_sha256": "5063e49e2504abbaf6ab3e151060b800f2aa3d852a3848fa3b1c5b6ddbc20ca7",
+      "reference_sha256": "534a370d5dd76214954e30d947d31fca9787431f58f8fd52ea78792fd87a874e",
+      "variant": "down-i16-output-fp16",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m32-l2/probe-reference.f32"
+    },
+    {
+      "run_id": "original-after",
+      "query_tokens": 32,
+      "first_layer": 2,
+      "capacity": 512,
+      "nb": "/dev/shm/opi-prefill100-probe-down-outputfp16-c512-m32-tmpfs-r1/original.nb",
+      "nb_sha256": "34f3b3a2f8aec80ae712c5bd52a9bcbade6ca178bbff073ca54907cd1c08b250",
+      "input": "/dev/shm/opi-prefill100-down-outputfp16-c512-m32-tmpfs-r1-input.f32",
+      "input_sha256": "5063e49e2504abbaf6ab3e151060b800f2aa3d852a3848fa3b1c5b6ddbc20ca7",
+      "reference_sha256": "534a370d5dd76214954e30d947d31fca9787431f58f8fd52ea78792fd87a874e",
+      "variant": "original-fp16-down-repeat",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m32-l2/probe-reference.f32"
+    }
+  ],
+  "canonical_input_sha256": "5063e49e2504abbaf6ab3e151060b800f2aa3d852a3848fa3b1c5b6ddbc20ca7",
+  "canonical_reference_sha256": "534a370d5dd76214954e30d947d31fca9787431f58f8fd52ea78792fd87a874e",
+  "fixture_meta_sha256": "2832b3ba5cf70368f3334dfc0185e8533cb583cf8ac8417708bfe4c151e6a61f",
+  "candidate_status_sha256": "b0bba3d49c1b9fabc72238ba040fc2f7ff51f4fe37531cc7a77a0b3993eff42c",
+  "previous_status_sha256": "cf960a9ed4cda0f05d5fe45a56686ffe47af8186f1738883e624291c7636e168",
+  "previous_nb_sha256": "b5014320464596fb92593a962a08b9d2a14b13f9e8ee23c8579bf44c8af62cd4",
+  "independent_static_audit_sha256": "23e893eb874a58ce18d4d014aa1f5fbda64dd404bf15377a52bf308d5353ab32",
+  "source_sha256": {
+    "controller_down_outputfp16_tmpfs.py": "59d2936d6f22ffdddf3433d9fdf2ab3865eb4cfcad785d2b6e420578c314043d",
+    "board_probe_suite.py": "28efcf567d0aec9e412b96cf38409c32b8d67f8463c8a7dee0414a2d133980c9"
+  },
+  "shared_file_verification": {},
+  "candidate_status": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/candidates-down-i16-outputfp16-explicit/deployment-manifest.json",
+  "reserve_bytes": 1178599424,
+  "staging_storage": {
+    "kind": "tmpfs",
+    "root": "/dev/shm",
+    "all_candidate_graphs_logs_outputs_in_tmpfs": true,
+    "explicit_root_disk_artifact_bytes": 0,
+    "reserve_applies_to": "scratch tmpfs and MemAvailable; same 1GiB+100MiB reserve plus runtime allowance"
+  },
+  "input_storage": {
+    "path": "/dev/shm/opi-prefill100-down-outputfp16-c512-m32-tmpfs-r1-input.f32",
+    "kind": "tmpfs",
+    "purpose": "same canonical input preloaded before all timed API calls; avoids duplicate disk use",
+    "min_mem_available_after_upload": 268435456
+  },
+  "diagnostic_policy": "Run any NPD/IO diagnostics separately in another unique directory; no diagnostic data admitted to timing stats"
+}

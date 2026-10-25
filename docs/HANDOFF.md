@@ -1,3 +1,12 @@
+## 2026-10-25 当前运行：C1280 Conv 单块替换完整A-B-A
+
+- 用户目标确认：短固定system总64～128、动态正文64～256，完整动态prefill与TTFT均≤100ms。未达标，不能降低长度或混入动态KV命中。
+- root已启动 `fullconv/controller_fullconv.py fullconv-c1280-aba-r1 --execute --timeout 3600`，WSL PID7665，状态running。只读WSL `fullconv/fullconv-c1280-aba-r1-controller.json` 与log，不另起任务或直接轮询占锁板。双锁由controller持有。
+- 原C1280→仅prefill-layer2 Conv overlay→原C1280重复，共72固定32步性能、36自然、24×4全logits诊断。全部同fixture/flags/原binary ff758...；新图dc772225e8c2b9ec2f6376132ba12aa9938dbe966b678e2bd7672832299fcfa6。fixed prefix每次独立重建，cache不跨variant。静态64/128（正文59/123+模板5），动态64/128/192/256+8模板、新72/136/200/264，固定输出32。每variant每格3样本；P95不能作为生产保证。候选影响system准备数值，需完整logits和自然质量验收。
+- `fp16conv-m32-r1` 已完成：单块原221.992→Conv86.625→原221.982ms，2.563x；hidden relL2 .0007863（非bitwise），三个release0。M16候选也完成。全部只是C512两层probe。
+- 为保留运行空间，按48个实际SHA核对后仅删除本任务板端probe NB/input上传副本及已回收f32，共471,333,088B；Windows源及全部raw证据仍保留，板端日志/生产权重保留。manifest `cleanup-board-probe-copies-20261025.json`；free 789,561,344→1,260,937,216B。旧single-block/M16/M32控制器如再跑须重传其板端文件，不能假设路径仍存在。
+- runtimeagent只新增fullconv离线分析，图agent仅准备独立普通W8块FC→Conv单图，auditagent仅准备长中文holdout；均不得触板/改运行文件。先等待fullconv结果，回收后核对returncode/counts/driver0/质量，再决定下一步。
+
 ## 2026-10-25 Prefill长输入基线与FP16 Conv单块实测
 
 - 权威任务 `research/intern-prefill100-20261025`；目标仍为动态正文64～256、完整动态prefill和模型TTFT均≤100ms，未实现。不可把单块计时、少输入、上轮动态KV或C256小窗口冒充达标。

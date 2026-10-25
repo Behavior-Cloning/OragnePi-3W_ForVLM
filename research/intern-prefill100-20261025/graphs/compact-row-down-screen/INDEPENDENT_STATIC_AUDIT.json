@@ -1,0 +1,2954 @@
+{
+  "static_file_audit_pass": true,
+  "producer_sha256": "c55302eb0984435f4625f5a90eee75e85baad7f51c40d2d1123d7d498f19167d",
+  "candidate_files_sha256": {
+    "status.json": "564cdca023a010d2b9a749ac80ee50c7df6e057581feccc91ed8470a777fb16d",
+    "m64-plain/decoder.json": "a35b843e701c81297383110645c1e3db1fa38acafb5d0d45da59539a3855b469",
+    "m64-plain/decoder.quantize": "35ef6de51d90e057f69dfbb87d35c51dee1a85b435f3f6ab5a8d0c10f6afce6d",
+    "m64-plain/decoder.data": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+    "m64-plain/tensor-inputmeta.yml": "efa4220ef7326a8d4959fc833176bcbba993b46bbc694625220b39b5a994ebdb",
+    "m64-plain/transform.json": "435e1e28a202d455178f4aaabdc134c2ccf127fc2b9045c84c25644c65898d63",
+    "m64-plain/conversion.json": "8de1ba65e1bf0ce20933f284ad473e1ea7ff195f7e6f21dadaaace70d9bca3fd",
+    "m64-plain/export/vnn_decoder.c": "aed56a157cece3fc8e62def96ed6dcc50229779e93099cfb297adc7617a352ba",
+    "m64-plain/export/decoder.export.data": "705351fcfc1445a29c2d7677b600d5468f47fae19c4322af01a5531fc2461a9e",
+    "m64-plain/export_nbg_unify/nbg_meta.json": "39ee37eeaa1b8ae90a4908e8e03464504678f754e67e3b612b69f92756d43a0d",
+    "m64-plain/export_nbg_unify/network_binary.nb": "d97d1ee81b439538967782f22bc4b079c3a66bc36ab5e8aa7496fa7fff6ce260",
+    "m64-row/decoder.json": "af86aec14bde20b9b65db49046add3f1be4edd5174045283388cb9fb058dce87",
+    "m64-row/decoder.quantize": "ebb4e4596e2681de0ab94dfcb8182b1cba18249fca135fd18c6d85122b212f1a",
+    "m64-row/decoder.data": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+    "m64-row/tensor-inputmeta.yml": "efa4220ef7326a8d4959fc833176bcbba993b46bbc694625220b39b5a994ebdb",
+    "m64-row/transform.json": "29abca3bb395696bdcc1dca4669efd044069980f23c2dfa53bc49264f8c230ef",
+    "m64-row/conversion.json": "00dc9d6578b8e3b8c4c2053c5f2f0e981e77eb70e1560005b5879917c407ebed",
+    "m64-row/export/vnn_decoder.c": "86090afdb47dc1b6fcc2c36d4b067cb2d91882340f9475a1e13472eb0fac404b",
+    "m64-row/export/decoder.export.data": "50bc2f49cd09df57aabdc0a9154915bb3891a9fdce445500228091f5f765e55f",
+    "m64-row/export_nbg_unify/nbg_meta.json": "39ee37eeaa1b8ae90a4908e8e03464504678f754e67e3b612b69f92756d43a0d",
+    "m64-row/export_nbg_unify/network_binary.nb": "556fd183b0e566a7b4b29426d21b660e3800c9e8adac400012a95010f31f9109",
+    "m256-row/decoder.json": "33f37759af2dbc82bdf5562967f121376335c8c9c43a2d9c0b919c5dd0db2fba",
+    "m256-row/decoder.quantize": "ebb4e4596e2681de0ab94dfcb8182b1cba18249fca135fd18c6d85122b212f1a",
+    "m256-row/decoder.data": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+    "m256-row/tensor-inputmeta.yml": "cb06b4cad990aa56608a840507a1ecf38423f0834219d01fad6cad3e92f0e05d",
+    "m256-row/transform.json": "944f530dc9b350ef1b3ff383b9ee793bac27a5a231169a0025033b810e816261",
+    "m256-row/conversion.json": "d3b5c7d029ca063b4ad01db1a46178f623c3d4b239a72a4092b911522f864f1c",
+    "m256-row/export/vnn_decoder.c": "4e5a97f4699f7b8bafc4769c54ea459d9c9bf807947840933607ca25a92d2d0c",
+    "m256-row/export/decoder.export.data": "50bc2f49cd09df57aabdc0a9154915bb3891a9fdce445500228091f5f765e55f",
+    "m256-row/export_nbg_unify/nbg_meta.json": "af99eb829b8ac664c4ade11f0c851d87ed3c3df65496d61aefb501a0d5dc36fa",
+    "m256-row/export_nbg_unify/network_binary.nb": "6291f4e4c4737730acc6797152def9f4001d4db5cb200ebea382505b5541bd68"
+  },
+  "cases": [
+    {
+      "name": "m64-plain",
+      "nb_sha256": "d97d1ee81b439538967782f22bc4b079c3a66bc36ab5e8aa7496fa7fff6ce260",
+      "nb_bytes": 33488288,
+      "capacity": 128,
+      "query_rows": 64,
+      "first_layer": 2,
+      "fusion_width": 2,
+      "mode": "plain",
+      "generated_contract_only": true,
+      "nb_actual_sdk_query": false
+    },
+    {
+      "name": "m64-row",
+      "nb_sha256": "556fd183b0e566a7b4b29426d21b660e3800c9e8adac400012a95010f31f9109",
+      "nb_bytes": 29293936,
+      "capacity": 128,
+      "query_rows": 64,
+      "first_layer": 2,
+      "fusion_width": 2,
+      "mode": "row",
+      "generated_contract_only": true,
+      "nb_actual_sdk_query": false
+    },
+    {
+      "name": "m256-row",
+      "nb_sha256": "6291f4e4c4737730acc6797152def9f4001d4db5cb200ebea382505b5541bd68",
+      "nb_bytes": 33837216,
+      "capacity": 128,
+      "query_rows": 256,
+      "first_layer": 2,
+      "fusion_width": 2,
+      "mode": "row",
+      "generated_contract_only": true,
+      "nb_actual_sdk_query": false
+    }
+  ],
+  "independent_file_evidence": {
+    "pass": true,
+    "scope": "read-only structural and generated C/data/meta audit; no SDK/board invocation and no runtime approval",
+    "builder_sha256": "c55302eb0984435f4625f5a90eee75e85baad7f51c40d2d1123d7d498f19167d",
+    "audit_script_sha256": "8e84c8d24685ff449772e142961d2629c0f9c0b8706b9adc45ea356b1d76b999",
+    "cases": [
+      {
+        "name": "m64-plain",
+        "geometry_reversal_exact": true,
+        "source_data_sha256": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+        "payload_sha256": "705351fcfc1445a29c2d7677b600d5468f47fae19c4322af01a5531fc2461a9e",
+        "candidate_graph_sha256": "a35b843e701c81297383110645c1e3db1fa38acafb5d0d45da59539a3855b469",
+        "candidate_quant_sha256": "35ef6de51d90e057f69dfbb87d35c51dee1a85b435f3f6ab5a8d0c10f6afce6d",
+        "generated_c_sha256": "aed56a157cece3fc8e62def96ed6dcc50229779e93099cfb297adc7617a352ba",
+        "nbg_meta_sha256": "39ee37eeaa1b8ae90a4908e8e03464504678f754e67e3b612b69f92756d43a0d",
+        "candidate_nb_sha256": "d97d1ee81b439538967782f22bc4b079c3a66bc36ab5e8aa7496fa7fff6ce260",
+        "candidate_nb_bytes": 33488288,
+        "added_nodes": [],
+        "changed_old_quant_keys": [],
+        "constant_records": [
+          {
+            "key": "@b0_Reciprocal_output_0_85:from_var_data_to_b0_Divide_86_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b0_Constant_2_output_0_48:from_var_data_to_b0_Div_1_output_0_40_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b0_Reciprocal_1_output_0_81:from_var_data_to_b0_Divide_82_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b0_Constant_44_output_0_61:from_var_data_to_b0_Div_4_output_0_53_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_Reciprocal_output_0_85:from_var_data_to_b1_Divide_86_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_Constant_2_output_0_48:from_var_data_to_b1_Div_1_output_0_40_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_Reciprocal_1_output_0_81:from_var_data_to_b1_Divide_82_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_Constant_44_output_0_61:from_var_data_to_b1_Div_4_output_0_53_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b0_Constant_1_output_0_74:from_var_data_to_b0_Mul_output_0_73_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 0,
+            "bytes": 2,
+            "raw_sha256": "b0b25252b66e6dd745e26362817f43499c27378e8a5b38183ddfd34553ff7739",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 24; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_Constant_43_output_0_80:from_var_data_to_b0_Mul_9_output_0_79_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 0,
+            "bytes": 2,
+            "raw_sha256": "b0b25252b66e6dd745e26362817f43499c27378e8a5b38183ddfd34553ff7739",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 24; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_Constant_1_output_0_74:from_var_data_to_b1_Mul_output_0_73_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 0,
+            "bytes": 2,
+            "raw_sha256": "b0b25252b66e6dd745e26362817f43499c27378e8a5b38183ddfd34553ff7739",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 24; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_Constant_43_output_0_80:from_var_data_to_b1_Mul_9_output_0_79_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 0,
+            "bytes": 2,
+            "raw_sha256": "b0b25252b66e6dd745e26362817f43499c27378e8a5b38183ddfd34553ff7739",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 24; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_norm1_39:from_var_data_to_b0_Mul_4_output_0_28_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 19326470,
+            "bytes": 1792,
+            "raw_sha256": "9c88110df21bb448d72529e55ce60144f9336740d610812f080df649006604bf",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 13; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_122:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 9530886,
+            "bytes": 114688,
+            "raw_sha256": "528f5d3496d2fa28bca9c51ccda0a109b8521175f79b394bb09a4bafd1a41288",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 128; attr.dim_num = 2; attr.dtype.fl = 10; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_122:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 9529862,
+            "bytes": 1024,
+            "raw_sha256": "53a4bd3aa29e05c057a49683bf430856f063fc7fb98c509301ad088ee75421c8",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 128; attr.dim_num = 1; attr.dtype.fl = 20; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_128:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 14043654,
+            "bytes": 114688,
+            "raw_sha256": "14ce33a47dad4c382c073b9dca87a43ad453ef95470a4db1a5be55c3ee703d05",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 128; attr.dim_num = 2; attr.dtype.scales = scales_0; attr.dtype.scale_dim = 128; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_0; attr.dtype.zero_points_dim = 128; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_fullconnect_128:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 14042630,
+            "bytes": 1024,
+            "raw_sha256": "575233d099084778ca6a4e1a9a07071394cea1f34d719e816d45eb008a5647de",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 128; attr.dim_num = 1; attr.dtype.scales = scales_1; attr.dtype.scale_dim = 128; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_1; attr.dtype.zero_points_dim = 128; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_fullconnect_134:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 18523654,
+            "bytes": 802816,
+            "raw_sha256": "c35d587c23ca972cd5c2381b21a2c0a5bdf7f43ee10520f5013f39f173b0e2cf",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.scales = scales_2; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_2; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_fullconnect_134:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 18516486,
+            "bytes": 7168,
+            "raw_sha256": "990c6c410f9b762a32a60efc5a0ccdbeeab78016ea3293aa508b0543407a4f5c",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.scales = scales_3; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_3; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_Constant_40_output_0_67:from_var_data_to_b0_Div_2_output_0_59_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 4,
+            "bytes": 2,
+            "raw_sha256": "4d2ae2d6e0000b72a5739078e0e83bc029b6232edabff84d012acd1d4803db51",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_Constant_40_output_0_67:from_var_data_to_b1_Div_2_output_0_59_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 4,
+            "bytes": 2,
+            "raw_sha256": "4d2ae2d6e0000b72a5739078e0e83bc029b6232edabff84d012acd1d4803db51",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b0_fullconnect_119:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 8727046,
+            "bytes": 802816,
+            "raw_sha256": "7f735566185805a4ea7841f64d72b73a48c565f79c30d3841c962b2b49ecc91f",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.scales = scales_4; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_4; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_fullconnect_119:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 8719878,
+            "bytes": 7168,
+            "raw_sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.scales = scales_5; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_5; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_norm2_46:from_var_data_to_b0_Mul_13_output_0_36_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 19328262,
+            "bytes": 1792,
+            "raw_sha256": "fe4c4922f538b06bfd4b4484062f660045c09b9a91ce38bac45b437b89f52a4f",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 13; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_125:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 9684486,
+            "bytes": 4358144,
+            "raw_sha256": "a1b9b980075da6657c54cab9c4ac04b418b8689f58af461b91b693aa11aa47e3",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 4864; attr.dim_num = 2; attr.dtype.fl = 8; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_125:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 9645574,
+            "bytes": 38912,
+            "raw_sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.dim_num = 1; attr.dtype.fl = 16; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_131:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 14158342,
+            "bytes": 4358144,
+            "raw_sha256": "108f54f56737f431d229c01acae3258acf2a2f2b273ca36dfd628e15a735d7f9",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 4864; attr.dim_num = 2; attr.dtype.fl = 9; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_131:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 9645574,
+            "bytes": 38912,
+            "raw_sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.dim_num = 1; attr.dtype.fl = 17; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_116:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 3590,
+            "bytes": 8716288,
+            "raw_sha256": "618d23406fdf5b08347abd7782dabc1a02254cdd1991fb453c33a003864635d0",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b0_fullconnect_116:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT32",
+            "offset": 6,
+            "bytes": 3584,
+            "raw_sha256": "6cf1b57d59e7111bc218dfb01dda93ac0f776715599a1c69f89035bd20c16a10",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_fullconnect_116:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT32",
+            "offset": 6,
+            "bytes": 3584,
+            "raw_sha256": "6cf1b57d59e7111bc218dfb01dda93ac0f776715599a1c69f89035bd20c16a10",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_norm1_39:from_var_data_to_b1_Mul_4_output_0_28_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 38606854,
+            "bytes": 1792,
+            "raw_sha256": "4c0727df2337b971f1bb226288dbc6dbfe27a3cb4a48d4368970e7c622c1c32b",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 13; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_122:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 28850182,
+            "bytes": 114688,
+            "raw_sha256": "7532e3dd99e8ff6351e0b09c44c0f7abbd794d3a1d15a9a281e29fcd74705420",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 128; attr.dim_num = 2; attr.dtype.fl = 10; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_122:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 28849158,
+            "bytes": 1024,
+            "raw_sha256": "ba269670c58739e3405249dbc8d2c82a928d0a42fa2df94270adbddab1706d0c",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 128; attr.dim_num = 1; attr.dtype.fl = 20; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_128:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 33324038,
+            "bytes": 114688,
+            "raw_sha256": "514213383628ec92be1aa6ba10291a92ee10519a6d829c8e67c345cee3939402",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 128; attr.dim_num = 2; attr.dtype.scales = scales_6; attr.dtype.scale_dim = 128; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_6; attr.dtype.zero_points_dim = 128; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_fullconnect_128:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 33323014,
+            "bytes": 1024,
+            "raw_sha256": "440ff921752bd1388bc9d55957ce1076b07b91311dd32e84285e19d508854566",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 128; attr.dim_num = 1; attr.dtype.scales = scales_7; attr.dtype.scale_dim = 128; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_7; attr.dtype.zero_points_dim = 128; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_fullconnect_134:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 37804038,
+            "bytes": 802816,
+            "raw_sha256": "6e67322c494f710621c5399ddca38fec3074d88f4a6bd8c029c39c3ddd1efa5f",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.scales = scales_8; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_8; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_fullconnect_134:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 37796870,
+            "bytes": 7168,
+            "raw_sha256": "ea7602620949145d9d3b55282b55dc7b9f10eb169c7223c4a1b282816bf5fc2e",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.scales = scales_9; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_9; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_fullconnect_119:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 28046342,
+            "bytes": 802816,
+            "raw_sha256": "c02cca6c11c26ae8199b8191b96ae0c10c10fa6e663fe6f0db8bc88568b38d91",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.scales = scales_10; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_10; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_fullconnect_119:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 8719878,
+            "bytes": 7168,
+            "raw_sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.scales = scales_11; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_11; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_norm2_46:from_var_data_to_b1_Mul_13_output_0_36_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 38608646,
+            "bytes": 1792,
+            "raw_sha256": "bc7955c68b291a90e2789942a274bc447c7ed1d479c3ccbafd8839f5665e685f",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 11; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_125:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 28964870,
+            "bytes": 4358144,
+            "raw_sha256": "760c7ebbece3d4144ce2073049cae2c768900cabdfd5ac1da7e048b8b685922c",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 4864; attr.dim_num = 2; attr.dtype.fl = 9; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_125:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 9645574,
+            "bytes": 38912,
+            "raw_sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.dim_num = 1; attr.dtype.fl = 14; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_131:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 9645574,
+            "bytes": 38912,
+            "raw_sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.dim_num = 1; attr.dtype.fl = 14; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_131:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 33438726,
+            "bytes": 4358144,
+            "raw_sha256": "e528ee56575df3bd507ae8376f4054efefffddea752fa608ac74db9930ff2dd4",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 4864; attr.dim_num = 2; attr.dtype.fl = 9; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_116:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 19330054,
+            "bytes": 8716288,
+            "raw_sha256": "fbbddba10e998277efa22aae84f95eff04bd3d32fe466e92271b0ca0ae4b766b",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          }
+        ],
+        "generated_meta_only_geometry_changes": true,
+        "actual_C_normal_ports": [
+          {
+            "index": 0,
+            "name": "b0_hidden_101",
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "dims": [
+              896,
+              64,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 64; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "index": 1,
+            "name": "b0_past_k_102",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              128,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 128; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 9; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 2,
+            "name": "b1_past_k_102",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              128,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 128; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 10; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 3,
+            "name": "b0_past_v_103",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              128,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 128; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 14; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 4,
+            "name": "b1_past_v_103",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              128,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 128; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 13; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 5,
+            "name": "b0_mask_104",
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "dims": [
+              192,
+              448,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 192; attr.size[1] = 448; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "index": 6,
+            "name": "b1_mask_104",
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "dims": [
+              192,
+              448,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 192; attr.size[1] = 448; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "index": 7,
+            "name": "b0_rope_cos_105",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              64,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 64; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 15; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 8,
+            "name": "b1_rope_cos_105",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              64,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 64; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 15; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 9,
+            "name": "b0_rope_sin_106",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              64,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 64; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 15; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 10,
+            "name": "b1_rope_sin_106",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              64,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 64; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 15; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 11,
+            "name": "b1_attach_hidden_out/out0_0",
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "dims": [
+              896,
+              64,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 64; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "index": 12,
+            "name": "b0_attach_new_k/out0_1",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              64,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 64; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 9; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 13,
+            "name": "b1_attach_new_k/out0_1",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              64,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 64; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 10; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 14,
+            "name": "b0_attach_new_v/out0_2",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              64,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 64; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 14; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 15,
+            "name": "b1_attach_new_v/out0_2",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              64,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 64; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 13; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          }
+        ],
+        "actual_C_normal_order": {
+          "input": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "output": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "candidate_files_sha256": {
+          "decoder.json": "a35b843e701c81297383110645c1e3db1fa38acafb5d0d45da59539a3855b469",
+          "decoder.quantize": "35ef6de51d90e057f69dfbb87d35c51dee1a85b435f3f6ab5a8d0c10f6afce6d",
+          "decoder.data": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+          "tensor-inputmeta.yml": "efa4220ef7326a8d4959fc833176bcbba993b46bbc694625220b39b5a994ebdb",
+          "transform.json": "435e1e28a202d455178f4aaabdc134c2ccf127fc2b9045c84c25644c65898d63",
+          "conversion.json": "8de1ba65e1bf0ce20933f284ad473e1ea7ff195f7e6f21dadaaace70d9bca3fd",
+          "export/vnn_decoder.c": "aed56a157cece3fc8e62def96ed6dcc50229779e93099cfb297adc7617a352ba",
+          "export/decoder.export.data": "705351fcfc1445a29c2d7677b600d5468f47fae19c4322af01a5531fc2461a9e",
+          "export_nbg_unify/nbg_meta.json": "39ee37eeaa1b8ae90a4908e8e03464504678f754e67e3b612b69f92756d43a0d",
+          "export_nbg_unify/network_binary.nb": "d97d1ee81b439538967782f22bc4b079c3a66bc36ab5e8aa7496fa7fff6ce260"
+        },
+        "both_actual_down_bias_payloads_zero": true
+      },
+      {
+        "name": "m64-row",
+        "geometry_reversal_exact": true,
+        "source_data_sha256": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+        "payload_sha256": "50bc2f49cd09df57aabdc0a9154915bb3891a9fdce445500228091f5f765e55f",
+        "candidate_graph_sha256": "af86aec14bde20b9b65db49046add3f1be4edd5174045283388cb9fb058dce87",
+        "candidate_quant_sha256": "ebb4e4596e2681de0ab94dfcb8182b1cba18249fca135fd18c6d85122b212f1a",
+        "generated_c_sha256": "86090afdb47dc1b6fcc2c36d4b067cb2d91882340f9475a1e13472eb0fac404b",
+        "nbg_meta_sha256": "39ee37eeaa1b8ae90a4908e8e03464504678f754e67e3b612b69f92756d43a0d",
+        "candidate_nb_sha256": "556fd183b0e566a7b4b29426d21b660e3800c9e8adac400012a95010f31f9109",
+        "candidate_nb_bytes": 29293936,
+        "added_nodes": [
+          "down_i16_2000",
+          "down_i16_2001",
+          "row_abs_7000",
+          "row_abs_7010",
+          "row_max_7001",
+          "row_max_7011",
+          "row_normalized_7003",
+          "row_normalized_7013",
+          "row_restored_7004",
+          "row_restored_7014",
+          "row_scale_7002",
+          "row_scale_7012"
+        ],
+        "changed_old_quant_keys": [
+          "@b0_fullconnect_116:weight",
+          "@b1_fullconnect_116:weight"
+        ],
+        "constant_records": [
+          {
+            "key": "@b0_Reciprocal_output_0_85:from_var_data_to_b0_Divide_86_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b0_Constant_2_output_0_48:from_var_data_to_b0_Div_1_output_0_40_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b0_Reciprocal_1_output_0_81:from_var_data_to_b0_Divide_82_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b0_Constant_44_output_0_61:from_var_data_to_b0_Div_4_output_0_53_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_Reciprocal_output_0_85:from_var_data_to_b1_Divide_86_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_Constant_2_output_0_48:from_var_data_to_b1_Div_1_output_0_40_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_Reciprocal_1_output_0_81:from_var_data_to_b1_Divide_82_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_Constant_44_output_0_61:from_var_data_to_b1_Div_4_output_0_53_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b0_Constant_1_output_0_74:from_var_data_to_b0_Mul_output_0_73_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 0,
+            "bytes": 2,
+            "raw_sha256": "b0b25252b66e6dd745e26362817f43499c27378e8a5b38183ddfd34553ff7739",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 24; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_Constant_43_output_0_80:from_var_data_to_b0_Mul_9_output_0_79_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 0,
+            "bytes": 2,
+            "raw_sha256": "b0b25252b66e6dd745e26362817f43499c27378e8a5b38183ddfd34553ff7739",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 24; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_Constant_1_output_0_74:from_var_data_to_b1_Mul_output_0_73_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 0,
+            "bytes": 2,
+            "raw_sha256": "b0b25252b66e6dd745e26362817f43499c27378e8a5b38183ddfd34553ff7739",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 24; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_Constant_43_output_0_80:from_var_data_to_b1_Mul_9_output_0_79_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 0,
+            "bytes": 2,
+            "raw_sha256": "b0b25252b66e6dd745e26362817f43499c27378e8a5b38183ddfd34553ff7739",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 24; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_norm1_39:from_var_data_to_b0_Mul_4_output_0_28_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 19322886,
+            "bytes": 1792,
+            "raw_sha256": "9c88110df21bb448d72529e55ce60144f9336740d610812f080df649006604bf",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 13; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_122:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 9527302,
+            "bytes": 114688,
+            "raw_sha256": "528f5d3496d2fa28bca9c51ccda0a109b8521175f79b394bb09a4bafd1a41288",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 128; attr.dim_num = 2; attr.dtype.fl = 10; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_122:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 9526278,
+            "bytes": 1024,
+            "raw_sha256": "53a4bd3aa29e05c057a49683bf430856f063fc7fb98c509301ad088ee75421c8",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 128; attr.dim_num = 1; attr.dtype.fl = 20; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_128:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 14040070,
+            "bytes": 114688,
+            "raw_sha256": "14ce33a47dad4c382c073b9dca87a43ad453ef95470a4db1a5be55c3ee703d05",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 128; attr.dim_num = 2; attr.dtype.scales = scales_0; attr.dtype.scale_dim = 128; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_0; attr.dtype.zero_points_dim = 128; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_fullconnect_128:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 14039046,
+            "bytes": 1024,
+            "raw_sha256": "575233d099084778ca6a4e1a9a07071394cea1f34d719e816d45eb008a5647de",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 128; attr.dim_num = 1; attr.dtype.scales = scales_1; attr.dtype.scale_dim = 128; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_1; attr.dtype.zero_points_dim = 128; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_fullconnect_134:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 18520070,
+            "bytes": 802816,
+            "raw_sha256": "c35d587c23ca972cd5c2381b21a2c0a5bdf7f43ee10520f5013f39f173b0e2cf",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.scales = scales_2; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_2; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_fullconnect_134:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 18512902,
+            "bytes": 7168,
+            "raw_sha256": "990c6c410f9b762a32a60efc5a0ccdbeeab78016ea3293aa508b0543407a4f5c",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.scales = scales_3; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_3; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_Constant_40_output_0_67:from_var_data_to_b0_Div_2_output_0_59_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 4,
+            "bytes": 2,
+            "raw_sha256": "4d2ae2d6e0000b72a5739078e0e83bc029b6232edabff84d012acd1d4803db51",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_Constant_40_output_0_67:from_var_data_to_b1_Div_2_output_0_59_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 4,
+            "bytes": 2,
+            "raw_sha256": "4d2ae2d6e0000b72a5739078e0e83bc029b6232edabff84d012acd1d4803db51",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b0_fullconnect_119:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 8723462,
+            "bytes": 802816,
+            "raw_sha256": "7f735566185805a4ea7841f64d72b73a48c565f79c30d3841c962b2b49ecc91f",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.scales = scales_4; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_4; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_fullconnect_119:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 6,
+            "bytes": 7168,
+            "raw_sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.scales = scales_5; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_5; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_norm2_46:from_var_data_to_b0_Mul_13_output_0_36_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 19324678,
+            "bytes": 1792,
+            "raw_sha256": "fe4c4922f538b06bfd4b4484062f660045c09b9a91ce38bac45b437b89f52a4f",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 13; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_125:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 9680902,
+            "bytes": 4358144,
+            "raw_sha256": "a1b9b980075da6657c54cab9c4ac04b418b8689f58af461b91b693aa11aa47e3",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 4864; attr.dim_num = 2; attr.dtype.fl = 8; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_125:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 9641990,
+            "bytes": 38912,
+            "raw_sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.dim_num = 1; attr.dtype.fl = 16; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_131:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 14154758,
+            "bytes": 4358144,
+            "raw_sha256": "108f54f56737f431d229c01acae3258acf2a2f2b273ca36dfd628e15a735d7f9",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 4864; attr.dim_num = 2; attr.dtype.fl = 9; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_131:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 9641990,
+            "bytes": 38912,
+            "raw_sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.dim_num = 1; attr.dtype.fl = 17; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_116:weight",
+            "original_equal": false,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 7174,
+            "bytes": 8716288,
+            "raw_sha256": "1a43e97af33b78cdbc0aeafd9c7656d90d857223c489d809b1f7ea38caa52fdd",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.fl = 16; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_116:bias",
+            "original_equal": false,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 6,
+            "bytes": 7168,
+            "raw_sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.fl = 30; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_norm1_39:from_var_data_to_b1_Mul_4_output_0_28_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 38603270,
+            "bytes": 1792,
+            "raw_sha256": "4c0727df2337b971f1bb226288dbc6dbfe27a3cb4a48d4368970e7c622c1c32b",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 13; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_122:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 28846598,
+            "bytes": 114688,
+            "raw_sha256": "7532e3dd99e8ff6351e0b09c44c0f7abbd794d3a1d15a9a281e29fcd74705420",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 128; attr.dim_num = 2; attr.dtype.fl = 10; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_122:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 28845574,
+            "bytes": 1024,
+            "raw_sha256": "ba269670c58739e3405249dbc8d2c82a928d0a42fa2df94270adbddab1706d0c",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 128; attr.dim_num = 1; attr.dtype.fl = 20; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_128:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 33320454,
+            "bytes": 114688,
+            "raw_sha256": "514213383628ec92be1aa6ba10291a92ee10519a6d829c8e67c345cee3939402",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 128; attr.dim_num = 2; attr.dtype.scales = scales_6; attr.dtype.scale_dim = 128; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_6; attr.dtype.zero_points_dim = 128; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_fullconnect_128:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 33319430,
+            "bytes": 1024,
+            "raw_sha256": "440ff921752bd1388bc9d55957ce1076b07b91311dd32e84285e19d508854566",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 128; attr.dim_num = 1; attr.dtype.scales = scales_7; attr.dtype.scale_dim = 128; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_7; attr.dtype.zero_points_dim = 128; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_fullconnect_134:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 37800454,
+            "bytes": 802816,
+            "raw_sha256": "6e67322c494f710621c5399ddca38fec3074d88f4a6bd8c029c39c3ddd1efa5f",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.scales = scales_8; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_8; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_fullconnect_134:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 37793286,
+            "bytes": 7168,
+            "raw_sha256": "ea7602620949145d9d3b55282b55dc7b9f10eb169c7223c4a1b282816bf5fc2e",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.scales = scales_9; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_9; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_fullconnect_119:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 28042758,
+            "bytes": 802816,
+            "raw_sha256": "c02cca6c11c26ae8199b8191b96ae0c10c10fa6e663fe6f0db8bc88568b38d91",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.scales = scales_10; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_10; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_fullconnect_119:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 6,
+            "bytes": 7168,
+            "raw_sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.scales = scales_11; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_11; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_norm2_46:from_var_data_to_b1_Mul_13_output_0_36_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 38605062,
+            "bytes": 1792,
+            "raw_sha256": "bc7955c68b291a90e2789942a274bc447c7ed1d479c3ccbafd8839f5665e685f",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 11; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_125:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 28961286,
+            "bytes": 4358144,
+            "raw_sha256": "760c7ebbece3d4144ce2073049cae2c768900cabdfd5ac1da7e048b8b685922c",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 4864; attr.dim_num = 2; attr.dtype.fl = 9; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_125:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 9641990,
+            "bytes": 38912,
+            "raw_sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.dim_num = 1; attr.dtype.fl = 14; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_131:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 9641990,
+            "bytes": 38912,
+            "raw_sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.dim_num = 1; attr.dtype.fl = 14; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_131:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 33435142,
+            "bytes": 4358144,
+            "raw_sha256": "e528ee56575df3bd507ae8376f4054efefffddea752fa608ac74db9930ff2dd4",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 4864; attr.dim_num = 2; attr.dtype.fl = 9; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_116:weight",
+            "original_equal": false,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 19326470,
+            "bytes": 8716288,
+            "raw_sha256": "df7de50fcf9d571394af976de95a8ccac7b8236027524f104538ffbe1dcd1ce1",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.fl = 15; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_116:bias",
+            "original_equal": false,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 6,
+            "bytes": 7168,
+            "raw_sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.fl = 29; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          }
+        ],
+        "generated_meta_only_geometry_changes": true,
+        "actual_C_row_links": [
+          {
+            "dst": "row_abs_7000",
+            "port": 0,
+            "source": "b0_reshape_115"
+          },
+          {
+            "dst": "row_max_7001",
+            "port": 0,
+            "source": "row_abs_7000"
+          },
+          {
+            "dst": "row_scale_7002",
+            "port": 0,
+            "source": "row_max_7001"
+          },
+          {
+            "dst": "row_normalized_7003",
+            "port": 0,
+            "source": "b0_reshape_115"
+          },
+          {
+            "dst": "row_normalized_7003",
+            "port": 1,
+            "source": "row_scale_7002"
+          },
+          {
+            "dst": "down_i16_2000",
+            "port": 0,
+            "source": "row_normalized_7003"
+          },
+          {
+            "dst": "b0_fullconnect_116",
+            "port": 0,
+            "source": "down_i16_2000"
+          },
+          {
+            "dst": "row_restored_7004",
+            "port": 0,
+            "source": "b0_fullconnect_116"
+          },
+          {
+            "dst": "row_restored_7004",
+            "port": 1,
+            "source": "row_scale_7002"
+          },
+          {
+            "dst": "b0_reshape_117",
+            "port": 0,
+            "source": "row_restored_7004"
+          },
+          {
+            "dst": "row_abs_7010",
+            "port": 0,
+            "source": "b1_reshape_115"
+          },
+          {
+            "dst": "row_max_7011",
+            "port": 0,
+            "source": "row_abs_7010"
+          },
+          {
+            "dst": "row_scale_7012",
+            "port": 0,
+            "source": "row_max_7011"
+          },
+          {
+            "dst": "row_normalized_7013",
+            "port": 0,
+            "source": "b1_reshape_115"
+          },
+          {
+            "dst": "row_normalized_7013",
+            "port": 1,
+            "source": "row_scale_7012"
+          },
+          {
+            "dst": "down_i16_2001",
+            "port": 0,
+            "source": "row_normalized_7013"
+          },
+          {
+            "dst": "b1_fullconnect_116",
+            "port": 0,
+            "source": "down_i16_2001"
+          },
+          {
+            "dst": "row_restored_7014",
+            "port": 0,
+            "source": "b1_fullconnect_116"
+          },
+          {
+            "dst": "row_restored_7014",
+            "port": 1,
+            "source": "row_scale_7012"
+          },
+          {
+            "dst": "b1_reshape_117",
+            "port": 0,
+            "source": "row_restored_7014"
+          }
+        ],
+        "actual_C_reduce_axis": 0,
+        "actual_C_normal_ports": [
+          {
+            "index": 0,
+            "name": "b0_hidden_101",
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "dims": [
+              896,
+              64,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 64; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "index": 1,
+            "name": "b0_past_k_102",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              128,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 128; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 9; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 2,
+            "name": "b1_past_k_102",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              128,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 128; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 10; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 3,
+            "name": "b0_past_v_103",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              128,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 128; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 14; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 4,
+            "name": "b1_past_v_103",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              128,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 128; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 13; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 5,
+            "name": "b0_mask_104",
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "dims": [
+              192,
+              448,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 192; attr.size[1] = 448; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "index": 6,
+            "name": "b1_mask_104",
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "dims": [
+              192,
+              448,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 192; attr.size[1] = 448; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "index": 7,
+            "name": "b0_rope_cos_105",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              64,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 64; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 15; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 8,
+            "name": "b1_rope_cos_105",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              64,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 64; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 15; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 9,
+            "name": "b0_rope_sin_106",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              64,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 64; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 15; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 10,
+            "name": "b1_rope_sin_106",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              64,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 64; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 15; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 11,
+            "name": "b1_attach_hidden_out/out0_0",
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "dims": [
+              896,
+              64,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 64; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "index": 12,
+            "name": "b0_attach_new_k/out0_1",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              64,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 64; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 9; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 13,
+            "name": "b1_attach_new_k/out0_1",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              64,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 64; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 10; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 14,
+            "name": "b0_attach_new_v/out0_2",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              64,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 64; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 14; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 15,
+            "name": "b1_attach_new_v/out0_2",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              64,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 64; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 13; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          }
+        ],
+        "actual_C_normal_order": {
+          "input": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "output": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "candidate_files_sha256": {
+          "decoder.json": "af86aec14bde20b9b65db49046add3f1be4edd5174045283388cb9fb058dce87",
+          "decoder.quantize": "ebb4e4596e2681de0ab94dfcb8182b1cba18249fca135fd18c6d85122b212f1a",
+          "decoder.data": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+          "tensor-inputmeta.yml": "efa4220ef7326a8d4959fc833176bcbba993b46bbc694625220b39b5a994ebdb",
+          "transform.json": "29abca3bb395696bdcc1dca4669efd044069980f23c2dfa53bc49264f8c230ef",
+          "conversion.json": "00dc9d6578b8e3b8c4c2053c5f2f0e981e77eb70e1560005b5879917c407ebed",
+          "export/vnn_decoder.c": "86090afdb47dc1b6fcc2c36d4b067cb2d91882340f9475a1e13472eb0fac404b",
+          "export/decoder.export.data": "50bc2f49cd09df57aabdc0a9154915bb3891a9fdce445500228091f5f765e55f",
+          "export_nbg_unify/nbg_meta.json": "39ee37eeaa1b8ae90a4908e8e03464504678f754e67e3b612b69f92756d43a0d",
+          "export_nbg_unify/network_binary.nb": "556fd183b0e566a7b4b29426d21b660e3800c9e8adac400012a95010f31f9109"
+        },
+        "both_actual_down_bias_payloads_zero": true
+      },
+      {
+        "name": "m256-row",
+        "geometry_reversal_exact": true,
+        "source_data_sha256": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+        "payload_sha256": "50bc2f49cd09df57aabdc0a9154915bb3891a9fdce445500228091f5f765e55f",
+        "candidate_graph_sha256": "33f37759af2dbc82bdf5562967f121376335c8c9c43a2d9c0b919c5dd0db2fba",
+        "candidate_quant_sha256": "ebb4e4596e2681de0ab94dfcb8182b1cba18249fca135fd18c6d85122b212f1a",
+        "generated_c_sha256": "4e5a97f4699f7b8bafc4769c54ea459d9c9bf807947840933607ca25a92d2d0c",
+        "nbg_meta_sha256": "af99eb829b8ac664c4ade11f0c851d87ed3c3df65496d61aefb501a0d5dc36fa",
+        "candidate_nb_sha256": "6291f4e4c4737730acc6797152def9f4001d4db5cb200ebea382505b5541bd68",
+        "candidate_nb_bytes": 33837216,
+        "added_nodes": [
+          "down_i16_2000",
+          "down_i16_2001",
+          "row_abs_7000",
+          "row_abs_7010",
+          "row_max_7001",
+          "row_max_7011",
+          "row_normalized_7003",
+          "row_normalized_7013",
+          "row_restored_7004",
+          "row_restored_7014",
+          "row_scale_7002",
+          "row_scale_7012"
+        ],
+        "changed_old_quant_keys": [
+          "@b0_fullconnect_116:weight",
+          "@b1_fullconnect_116:weight"
+        ],
+        "constant_records": [
+          {
+            "key": "@b0_Reciprocal_output_0_85:from_var_data_to_b0_Divide_86_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b0_Constant_2_output_0_48:from_var_data_to_b0_Div_1_output_0_40_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b0_Reciprocal_1_output_0_81:from_var_data_to_b0_Divide_82_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b0_Constant_44_output_0_61:from_var_data_to_b0_Div_4_output_0_53_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_Reciprocal_output_0_85:from_var_data_to_b1_Divide_86_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_Constant_2_output_0_48:from_var_data_to_b1_Div_1_output_0_40_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_Reciprocal_1_output_0_81:from_var_data_to_b1_Divide_82_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_Constant_44_output_0_61:from_var_data_to_b1_Div_4_output_0_53_in0",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 2,
+            "bytes": 2,
+            "raw_sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b0_Constant_1_output_0_74:from_var_data_to_b0_Mul_output_0_73_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 0,
+            "bytes": 2,
+            "raw_sha256": "b0b25252b66e6dd745e26362817f43499c27378e8a5b38183ddfd34553ff7739",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 24; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_Constant_43_output_0_80:from_var_data_to_b0_Mul_9_output_0_79_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 0,
+            "bytes": 2,
+            "raw_sha256": "b0b25252b66e6dd745e26362817f43499c27378e8a5b38183ddfd34553ff7739",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 24; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_Constant_1_output_0_74:from_var_data_to_b1_Mul_output_0_73_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 0,
+            "bytes": 2,
+            "raw_sha256": "b0b25252b66e6dd745e26362817f43499c27378e8a5b38183ddfd34553ff7739",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 24; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_Constant_43_output_0_80:from_var_data_to_b1_Mul_9_output_0_79_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 0,
+            "bytes": 2,
+            "raw_sha256": "b0b25252b66e6dd745e26362817f43499c27378e8a5b38183ddfd34553ff7739",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 24; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_norm1_39:from_var_data_to_b0_Mul_4_output_0_28_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 19322886,
+            "bytes": 1792,
+            "raw_sha256": "9c88110df21bb448d72529e55ce60144f9336740d610812f080df649006604bf",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 13; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_122:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 9527302,
+            "bytes": 114688,
+            "raw_sha256": "528f5d3496d2fa28bca9c51ccda0a109b8521175f79b394bb09a4bafd1a41288",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 128; attr.dim_num = 2; attr.dtype.fl = 10; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_122:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 9526278,
+            "bytes": 1024,
+            "raw_sha256": "53a4bd3aa29e05c057a49683bf430856f063fc7fb98c509301ad088ee75421c8",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 128; attr.dim_num = 1; attr.dtype.fl = 20; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_128:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 14040070,
+            "bytes": 114688,
+            "raw_sha256": "14ce33a47dad4c382c073b9dca87a43ad453ef95470a4db1a5be55c3ee703d05",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 128; attr.dim_num = 2; attr.dtype.scales = scales_0; attr.dtype.scale_dim = 128; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_0; attr.dtype.zero_points_dim = 128; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_fullconnect_128:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 14039046,
+            "bytes": 1024,
+            "raw_sha256": "575233d099084778ca6a4e1a9a07071394cea1f34d719e816d45eb008a5647de",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 128; attr.dim_num = 1; attr.dtype.scales = scales_1; attr.dtype.scale_dim = 128; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_1; attr.dtype.zero_points_dim = 128; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_fullconnect_134:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 18520070,
+            "bytes": 802816,
+            "raw_sha256": "c35d587c23ca972cd5c2381b21a2c0a5bdf7f43ee10520f5013f39f173b0e2cf",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.scales = scales_2; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_2; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_fullconnect_134:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 18512902,
+            "bytes": 7168,
+            "raw_sha256": "990c6c410f9b762a32a60efc5a0ccdbeeab78016ea3293aa508b0543407a4f5c",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.scales = scales_3; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_3; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_Constant_40_output_0_67:from_var_data_to_b0_Div_2_output_0_59_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 4,
+            "bytes": 2,
+            "raw_sha256": "4d2ae2d6e0000b72a5739078e0e83bc029b6232edabff84d012acd1d4803db51",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b1_Constant_40_output_0_67:from_var_data_to_b1_Div_2_output_0_59_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "offset": 4,
+            "bytes": 2,
+            "raw_sha256": "4d2ae2d6e0000b72a5739078e0e83bc029b6232edabff84d012acd1d4803db51",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 1; attr.size[1] = 1; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "key": "@b0_fullconnect_119:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 8723462,
+            "bytes": 802816,
+            "raw_sha256": "7f735566185805a4ea7841f64d72b73a48c565f79c30d3841c962b2b49ecc91f",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.scales = scales_4; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_4; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_fullconnect_119:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 6,
+            "bytes": 7168,
+            "raw_sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.scales = scales_5; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_5; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b0_norm2_46:from_var_data_to_b0_Mul_13_output_0_36_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 19324678,
+            "bytes": 1792,
+            "raw_sha256": "fe4c4922f538b06bfd4b4484062f660045c09b9a91ce38bac45b437b89f52a4f",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 13; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_125:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 9680902,
+            "bytes": 4358144,
+            "raw_sha256": "a1b9b980075da6657c54cab9c4ac04b418b8689f58af461b91b693aa11aa47e3",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 4864; attr.dim_num = 2; attr.dtype.fl = 8; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_125:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 9641990,
+            "bytes": 38912,
+            "raw_sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.dim_num = 1; attr.dtype.fl = 16; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_131:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 14154758,
+            "bytes": 4358144,
+            "raw_sha256": "108f54f56737f431d229c01acae3258acf2a2f2b273ca36dfd628e15a735d7f9",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 4864; attr.dim_num = 2; attr.dtype.fl = 9; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_131:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 9641990,
+            "bytes": 38912,
+            "raw_sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.dim_num = 1; attr.dtype.fl = 17; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_116:weight",
+            "original_equal": false,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 7174,
+            "bytes": 8716288,
+            "raw_sha256": "1a43e97af33b78cdbc0aeafd9c7656d90d857223c489d809b1f7ea38caa52fdd",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.fl = 16; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b0_fullconnect_116:bias",
+            "original_equal": false,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 6,
+            "bytes": 7168,
+            "raw_sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.fl = 30; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_norm1_39:from_var_data_to_b1_Mul_4_output_0_28_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 38603270,
+            "bytes": 1792,
+            "raw_sha256": "4c0727df2337b971f1bb226288dbc6dbfe27a3cb4a48d4368970e7c622c1c32b",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 13; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_122:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 28846598,
+            "bytes": 114688,
+            "raw_sha256": "7532e3dd99e8ff6351e0b09c44c0f7abbd794d3a1d15a9a281e29fcd74705420",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 128; attr.dim_num = 2; attr.dtype.fl = 10; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_122:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 28845574,
+            "bytes": 1024,
+            "raw_sha256": "ba269670c58739e3405249dbc8d2c82a928d0a42fa2df94270adbddab1706d0c",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 128; attr.dim_num = 1; attr.dtype.fl = 20; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_128:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 33320454,
+            "bytes": 114688,
+            "raw_sha256": "514213383628ec92be1aa6ba10291a92ee10519a6d829c8e67c345cee3939402",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 128; attr.dim_num = 2; attr.dtype.scales = scales_6; attr.dtype.scale_dim = 128; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_6; attr.dtype.zero_points_dim = 128; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_fullconnect_128:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 33319430,
+            "bytes": 1024,
+            "raw_sha256": "440ff921752bd1388bc9d55957ce1076b07b91311dd32e84285e19d508854566",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 128; attr.dim_num = 1; attr.dtype.scales = scales_7; attr.dtype.scale_dim = 128; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_7; attr.dtype.zero_points_dim = 128; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_fullconnect_134:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 37800454,
+            "bytes": 802816,
+            "raw_sha256": "6e67322c494f710621c5399ddca38fec3074d88f4a6bd8c029c39c3ddd1efa5f",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.scales = scales_8; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_8; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_fullconnect_134:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 37793286,
+            "bytes": 7168,
+            "raw_sha256": "ea7602620949145d9d3b55282b55dc7b9f10eb169c7223c4a1b282816bf5fc2e",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.scales = scales_9; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_9; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_fullconnect_119:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 28042758,
+            "bytes": 802816,
+            "raw_sha256": "c02cca6c11c26ae8199b8191b96ae0c10c10fa6e663fe6f0db8bc88568b38d91",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.scales = scales_10; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 1; attr.dtype.zero_points = zero_points_10; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_fullconnect_119:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 6,
+            "bytes": 7168,
+            "raw_sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.scales = scales_11; attr.dtype.scale_dim = 896; attr.dtype.channel_dim = 0; attr.dtype.zero_points = zero_points_11; attr.dtype.zero_points_dim = 896; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC;"
+          },
+          {
+            "key": "@b1_norm2_46:from_var_data_to_b1_Mul_13_output_0_36_in1",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 38605062,
+            "bytes": 1792,
+            "raw_sha256": "bc7955c68b291a90e2789942a274bc447c7ed1d479c3ccbafd8839f5665e685f",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 1; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.fl = 11; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_125:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 28961286,
+            "bytes": 4358144,
+            "raw_sha256": "760c7ebbece3d4144ce2073049cae2c768900cabdfd5ac1da7e048b8b685922c",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 4864; attr.dim_num = 2; attr.dtype.fl = 9; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_125:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 9641990,
+            "bytes": 38912,
+            "raw_sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.dim_num = 1; attr.dtype.fl = 14; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_131:bias",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 9641990,
+            "bytes": 38912,
+            "raw_sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.dim_num = 1; attr.dtype.fl = 14; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_131:weight",
+            "original_equal": true,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT8",
+            "offset": 33435142,
+            "bytes": 4358144,
+            "raw_sha256": "e528ee56575df3bd507ae8376f4054efefffddea752fa608ac74db9930ff2dd4",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 4864; attr.dim_num = 2; attr.dtype.fl = 9; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_116:weight",
+            "original_equal": false,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT16",
+            "offset": 19326470,
+            "bytes": 8716288,
+            "raw_sha256": "df7de50fcf9d571394af976de95a8ccac7b8236027524f104538ffbe1dcd1ce1",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 4864; attr.size[1] = 896; attr.dim_num = 2; attr.dtype.fl = 15; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "key": "@b1_fullconnect_116:bias",
+            "original_equal": false,
+            "reference_equal": true,
+            "dtype": "VSI_NN_TYPE_INT64",
+            "offset": 6,
+            "bytes": 7168,
+            "raw_sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.dim_num = 1; attr.dtype.fl = 29; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          }
+        ],
+        "generated_meta_only_geometry_changes": true,
+        "actual_C_row_links": [
+          {
+            "dst": "row_abs_7000",
+            "port": 0,
+            "source": "b0_reshape_115"
+          },
+          {
+            "dst": "row_max_7001",
+            "port": 0,
+            "source": "row_abs_7000"
+          },
+          {
+            "dst": "row_scale_7002",
+            "port": 0,
+            "source": "row_max_7001"
+          },
+          {
+            "dst": "row_normalized_7003",
+            "port": 0,
+            "source": "b0_reshape_115"
+          },
+          {
+            "dst": "row_normalized_7003",
+            "port": 1,
+            "source": "row_scale_7002"
+          },
+          {
+            "dst": "down_i16_2000",
+            "port": 0,
+            "source": "row_normalized_7003"
+          },
+          {
+            "dst": "b0_fullconnect_116",
+            "port": 0,
+            "source": "down_i16_2000"
+          },
+          {
+            "dst": "row_restored_7004",
+            "port": 0,
+            "source": "b0_fullconnect_116"
+          },
+          {
+            "dst": "row_restored_7004",
+            "port": 1,
+            "source": "row_scale_7002"
+          },
+          {
+            "dst": "b0_reshape_117",
+            "port": 0,
+            "source": "row_restored_7004"
+          },
+          {
+            "dst": "row_abs_7010",
+            "port": 0,
+            "source": "b1_reshape_115"
+          },
+          {
+            "dst": "row_max_7011",
+            "port": 0,
+            "source": "row_abs_7010"
+          },
+          {
+            "dst": "row_scale_7012",
+            "port": 0,
+            "source": "row_max_7011"
+          },
+          {
+            "dst": "row_normalized_7013",
+            "port": 0,
+            "source": "b1_reshape_115"
+          },
+          {
+            "dst": "row_normalized_7013",
+            "port": 1,
+            "source": "row_scale_7012"
+          },
+          {
+            "dst": "down_i16_2001",
+            "port": 0,
+            "source": "row_normalized_7013"
+          },
+          {
+            "dst": "b1_fullconnect_116",
+            "port": 0,
+            "source": "down_i16_2001"
+          },
+          {
+            "dst": "row_restored_7014",
+            "port": 0,
+            "source": "b1_fullconnect_116"
+          },
+          {
+            "dst": "row_restored_7014",
+            "port": 1,
+            "source": "row_scale_7012"
+          },
+          {
+            "dst": "b1_reshape_117",
+            "port": 0,
+            "source": "row_restored_7014"
+          }
+        ],
+        "actual_C_reduce_axis": 0,
+        "actual_C_normal_ports": [
+          {
+            "index": 0,
+            "name": "b0_hidden_101",
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "dims": [
+              896,
+              256,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 256; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "index": 1,
+            "name": "b0_past_k_102",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              128,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 128; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 9; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 2,
+            "name": "b1_past_k_102",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              128,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 128; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 10; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 3,
+            "name": "b0_past_v_103",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              128,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 128; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 14; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 4,
+            "name": "b1_past_v_103",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              128,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 128; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 13; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 5,
+            "name": "b0_mask_104",
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "dims": [
+              384,
+              1792,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 384; attr.size[1] = 1792; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "index": 6,
+            "name": "b1_mask_104",
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "dims": [
+              384,
+              1792,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 384; attr.size[1] = 1792; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "index": 7,
+            "name": "b0_rope_cos_105",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              256,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 256; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 15; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 8,
+            "name": "b1_rope_cos_105",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              256,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 256; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 15; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 9,
+            "name": "b0_rope_sin_106",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              256,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 256; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 15; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 10,
+            "name": "b1_rope_sin_106",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              256,
+              1,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 256; attr.size[2] = 1; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 15; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 11,
+            "name": "b1_attach_hidden_out/out0_0",
+            "dtype": "VSI_NN_TYPE_FLOAT16",
+            "dims": [
+              896,
+              256,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 896; attr.size[1] = 256; attr.size[2] = 1; attr.dim_num = 3; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_NONE;"
+          },
+          {
+            "index": 12,
+            "name": "b0_attach_new_k/out0_1",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              256,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 256; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 9; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 13,
+            "name": "b1_attach_new_k/out0_1",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              256,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 256; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 10; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 14,
+            "name": "b0_attach_new_v/out0_2",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              256,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 256; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 14; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          },
+          {
+            "index": 15,
+            "name": "b1_attach_new_v/out0_2",
+            "dtype": "VSI_NN_TYPE_INT16",
+            "dims": [
+              64,
+              256,
+              2,
+              1
+            ],
+            "attr": "memset( &attr, 0, sizeof( attr ) ); attr.size[0] = 64; attr.size[1] = 256; attr.size[2] = 2; attr.size[3] = 1; attr.dim_num = 4; attr.dtype.fl = 13; attr.dtype.qnt_type = VSI_NN_QNT_TYPE_DFP;"
+          }
+        ],
+        "actual_C_normal_order": {
+          "input": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "output": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "candidate_files_sha256": {
+          "decoder.json": "33f37759af2dbc82bdf5562967f121376335c8c9c43a2d9c0b919c5dd0db2fba",
+          "decoder.quantize": "ebb4e4596e2681de0ab94dfcb8182b1cba18249fca135fd18c6d85122b212f1a",
+          "decoder.data": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+          "tensor-inputmeta.yml": "cb06b4cad990aa56608a840507a1ecf38423f0834219d01fad6cad3e92f0e05d",
+          "transform.json": "944f530dc9b350ef1b3ff383b9ee793bac27a5a231169a0025033b810e816261",
+          "conversion.json": "d3b5c7d029ca063b4ad01db1a46178f623c3d4b239a72a4092b911522f864f1c",
+          "export/vnn_decoder.c": "4e5a97f4699f7b8bafc4769c54ea459d9c9bf807947840933607ca25a92d2d0c",
+          "export/decoder.export.data": "50bc2f49cd09df57aabdc0a9154915bb3891a9fdce445500228091f5f765e55f",
+          "export_nbg_unify/nbg_meta.json": "af99eb829b8ac664c4ade11f0c851d87ed3c3df65496d61aefb501a0d5dc36fa",
+          "export_nbg_unify/network_binary.nb": "6291f4e4c4737730acc6797152def9f4001d4db5cb200ebea382505b5541bd68"
+        },
+        "both_actual_down_bias_payloads_zero": true
+      }
+    ],
+    "supplement_script_sha256": "360bd37184fc6b6d677985075e075add63c799b1fb92edceddcafaa3e240f69a",
+    "limitations": [
+      "Actual NB contents were hashed, not queried via SDK by this audit. Ports here are generated C plus compiler-produced nbg_meta.",
+      "Source tensor weights are unchanged. Row variants use pre-existing I16 down quantization in place of original FP16 down; only the other twelve FCs retain original bytes and attributes.",
+      "History capacity128 is valid only when all relevant historical tokens fit those128 slots; later prompts need another graph. Fixture trimming correctness is independently audited by the requesting agent.",
+      "Row normalization changes finite arithmetic and does not establish bitwise or quality equivalence; no runtime performance claim."
+    ]
+  },
+  "independent_file_evidence_sha256": "914f80469f5b24971b7842b85125f90e7e4c4d31a33a20231924053e19d00487",
+  "fixture_checks": {
+    "fixture_audit_pass": true,
+    "builder_sha256": "f71f265f40f93495254825de248ede2b5a403981ed4b166b264df9bb027f7eaf",
+    "cases": [
+      {
+        "rows": 64,
+        "first_layer": 2,
+        "capacity": 128,
+        "history": 128,
+        "same_effective_input": true,
+        "source_input_sha256": "2a688b769bb06b56f59a5ee9971db6db35954358f235c9cf386b953ff538254f",
+        "compact_input_sha256": "4899d29ec99a5de88450becb5d107c9ed613f93f5162fa94b885e7e215c6d383",
+        "compact_bytes": 1245184,
+        "source_reference_sha256": "b83e0e835c348321f14a8e7bf44af661a631b11769ccde3081a051e69b63b672",
+        "ports": [
+          {
+            "name": "b0_hidden",
+            "old_shape": [
+              1,
+              64,
+              896
+            ],
+            "new_shape": [
+              1,
+              64,
+              896
+            ],
+            "f32_sha256": "2f65fe80f3e94b38b915e44cb2ebb61a739aaca83a83134e9f6afb4de0c1eaf2",
+            "scope": "all bytes preserved"
+          },
+          {
+            "name": "b0_past_k",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "f32_sha256": "6729df55833275e5a893042ccf2887d0c6528de1064ce2a0732aaec015238902",
+            "scope": "all128 valid history positions kept,384 allzero removed"
+          },
+          {
+            "name": "b1_past_k",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "f32_sha256": "c910a7b7071b268397c79215dfdd0fde92acf217bdbee1b7d146d33126ef0767",
+            "scope": "all128 valid history positions kept,384 allzero removed"
+          },
+          {
+            "name": "b0_past_v",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "f32_sha256": "c9a5ce8c175a7234d8cc371dac392c72111a2482863bc5ba16d60dc2a81376a9",
+            "scope": "all128 valid history positions kept,384 allzero removed"
+          },
+          {
+            "name": "b1_past_v",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "f32_sha256": "567abda4393f80fbc80c2981e3eb41898daa03d72003494f330d75281ed07808",
+            "scope": "all128 valid history positions kept,384 allzero removed"
+          },
+          {
+            "name": "b0_mask",
+            "old_shape": [
+              1,
+              1,
+              448,
+              576
+            ],
+            "new_shape": [
+              1,
+              1,
+              448,
+              192
+            ],
+            "f32_sha256": "b0b764332be4f7584128acd3f067dc7215a455c561e2c6d22811a482532480d2",
+            "scope": "all128 history keys and allquery keys retained;384 allmasked positions removed"
+          },
+          {
+            "name": "b1_mask",
+            "old_shape": [
+              1,
+              1,
+              448,
+              576
+            ],
+            "new_shape": [
+              1,
+              1,
+              448,
+              192
+            ],
+            "f32_sha256": "b0b764332be4f7584128acd3f067dc7215a455c561e2c6d22811a482532480d2",
+            "scope": "all128 history keys and allquery keys retained;384 allmasked positions removed"
+          },
+          {
+            "name": "b0_rope_cos",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "f32_sha256": "5059ad248e73425ced5d1a11c0da159d9492c2a981316def298a45940198267c",
+            "scope": "all bytes preserved"
+          },
+          {
+            "name": "b1_rope_cos",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "f32_sha256": "5059ad248e73425ced5d1a11c0da159d9492c2a981316def298a45940198267c",
+            "scope": "all bytes preserved"
+          },
+          {
+            "name": "b0_rope_sin",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "f32_sha256": "fabc885df73c8a636edef0fcfc4bb7b3eadde971590a2260723cc3478a35e75a",
+            "scope": "all bytes preserved"
+          },
+          {
+            "name": "b1_rope_sin",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "f32_sha256": "fabc885df73c8a636edef0fcfc4bb7b3eadde971590a2260723cc3478a35e75a",
+            "scope": "all bytes preserved"
+          }
+        ],
+        "source_meta_sha256": "f3c08cec00dc74acaffc5cd715adc07f602b8fd233d780e03b64a3c800097b16",
+        "compact_meta_sha256": "3983e8900f01f8986249cd3df1186523786fb9d59aafe32138eb06da511a1917",
+        "scope": "Repacked canonical FP32 history, not real-NPU all-model KV; source reference not a new-row-I16 oracle."
+      },
+      {
+        "rows": 256,
+        "first_layer": 2,
+        "capacity": 128,
+        "history": 128,
+        "same_effective_input": true,
+        "source_input_sha256": "b4729dbcb6f221e8b5e767da5f6947b96401ecc2684ca805527d3de71b1ea63f",
+        "compact_input_sha256": "069b0c2efdfa1bbd2e2e5a6c8b735813c77a6f4f5263ec65d59311bd3f1bc488",
+        "compact_bytes": 6946816,
+        "source_reference_sha256": "1c1a09097bfb813e26b5fe9e4339db322b25f868da98927be8f9489304cdf21e",
+        "ports": [
+          {
+            "name": "b0_hidden",
+            "old_shape": [
+              1,
+              256,
+              896
+            ],
+            "new_shape": [
+              1,
+              256,
+              896
+            ],
+            "f32_sha256": "c88125e6d1f4187ba2ab37e903b9401a7d65c87154d531a6e3cc61a8cdfc15fb",
+            "scope": "all bytes preserved"
+          },
+          {
+            "name": "b0_past_k",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "f32_sha256": "6729df55833275e5a893042ccf2887d0c6528de1064ce2a0732aaec015238902",
+            "scope": "all128 valid history positions kept,384 allzero removed"
+          },
+          {
+            "name": "b1_past_k",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "f32_sha256": "c910a7b7071b268397c79215dfdd0fde92acf217bdbee1b7d146d33126ef0767",
+            "scope": "all128 valid history positions kept,384 allzero removed"
+          },
+          {
+            "name": "b0_past_v",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "f32_sha256": "c9a5ce8c175a7234d8cc371dac392c72111a2482863bc5ba16d60dc2a81376a9",
+            "scope": "all128 valid history positions kept,384 allzero removed"
+          },
+          {
+            "name": "b1_past_v",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "f32_sha256": "567abda4393f80fbc80c2981e3eb41898daa03d72003494f330d75281ed07808",
+            "scope": "all128 valid history positions kept,384 allzero removed"
+          },
+          {
+            "name": "b0_mask",
+            "old_shape": [
+              1,
+              1,
+              1792,
+              768
+            ],
+            "new_shape": [
+              1,
+              1,
+              1792,
+              384
+            ],
+            "f32_sha256": "a101e75f46f3f563876d1e511a7bb4b21e2727edb2727e2ac60b9a846888c279",
+            "scope": "all128 history keys and allquery keys retained;384 allmasked positions removed"
+          },
+          {
+            "name": "b1_mask",
+            "old_shape": [
+              1,
+              1,
+              1792,
+              768
+            ],
+            "new_shape": [
+              1,
+              1,
+              1792,
+              384
+            ],
+            "f32_sha256": "a101e75f46f3f563876d1e511a7bb4b21e2727edb2727e2ac60b9a846888c279",
+            "scope": "all128 history keys and allquery keys retained;384 allmasked positions removed"
+          },
+          {
+            "name": "b0_rope_cos",
+            "old_shape": [
+              1,
+              1,
+              256,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              256,
+              64
+            ],
+            "f32_sha256": "7306837cd97479193b3aa1ae36406e6dbc0e7025e4d73c57c5bca5d8aeff5732",
+            "scope": "all bytes preserved"
+          },
+          {
+            "name": "b1_rope_cos",
+            "old_shape": [
+              1,
+              1,
+              256,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              256,
+              64
+            ],
+            "f32_sha256": "7306837cd97479193b3aa1ae36406e6dbc0e7025e4d73c57c5bca5d8aeff5732",
+            "scope": "all bytes preserved"
+          },
+          {
+            "name": "b0_rope_sin",
+            "old_shape": [
+              1,
+              1,
+              256,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              256,
+              64
+            ],
+            "f32_sha256": "1ea08404d0003907297575eeae15c5789e364f7693c2e0e5d5e087bd175b439d",
+            "scope": "all bytes preserved"
+          },
+          {
+            "name": "b1_rope_sin",
+            "old_shape": [
+              1,
+              1,
+              256,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              256,
+              64
+            ],
+            "f32_sha256": "1ea08404d0003907297575eeae15c5789e364f7693c2e0e5d5e087bd175b439d",
+            "scope": "all bytes preserved"
+          }
+        ],
+        "source_meta_sha256": "8377875893c1b57398bea4b91e39f95f4935b162d5dcc5c090418d23913cd7aa",
+        "compact_meta_sha256": "607c26f1ccd44a7a7e3f41f4f4b03691ea05b9c0f33a9c95ac8e44314f67f8da",
+        "scope": "Repacked canonical FP32 history, not real-NPU all-model KV; source reference not a new-row-I16 oracle."
+      }
+    ]
+  },
+  "perchannel_scale_zero_point_literal_checks": [
+    {
+      "name": "m64-plain",
+      "scale_and_zero_point_arrays": 24,
+      "all_literal_values_same_as_original": true,
+      "array_hashes": {
+        "scales_0": "0983e63f629fb220e14fe6731be2d0ef17f186b67e283ccca04e774145b0a35e",
+        "scales_1": "782e8d3714b02d479f70de98f1bb3e97b96319065f425b67878752547d3b7929",
+        "scales_2": "37c47a0e722a3c83f85d8499df3f5ba06e2014562d0d5956f2827c8510a34510",
+        "scales_3": "ce1d4064c97643ac6d33c9f6a604af6db98694536d105d6b8482fc00f0c456c7",
+        "scales_4": "b943964b6e82e21132e95c3d5081ce0f6ed4bd2942bbc75ee25536d26efd313d",
+        "scales_5": "87cfc709717dc953af67a58317a46978097f98a5b99be8b3f97c0b08e7e26535",
+        "scales_6": "1e8a803f201a9b7d306eacb999d088a788042950e902d8eb76da40d0482599c3",
+        "scales_7": "c740db3e69fad8c77e8a8bc5333147db9afd300a8eb291b560674d4dfcc121c8",
+        "scales_8": "3842f4203a16cdd75df2c19668247588bf0603ca82bdb0e455d4c7f41ddf0b79",
+        "scales_9": "0ef39bf7410aa1abcb772ebf3a298c1d492a12b439d99524a02702e11405625d",
+        "scales_10": "f821da567485cf37c819df791b4cc99897e7833428f013c265a03852e20fc268",
+        "scales_11": "09ad18449ae7197adf1b23e052febe5e2da7d9e36903453bc38f12ecf7db93b9",
+        "zero_points_0": "d18ff28720026f9bf67fc1aa2d63f1d88cbaf319ad7e104573c94611b075a59a",
+        "zero_points_1": "d18ff28720026f9bf67fc1aa2d63f1d88cbaf319ad7e104573c94611b075a59a",
+        "zero_points_2": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_3": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_4": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_5": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_6": "d18ff28720026f9bf67fc1aa2d63f1d88cbaf319ad7e104573c94611b075a59a",
+        "zero_points_7": "d18ff28720026f9bf67fc1aa2d63f1d88cbaf319ad7e104573c94611b075a59a",
+        "zero_points_8": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_9": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_10": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_11": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212"
+      }
+    },
+    {
+      "name": "m64-row",
+      "scale_and_zero_point_arrays": 24,
+      "all_literal_values_same_as_original": true,
+      "array_hashes": {
+        "scales_0": "0983e63f629fb220e14fe6731be2d0ef17f186b67e283ccca04e774145b0a35e",
+        "scales_1": "782e8d3714b02d479f70de98f1bb3e97b96319065f425b67878752547d3b7929",
+        "scales_2": "37c47a0e722a3c83f85d8499df3f5ba06e2014562d0d5956f2827c8510a34510",
+        "scales_3": "ce1d4064c97643ac6d33c9f6a604af6db98694536d105d6b8482fc00f0c456c7",
+        "scales_4": "b943964b6e82e21132e95c3d5081ce0f6ed4bd2942bbc75ee25536d26efd313d",
+        "scales_5": "87cfc709717dc953af67a58317a46978097f98a5b99be8b3f97c0b08e7e26535",
+        "scales_6": "1e8a803f201a9b7d306eacb999d088a788042950e902d8eb76da40d0482599c3",
+        "scales_7": "c740db3e69fad8c77e8a8bc5333147db9afd300a8eb291b560674d4dfcc121c8",
+        "scales_8": "3842f4203a16cdd75df2c19668247588bf0603ca82bdb0e455d4c7f41ddf0b79",
+        "scales_9": "0ef39bf7410aa1abcb772ebf3a298c1d492a12b439d99524a02702e11405625d",
+        "scales_10": "f821da567485cf37c819df791b4cc99897e7833428f013c265a03852e20fc268",
+        "scales_11": "09ad18449ae7197adf1b23e052febe5e2da7d9e36903453bc38f12ecf7db93b9",
+        "zero_points_0": "d18ff28720026f9bf67fc1aa2d63f1d88cbaf319ad7e104573c94611b075a59a",
+        "zero_points_1": "d18ff28720026f9bf67fc1aa2d63f1d88cbaf319ad7e104573c94611b075a59a",
+        "zero_points_2": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_3": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_4": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_5": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_6": "d18ff28720026f9bf67fc1aa2d63f1d88cbaf319ad7e104573c94611b075a59a",
+        "zero_points_7": "d18ff28720026f9bf67fc1aa2d63f1d88cbaf319ad7e104573c94611b075a59a",
+        "zero_points_8": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_9": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_10": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_11": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212"
+      }
+    },
+    {
+      "name": "m256-row",
+      "scale_and_zero_point_arrays": 24,
+      "all_literal_values_same_as_original": true,
+      "array_hashes": {
+        "scales_0": "0983e63f629fb220e14fe6731be2d0ef17f186b67e283ccca04e774145b0a35e",
+        "scales_1": "782e8d3714b02d479f70de98f1bb3e97b96319065f425b67878752547d3b7929",
+        "scales_2": "37c47a0e722a3c83f85d8499df3f5ba06e2014562d0d5956f2827c8510a34510",
+        "scales_3": "ce1d4064c97643ac6d33c9f6a604af6db98694536d105d6b8482fc00f0c456c7",
+        "scales_4": "b943964b6e82e21132e95c3d5081ce0f6ed4bd2942bbc75ee25536d26efd313d",
+        "scales_5": "87cfc709717dc953af67a58317a46978097f98a5b99be8b3f97c0b08e7e26535",
+        "scales_6": "1e8a803f201a9b7d306eacb999d088a788042950e902d8eb76da40d0482599c3",
+        "scales_7": "c740db3e69fad8c77e8a8bc5333147db9afd300a8eb291b560674d4dfcc121c8",
+        "scales_8": "3842f4203a16cdd75df2c19668247588bf0603ca82bdb0e455d4c7f41ddf0b79",
+        "scales_9": "0ef39bf7410aa1abcb772ebf3a298c1d492a12b439d99524a02702e11405625d",
+        "scales_10": "f821da567485cf37c819df791b4cc99897e7833428f013c265a03852e20fc268",
+        "scales_11": "09ad18449ae7197adf1b23e052febe5e2da7d9e36903453bc38f12ecf7db93b9",
+        "zero_points_0": "d18ff28720026f9bf67fc1aa2d63f1d88cbaf319ad7e104573c94611b075a59a",
+        "zero_points_1": "d18ff28720026f9bf67fc1aa2d63f1d88cbaf319ad7e104573c94611b075a59a",
+        "zero_points_2": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_3": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_4": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_5": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_6": "d18ff28720026f9bf67fc1aa2d63f1d88cbaf319ad7e104573c94611b075a59a",
+        "zero_points_7": "d18ff28720026f9bf67fc1aa2d63f1d88cbaf319ad7e104573c94611b075a59a",
+        "zero_points_8": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_9": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_10": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212",
+        "zero_points_11": "83cd235b9123dd72694bf81036e13780ea67dd5bb6afd9a65a04809e00926212"
+      }
+    }
+  ],
+  "scope": "Read-only Windows/WSL static source/generated files and fixture checks; no SDK, board, locks, compilation or inference",
+  "qualification_pass": false,
+  "limits": [
+    "Only allzero/allmasked384 inactive history slots removed; all128 valid historical positions retained. Graph cannot serve later history>128 without a larger bank.",
+    "Plain has original payload and quantization; row changes two original FP16 down matrices to existing I16fl16/fl15 and adds row normalization. Source arrays identical is not exported-precision identity.",
+    "All14 exported matrices and14bias aliases were checked against correct plain/row reference, not assumed from source equality. All actual perchannel scale/zero point C-array literals also compared.",
+    "Generated C and nbgmeta16port contract only; actual NB tensor attribute query remains future probe evidence.",
+    "Canonical inputs/history are FP32-derived. Old FP32reference is retained comparison material, not a new quantized-candidate oracle.",
+    "M64 andM256 are localquery shapes, not complete userprompts. No fullmodel/semantic-quality/TTFT/100ms assertion."
+  ]
+}

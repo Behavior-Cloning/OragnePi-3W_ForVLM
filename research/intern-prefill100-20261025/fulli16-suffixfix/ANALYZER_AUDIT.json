@@ -1,0 +1,153 @@
+{
+  "audit_scope": "Read-only offline analyzer/source review. No board, result analysis, source edits or new inference.",
+  "reviewed_analyzer_sha256": "3de283c3c0ef3e7e6a707accdc6330058f37e5cff85fbe48778cac5874cd0ac7",
+  "metric_helper_sha256": "5855a91b06697d48ade2afc161245a3218fa316491d678d51bf76d70e6a4560e",
+  "frozen_runner_sha256": "202763bcf3c2b924439d3750a197a3b22e829aa1cdf0f1bb3fa2208b6d5501ce",
+  "frozen_config_sha256": "2a469bcf55bdce8705a7f72a2557a2aad2a3c32f157b3e65b1cf1192458a2cda",
+  "status": "Final patched source review passed; all previously listed coverage fixes implemented. Await runtime results and manual semantic audit.",
+  "run_status": "Parent reports suffixfixed-c1280-aba-r1 PID28142 running; no recovered result audited.",
+  "coverage": {
+    "syntax_parse": true,
+    "counts_72_144_24_3close": true,
+    "variant_load_close_order": true,
+    "current_source_config_hashes": true,
+    "per_request_prefill_plus_scalar_before_stats": true,
+    "decode31_intervals": true,
+    "performance_fixed32_no_diagnostic": true,
+    "natural_max32_separate_and_quality_set24_24": true,
+    "system_only_reuse_and_new_body_plus8": true,
+    "full_f32_actual_sha_size_finite": true,
+    "cross_variant_logits_top1_margin_KL": true,
+    "branch_markers81_from_actual_logs": true,
+    "global_cpu_temp_mem_swap_freq_audio": true,
+    "sparse_sample_limit_documented": true,
+    "semantic_auto_approval": false,
+    "exact_unique_crossproduct_performance_quality_diagnostics": true,
+    "actual29graph_provenance": true,
+    "extra_original_L2_event": true,
+    "diagnostic_argmax_matches_emitted_tokens": true,
+    "per_variant_and_performance_resources": true,
+    "matched_case_ratios": true,
+    "grid_target_separate_from_full_goal": true,
+    "recovered_fixture_equality": true,
+    "ready_geometry_flags": true,
+    "helper_hash_in_analysis": true,
+    "matched_decode_recomputed31_interval_ratio": true
+  },
+  "findings": [
+    {
+      "id": "graph_provenance",
+      "status": "implemented",
+      "evidence": "lines27-34 actual29 records match declaredconfig; graph_verified equality; loadedbinary/settings; originalL2 extraevent."
+    },
+    {
+      "id": "diagnostic_tokens",
+      "status": "implemented",
+      "evidence": "lines23-26 expected8IDs once pervariant; lines51-54 actualf32 size/SHA/finite,argmax==metrics.tokens,timingineligible."
+    },
+    {
+      "id": "unique_performance_keys",
+      "status": "implemented",
+      "evidence": "lines21-26 exact24perf/48quality/8diag crossproducts plus uniqueness."
+    },
+    {
+      "id": "matched_and_phase_resources",
+      "status": "implemented",
+      "evidence": "lines75-81 pervariant andperformancebucket plus same_bucket CPUintervals and matched24ratios."
+    },
+    {
+      "id": "goal_scope",
+      "status": "implemented",
+      "evidence": "lines82-84 pop ambiguousname; measured_grid_all_below100ms andwhole_objective_verifiedFalse,unrunboundary20 explicit."
+    }
+  ],
+  "expected_evidence": {
+    "variants": 3,
+    "performance": 72,
+    "natural": 144,
+    "old24_eachvariant": 72,
+    "new24_eachvariant": 72,
+    "diagnostic_requests": 24,
+    "diagnostic_steps": 96,
+    "candidate_markers81": true,
+    "driver_zero_closes": 3,
+    "boundaries_executed": false
+  },
+  "review_revision": 3,
+  "prior_review": {
+    "analyzer_sha256": "ae7fec3d10f9798a3f4bebe2773a5c45adf2112921449b949966905641a54948",
+    "findings": [
+      {
+        "id": "graph_provenance",
+        "severity": "medium",
+        "location": "analyze_fulli16.py:13-19",
+        "finding": "Checks current source/config/candidate SHA, but does not open graph-provenance.json or validate loaded binary/ready or extra_first_chunk_graph event. Frozen runner asserts these during execution; standalone result audit still needs actual recorded file mappings.",
+        "recommended_check": "Every variant actual29 file records exactly match frozen expected mapping; verify loaded binary SHA/capacity24layers/C1280 and explicit extra first originalL2 event. Bind recovered fixtures to frozen inputs."
+      },
+      {
+        "id": "diagnostic_tokens",
+        "severity": "medium",
+        "location": "analyze_fulli16.py:37-42 and REPORT line67",
+        "finding": "Actual full F32 size/SHA/finite are checked and H.logit_compare recomputes argmax for cross-variant comparison. No assertion connects those argmax IDs to each metrics.tokens or checks complete8case membership.",
+        "recommended_check": "Require shape4x151674, generated_tokens/tokens length4, array argmax exactly metrics.tokens and all8 expected corecell firstcase IDs once pervariant."
+      },
+      {
+        "id": "unique_performance_keys",
+        "severity": "medium",
+        "location": "analyze_fulli16.py:20-34,59",
+        "finding": "Global counts and3rows/cell do not prove3distinct expected fixtures. Repeating the same case can satisfy these counts.",
+        "recommended_check": "Compare exact key sets/multisets (variant,repeat,case) against24 frozen performance IDs andrepeat0; quality48 anddiagnostic8 pervariant exact membership. Check event tokencounts and hashes againstfixture, not only rowlabels."
+      },
+      {
+        "id": "matched_and_phase_resources",
+        "severity": "reporting",
+        "location": "analyze_fulli16.py:46-47,59",
+        "finding": "Resource summary covers entire run, and A-A token parity is tallied, but no pervariant/performance-only resource bucket or matched-case timing ratios/drift are produced. Loaded driver footprint is not independently summarized.",
+        "recommended_check": "Use matched case+repeat TTFT/decode ratios and A-A drift; resource_bucket byvariant/phase with same_bucket intervals, explicit cumulative-audio caveat. Separate driver bytes from processPSS and globally resident costs."
+      },
+      {
+        "id": "goal_scope",
+        "severity": "reporting",
+        "location": "analyze_fulli16.py:47,67",
+        "finding": "full_goal_reached covers only candidate24 measured requests on8 gridcells, whileboundary20 and continuousbody64-256 are not tested. It is a speed condition only and does not include naturalquality.",
+        "recommended_check": "Label tested_grid_speed_le100ms; retain fullgoal notqualified unless boundary/quality/stability requirements also pass."
+      },
+      {
+        "id": "dependency_freeze",
+        "severity": "low",
+        "location": "analyze_fulli16.py:6",
+        "finding": "Metric routines are imported from fullconv/analyze_fullconv.py; this shared helper hash is absent from outputanalysis provenance.",
+        "recommended_check": "Record analyzer and helper hashes with recomputed results."
+      }
+    ],
+    "note": "Prepatch narrative was drafted before concurrent edits; currentrevision3 fully binds latest stable sourcehash."
+  },
+  "remaining_notes": [
+    {
+      "id": "fixture_binding",
+      "status": "implemented",
+      "detail": "Current inputs sourceSHA is verified, but recovered fixtures.json contents are not explicitly matched to frozen input doc. Independent result audit will check the exact systems/performance/old24/new24.",
+      "evidence": "line14 fixtures==frozen inputs and tokenizerSHA; attach_system_metadata does not alter this frozen document, independently checked."
+    },
+    {
+      "id": "ready_geometry",
+      "status": "implemented",
+      "detail": "Loaded settings/binary are asserted; explicit ready event layers/capacity flags are left to frozen board runner and independent result audit.",
+      "evidence": "line34 checks24layers/C1280/no true8/singlepass."
+    },
+    {
+      "id": "dependency_freeze",
+      "status": "implemented",
+      "detail": "Analyzer/helper hashes not embedded in analysis.json; this audit records both current hashes. Preserve them in final evidence.",
+      "evidence": "line85 records analyzer,sharedhelper,contract SHA."
+    },
+    {
+      "id": "paired_decode_formula",
+      "status": "implemented",
+      "detail": "Cell stats recompute31/(total−TTFT), paired ratios use reporteddecode_tokens_per_second. Should agree within rounding; independent result audit will recompute same formula for both.",
+      "evidence": "line82 ratio of decodeinterval durations, algebraically same31-intervaltps ratio."
+    }
+  ],
+  "runtime_results_audited": false,
+  "reviewed_analyzer_bytes": 12235
+}

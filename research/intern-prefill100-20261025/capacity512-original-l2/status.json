@@ -1,0 +1,303 @@
+{
+  "status": "complete_pending_actual_ports_and_board",
+  "started": 1792951665.1485972,
+  "pid": 28469,
+  "scope": "capacity1280 to512 only for original L2 FP16 M16/M8; original first-chunk retention and same-capacity baseline; no board qualification",
+  "cases": [
+    {
+      "kind": "prefill16",
+      "first_layer": 2,
+      "query_tokens": 16,
+      "source": "/opt/opi-lab/source-validation-20261017/gguf-fresh/export/w8-fused2-c1280-t16-cap1-productwide/l2",
+      "source_hashes": {
+        "decoder.json": "ca1762115c6ae29d4618fe15cee0dc1be991b289b5bd9096a9c10c0597cfcde3",
+        "decoder.quantize": "35ef6de51d90e057f69dfbb87d35c51dee1a85b435f3f6ab5a8d0c10f6afce6d",
+        "decoder.data": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+        "export_nbg_unify/network_binary.nb": "48b0b3a0c45b1280a6bc818620b3e34117d9c20629b53bb4c7d899a202b3e7d6"
+      },
+      "output": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/capacity512-original-l2/cases/prefill16/l2",
+      "changes": [
+        {
+          "node": "b0_mask_104",
+          "field": "shape",
+          "index": 3,
+          "before": 1296,
+          "after": 528
+        },
+        {
+          "node": "b0_past_k_102",
+          "field": "shape",
+          "index": 2,
+          "before": 1280,
+          "after": 512
+        },
+        {
+          "node": "b0_past_v_103",
+          "field": "shape",
+          "index": 2,
+          "before": 1280,
+          "after": 512
+        },
+        {
+          "node": "b0_split_probs_new_11005",
+          "field": "begin",
+          "index": 3,
+          "before": 1280,
+          "after": 512
+        },
+        {
+          "node": "b0_split_probs_past_11004",
+          "field": "size",
+          "index": 3,
+          "before": 1280,
+          "after": 512
+        },
+        {
+          "node": "b1_mask_104",
+          "field": "shape",
+          "index": 3,
+          "before": 1296,
+          "after": 528
+        },
+        {
+          "node": "b1_past_k_102",
+          "field": "shape",
+          "index": 2,
+          "before": 1280,
+          "after": 512
+        },
+        {
+          "node": "b1_past_v_103",
+          "field": "shape",
+          "index": 2,
+          "before": 1280,
+          "after": 512
+        },
+        {
+          "node": "b1_split_probs_new_11005",
+          "field": "begin",
+          "index": 3,
+          "before": 1280,
+          "after": 512
+        },
+        {
+          "node": "b1_split_probs_past_11004",
+          "field": "size",
+          "index": 3,
+          "before": 1280,
+          "after": 512
+        }
+      ],
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--name",
+        "opi-c512-original-prefill16-2",
+        "--network",
+        "none",
+        "--cpus",
+        "4",
+        "--memory",
+        "8g",
+        "-e",
+        "TF_CPP_MIN_LOG_LEVEL=3",
+        "-e",
+        "OMP_NUM_THREADS=4",
+        "-e",
+        "VSIMULATOR_SHADER_CORE_COUNT=1",
+        "-e",
+        "VSIMULATOR_CONFIG=VIP9000NANODI_PLUS_PID0X1000003B",
+        "-v",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025:/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025",
+        "-v",
+        "/opt/opi-lab/source-validation-20261017/gguf-fresh/export:/opt/opi-lab/source-validation-20261017/gguf-fresh/export:ro",
+        "-v",
+        "/opt/opi-lab/intern-nextopt-20261025/prefill8:/opt/opi-lab/intern-nextopt-20261025/prefill8:ro",
+        "-w",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/capacity512-original-l2/cases/prefill16/l2",
+        "ubuntu-npu:v2.0.10.2",
+        "python3",
+        "/root/acuity-toolkit-whl-6.30.22/bin/pegasus.py",
+        "export",
+        "ovxlib",
+        "--model",
+        "decoder.json",
+        "--model-data",
+        "decoder.data",
+        "--model-quantize",
+        "decoder.quantize",
+        "--dtype",
+        "quantized",
+        "--with-input-meta",
+        "tensor-inputmeta.yml",
+        "--target-ide-project",
+        "linux64",
+        "--pack-nbg-unify",
+        "--optimize",
+        "VIP9000NANODI_PLUS_PID0X1000003B",
+        "--viv-sdk",
+        "/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools",
+        "--output-path",
+        "export/decoder"
+      ],
+      "returncode": 0,
+      "seconds": 15.055873023000458,
+      "nb_sha256": "b36f7ddc26234336c2f71d7c6f8f58ec038547042e670717f3f6612e2745f2d0",
+      "nb_bytes": 33184080,
+      "payload_exact_source": true,
+      "payload_sha256": "705351fcfc1445a29c2d7677b600d5468f47fae19c4322af01a5531fc2461a9e",
+      "quantizer_exact_source": true,
+      "status": "compiled_pending_actual_port_audit"
+    },
+    {
+      "kind": "prefill8",
+      "first_layer": 2,
+      "query_tokens": 8,
+      "source": "/opt/opi-lab/intern-nextopt-20261025/prefill8/l2",
+      "source_hashes": {
+        "decoder.json": "baf28be464297458896067ceeefcf51dd5caf503cb923df739b597ccf21223ef",
+        "decoder.quantize": "35ef6de51d90e057f69dfbb87d35c51dee1a85b435f3f6ab5a8d0c10f6afce6d",
+        "decoder.data": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+        "export_nbg_unify/network_binary.nb": "9f1d4bb653d2473ed37ad9633c704b460cf6e6980cbfb0549b2e004c9f8c918a"
+      },
+      "output": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/capacity512-original-l2/cases/prefill8/l2",
+      "changes": [
+        {
+          "node": "b0_mask_104",
+          "field": "shape",
+          "index": 3,
+          "before": 1288,
+          "after": 520
+        },
+        {
+          "node": "b0_past_k_102",
+          "field": "shape",
+          "index": 2,
+          "before": 1280,
+          "after": 512
+        },
+        {
+          "node": "b0_past_v_103",
+          "field": "shape",
+          "index": 2,
+          "before": 1280,
+          "after": 512
+        },
+        {
+          "node": "b0_split_probs_new_11005",
+          "field": "begin",
+          "index": 3,
+          "before": 1280,
+          "after": 512
+        },
+        {
+          "node": "b0_split_probs_past_11004",
+          "field": "size",
+          "index": 3,
+          "before": 1280,
+          "after": 512
+        },
+        {
+          "node": "b1_mask_104",
+          "field": "shape",
+          "index": 3,
+          "before": 1288,
+          "after": 520
+        },
+        {
+          "node": "b1_past_k_102",
+          "field": "shape",
+          "index": 2,
+          "before": 1280,
+          "after": 512
+        },
+        {
+          "node": "b1_past_v_103",
+          "field": "shape",
+          "index": 2,
+          "before": 1280,
+          "after": 512
+        },
+        {
+          "node": "b1_split_probs_new_11005",
+          "field": "begin",
+          "index": 3,
+          "before": 1280,
+          "after": 512
+        },
+        {
+          "node": "b1_split_probs_past_11004",
+          "field": "size",
+          "index": 3,
+          "before": 1280,
+          "after": 512
+        }
+      ],
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--name",
+        "opi-c512-original-prefill8-2",
+        "--network",
+        "none",
+        "--cpus",
+        "4",
+        "--memory",
+        "8g",
+        "-e",
+        "TF_CPP_MIN_LOG_LEVEL=3",
+        "-e",
+        "OMP_NUM_THREADS=4",
+        "-e",
+        "VSIMULATOR_SHADER_CORE_COUNT=1",
+        "-e",
+        "VSIMULATOR_CONFIG=VIP9000NANODI_PLUS_PID0X1000003B",
+        "-v",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025:/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025",
+        "-v",
+        "/opt/opi-lab/source-validation-20261017/gguf-fresh/export:/opt/opi-lab/source-validation-20261017/gguf-fresh/export:ro",
+        "-v",
+        "/opt/opi-lab/intern-nextopt-20261025/prefill8:/opt/opi-lab/intern-nextopt-20261025/prefill8:ro",
+        "-w",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/capacity512-original-l2/cases/prefill8/l2",
+        "ubuntu-npu:v2.0.10.2",
+        "python3",
+        "/root/acuity-toolkit-whl-6.30.22/bin/pegasus.py",
+        "export",
+        "ovxlib",
+        "--model",
+        "decoder.json",
+        "--model-data",
+        "decoder.data",
+        "--model-quantize",
+        "decoder.quantize",
+        "--dtype",
+        "quantized",
+        "--with-input-meta",
+        "tensor-inputmeta.yml",
+        "--target-ide-project",
+        "linux64",
+        "--pack-nbg-unify",
+        "--optimize",
+        "VIP9000NANODI_PLUS_PID0X1000003B",
+        "--viv-sdk",
+        "/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools",
+        "--output-path",
+        "export/decoder"
+      ],
+      "returncode": 0,
+      "seconds": 12.574681488000351,
+      "nb_sha256": "55997606dd6bd9837fee9d52ad4903675c59d909f07defaf7f40789511afe8a6",
+      "nb_bytes": 32940448,
+      "payload_exact_source": true,
+      "payload_sha256": "705351fcfc1445a29c2d7677b600d5468f47fae19c4322af01a5531fc2461a9e",
+      "quantizer_exact_source": true,
+      "status": "compiled_pending_actual_port_audit"
+    }
+  ],
+  "current": "prefill8-l2",
+  "ended": 1792951694.655874,
+  "binary_bytes": 66124528
+}

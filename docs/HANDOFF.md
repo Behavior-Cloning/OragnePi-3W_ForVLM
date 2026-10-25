@@ -1,3 +1,11 @@
+## 2026-10-26 首段量化修复与C512/M32准备
+
+权威路径 research/intern-prefill100-20261025。GitHub分支codex/wsl-intern1b-reproduction已独立核对b2141f27d723329a8c91ed4506552053d4fa08ee；之后新增分析器与C512准备见本次提交。
+
+当前板测：fulli16-suffixfix/suffixfixed-c1280-aba-r1，控制器PID28142，最近核对完整cmdline仍活跃、status running。仅读WSL status/log，禁止重复启动或绕锁板端访问。结束后运行本目录analyze_fulli16.py；独立审计智能体正在等待回收并按旧/新场景分别评审。完整100ms目标仍未达到。
+
+C512原图补齐2张、M32 13张已编译并通过实际接口核对；独立C512/M32/M8 runtime主机缓存/ASan测试通过，均尚未部署。细节及后续门控见CAPACITY512_NEXT.md。不要启动明确禁用的fulli16-firstfix目录（旧SDK分组失败方案）。
+
 ## 2026-10-26：修复后完整矩阵已启动
 
 当前唯一板端控制器：`research/intern-prefill100-20261025/fulli16-suffixfix/controller_fulli16.py`，WSL PID 28142，run `suffixfixed-c1280-aba-r1`。先前suffixgroup诊断rc0、8份hybrid完整logits字节一致、3driver0，独立完整矩阵源码审查无阻断后启动。只读WSL该run-controller.json/log并核实PID，不重复启动、不绕过锁直查板卡。

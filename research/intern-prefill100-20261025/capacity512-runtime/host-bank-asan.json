@@ -1,0 +1,32 @@
+{
+  "command": [
+    "gcc",
+    "-O1",
+    "-g",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/capacity512-runtime/runtime/test_two_prefill_banks.c",
+    "-lm",
+    "-o",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/capacity512-runtime/runtime/test-banks-asan-host"
+  ],
+  "source_sha256": "00c95f98db72dc87ef418b9813f7cfb0b700cd2e5432db90e6dccb9c8641c08f",
+  "cases": [
+    {
+      "fp16": false,
+      "returncode": 0,
+      "stdout": "{\"checked_mask_tensors\":4320,\"cache_freed\":true,\"kv_reset_zero\":true}\n",
+      "stderr": ""
+    },
+    {
+      "fp16": true,
+      "returncode": 0,
+      "stdout": "{\"checked_mask_tensors\":4320,\"cache_freed\":true,\"kv_reset_zero\":true}\n",
+      "stderr": ""
+    }
+  ]
+}

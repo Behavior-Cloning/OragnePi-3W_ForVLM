@@ -1,3 +1,9 @@
+## 2026-10-26：修复后完整矩阵已启动
+
+当前唯一板端控制器：`research/intern-prefill100-20261025/fulli16-suffixfix/controller_fulli16.py`，WSL PID 28142，run `suffixfixed-c1280-aba-r1`。先前suffixgroup诊断rc0、8份hybrid完整logits字节一致、3driver0，独立完整矩阵源码审查无阻断后启动。只读WSL该run-controller.json/log并核实PID，不重复启动、不绕过锁直查板卡。
+
+三版原group／首块保留原L2＋I16固定suffixgroup／原group重复；system64/128（正文59/123＋5），动态正文64/128/192/256＋模板8，新72/136/200/264；性能输出32。72perf、144natural（各旧24＋新冻结24）、24diag×4全词表；语音回放与RAG常驻，纯文本NPU，无视觉/真实麦克风/电机。结果未完成，100ms目标未达成。旧失败fulli16-firstfix保持禁止启动。
+
 ## 2026-10-26：固定suffix分组诊断通过，整模矩阵准备完成
 
 `suffixgroup-firstfix` 已rc0，3driver0；修复suffixgroup与修复nongroup 8份完整logits同字节，4自然同原图，残余固定feedback logits relL2约2.9%。独立审计通过。只证明4条开发样例恢复，不作完整准确率或热延迟声明。

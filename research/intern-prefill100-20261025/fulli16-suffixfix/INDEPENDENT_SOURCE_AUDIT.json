@@ -1,0 +1,83 @@
+{
+  "scope": "Independent WSL-only source/preflight/tokenizer review; no board or launch",
+  "launch_source_gate_pass": true,
+  "runtime_diagnostic_gate": "suffixgroup-firstfix/results/suffixgroup-firstfix-r1/INDEPENDENT_RESULT_AUDIT.json",
+  "binary_sha256": "c5bc0a10e7ae571252428646a704935c805e07346b47940ca078bf4cb0418797",
+  "source_sha256": {
+    "board_fulli16.py": "202763bcf3c2b924439d3750a197a3b22e829aa1cdf0f1bb3fa2208b6d5501ce",
+    "controller_fulli16.py": "8505875ce8c2ca16c8936424fe980d126b504bb72b5e3f7af3702e9c4d769034",
+    "contract.py": "9da31ea2797e22809d8fde976cce1741474404f6bfa654564432eefb466a11b6",
+    "resident_worker_v1.py": "2c110a6821ce9ee21aa2c07b062f27a49e18a9289e0fd8aea12927f80448321d",
+    "context_rag.py": "81afe39a529dd5de5ca7b3a0ca21c870fe42777684cdebb1daec3dd7e6f4998e",
+    "config.fulli16.json": "2a469bcf55bdce8705a7f72a2557a2aad2a3c32f157b3e65b1cf1192458a2cda",
+    "inputs.json": "d314a51d07b4a39ca9533cb805540ac90ce132819355c7ffe67aa4591d8cd49c"
+  },
+  "counts": {
+    "variants": 3,
+    "performance": 72,
+    "natural": 144,
+    "diagnostic_requests": 24,
+    "diagnostic_vocab_steps": 96,
+    "candidate_first_calls": 81,
+    "candidate_suffix_first_calls": 81
+  },
+  "fairness": {
+    "same_C1280": true,
+    "same_binary_all_variants": true,
+    "same_systems_performance_as_prior": true,
+    "same32_feedback_all_variants": true,
+    "only_system_KV_reused": true,
+    "cold_prefix_build_excluded_hot_TTFT": true,
+    "candidate_extra_first_original_L2_sha_explicit": true,
+    "graph29_only_L2_changed": true,
+    "candidate_submissions_per_batch": 3,
+    "original_submissions_per_batch": 1
+  },
+  "fixture_validation": {
+    "actual_tokenizer_sha256": "97030cfe860ae6e146e62b7c84f46789f6a2a2c6edb6a32f4cb089f2bc7456e4",
+    "all72_cases_exact_encoded": true,
+    "old24_plus_frozen_new24_verbatim_except_quality_set": true,
+    "quality_ids_unique": 48,
+    "new_quality_source_sha256": "b35122a9a4db5b013ac23c1395cd96d1a5397f543f97cf3e6e663b5a314bfc50",
+    "performance8cells_each3": true,
+    "body_tokens": [
+      64,
+      128,
+      192,
+      256
+    ],
+    "static_tokens": [
+      64,
+      128
+    ],
+    "dynamic_template_tokens": 8,
+    "actual_new_tokens": [
+      72,
+      136,
+      200,
+      264
+    ],
+    "maximum_prompt_plus31": 423
+  },
+  "timing": "performance32 fixed feedback,diagnostic=false,no dumps; natural max32/EOS separate; diagnostic4steps fullvocab excluded",
+  "operational": "controller dry by default; hostlock + board flock; unique run, per-upload hashes, exact29symlink overlay; deadline; failure partial recovery reacquires bothlocks without restart",
+  "resources": "synthetic streamed Frontend and RAG resident;0.5s monitor;78C guard; bounded frontend/thread joins;close driver0 assertions;all-phase resources include load/hash/prefix/diagnostic",
+  "limitations": [
+    "New24 consists12 authored household cores times two system lengths, not real user recordings.",
+    "Old24 development regression is not independent qualification.",
+    "Boundary20 frozen but not executed in this run.",
+    "Only3cases percell,1repeat pervariant; sparse distribution and no long stress.",
+    "All32-feedback timings are controlled cost, not natural response quality.",
+    "RAG Top3 must not be physically executed; known conflicts may remain even with correct high-level output.",
+    "Memory/resource totals include candidate extra original L2 and all phases.",
+    "Controller disk reserve768MiB plus150MiB artifacts differs from prior1GiB; exact threshold and result sizes need be retained in run audit."
+  ],
+  "run_status_at_audit_close": {
+    "source": "parent launch notification",
+    "run": "suffixfixed-c1280-aba-r1",
+    "wsl_controller_pid": 28142,
+    "status": "started",
+    "results_available_to_this_audit": false,
+    "next_step": "Await parent rc0/result recovery notice; no board polling by auditor"
+  }
+}

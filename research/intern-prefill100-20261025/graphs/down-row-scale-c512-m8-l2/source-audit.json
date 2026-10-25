@@ -1,0 +1,43 @@
+{
+  "source_sha256": {
+    "decoder.json": "02e565d1f7d6bd258ae5223c48f4c6f1327f95e439207f7d58908626cf0d26ab",
+    "decoder.data": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+    "decoder.quantize": "65e84a1fa8d4941bbc082b274dab1b67d2929ace2089edf354d0f232bf650921",
+    "tensor-inputmeta.yml": "7bc0472daa8e48acf99468608501973019a4fa68185028f56ec99c13649104f0",
+    "export/decoder.export.data": "50bc2f49cd09df57aabdc0a9154915bb3891a9fdce445500228091f5f765e55f",
+    "export_nbg_unify/network_binary.nb": "935d0e7358770198976efc30b400c2b1908559778c2b947eda202faa0c3bb190"
+  },
+  "added_nodes": [
+    "row_abs_7000",
+    "row_max_7001",
+    "row_scale_7002",
+    "row_normalized_7003",
+    "row_restored_7004",
+    "row_abs_7010",
+    "row_max_7011",
+    "row_scale_7012",
+    "row_normalized_7013",
+    "row_restored_7014"
+  ],
+  "rewired": [
+    {
+      "node": "b0_reshape_117",
+      "before": [
+        "@b0_fullconnect_116:out0"
+      ]
+    },
+    {
+      "node": "b1_reshape_117",
+      "before": [
+        "@b1_fullconnect_116:out0"
+      ]
+    }
+  ],
+  "weight_source_identical": true,
+  "zero_bias_asserted": true,
+  "only_local_normalize_and_restore_paths": true,
+  "normalization": "per row max(abs(x)),clamp min2^-14 max65504; FP16 x/scale; I16/fl14; original I16 weights; FP16 FCoutput * scale",
+  "offline_evidence_sha256": "347f11c576ced8269ba77c514eb125c6489a1732206d420731158c0c54842a37",
+  "calibration": "none",
+  "not_approved": true
+}

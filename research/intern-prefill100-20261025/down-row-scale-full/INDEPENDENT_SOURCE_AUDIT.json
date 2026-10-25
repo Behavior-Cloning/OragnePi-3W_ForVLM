@@ -1,0 +1,161 @@
+{
+  "source_audit_pass_no_new_blocker": true,
+  "scope": "WSL source/config/file audit only; no board/SDK/lock access, no live source edits. Runtime results and promotion pending.",
+  "source_sha256": {
+    "controller.py": "0ce5311e7246b51d034fd3573eca2ec65547a6bec6e100bf10b487cffa7225ef",
+    "contract.py": "96fd5fbbbd711b0ac19ad33be8bda573a7549bc41cbda3be730e924fa020d045",
+    "board_fulli16.py": "c14b4c109bf5567c5add3d8728ecf22a6d1ac2155f6521b9f53801276ba1bbd5",
+    "resident_worker_v1.py": "2c110a6821ce9ee21aa2c07b062f27a49e18a9289e0fd8aea12927f80448321d",
+    "context_rag.py": "81afe39a529dd5de5ca7b3a0ca21c870fe42777684cdebb1daec3dd7e6f4998e",
+    "baseline-config.json": "96d3d941149d9f0ca67aaa76ae448da7341417a30530d230bf42948ad38a068f",
+    "config.json": "d035befdb6fe62c62e68b580d37af1875b9420ed20c1b6a2598769ecafb0e9c2",
+    "inputs.json": "d314a51d07b4a39ca9533cb805540ac90ce132819355c7ffe67aa4591d8cd49c",
+    "static-audit.json": "8fcf19e4262860b8ec3efea524aa6d07af54a1c6fbe097c6d11a72fe0cfaab67"
+  },
+  "candidate_nb_sha256": "f0bebd8b9489f487a5b72658184c9d8f90bb8ec36a6682afde9bb61e097ea25a",
+  "same_baseline_completed_run": {
+    "run": "c512-m16-m32-aba-r1",
+    "controller_complete": true,
+    "returncode": 0,
+    "config_byte_equal": true
+  },
+  "candidate_changes": {
+    "main_manifest_entries": 29,
+    "tail_manifest_entries": 12,
+    "changed_main_basename": [
+      "prefill-layer2.nb"
+    ],
+    "old_sha": "34f3b3a2f8aec80ae712c5bd52a9bcbade6ca178bbff073ca54907cd1c08b250",
+    "new_sha": "f0bebd8b9489f487a5b72658184c9d8f90bb8ec36a6682afde9bb61e097ea25a",
+    "original_true_M8_and_decode_unchanged": true,
+    "same_binary_env_all_variants": true,
+    "same_system_and_dynamic_graph_per_variant": true,
+    "same_runner_except_two_descriptive_strings": true
+  },
+  "fixtures": {
+    "SHA": "d314a51d07b4a39ca9533cb805540ac90ce132819355c7ffe67aa4591d8cd49c",
+    "byte_equal_parent": true,
+    "static_total_tokens": [
+      64,
+      128
+    ],
+    "system_body_tokens": [
+      59,
+      123
+    ],
+    "dynamic_body_tokens": [
+      64,
+      128,
+      192,
+      256
+    ],
+    "template_tokens": 8,
+    "actual_new_tokens": [
+      72,
+      136,
+      200,
+      264
+    ],
+    "max_prompt_plus_31": 423,
+    "performance_cells": [
+      {
+        "static": 64,
+        "body": 64,
+        "scenarios": 3
+      },
+      {
+        "static": 64,
+        "body": 128,
+        "scenarios": 3
+      },
+      {
+        "static": 64,
+        "body": 192,
+        "scenarios": 3
+      },
+      {
+        "static": 64,
+        "body": 256,
+        "scenarios": 3
+      },
+      {
+        "static": 128,
+        "body": 64,
+        "scenarios": 3
+      },
+      {
+        "static": 128,
+        "body": 128,
+        "scenarios": 3
+      },
+      {
+        "static": 128,
+        "body": 192,
+        "scenarios": 3
+      },
+      {
+        "static": 128,
+        "body": 256,
+        "scenarios": 3
+      }
+    ],
+    "quality_cases": 48,
+    "quality_sets": {
+      "development-regression": 24,
+      "new-frozen-household-v2": 24
+    },
+    "boundary_cases_frozen_unrun": 20,
+    "token_ids_hashes_and_declared_counts_verified": true,
+    "actual_tokenizer_reencode": "enforced by runner; no model/tokenizer process executed for this audit"
+  },
+  "counts_expected": {
+    "variants": 3,
+    "performance": 72,
+    "natural": 144,
+    "diagnostic": 24,
+    "diagnostic_full_vocab_steps": 96,
+    "closed_driver_zero": 3,
+    "fixed_performance_output_tokens": 32,
+    "natural_cap": 32,
+    "system_reset_before_each_measured_request": true,
+    "diagnostic_excluded_speed": true
+  },
+  "contract_negative_tests_passed": [
+    "capacity256",
+    "different_decode",
+    "different_M8",
+    "change_feedback",
+    "enable_profile",
+    "reorder",
+    "other_candidate",
+    "overlay_other",
+    "repeat2",
+    "change_fixture"
+  ],
+  "resource_scope": {
+    "resident_speech_frontend": "streamed prerecorded WAV with at most one queued utterance plus active input; actual process implementation SHA logged at runtime",
+    "RAG": "embedding model resident; actual top3 query after each natural response, not active for every performance sample",
+    "cpu_affinity": {
+      "control": 7,
+      "NPU_worker": "4,5"
+    },
+    "thermal_guard": "thermal_zone0/snapshot temp78C; not an assertion of every thermal zone below78C",
+    "tmpfs_free_guard": "staging bytes +200MiB",
+    "MemAvailable_guard": "staging bytes +2GiB",
+    "no_steady_state_reserve_claim": true
+  },
+  "source_runtime_status_observed": "running",
+  "limitations": [
+    "C512/M32 candidate includes two I16 down matrices versus original FP16 down; local normalization replay does not qualify whole-model semantics.",
+    "Both system prefix preparation and dynamic M32 blocks use candidate; every measured call resets/prepares system only; same counts do not imply same KV values.",
+    "True M8 tail uses original graph, so candidate/original precision mixed at final8 rows by design.",
+    "Performance has3 scenes percell once, not repeated trials; P95 has low statistical support. Fixed32feedback is speed/parity diagnostic, not natural generation quality.",
+    "Natural48 includes former new-frozen-household-v2 already used in earlier model experiments; this run is regression, not a fresh heldout set.",
+    "Performance requests use frozen text input, not current ASR output; audio residency/concurrency does not make this end-to-end ASR-to-action latency.",
+    "Natural RAG top3 must be checked for mutually conflicting/negated directions; candidates are not executed and no motors enabled.",
+    "No image encoder/live microphone; full dynamic64–256/batch-boundary100ms acceptance remains pending; boundary20 are not run.",
+    "Controller exception preserves recovery_pending and scratch, with no automatic restart; partial manual recovery may be needed.",
+    "External originals reused from completed parent; runner verifies all29main+12tail SHA before loading. Runtime frontend/catalog SHA is recorded, but their dependencies/weights are not all in this source snapshot.",
+    "200MiB tmpfs/2GiB startup memory guards are experiment-specific entry checks, not measured steady-state free memory; system/swap writes remain possible."
+  ]
+}

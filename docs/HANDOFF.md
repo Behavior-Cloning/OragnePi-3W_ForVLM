@@ -1,3 +1,14 @@
+## 2026-10-26 C512/M32 row-normalized down full-model A/B/A running
+
+- Active objective unchanged: full prefill and TTFT <=100ms, S64/128, dynamic body64–256; not achieved.
+- New authoritative folder `research/intern-prefill100-20261025/down-row-scale-full`.
+- Controller PID47730 (`controller.py --execute`), finish PID47822; both verified live this turn. Read WSL `down-row-scale-full-r1-controller.json`, `controller.log`, `finish-status.json` plus actual PID identity; do not poll board outside owner or restart from stale status.
+- Double-lock experiment: original M32 → per-row normalized INT16 down in M32 layers2/3 → original repeat; same binary bf19922f…, true original M8 tail and decode/head unchanged. Candidate NB f0bebd8b…; only 30MB uploaded to private tmpfs. Candidate also computes system prefix; this changes precision, not approved as lossless.
+- Same inputs across variants: system body59/123+template5=64/128; dynamic body64/128/192/256+template8=new72/136/200/264. System-only KV reuse. 72 fixed-feedback32 cost calls, 144 natural regression calls (48 per variant), 24 four-step full-logit diagnostics. Synthetic speech frontend + RAG resident; frozen model text inputs, no vision/microphone/motors.
+- Independent source audit passed; result still pending. `finish.py` only analyzes after controller terminal completion and process exit, never restarts benchmark. Manual quality/resource audit and Mac report copy remain required.
+- Next tail candidate compiled only: graphs/down-row-scale-c512-m8-l2, NB2732f92a…; not used by running experiment. Static audit underway; no board speed or quality claim.
+- All earlier raw evidence retained. Do not confuse local C1280/M16 two-layer18.34ms with full-model TTFT.
+
 C512/M32 row-scale编译已完成（PID46905退出），NB SHA f0bebd8b9489f487a5b72658184c9d8f90bb8ec36a6682afde9bb61e097ea25a；独立静态审计进行中，尚未整模运行。
 
 ## 2026-10-26 row-scale板测完成，准备C512整模接轨

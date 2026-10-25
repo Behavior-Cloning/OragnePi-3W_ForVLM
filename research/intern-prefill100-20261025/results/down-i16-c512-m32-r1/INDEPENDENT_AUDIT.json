@@ -1,0 +1,344 @@
+{
+  "audit_pass": true,
+  "scope": "Only C512 M32 fused layers2/3, history128, one canonical trajectory; no full model TTFT/audio/RAG",
+  "method": "Independent raw timing/f32/resource arithmetic, no imported parent analyzer and no board access",
+  "rows": [
+    {
+      "case": "original-before",
+      "n": 30,
+      "warmup": 3,
+      "p50_ms": 222.0247175,
+      "p95_linear_ms": 222.62612795,
+      "min_ms": 221.786342,
+      "max_ms": 224.413977,
+      "allocated_bytes": 36535568,
+      "released_bytes": 0,
+      "output_sha256": "29692e588d3eb1fdb418287f6eb4fc9ae1f10ef4dc656bf93ec72b72aacbf66c",
+      "all_finite": true
+    },
+    {
+      "case": "candidate",
+      "n": 30,
+      "warmup": 3,
+      "p50_ms": 14.110723,
+      "p95_linear_ms": 14.1691275,
+      "min_ms": 14.037222,
+      "max_ms": 14.357724000000001,
+      "allocated_bytes": 32341920,
+      "released_bytes": 0,
+      "output_sha256": "ecf625b197e5a0551fe184ef1ed6f06022a7d29a252f5cfa8a9340448f67c7cb",
+      "all_finite": true
+    },
+    {
+      "case": "original-after",
+      "n": 30,
+      "warmup": 3,
+      "p50_ms": 222.06792600000003,
+      "p95_linear_ms": 223.17492215000001,
+      "min_ms": 221.700466,
+      "max_ms": 224.02497499999998,
+      "allocated_bytes": 36535568,
+      "released_bytes": 0,
+      "output_sha256": "29692e588d3eb1fdb418287f6eb4fc9ae1f10ef4dc656bf93ec72b72aacbf66c",
+      "all_finite": true
+    }
+  ],
+  "ports": [
+    {
+      "name": "hidden",
+      "candidate_vs_original": {
+        "relative_l2": 0.003003525446450759,
+        "max_abs": 0.01171875,
+        "different_elements": 26570,
+        "elements": 28672,
+        "bitwise_equal": false
+      },
+      "original_vs_exported_fp32": {
+        "relative_l2": 0.006844850147986946,
+        "max_abs": 0.03263673186302185,
+        "different_elements": 28672,
+        "elements": 28672,
+        "bitwise_equal": false
+      },
+      "candidate_vs_exported_fp32": {
+        "relative_l2": 0.0068686950953611315,
+        "max_abs": 0.03361329436302185,
+        "different_elements": 28672,
+        "elements": 28672,
+        "bitwise_equal": false
+      },
+      "baseline_repeat_bitwise_equal": true,
+      "calibration_rows_0_24": {
+        "relative_l2": 0.002981943187128634,
+        "max_abs": 0.01171875,
+        "different_elements": 19907,
+        "elements": 21504,
+        "bitwise_equal": false
+      },
+      "correlated_holdout_rows_24_32": {
+        "relative_l2": 0.003087184148666007,
+        "max_abs": 0.0078125,
+        "different_elements": 6663,
+        "elements": 7168,
+        "bitwise_equal": false
+      }
+    },
+    {
+      "name": "layer2_new_k",
+      "candidate_vs_original": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "different_elements": 0,
+        "elements": 4096,
+        "bitwise_equal": true
+      },
+      "original_vs_exported_fp32": {
+        "relative_l2": 0.00010776987652302168,
+        "max_abs": 0.005980491638183594,
+        "different_elements": 4096,
+        "elements": 4096,
+        "bitwise_equal": false
+      },
+      "candidate_vs_exported_fp32": {
+        "relative_l2": 0.00010776987652302168,
+        "max_abs": 0.005980491638183594,
+        "different_elements": 4096,
+        "elements": 4096,
+        "bitwise_equal": false
+      },
+      "baseline_repeat_bitwise_equal": true,
+      "calibration_rows_0_24": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "different_elements": 0,
+        "elements": 3072,
+        "bitwise_equal": true
+      },
+      "correlated_holdout_rows_24_32": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "different_elements": 0,
+        "elements": 1024,
+        "bitwise_equal": true
+      }
+    },
+    {
+      "name": "layer3_new_k",
+      "candidate_vs_original": {
+        "relative_l2": 0.0002091032159365164,
+        "max_abs": 0.00390625,
+        "different_elements": 1418,
+        "elements": 4096,
+        "bitwise_equal": false
+      },
+      "original_vs_exported_fp32": {
+        "relative_l2": 0.0009423634919461392,
+        "max_abs": 0.03748726844787598,
+        "different_elements": 4096,
+        "elements": 4096,
+        "bitwise_equal": false
+      },
+      "candidate_vs_exported_fp32": {
+        "relative_l2": 0.0009460997594431535,
+        "max_abs": 0.03748726844787598,
+        "different_elements": 4096,
+        "elements": 4096,
+        "bitwise_equal": false
+      },
+      "baseline_repeat_bitwise_equal": true,
+      "calibration_rows_0_24": {
+        "relative_l2": 0.00020940409147903797,
+        "max_abs": 0.00390625,
+        "different_elements": 1077,
+        "elements": 3072,
+        "bitwise_equal": false
+      },
+      "correlated_holdout_rows_24_32": {
+        "relative_l2": 0.00020818992494276236,
+        "max_abs": 0.001953125,
+        "different_elements": 341,
+        "elements": 1024,
+        "bitwise_equal": false
+      }
+    },
+    {
+      "name": "layer2_new_v",
+      "candidate_vs_original": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "different_elements": 0,
+        "elements": 4096,
+        "bitwise_equal": true
+      },
+      "original_vs_exported_fp32": {
+        "relative_l2": 0.0006815286500623037,
+        "max_abs": 0.0025941431522369385,
+        "different_elements": 4096,
+        "elements": 4096,
+        "bitwise_equal": false
+      },
+      "candidate_vs_exported_fp32": {
+        "relative_l2": 0.0006815286500623037,
+        "max_abs": 0.0025941431522369385,
+        "different_elements": 4096,
+        "elements": 4096,
+        "bitwise_equal": false
+      },
+      "baseline_repeat_bitwise_equal": true,
+      "calibration_rows_0_24": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "different_elements": 0,
+        "elements": 3072,
+        "bitwise_equal": true
+      },
+      "correlated_holdout_rows_24_32": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "different_elements": 0,
+        "elements": 1024,
+        "bitwise_equal": true
+      }
+    },
+    {
+      "name": "layer3_new_v",
+      "candidate_vs_original": {
+        "relative_l2": 0.0006045312317982344,
+        "max_abs": 0.0013427734375,
+        "different_elements": 3300,
+        "elements": 4096,
+        "bitwise_equal": false
+      },
+      "original_vs_exported_fp32": {
+        "relative_l2": 0.003856638650663752,
+        "max_abs": 0.015136562287807465,
+        "different_elements": 4096,
+        "elements": 4096,
+        "bitwise_equal": false
+      },
+      "candidate_vs_exported_fp32": {
+        "relative_l2": 0.0038768534882454696,
+        "max_abs": 0.014770351350307465,
+        "different_elements": 4096,
+        "elements": 4096,
+        "bitwise_equal": false
+      },
+      "baseline_repeat_bitwise_equal": true,
+      "calibration_rows_0_24": {
+        "relative_l2": 0.0005837390406068756,
+        "max_abs": 0.0013427734375,
+        "different_elements": 2486,
+        "elements": 3072,
+        "bitwise_equal": false
+      },
+      "correlated_holdout_rows_24_32": {
+        "relative_l2": 0.0006770037766220279,
+        "max_abs": 0.0009765625,
+        "different_elements": 814,
+        "elements": 1024,
+        "bitwise_equal": false
+      }
+    }
+  ],
+  "candidate_speedup_vs_before": 15.734467858238023,
+  "candidate_latency_reduction_percent": 93.64452608750645,
+  "baseline_drift_percent": 0.01946112148527579,
+  "three_release_zero": true,
+  "source_and_fixture_hashes_passed": true,
+  "all16_actual_ports_raw_equal": true,
+  "weight_byte_audit": {
+    "unchanged": 12,
+    "changed": [
+      "@b0_fullconnect_116:weight",
+      "@b1_fullconnect_116:weight"
+    ],
+    "source": {
+      "@b0_fullconnect_116:weight": {
+        "dtype": "FLOAT16",
+        "sha256": "618d23406fdf5b08347abd7782dabc1a02254cdd1991fb453c33a003864635d0",
+        "bytes": 8716288
+      },
+      "@b1_fullconnect_116:weight": {
+        "dtype": "FLOAT16",
+        "sha256": "fbbddba10e998277efa22aae84f95eff04bd3d32fe466e92271b0ca0ae4b766b",
+        "bytes": 8716288
+      }
+    },
+    "candidate": {
+      "@b0_fullconnect_116:weight": {
+        "dtype": "INT16",
+        "sha256": "1a43e97af33b78cdbc0aeafd9c7656d90d857223c489d809b1f7ea38caa52fdd",
+        "bytes": 8716288
+      },
+      "@b1_fullconnect_116:weight": {
+        "dtype": "INT16",
+        "sha256": "df7de50fcf9d571394af976de95a8ccac7b8236027524f104538ffbe1dcd1ce1",
+        "bytes": 8716288
+      }
+    }
+  },
+  "calibration_scope": "one FP32 source trajectory,24 calibration rows+8 correlated holdout; not representative qualification",
+  "history_source": "independent FP32 full-depth prefix; not captured NPU KV",
+  "diagnostic_samples_included": false,
+  "same_tmpfs_input_and_success_cleanup_confirmed": true,
+  "candidate_driver_delta_bytes": -4193648,
+  "resources": {
+    "samples": 66,
+    "sample_span_seconds": 16.582928982010344,
+    "peak_temperature_C": 40.796,
+    "mem_available_min_bytes": 4616048640,
+    "swap_used_min_bytes": 112721920,
+    "swap_used_max_bytes": 112721920,
+    "pswpin_delta_pages": 0,
+    "pswpout_delta_pages": 0,
+    "post_health_driver_zero": true,
+    "whole_system_cpu_percent_weighted": 2.811578867810449,
+    "whole_system_cpu_percent_p95": 9.188033161119785,
+    "whole_system_cpu_percent_max": 15.920398009950254,
+    "cpu_scope": "All8cores system stat over ~16s including graph load/unload gaps; not per-model CPU",
+    "frequency_kHz_by_cpu": {
+      "cpu7": {
+        "min": 416000,
+        "max": 2002000
+      },
+      "cpu5": {
+        "min": 416000,
+        "max": 1794000
+      },
+      "cpu3": {
+        "min": 416000,
+        "max": 1794000
+      },
+      "cpu1": {
+        "min": 416000,
+        "max": 1794000
+      },
+      "cpu6": {
+        "min": 416000,
+        "max": 2002000
+      },
+      "cpu4": {
+        "min": 416000,
+        "max": 1794000
+      },
+      "cpu2": {
+        "min": 416000,
+        "max": 1794000
+      },
+      "cpu0": {
+        "min": 416000,
+        "max": 1794000
+      }
+    },
+    "rss_pss_measurement": null,
+    "rss_pss_note": "No per-process RSS/PSS stream in this short probe; do not infer model footprint from MemAvailable."
+  },
+  "limitations": [
+    "New precision calibration, not 14-weight bitwise-equivalent Conv route: two down weights FLOAT16→INT16 plus input/output precision and explicit converters changed.",
+    "Same-trajectory calibration rows0:24 overlap most of this 32-row input; rows24:32 are correlated holdout only.",
+    "Canonical history is FP32 source-model prefix, not actual NPU history.",
+    "This is fused layers2/3 only; no full-model logits/natural outputs, TTFT, speech/RAG residency or long-term stability qualification.",
+    "Repeated same-input30 measures timing reliability, not30 independent quality examples.",
+    "No per-process RSS/PSS recorded."
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "source": "/opt/opi-lab/source-validation-20261017/gguf-fresh/export/w8-fused2-c1280-t16-cap1-productwide/l2",
+  "source_graph_sha256": "ca1762115c6ae29d4618fe15cee0dc1be991b289b5bd9096a9c10c0597cfcde3",
+  "source_quant_sha256": "35ef6de51d90e057f69dfbb87d35c51dee1a85b435f3f6ab5a8d0c10f6afce6d",
+  "source_data_sha256": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+  "grid_source_sha256": "a0a2ca5c1cc42892707dfc6a888e0b91b9aa9022292bc8929e468de960b60c29",
+  "candidate_graph_sha256": "b8a25a4eb21c6afb8a0df15526daa688303ebcf26a9aad2caf615f8f5a4737d0",
+  "candidate_quant_sha256": "a0a2ca5c1cc42892707dfc6a888e0b91b9aa9022292bc8929e468de960b60c29",
+  "changed_quant_entries": [
+    {
+      "key": "@down_i16_2000:out0",
+      "before": null,
+      "after": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 4.964869916439056,
+        "min_value": -4.964869916439056,
+        "fl": 12
+      }
+    },
+    {
+      "key": "@b0_fullconnect_116:weight",
+      "before": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      },
+      "after": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 0.4374732971191406,
+        "min_value": -0.4374732971191406,
+        "fl": 16
+      }
+    },
+    {
+      "key": "@b0_fullconnect_116:out0",
+      "before": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      },
+      "after": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 1.4047414064407349,
+        "min_value": -1.4047414064407349,
+        "fl": 14
+      }
+    },
+    {
+      "key": "@down_i16_2001:out0",
+      "before": null,
+      "after": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 6.345698833465576,
+        "min_value": -6.345698833465576,
+        "fl": 12
+      }
+    },
+    {
+      "key": "@b1_fullconnect_116:weight",
+      "before": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      },
+      "after": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 0.50384521484375,
+        "min_value": -0.50384521484375,
+        "fl": 15
+      }
+    },
+    {
+      "key": "@b1_fullconnect_116:out0",
+      "before": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      },
+      "after": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 2.2983908653259277,
+        "min_value": -2.2983908653259277,
+        "fl": 13
+      }
+    }
+  ],
+  "down_source_weights_exact": true,
+  "calibration": "frozen 24 positions single canonical trajectory, no refit on semantic evaluation",
+  "actual_ports_pending": true
+}

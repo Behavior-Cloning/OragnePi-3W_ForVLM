@@ -1,3 +1,9 @@
+## 2026-10-26 当前检查点：I16 down数值尾部定位
+
+权威报告 research/intern-prefill100-20261025/DOWN_I16_NUMERICAL_REPORT.md。A/B/A单块222.025/14.111/222.068ms已独立审计；48窗口原版/候选96运行已完成，hidden最大2.9111%而非仅canonical0.300%。FP32范围诊断4窗口b1输入超±8；新range16只将b1输入fl12→11，全部payload相同、16外部端口同。range16复测rc0完成，48窗口最大hidden relative L2降至0.3468%，旧新原图48份逐位相同；当前无活跃板端控制器。WSL keeper539保活。已用样例属于调参回归，C1280/M16修复范围集成候选现已编译并核验16实际端口与原图一致，manifest在graphs/candidates-down-i16-c1280-range16。下一步以独立overlay部署做完整模型对照、另冻结独立新场景；旧14.1ms不能冒充新范围版本正式速度。
+
+C1280旧范围I16候选虽已编译，但未部署且应先修范围。目标system正文59/123+模板5=64/128，动态正文64/128/192/256+模板8，新72/136/200/264；单块query32不可冒充完整新增prefill，100ms目标未达。旧最快短输入C256参照继续保留。下方记录为历史检查点。
+
 ## I16 down最新进展：显式转换候选已导出
 
 见research/intern-prefill100-20261025/DOWN_I16_EXPLICIT_REPORT.md及graphs/candidates-down-i16-explicit/deployment-manifest.json。完整两层NB已生成并通过实际端口/权重静态审计，但0板测；下一步L2独立精度候选A-B-A，不可使用要求14权重全等的旧controller。无活跃板任务，WSL keeper539。

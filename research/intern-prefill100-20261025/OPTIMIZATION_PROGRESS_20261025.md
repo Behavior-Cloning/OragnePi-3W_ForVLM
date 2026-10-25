@@ -55,4 +55,8 @@ r1因WSL保活失效在上传阶段结束，0有效测量；其失败证据保�
 
 新增报告：[BITCAST M32板测](results/bitcast-c512-m32-r2/REPORT.md)、[BITCAST独立审计](results/bitcast-c512-m32-r2/INDEPENDENT_AUDIT.md)、[I16存储M32板测](results/w16conv-c512-m32-r2/REPORT.md)、[I16存储独立审计](results/w16conv-c512-m32-r2/INDEPENDENT_AUDIT.md)。 [BITCAST M256板测](results/bitcast-c512-m256-r2/REPORT.md)已补齐，独立审计待完成。
 
-版本状态：Windows本地HEAD `57a45e075880d4182b0bf3c455bedae5d344f980` 尚未成功推送（网络错误），最近已核实的GitHub远端为 `d35fd319da7a636f41de281ff8dd6a88a5d652e8`。新增实验文件与本次文档按后续提交归档；本次只更新文档，没有提交或推送。
+版本状态：本轮代码和实测证据已提交并推送至 `codex/wsl-intern1b-reproduction`，代码提交 `f37caae4668ee390638db2edf97034623cb9c5e4`，独立 ls-remote 已核实一致。Mac只通过bare Git中转推送，代码编辑仍在Windows。同步元数据的后续更新不包含模型代码改动。
+
+## 2026-10-26：新I16 down数值扩展
+
+见 `DOWN_I16_NUMERICAL_REPORT.md`：单块222→14.1ms；48窗口hidden误差最大2.91%，查到4个FP32中间输入超出量化范围，range16回归已完成，hidden最大relative L2从2.9111%降到0.3468%。不是整模型100ms达标。

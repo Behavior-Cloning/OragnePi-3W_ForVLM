@@ -1,0 +1,88 @@
+{
+  "audit_pass": true,
+  "scope": "File-only runner/runtime review, contract negatives and in-memory fake Worker protocol tests. No controller, board, SDK, lock, compiler or model execution.",
+  "source_sha256": {
+    "controller.py": "4017ca92a2179a9b0b86fb65c380ee240cd3ddca791daa0c3aecd1ba6c463064",
+    "contract.py": "41639b56b336dea694a1165688aed92fea81d66ecc1077a0b2300f2e7bef7491",
+    "config.json": "bc388794c4c2a86254308ab637ce63ab4d47b5555b21914bc6856487ea4ff91c",
+    "board_fulli16.py": "31ff9696860d8208eac5a228aedf633048c7e635f2c58b3420b2fe2e3d40c550",
+    "resident_worker_v1.py": "aebfae687537881427b21f5e5ca66a609c7a80f2735007ad812774e4d5dc26b6",
+    "inputs.json": "d314a51d07b4a39ca9533cb805540ac90ce132819355c7ffe67aa4591d8cd49c",
+    "baseline-config.json": "96d3d941149d9f0ca67aaa76ae448da7341417a30530d230bf42948ad38a068f",
+    "static-audit.json": "8fcf19e4262860b8ec3efea524aa6d07af54a1c6fbe097c6d11a72fe0cfaab67",
+    "context_rag.py": "81afe39a529dd5de5ca7b3a0ca21c870fe42777684cdebb1daec3dd7e6f4998e",
+    "analyze.py": "9ca4c2c5a5d0519244da13253c7718420847bc60b273b8d2afaed7662ffa817c",
+    "finish.py": "38331a4ab968a4d1bf927d18f3151d308c8d6778e0217067edab00282418a381",
+    "build.json": "4c3b4e9bd9a5abc2e29b23e9c9323aa9d8ca1c98e6a8990bbbdeda0c0867c4d5",
+    "runtime/resident-prefixsafe512": "0ed64448e560cd3b973491cc4bcd2901e27818ff45fb165659d95c5e5d5fdb67"
+  },
+  "expected_counts": {
+    "performance": 96,
+    "natural": 192,
+    "diagnostic4step": 32,
+    "prefix_diagnostic1step": 8,
+    "cache_boundary_probe": 4,
+    "variants_closed": 4,
+    "full_logits_files": 40,
+    "full_logits_bytes": 82510656
+  },
+  "protected_prefix_preparations": 83,
+  "protected_branch_sequence_count": 248,
+  "branch_components": {
+    "warm": 2,
+    "performance": 72,
+    "natural": 144,
+    "diagnostic": 24,
+    "prefix_diagnostic": 6,
+    "cache_boundary_probe": 0
+  },
+  "other_variant_branch_counts": 0,
+  "protocol_fake_io_tests_pass": [
+    "protected_header_64",
+    "protected_header_128",
+    "legacy_header_zero",
+    "reject_not_reset",
+    "reject_prepare_output2",
+    "reject_length_mismatch",
+    "reject_negative",
+    "reject_bool"
+  ],
+  "contract_negative_tests_rejected": 12,
+  "binary_mode": "0o777",
+  "ready_for_bounded_experiment_source_only": true,
+  "board_tested": false,
+  "qualification": false,
+  "notes": [
+    "Four phases use same hardened binary; only protected mode sets header7 and two FIRST graph paths.",
+    "Original M32 and M8 extra graph hashes freshly verified with empty cache immediately before protected load.",
+    "Synthetic frontend streams independently; fixed LLM fixtures do not consume current ASR. RAG stays resident and queries natural outputs; no visual or physical actions.",
+    "Only three cost examples percell and previously used48 regression presentations; no fresh quality holdout or long-duration qualification.",
+    "Protected mode uses 3 submissions vs baseline1; overhead must stay measured.",
+    "Entrypoint tmpfs and MemAvailable reserves are preflight checks, not steady-state guarantees; audio overruns and swap must be reported.",
+    "Warmup and prefix-only/cache probes excluded from speed statistics.",
+    "Controller uses hostlock plus board flock, unique output root, source snapshot SHA, timeout3600s/observe3750s and no automatic restart. Failure preserves recovery_pending; manual recovery needed.",
+    "Analyzer checks actual f32 SHA/finite/argmax, token/cache, prefixbranch sequences, archive members; manual semantics/RAG conflicts remain pending until real outputs.",
+    "Offline analyzer now includes performance-phase resources and case-matched TTFT/decode ratios; no board source changed. Observer startup race fixed without restarting benchmark."
+  ],
+  "observer_delta": {
+    "file": "finish.py",
+    "previous_sha256": "409d38346e69ec494aee238a7e70d1968f3b6671fbfe9125d35f787383fa676e",
+    "current_sha256": "38331a4ab968a4d1bf927d18f3151d308c8d6778e0217067edab00282418a381",
+    "reason": "Wait for first controller state only while exact controller PID/cmdline is live; no restart.",
+    "changes_board_execution": false
+  },
+  "analyzer_delta": {
+    "previous_sha256": "291be5a83d55976089e94dee3e0db65e3f75a99e751fb6e8fa06c582c7bca6db",
+    "current_sha256": "9ca4c2c5a5d0519244da13253c7718420847bc60b273b8d2afaed7662ffa817c",
+    "review": "Performance-phase bucket conditions match existing helper; per-case TTFT and reciprocal 31-interval decode ratios correct; helper resource keys exist; nearest-rank P95=max for n3; actual timing is still pending.",
+    "changes_board_execution": false
+  },
+  "running_snapshot": {
+    "run": "down-row-scale-prefixsafe-r1",
+    "status": "running",
+    "board_outcome_known": false,
+    "controller_snapshot_matches_audited_sources": true,
+    "upload_bytes": 31483857,
+    "observation": "WSL controller JSON only, not board."
+  }
+}

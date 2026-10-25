@@ -8,7 +8,7 @@ old=R/'capacity512-full/results/c512-m16-m32-aba-r1';review=J(old/'ROOT_QUALITY_
 assert f['quality']==of['quality'],'Do not reuse judgments on changed inputs'
 prior={r['case']:r for r in review['rows']};rows=[]
 for q in a['natural_quality']:
- case=q['id'];r=prior[case];assert q['gold']['required']==r['required'] and q['gold']['forbidden']==r['forbidden']
+ case=q['id'];r=prior[case];assert q['gold']['required_action']==r['required'] and q['gold']['forbidden_actions']==r['forbidden']
  labels={};notes={};pending=[]
  for name,reply in q['replies'].items():
   matches=[n for n,x in r['replies'].items() if x==reply]

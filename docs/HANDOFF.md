@@ -1,15 +1,26 @@
-## 2026-10-26 C512/M32 row-normalized down full-model A/B/A running
+## 2026-10-26 C512 original-system / row-dynamic comparison RUNNING
 
-- Active objective unchanged: full prefill and TTFT <=100ms, S64/128, dynamic body64–256; not achieved.
-- New authoritative folder `research/intern-prefill100-20261025/down-row-scale-full`.
-- Controller PID47730 (`controller.py --execute`), finish PID47822; both verified live this turn. Read WSL `down-row-scale-full-r1-controller.json`, `controller.log`, `finish-status.json` plus actual PID identity; do not poll board outside owner or restart from stale status.
-- Double-lock experiment: original M32 → per-row normalized INT16 down in M32 layers2/3 → original repeat; same binary bf19922f…, true original M8 tail and decode/head unchanged. Candidate NB f0bebd8b…; only 30MB uploaded to private tmpfs. Candidate also computes system prefix; this changes precision, not approved as lossless.
-- Same inputs across variants: system body59/123+template5=64/128; dynamic body64/128/192/256+template8=new72/136/200/264. System-only KV reuse. 72 fixed-feedback32 cost calls, 144 natural regression calls (48 per variant), 24 four-step full-logit diagnostics. Synthetic speech frontend + RAG resident; frozen model text inputs, no vision/microphone/motors.
-- Independent source audit passed; result still pending. `finish.py` only analyzes after controller terminal completion and process exit, never restarts benchmark. Manual quality/resource audit and Mac report copy remain required.
-- Next tail candidate compiled only: graphs/down-row-scale-c512-m8-l2, NB2732f92a…; not used by running experiment. Static audit underway; no board speed or quality claim.
-- All earlier raw evidence retained. Do not confuse local C1280/M16 two-layer18.34ms with full-model TTFT.
+- `research/intern-prefill100-20261025/down-row-scale-prefixsafe`: controller49958, finish50000, run `down-row-scale-prefixsafe-r1`. Last observed controller status running and exact /proc command live. Do not restart or separately poll board while locks owned. Read WSL controller status/finish-status and actual PID identity.
+- Same hardened binary0ed64448… across original/all-row/protected-system/original-repeat. Protected reset requires max_new1; continuation caps reuse at S64/128. Fixed system正文59/123+模板5; dynamic正文64/128/192/256+模板8=new72/136/200/264. Output fixed32 for performance; natural up to32. System-only cache, no exact-prefix/dynamic reuse.
+- 96 performance,192 natural,32x4 diagnostic,8 prefix-only logits,4 repeated-input cache probes expected. Fresh hash original prefix M32/M8 graphs before protected load. Entire protected dynamic pipeline has3 submissions/block vs grouped1, cost included. Prefix logits equality is not full KV byte proof.
+- Synthetic speech and RAG resident, frozen text model input, no visual/microphone/motors. Results not yet available; complete100ms objective unmet. No default promotion.
+- Initial finish49959 raced missing initial state; preserved `.initial-failed` evidence, only WSL observer repaired/restarted50000. Board controller49958 never restarted. finish waits and analyzes only, no implicit rerun.
 
-C512/M32 row-scale编译已完成（PID46905退出），NB SHA f0bebd8b9489f487a5b72658184c9d8f90bb8ec36a6682afde9bb61e097ea25a；独立静态审计进行中，尚未整模运行。
+## 2026-10-26 C512/M32 row-normalized down full-model A/B/A COMPLETE, not promoted
+
+- Active objective remains complete prefill AND model TTFT <=100ms at system64/128 and dynamic body64–256; unmet.
+- `research/intern-prefill100-20261025/down-row-scale-full/results/down-row-scale-full-r1`: controller rc0, analysis and independent result audit complete. PID47730/47822 exited; do not rerun.
+- Same Intern NPU text C512/M32 binary, true original M8 tail and decode. Only M32 fused layer2/3 has row-normalized I16 down. Candidate also computes system KV; not precision-equivalent. Original A/B/A output stable. Speech synthetic stream and RAG resident; model input frozen text, no image/microphone/motors.
+- Input: system body59/123+template5=64/128; dynamic body64/128/192/256+8=new72/136/200/264. System-only reuse. Per variant24 fixed-feedback32 performance,48 natural regression,8x4 full-logit diagnostics. All72/144/24 raw records and36 archive files verified;3driver0.
+- S64 D64/128/192/256 candidate TTFT P50=420.3/700.1/978.5/1260.6ms (baseline846.0/1581.7/2326.5/3048.1). S128 candidate421.4/700.2/980.5/1259.6ms. Prefill400–1239ms. Decode15.1–15.4tok/s. Each cell3 cases only; not long stability.
+- Natural44/48 exact vs original; A/A48/48. Candidate logits relativeL2~2.87–3.22%,argmax31/32; A/A byte exact. Right-turn request lost→hold; left-arm reply missing limb;2 preexisting explicit conflicts remain. ROOT_QUALITY_REVIEW and independent manual review saved. No default promotion or Top3 physical execution.
+- Whole-run max50.282C, mean8-coreCPU7.584%,PSS588.0MiB (listed processes only),MemAvailable min2027.5MiB. Swap932→1374.5MiB;swapin7278/out120684pages;audio2701/54669overruns,maxlag.794s. Not no-swap or all-real-time; do not attribute all swap to candidate. Observed resources14.31min, not15min stability qualification.
+- Tail M8 candidate static-audited NB2732f92a… only, not board-tested or included in above. Old tmpfs run directory was removed after SHA-verifying49 files and29 symlinks; Windows archive retained,95,627,447 logical tmpfs bytes removed. Persistent original M32/M8 banks retained. See down-row-scale-full/cleanup-tmpfs.json; do not reuse removed overlay.
+- Offline power2 diagnostic completed (PID49377 exited):528 captured rows,34 windows. Floor-power2 scale reduces simulated dynamic down relativeL2 L2 .05666%→.04364%,L3 .07584%→.06433%; no graph/kernel/timing or full-model evidence. ANALYSIS SHA444715bd…. Next private runtime down-row-scale-prefixsafe preserves original system routing, hardened max_new1 and strict system-only cache cap; compiled0ed64448…, runner4phase prepared but not yet started. No production change.
+- Offline logical dense work accounting `results/dense-work-budget`:357826560MAC/new token,25.764–94.466GMAC for new72–264. This is not runtime latency bound or hardware peak claim.
+- Mac full report and5 analysis/audit files SHA-verified in reports/intern-prefill100-20261025/down-row-scale-full-r1.
+- GitHub verified5aee7eee3990c13be97d851f8f886f7beee42bd3 via Mac bare relay; newer result/analysis fixes still need commit and sync. Windows remains authoritative.
+
 
 ## 2026-10-26 row-scale板测完成，准备C512整模接轨
 

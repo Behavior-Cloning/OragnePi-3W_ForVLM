@@ -1,0 +1,96 @@
+--- capacity512/batch_prefill.h
++++ prefixsafe512/batch_prefill.h
+@@ -1,5 +1,5 @@
+ /* Batched causal prefill shares decode KV only after exact IO checks. */
+-typedef struct { Layer *layers,*scalar; vip_group group; int grouped; int tokens,blocks,capacity,previous_position,host_hidden,scalar_block; } BatchPrefill;
++typedef struct { Layer *layers,*scalar; vip_group group; int grouped; int tokens,blocks,capacity,previous_position,host_hidden,scalar_block,original_prefix_tokens; } BatchPrefill;
+ static void capture_prefill_io(BatchPrefill *b,Layer *decode,int pos,int block,int output) {
+     const char *prefix=getenv("OPI_CAPTURE_PREFIX");
+     if(!prefix||!getenv("OPI_CAPTURE_POSITION")||!getenv("OPI_CAPTURE_BLOCK")||
+@@ -29,7 +29,7 @@
+     return a->p.quant_format==VIP_BUFFER_QUANTIZE_NONE;
+ }
+ static BatchPrefill load_prefill(const char *path,int tokens,int blocks,int capacity,Layer *decode) {
+-    BatchPrefill b={0};if(!tokens)return b;
++    BatchPrefill b={0};b.original_prefix_tokens=1;if(!tokens)return b;
+     b.tokens=tokens;b.blocks=blocks;b.capacity=capacity;b.layers=calloc(blocks,sizeof(Layer));
+     b.host_hidden=getenv("OPI_PREFILL_HOST_HIDDEN")!=NULL;
+     b.scalar_block=getenv("OPI_PREFILL_SCALAR_BLOCK")?atoi(getenv("OPI_PREFILL_SCALAR_BLOCK")):-1;
+@@ -86,7 +86,7 @@
+     const char *initial=getenv("OPI_FIRST_PREFILL_L2");
+     if(initial&&tokens==8){
+         initial=getenv("OPI_FIRST_PREFILL8_L2");
+-        if(!initial||!*initial){fprintf(stderr,"missing original M8 first-chunk graph\n");exit(2);}
++        if(!initial||!*initial){fprintf(stderr,"missing original M8 prefix graph\n");exit(2);}
+     }
+     if(initial){
+         if(!*initial||blocks<3||b.scalar||b.host_hidden){
+@@ -191,11 +191,11 @@
+             /* Permanent ownership: blocks0 and1 never join any group.
+              * The suffix group owns blocks2..end for the full lifetime. */
+             check(vip_run_network(b->layers[0].net),"prefill first block");
+-            check(vip_run_network(pos==0?b->scalar->net:b->layers[1].net),"prefill sensitive block");
++            check(vip_run_network(pos<b->original_prefix_tokens?b->scalar->net:b->layers[1].net),"prefill sensitive block");
+             check(vip_run_group(b->group,b->blocks-2),"prefill suffix group");
+-            if(pos==0){
+-                fprintf(stderr,"FIRST_CHUNK_ORIGINAL block=1 pos=0 rows=%d valid=%d\n",n,valid);
+-                fprintf(stderr,"FIRST_CHUNK_SUFFIX_GROUP blocks=%d\n",b->blocks-2);
++            if(pos<b->original_prefix_tokens){
++                fprintf(stderr,"PREFIX_ORIGINAL block=1 pos=%d rows=%d valid=%d limit=%d\n",pos,n,valid,b->original_prefix_tokens);
++                fprintf(stderr,"PREFIX_SUFFIX_GROUP blocks=%d\n",b->blocks-2);
+             }
+         }else check(vip_run_group(b->group,b->blocks),"prefill group");
+         *api_seconds+=now()-stamp;
+@@ -245,9 +245,9 @@
+         }
+         if(getenv("OPI_PREFILL_REBIND_OUTPUTS"))
+             for(unsigned o=0;o<TENSOR_MAX_OUTPUTS;o++)check(vip_set_output(l->net,o,l->out[o].b),"rebind batch output");
+-        int initial_used=pos==0&&i==1&&getenv("OPI_FIRST_PREFILL_L2");
++        int initial_used=pos<b->original_prefix_tokens&&i==1&&getenv("OPI_FIRST_PREFILL_L2");
+         double stamp=now();check(vip_run_network(initial_used?b->scalar->net:l->net),"batch prefill");*api_seconds+=now()-stamp;
+-        if(initial_used)fprintf(stderr,"FIRST_CHUNK_ORIGINAL block=1 pos=0 rows=%d valid=%d\n",n,valid);
++        if(initial_used)fprintf(stderr,"PREFIX_ORIGINAL block=1 pos=%d rows=%d valid=%d limit=%d\n",pos,n,valid,b->original_prefix_tokens);
+         capture_prefill_io(b,decode,pos,i,1);
+         audit_outputs(l,TENSOR_MAX_OUTPUTS,"prefill",pos,i);
+         for(unsigned j=b->host_hidden?0:1;j<TENSOR_MAX_OUTPUTS;j++)
+--- capacity512/resident_session.c
++++ prefixsafe512/resident_session.c
+@@ -197,7 +197,7 @@
+     if(tail_dir){
+         /* Separate graph topology: weights are not claimed to be shared. Both
+          * prefill sets alias only the checked decoder KV input buffers. */
+-        /* This candidate experiment is restricted to 256/512-capacity
++        /* This combined experiment is restricted to the verified short-context
+          * design. load_prefill also checks every actual KV IO contract, so a
+          * mistakenly supplied c1280 tail graph cannot pass by filename alone. */
+         if(!*tail_dir||!((s.capacity==256&&batch_tokens==16)||(s.capacity==512&&(batch_tokens==16||batch_tokens==32)))||getenv("OPI_PREFILL_SCALAR_BLOCK"))return 2;
+@@ -210,9 +210,20 @@
+     while((header_bytes=fread(header,1,sizeof(header),stdin))!=0){
+         if(header_bytes!=sizeof(header))return 2;
+         unsigned id=header[1];int n=(int)header[2],limit=(int)header[3],nf=(int)header[4];
+-        if(header[0]!=0x4f504931||header[5]>1||header[6]>1||header[7]||
++        if(header[0]!=0x4f504931||header[5]>1||header[6]>1||
+            n<1||n>s.capacity||limit<1||limit>s.capacity||n+limit-1>s.capacity||
+            (nf!=0&&nf!=limit))return 2;
++        /* Private protocol: explicit original-prefix length only on a reset
++         * request containing exactly that prefix. Zero preserves legacy mode.
++         * No threshold changes during a cached continuation. */
++        if(header[7] && (!header[5] || header[7]!=(unsigned)n ||
++           !s.batch.tokens || n%s.batch.tokens ||
++           !getenv("OPI_FIRST_PREFILL_L2")))return 2;
++        if(header[5]){
++            s.batch.original_prefix_tokens=header[7]?(int)header[7]:1;
++            s.tail8.original_prefix_tokens=s.batch.original_prefix_tokens;
++            fprintf(stderr,"PREFIX_POLICY id=%u original_prefix_tokens=%d\n",id,s.batch.original_prefix_tokens);
++        }
+         if(fread(prompt,sizeof(int32_t),n,stdin)!=(size_t)n||
+            (nf&&fread(feedback,sizeof(int32_t),nf,stdin)!=(size_t)nf))return 2;
+         for(int i=0;i<n;i++)if(prompt[i]<0||prompt[i]>=s.vocab)return 2;
+@@ -231,6 +242,7 @@
+          * the same scalar/batch partition as a fresh request. Re-evaluate at
+          * least the final prompt token: hidden stores the previous request. */
+         if(s.batch.tokens&&!getenv("OPI_EXACT_PREFIX"))reused-=reused%s.batch.tokens;
++        if(!header[5] && s.batch.original_prefix_tokens>1 && reused<s.batch.original_prefix_tokens)return 2;
+         if(!reused)reset_session(&s);
+         else truncate_session(&s,reused);
+         double setup_seconds=now()-start,prefill_seconds=0,scalar_prompt_seconds=0,first_head_seconds=0;

@@ -1,0 +1,154 @@
+{
+  "audit_pass": true,
+  "scope": "Independent file-only hardened runtime delta review; no SDK/board/lock/model execution. Runtime source invariants verified, not device or deployment qualification.",
+  "binary_sha256": "0ed64448e560cd3b973491cc4bcd2901e27818ff45fb165659d95c5e5d5fdb67",
+  "binary_bytes": 78920,
+  "checks": {
+    "build_returncode_zero": true,
+    "build_Werror": true,
+    "binary_hash": true,
+    "all_sources_match_build": true,
+    "all_baseline_sources_match_build": true,
+    "two_prefixsafe_parent_sources_match": true,
+    "only_two_changed": true,
+    "source_diff_exact": true,
+    "both_banks_threshold": true,
+    "same_release_ownership": true,
+    "explicit_M8_original_map": true,
+    "no_group_reentry": true
+  },
+  "changed_sources": [
+    "batch_prefill.h",
+    "resident_session.c"
+  ],
+  "source_sha256": {
+    "batch_prefill.h": "75847dbe8c30024dcdd5e182e1033a945e73b2dd702834044146714a549c1709",
+    "board_probe.c": "992fc2211d42b1d2410d523931cd18395997160a768bba01b16fa789b7c29b60",
+    "full_model.c": "669d3dc7dbeeba5d1a1276874aa4a89a04773d5a32dca42038a8437db23d6ed0",
+    "greedy_i16.h": "54b2202b91a2b4b33c372b89fdd4e1d6b106069c7c1414f51a82f0da7e5406f8",
+    "greedy_single_pass.h": "6909b4b67ac0b86b2eb49c107cd03364c0718b6413d214412ecb23726c242e16",
+    "mask_templates.h": "55b8fb3cbb404c11ef3a41ffc1b8c8d9df32d4f95ce9c78dd39b26f141e96fa8",
+    "resident_session.c": "d5b3365071d309454999f850a78da038c6a19ac3feb4951e1ffe5c7c823fe83c",
+    "session_release.h": "3754c684dc3ea3a0cabf55879630463b5bb7ce6868ac3ac785b1d80701bc7475",
+    "test_greedy.c": "207d85d056d7c8fb42eab7a3ad8a6301672f10da4364b61a0fcc7e421954b665",
+    "test_release_ownership.c": "06549fed64e3843b23da356a0a548980e6d6a3acd03bd19fa27ed21781d42701",
+    "test_two_prefill_banks.c": "00c95f98db72dc87ef418b9813f7cfb0b700cd2e5432db90e6dccb9c8641c08f"
+  },
+  "support_sha256": {
+    "build.json": "4c3b4e9bd9a5abc2e29b23e9c9323aa9d8ca1c98e6a8990bbbdeda0c0867c4d5",
+    "source.diff": "f860cbc87573ed0f1ee2b206d3758a4e3b60cb9eb11f64cc55425f758ee721ad",
+    "README.md": "4d9a02e6c8b940d718a8ff91cddb5230c213ff6b342051cac1e4fe3177d97045",
+    "build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build-initial.json": "5fc8b9c3def3630c4aad7809fb4b7d47e4a83daf3c878d30036463a606145ea3",
+    "source-initial.diff": "a5c1a3a7983c51b2e8ac43bc7cc3aa2b1b09c317d67464543e326ee6d3e9c338"
+  },
+  "contract_matrix_python_reasoning": [
+    {
+      "static_tokens": 64,
+      "dynamic_body_tokens": 64,
+      "template_tokens": 8,
+      "actual_new": 72,
+      "main_calls": 2,
+      "tail8_calls": 1,
+      "prefix_original_main_calls": 2,
+      "max_kv_fixed32": 167
+    },
+    {
+      "static_tokens": 64,
+      "dynamic_body_tokens": 128,
+      "template_tokens": 8,
+      "actual_new": 136,
+      "main_calls": 4,
+      "tail8_calls": 1,
+      "prefix_original_main_calls": 2,
+      "max_kv_fixed32": 231
+    },
+    {
+      "static_tokens": 64,
+      "dynamic_body_tokens": 192,
+      "template_tokens": 8,
+      "actual_new": 200,
+      "main_calls": 6,
+      "tail8_calls": 1,
+      "prefix_original_main_calls": 2,
+      "max_kv_fixed32": 295
+    },
+    {
+      "static_tokens": 64,
+      "dynamic_body_tokens": 256,
+      "template_tokens": 8,
+      "actual_new": 264,
+      "main_calls": 8,
+      "tail8_calls": 1,
+      "prefix_original_main_calls": 2,
+      "max_kv_fixed32": 359
+    },
+    {
+      "static_tokens": 128,
+      "dynamic_body_tokens": 64,
+      "template_tokens": 8,
+      "actual_new": 72,
+      "main_calls": 2,
+      "tail8_calls": 1,
+      "prefix_original_main_calls": 4,
+      "max_kv_fixed32": 231
+    },
+    {
+      "static_tokens": 128,
+      "dynamic_body_tokens": 128,
+      "template_tokens": 8,
+      "actual_new": 136,
+      "main_calls": 4,
+      "tail8_calls": 1,
+      "prefix_original_main_calls": 4,
+      "max_kv_fixed32": 295
+    },
+    {
+      "static_tokens": 128,
+      "dynamic_body_tokens": 192,
+      "template_tokens": 8,
+      "actual_new": 200,
+      "main_calls": 6,
+      "tail8_calls": 1,
+      "prefix_original_main_calls": 4,
+      "max_kv_fixed32": 359
+    },
+    {
+      "static_tokens": 128,
+      "dynamic_body_tokens": 256,
+      "template_tokens": 8,
+      "actual_new": 264,
+      "main_calls": 8,
+      "tail8_calls": 1,
+      "prefix_original_main_calls": 4,
+      "max_kv_fixed32": 423
+    }
+  ],
+  "runtime_c_tests_executed": false,
+  "board_tested": false,
+  "runtime_enforces_no_dynamic_reuse_upper_bound": true,
+  "runner_required": true,
+  "risks_and_required_gates": [
+    "Protected nonzero-header7 mode now hard-enforces preparation max_new1 and continuation reuse==prefix or rejects. Header7=0 intentionally retains legacy behavior; runner must actually enable header7 for protected variant and verify returned counters.",
+    "Runtime allows aligned protected lengths other than64/128. Runner must freeze intended S64/128 token IDs, body64/128/192/256+8, same output policies, and no hidden context differences.",
+    "With OPI_FIRST_PREFILL_L2 set, permanent suffix10 grouping uses 3 NPU submissions for both static and dynamic chunks, versus 1 group submission when unset; this is part of the measured configuration, not overhead-free cache-only change.",
+    "Both M32 and M8 original graph paths require frozen SHA and actual tensor checks; M8 alias still loads a separate original graph even if the active M8 graph is already original.",
+    "Prefix-only logits equality is useful but does not prove every KV entry byte-identical. Need full fixed-logits/natural checks and real runtime close/driver0.",
+    "No runner/config/model execution exists in this source snapshot. Build success does not establish device behavior, accuracy, TTFT, memory, or resource release.",
+    "Private protocol top comment still calls word7 reserved; actual word7 has protected-prefix meaning. Documentation issue only; no wire layout changed."
+  ],
+  "whole_objective_verified": false,
+  "protected_mode_hardening": {
+    "reset_requires_max_new_1": true,
+    "continuation_reuse_equals_prefix_or_reject": true,
+    "clamp_precedes_lower_bound_guard": true,
+    "initial_source_reconstructed_SHA_exact": true,
+    "other_10_source_files_unchanged": true,
+    "python_guard_cases": {
+      "reuse": 2052,
+      "prepare": 384
+    },
+    "guard_case_scope": "Static Python translations of inspected C guards; not executed C, SDK, or NPU.",
+    "initial_audit_sha256": "d0b40a03692abfd7566a16754b902b89ca02cd70bb4578aff298a21714c34fcc"
+  }
+}

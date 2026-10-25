@@ -1,6 +1,6 @@
 """Read recovered evidence only; no board access or automatic quality approval."""
 from pathlib import Path
-import json,sys,hashlib,importlib.util,collections,numpy as np
+import json,sys,hashlib,importlib.util,collections,tarfile,numpy as np
 from contract import validate_aba,sha,BINARY_SHA
 NAMES=['original-m32','row-scale-m32','original-m32-repeat']
 P=Path(__file__).resolve().parent;R=P.parent
@@ -8,6 +8,19 @@ spec=importlib.util.spec_from_file_location('metrics',R/'fullconv/analyze_fullco
 run=sys.argv[1];D=P/'results'/run;J=lambda p:json.loads(p.read_text())
 ctl=J(P/(run+'-controller.json'));cfg=J(D/'config.json');meta=J(D/'meta.json');fixtures=J(D/'fixtures.json');prov=J(D/'provenance.json')
 assert ctl['status']=='complete' and ctl['returncode']==0 and meta['status']=='complete' and not meta['background_errors'];validate_aba(cfg)
+archive=P/(run+'.tar.gz');assert sha(archive)==ctl['archive_sha256'] and archive.stat().st_size==ctl['archive_bytes']
+archive_files=[]
+with tarfile.open(archive) as tar:
+ for member in tar.getmembers():
+  path=(D/member.name).resolve();assert path==D.resolve() or D.resolve() in path.parents
+  assert member.isdir() or member.isfile()
+  if member.isfile():
+   assert path.stat().st_size==member.size
+   source=tar.extractfile(member);digest=hashlib.sha256()
+   for chunk in iter(lambda:source.read(4194304),b''):digest.update(chunk)
+   assert digest.hexdigest()==sha(path),member.name
+   archive_files.append(member.name)
+assert len(archive_files)==len(set(archive_files))
 events=H.rows(D/'events.jsonl');resources=H.rows(D/'resources.jsonl');counts=collections.Counter(e['event'] for e in events)
 assert {k:counts[k] for k in ['measure','quality','diagnostic','loaded','closed','complete']}==dict(measure=72,quality=144,diagnostic=24,loaded=3,closed=3,complete=1)
 assert not any(counts[k] for k in ['error','failed','audio_error','monitor_error','closed_on_failure','release_error'])
@@ -93,6 +106,7 @@ for c in fixtures['performance']:
 report['measured_grid_all_below100ms']=report.pop('full_goal_reached')
 report['whole_objective_verified']=False
 report['analysis_source_sha256']={str(p.relative_to(R)):sha(p) for p in [Path(__file__),R/'fullconv/analyze_fullconv.py',P/'contract.py']}
+report['archive_verified']={'sha256':ctl['archive_sha256'],'files':len(archive_files),'all_members_exact_recovered':True}
 report['coverage_limit']='24 fixed cost requests per variant; only D64/128/192/256, S64/128. Boundary20 and continuous-length coverage not run; no long stability qualification.'
 (D/'analysis.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 text='# C512 M32 逐 token 归一化 INT16 down 整模 A/B/A 对照\n\nIntern NPU文本；容量512，三组prefill批量均32。候选只改M32层2/3的down投影：原FP16 down改成逐token归一化＋INT16矩阵＋FP16恢复尺度；system构建也用候选。真实8token尾段、decode/head/embedding与binary均保持原版。这不是无损或等精度优化。每次重置仅准备system缓存。system构建不计热TTFT，包含在资源中。合成WAV语音前端及RAG常驻，LLM输入冻结，无视觉/真实麦克风/电机。\n\nsystem正文59/123＋模板5＝静态64/128；动态正文64/128/192/256＋模板8＝新72/136/200/264。性能输出32固定反馈token，自然输出上限32。每格3案，诊断不计速度。本轮隔离C512/M32下一个prefill块的改变，C1280局部重放成绩不作为整模基线。\n\n|静态|动态正文|新prefill|原版→候选 prefill(ms)|原版→候选 TTFT(ms)|原版→候选 decode(tok/s)|原版重复TTFT(ms)|\n|---:|---:|---:|---:|---:|---:|---:|\n'

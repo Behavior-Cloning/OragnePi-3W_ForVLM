@@ -1,0 +1,89 @@
+{
+  "audit": "independent frozen source/artifact/token review",
+  "created_utc": "2026-10-25T18:51:18.377166+00:00",
+  "status": "PASS_FOR_BOUNDED_EXPERIMENT_NOT_QUALIFICATION",
+  "blocking_findings": [],
+  "board_access_performed": false,
+  "launched_by_auditor": false,
+  "source_sha256": {
+    "board_fulli16.py": "beec047dceb67710c166c0e9d3d22f71bdd9c3f02d5a1875b53bc9cf206f931f",
+    "controller_fulli16.py": "467a272097de603eea460770972233c2548598cecdba8a21670547953816a1aa",
+    "contract.py": "0ee0160287bf99a65ba3bfc77038beab926aa2a9a29e9ed73cb2f6e74e78aadd",
+    "config.fulli16.json": "2294bfa53da6fa3947ed81cb581c0dc26ea6419fa51a2d64583991d13ccd6c10",
+    "artifacts.json": "2ffeb37c27866361b3802df0c7873e66789cce0930d9d494421a5e315e33518f",
+    "inputs.json": "d314a51d07b4a39ca9533cb805540ac90ce132819355c7ffe67aa4591d8cd49c",
+    "resident_worker_v1.py": "2c110a6821ce9ee21aa2c07b062f27a49e18a9289e0fd8aea12927f80448321d",
+    "context_rag.py": "81afe39a529dd5de5ca7b3a0ca21c870fe42777684cdebb1daec3dd7e6f4998e",
+    "analyze_fulli16.py": "edec8a4a7f7628449a3baa9f4c5b3bfc8630dc7492b5ff8e7347bfeffa6035b5",
+    "README.md": "8af6344b105362e5d75b6df1e6dad023ae4fd4d5fa8ec0d9f665dad667c67d25"
+  },
+  "runtime_binary_sha256": "bf19922fb62bdde70a15ccde742abf9b4ffa6e5b116e73929fa7310442dc1e11",
+  "artifact_check_sha256": "957a8955e5ed0b6dd26af2f253697fef28d9084bb668ad184b8d26494b2ddaa1",
+  "token_check_sha256": "2c1c3eb84744cff7d562c7d0f09e488d31377be8bb7b59d9e728df0f44634675",
+  "checks": {
+    "48_actual_nb_sha_and_size": true,
+    "all48_original_source_paths_no_i16_candidate": true,
+    "all48_exported_payload_exact_source": true,
+    "all48_quantizer_exact_source": true,
+    "all48_graph_json_only_declared_geometry_diffs": true,
+    "all48_actual_port_json_only_geometry_diffs": true,
+    "binary_and11_build_source_hashes_match": true,
+    "same_binary_all3_variants": true,
+    "exact_fixture_bytes_previous": true,
+    "actual_intern_tokenizer_all72_cases": true,
+    "all8_cells_3_performance_cases": true,
+    "max423_le512": true,
+    "prefix_reset_and_system_only_warm_then_exact_reuse_assert": true,
+    "real_m8_for_one_remaining8_per_request": true,
+    "no_scalar_prompt_no_padded16_tail_asserted": true,
+    "32fixed_feedback31decode_intervals": true,
+    "natural_eos_max32_distinct": true,
+    "diagnostic4fixed_steps_full_vocab_excluded_timing": true,
+    "dual_locks_and_unique_run_directory": true,
+    "board_transfer_sha_and_overlay_check_before_launch": true,
+    "bounded_timeout_and_partial_recovery_no_restart": true,
+    "reserve768MiB_plus150MiB": true,
+    "only_declared_current_source_review_no_board": true
+  },
+  "counts_expected": {
+    "variants": 3,
+    "performance_per_variant": 24,
+    "natural_per_variant": 48,
+    "diagnostic_requests_per_variant": 8,
+    "diagnostic_steps_per_variant": 32,
+    "performance_total": 72,
+    "natural_total": 144,
+    "diagnostic_total": 24
+  },
+  "token_check": {
+    "status": "pass",
+    "performance": 24,
+    "quality": 48,
+    "diagnostic": 8,
+    "tokenizer_sha256": "97030cfe860ae6e146e62b7c84f46789f6a2a2c6edb6a32f4cb089f2bc7456e4",
+    "max_kv_tokens": 423,
+    "expected_new_tokens": [
+      72,
+      136,
+      200,
+      264
+    ],
+    "quality_sets": {
+      "development-regression": 24,
+      "new-frozen-household-v2": 24
+    }
+  },
+  "nb_artifact_bytes": 1159978624,
+  "scope_limits": [
+    "Source review permits a bounded experiment only; no runtime, numeric, quality, speed or 100 ms qualification is implied.",
+    "M32 also prepares system with M32; system input tokens are identical but numerical KV may differ. This is the M32-bank scheme versus M16-bank scheme, not dynamic-only batch isolation.",
+    "System reset/recompute and cold load are excluded from hot TTFT. TTFT includes request setup, actual complete new prefill and first head/argmax; audio utterance completion-to-action is not measured here.",
+    "72 performance = 3 variants x 8 cells x 3 cases x 1 repeat. Per-cell n=3 cannot establish stable P95 or long-term stability. 20 boundary fixtures are not run; full64-256 range100ms objective remains unverified.",
+    "48 quality = 24 development plus24 previously frozen household cases; both sets have now been seen in prior runs, not a fresh unseen holdout. Exact parity is not task correctness.",
+    "Original precision means same existing mixed quantizers and exported constants, not all-FP32. Shape/capacity changes can alter numerical outputs; inspect full logits and natural semantics before adoption.",
+    "Synthetic prerecorded speech and RAG stay resident; fixture prompts are not produced by live ASR. No image encoder, real microphone or physical motor. RAG Top3 conflicts remain and no action promotion is authorized.",
+    "Shared head/embedding and frontend dependencies exist on board and are SHA checked before load; this audit did not access or verify board availability. Actual disk guard is reevaluated under both locks.",
+    "On SSH/timeout observation failure no automatic rerun; partial archive recovery requires reacquiring both locks and can remain pending. Board timeout/process release still needs observed driver0 proof."
+  ],
+  "all_source_checks_pass": true
+}

@@ -1,4 +1,23 @@
+## 2026-10-26 当前 prefill 优化进度（尚未达到100ms）
+
+- `down-row-scale-prefixsafe/results/down-row-scale-prefixsafe-r1` 完整 A/B/C/A 已结束，归档53文件、96性能/192自然/32诊断/8前缀诊断/4重复缓存探针；四次driver释放0。固定system64/128含5模板、动态正文64/128/192/256另加8模板，实际新增72/136/200/264，只复用system。
+- 保留原system、仅动态row-scale：TTFT P50约423–434/703–721/983–1026/1270–1340ms，decode约15tok/s；各格3例，不是稳定性认证，100ms目标未达。完整logits有数值差异。48自然输出45完全相同，其中两条改写/标点兼容，一条头部动作丢失对象；RAG召回违禁底盘动作，未推广默认。
+- 温度口径修正：定时资源峰50.592°C，请求边界纳入后最高52.080°C。音频3465/70433帧overrun，不宣称全程实时；swap存在活动。独立审计及人工审核已写回结果目录。
+- `results/native-rms-m32-r1` 六进程两层筛查完成：普通输入API P50 10.867→10.202ms（约6.1%）；hidden相对L2差异0.778%，大幅值压力输入均finite。history128、query32，无音频/RAG，不等于完整system/dynamic请求或全模TTFT；native gamma/epsilon表示改变，未认定无损。
+- 当前 `down-row-scale-tail` controller PID51776 / finish51777，独立目录运行完整M8 tail对照，禁止重复启动或绕过双锁轮询板卡；仅读WSL状态。两组均原system，B/C仅动态M8敏感块不同，其他输入/量化/亲和/语音驻留一致。待回收后检查质量/真实tail时间及温度完整口径。
+- 离线 `graphs/build_compact_row_down_screen.py` PID51887 已完成编译M64 plain/row与M256 row，history容量128保留全部有效历史；只为两层组合筛查，未板测、不是完整长动态请求支持。更晚位置必须保留其全部历史，不得以截断换速度。
+- 代码权威仍Windows F/WSL；新测试未作为生产模型，100ms完整目标保持active。后续需整理提交并确认GitHub远端ref，不能把未知push结果当同步成功。
+
+## 2026-10-26 Next tail and native RMSNorm candidates PREPARED, not started
+
+- Current prefixsafe controller49958 / finish50000 still live at latest check; do not repeat or poll occupied board separately.
+- `down-row-scale-tail` dryrun and independent runner audit passed. Four phases original/protected-main/protected-main-tail/original repeat. Same binary0ed64448…, M32f0bebd8b… and M8candidate2732f92a…. Both candidates retain original system M32/M8; B/C only changes dynamic M8 sensitive block. 96perf/192natural/32diag/8prefix/8cache,248 original-prefix branches each protected phase. No launch or automatic continuation installed. Review current full result before launching.
+- Native SDK RMSNormalize discovered in pinned image and compiled `graphs/native-rms-c512-m32-l0`:4 original max-scaled RMS subgraphs→4 native RMSNORM nodes, epsilon≈1e-6/gamma preserved, other projections unchanged by builder assertions. Compilation is not numeric/engine/speed proof. Builder50982 completed, status.json holds NB hash; independent static audit pending. `controller_native_rms.py` prepared, requires audit then dryrun: canonical M32/history128 and synthetic large-hidden maxabs4096, original/native/original each3warm+30. No board test yet.
+- Keep complete100ms goal; original M8 tail124–127ms means tail work necessary, yet even zero tail leaves~296–1133ms TTFT at S64. Full main bulk also needs optimization. No input shortening, context truncation, dynamic-cache shortcut or promotion.
+
 ## 2026-10-26 C512 original-system / row-dynamic comparison RUNNING
+
+- Latest local commit017b37df999adf32b87422a95fff6d35025089bb; GitHub push outcome unconfirmed (HTTPS push and subsequent Mac/WSL ls-remote timeout). Last independently verified remote5aee7ee. Re-read ref before retry, no force. New PREFILL_BREAKDOWN.md/json saved after commit and copied SHA-verified to Mac: current original M8 tail124–127ms; even hypothetical zero tail leaves TTFT296–1133ms at S64, so main bulk must also improve.
 
 - `research/intern-prefill100-20261025/down-row-scale-prefixsafe`: controller49958, finish50000, run `down-row-scale-prefixsafe-r1`. Last observed controller status running and exact /proc command live. Do not restart or separately poll board while locks owned. Read WSL controller status/finish-status and actual PID identity.
 - Same hardened binary0ed64448… across original/all-row/protected-system/original-repeat. Protected reset requires max_new1; continuation caps reuse at S64/128. Fixed system正文59/123+模板5; dynamic正文64/128/192/256+模板8=new72/136/200/264. Output fixed32 for performance; natural up to32. System-only cache, no exact-prefix/dynamic reuse.

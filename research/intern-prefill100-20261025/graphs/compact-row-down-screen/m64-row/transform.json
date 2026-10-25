@@ -1,0 +1,313 @@
+{
+  "source_sha256": {
+    "decoder.json": "51637e0cb2df8ef50a32e7578c3fa653ddf99d06fe49da88cdb759b0aebf381c",
+    "decoder.quantize": "35ef6de51d90e057f69dfbb87d35c51dee1a85b435f3f6ab5a8d0c10f6afce6d",
+    "decoder.data": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+    "tensor-inputmeta.yml": "f33bba8254b53067203c829d77c061d7de3d7137084d95533ada4de8da82eb63",
+    "conversion.json": "0492758db50821e8e853025fb34c33bc0b204f61c3c855cdebf17d8c04bb404c"
+  },
+  "row_reference_sha256": {
+    "decoder.json": "3b5562b9c80c5b69516e7cad7a512334b9dcdfe48aa3aa3dc3a8c053273ad6bd",
+    "decoder.quantize": "5da3a390fd7575dfe4ba8c61697186497de495e2433683682159526c1740b2a4",
+    "decoder.data": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+    "source-audit.json": "daddde519b9556f25ccf245b83c64cdf3227ef501813db2c75db79cbbcfa5218"
+  },
+  "geometry": [
+    {
+      "node": "b0_past_k_102",
+      "param": "shape",
+      "axis": 2,
+      "old": 512,
+      "new": 128
+    },
+    {
+      "node": "b0_past_v_103",
+      "param": "shape",
+      "axis": 2,
+      "old": 512,
+      "new": 128
+    },
+    {
+      "node": "b0_mask_104",
+      "param": "shape",
+      "axis": 3,
+      "old": 576,
+      "new": 192
+    },
+    {
+      "node": "b0_split_probs_past_11004",
+      "param": "size",
+      "axis": 3,
+      "old": 512,
+      "new": 128
+    },
+    {
+      "node": "b0_split_probs_new_11005",
+      "param": "begin",
+      "axis": 3,
+      "old": 512,
+      "new": 128
+    },
+    {
+      "node": "b1_past_k_102",
+      "param": "shape",
+      "axis": 2,
+      "old": 512,
+      "new": 128
+    },
+    {
+      "node": "b1_past_v_103",
+      "param": "shape",
+      "axis": 2,
+      "old": 512,
+      "new": 128
+    },
+    {
+      "node": "b1_mask_104",
+      "param": "shape",
+      "axis": 3,
+      "old": 576,
+      "new": 192
+    },
+    {
+      "node": "b1_split_probs_past_11004",
+      "param": "size",
+      "axis": 3,
+      "old": 512,
+      "new": 128
+    },
+    {
+      "node": "b1_split_probs_new_11005",
+      "param": "begin",
+      "axis": 3,
+      "old": 512,
+      "new": 128
+    }
+  ],
+  "added_nodes": [
+    "down_i16_2000",
+    "row_abs_7000",
+    "row_max_7001",
+    "row_scale_7002",
+    "row_normalized_7003",
+    "row_restored_7004",
+    "down_i16_2001",
+    "row_abs_7010",
+    "row_max_7011",
+    "row_scale_7012",
+    "row_normalized_7013",
+    "row_restored_7014"
+  ],
+  "modified_nodes_before": {
+    "b0_fullconnect_116": {
+      "name": "b0_fullconnect",
+      "op": "fullconnect",
+      "parameters": {
+        "weights": 896,
+        "bias": true,
+        "regularize": false,
+        "axis": 1
+      },
+      "inputs": [
+        "@b0_reshape_115:out0"
+      ],
+      "outputs": [
+        "out0"
+      ]
+    },
+    "b0_reshape_117": {
+      "name": "b0_reshape",
+      "op": "reshape",
+      "parameters": {
+        "shape": [
+          1,
+          64,
+          896
+        ]
+      },
+      "inputs": [
+        "@b0_fullconnect_116:out0"
+      ],
+      "outputs": [
+        "out0"
+      ]
+    },
+    "b1_fullconnect_116": {
+      "name": "b1_fullconnect",
+      "op": "fullconnect",
+      "parameters": {
+        "weights": 896,
+        "bias": true,
+        "regularize": false,
+        "axis": 1
+      },
+      "inputs": [
+        "@b1_reshape_115:out0"
+      ],
+      "outputs": [
+        "out0"
+      ]
+    },
+    "b1_reshape_117": {
+      "name": "b1_reshape",
+      "op": "reshape",
+      "parameters": {
+        "shape": [
+          1,
+          64,
+          896
+        ]
+      },
+      "inputs": [
+        "@b1_fullconnect_116:out0"
+      ],
+      "outputs": [
+        "out0"
+      ]
+    }
+  },
+  "quantization_changes": {
+    "@down_i16_2000:out0": {
+      "before": null,
+      "after": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 1.0,
+        "min_value": -1.0,
+        "fl": 14
+      }
+    },
+    "@row_abs_7000:out0": {
+      "before": null,
+      "after": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      }
+    },
+    "@row_max_7001:out0": {
+      "before": null,
+      "after": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      }
+    },
+    "@row_scale_7002:out0": {
+      "before": null,
+      "after": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      }
+    },
+    "@row_normalized_7003:out0": {
+      "before": null,
+      "after": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      }
+    },
+    "@row_restored_7004:out0": {
+      "before": null,
+      "after": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      }
+    },
+    "@b0_fullconnect_116:weight": {
+      "before": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      },
+      "after": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 0.4374732971191406,
+        "min_value": -0.4374732971191406,
+        "fl": 16
+      }
+    },
+    "@b0_fullconnect_116:out0": {
+      "before": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      },
+      "after": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      }
+    },
+    "@down_i16_2001:out0": {
+      "before": null,
+      "after": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 1.0,
+        "min_value": -1.0,
+        "fl": 14
+      }
+    },
+    "@row_abs_7010:out0": {
+      "before": null,
+      "after": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      }
+    },
+    "@row_max_7011:out0": {
+      "before": null,
+      "after": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      }
+    },
+    "@row_scale_7012:out0": {
+      "before": null,
+      "after": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      }
+    },
+    "@row_normalized_7013:out0": {
+      "before": null,
+      "after": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      }
+    },
+    "@row_restored_7014:out0": {
+      "before": null,
+      "after": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      }
+    },
+    "@b1_fullconnect_116:weight": {
+      "before": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      },
+      "after": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 0.50384521484375,
+        "min_value": -0.50384521484375,
+        "fl": 15
+      }
+    },
+    "@b1_fullconnect_116:out0": {
+      "before": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      },
+      "after": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      }
+    }
+  },
+  "source_weights_identical": true,
+  "scope": "L2/L3 only; compact capacity128 retains exactly history128; no truncation of valid history. Different M is a performance screen, not whole request. Later positions require larger capacity. Row scale changes precision; not qualified."
+}

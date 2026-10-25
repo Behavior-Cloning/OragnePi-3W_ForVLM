@@ -1,0 +1,90 @@
+{
+  "audit_pass": true,
+  "scope": "WSL file-only delta review. No board/SDK/locks/controller/model execution. Prepared source, not runtime qualification.",
+  "checks": {
+    "binary_same_hardened": true,
+    "input_bytes_same": true,
+    "worker_same": true,
+    "rag_same": true,
+    "main_static_audit_same": true,
+    "tail_static_audit_bound": true,
+    "tail_nb_actual_sha": true,
+    "tail_nb_actual_size": true,
+    "B_C_same_main": true,
+    "only_M8_L2_diff": true,
+    "B_C_same_originals": true
+  },
+  "source_sha256": {
+    "analyze.py": "a920b05e07c67101b961f6ed5a1516cd3eb0c4b477d78fb14a64e875710073ef",
+    "baseline-config.json": "96d3d941149d9f0ca67aaa76ae448da7341417a30530d230bf42948ad38a068f",
+    "board_fulli16.py": "ec3634ca57f756cde56f12bb325803a75538d834f61a25e0dfe35a69fad59d5b",
+    "build-parent.json": "4c3b4e9bd9a5abc2e29b23e9c9323aa9d8ca1c98e6a8990bbbdeda0c0867c4d5",
+    "config.json": "07b38f30e74f1843f65469dbaf845d7a5cc6fc53375240a0389dd4e901c036c1",
+    "context_rag.py": "81afe39a529dd5de5ca7b3a0ca21c870fe42777684cdebb1daec3dd7e6f4998e",
+    "contract.py": "029203138d8092ac084dd27962eeea3c7481e87bc1a8a8e7d1a26e8e71b9df69",
+    "controller.py": "cbbff8a24d3a071b1ca54eb7b2a9ccac6d04a3f03fcd8d292fc251180e9614aa",
+    "finish.py": "17082da5e82d627daed31eb8785efa27cf4812cc641f24d5ed5978571087cb33",
+    "inputs.json": "d314a51d07b4a39ca9533cb805540ac90ce132819355c7ffe67aa4591d8cd49c",
+    "README.md": "70827b0fe24de7926f2c1bd864ef330d3b8d6a6ce64bbfa9486d80369a60ce5f",
+    "resident_worker_v1.py": "aebfae687537881427b21f5e5ca66a609c7a80f2735007ad812774e4d5dc26b6",
+    "static-audit.json": "8fcf19e4262860b8ec3efea524aa6d07af54a1c6fbe097c6d11a72fe0cfaab67",
+    "tail-static-audit.json": "6c5e773c777087cf49155aa05578226926335cbfdd1900acc990b90c130d3896",
+    "runtime/resident-prefixsafe512": "0ed64448e560cd3b973491cc4bcd2901e27818ff45fb165659d95c5e5d5fdb67"
+  },
+  "contract_negative_rejected": [
+    "tail_false",
+    "main_protect_false",
+    "tail_original_points_candidate",
+    "tail_env_original",
+    "wrong_nb",
+    "wrong_size",
+    "wrong_audit",
+    "overlay_extra",
+    "overlay_wrong_target",
+    "extra_tail_changed",
+    "wrong_order",
+    "exactprefix"
+  ],
+  "expected_counts": {
+    "performance": 96,
+    "natural": 192,
+    "diagnostic4step": 32,
+    "prefix_diagnostic1step": 8,
+    "cache_boundary_probe": 8,
+    "close": 4,
+    "extra_prefix_graph_verified": 2,
+    "full_logits_files": 40,
+    "full_logits_bytes": 82510656
+  },
+  "protected_branch_counts": {
+    "original-m32": 0,
+    "protected-main": 248,
+    "protected-main-tail": 248,
+    "original-m32-repeat": 0
+  },
+  "each_protected_preparations": 83,
+  "board_tested": false,
+  "quality_approved": false,
+  "whole_objective_verified": false,
+  "source_ready_for_bounded_experiment": true,
+  "limitations": [
+    "Existing prefixsafe experiment is separately running. This audit starts nothing; parent must serialize deployment and lock ownership.",
+    "B/C isolate original versus row-scale M8 L2; all M32 graphs, original-system mapping, runtime, frozen inputs and suffix grouping equal.",
+    "Actual tail8 calls==1 and scalar_prompt_tokens==0 required in raw results. System lengths multiple32 so system-only tests do not execute M8; tail original mapping still explicitly hashed and load-contract checked.",
+    "Two candidate phases each perform 4 repeated-input probes; ordinary phases only explicit reset+system preparation.",
+    "Graph mathematical/static audit is not runtime numeric parity. Full raw logits, natural constraints and RAG conflict review still required.",
+    "3 cost cases/cell and reused48 natural cases are regression coverage, not long stability/fresh holdout.",
+    "Streaming prerecorded frontend is independent of fixed text prompts; report swap/lag/overruns and no image/microphone/motor.",
+    "Controller tmpfs/memory reserves, double locks, hash snapshot, timeouts/no restart and failure recovery_pending inherited unchanged.",
+    "Analyzer now includes direct B-to-C full logits and all48 natural output comparisons plus matched-case tail/TTFT deltas; semantic judgments remain pending."
+  ],
+  "analysis_direct_B_C_review": {
+    "analyzer_sha256": "a920b05e07c67101b961f6ed5a1516cd3eb0c4b477d78fb14a64e875710073ef",
+    "logits_ref_B_candidate_C": true,
+    "natural48_current_prompt_gold_top3_retained": true,
+    "matched_case_tail_delta_C_minus_B": true,
+    "bulk_seconds_prefill_minus_true_tail8": true,
+    "bulk_requires_scalar_prompt_zero": true,
+    "scope": "Tail seconds include full runtime M8 prefill wall cost, not isolated NPU kernel time; 8 diagnostic cases do not cover every natural output."
+  }
+}

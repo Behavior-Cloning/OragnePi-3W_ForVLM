@@ -1,0 +1,69 @@
+{
+  "source_review_pass": true,
+  "unresolved_launch_blockers": [],
+  "scope": "Read-only WSL source review, never imported/executed controller or accessed board/SDK/locks",
+  "source_sha256": {
+    "controller": "26c7a7cde2ac9bc6265686e8bc3095a5aad95b84c49b8a58e5182da7027a1d72",
+    "runner": "a67ace526f77209d39225f6d6da68af445265a5bb924791973d872c5509243b3",
+    "helpers": "59d2936d6f22ffdddf3433d9fdf2ab3865eb4cfcad785d2b6e420578c314043d",
+    "probe": "18b29578182bf1067512008ad914897a7639bcdba6d89dff2bc4bee173f4c1e4",
+    "static_audit": "e6df1c8b269228ba1f4198be0baf7e1ed544f0d026bd3e06a9a25a9f20fd408c"
+  },
+  "candidate_nb_sha256": "4d03d1bc74a3eacbf498907f7159e5b7c8dd6be33b429d1e09697d7ae07ba423",
+  "candidate_nb_bytes": 24689976,
+  "static_audit_bound_to_candidate": true,
+  "frozen_upload_source_sha_checked_before_and_after_transfer": true,
+  "prospective_counts": {
+    "processes": 6,
+    "warmup_each": 3,
+    "pure_api_timed_each": 30,
+    "total_warmup": 18,
+    "total_pure_api": 180,
+    "outputs_per_process": 5
+  },
+  "geometry": {
+    "capacity": 512,
+    "history": 128,
+    "query_rows": 32,
+    "first_layer": 0,
+    "fusion_layers": 2
+  },
+  "input": {
+    "normal_sha256": "b4bd76f70c9fa53260b78aff30e03a3f72cbc6bcda1dc9dcbd8214444028a9e5",
+    "synthetic_sha256": "9c02978f26f2b2e6b3471ca48eb5889fb7e329fb7b085ab41567960e263551c7",
+    "synthetic_hidden_peak": 4096.0,
+    "hidden_count": 28672,
+    "scale": 50551.031578451795,
+    "all_input_finite": true,
+    "remaining_KV_mask_RoPE_bytes_exact": true,
+    "synthetic_not_semantic_input": true
+  },
+  "reserve": {
+    "tmpfs_bytes": 1178599424,
+    "mem_available_guard": "all staged source/graphs/twoinputs + same reserve +256MiB",
+    "explicit_root_disk_artifact_bytes": 0,
+    "operating_system_swap_writes_still_possible": true
+  },
+  "execution_contract": {
+    "dual_lock": true,
+    "profiling_flags_cleared": true,
+    "taskset": "4,5",
+    "cooldown_limit_C": 65,
+    "thermal_abort_C": 78,
+    "single_process_deadline_s": 180,
+    "whole_runner_timeout_s": 600,
+    "observer_deadline_s": 720,
+    "no_automatic_restart": true,
+    "scratch_preserved_after_run": true,
+    "partial_recovery_reacquires_both_locks": true
+  },
+  "limits": [
+    "Source audit is not successful execution; results must prove actual finite5outputs, actual6driver0, A/A and numeric differences.",
+    "Normal canonical input is FP32-derived history, not captured full-NPU history. Synthetic hidden4096 leaves other tensors fixed and has no semantic or FP32-reference correctness claim.",
+    "Native exported gamma has one changed numeric value and epsilon execution differs; not an operator-only bitwise identity claim.",
+    "SDK actualport query not supplied by this static review; generated16port contract already checked.",
+    "Pure API excludes model loading and input/output conversion; no audio/RAG, full24layer TTFT or100ms qualification.",
+    "Temporary root disk artifact bytes0 does not guarantee no operating-system or swap writes.",
+    "Archive helper rejects symlink/hardlink and traversal; result analysis must independently verify every retained regular raw member and hash."
+  ]
+}

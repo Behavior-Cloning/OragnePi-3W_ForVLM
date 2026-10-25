@@ -1,0 +1,1781 @@
+{
+  "source_sha256": {
+    "decoder.json": "730f07c680b336b9e945a9956d226f1f04b6f1087386d93478062cb7c8a271cc",
+    "decoder.data": "429a9a766e0a5f3ea05bb509b893716739cfff0bafaaf8e4f10a6c0da63c08fb",
+    "decoder.quantize": "9a0243d7caeb1fd3731acf04ad8452fbd07003260e7bb23bf6f7d57476608e34",
+    "tensor-inputmeta.yml": "7493cb6a6f0cc9b9cfc37d44e09a665bb9ea2ca7e24ea7b3e43627dfdab41520"
+  },
+  "changes": [
+    {
+      "block": 0,
+      "norm": 1,
+      "output": "b0_Mul_4_output_0_28",
+      "source": "@b0_hidden_101:out0",
+      "epsilon": 1.0000000949949049e-06,
+      "original_gamma_node": "b0_norm1_39",
+      "gamma_raw_sha256": "9ec0babb394aa21a47a819887987b035ff59b98f88b8634e6a83ec64cf4c1eed",
+      "removed_nodes": {
+        "b0_Abs_output_0_71": {
+          "name": "b0_Abs_output_0",
+          "op": "abs",
+          "inputs": [
+            "@b0_Abs_output_0_71_acuity_mark_perm_114:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Abs_output_0_71_acuity_mark_perm_114": {
+          "name": "b0_Abs_output_0_71_acuity_mark_perm",
+          "op": "permute",
+          "parameters": {
+            "perm": [
+              0,
+              2,
+              1
+            ]
+          },
+          "inputs": [
+            "@b0_hidden_101:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Add_output_0_56": {
+          "name": "b0_Add_output_0",
+          "op": "add",
+          "inputs": [
+            "@b0_ReduceMean_output_0_64:out0",
+            "@b0_Mul_1_output_0_65:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Clip_output_0_55": {
+          "name": "b0_Clip_output_0",
+          "op": "clipbyvalue",
+          "parameters": {
+            "clip_value_min": 0.0010000000474974513,
+            "clip_value_max": Infinity
+          },
+          "inputs": [
+            "@b0_ReduceMax_output_0_63:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Constant_1_output_0_74": {
+          "name": "b0_Constant_1_output_0",
+          "op": "variable",
+          "parameters": {
+            "shape": [
+              1,
+              1,
+              1
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "inputs": [],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Constant_2_output_0_48": {
+          "name": "b0_Constant_2_output_0",
+          "op": "variable",
+          "parameters": {
+            "shape": [
+              1,
+              1,
+              1
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "inputs": [],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Div_1_output_0_40": {
+          "name": "b0_Div_1_output_0",
+          "op": "real_div",
+          "inputs": [
+            "@b0_Constant_2_output_0_48:out0",
+            "@b0_Sqrt_output_0_49:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Div_output_0_47": {
+          "name": "b0_Div_output_0",
+          "op": "real_div",
+          "inputs": [
+            "@b0_hidden_101:out0",
+            "@b0_Div_output_0_47_acuity_mark_perm_112:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Div_output_0_47_acuity_mark_perm_112": {
+          "name": "b0_Div_output_0_47_acuity_mark_perm",
+          "op": "permute",
+          "parameters": {
+            "perm": [
+              0,
+              2,
+              1
+            ]
+          },
+          "inputs": [
+            "@b0_Clip_output_0_55:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Divide_86": {
+          "name": "b0_Divide",
+          "op": "divide",
+          "inputs": [
+            "@b0_Reciprocal_output_0_85:out0",
+            "@b0_Clip_output_0_55:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Mul_1_output_0_65": {
+          "name": "b0_Mul_1_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 2,
+            "bias": false
+          },
+          "inputs": [
+            "@b0_Mul_output_0_73:out0",
+            "@b0_Mul_output_0_73:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Mul_2_output_0_72": {
+          "name": "b0_Mul_2_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 2,
+            "bias": false
+          },
+          "inputs": [
+            "@b0_Mul_2_output_0_72_acuity_mark_perm_109:out0",
+            "@b0_Mul_2_output_0_72_acuity_mark_perm_109:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Mul_2_output_0_72_acuity_mark_perm_109": {
+          "name": "b0_Mul_2_output_0_72_acuity_mark_perm",
+          "op": "permute",
+          "parameters": {
+            "perm": [
+              0,
+              2,
+              1
+            ]
+          },
+          "inputs": [
+            "@b0_Div_output_0_47:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Mul_3_output_0_38": {
+          "name": "b0_Mul_3_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 1,
+            "bias": false
+          },
+          "inputs": [
+            "@b0_Div_output_0_47:out0",
+            "@b0_Mul_3_output_0_38_acuity_mark_perm_108:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Mul_3_output_0_38_acuity_mark_perm_108": {
+          "name": "b0_Mul_3_output_0_38_acuity_mark_perm",
+          "op": "permute",
+          "parameters": {
+            "perm": [
+              0,
+              2,
+              1
+            ]
+          },
+          "inputs": [
+            "@b0_Div_1_output_0_40:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Mul_4_output_0_28": {
+          "name": "b0_Mul_4_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 1,
+            "bias": false
+          },
+          "inputs": [
+            "@b0_Mul_3_output_0_38:out0",
+            "@b0_norm1_39:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Mul_output_0_73": {
+          "name": "b0_Mul_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 2,
+            "bias": false
+          },
+          "inputs": [
+            "@b0_Divide_86:out0",
+            "@b0_Constant_1_output_0_74:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Reciprocal_output_0_85": {
+          "name": "b0_Reciprocal_output_0",
+          "op": "variable",
+          "parameters": {
+            "shape": [
+              1,
+              1,
+              1
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "inputs": [],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_ReduceMax_output_0_63": {
+          "name": "b0_ReduceMax_output_0",
+          "op": "reducemax",
+          "parameters": {
+            "axis_list": [
+              1
+            ],
+            "keep_dims": true
+          },
+          "inputs": [
+            "@b0_Abs_output_0_71:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_ReduceMean_output_0_64": {
+          "name": "b0_ReduceMean_output_0",
+          "op": "reducemean",
+          "parameters": {
+            "axis_list": [
+              1
+            ],
+            "keep_dims": true
+          },
+          "inputs": [
+            "@b0_Mul_2_output_0_72:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Sqrt_output_0_49": {
+          "name": "b0_Sqrt_output_0",
+          "op": "sqrt",
+          "inputs": [
+            "@b0_Add_output_0_56:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_norm1_39": {
+          "name": "b0_norm1",
+          "op": "variable",
+          "parameters": {
+            "shape": [
+              1,
+              1,
+              896
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "inputs": [],
+          "outputs": [
+            "out0"
+          ]
+        }
+      },
+      "removed_quant": {
+        "@b0_Mul_4_output_0_28:out0": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 1.784477710723877,
+          "min_value": -2.4681644439697266,
+          "fl": 12
+        },
+        "@b0_Mul_3_output_0_38:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_norm1_39:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Div_1_output_0_40:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Div_output_0_47:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Add_output_0_56:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Mul_1_output_0_65:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Mul_2_output_0_72:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Mul_output_0_73:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Constant_1_output_0_74:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Divide_86:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Mul_3_output_0_38_acuity_mark_perm_108:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Mul_2_output_0_72_acuity_mark_perm_109:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_norm1_39:data": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.73046875,
+          "min_value": -0.44921875,
+          "fl": 15
+        },
+        "@b0_Constant_1_output_0_74:data": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.0010000000474974513,
+          "min_value": 0.0010000000474974513,
+          "fl": 24
+        },
+        "@b0_Clip_output_0_55:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Abs_output_0_71:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Constant_2_output_0_48:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_ReduceMean_output_0_64:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Abs_output_0_71_acuity_mark_perm_114:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Div_output_0_47_acuity_mark_perm_112:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_ReduceMax_output_0_63:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Reciprocal_output_0_85:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Sqrt_output_0_49:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      }
+    },
+    {
+      "block": 0,
+      "norm": 2,
+      "output": "b0_Mul_13_output_0_36",
+      "source": "@b0_Add_7_output_0_9:out0",
+      "epsilon": 1.0000000949949049e-06,
+      "original_gamma_node": "b0_norm2_46",
+      "gamma_raw_sha256": "ca99c7a178ff8b825a2a7474b92f4b87a7cb64f9f43b52318de2030cd01582a3",
+      "removed_nodes": {
+        "b0_Abs_1_output_0_77": {
+          "name": "b0_Abs_1_output_0",
+          "op": "abs",
+          "inputs": [
+            "@b0_Abs_1_output_0_77_acuity_mark_perm_107:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Abs_1_output_0_77_acuity_mark_perm_107": {
+          "name": "b0_Abs_1_output_0_77_acuity_mark_perm",
+          "op": "permute",
+          "parameters": {
+            "perm": [
+              0,
+              2,
+              1
+            ]
+          },
+          "inputs": [
+            "@b0_Add_7_output_0_9:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Add_8_output_0_62": {
+          "name": "b0_Add_8_output_0",
+          "op": "add",
+          "inputs": [
+            "@b0_ReduceMean_1_output_0_69:out0",
+            "@b0_Mul_10_output_0_70:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Clip_1_output_0_60": {
+          "name": "b0_Clip_1_output_0",
+          "op": "clipbyvalue",
+          "parameters": {
+            "clip_value_min": 0.0010000000474974513,
+            "clip_value_max": Infinity
+          },
+          "inputs": [
+            "@b0_ReduceMax_1_output_0_68:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Constant_43_output_0_80": {
+          "name": "b0_Constant_43_output_0",
+          "op": "variable",
+          "parameters": {
+            "shape": [
+              1,
+              1,
+              1
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "inputs": [],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Constant_44_output_0_61": {
+          "name": "b0_Constant_44_output_0",
+          "op": "variable",
+          "parameters": {
+            "shape": [
+              1,
+              1,
+              1
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "inputs": [],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Div_3_output_0_52": {
+          "name": "b0_Div_3_output_0",
+          "op": "real_div",
+          "inputs": [
+            "@b0_Add_7_output_0_9:out0",
+            "@b0_Div_3_output_0_52_acuity_mark_perm_113:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Div_3_output_0_52_acuity_mark_perm_113": {
+          "name": "b0_Div_3_output_0_52_acuity_mark_perm",
+          "op": "permute",
+          "parameters": {
+            "perm": [
+              0,
+              2,
+              1
+            ]
+          },
+          "inputs": [
+            "@b0_Clip_1_output_0_60:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Div_4_output_0_53": {
+          "name": "b0_Div_4_output_0",
+          "op": "real_div",
+          "inputs": [
+            "@b0_Constant_44_output_0_61:out0",
+            "@b0_Sqrt_1_output_0_54:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Divide_82": {
+          "name": "b0_Divide",
+          "op": "divide",
+          "inputs": [
+            "@b0_Reciprocal_1_output_0_81:out0",
+            "@b0_Clip_1_output_0_60:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Mul_10_output_0_70": {
+          "name": "b0_Mul_10_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 2,
+            "bias": false
+          },
+          "inputs": [
+            "@b0_Mul_9_output_0_79:out0",
+            "@b0_Mul_9_output_0_79:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Mul_11_output_0_78": {
+          "name": "b0_Mul_11_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 2,
+            "bias": false
+          },
+          "inputs": [
+            "@b0_Mul_11_output_0_78_acuity_mark_perm_110:out0",
+            "@b0_Mul_11_output_0_78_acuity_mark_perm_110:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Mul_11_output_0_78_acuity_mark_perm_110": {
+          "name": "b0_Mul_11_output_0_78_acuity_mark_perm",
+          "op": "permute",
+          "parameters": {
+            "perm": [
+              0,
+              2,
+              1
+            ]
+          },
+          "inputs": [
+            "@b0_Div_3_output_0_52:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Mul_12_output_0_45": {
+          "name": "b0_Mul_12_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 1,
+            "bias": false
+          },
+          "inputs": [
+            "@b0_Div_3_output_0_52:out0",
+            "@b0_Mul_12_output_0_45_acuity_mark_perm_111:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Mul_12_output_0_45_acuity_mark_perm_111": {
+          "name": "b0_Mul_12_output_0_45_acuity_mark_perm",
+          "op": "permute",
+          "parameters": {
+            "perm": [
+              0,
+              2,
+              1
+            ]
+          },
+          "inputs": [
+            "@b0_Div_4_output_0_53:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Mul_13_output_0_36": {
+          "name": "b0_Mul_13_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 1,
+            "bias": false
+          },
+          "inputs": [
+            "@b0_Mul_12_output_0_45:out0",
+            "@b0_norm2_46:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Mul_9_output_0_79": {
+          "name": "b0_Mul_9_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 2,
+            "bias": false
+          },
+          "inputs": [
+            "@b0_Divide_82:out0",
+            "@b0_Constant_43_output_0_80:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Reciprocal_1_output_0_81": {
+          "name": "b0_Reciprocal_1_output_0",
+          "op": "variable",
+          "parameters": {
+            "shape": [
+              1,
+              1,
+              1
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "inputs": [],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_ReduceMax_1_output_0_68": {
+          "name": "b0_ReduceMax_1_output_0",
+          "op": "reducemax",
+          "parameters": {
+            "axis_list": [
+              1
+            ],
+            "keep_dims": true
+          },
+          "inputs": [
+            "@b0_Abs_1_output_0_77:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_ReduceMean_1_output_0_69": {
+          "name": "b0_ReduceMean_1_output_0",
+          "op": "reducemean",
+          "parameters": {
+            "axis_list": [
+              1
+            ],
+            "keep_dims": true
+          },
+          "inputs": [
+            "@b0_Mul_11_output_0_78:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_Sqrt_1_output_0_54": {
+          "name": "b0_Sqrt_1_output_0",
+          "op": "sqrt",
+          "inputs": [
+            "@b0_Add_8_output_0_62:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b0_norm2_46": {
+          "name": "b0_norm2",
+          "op": "variable",
+          "parameters": {
+            "shape": [
+              1,
+              1,
+              896
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "inputs": [],
+          "outputs": [
+            "out0"
+          ]
+        }
+      },
+      "removed_quant": {
+        "@b0_Mul_13_output_0_36:out0": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 11.500901222229004,
+          "min_value": -14.749719619750977,
+          "fl": 10
+        },
+        "@b0_Mul_12_output_0_45:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_norm2_46:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Div_3_output_0_52:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Div_4_output_0_53:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Add_8_output_0_62:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Mul_10_output_0_70:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Mul_11_output_0_78:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Mul_9_output_0_79:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Constant_43_output_0_80:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Divide_82:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Abs_1_output_0_77_acuity_mark_perm_107:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Mul_11_output_0_78_acuity_mark_perm_110:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Mul_12_output_0_45_acuity_mark_perm_111:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_norm2_46:data": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 1.984375,
+          "min_value": 0.486328125,
+          "fl": 14
+        },
+        "@b0_Constant_43_output_0_80:data": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.0010000000474974513,
+          "min_value": 0.0010000000474974513,
+          "fl": 24
+        },
+        "@b0_Abs_1_output_0_77:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_ReduceMax_1_output_0_68:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Constant_44_output_0_61:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Sqrt_1_output_0_54:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Reciprocal_1_output_0_81:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Div_3_output_0_52_acuity_mark_perm_113:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_ReduceMean_1_output_0_69:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b0_Clip_1_output_0_60:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      }
+    },
+    {
+      "block": 1,
+      "norm": 1,
+      "output": "b1_Mul_4_output_0_28",
+      "source": "@b0_hidden_out_5:out0",
+      "epsilon": 1.0000000949949049e-06,
+      "original_gamma_node": "b1_norm1_39",
+      "gamma_raw_sha256": "7ed5e8909d32f80831d73b882f457b13abc7c36b2b67ffb430c88388a1269638",
+      "removed_nodes": {
+        "b1_Abs_output_0_71": {
+          "name": "b1_Abs_output_0",
+          "op": "abs",
+          "inputs": [
+            "@b1_Abs_output_0_71_acuity_mark_perm_114:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Abs_output_0_71_acuity_mark_perm_114": {
+          "name": "b1_Abs_output_0_71_acuity_mark_perm",
+          "op": "permute",
+          "parameters": {
+            "perm": [
+              0,
+              2,
+              1
+            ]
+          },
+          "inputs": [
+            "@b0_hidden_out_5:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Add_output_0_56": {
+          "name": "b1_Add_output_0",
+          "op": "add",
+          "inputs": [
+            "@b1_ReduceMean_output_0_64:out0",
+            "@b1_Mul_1_output_0_65:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Clip_output_0_55": {
+          "name": "b1_Clip_output_0",
+          "op": "clipbyvalue",
+          "parameters": {
+            "clip_value_min": 0.0010000000474974513,
+            "clip_value_max": Infinity
+          },
+          "inputs": [
+            "@b1_ReduceMax_output_0_63:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Constant_1_output_0_74": {
+          "name": "b1_Constant_1_output_0",
+          "op": "variable",
+          "parameters": {
+            "shape": [
+              1,
+              1,
+              1
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "inputs": [],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Constant_2_output_0_48": {
+          "name": "b1_Constant_2_output_0",
+          "op": "variable",
+          "parameters": {
+            "shape": [
+              1,
+              1,
+              1
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "inputs": [],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Div_1_output_0_40": {
+          "name": "b1_Div_1_output_0",
+          "op": "real_div",
+          "inputs": [
+            "@b1_Constant_2_output_0_48:out0",
+            "@b1_Sqrt_output_0_49:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Div_output_0_47": {
+          "name": "b1_Div_output_0",
+          "op": "real_div",
+          "inputs": [
+            "@b0_hidden_out_5:out0",
+            "@b1_Div_output_0_47_acuity_mark_perm_112:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Div_output_0_47_acuity_mark_perm_112": {
+          "name": "b1_Div_output_0_47_acuity_mark_perm",
+          "op": "permute",
+          "parameters": {
+            "perm": [
+              0,
+              2,
+              1
+            ]
+          },
+          "inputs": [
+            "@b1_Clip_output_0_55:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Divide_86": {
+          "name": "b1_Divide",
+          "op": "divide",
+          "inputs": [
+            "@b1_Reciprocal_output_0_85:out0",
+            "@b1_Clip_output_0_55:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Mul_1_output_0_65": {
+          "name": "b1_Mul_1_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 2,
+            "bias": false
+          },
+          "inputs": [
+            "@b1_Mul_output_0_73:out0",
+            "@b1_Mul_output_0_73:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Mul_2_output_0_72": {
+          "name": "b1_Mul_2_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 2,
+            "bias": false
+          },
+          "inputs": [
+            "@b1_Mul_2_output_0_72_acuity_mark_perm_109:out0",
+            "@b1_Mul_2_output_0_72_acuity_mark_perm_109:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Mul_2_output_0_72_acuity_mark_perm_109": {
+          "name": "b1_Mul_2_output_0_72_acuity_mark_perm",
+          "op": "permute",
+          "parameters": {
+            "perm": [
+              0,
+              2,
+              1
+            ]
+          },
+          "inputs": [
+            "@b1_Div_output_0_47:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Mul_3_output_0_38": {
+          "name": "b1_Mul_3_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 1,
+            "bias": false
+          },
+          "inputs": [
+            "@b1_Div_output_0_47:out0",
+            "@b1_Mul_3_output_0_38_acuity_mark_perm_108:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Mul_3_output_0_38_acuity_mark_perm_108": {
+          "name": "b1_Mul_3_output_0_38_acuity_mark_perm",
+          "op": "permute",
+          "parameters": {
+            "perm": [
+              0,
+              2,
+              1
+            ]
+          },
+          "inputs": [
+            "@b1_Div_1_output_0_40:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Mul_4_output_0_28": {
+          "name": "b1_Mul_4_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 1,
+            "bias": false
+          },
+          "inputs": [
+            "@b1_Mul_3_output_0_38:out0",
+            "@b1_norm1_39:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Mul_output_0_73": {
+          "name": "b1_Mul_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 2,
+            "bias": false
+          },
+          "inputs": [
+            "@b1_Divide_86:out0",
+            "@b1_Constant_1_output_0_74:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Reciprocal_output_0_85": {
+          "name": "b1_Reciprocal_output_0",
+          "op": "variable",
+          "parameters": {
+            "shape": [
+              1,
+              1,
+              1
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "inputs": [],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_ReduceMax_output_0_63": {
+          "name": "b1_ReduceMax_output_0",
+          "op": "reducemax",
+          "parameters": {
+            "axis_list": [
+              1
+            ],
+            "keep_dims": true
+          },
+          "inputs": [
+            "@b1_Abs_output_0_71:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_ReduceMean_output_0_64": {
+          "name": "b1_ReduceMean_output_0",
+          "op": "reducemean",
+          "parameters": {
+            "axis_list": [
+              1
+            ],
+            "keep_dims": true
+          },
+          "inputs": [
+            "@b1_Mul_2_output_0_72:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Sqrt_output_0_49": {
+          "name": "b1_Sqrt_output_0",
+          "op": "sqrt",
+          "inputs": [
+            "@b1_Add_output_0_56:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_norm1_39": {
+          "name": "b1_norm1",
+          "op": "variable",
+          "parameters": {
+            "shape": [
+              1,
+              1,
+              896
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "inputs": [],
+          "outputs": [
+            "out0"
+          ]
+        }
+      },
+      "removed_quant": {
+        "@b1_Mul_4_output_0_28:out0": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 9.315457344055176,
+          "min_value": -10.287026405334473,
+          "fl": 10
+        },
+        "@b1_Mul_3_output_0_38:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_norm1_39:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Div_1_output_0_40:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Div_output_0_47:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Add_output_0_56:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Mul_1_output_0_65:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Mul_2_output_0_72:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Mul_output_0_73:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Constant_1_output_0_74:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Divide_86:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Mul_3_output_0_38_acuity_mark_perm_108:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Mul_2_output_0_72_acuity_mark_perm_109:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_norm1_39:data": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 3.265625,
+          "min_value": -0.0712890625,
+          "fl": 13
+        },
+        "@b1_Constant_1_output_0_74:data": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.0010000000474974513,
+          "min_value": 0.0010000000474974513,
+          "fl": 24
+        },
+        "@b1_Constant_2_output_0_48:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Abs_output_0_71_acuity_mark_perm_114:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_ReduceMean_output_0_64:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Reciprocal_output_0_85:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Abs_output_0_71:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Sqrt_output_0_49:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Div_output_0_47_acuity_mark_perm_112:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_ReduceMax_output_0_63:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Clip_output_0_55:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      }
+    },
+    {
+      "block": 1,
+      "norm": 2,
+      "output": "b1_Mul_13_output_0_36",
+      "source": "@b1_Add_7_output_0_9:out0",
+      "epsilon": 1.0000000949949049e-06,
+      "original_gamma_node": "b1_norm2_46",
+      "gamma_raw_sha256": "71a14a46fcd1c5b2ea9231817b2c7edae5e6f28499072c16264c6bb2c8baf3af",
+      "removed_nodes": {
+        "b1_Abs_1_output_0_77": {
+          "name": "b1_Abs_1_output_0",
+          "op": "abs",
+          "inputs": [
+            "@b1_Abs_1_output_0_77_acuity_mark_perm_107:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Abs_1_output_0_77_acuity_mark_perm_107": {
+          "name": "b1_Abs_1_output_0_77_acuity_mark_perm",
+          "op": "permute",
+          "parameters": {
+            "perm": [
+              0,
+              2,
+              1
+            ]
+          },
+          "inputs": [
+            "@b1_Add_7_output_0_9:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Add_8_output_0_62": {
+          "name": "b1_Add_8_output_0",
+          "op": "add",
+          "inputs": [
+            "@b1_ReduceMean_1_output_0_69:out0",
+            "@b1_Mul_10_output_0_70:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Clip_1_output_0_60": {
+          "name": "b1_Clip_1_output_0",
+          "op": "clipbyvalue",
+          "parameters": {
+            "clip_value_min": 0.0010000000474974513,
+            "clip_value_max": Infinity
+          },
+          "inputs": [
+            "@b1_ReduceMax_1_output_0_68:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Constant_43_output_0_80": {
+          "name": "b1_Constant_43_output_0",
+          "op": "variable",
+          "parameters": {
+            "shape": [
+              1,
+              1,
+              1
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "inputs": [],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Constant_44_output_0_61": {
+          "name": "b1_Constant_44_output_0",
+          "op": "variable",
+          "parameters": {
+            "shape": [
+              1,
+              1,
+              1
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "inputs": [],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Div_3_output_0_52": {
+          "name": "b1_Div_3_output_0",
+          "op": "real_div",
+          "inputs": [
+            "@b1_Add_7_output_0_9:out0",
+            "@b1_Div_3_output_0_52_acuity_mark_perm_113:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Div_3_output_0_52_acuity_mark_perm_113": {
+          "name": "b1_Div_3_output_0_52_acuity_mark_perm",
+          "op": "permute",
+          "parameters": {
+            "perm": [
+              0,
+              2,
+              1
+            ]
+          },
+          "inputs": [
+            "@b1_Clip_1_output_0_60:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Div_4_output_0_53": {
+          "name": "b1_Div_4_output_0",
+          "op": "real_div",
+          "inputs": [
+            "@b1_Constant_44_output_0_61:out0",
+            "@b1_Sqrt_1_output_0_54:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Divide_82": {
+          "name": "b1_Divide",
+          "op": "divide",
+          "inputs": [
+            "@b1_Reciprocal_1_output_0_81:out0",
+            "@b1_Clip_1_output_0_60:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Mul_10_output_0_70": {
+          "name": "b1_Mul_10_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 2,
+            "bias": false
+          },
+          "inputs": [
+            "@b1_Mul_9_output_0_79:out0",
+            "@b1_Mul_9_output_0_79:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Mul_11_output_0_78": {
+          "name": "b1_Mul_11_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 2,
+            "bias": false
+          },
+          "inputs": [
+            "@b1_Mul_11_output_0_78_acuity_mark_perm_110:out0",
+            "@b1_Mul_11_output_0_78_acuity_mark_perm_110:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Mul_11_output_0_78_acuity_mark_perm_110": {
+          "name": "b1_Mul_11_output_0_78_acuity_mark_perm",
+          "op": "permute",
+          "parameters": {
+            "perm": [
+              0,
+              2,
+              1
+            ]
+          },
+          "inputs": [
+            "@b1_Div_3_output_0_52:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Mul_12_output_0_45": {
+          "name": "b1_Mul_12_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 1,
+            "bias": false
+          },
+          "inputs": [
+            "@b1_Div_3_output_0_52:out0",
+            "@b1_Mul_12_output_0_45_acuity_mark_perm_111:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Mul_12_output_0_45_acuity_mark_perm_111": {
+          "name": "b1_Mul_12_output_0_45_acuity_mark_perm",
+          "op": "permute",
+          "parameters": {
+            "perm": [
+              0,
+              2,
+              1
+            ]
+          },
+          "inputs": [
+            "@b1_Div_4_output_0_53:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Mul_13_output_0_36": {
+          "name": "b1_Mul_13_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 1,
+            "bias": false
+          },
+          "inputs": [
+            "@b1_Mul_12_output_0_45:out0",
+            "@b1_norm2_46:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Mul_9_output_0_79": {
+          "name": "b1_Mul_9_output_0",
+          "op": "multiply",
+          "parameters": {
+            "axis": 2,
+            "bias": false
+          },
+          "inputs": [
+            "@b1_Divide_82:out0",
+            "@b1_Constant_43_output_0_80:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Reciprocal_1_output_0_81": {
+          "name": "b1_Reciprocal_1_output_0",
+          "op": "variable",
+          "parameters": {
+            "shape": [
+              1,
+              1,
+              1
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "inputs": [],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_ReduceMax_1_output_0_68": {
+          "name": "b1_ReduceMax_1_output_0",
+          "op": "reducemax",
+          "parameters": {
+            "axis_list": [
+              1
+            ],
+            "keep_dims": true
+          },
+          "inputs": [
+            "@b1_Abs_1_output_0_77:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_ReduceMean_1_output_0_69": {
+          "name": "b1_ReduceMean_1_output_0",
+          "op": "reducemean",
+          "parameters": {
+            "axis_list": [
+              1
+            ],
+            "keep_dims": true
+          },
+          "inputs": [
+            "@b1_Mul_11_output_0_78:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_Sqrt_1_output_0_54": {
+          "name": "b1_Sqrt_1_output_0",
+          "op": "sqrt",
+          "inputs": [
+            "@b1_Add_8_output_0_62:out0"
+          ],
+          "outputs": [
+            "out0"
+          ]
+        },
+        "b1_norm2_46": {
+          "name": "b1_norm2",
+          "op": "variable",
+          "parameters": {
+            "shape": [
+              1,
+              1,
+              896
+            ],
+            "is_scalar": false,
+            "type": "float32"
+          },
+          "inputs": [],
+          "outputs": [
+            "out0"
+          ]
+        }
+      },
+      "removed_quant": {
+        "@b1_Mul_13_output_0_36:out0": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 8.815516471862793,
+          "min_value": -9.670693397521973,
+          "fl": 10
+        },
+        "@b1_Mul_12_output_0_45:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_norm2_46:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Div_3_output_0_52:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Div_4_output_0_53:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Add_8_output_0_62:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Mul_10_output_0_70:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Mul_11_output_0_78:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Mul_9_output_0_79:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Constant_43_output_0_80:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Divide_82:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Abs_1_output_0_77_acuity_mark_perm_107:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Mul_11_output_0_78_acuity_mark_perm_110:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Mul_12_output_0_45_acuity_mark_perm_111:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_norm2_46:data": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 1.6796875,
+          "min_value": 3.2901763916015625e-05,
+          "fl": 14
+        },
+        "@b1_Constant_43_output_0_80:data": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 0.0010000000474974513,
+          "min_value": 0.0010000000474974513,
+          "fl": 24
+        },
+        "@b1_Constant_44_output_0_61:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_ReduceMax_1_output_0_68:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Reciprocal_1_output_0_81:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_ReduceMean_1_output_0_69:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Sqrt_1_output_0_54:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Abs_1_output_0_77:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Div_3_output_0_52_acuity_mark_perm_113:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        },
+        "@b1_Clip_1_output_0_60:out0": {
+          "qtype": "float16",
+          "quantizer": "float16"
+        }
+      }
+    }
+  ],
+  "nodes_before": 230,
+  "nodes_after": 146,
+  "scope": "Replace stable max-scaled RMS decomposition with native RMSNormalize(axis=-1, eps~1e-6); same gamma, same output quantizer. Mathematical equivalence in real arithmetic only; FP16 reduction stability and SDK lowering unknown. No precision approval."
+}

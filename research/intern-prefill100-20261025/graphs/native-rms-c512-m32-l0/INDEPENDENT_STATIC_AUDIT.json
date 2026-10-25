@@ -1,0 +1,496 @@
+{
+  "static_file_audit_pass": true,
+  "scope": "WSL static and generated-file inspection only; no SDK/board/lock or model execution",
+  "candidate_nb_sha256": "4d03d1bc74a3eacbf498907f7159e5b7c8dd6be33b429d1e09697d7ae07ba423",
+  "candidate_nb_bytes": 24689976,
+  "producer_sha256": "d2a62a6d62abc801fd3820f1342daf004815009c26e4b4814094f65bc6c09f90",
+  "candidate_files_sha256": {
+    "decoder.json": "0f3a41ec9370d1ab4629aa1a76476ed384876a4fc3668213a0555b71661611e5",
+    "decoder.quantize": "91606fe6f0be91c3939be76fd1aacaa3ba31abaa501365f6a0ec7757cf6ea7d5",
+    "decoder.data": "7f2e11b06b1ecaa430cadc5b1cf154f238ec7333ec1581cd9948f953182cf687",
+    "tensor-inputmeta.yml": "7493cb6a6f0cc9b9cfc37d44e09a665bb9ea2ca7e24ea7b3e43627dfdab41520",
+    "transform.json": "b101737270242c658dd2a405156e1774534316deb8c52220afc4b6c772011ed6",
+    "status.json": "a5dd39a3c8fc9c7458c81afa5efcf4dc6e93fc7bbb0330572158ddcc77bd6184",
+    "export/vnn_decoder.c": "a474b51f8844aa54eb7d4341ec7fbf0a227c950ffab24bdb9d73ee7e3945b196",
+    "export/decoder.export.data": "34b83d0473625833f51ee5446bfbf94f7e950c82be7e8cd2b71194de4ad62a67",
+    "export_nbg_unify/nbg_meta.json": "3798e77c62d164cf7c18e025481a8ff3b72853eaf23eb48b8ed8efede9ebca9a",
+    "export_nbg_unify/network_binary.nb": "4d03d1bc74a3eacbf498907f7159e5b7c8dd6be33b429d1e09697d7ae07ba423"
+  },
+  "source_files_sha256": {
+    "decoder.json": "730f07c680b336b9e945a9956d226f1f04b6f1087386d93478062cb7c8a271cc",
+    "decoder.quantize": "9a0243d7caeb1fd3731acf04ad8452fbd07003260e7bb23bf6f7d57476608e34",
+    "decoder.data": "429a9a766e0a5f3ea05bb509b893716739cfff0bafaaf8e4f10a6c0da63c08fb",
+    "tensor-inputmeta.yml": "7493cb6a6f0cc9b9cfc37d44e09a665bb9ea2ca7e24ea7b3e43627dfdab41520",
+    "export/vnn_decoder.c": "c297d17747c11196498aff33ee1d4d2f525779950305ab9a4cc4e00c1c5eb0df",
+    "export/decoder.export.data": "839fa51843b33140e864d01423f9da81e14a996cbe3d666c57fa0e84040a55e2",
+    "export_nbg_unify/network_binary.nb": "d7adc37f977973a3ce3d40be0d2c1e8539ba187ce69f2fe12f6280d1b5b7d878"
+  },
+  "audit_script_sha256": "eed23bb54cedb70de0f3dcda0417f10eafca58533c29640079d7a15731488c8a",
+  "parser_source_sha256": "8c019fab6bd55d262c63e02a1d1e6dbec040282a1a97205fc8e7e38a42fec122",
+  "node_counts": {
+    "before": 230,
+    "after": 146,
+    "replaced_groups": 4,
+    "old_nodes_per_group": 22,
+    "new_nodes_per_group": 1
+  },
+  "normalizations": [
+    {
+      "node": "b0_Mul_4_output_0_28",
+      "removed_nodes": 22,
+      "no_deleted_internal_node_external_users": true,
+      "source_formula_double_sanity_maxabs": 4.440892098500626e-16,
+      "epsilon_source_target": 1.0000000949949049e-06,
+      "gamma_source_sha256": "9ec0babb394aa21a47a819887987b035ff59b98f88b8634e6a83ec64cf4c1eed",
+      "gamma_old_type": "VSI_NN_TYPE_INT16",
+      "gamma_old_fl": 15,
+      "gamma_new_type": "VSI_NN_TYPE_FLOAT32",
+      "gamma_new_qtype": "NONE",
+      "gamma_old_raw_sha256": "562670c8c85bce8100ad8b1e64fef9bb09e3390309bf81e103844440c816d0ae",
+      "gamma_new_raw_sha256": "9ec0babb394aa21a47a819887987b035ff59b98f88b8634e6a83ec64cf4c1eed",
+      "gamma_changed_values": [],
+      "source_math_only_not_sdk_result": true,
+      "output_quantizer": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 1.784477710723877,
+        "min_value": -2.4681644439697266,
+        "fl": 12
+      },
+      "generated_axis": 1,
+      "generated_input_shape": [
+        32,
+        896,
+        1
+      ],
+      "generated_scale_shape": [
+        1,
+        896,
+        1
+      ]
+    },
+    {
+      "node": "b0_Mul_13_output_0_36",
+      "removed_nodes": 22,
+      "no_deleted_internal_node_external_users": true,
+      "source_formula_double_sanity_maxabs": 1.7763568394002505e-15,
+      "epsilon_source_target": 1.0000000949949049e-06,
+      "gamma_source_sha256": "ca99c7a178ff8b825a2a7474b92f4b87a7cb64f9f43b52318de2030cd01582a3",
+      "gamma_old_type": "VSI_NN_TYPE_INT16",
+      "gamma_old_fl": 14,
+      "gamma_new_type": "VSI_NN_TYPE_FLOAT32",
+      "gamma_new_qtype": "NONE",
+      "gamma_old_raw_sha256": "2defafcbe67ad53484e5617f9e47ba4ff4aae563b54991ce772fb6bf4a9567e2",
+      "gamma_new_raw_sha256": "ca99c7a178ff8b825a2a7474b92f4b87a7cb64f9f43b52318de2030cd01582a3",
+      "gamma_changed_values": [],
+      "source_math_only_not_sdk_result": true,
+      "output_quantizer": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 11.500901222229004,
+        "min_value": -14.749719619750977,
+        "fl": 10
+      },
+      "generated_axis": 1,
+      "generated_input_shape": [
+        32,
+        896,
+        1
+      ],
+      "generated_scale_shape": [
+        1,
+        896,
+        1
+      ]
+    },
+    {
+      "node": "b1_Mul_4_output_0_28",
+      "removed_nodes": 22,
+      "no_deleted_internal_node_external_users": true,
+      "source_formula_double_sanity_maxabs": 1.3322676295501878e-15,
+      "epsilon_source_target": 1.0000000949949049e-06,
+      "gamma_source_sha256": "7ed5e8909d32f80831d73b882f457b13abc7c36b2b67ffb430c88388a1269638",
+      "gamma_old_type": "VSI_NN_TYPE_INT16",
+      "gamma_old_fl": 13,
+      "gamma_new_type": "VSI_NN_TYPE_FLOAT32",
+      "gamma_new_qtype": "NONE",
+      "gamma_old_raw_sha256": "ffa4cabd20533d260770c8cf43c7f1ebed438c8796e12bc0c8ba3cba8150602d",
+      "gamma_new_raw_sha256": "7ed5e8909d32f80831d73b882f457b13abc7c36b2b67ffb430c88388a1269638",
+      "gamma_changed_values": [],
+      "source_math_only_not_sdk_result": true,
+      "output_quantizer": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 9.315457344055176,
+        "min_value": -10.287026405334473,
+        "fl": 10
+      },
+      "generated_axis": 1,
+      "generated_input_shape": [
+        32,
+        896,
+        1
+      ],
+      "generated_scale_shape": [
+        1,
+        896,
+        1
+      ]
+    },
+    {
+      "node": "b1_Mul_13_output_0_36",
+      "removed_nodes": 22,
+      "no_deleted_internal_node_external_users": true,
+      "source_formula_double_sanity_maxabs": 1.3322676295501878e-15,
+      "epsilon_source_target": 1.0000000949949049e-06,
+      "gamma_source_sha256": "71a14a46fcd1c5b2ea9231817b2c7edae5e6f28499072c16264c6bb2c8baf3af",
+      "gamma_old_type": "VSI_NN_TYPE_INT16",
+      "gamma_old_fl": 14,
+      "gamma_new_type": "VSI_NN_TYPE_FLOAT32",
+      "gamma_new_qtype": "NONE",
+      "gamma_old_raw_sha256": "8fc35d5284db880c4d3f042b447e9330790406ebfa331da589e6afa979838f0b",
+      "gamma_new_raw_sha256": "71a14a46fcd1c5b2ea9231817b2c7edae5e6f28499072c16264c6bb2c8baf3af",
+      "gamma_changed_values": [
+        {
+          "index": 490,
+          "old_exported_value": 6.103515625e-05,
+          "new_exported_value": 3.2901763916015625e-05,
+          "delta": -2.8133392333984375e-05
+        }
+      ],
+      "source_math_only_not_sdk_result": true,
+      "output_quantizer": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 8.815516471862793,
+        "min_value": -9.670693397521973,
+        "fl": 10
+      },
+      "generated_axis": 1,
+      "generated_input_shape": [
+        32,
+        896,
+        1
+      ],
+      "generated_scale_shape": [
+        1,
+        896,
+        1
+      ]
+    }
+  ],
+  "common_constant_aliases": [
+    {
+      "key": "@b0_Constant_40_output_0_67:from_var_data_to_b0_Div_2_output_0_59_in1",
+      "dtype": "VSI_NN_TYPE_FLOAT16",
+      "size": 2,
+      "raw_sha256": "4d2ae2d6e0000b72a5739078e0e83bc029b6232edabff84d012acd1d4803db51",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b0_fullconnect_116:bias",
+      "dtype": "VSI_NN_TYPE_INT64",
+      "size": 7168,
+      "raw_sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b0_fullconnect_116:weight",
+      "dtype": "VSI_NN_TYPE_INT8",
+      "size": 4358144,
+      "raw_sha256": "ce4b61afe999ee4ae08b11b2280b0e06065bfe3760025cb6bd616b51b45a9ace",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b0_fullconnect_119:bias",
+      "dtype": "VSI_NN_TYPE_INT64",
+      "size": 7168,
+      "raw_sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b0_fullconnect_119:weight",
+      "dtype": "VSI_NN_TYPE_INT8",
+      "size": 802816,
+      "raw_sha256": "9b6fa31a78d9bf72ebe8d92ffa24f117794c3ac0ea38979089ea5dd89dbaeea6",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b0_fullconnect_122:bias",
+      "dtype": "VSI_NN_TYPE_INT64",
+      "size": 1024,
+      "raw_sha256": "c364a630fd1ac2d58a6e38cdd50dac93acae3d385a6c06bf84872e66f46acdab",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b0_fullconnect_122:weight",
+      "dtype": "VSI_NN_TYPE_INT8",
+      "size": 114688,
+      "raw_sha256": "f5d19254a991d0a976bfe14d44ac292fafd7d7e5f925d11877f1e55a977acfd7",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b0_fullconnect_125:bias",
+      "dtype": "VSI_NN_TYPE_INT64",
+      "size": 38912,
+      "raw_sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b0_fullconnect_125:weight",
+      "dtype": "VSI_NN_TYPE_INT8",
+      "size": 4358144,
+      "raw_sha256": "cd66f3b72022d915f2577c1f479d70df13f93531ca0328e08c69370ad43b1e31",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b0_fullconnect_128:bias",
+      "dtype": "VSI_NN_TYPE_INT64",
+      "size": 1024,
+      "raw_sha256": "de7b1b56f30c1a6668fdba99dd38e550999a6c465182e674689394e5d4c8de47",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b0_fullconnect_128:weight",
+      "dtype": "VSI_NN_TYPE_INT8",
+      "size": 114688,
+      "raw_sha256": "4b75de9a479259c7656144be221c11123d8ced2c9f6e9ca30628c8cbfaed3291",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b0_fullconnect_131:bias",
+      "dtype": "VSI_NN_TYPE_INT64",
+      "size": 38912,
+      "raw_sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b0_fullconnect_131:weight",
+      "dtype": "VSI_NN_TYPE_INT8",
+      "size": 4358144,
+      "raw_sha256": "d44b313ccfb1c51496f99677301d65ddbfa5db4bb901b765d766a1cbc200b693",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b0_fullconnect_134:bias",
+      "dtype": "VSI_NN_TYPE_INT64",
+      "size": 7168,
+      "raw_sha256": "79223aff11d941c8273af20a942e3542434d4b0f004c747b1e734c82130ce95b",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b0_fullconnect_134:weight",
+      "dtype": "VSI_NN_TYPE_INT8",
+      "size": 802816,
+      "raw_sha256": "cf2d4ba29ace9e49e3acc58e99e13a831b978a373bd2d984865491f84a1cedb6",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b1_Constant_40_output_0_67:from_var_data_to_b1_Div_2_output_0_59_in1",
+      "dtype": "VSI_NN_TYPE_FLOAT16",
+      "size": 2,
+      "raw_sha256": "4d2ae2d6e0000b72a5739078e0e83bc029b6232edabff84d012acd1d4803db51",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b1_fullconnect_116:bias",
+      "dtype": "VSI_NN_TYPE_INT64",
+      "size": 7168,
+      "raw_sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b1_fullconnect_116:weight",
+      "dtype": "VSI_NN_TYPE_INT8",
+      "size": 4358144,
+      "raw_sha256": "6f7a2f5c2b762a9870ca678c7b883e3bfd4d21a848cf9ecb7277d9faf95a1a10",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b1_fullconnect_119:bias",
+      "dtype": "VSI_NN_TYPE_INT64",
+      "size": 7168,
+      "raw_sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b1_fullconnect_119:weight",
+      "dtype": "VSI_NN_TYPE_INT8",
+      "size": 802816,
+      "raw_sha256": "8737a45a9aebaf15e11ee37d4303e14beab1fedefeb96140aad89085101c40c6",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b1_fullconnect_122:bias",
+      "dtype": "VSI_NN_TYPE_INT64",
+      "size": 1024,
+      "raw_sha256": "fb082a3851faa0782e712c9fe26e9a29e383aea144aaecd66fe04919f8655aa3",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b1_fullconnect_122:weight",
+      "dtype": "VSI_NN_TYPE_INT8",
+      "size": 114688,
+      "raw_sha256": "0201e3658b19e1738bda843138416e8e0a1f51e9e88c46c493eba5f96634aef7",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b1_fullconnect_125:bias",
+      "dtype": "VSI_NN_TYPE_INT64",
+      "size": 38912,
+      "raw_sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b1_fullconnect_125:weight",
+      "dtype": "VSI_NN_TYPE_INT8",
+      "size": 4358144,
+      "raw_sha256": "de08f9021e35139aba4874a3ccfe509e47277afc3b1b4d8971fce3dfb370f065",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b1_fullconnect_128:bias",
+      "dtype": "VSI_NN_TYPE_INT64",
+      "size": 1024,
+      "raw_sha256": "d702805f00062c391ef040422863257933b156cd7f30a6377d44d0cee9156b2f",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b1_fullconnect_128:weight",
+      "dtype": "VSI_NN_TYPE_INT8",
+      "size": 114688,
+      "raw_sha256": "7315304834305c05cbd6e6e7c9ed39638380f6d48cc9f030bf857cffc9072554",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b1_fullconnect_131:bias",
+      "dtype": "VSI_NN_TYPE_INT64",
+      "size": 38912,
+      "raw_sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b1_fullconnect_131:weight",
+      "dtype": "VSI_NN_TYPE_INT8",
+      "size": 4358144,
+      "raw_sha256": "acb67a86d1bc0139703d4d6126498b1d1b5b461a8e5f8853a70eceddee739501",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b1_fullconnect_134:bias",
+      "dtype": "VSI_NN_TYPE_INT64",
+      "size": 7168,
+      "raw_sha256": "7615fd360bd507bb32bd297e01f091653840917798748f8cd8b53fd26b0e91d6",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    },
+    {
+      "key": "@b1_fullconnect_134:weight",
+      "dtype": "VSI_NN_TYPE_INT8",
+      "size": 802816,
+      "raw_sha256": "ec24a8119fd37f2156df4861aeab5f79ed13b14100b7ca1b8fe4bebd55f76a00",
+      "dtype_grid_shape_and_bytes_unchanged": true
+    }
+  ],
+  "removed_scalar_aliases": [
+    {
+      "key": "@b0_Constant_1_output_0_74:from_var_data_to_b0_Mul_output_0_73_in1",
+      "old_type": "VSI_NN_TYPE_INT16",
+      "code": 16777,
+      "fl": 24,
+      "dequantized": 0.0009999871253967285,
+      "fp16_cast": 0.0010004043579101562,
+      "dequantized_square": 9.999742509592124e-07,
+      "fp16_cast_square": 1.000808879325632e-06
+    },
+    {
+      "key": "@b0_Constant_2_output_0_48:from_var_data_to_b0_Div_1_output_0_40_in0",
+      "old_type": "VSI_NN_TYPE_FLOAT16",
+      "value": 1.0
+    },
+    {
+      "key": "@b0_Constant_43_output_0_80:from_var_data_to_b0_Mul_9_output_0_79_in1",
+      "old_type": "VSI_NN_TYPE_INT16",
+      "code": 16777,
+      "fl": 24,
+      "dequantized": 0.0009999871253967285,
+      "fp16_cast": 0.0010004043579101562,
+      "dequantized_square": 9.999742509592124e-07,
+      "fp16_cast_square": 1.000808879325632e-06
+    },
+    {
+      "key": "@b0_Constant_44_output_0_61:from_var_data_to_b0_Div_4_output_0_53_in0",
+      "old_type": "VSI_NN_TYPE_FLOAT16",
+      "value": 1.0
+    },
+    {
+      "key": "@b0_Reciprocal_1_output_0_81:from_var_data_to_b0_Divide_82_in0",
+      "old_type": "VSI_NN_TYPE_FLOAT16",
+      "value": 1.0
+    },
+    {
+      "key": "@b0_Reciprocal_output_0_85:from_var_data_to_b0_Divide_86_in0",
+      "old_type": "VSI_NN_TYPE_FLOAT16",
+      "value": 1.0
+    },
+    {
+      "key": "@b1_Constant_1_output_0_74:from_var_data_to_b1_Mul_output_0_73_in1",
+      "old_type": "VSI_NN_TYPE_INT16",
+      "code": 16777,
+      "fl": 24,
+      "dequantized": 0.0009999871253967285,
+      "fp16_cast": 0.0010004043579101562,
+      "dequantized_square": 9.999742509592124e-07,
+      "fp16_cast_square": 1.000808879325632e-06
+    },
+    {
+      "key": "@b1_Constant_2_output_0_48:from_var_data_to_b1_Div_1_output_0_40_in0",
+      "old_type": "VSI_NN_TYPE_FLOAT16",
+      "value": 1.0
+    },
+    {
+      "key": "@b1_Constant_43_output_0_80:from_var_data_to_b1_Mul_9_output_0_79_in1",
+      "old_type": "VSI_NN_TYPE_INT16",
+      "code": 16777,
+      "fl": 24,
+      "dequantized": 0.0009999871253967285,
+      "fp16_cast": 0.0010004043579101562,
+      "dequantized_square": 9.999742509592124e-07,
+      "fp16_cast_square": 1.000808879325632e-06
+    },
+    {
+      "key": "@b1_Constant_44_output_0_61:from_var_data_to_b1_Div_4_output_0_53_in0",
+      "old_type": "VSI_NN_TYPE_FLOAT16",
+      "value": 1.0
+    },
+    {
+      "key": "@b1_Reciprocal_1_output_0_81:from_var_data_to_b1_Divide_82_in0",
+      "old_type": "VSI_NN_TYPE_FLOAT16",
+      "value": 1.0
+    },
+    {
+      "key": "@b1_Reciprocal_output_0_85:from_var_data_to_b1_Divide_86_in0",
+      "old_type": "VSI_NN_TYPE_FLOAT16",
+      "value": 1.0
+    }
+  ],
+  "generated_ports_16_exact": true,
+  "generated_nbg_meta_exact": true,
+  "actual_sdk_port_query_by_auditor": false,
+  "entire_export_payload_equal": false,
+  "formula": "gamma*(x/m)/sqrt(mean((x/m)^2)+(epsilon_root/m)^2) = gamma*x/sqrt(mean(x^2)+epsilon_root^2), m=max(maxabs(x),epsilon_root)>0, real arithmetic only",
+  "limitations": [
+    "Source-level gamma arrays are identical; actual exported scale storage changes I16 DFP to FLOAT32 and 1 of 3584 values changes by 2.8133392333984375e-5.",
+    "Native scale C is FLOAT32 despite YAML scale float16; generated C and payload are the authoritative storage evidence.",
+    "New epsilon C literal is square of source float32 root; old root is stored as I16 fl24 code16777, with FP16 arithmetic downstream. This is not identical finite-precision epsilon execution.",
+    "Removal of max-scaled stable decomposition changes rounding/overflow behavior. SDK reduction/accumulation/engine and behavior on actual system-pos0 outliers are unmeasured.",
+    "Fourteen FC weight matrices and fourteen bias aliases preserve bytes/grid/shape; whole export payload and quantize file are not identical.",
+    "Compile success/generated RMSNORM nodes prove exportability only, not native hardware engine, acceleration, accuracy or complete 100ms target.",
+    "Generated16port attributes/metadata are verified, not independently queried actual SDK tensor attributes.",
+    "Small double arithmetic checks validate source algebra only, not FP16/NPU equivalence."
+  ],
+  "qualification_pass": false
+}

@@ -117,6 +117,20 @@ for c in fixtures['quality']:
  rows={n:next(e for e in quality if e['variant']==n and e['case']==c['id']) for n in NAMES}
  qrows.append({'id':c['id'],'quality_set':c['quality_set'],'input':c['body'],'gold':c['gold'],'replies':{n:e['reply'] for n,e in rows.items()},'tokens':{n:e['metrics']['tokens'] for n,e in rows.items()},'exact_baseline':{n:rows[n]['metrics']['tokens']==rows[NAMES[0]]['metrics']['tokens'] for n in NAMES},'rag_top3':{n:e['top3'] for n,e in rows.items()},'manual_quality_status':'pending; parity not accuracy'})
 ivs=H.intervals(resources);res=H.resource_bucket(resources,ivs)
+
+# Include request-boundary temperatures in addition to periodic telemetry.
+boundary_temperatures=[]
+for e in events:
+ for section in ['metrics','prefix_prepare_metrics']:
+  for k,v in e.get(section,{}).items():
+   if k.startswith('temperature_') and k.endswith('_mC') and isinstance(v,(int,float)):
+    boundary_temperatures.append({'temperature_C':v/1000,'event':e['event'],'variant':e.get('variant'),'case':e.get('case'),'section':section,'field':k})
+assert boundary_temperatures
+peak_boundary=max(boundary_temperatures,key=lambda x:x['temperature_C'])
+res['temperature_sampled_peak_C']=res['temperature_C']['max']
+res['temperature_boundary_peak']=peak_boundary
+res['temperature_observed_peak_C']=max(res['temperature_sampled_peak_C'],peak_boundary['temperature_C'])
+
 report={'scope':cfg['scope'],'counts':dict(counts),'cells':cells,'natural_quality':qrows,'diagnostics':diagcomparisons,'prefix_logit_comparisons':prefix_results,'cache_boundary_probes':probes,'resources':res,'audio_final':meta['audio'],'four_driver_releases_zero':True,'archive_verified':{'sha256':ctl['archive_sha256'],'files':len(archive_files)},'quality_exact_baseline':{n:sum(q['exact_baseline'][n] for q in qrows) for n in NAMES},'whole_objective_verified':False,'coverage_limit':'3 frozen cost prompts per cell, 48 reused regression cases per variant. Not long stability; prefix-logit byte equality is not all-KV byte proof.'}
 report['resources_by_variant']={n:H.resource_bucket([x for x in resources if x['variant']==n],[x for x in ivs if x['variant']==n and x['same_bucket']]) for n in NAMES}
 report['performance_baseline_repeat_token_exact']=sum(next(z for z in measure if z['variant']==NAMES[-1] and z['case']==a['case'])['metrics']['tokens']==a['metrics']['tokens'] for a in measure if a['variant']==NAMES[0])
@@ -135,7 +149,7 @@ for c in cells:
  text+=f"|{c['static_tokens']}|{c['dynamic_body_tokens']}|{c['new_tokens']}|{1000*f(a,'ttft_seconds'):.1f}|{1000*f(b,'ttft_seconds'):.1f}|{1000*f(p,'ttft_seconds'):.1f}|{1000*f(z,'ttft_seconds'):.1f}|{1000*f(p,'dynamic_prefill_seconds'):.1f}|{f(p,'decode_tokens_s'):.2f}|\n"
 text+='\n自然token完全一致数（各48例，非正确率）：'+json.dumps(report['quality_exact_baseline'],ensure_ascii=False)+'。\n'
 text+='\nSystem-only logits检查：'+json.dumps(prefix_results,ensure_ascii=False)+'。不能据此证明所有KV逐字节一致。\n'
-text+=f"\n最高温度{res['temperature_C']['max']:.3f}°C；全8核CPU加权占用{res['cpu_weighted_mean_percent_whole_8cores']:.2f}%；进程PSS峰{res['process_PSS_sum_MiB']['max']:.1f}MiB；MemAvailable最低{res['MemAvailable_MiB']['min']:.1f}MiB。含加载/诊断；不是纯热循环或全系统内存。四次driver释放0。\n"
+text+=f"\n最高观测温度{res['temperature_observed_peak_C']:.3f}°C（资源采样峰{res['temperature_sampled_peak_C']:.3f}°C）；全8核CPU加权占用{res['cpu_weighted_mean_percent_whole_8cores']:.2f}%；进程PSS峰{res['process_PSS_sum_MiB']['max']:.1f}MiB；MemAvailable最低{res['MemAvailable_MiB']['min']:.1f}MiB。含加载/诊断；不是纯热循环或全系统内存。四次driver释放0。\n"
 text+='\n全部性能格≤100ms：'+json.dumps(report['measured_grid_all_below100ms'],ensure_ascii=False)+'。完整目标仍未验证。\n'
 text+='\n音频结束统计：'+json.dumps(meta['audio'],ensure_ascii=False)+'。overrun与lag单列，不能假定全程实时。\n'
 text+=f"\nSwap占用范围{res['swap_used_MiB']['min']:.1f}–{res['swap_used_MiB']['max']:.1f}MiB；监测区间swap-in{res['swapin_pages_delta_included_intervals']}页、swap-out{res['swapout_pages_delta_included_intervals']}页。观测时长{res['observed_span_s']/60:.2f}分钟，含加载、切换与诊断；不归因于单一候选。\n"

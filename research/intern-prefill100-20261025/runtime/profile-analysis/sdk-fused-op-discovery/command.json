@@ -1,0 +1,22 @@
+{
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--cpus",
+    "1",
+    "--memory",
+    "4g",
+    "-e",
+    "TF_CPP_MIN_LOG_LEVEL=3",
+    "sha256:b2447e88c70d334cbadf91d1cfef2874d6a4360f0e2b075606df32547ec8cbe3",
+    "python3",
+    "-c",
+    "import importlib,inspect,json\nfor name in ['rms_norm','attention','additive_attention']:\n try:\n  m=importlib.import_module('acuitylib.layer.'+name)\n  print('MODULE',name,'DOC',m.__doc__)\n  for k,v in vars(m).items():\n   if isinstance(v,type) and v.__module__==m.__name__:\n    print('CLASS',k,'DOC',v.__doc__)\n    for a,b in vars(v).items():\n     if not a.startswith('__'):\n      try:sig=str(inspect.signature(b))\n      except Exception:sig=''\n      print(a,sig,str(getattr(b,'__doc__',''))[:2000])\n except Exception as e:print('ERROR',type(e).__name__,str(e))\n"
+  ],
+  "returncode": 0,
+  "time": 1792969876.072928,
+  "scope": "read-only SDK Python API introspection, no compile or board execution"
+}

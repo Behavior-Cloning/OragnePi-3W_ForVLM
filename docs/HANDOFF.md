@@ -1,3 +1,11 @@
+## 2026-10-25 当前：长语义质量核验运行中，短窗口最快结果保留
+
+- 用户指明旧表0.87～0.89秒。重新审计raw确认：C256 combined-tail8，system总64/128（正文59/123+模板5），动态正文64+模板8，new72，TTFT P50 .869842/.8904535s，6次各格，输出32固定反馈。S128/D64最大.915570，不能说每次<.9s。
+- 最新C1280单项L2 Conv在相同两格1.229562/1.271436s，不是短窗口最高性能新版。输入没有增加，改变的是图容量/尾批路径；21%只相对同C1280原图。原最快配置继续保留，后续必须同时列容量、token与缓存，禁止将隔离候选称“最新最快”。ORIGINAL_COMPARISON.md已纠正解释。
+- fullconv-quality/controller_quality.py fullconv-long-quality-r1 --execute --timeout1200，WSL PID11625，已上传且running。只读其controller JSON/log；root唯一板端控制，双锁，禁止重复启动或修改冻结source。24长自然×A/B=48+2成本自然+2份4步logits；依赖上一轮fullconv board overlay及候选NB，不得删除。
+- DFP-I16激活+DFP-I8权重直接Conv被拒；等网格affine候选也在DATACONVERT node16失败，无可部署NB。AFFINE_QUANTIZATION_AUDIT.md/JSON给出静态网格/权重证明，但不等于端侧数值/速度通过。第三路线仍在只读可行性研究。
+- 当前Git本地已提交290a512，GitHub此前verified fd47d11；本次口径修正后继续同步。当前100ms目标未达，quality尚未回收，不提前宣称可替换默认。
+
 ## 2026-10-25 Fullconv A-B-A已结束，下一步长语义/首token翻转诊断
 
 - `fullconv-c1280-aba-r1` PID7665已退出、rc0，72perf/36自然/24diagnostic完整回收并重算f32SHA，3次driver0。`fullconv/results/fullconv-c1280-aba-r1/ANALYSIS.md`与analysis-fullconv.json已生成。

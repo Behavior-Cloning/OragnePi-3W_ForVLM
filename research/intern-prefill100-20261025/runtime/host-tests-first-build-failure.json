@@ -1,0 +1,24 @@
+[
+  {
+    "kind": "build",
+    "test": "test_schedule",
+    "cmd": [
+      "gcc",
+      "-O1",
+      "-g",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+      "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/test_schedule.c",
+      "-lm",
+      "-o",
+      "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/test-schedule-host"
+    ],
+    "rc": 1,
+    "stdout": "",
+    "stderr": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/test_schedule.c: In function \u2018main\u2019:\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/test_schedule.c:14:4: error: this \u2018for\u2019 clause does not guard... [-Werror=misleading-indentation]\n   14 |    for(int j=0;j<x.valid;j++)coverage[pos+j]++;newrows+=x.valid;pos+=x.valid;choices++;\n      |    ^~~\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/test_schedule.c:14:48: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the \u2018for\u2019\n   14 |    for(int j=0;j<x.valid;j++)coverage[pos+j]++;newrows+=x.valid;pos+=x.valid;choices++;\n      |                                                ^~~~~~~\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/test_schedule.c:17:3: error: this \u2018for\u2019 clause does not guard... [-Werror=misleading-indentation]\n   17 |   for(int j=0;j<512;j++)assert(coverage[j]==(j>=prefix&&j<prompt));requests++;\n      |   ^~~\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/test_schedule.c:17:68: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the \u2018for\u2019\n   17 |   for(int j=0;j<512;j++)assert(coverage[j]==(j>=prefix&&j<prompt));requests++;\n      |                                                                    ^~~~~~~~\ncc1: all warnings being treated as errors\n"
+  }
+]

@@ -1,0 +1,6291 @@
+{
+  "scope": "single-block numerical/runtime fixtures; not full-model prefill or TTFT; history is independent source-Q8 FP32, not captured NPU KV",
+  "canonical_source": "one original M256 fixture per first_layer; all smaller M slice exact bytes from it",
+  "history": 128,
+  "capacity": 512,
+  "first_layers": [
+    0,
+    2
+  ],
+  "source_model_sha256": "e87f98e2945c91da1a324034143f2f3bad014dcf6b34d440fcf885c00704378f",
+  "generator_sha256": "88aa80d9882dc24f5978a6289bb78255ca55f7214eac334d1c76572dfc7d8616",
+  "helper_source_sha256": {
+    "trained_probe.py": "1287738eecec867654af1dcfd79c0190958cd402a9e4fdf70b1e16edb028e059",
+    "exported_int8.py": "c952258720b781ece75f0ef8e966bfec93853fb9d37454fe23f7ec087e9b9625",
+    "graph_reference.py": "236de9a03d43b74a227c5a3e434f00aa936abcd405dfd1809993c8dc623d6639"
+  },
+  "cases": [
+    {
+      "id": "c512-m256-l0",
+      "first_layer": 0,
+      "fusion_width": 2,
+      "history": 128,
+      "capacity": 512,
+      "query_tokens": 256,
+      "token_ids": [
+        151644,
+        8948,
+        198,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        1773,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        151645,
+        198,
+        151644,
+        872,
+        198,
+        20002,
+        99900,
+        112696,
+        3837,
+        101895,
+        111130,
+        3837,
+        99880,
+        104354,
+        101760,
+        104493,
+        24968,
+        100299,
+        99319,
+        101054,
+        101035,
+        3837,
+        114752,
+        100662,
+        99541,
+        81433,
+        1773,
+        20002,
+        104241,
+        102631,
+        3837,
+        100148,
+        115458,
+        1773,
+        105189,
+        28072,
+        38182,
+        99258,
+        104354,
+        106963,
+        3837,
+        77288,
+        104221,
+        50350,
+        34187,
+        101148,
+        101882,
+        1773,
+        99601,
+        104689,
+        105956,
+        101941,
+        3837,
+        99744,
+        85106,
+        104387,
+        111804,
+        3837,
+        91680,
+        99880,
+        101051,
+        46944,
+        106305,
+        9370,
+        101760,
+        104493,
+        1773,
+        104044,
+        115067,
+        20002,
+        102070,
+        113591,
+        3837,
+        99437,
+        99495,
+        106560,
+        104307,
+        33108,
+        104122,
+        104813,
+        103956,
+        1773,
+        100299,
+        101653,
+        18830,
+        90286,
+        21894,
+        33108,
+        52510,
+        100749,
+        3837,
+        105253,
+        104689,
+        102108,
+        99885,
+        109840,
+        3837,
+        99744,
+        85106,
+        101148,
+        81812,
+        1773,
+        104470,
+        9370,
+        101148,
+        101882,
+        99461,
+        50350,
+        3837,
+        105463,
+        80443,
+        102005,
+        102850,
+        101882,
+        3837,
+        104354,
+        106513,
+        104493,
+        67949,
+        109504,
+        1773,
+        20002,
+        102631,
+        102274,
+        49111,
+        99982,
+        3837,
+        80443,
+        101882,
+        105956,
+        102274,
+        57191,
+        40090,
+        110135,
+        101044,
+        1773,
+        104354,
+        104224,
+        108839,
+        3837,
+        107200,
+        33108,
+        99493,
+        102768,
+        73670,
+        99600,
+        3837,
+        114752,
+        116957,
+        99541,
+        81433,
+        1773,
+        100346,
+        101254,
+        106494,
+        101069,
+        3837,
+        104024,
+        104747,
+        105389,
+        100692,
+        9370,
+        50350,
+        101882,
+        57218,
+        111804,
+        101054,
+        104108,
+        1773,
+        20002,
+        80443,
+        104351,
+        92894,
+        88086,
+        109504,
+        3837,
+        67949,
+        85106,
+        109318,
+        104187,
+        57218,
+        31235,
+        55286,
+        9370,
+        34859,
+        101266,
+        1773,
+        102196,
+        50511,
+        99578,
+        99982,
+        3837,
+        91680,
+        60548,
+        99796,
+        3837,
+        16530,
+        104005,
+        105444,
+        3837,
+        16530,
+        99674,
+        18158,
+        90286,
+        21894,
+        5373,
+        52510,
+        100749,
+        105994,
+        104613,
+        1773,
+        104044,
+        115067,
+        20002,
+        102070,
+        113591,
+        3837,
+        99437,
+        99495,
+        106560,
+        104307,
+        33108,
+        104122,
+        104813,
+        103956,
+        1773,
+        100299,
+        101653,
+        18830,
+        90286,
+        21894,
+        33108,
+        52510,
+        100749,
+        3837,
+        105253,
+        104689,
+        102108,
+        99885,
+        109840,
+        3837,
+        99744,
+        85106,
+        101148,
+        81812,
+        1773,
+        20002,
+        102631,
+        102274,
+        49111,
+        99982,
+        3837,
+        80443,
+        101882,
+        105956,
+        102274,
+        57191,
+        40090
+      ],
+      "canonical_source": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures/c512-m256-l0",
+      "canonical_source_input_sha256": "e3e1224831b8b33be92e3d3c2ee26c7d30e9ea3b9eb5ff8fe1583de18718a932",
+      "canonical_source_tokens_sha256": "c4247ad823feeb7083bb0e86c9b75019c543287cc721da0bf078cfe90080c1cc",
+      "history_source": "independent FP32 full-depth prefix; not captured NPU KV",
+      "nb_sha256": "e9b2d8af40f96341eda1e7ff07b867ccde9bbcf9a755746c86e6dafec2de11d5",
+      "input_sha256": "e3e1224831b8b33be92e3d3c2ee26c7d30e9ea3b9eb5ff8fe1583de18718a932",
+      "reference_sha256": "376697d408c95617b0a96859eaef5ce2717ff5dd5907391c0e2a21e439c4e817",
+      "source_fp32_sha256": "441e03877747b10856aaeb1d0b59fb799deafb2c898379471863ca647b75dbde",
+      "inputs": [
+        [
+          "b0_hidden",
+          229376
+        ],
+        [
+          "b0_past_k",
+          65536
+        ],
+        [
+          "b1_past_k",
+          65536
+        ],
+        [
+          "b0_past_v",
+          65536
+        ],
+        [
+          "b1_past_v",
+          65536
+        ],
+        [
+          "b0_mask",
+          1376256
+        ],
+        [
+          "b1_mask",
+          1376256
+        ],
+        [
+          "b0_rope_cos",
+          16384
+        ],
+        [
+          "b1_rope_cos",
+          16384
+        ],
+        [
+          "b0_rope_sin",
+          16384
+        ],
+        [
+          "b1_rope_sin",
+          16384
+        ]
+      ],
+      "outputs": [
+        [
+          "b1_attach_hidden_out/out0",
+          229376
+        ],
+        [
+          "b0_attach_new_k/out0",
+          32768
+        ],
+        [
+          "b1_attach_new_k/out0",
+          32768
+        ],
+        [
+          "b0_attach_new_v/out0",
+          32768
+        ],
+        [
+          "b1_attach_new_v/out0",
+          32768
+        ]
+      ],
+      "input_contract": [
+        {
+          "name": "b0_hidden",
+          "shape": [
+            1,
+            256,
+            896
+          ],
+          "f32_sha256": "d2793db14cfc20af324ec828839d37b8172572d20a35bfd6658d433df24a2af3",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "6370ec3bda41c9548e1f3ab7909068efdce1db8e17b096681a0f5c99e309664f",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "adc13779d6d2bac0591cd805b538494c9516f114c441349f0b1d2bf7b4a0a573",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "d72661e7e5d9b3f1b6aa247c4a5ce30cae04a40227b73d99ff9792e02eef7d39",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "f8ad41573903e7477a09dc7b87ac94d99e5df02dcb2d8c9602f58a60810ac109",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_mask",
+          "shape": [
+            1,
+            1,
+            1792,
+            768
+          ],
+          "f32_sha256": "3ba58a8fa99996587bc20cfa3f40feb457e30567e47f47a5c12173b09d33e2ca",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_mask",
+          "shape": [
+            1,
+            1,
+            1792,
+            768
+          ],
+          "f32_sha256": "3ba58a8fa99996587bc20cfa3f40feb457e30567e47f47a5c12173b09d33e2ca",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_cos",
+          "shape": [
+            1,
+            1,
+            256,
+            64
+          ],
+          "f32_sha256": "7306837cd97479193b3aa1ae36406e6dbc0e7025e4d73c57c5bca5d8aeff5732",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_cos",
+          "shape": [
+            1,
+            1,
+            256,
+            64
+          ],
+          "f32_sha256": "7306837cd97479193b3aa1ae36406e6dbc0e7025e4d73c57c5bca5d8aeff5732",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_sin",
+          "shape": [
+            1,
+            1,
+            256,
+            64
+          ],
+          "f32_sha256": "1ea08404d0003907297575eeae15c5789e364f7693c2e0e5d5e087bd175b439d",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_sin",
+          "shape": [
+            1,
+            1,
+            256,
+            64
+          ],
+          "f32_sha256": "1ea08404d0003907297575eeae15c5789e364f7693c2e0e5d5e087bd175b439d",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        }
+      ],
+      "fp32_graph_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        }
+      },
+      "exported_weight_fp32_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        }
+      },
+      "exported_weight_records": [
+        [
+          {
+            "matrix": "down",
+            "dtype": "INT8",
+            "relative_l2": 0.011373973451554775
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.011078744195401669
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.024967847391963005
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 6.61805756863032e-07
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.03155763819813728
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.008139695972204208
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.495085382747675e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.025974811986088753
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.010252241045236588
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 3.2686958917338416e-08
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          }
+        ],
+        [
+          {
+            "matrix": "down",
+            "dtype": "INT8",
+            "relative_l2": 0.0106409452855587
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.009018807671964169
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.025072429329156876
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 1.7434828691875737e-07
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.0337623655796051
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.008233929052948952
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.5580424889426467e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.025940043851733208
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.00847567431628704
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.1325878662992181e-07
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 9.049340405908879e-07
+          }
+        ]
+      ],
+      "timing_scope": "canonical fixture generation and references excluded from board measurements"
+    },
+    {
+      "id": "c512-m16-l0",
+      "first_layer": 0,
+      "fusion_width": 2,
+      "history": 128,
+      "capacity": 512,
+      "query_tokens": 16,
+      "token_ids": [
+        151644,
+        8948,
+        198,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        1773,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        151645,
+        198,
+        151644,
+        872,
+        198,
+        20002,
+        99900,
+        112696,
+        3837,
+        101895,
+        111130,
+        3837,
+        99880,
+        104354,
+        101760,
+        104493,
+        24968,
+        100299
+      ],
+      "canonical_source": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures/c512-m256-l0",
+      "canonical_source_input_sha256": "e3e1224831b8b33be92e3d3c2ee26c7d30e9ea3b9eb5ff8fe1583de18718a932",
+      "canonical_source_tokens_sha256": "c4247ad823feeb7083bb0e86c9b75019c543287cc721da0bf078cfe90080c1cc",
+      "history_source": "independent FP32 full-depth prefix; not captured NPU KV",
+      "nb_sha256": "fa6e0488af59a1b3d70d2ef83c1849410c63e5ff94f607a99f4b49f470880d8d",
+      "input_sha256": "e2987f7b682c2a85380e931ded0cbe9f1fea8d4843abaca31be14c7c984c04b9",
+      "reference_sha256": "4f12247eba2fefa1c3d6cff52cb36df8dc27cd303ed0fb21dc0c1a86360e433a",
+      "source_fp32_sha256": "45b24ff6d17423d06f6fb244c082268d08775da267d97860848b96bd5cac9d25",
+      "inputs": [
+        [
+          "b0_hidden",
+          14336
+        ],
+        [
+          "b0_past_k",
+          65536
+        ],
+        [
+          "b1_past_k",
+          65536
+        ],
+        [
+          "b0_past_v",
+          65536
+        ],
+        [
+          "b1_past_v",
+          65536
+        ],
+        [
+          "b0_mask",
+          59136
+        ],
+        [
+          "b1_mask",
+          59136
+        ],
+        [
+          "b0_rope_cos",
+          1024
+        ],
+        [
+          "b1_rope_cos",
+          1024
+        ],
+        [
+          "b0_rope_sin",
+          1024
+        ],
+        [
+          "b1_rope_sin",
+          1024
+        ]
+      ],
+      "outputs": [
+        [
+          "b1_attach_hidden_out/out0",
+          14336
+        ],
+        [
+          "b0_attach_new_k/out0",
+          2048
+        ],
+        [
+          "b1_attach_new_k/out0",
+          2048
+        ],
+        [
+          "b0_attach_new_v/out0",
+          2048
+        ],
+        [
+          "b1_attach_new_v/out0",
+          2048
+        ]
+      ],
+      "input_contract": [
+        {
+          "name": "b0_hidden",
+          "shape": [
+            1,
+            16,
+            896
+          ],
+          "f32_sha256": "cac808554b41ec4a462dbdbd9695cd1ab2e4d6ec2a784b8c338648f1273a6d72",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "6370ec3bda41c9548e1f3ab7909068efdce1db8e17b096681a0f5c99e309664f",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "adc13779d6d2bac0591cd805b538494c9516f114c441349f0b1d2bf7b4a0a573",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "d72661e7e5d9b3f1b6aa247c4a5ce30cae04a40227b73d99ff9792e02eef7d39",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "f8ad41573903e7477a09dc7b87ac94d99e5df02dcb2d8c9602f58a60810ac109",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_mask",
+          "shape": [
+            1,
+            1,
+            112,
+            528
+          ],
+          "f32_sha256": "67041a9967e08a75de6bb1bfb4e3bc03536e0e3041d13877890e6037f0c5c89e",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_mask",
+          "shape": [
+            1,
+            1,
+            112,
+            528
+          ],
+          "f32_sha256": "67041a9967e08a75de6bb1bfb4e3bc03536e0e3041d13877890e6037f0c5c89e",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_cos",
+          "shape": [
+            1,
+            1,
+            16,
+            64
+          ],
+          "f32_sha256": "1d6e8ddace4d71a0e47d100c029fd6d788cb3e9c1c4867d46aebf6508b22d2e2",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_cos",
+          "shape": [
+            1,
+            1,
+            16,
+            64
+          ],
+          "f32_sha256": "1d6e8ddace4d71a0e47d100c029fd6d788cb3e9c1c4867d46aebf6508b22d2e2",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_sin",
+          "shape": [
+            1,
+            1,
+            16,
+            64
+          ],
+          "f32_sha256": "a37c6d021b832ac62ba5667e7f8046aaf0826d5ba19ab944db7f7bfd4444a185",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_sin",
+          "shape": [
+            1,
+            1,
+            16,
+            64
+          ],
+          "f32_sha256": "a37c6d021b832ac62ba5667e7f8046aaf0826d5ba19ab944db7f7bfd4444a185",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        }
+      ],
+      "fp32_graph_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 8.160774314092123e-07,
+          "max_abs": 3.337860107421875e-06,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 1.0438074404817144e-08,
+          "max_abs": 7.62939453125e-06,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 2.386553887845366e-07,
+          "max_abs": 8.940696716308594e-08,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 3.242857715690661e-08,
+          "max_abs": 7.62939453125e-06,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 3.746012851024716e-07,
+          "max_abs": 5.066394805908203e-07,
+          "finite": true
+        }
+      },
+      "exported_weight_fp32_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 1.0224221114185639e-06,
+          "max_abs": 2.86102294921875e-06,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 5.821780391102038e-08,
+          "max_abs": 1.52587890625e-05,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 2.3188411546470888e-07,
+          "max_abs": 4.470348358154297e-08,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 1.0537957706446832e-07,
+          "max_abs": 1.52587890625e-05,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 8.178566304195556e-07,
+          "max_abs": 1.1920928955078125e-06,
+          "finite": true
+        }
+      },
+      "exported_weight_records": [
+        [
+          {
+            "matrix": "down",
+            "dtype": "INT8",
+            "relative_l2": 0.011373973451554775
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.011078744195401669
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.024967847391963005
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 6.61805756863032e-07
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.03155763819813728
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.008139695972204208
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.495085382747675e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.025974811986088753
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.010252241045236588
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 3.2686958917338416e-08
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          }
+        ],
+        [
+          {
+            "matrix": "down",
+            "dtype": "INT8",
+            "relative_l2": 0.0106409452855587
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.009018807671964169
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.025072429329156876
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 1.7434828691875737e-07
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.0337623655796051
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.008233929052948952
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.5580424889426467e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.025940043851733208
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.00847567431628704
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.1325878662992181e-07
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 9.049340405908879e-07
+          }
+        ]
+      ],
+      "timing_scope": "canonical fixture generation and references excluded from board measurements"
+    },
+    {
+      "id": "c512-m32-l0",
+      "first_layer": 0,
+      "fusion_width": 2,
+      "history": 128,
+      "capacity": 512,
+      "query_tokens": 32,
+      "token_ids": [
+        151644,
+        8948,
+        198,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        1773,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        151645,
+        198,
+        151644,
+        872,
+        198,
+        20002,
+        99900,
+        112696,
+        3837,
+        101895,
+        111130,
+        3837,
+        99880,
+        104354,
+        101760,
+        104493,
+        24968,
+        100299,
+        99319,
+        101054,
+        101035,
+        3837,
+        114752,
+        100662,
+        99541,
+        81433,
+        1773,
+        20002,
+        104241,
+        102631,
+        3837,
+        100148,
+        115458,
+        1773
+      ],
+      "canonical_source": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures/c512-m256-l0",
+      "canonical_source_input_sha256": "e3e1224831b8b33be92e3d3c2ee26c7d30e9ea3b9eb5ff8fe1583de18718a932",
+      "canonical_source_tokens_sha256": "c4247ad823feeb7083bb0e86c9b75019c543287cc721da0bf078cfe90080c1cc",
+      "history_source": "independent FP32 full-depth prefix; not captured NPU KV",
+      "nb_sha256": "d7adc37f977973a3ce3d40be0d2c1e8539ba187ce69f2fe12f6280d1b5b7d878",
+      "input_sha256": "b4bd76f70c9fa53260b78aff30e03a3f72cbc6bcda1dc9dcbd8214444028a9e5",
+      "reference_sha256": "a8b6e8d40b143ad43edb264969a09a9473f3a15893c0a8aa749def7f58f70530",
+      "source_fp32_sha256": "96e66824351a68e380cbe00f8ec6ae84477847e9b65ff9fdd5bf1598e820fd07",
+      "inputs": [
+        [
+          "b0_hidden",
+          28672
+        ],
+        [
+          "b0_past_k",
+          65536
+        ],
+        [
+          "b1_past_k",
+          65536
+        ],
+        [
+          "b0_past_v",
+          65536
+        ],
+        [
+          "b1_past_v",
+          65536
+        ],
+        [
+          "b0_mask",
+          121856
+        ],
+        [
+          "b1_mask",
+          121856
+        ],
+        [
+          "b0_rope_cos",
+          2048
+        ],
+        [
+          "b1_rope_cos",
+          2048
+        ],
+        [
+          "b0_rope_sin",
+          2048
+        ],
+        [
+          "b1_rope_sin",
+          2048
+        ]
+      ],
+      "outputs": [
+        [
+          "b1_attach_hidden_out/out0",
+          28672
+        ],
+        [
+          "b0_attach_new_k/out0",
+          4096
+        ],
+        [
+          "b1_attach_new_k/out0",
+          4096
+        ],
+        [
+          "b0_attach_new_v/out0",
+          4096
+        ],
+        [
+          "b1_attach_new_v/out0",
+          4096
+        ]
+      ],
+      "input_contract": [
+        {
+          "name": "b0_hidden",
+          "shape": [
+            1,
+            32,
+            896
+          ],
+          "f32_sha256": "72f0746ed3c84d89a1688691d1f9dbbd43d43286c02225b82cd72917156f07d6",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "6370ec3bda41c9548e1f3ab7909068efdce1db8e17b096681a0f5c99e309664f",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "adc13779d6d2bac0591cd805b538494c9516f114c441349f0b1d2bf7b4a0a573",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "d72661e7e5d9b3f1b6aa247c4a5ce30cae04a40227b73d99ff9792e02eef7d39",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "f8ad41573903e7477a09dc7b87ac94d99e5df02dcb2d8c9602f58a60810ac109",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_mask",
+          "shape": [
+            1,
+            1,
+            224,
+            544
+          ],
+          "f32_sha256": "28a182a928a99df351c73c0527b9c72b5532bc30c1980b3c567623b3ff14b391",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_mask",
+          "shape": [
+            1,
+            1,
+            224,
+            544
+          ],
+          "f32_sha256": "28a182a928a99df351c73c0527b9c72b5532bc30c1980b3c567623b3ff14b391",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_cos",
+          "shape": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "f32_sha256": "07e275f3a139a7c1624096cf35ad99d583d3a23a4c32606842b4dfdcb9537f64",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_cos",
+          "shape": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "f32_sha256": "07e275f3a139a7c1624096cf35ad99d583d3a23a4c32606842b4dfdcb9537f64",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_sin",
+          "shape": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "f32_sha256": "399a1fd6ad781e3ad8d042ad19cb4d47fae310b39d7e5579fd2c985c1b6106d9",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_sin",
+          "shape": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "f32_sha256": "399a1fd6ad781e3ad8d042ad19cb4d47fae310b39d7e5579fd2c985c1b6106d9",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        }
+      ],
+      "fp32_graph_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 8.12202415545471e-07,
+          "max_abs": 3.337860107421875e-06,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 1.0208179190840383e-08,
+          "max_abs": 7.62939453125e-06,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 2.333489703687519e-07,
+          "max_abs": 8.940696716308594e-08,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 3.84484266646723e-08,
+          "max_abs": 1.52587890625e-05,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 3.9249425753951073e-07,
+          "max_abs": 5.662441253662109e-07,
+          "finite": true
+        }
+      },
+      "exported_weight_fp32_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 1.148506953541073e-06,
+          "max_abs": 4.76837158203125e-06,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 6.096182403325656e-08,
+          "max_abs": 3.0517578125e-05,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 2.3233658907884092e-07,
+          "max_abs": 4.470348358154297e-08,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 1.1062829941010932e-07,
+          "max_abs": 1.52587890625e-05,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 9.636039521865314e-07,
+          "max_abs": 2.123415470123291e-06,
+          "finite": true
+        }
+      },
+      "exported_weight_records": [
+        [
+          {
+            "matrix": "down",
+            "dtype": "INT8",
+            "relative_l2": 0.011373973451554775
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.011078744195401669
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.024967847391963005
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 6.61805756863032e-07
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.03155763819813728
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.008139695972204208
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.495085382747675e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.025974811986088753
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.010252241045236588
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 3.2686958917338416e-08
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          }
+        ],
+        [
+          {
+            "matrix": "down",
+            "dtype": "INT8",
+            "relative_l2": 0.0106409452855587
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.009018807671964169
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.025072429329156876
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 1.7434828691875737e-07
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.0337623655796051
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.008233929052948952
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.5580424889426467e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.025940043851733208
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.00847567431628704
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.1325878662992181e-07
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 9.049340405908879e-07
+          }
+        ]
+      ],
+      "timing_scope": "canonical fixture generation and references excluded from board measurements"
+    },
+    {
+      "id": "c512-m64-l0",
+      "first_layer": 0,
+      "fusion_width": 2,
+      "history": 128,
+      "capacity": 512,
+      "query_tokens": 64,
+      "token_ids": [
+        151644,
+        8948,
+        198,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        1773,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        151645,
+        198,
+        151644,
+        872,
+        198,
+        20002,
+        99900,
+        112696,
+        3837,
+        101895,
+        111130,
+        3837,
+        99880,
+        104354,
+        101760,
+        104493,
+        24968,
+        100299,
+        99319,
+        101054,
+        101035,
+        3837,
+        114752,
+        100662,
+        99541,
+        81433,
+        1773,
+        20002,
+        104241,
+        102631,
+        3837,
+        100148,
+        115458,
+        1773,
+        105189,
+        28072,
+        38182,
+        99258,
+        104354,
+        106963,
+        3837,
+        77288,
+        104221,
+        50350,
+        34187,
+        101148,
+        101882,
+        1773,
+        99601,
+        104689,
+        105956,
+        101941,
+        3837,
+        99744,
+        85106,
+        104387,
+        111804,
+        3837,
+        91680,
+        99880,
+        101051,
+        46944,
+        106305,
+        9370,
+        101760,
+        104493
+      ],
+      "canonical_source": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures/c512-m256-l0",
+      "canonical_source_input_sha256": "e3e1224831b8b33be92e3d3c2ee26c7d30e9ea3b9eb5ff8fe1583de18718a932",
+      "canonical_source_tokens_sha256": "c4247ad823feeb7083bb0e86c9b75019c543287cc721da0bf078cfe90080c1cc",
+      "history_source": "independent FP32 full-depth prefix; not captured NPU KV",
+      "nb_sha256": "443882e0bc787599158619929c9dbac1c0839bcf05cca6703ed1a2b3f96aa2cb",
+      "input_sha256": "645550c0aa0d0d5805283f1689be7e3479aaba0da79beedf76deffd686cb3ae2",
+      "reference_sha256": "15be3d26ca2d38367dd8e2697560680cdbea796b230bb212ca3ab5c45350a8de",
+      "source_fp32_sha256": "5017fcd9abb93a6fdb45d815bf1949c037829c9a86c7dd0e1cac5211122a8429",
+      "inputs": [
+        [
+          "b0_hidden",
+          57344
+        ],
+        [
+          "b0_past_k",
+          65536
+        ],
+        [
+          "b1_past_k",
+          65536
+        ],
+        [
+          "b0_past_v",
+          65536
+        ],
+        [
+          "b1_past_v",
+          65536
+        ],
+        [
+          "b0_mask",
+          258048
+        ],
+        [
+          "b1_mask",
+          258048
+        ],
+        [
+          "b0_rope_cos",
+          4096
+        ],
+        [
+          "b1_rope_cos",
+          4096
+        ],
+        [
+          "b0_rope_sin",
+          4096
+        ],
+        [
+          "b1_rope_sin",
+          4096
+        ]
+      ],
+      "outputs": [
+        [
+          "b1_attach_hidden_out/out0",
+          57344
+        ],
+        [
+          "b0_attach_new_k/out0",
+          8192
+        ],
+        [
+          "b1_attach_new_k/out0",
+          8192
+        ],
+        [
+          "b0_attach_new_v/out0",
+          8192
+        ],
+        [
+          "b1_attach_new_v/out0",
+          8192
+        ]
+      ],
+      "input_contract": [
+        {
+          "name": "b0_hidden",
+          "shape": [
+            1,
+            64,
+            896
+          ],
+          "f32_sha256": "4889e3ee4076b3ab1ec50d8051bcd50ab0f91e7a6598b03b8c8c10a02f70047a",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "6370ec3bda41c9548e1f3ab7909068efdce1db8e17b096681a0f5c99e309664f",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "adc13779d6d2bac0591cd805b538494c9516f114c441349f0b1d2bf7b4a0a573",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "d72661e7e5d9b3f1b6aa247c4a5ce30cae04a40227b73d99ff9792e02eef7d39",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "f8ad41573903e7477a09dc7b87ac94d99e5df02dcb2d8c9602f58a60810ac109",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_mask",
+          "shape": [
+            1,
+            1,
+            448,
+            576
+          ],
+          "f32_sha256": "f6365795129cd93bae38bf1a66242e20bd31f18f79aabfd82ba74880a1e2cc94",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_mask",
+          "shape": [
+            1,
+            1,
+            448,
+            576
+          ],
+          "f32_sha256": "f6365795129cd93bae38bf1a66242e20bd31f18f79aabfd82ba74880a1e2cc94",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_cos",
+          "shape": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "f32_sha256": "5059ad248e73425ced5d1a11c0da159d9492c2a981316def298a45940198267c",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_cos",
+          "shape": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "f32_sha256": "5059ad248e73425ced5d1a11c0da159d9492c2a981316def298a45940198267c",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_sin",
+          "shape": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "f32_sha256": "fabc885df73c8a636edef0fcfc4bb7b3eadde971590a2260723cc3478a35e75a",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_sin",
+          "shape": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "f32_sha256": "fabc885df73c8a636edef0fcfc4bb7b3eadde971590a2260723cc3478a35e75a",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        }
+      ],
+      "fp32_graph_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 7.507697432629357e-07,
+          "max_abs": 3.337860107421875e-06,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 1.0263255134645988e-08,
+          "max_abs": 7.62939453125e-06,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 2.425550746920635e-07,
+          "max_abs": 8.940696716308594e-08,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 3.928003522446488e-08,
+          "max_abs": 1.52587890625e-05,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 3.760178799439018e-07,
+          "max_abs": 6.407499313354492e-07,
+          "finite": true
+        }
+      },
+      "exported_weight_fp32_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 1.0948078852379695e-06,
+          "max_abs": 4.76837158203125e-06,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 5.843780925829378e-08,
+          "max_abs": 3.0517578125e-05,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 2.4088492978080467e-07,
+          "max_abs": 4.842877388000488e-08,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 1.0131483207942438e-07,
+          "max_abs": 1.52587890625e-05,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 8.094597774288559e-07,
+          "max_abs": 1.8775463104248047e-06,
+          "finite": true
+        }
+      },
+      "exported_weight_records": [
+        [
+          {
+            "matrix": "down",
+            "dtype": "INT8",
+            "relative_l2": 0.011373973451554775
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.011078744195401669
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.024967847391963005
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 6.61805756863032e-07
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.03155763819813728
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.008139695972204208
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.495085382747675e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.025974811986088753
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.010252241045236588
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 3.2686958917338416e-08
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          }
+        ],
+        [
+          {
+            "matrix": "down",
+            "dtype": "INT8",
+            "relative_l2": 0.0106409452855587
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.009018807671964169
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.025072429329156876
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 1.7434828691875737e-07
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.0337623655796051
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.008233929052948952
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.5580424889426467e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.025940043851733208
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.00847567431628704
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.1325878662992181e-07
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 9.049340405908879e-07
+          }
+        ]
+      ],
+      "timing_scope": "canonical fixture generation and references excluded from board measurements"
+    },
+    {
+      "id": "c512-m128-l0",
+      "first_layer": 0,
+      "fusion_width": 2,
+      "history": 128,
+      "capacity": 512,
+      "query_tokens": 128,
+      "token_ids": [
+        151644,
+        8948,
+        198,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        1773,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        151645,
+        198,
+        151644,
+        872,
+        198,
+        20002,
+        99900,
+        112696,
+        3837,
+        101895,
+        111130,
+        3837,
+        99880,
+        104354,
+        101760,
+        104493,
+        24968,
+        100299,
+        99319,
+        101054,
+        101035,
+        3837,
+        114752,
+        100662,
+        99541,
+        81433,
+        1773,
+        20002,
+        104241,
+        102631,
+        3837,
+        100148,
+        115458,
+        1773,
+        105189,
+        28072,
+        38182,
+        99258,
+        104354,
+        106963,
+        3837,
+        77288,
+        104221,
+        50350,
+        34187,
+        101148,
+        101882,
+        1773,
+        99601,
+        104689,
+        105956,
+        101941,
+        3837,
+        99744,
+        85106,
+        104387,
+        111804,
+        3837,
+        91680,
+        99880,
+        101051,
+        46944,
+        106305,
+        9370,
+        101760,
+        104493,
+        1773,
+        104044,
+        115067,
+        20002,
+        102070,
+        113591,
+        3837,
+        99437,
+        99495,
+        106560,
+        104307,
+        33108,
+        104122,
+        104813,
+        103956,
+        1773,
+        100299,
+        101653,
+        18830,
+        90286,
+        21894,
+        33108,
+        52510,
+        100749,
+        3837,
+        105253,
+        104689,
+        102108,
+        99885,
+        109840,
+        3837,
+        99744,
+        85106,
+        101148,
+        81812,
+        1773,
+        104470,
+        9370,
+        101148,
+        101882,
+        99461,
+        50350,
+        3837,
+        105463,
+        80443,
+        102005,
+        102850,
+        101882,
+        3837,
+        104354,
+        106513,
+        104493,
+        67949,
+        109504,
+        1773,
+        20002,
+        102631,
+        102274,
+        49111,
+        99982,
+        3837,
+        80443,
+        101882,
+        105956
+      ],
+      "canonical_source": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures/c512-m256-l0",
+      "canonical_source_input_sha256": "e3e1224831b8b33be92e3d3c2ee26c7d30e9ea3b9eb5ff8fe1583de18718a932",
+      "canonical_source_tokens_sha256": "c4247ad823feeb7083bb0e86c9b75019c543287cc721da0bf078cfe90080c1cc",
+      "history_source": "independent FP32 full-depth prefix; not captured NPU KV",
+      "nb_sha256": "3b92c25f2c2330fc989115b5f1afcab176fec31c15d90ae7a264c9e40c6c20fe",
+      "input_sha256": "de9f670d7db7324777d53b6be624a5e671c79f159917bd5311a53ed02925315c",
+      "reference_sha256": "1cdfe772d2374c5d4498fe05a54753bde99d152be3aa63e06f250af228686d08",
+      "source_fp32_sha256": "f295ad262be13a399453e87935e0a57f7a2d4558fe256f108c802bec9308fcb9",
+      "inputs": [
+        [
+          "b0_hidden",
+          114688
+        ],
+        [
+          "b0_past_k",
+          65536
+        ],
+        [
+          "b1_past_k",
+          65536
+        ],
+        [
+          "b0_past_v",
+          65536
+        ],
+        [
+          "b1_past_v",
+          65536
+        ],
+        [
+          "b0_mask",
+          573440
+        ],
+        [
+          "b1_mask",
+          573440
+        ],
+        [
+          "b0_rope_cos",
+          8192
+        ],
+        [
+          "b1_rope_cos",
+          8192
+        ],
+        [
+          "b0_rope_sin",
+          8192
+        ],
+        [
+          "b1_rope_sin",
+          8192
+        ]
+      ],
+      "outputs": [
+        [
+          "b1_attach_hidden_out/out0",
+          114688
+        ],
+        [
+          "b0_attach_new_k/out0",
+          16384
+        ],
+        [
+          "b1_attach_new_k/out0",
+          16384
+        ],
+        [
+          "b0_attach_new_v/out0",
+          16384
+        ],
+        [
+          "b1_attach_new_v/out0",
+          16384
+        ]
+      ],
+      "input_contract": [
+        {
+          "name": "b0_hidden",
+          "shape": [
+            1,
+            128,
+            896
+          ],
+          "f32_sha256": "1b83afc4747836020879930d84ab45e8ee3d935c57a41c88e06f6d7dc5045fb7",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "6370ec3bda41c9548e1f3ab7909068efdce1db8e17b096681a0f5c99e309664f",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "adc13779d6d2bac0591cd805b538494c9516f114c441349f0b1d2bf7b4a0a573",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "d72661e7e5d9b3f1b6aa247c4a5ce30cae04a40227b73d99ff9792e02eef7d39",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "f8ad41573903e7477a09dc7b87ac94d99e5df02dcb2d8c9602f58a60810ac109",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_mask",
+          "shape": [
+            1,
+            1,
+            896,
+            640
+          ],
+          "f32_sha256": "6693d81bb89ae60f769d0d24463b849224f30f31418ba0c0ca6d5f930ec18daf",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_mask",
+          "shape": [
+            1,
+            1,
+            896,
+            640
+          ],
+          "f32_sha256": "6693d81bb89ae60f769d0d24463b849224f30f31418ba0c0ca6d5f930ec18daf",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_cos",
+          "shape": [
+            1,
+            1,
+            128,
+            64
+          ],
+          "f32_sha256": "977e564df993a561fe4be9541d77f4bd73b8c3e333445461000211b9109b4849",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_cos",
+          "shape": [
+            1,
+            1,
+            128,
+            64
+          ],
+          "f32_sha256": "977e564df993a561fe4be9541d77f4bd73b8c3e333445461000211b9109b4849",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_sin",
+          "shape": [
+            1,
+            1,
+            128,
+            64
+          ],
+          "f32_sha256": "ef05e2c206612ea6c09408c73f2957ed3bf3ebb71ac1cd73b3b749ddd1d17e14",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_sin",
+          "shape": [
+            1,
+            1,
+            128,
+            64
+          ],
+          "f32_sha256": "ef05e2c206612ea6c09408c73f2957ed3bf3ebb71ac1cd73b3b749ddd1d17e14",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        }
+      ],
+      "fp32_graph_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 7.992724704308785e-07,
+          "max_abs": 6.198883056640625e-06,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 1.0079715728750216e-08,
+          "max_abs": 7.62939453125e-06,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 2.443220523673517e-07,
+          "max_abs": 8.940696716308594e-08,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 5.2798174721147006e-08,
+          "max_abs": 2.193450927734375e-05,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 5.314838631420571e-07,
+          "max_abs": 2.6971101760864258e-06,
+          "finite": true
+        }
+      },
+      "exported_weight_fp32_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 1.1014218443961e-06,
+          "max_abs": 4.76837158203125e-06,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 5.827782345591004e-08,
+          "max_abs": 3.0517578125e-05,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 2.4292333478115324e-07,
+          "max_abs": 4.842877388000488e-08,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 1.0311094911230612e-07,
+          "max_abs": 1.52587890625e-05,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 7.887107358328649e-07,
+          "max_abs": 1.8775463104248047e-06,
+          "finite": true
+        }
+      },
+      "exported_weight_records": [
+        [
+          {
+            "matrix": "down",
+            "dtype": "INT8",
+            "relative_l2": 0.011373973451554775
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.011078744195401669
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.024967847391963005
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 6.61805756863032e-07
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.03155763819813728
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.008139695972204208
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.495085382747675e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.025974811986088753
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.010252241045236588
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 3.2686958917338416e-08
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          }
+        ],
+        [
+          {
+            "matrix": "down",
+            "dtype": "INT8",
+            "relative_l2": 0.0106409452855587
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.009018807671964169
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.025072429329156876
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 1.7434828691875737e-07
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.0337623655796051
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.008233929052948952
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.5580424889426467e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.025940043851733208
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.00847567431628704
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.1325878662992181e-07
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 9.049340405908879e-07
+          }
+        ]
+      ],
+      "timing_scope": "canonical fixture generation and references excluded from board measurements"
+    },
+    {
+      "id": "c512-m256-l2",
+      "first_layer": 2,
+      "fusion_width": 2,
+      "history": 128,
+      "capacity": 512,
+      "query_tokens": 256,
+      "token_ids": [
+        151644,
+        8948,
+        198,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        1773,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        151645,
+        198,
+        151644,
+        872,
+        198,
+        20002,
+        99900,
+        112696,
+        3837,
+        101895,
+        111130,
+        3837,
+        99880,
+        104354,
+        101760,
+        104493,
+        24968,
+        100299,
+        99319,
+        101054,
+        101035,
+        3837,
+        114752,
+        100662,
+        99541,
+        81433,
+        1773,
+        20002,
+        104241,
+        102631,
+        3837,
+        100148,
+        115458,
+        1773,
+        105189,
+        28072,
+        38182,
+        99258,
+        104354,
+        106963,
+        3837,
+        77288,
+        104221,
+        50350,
+        34187,
+        101148,
+        101882,
+        1773,
+        99601,
+        104689,
+        105956,
+        101941,
+        3837,
+        99744,
+        85106,
+        104387,
+        111804,
+        3837,
+        91680,
+        99880,
+        101051,
+        46944,
+        106305,
+        9370,
+        101760,
+        104493,
+        1773,
+        104044,
+        115067,
+        20002,
+        102070,
+        113591,
+        3837,
+        99437,
+        99495,
+        106560,
+        104307,
+        33108,
+        104122,
+        104813,
+        103956,
+        1773,
+        100299,
+        101653,
+        18830,
+        90286,
+        21894,
+        33108,
+        52510,
+        100749,
+        3837,
+        105253,
+        104689,
+        102108,
+        99885,
+        109840,
+        3837,
+        99744,
+        85106,
+        101148,
+        81812,
+        1773,
+        104470,
+        9370,
+        101148,
+        101882,
+        99461,
+        50350,
+        3837,
+        105463,
+        80443,
+        102005,
+        102850,
+        101882,
+        3837,
+        104354,
+        106513,
+        104493,
+        67949,
+        109504,
+        1773,
+        20002,
+        102631,
+        102274,
+        49111,
+        99982,
+        3837,
+        80443,
+        101882,
+        105956,
+        102274,
+        57191,
+        40090,
+        110135,
+        101044,
+        1773,
+        104354,
+        104224,
+        108839,
+        3837,
+        107200,
+        33108,
+        99493,
+        102768,
+        73670,
+        99600,
+        3837,
+        114752,
+        116957,
+        99541,
+        81433,
+        1773,
+        100346,
+        101254,
+        106494,
+        101069,
+        3837,
+        104024,
+        104747,
+        105389,
+        100692,
+        9370,
+        50350,
+        101882,
+        57218,
+        111804,
+        101054,
+        104108,
+        1773,
+        20002,
+        80443,
+        104351,
+        92894,
+        88086,
+        109504,
+        3837,
+        67949,
+        85106,
+        109318,
+        104187,
+        57218,
+        31235,
+        55286,
+        9370,
+        34859,
+        101266,
+        1773,
+        102196,
+        50511,
+        99578,
+        99982,
+        3837,
+        91680,
+        60548,
+        99796,
+        3837,
+        16530,
+        104005,
+        105444,
+        3837,
+        16530,
+        99674,
+        18158,
+        90286,
+        21894,
+        5373,
+        52510,
+        100749,
+        105994,
+        104613,
+        1773,
+        104044,
+        115067,
+        20002,
+        102070,
+        113591,
+        3837,
+        99437,
+        99495,
+        106560,
+        104307,
+        33108,
+        104122,
+        104813,
+        103956,
+        1773,
+        100299,
+        101653,
+        18830,
+        90286,
+        21894,
+        33108,
+        52510,
+        100749,
+        3837,
+        105253,
+        104689,
+        102108,
+        99885,
+        109840,
+        3837,
+        99744,
+        85106,
+        101148,
+        81812,
+        1773,
+        20002,
+        102631,
+        102274,
+        49111,
+        99982,
+        3837,
+        80443,
+        101882,
+        105956,
+        102274,
+        57191,
+        40090
+      ],
+      "canonical_source": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures/c512-m256-l2",
+      "canonical_source_input_sha256": "b4729dbcb6f221e8b5e767da5f6947b96401ecc2684ca805527d3de71b1ea63f",
+      "canonical_source_tokens_sha256": "c4247ad823feeb7083bb0e86c9b75019c543287cc721da0bf078cfe90080c1cc",
+      "history_source": "independent FP32 full-depth prefix; not captured NPU KV",
+      "nb_sha256": "4d7a34ce1de300025052fa804f6980214ab22caf1911a9ee5edb61362b37ca30",
+      "input_sha256": "b4729dbcb6f221e8b5e767da5f6947b96401ecc2684ca805527d3de71b1ea63f",
+      "reference_sha256": "1c1a09097bfb813e26b5fe9e4339db322b25f868da98927be8f9489304cdf21e",
+      "source_fp32_sha256": "31e6b1744f6019bd617e6bb3300d5f025eae343eeb34cb26ebc18d93f7bd71e5",
+      "inputs": [
+        [
+          "b0_hidden",
+          229376
+        ],
+        [
+          "b0_past_k",
+          65536
+        ],
+        [
+          "b1_past_k",
+          65536
+        ],
+        [
+          "b0_past_v",
+          65536
+        ],
+        [
+          "b1_past_v",
+          65536
+        ],
+        [
+          "b0_mask",
+          1376256
+        ],
+        [
+          "b1_mask",
+          1376256
+        ],
+        [
+          "b0_rope_cos",
+          16384
+        ],
+        [
+          "b1_rope_cos",
+          16384
+        ],
+        [
+          "b0_rope_sin",
+          16384
+        ],
+        [
+          "b1_rope_sin",
+          16384
+        ]
+      ],
+      "outputs": [
+        [
+          "b1_attach_hidden_out/out0",
+          229376
+        ],
+        [
+          "b0_attach_new_k/out0",
+          32768
+        ],
+        [
+          "b1_attach_new_k/out0",
+          32768
+        ],
+        [
+          "b0_attach_new_v/out0",
+          32768
+        ],
+        [
+          "b1_attach_new_v/out0",
+          32768
+        ]
+      ],
+      "input_contract": [
+        {
+          "name": "b0_hidden",
+          "shape": [
+            1,
+            256,
+            896
+          ],
+          "f32_sha256": "c88125e6d1f4187ba2ab37e903b9401a7d65c87154d531a6e3cc61a8cdfc15fb",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "0c76d666346ec1e64483658bf3ff3d1d989cf7fd203bb61ff60b05d8f7299c0a",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "e31d049ca1cedb1a1148aafeff8bb176a4b180a9ec538db0034034af0b809f69",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "b90dafccd37f5da7b976178bbf9a214ea28a6b6c9fe639e3056a7381c53da690",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "8815b1b52ba80d2d1145377163e89b29c899f75561dfd8b7f875a1e412aa2592",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_mask",
+          "shape": [
+            1,
+            1,
+            1792,
+            768
+          ],
+          "f32_sha256": "3ba58a8fa99996587bc20cfa3f40feb457e30567e47f47a5c12173b09d33e2ca",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_mask",
+          "shape": [
+            1,
+            1,
+            1792,
+            768
+          ],
+          "f32_sha256": "3ba58a8fa99996587bc20cfa3f40feb457e30567e47f47a5c12173b09d33e2ca",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_cos",
+          "shape": [
+            1,
+            1,
+            256,
+            64
+          ],
+          "f32_sha256": "7306837cd97479193b3aa1ae36406e6dbc0e7025e4d73c57c5bca5d8aeff5732",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_cos",
+          "shape": [
+            1,
+            1,
+            256,
+            64
+          ],
+          "f32_sha256": "7306837cd97479193b3aa1ae36406e6dbc0e7025e4d73c57c5bca5d8aeff5732",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_sin",
+          "shape": [
+            1,
+            1,
+            256,
+            64
+          ],
+          "f32_sha256": "1ea08404d0003907297575eeae15c5789e364f7693c2e0e5d5e087bd175b439d",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_sin",
+          "shape": [
+            1,
+            1,
+            256,
+            64
+          ],
+          "f32_sha256": "1ea08404d0003907297575eeae15c5789e364f7693c2e0e5d5e087bd175b439d",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        }
+      ],
+      "fp32_graph_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        }
+      },
+      "exported_weight_fp32_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "finite": true
+        }
+      },
+      "exported_weight_records": [
+        [
+          {
+            "matrix": "down",
+            "dtype": "FLOAT16",
+            "relative_l2": 0.00020620944269467145
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.010442563332617283
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.025840848684310913
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.06675630062818527
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.009053637273609638
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 3.3203647831214766e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.024810967966914177
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.009599277749657631
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.4153806066351535e-07
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 2.223562631797904e-07
+          }
+        ],
+        [
+          {
+            "matrix": "down",
+            "dtype": "FLOAT16",
+            "relative_l2": 0.00020622739975806326
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.009954224340617657
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.017975496128201485
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.03306364640593529
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.008611063472926617
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 8.781063343121787e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.025442954152822495
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.009323060512542725
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 1.41002459486117e-07
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 3.6017200955029693e-07
+          }
+        ]
+      ],
+      "timing_scope": "canonical fixture generation and references excluded from board measurements"
+    },
+    {
+      "id": "c512-m16-l2",
+      "first_layer": 2,
+      "fusion_width": 2,
+      "history": 128,
+      "capacity": 512,
+      "query_tokens": 16,
+      "token_ids": [
+        151644,
+        8948,
+        198,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        1773,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        151645,
+        198,
+        151644,
+        872,
+        198,
+        20002,
+        99900,
+        112696,
+        3837,
+        101895,
+        111130,
+        3837,
+        99880,
+        104354,
+        101760,
+        104493,
+        24968,
+        100299
+      ],
+      "canonical_source": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures/c512-m256-l2",
+      "canonical_source_input_sha256": "b4729dbcb6f221e8b5e767da5f6947b96401ecc2684ca805527d3de71b1ea63f",
+      "canonical_source_tokens_sha256": "c4247ad823feeb7083bb0e86c9b75019c543287cc721da0bf078cfe90080c1cc",
+      "history_source": "independent FP32 full-depth prefix; not captured NPU KV",
+      "nb_sha256": "b36f7ddc26234336c2f71d7c6f8f58ec038547042e670717f3f6612e2745f2d0",
+      "input_sha256": "bac32821aeeb424405384e4a3d827d38eea2116cd228f1249f2f0c295a5421da",
+      "reference_sha256": "24fb4dfc49eba40c46a97d76d169e29f80b08b68c4df815c59a11d270621fed7",
+      "source_fp32_sha256": "eaf790c1073fc0d19abc7f5499e597e6ffbf6775e399a73d46855f627cfa18de",
+      "inputs": [
+        [
+          "b0_hidden",
+          14336
+        ],
+        [
+          "b0_past_k",
+          65536
+        ],
+        [
+          "b1_past_k",
+          65536
+        ],
+        [
+          "b0_past_v",
+          65536
+        ],
+        [
+          "b1_past_v",
+          65536
+        ],
+        [
+          "b0_mask",
+          59136
+        ],
+        [
+          "b1_mask",
+          59136
+        ],
+        [
+          "b0_rope_cos",
+          1024
+        ],
+        [
+          "b1_rope_cos",
+          1024
+        ],
+        [
+          "b0_rope_sin",
+          1024
+        ],
+        [
+          "b1_rope_sin",
+          1024
+        ]
+      ],
+      "outputs": [
+        [
+          "b1_attach_hidden_out/out0",
+          14336
+        ],
+        [
+          "b0_attach_new_k/out0",
+          2048
+        ],
+        [
+          "b1_attach_new_k/out0",
+          2048
+        ],
+        [
+          "b0_attach_new_v/out0",
+          2048
+        ],
+        [
+          "b1_attach_new_v/out0",
+          2048
+        ]
+      ],
+      "input_contract": [
+        {
+          "name": "b0_hidden",
+          "shape": [
+            1,
+            16,
+            896
+          ],
+          "f32_sha256": "71069e48eed3f65589bce0344c1100cf7f6760de12657b1aa04872602ca27f7b",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "0c76d666346ec1e64483658bf3ff3d1d989cf7fd203bb61ff60b05d8f7299c0a",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "e31d049ca1cedb1a1148aafeff8bb176a4b180a9ec538db0034034af0b809f69",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "b90dafccd37f5da7b976178bbf9a214ea28a6b6c9fe639e3056a7381c53da690",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "8815b1b52ba80d2d1145377163e89b29c899f75561dfd8b7f875a1e412aa2592",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_mask",
+          "shape": [
+            1,
+            1,
+            112,
+            528
+          ],
+          "f32_sha256": "67041a9967e08a75de6bb1bfb4e3bc03536e0e3041d13877890e6037f0c5c89e",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_mask",
+          "shape": [
+            1,
+            1,
+            112,
+            528
+          ],
+          "f32_sha256": "67041a9967e08a75de6bb1bfb4e3bc03536e0e3041d13877890e6037f0c5c89e",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_cos",
+          "shape": [
+            1,
+            1,
+            16,
+            64
+          ],
+          "f32_sha256": "1d6e8ddace4d71a0e47d100c029fd6d788cb3e9c1c4867d46aebf6508b22d2e2",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_cos",
+          "shape": [
+            1,
+            1,
+            16,
+            64
+          ],
+          "f32_sha256": "1d6e8ddace4d71a0e47d100c029fd6d788cb3e9c1c4867d46aebf6508b22d2e2",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_sin",
+          "shape": [
+            1,
+            1,
+            16,
+            64
+          ],
+          "f32_sha256": "a37c6d021b832ac62ba5667e7f8046aaf0826d5ba19ab944db7f7bfd4444a185",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_sin",
+          "shape": [
+            1,
+            1,
+            16,
+            64
+          ],
+          "f32_sha256": "a37c6d021b832ac62ba5667e7f8046aaf0826d5ba19ab944db7f7bfd4444a185",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        }
+      ],
+      "fp32_graph_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 4.1338981304761546e-07,
+          "max_abs": 9.5367431640625e-07,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 3.106806190089628e-08,
+          "max_abs": 3.814697265625e-06,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 1.9946115514812846e-07,
+          "max_abs": 3.5762786865234375e-07,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 1.3956658051483828e-07,
+          "max_abs": 2.86102294921875e-06,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 3.970549471432605e-07,
+          "max_abs": 6.258487701416016e-07,
+          "finite": true
+        }
+      },
+      "exported_weight_fp32_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 4.957987584930379e-07,
+          "max_abs": 1.430511474609375e-06,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 6.24339833166232e-08,
+          "max_abs": 7.62939453125e-06,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 1.8774484544792358e-07,
+          "max_abs": 2.682209014892578e-07,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 1.6605190467089415e-07,
+          "max_abs": 2.86102294921875e-06,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 4.89014666982257e-07,
+          "max_abs": 8.940696716308594e-07,
+          "finite": true
+        }
+      },
+      "exported_weight_records": [
+        [
+          {
+            "matrix": "down",
+            "dtype": "FLOAT16",
+            "relative_l2": 0.00020620944269467145
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.010442563332617283
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.025840848684310913
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.06675630062818527
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.009053637273609638
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 3.3203647831214766e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.024810967966914177
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.009599277749657631
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.4153806066351535e-07
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 2.223562631797904e-07
+          }
+        ],
+        [
+          {
+            "matrix": "down",
+            "dtype": "FLOAT16",
+            "relative_l2": 0.00020622739975806326
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.009954224340617657
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.017975496128201485
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.03306364640593529
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.008611063472926617
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 8.781063343121787e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.025442954152822495
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.009323060512542725
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 1.41002459486117e-07
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 3.6017200955029693e-07
+          }
+        ]
+      ],
+      "timing_scope": "canonical fixture generation and references excluded from board measurements"
+    },
+    {
+      "id": "c512-m32-l2",
+      "first_layer": 2,
+      "fusion_width": 2,
+      "history": 128,
+      "capacity": 512,
+      "query_tokens": 32,
+      "token_ids": [
+        151644,
+        8948,
+        198,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        1773,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        151645,
+        198,
+        151644,
+        872,
+        198,
+        20002,
+        99900,
+        112696,
+        3837,
+        101895,
+        111130,
+        3837,
+        99880,
+        104354,
+        101760,
+        104493,
+        24968,
+        100299,
+        99319,
+        101054,
+        101035,
+        3837,
+        114752,
+        100662,
+        99541,
+        81433,
+        1773,
+        20002,
+        104241,
+        102631,
+        3837,
+        100148,
+        115458,
+        1773
+      ],
+      "canonical_source": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures/c512-m256-l2",
+      "canonical_source_input_sha256": "b4729dbcb6f221e8b5e767da5f6947b96401ecc2684ca805527d3de71b1ea63f",
+      "canonical_source_tokens_sha256": "c4247ad823feeb7083bb0e86c9b75019c543287cc721da0bf078cfe90080c1cc",
+      "history_source": "independent FP32 full-depth prefix; not captured NPU KV",
+      "nb_sha256": "34f3b3a2f8aec80ae712c5bd52a9bcbade6ca178bbff073ca54907cd1c08b250",
+      "input_sha256": "5063e49e2504abbaf6ab3e151060b800f2aa3d852a3848fa3b1c5b6ddbc20ca7",
+      "reference_sha256": "534a370d5dd76214954e30d947d31fca9787431f58f8fd52ea78792fd87a874e",
+      "source_fp32_sha256": "3a789bbdca3e55cce95c9ea906d735c15661fe3ac8d01579961b6679da72928d",
+      "inputs": [
+        [
+          "b0_hidden",
+          28672
+        ],
+        [
+          "b0_past_k",
+          65536
+        ],
+        [
+          "b1_past_k",
+          65536
+        ],
+        [
+          "b0_past_v",
+          65536
+        ],
+        [
+          "b1_past_v",
+          65536
+        ],
+        [
+          "b0_mask",
+          121856
+        ],
+        [
+          "b1_mask",
+          121856
+        ],
+        [
+          "b0_rope_cos",
+          2048
+        ],
+        [
+          "b1_rope_cos",
+          2048
+        ],
+        [
+          "b0_rope_sin",
+          2048
+        ],
+        [
+          "b1_rope_sin",
+          2048
+        ]
+      ],
+      "outputs": [
+        [
+          "b1_attach_hidden_out/out0",
+          28672
+        ],
+        [
+          "b0_attach_new_k/out0",
+          4096
+        ],
+        [
+          "b1_attach_new_k/out0",
+          4096
+        ],
+        [
+          "b0_attach_new_v/out0",
+          4096
+        ],
+        [
+          "b1_attach_new_v/out0",
+          4096
+        ]
+      ],
+      "input_contract": [
+        {
+          "name": "b0_hidden",
+          "shape": [
+            1,
+            32,
+            896
+          ],
+          "f32_sha256": "1c58b58e8c0afef012a5626bb21601365b112c07dfa9c0a0476ddb93b97731b0",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "0c76d666346ec1e64483658bf3ff3d1d989cf7fd203bb61ff60b05d8f7299c0a",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "e31d049ca1cedb1a1148aafeff8bb176a4b180a9ec538db0034034af0b809f69",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "b90dafccd37f5da7b976178bbf9a214ea28a6b6c9fe639e3056a7381c53da690",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "8815b1b52ba80d2d1145377163e89b29c899f75561dfd8b7f875a1e412aa2592",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_mask",
+          "shape": [
+            1,
+            1,
+            224,
+            544
+          ],
+          "f32_sha256": "28a182a928a99df351c73c0527b9c72b5532bc30c1980b3c567623b3ff14b391",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_mask",
+          "shape": [
+            1,
+            1,
+            224,
+            544
+          ],
+          "f32_sha256": "28a182a928a99df351c73c0527b9c72b5532bc30c1980b3c567623b3ff14b391",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_cos",
+          "shape": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "f32_sha256": "07e275f3a139a7c1624096cf35ad99d583d3a23a4c32606842b4dfdcb9537f64",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_cos",
+          "shape": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "f32_sha256": "07e275f3a139a7c1624096cf35ad99d583d3a23a4c32606842b4dfdcb9537f64",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_sin",
+          "shape": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "f32_sha256": "399a1fd6ad781e3ad8d042ad19cb4d47fae310b39d7e5579fd2c985c1b6106d9",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_sin",
+          "shape": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "f32_sha256": "399a1fd6ad781e3ad8d042ad19cb4d47fae310b39d7e5579fd2c985c1b6106d9",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        }
+      ],
+      "fp32_graph_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 4.536242670383217e-07,
+          "max_abs": 1.430511474609375e-06,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 2.9159059167227497e-08,
+          "max_abs": 3.814697265625e-06,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 2.0168386072327849e-07,
+          "max_abs": 3.5762786865234375e-07,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 1.428839340178456e-07,
+          "max_abs": 2.86102294921875e-06,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 4.303925607018755e-07,
+          "max_abs": 1.9669532775878906e-06,
+          "finite": true
+        }
+      },
+      "exported_weight_fp32_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 5.527573989638768e-07,
+          "max_abs": 1.430511474609375e-06,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 6.104737337864208e-08,
+          "max_abs": 7.62939453125e-06,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 1.9188142630355287e-07,
+          "max_abs": 4.76837158203125e-07,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 1.7722832978961378e-07,
+          "max_abs": 3.814697265625e-06,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 5.643988743031514e-07,
+          "max_abs": 1.5497207641601562e-06,
+          "finite": true
+        }
+      },
+      "exported_weight_records": [
+        [
+          {
+            "matrix": "down",
+            "dtype": "FLOAT16",
+            "relative_l2": 0.00020620944269467145
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.010442563332617283
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.025840848684310913
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.06675630062818527
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.009053637273609638
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 3.3203647831214766e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.024810967966914177
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.009599277749657631
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.4153806066351535e-07
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 2.223562631797904e-07
+          }
+        ],
+        [
+          {
+            "matrix": "down",
+            "dtype": "FLOAT16",
+            "relative_l2": 0.00020622739975806326
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.009954224340617657
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.017975496128201485
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.03306364640593529
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.008611063472926617
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 8.781063343121787e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.025442954152822495
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.009323060512542725
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 1.41002459486117e-07
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 3.6017200955029693e-07
+          }
+        ]
+      ],
+      "timing_scope": "canonical fixture generation and references excluded from board measurements"
+    },
+    {
+      "id": "c512-m64-l2",
+      "first_layer": 2,
+      "fusion_width": 2,
+      "history": 128,
+      "capacity": 512,
+      "query_tokens": 64,
+      "token_ids": [
+        151644,
+        8948,
+        198,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        1773,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        151645,
+        198,
+        151644,
+        872,
+        198,
+        20002,
+        99900,
+        112696,
+        3837,
+        101895,
+        111130,
+        3837,
+        99880,
+        104354,
+        101760,
+        104493,
+        24968,
+        100299,
+        99319,
+        101054,
+        101035,
+        3837,
+        114752,
+        100662,
+        99541,
+        81433,
+        1773,
+        20002,
+        104241,
+        102631,
+        3837,
+        100148,
+        115458,
+        1773,
+        105189,
+        28072,
+        38182,
+        99258,
+        104354,
+        106963,
+        3837,
+        77288,
+        104221,
+        50350,
+        34187,
+        101148,
+        101882,
+        1773,
+        99601,
+        104689,
+        105956,
+        101941,
+        3837,
+        99744,
+        85106,
+        104387,
+        111804,
+        3837,
+        91680,
+        99880,
+        101051,
+        46944,
+        106305,
+        9370,
+        101760,
+        104493
+      ],
+      "canonical_source": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures/c512-m256-l2",
+      "canonical_source_input_sha256": "b4729dbcb6f221e8b5e767da5f6947b96401ecc2684ca805527d3de71b1ea63f",
+      "canonical_source_tokens_sha256": "c4247ad823feeb7083bb0e86c9b75019c543287cc721da0bf078cfe90080c1cc",
+      "history_source": "independent FP32 full-depth prefix; not captured NPU KV",
+      "nb_sha256": "9a6e710f453acc80943f7551b1f5abc097267049213d2d4c8a8b64cca2d804f4",
+      "input_sha256": "2a688b769bb06b56f59a5ee9971db6db35954358f235c9cf386b953ff538254f",
+      "reference_sha256": "b83e0e835c348321f14a8e7bf44af661a631b11769ccde3081a051e69b63b672",
+      "source_fp32_sha256": "439b99471dba51ffda22d16579ea07decc7f2c3146a2f6f4b39fd5a1ddfd9b7c",
+      "inputs": [
+        [
+          "b0_hidden",
+          57344
+        ],
+        [
+          "b0_past_k",
+          65536
+        ],
+        [
+          "b1_past_k",
+          65536
+        ],
+        [
+          "b0_past_v",
+          65536
+        ],
+        [
+          "b1_past_v",
+          65536
+        ],
+        [
+          "b0_mask",
+          258048
+        ],
+        [
+          "b1_mask",
+          258048
+        ],
+        [
+          "b0_rope_cos",
+          4096
+        ],
+        [
+          "b1_rope_cos",
+          4096
+        ],
+        [
+          "b0_rope_sin",
+          4096
+        ],
+        [
+          "b1_rope_sin",
+          4096
+        ]
+      ],
+      "outputs": [
+        [
+          "b1_attach_hidden_out/out0",
+          57344
+        ],
+        [
+          "b0_attach_new_k/out0",
+          8192
+        ],
+        [
+          "b1_attach_new_k/out0",
+          8192
+        ],
+        [
+          "b0_attach_new_v/out0",
+          8192
+        ],
+        [
+          "b1_attach_new_v/out0",
+          8192
+        ]
+      ],
+      "input_contract": [
+        {
+          "name": "b0_hidden",
+          "shape": [
+            1,
+            64,
+            896
+          ],
+          "f32_sha256": "2f65fe80f3e94b38b915e44cb2ebb61a739aaca83a83134e9f6afb4de0c1eaf2",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "0c76d666346ec1e64483658bf3ff3d1d989cf7fd203bb61ff60b05d8f7299c0a",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "e31d049ca1cedb1a1148aafeff8bb176a4b180a9ec538db0034034af0b809f69",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "b90dafccd37f5da7b976178bbf9a214ea28a6b6c9fe639e3056a7381c53da690",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "8815b1b52ba80d2d1145377163e89b29c899f75561dfd8b7f875a1e412aa2592",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_mask",
+          "shape": [
+            1,
+            1,
+            448,
+            576
+          ],
+          "f32_sha256": "f6365795129cd93bae38bf1a66242e20bd31f18f79aabfd82ba74880a1e2cc94",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_mask",
+          "shape": [
+            1,
+            1,
+            448,
+            576
+          ],
+          "f32_sha256": "f6365795129cd93bae38bf1a66242e20bd31f18f79aabfd82ba74880a1e2cc94",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_cos",
+          "shape": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "f32_sha256": "5059ad248e73425ced5d1a11c0da159d9492c2a981316def298a45940198267c",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_cos",
+          "shape": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "f32_sha256": "5059ad248e73425ced5d1a11c0da159d9492c2a981316def298a45940198267c",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_sin",
+          "shape": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "f32_sha256": "fabc885df73c8a636edef0fcfc4bb7b3eadde971590a2260723cc3478a35e75a",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_sin",
+          "shape": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "f32_sha256": "fabc885df73c8a636edef0fcfc4bb7b3eadde971590a2260723cc3478a35e75a",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        }
+      ],
+      "fp32_graph_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 4.7442637196581927e-07,
+          "max_abs": 1.6689300537109375e-06,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 2.8344324221052375e-08,
+          "max_abs": 3.814697265625e-06,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 1.9472433621103846e-07,
+          "max_abs": 3.5762786865234375e-07,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 1.3873297177724453e-07,
+          "max_abs": 2.86102294921875e-06,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 4.32963730645497e-07,
+          "max_abs": 1.9669532775878906e-06,
+          "finite": true
+        }
+      },
+      "exported_weight_fp32_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 5.209102482695016e-07,
+          "max_abs": 1.430511474609375e-06,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 6.091271842478818e-08,
+          "max_abs": 7.62939453125e-06,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 1.908073556933232e-07,
+          "max_abs": 4.76837158203125e-07,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 1.676792606986055e-07,
+          "max_abs": 3.814697265625e-06,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 5.268616973808093e-07,
+          "max_abs": 1.519918441772461e-06,
+          "finite": true
+        }
+      },
+      "exported_weight_records": [
+        [
+          {
+            "matrix": "down",
+            "dtype": "FLOAT16",
+            "relative_l2": 0.00020620944269467145
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.010442563332617283
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.025840848684310913
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.06675630062818527
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.009053637273609638
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 3.3203647831214766e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.024810967966914177
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.009599277749657631
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.4153806066351535e-07
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 2.223562631797904e-07
+          }
+        ],
+        [
+          {
+            "matrix": "down",
+            "dtype": "FLOAT16",
+            "relative_l2": 0.00020622739975806326
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.009954224340617657
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.017975496128201485
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.03306364640593529
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.008611063472926617
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 8.781063343121787e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.025442954152822495
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.009323060512542725
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 1.41002459486117e-07
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 3.6017200955029693e-07
+          }
+        ]
+      ],
+      "timing_scope": "canonical fixture generation and references excluded from board measurements"
+    },
+    {
+      "id": "c512-m128-l2",
+      "first_layer": 2,
+      "fusion_width": 2,
+      "history": 128,
+      "capacity": 512,
+      "query_tokens": 128,
+      "token_ids": [
+        151644,
+        8948,
+        198,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        1773,
+        105043,
+        101064,
+        106494,
+        102182,
+        103947,
+        102196,
+        100367,
+        31548,
+        1773,
+        100345,
+        108024,
+        91680,
+        66017,
+        46944,
+        102196,
+        99534,
+        72881,
+        1773,
+        30440,
+        27733,
+        107200,
+        5373,
+        99493,
+        102768,
+        5373,
+        102113,
+        5373,
+        114752,
+        24968,
+        42192,
+        105949,
+        5373,
+        102718,
+        1773,
+        105389,
+        50350,
+        33108,
+        104484,
+        101882,
+        3837,
+        16530,
+        99674,
+        104613,
+        3837,
+        16530,
+        102104,
+        86119,
+        1773,
+        103486,
+        46448,
+        100662,
+        99541,
+        81433,
+        1773,
+        14880,
+        100148,
+        66017,
+        104136,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        28919,
+        151645,
+        198,
+        151644,
+        872,
+        198,
+        20002,
+        99900,
+        112696,
+        3837,
+        101895,
+        111130,
+        3837,
+        99880,
+        104354,
+        101760,
+        104493,
+        24968,
+        100299,
+        99319,
+        101054,
+        101035,
+        3837,
+        114752,
+        100662,
+        99541,
+        81433,
+        1773,
+        20002,
+        104241,
+        102631,
+        3837,
+        100148,
+        115458,
+        1773,
+        105189,
+        28072,
+        38182,
+        99258,
+        104354,
+        106963,
+        3837,
+        77288,
+        104221,
+        50350,
+        34187,
+        101148,
+        101882,
+        1773,
+        99601,
+        104689,
+        105956,
+        101941,
+        3837,
+        99744,
+        85106,
+        104387,
+        111804,
+        3837,
+        91680,
+        99880,
+        101051,
+        46944,
+        106305,
+        9370,
+        101760,
+        104493,
+        1773,
+        104044,
+        115067,
+        20002,
+        102070,
+        113591,
+        3837,
+        99437,
+        99495,
+        106560,
+        104307,
+        33108,
+        104122,
+        104813,
+        103956,
+        1773,
+        100299,
+        101653,
+        18830,
+        90286,
+        21894,
+        33108,
+        52510,
+        100749,
+        3837,
+        105253,
+        104689,
+        102108,
+        99885,
+        109840,
+        3837,
+        99744,
+        85106,
+        101148,
+        81812,
+        1773,
+        104470,
+        9370,
+        101148,
+        101882,
+        99461,
+        50350,
+        3837,
+        105463,
+        80443,
+        102005,
+        102850,
+        101882,
+        3837,
+        104354,
+        106513,
+        104493,
+        67949,
+        109504,
+        1773,
+        20002,
+        102631,
+        102274,
+        49111,
+        99982,
+        3837,
+        80443,
+        101882,
+        105956
+      ],
+      "canonical_source": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures/c512-m256-l2",
+      "canonical_source_input_sha256": "b4729dbcb6f221e8b5e767da5f6947b96401ecc2684ca805527d3de71b1ea63f",
+      "canonical_source_tokens_sha256": "c4247ad823feeb7083bb0e86c9b75019c543287cc721da0bf078cfe90080c1cc",
+      "history_source": "independent FP32 full-depth prefix; not captured NPU KV",
+      "nb_sha256": "d8293faa83dbc4a194cc3fa5e7e7e4339898bf2dbd8c1e6535342f9d7a2314ab",
+      "input_sha256": "999f6f31f36eed2015f03e6ed903be1c6ac97040124cd297c05e90791daae0a6",
+      "reference_sha256": "fa5a4e137c51079bfe62e5c818d8a5c27ecdb9f8311e6fa939705f44057e6732",
+      "source_fp32_sha256": "6177c5dbe0674bd6cdbd93115db1ae224d8a02882b43dd5f2184129667dfb699",
+      "inputs": [
+        [
+          "b0_hidden",
+          114688
+        ],
+        [
+          "b0_past_k",
+          65536
+        ],
+        [
+          "b1_past_k",
+          65536
+        ],
+        [
+          "b0_past_v",
+          65536
+        ],
+        [
+          "b1_past_v",
+          65536
+        ],
+        [
+          "b0_mask",
+          573440
+        ],
+        [
+          "b1_mask",
+          573440
+        ],
+        [
+          "b0_rope_cos",
+          8192
+        ],
+        [
+          "b1_rope_cos",
+          8192
+        ],
+        [
+          "b0_rope_sin",
+          8192
+        ],
+        [
+          "b1_rope_sin",
+          8192
+        ]
+      ],
+      "outputs": [
+        [
+          "b1_attach_hidden_out/out0",
+          114688
+        ],
+        [
+          "b0_attach_new_k/out0",
+          16384
+        ],
+        [
+          "b1_attach_new_k/out0",
+          16384
+        ],
+        [
+          "b0_attach_new_v/out0",
+          16384
+        ],
+        [
+          "b1_attach_new_v/out0",
+          16384
+        ]
+      ],
+      "input_contract": [
+        {
+          "name": "b0_hidden",
+          "shape": [
+            1,
+            128,
+            896
+          ],
+          "f32_sha256": "ed06443a6fb9b87164785c5571595406bfc50e14ce52626148e7b2e8b1322069",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "0c76d666346ec1e64483658bf3ff3d1d989cf7fd203bb61ff60b05d8f7299c0a",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_k",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "e31d049ca1cedb1a1148aafeff8bb176a4b180a9ec538db0034034af0b809f69",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "b90dafccd37f5da7b976178bbf9a214ea28a6b6c9fe639e3056a7381c53da690",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b1_past_v",
+          "shape": [
+            1,
+            2,
+            512,
+            64
+          ],
+          "f32_sha256": "8815b1b52ba80d2d1145377163e89b29c899f75561dfd8b7f875a1e412aa2592",
+          "canonical_same_values": true,
+          "operation": "unchanged full past"
+        },
+        {
+          "name": "b0_mask",
+          "shape": [
+            1,
+            1,
+            896,
+            640
+          ],
+          "f32_sha256": "6693d81bb89ae60f769d0d24463b849224f30f31418ba0c0ca6d5f930ec18daf",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_mask",
+          "shape": [
+            1,
+            1,
+            896,
+            640
+          ],
+          "f32_sha256": "6693d81bb89ae60f769d0d24463b849224f30f31418ba0c0ca6d5f930ec18daf",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_cos",
+          "shape": [
+            1,
+            1,
+            128,
+            64
+          ],
+          "f32_sha256": "977e564df993a561fe4be9541d77f4bd73b8c3e333445461000211b9109b4849",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_cos",
+          "shape": [
+            1,
+            1,
+            128,
+            64
+          ],
+          "f32_sha256": "977e564df993a561fe4be9541d77f4bd73b8c3e333445461000211b9109b4849",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b0_rope_sin",
+          "shape": [
+            1,
+            1,
+            128,
+            64
+          ],
+          "f32_sha256": "ef05e2c206612ea6c09408c73f2957ed3bf3ebb71ac1cd73b3b749ddd1d17e14",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        },
+        {
+          "name": "b1_rope_sin",
+          "shape": [
+            1,
+            1,
+            128,
+            64
+          ],
+          "f32_sha256": "ef05e2c206612ea6c09408c73f2957ed3bf3ebb71ac1cd73b3b749ddd1d17e14",
+          "canonical_same_values": true,
+          "operation": "exact query/mask slice"
+        }
+      ],
+      "fp32_graph_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 4.959367743140319e-07,
+          "max_abs": 2.384185791015625e-06,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 2.8479705704853586e-08,
+          "max_abs": 3.814697265625e-06,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 1.9336157208726945e-07,
+          "max_abs": 3.5762786865234375e-07,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 1.4778231616219273e-07,
+          "max_abs": 5.245208740234375e-06,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 4.846689876103483e-07,
+          "max_abs": 2.5033950805664062e-06,
+          "finite": true
+        }
+      },
+      "exported_weight_fp32_same_effective_rows": {
+        "b1_attach_hidden_out/out0": {
+          "relative_l2": 5.317887712408265e-07,
+          "max_abs": 2.384185791015625e-06,
+          "finite": true
+        },
+        "b0_attach_new_k/out0": {
+          "relative_l2": 5.8952039694304403e-08,
+          "max_abs": 7.62939453125e-06,
+          "finite": true
+        },
+        "b0_attach_new_v/out0": {
+          "relative_l2": 1.8980125560119632e-07,
+          "max_abs": 4.76837158203125e-07,
+          "finite": true
+        },
+        "b1_attach_new_k/out0": {
+          "relative_l2": 1.6729759977351932e-07,
+          "max_abs": 3.814697265625e-06,
+          "finite": true
+        },
+        "b1_attach_new_v/out0": {
+          "relative_l2": 5.352611651687766e-07,
+          "max_abs": 2.5033950805664062e-06,
+          "finite": true
+        }
+      },
+      "exported_weight_records": [
+        [
+          {
+            "matrix": "down",
+            "dtype": "FLOAT16",
+            "relative_l2": 0.00020620944269467145
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.010442563332617283
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.025840848684310913
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.06675630062818527
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.009053637273609638
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 3.3203647831214766e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.024810967966914177
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.009599277749657631
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 2.4153806066351535e-07
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 2.223562631797904e-07
+          }
+        ],
+        [
+          {
+            "matrix": "down",
+            "dtype": "FLOAT16",
+            "relative_l2": 0.00020622739975806326
+          },
+          {
+            "matrix": "o",
+            "dtype": "INT8",
+            "relative_l2": 0.009954224340617657
+          },
+          {
+            "matrix": "v",
+            "dtype": "INT8",
+            "relative_l2": 0.017975496128201485
+          },
+          {
+            "matrix": "v_bias",
+            "dtype": "INT64",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "up",
+            "dtype": "INT8",
+            "relative_l2": 0.03306364640593529
+          },
+          {
+            "matrix": "k",
+            "dtype": "INT8",
+            "relative_l2": 0.008611063472926617
+          },
+          {
+            "matrix": "k_bias",
+            "dtype": "INT64",
+            "relative_l2": 8.781063343121787e-08
+          },
+          {
+            "matrix": "gate",
+            "dtype": "INT8",
+            "relative_l2": 0.025442954152822495
+          },
+          {
+            "matrix": "q",
+            "dtype": "INT8",
+            "relative_l2": 0.009323060512542725
+          },
+          {
+            "matrix": "q_bias",
+            "dtype": "INT64",
+            "relative_l2": 1.41002459486117e-07
+          },
+          {
+            "matrix": "norm1",
+            "dtype": "INT16",
+            "relative_l2": 0.0
+          },
+          {
+            "matrix": "norm2",
+            "dtype": "INT16",
+            "relative_l2": 3.6017200955029693e-07
+          }
+        ]
+      ],
+      "timing_scope": "canonical fixture generation and references excluded from board measurements"
+    }
+  ]
+}

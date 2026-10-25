@@ -1,0 +1,544 @@
+{
+  "id": "c512-m16-l2",
+  "first_layer": 2,
+  "fusion_width": 2,
+  "history": 128,
+  "capacity": 512,
+  "query_tokens": 16,
+  "token_ids": [
+    151644,
+    8948,
+    198,
+    105043,
+    101064,
+    106494,
+    102182,
+    103947,
+    102196,
+    100367,
+    31548,
+    1773,
+    100345,
+    108024,
+    91680,
+    66017,
+    46944,
+    102196,
+    99534,
+    72881,
+    1773,
+    30440,
+    27733,
+    107200,
+    5373,
+    99493,
+    102768,
+    5373,
+    102113,
+    5373,
+    114752,
+    24968,
+    42192,
+    105949,
+    5373,
+    102718,
+    1773,
+    105389,
+    50350,
+    33108,
+    104484,
+    101882,
+    3837,
+    16530,
+    99674,
+    104613,
+    3837,
+    16530,
+    102104,
+    86119,
+    1773,
+    103486,
+    46448,
+    100662,
+    99541,
+    81433,
+    1773,
+    14880,
+    100148,
+    66017,
+    104136,
+    1773,
+    105043,
+    101064,
+    106494,
+    102182,
+    103947,
+    102196,
+    100367,
+    31548,
+    1773,
+    100345,
+    108024,
+    91680,
+    66017,
+    46944,
+    102196,
+    99534,
+    72881,
+    1773,
+    30440,
+    27733,
+    107200,
+    5373,
+    99493,
+    102768,
+    5373,
+    102113,
+    5373,
+    114752,
+    24968,
+    42192,
+    105949,
+    5373,
+    102718,
+    1773,
+    105389,
+    50350,
+    33108,
+    104484,
+    101882,
+    3837,
+    16530,
+    99674,
+    104613,
+    3837,
+    16530,
+    102104,
+    86119,
+    1773,
+    103486,
+    46448,
+    100662,
+    99541,
+    81433,
+    1773,
+    14880,
+    100148,
+    66017,
+    104136,
+    28919,
+    28919,
+    28919,
+    28919,
+    28919,
+    28919,
+    151645,
+    198,
+    151644,
+    872,
+    198,
+    20002,
+    99900,
+    112696,
+    3837,
+    101895,
+    111130,
+    3837,
+    99880,
+    104354,
+    101760,
+    104493,
+    24968,
+    100299
+  ],
+  "canonical_source": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures/c512-m256-l2",
+  "canonical_source_input_sha256": "b4729dbcb6f221e8b5e767da5f6947b96401ecc2684ca805527d3de71b1ea63f",
+  "canonical_source_tokens_sha256": "c4247ad823feeb7083bb0e86c9b75019c543287cc721da0bf078cfe90080c1cc",
+  "history_source": "independent FP32 full-depth prefix; not captured NPU KV",
+  "nb_sha256": "b36f7ddc26234336c2f71d7c6f8f58ec038547042e670717f3f6612e2745f2d0",
+  "input_sha256": "bac32821aeeb424405384e4a3d827d38eea2116cd228f1249f2f0c295a5421da",
+  "reference_sha256": "24fb4dfc49eba40c46a97d76d169e29f80b08b68c4df815c59a11d270621fed7",
+  "source_fp32_sha256": "eaf790c1073fc0d19abc7f5499e597e6ffbf6775e399a73d46855f627cfa18de",
+  "inputs": [
+    [
+      "b0_hidden",
+      14336
+    ],
+    [
+      "b0_past_k",
+      65536
+    ],
+    [
+      "b1_past_k",
+      65536
+    ],
+    [
+      "b0_past_v",
+      65536
+    ],
+    [
+      "b1_past_v",
+      65536
+    ],
+    [
+      "b0_mask",
+      59136
+    ],
+    [
+      "b1_mask",
+      59136
+    ],
+    [
+      "b0_rope_cos",
+      1024
+    ],
+    [
+      "b1_rope_cos",
+      1024
+    ],
+    [
+      "b0_rope_sin",
+      1024
+    ],
+    [
+      "b1_rope_sin",
+      1024
+    ]
+  ],
+  "outputs": [
+    [
+      "b1_attach_hidden_out/out0",
+      14336
+    ],
+    [
+      "b0_attach_new_k/out0",
+      2048
+    ],
+    [
+      "b1_attach_new_k/out0",
+      2048
+    ],
+    [
+      "b0_attach_new_v/out0",
+      2048
+    ],
+    [
+      "b1_attach_new_v/out0",
+      2048
+    ]
+  ],
+  "input_contract": [
+    {
+      "name": "b0_hidden",
+      "shape": [
+        1,
+        16,
+        896
+      ],
+      "f32_sha256": "71069e48eed3f65589bce0344c1100cf7f6760de12657b1aa04872602ca27f7b",
+      "canonical_same_values": true,
+      "operation": "exact query/mask slice"
+    },
+    {
+      "name": "b0_past_k",
+      "shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "f32_sha256": "0c76d666346ec1e64483658bf3ff3d1d989cf7fd203bb61ff60b05d8f7299c0a",
+      "canonical_same_values": true,
+      "operation": "unchanged full past"
+    },
+    {
+      "name": "b1_past_k",
+      "shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "f32_sha256": "e31d049ca1cedb1a1148aafeff8bb176a4b180a9ec538db0034034af0b809f69",
+      "canonical_same_values": true,
+      "operation": "unchanged full past"
+    },
+    {
+      "name": "b0_past_v",
+      "shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "f32_sha256": "b90dafccd37f5da7b976178bbf9a214ea28a6b6c9fe639e3056a7381c53da690",
+      "canonical_same_values": true,
+      "operation": "unchanged full past"
+    },
+    {
+      "name": "b1_past_v",
+      "shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "f32_sha256": "8815b1b52ba80d2d1145377163e89b29c899f75561dfd8b7f875a1e412aa2592",
+      "canonical_same_values": true,
+      "operation": "unchanged full past"
+    },
+    {
+      "name": "b0_mask",
+      "shape": [
+        1,
+        1,
+        112,
+        528
+      ],
+      "f32_sha256": "67041a9967e08a75de6bb1bfb4e3bc03536e0e3041d13877890e6037f0c5c89e",
+      "canonical_same_values": true,
+      "operation": "exact query/mask slice"
+    },
+    {
+      "name": "b1_mask",
+      "shape": [
+        1,
+        1,
+        112,
+        528
+      ],
+      "f32_sha256": "67041a9967e08a75de6bb1bfb4e3bc03536e0e3041d13877890e6037f0c5c89e",
+      "canonical_same_values": true,
+      "operation": "exact query/mask slice"
+    },
+    {
+      "name": "b0_rope_cos",
+      "shape": [
+        1,
+        1,
+        16,
+        64
+      ],
+      "f32_sha256": "1d6e8ddace4d71a0e47d100c029fd6d788cb3e9c1c4867d46aebf6508b22d2e2",
+      "canonical_same_values": true,
+      "operation": "exact query/mask slice"
+    },
+    {
+      "name": "b1_rope_cos",
+      "shape": [
+        1,
+        1,
+        16,
+        64
+      ],
+      "f32_sha256": "1d6e8ddace4d71a0e47d100c029fd6d788cb3e9c1c4867d46aebf6508b22d2e2",
+      "canonical_same_values": true,
+      "operation": "exact query/mask slice"
+    },
+    {
+      "name": "b0_rope_sin",
+      "shape": [
+        1,
+        1,
+        16,
+        64
+      ],
+      "f32_sha256": "a37c6d021b832ac62ba5667e7f8046aaf0826d5ba19ab944db7f7bfd4444a185",
+      "canonical_same_values": true,
+      "operation": "exact query/mask slice"
+    },
+    {
+      "name": "b1_rope_sin",
+      "shape": [
+        1,
+        1,
+        16,
+        64
+      ],
+      "f32_sha256": "a37c6d021b832ac62ba5667e7f8046aaf0826d5ba19ab944db7f7bfd4444a185",
+      "canonical_same_values": true,
+      "operation": "exact query/mask slice"
+    }
+  ],
+  "fp32_graph_same_effective_rows": {
+    "b1_attach_hidden_out/out0": {
+      "relative_l2": 4.1338981304761546e-07,
+      "max_abs": 9.5367431640625e-07,
+      "finite": true
+    },
+    "b0_attach_new_k/out0": {
+      "relative_l2": 3.106806190089628e-08,
+      "max_abs": 3.814697265625e-06,
+      "finite": true
+    },
+    "b0_attach_new_v/out0": {
+      "relative_l2": 1.9946115514812846e-07,
+      "max_abs": 3.5762786865234375e-07,
+      "finite": true
+    },
+    "b1_attach_new_k/out0": {
+      "relative_l2": 1.3956658051483828e-07,
+      "max_abs": 2.86102294921875e-06,
+      "finite": true
+    },
+    "b1_attach_new_v/out0": {
+      "relative_l2": 3.970549471432605e-07,
+      "max_abs": 6.258487701416016e-07,
+      "finite": true
+    }
+  },
+  "exported_weight_fp32_same_effective_rows": {
+    "b1_attach_hidden_out/out0": {
+      "relative_l2": 4.957987584930379e-07,
+      "max_abs": 1.430511474609375e-06,
+      "finite": true
+    },
+    "b0_attach_new_k/out0": {
+      "relative_l2": 6.24339833166232e-08,
+      "max_abs": 7.62939453125e-06,
+      "finite": true
+    },
+    "b0_attach_new_v/out0": {
+      "relative_l2": 1.8774484544792358e-07,
+      "max_abs": 2.682209014892578e-07,
+      "finite": true
+    },
+    "b1_attach_new_k/out0": {
+      "relative_l2": 1.6605190467089415e-07,
+      "max_abs": 2.86102294921875e-06,
+      "finite": true
+    },
+    "b1_attach_new_v/out0": {
+      "relative_l2": 4.89014666982257e-07,
+      "max_abs": 8.940696716308594e-07,
+      "finite": true
+    }
+  },
+  "exported_weight_records": [
+    [
+      {
+        "matrix": "down",
+        "dtype": "FLOAT16",
+        "relative_l2": 0.00020620944269467145
+      },
+      {
+        "matrix": "o",
+        "dtype": "INT8",
+        "relative_l2": 0.010442563332617283
+      },
+      {
+        "matrix": "v",
+        "dtype": "INT8",
+        "relative_l2": 0.025840848684310913
+      },
+      {
+        "matrix": "v_bias",
+        "dtype": "INT64",
+        "relative_l2": 0.0
+      },
+      {
+        "matrix": "up",
+        "dtype": "INT8",
+        "relative_l2": 0.06675630062818527
+      },
+      {
+        "matrix": "k",
+        "dtype": "INT8",
+        "relative_l2": 0.009053637273609638
+      },
+      {
+        "matrix": "k_bias",
+        "dtype": "INT64",
+        "relative_l2": 3.3203647831214766e-08
+      },
+      {
+        "matrix": "gate",
+        "dtype": "INT8",
+        "relative_l2": 0.024810967966914177
+      },
+      {
+        "matrix": "q",
+        "dtype": "INT8",
+        "relative_l2": 0.009599277749657631
+      },
+      {
+        "matrix": "q_bias",
+        "dtype": "INT64",
+        "relative_l2": 2.4153806066351535e-07
+      },
+      {
+        "matrix": "norm1",
+        "dtype": "INT16",
+        "relative_l2": 0.0
+      },
+      {
+        "matrix": "norm2",
+        "dtype": "INT16",
+        "relative_l2": 2.223562631797904e-07
+      }
+    ],
+    [
+      {
+        "matrix": "down",
+        "dtype": "FLOAT16",
+        "relative_l2": 0.00020622739975806326
+      },
+      {
+        "matrix": "o",
+        "dtype": "INT8",
+        "relative_l2": 0.009954224340617657
+      },
+      {
+        "matrix": "v",
+        "dtype": "INT8",
+        "relative_l2": 0.017975496128201485
+      },
+      {
+        "matrix": "v_bias",
+        "dtype": "INT64",
+        "relative_l2": 0.0
+      },
+      {
+        "matrix": "up",
+        "dtype": "INT8",
+        "relative_l2": 0.03306364640593529
+      },
+      {
+        "matrix": "k",
+        "dtype": "INT8",
+        "relative_l2": 0.008611063472926617
+      },
+      {
+        "matrix": "k_bias",
+        "dtype": "INT64",
+        "relative_l2": 8.781063343121787e-08
+      },
+      {
+        "matrix": "gate",
+        "dtype": "INT8",
+        "relative_l2": 0.025442954152822495
+      },
+      {
+        "matrix": "q",
+        "dtype": "INT8",
+        "relative_l2": 0.009323060512542725
+      },
+      {
+        "matrix": "q_bias",
+        "dtype": "INT64",
+        "relative_l2": 1.41002459486117e-07
+      },
+      {
+        "matrix": "norm1",
+        "dtype": "INT16",
+        "relative_l2": 0.0
+      },
+      {
+        "matrix": "norm2",
+        "dtype": "INT16",
+        "relative_l2": 3.6017200955029693e-07
+      }
+    ]
+  ],
+  "timing_scope": "canonical fixture generation and references excluded from board measurements"
+}

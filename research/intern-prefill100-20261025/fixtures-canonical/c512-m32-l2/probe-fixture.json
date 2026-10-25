@@ -1,0 +1,560 @@
+{
+  "id": "c512-m32-l2",
+  "first_layer": 2,
+  "fusion_width": 2,
+  "history": 128,
+  "capacity": 512,
+  "query_tokens": 32,
+  "token_ids": [
+    151644,
+    8948,
+    198,
+    105043,
+    101064,
+    106494,
+    102182,
+    103947,
+    102196,
+    100367,
+    31548,
+    1773,
+    100345,
+    108024,
+    91680,
+    66017,
+    46944,
+    102196,
+    99534,
+    72881,
+    1773,
+    30440,
+    27733,
+    107200,
+    5373,
+    99493,
+    102768,
+    5373,
+    102113,
+    5373,
+    114752,
+    24968,
+    42192,
+    105949,
+    5373,
+    102718,
+    1773,
+    105389,
+    50350,
+    33108,
+    104484,
+    101882,
+    3837,
+    16530,
+    99674,
+    104613,
+    3837,
+    16530,
+    102104,
+    86119,
+    1773,
+    103486,
+    46448,
+    100662,
+    99541,
+    81433,
+    1773,
+    14880,
+    100148,
+    66017,
+    104136,
+    1773,
+    105043,
+    101064,
+    106494,
+    102182,
+    103947,
+    102196,
+    100367,
+    31548,
+    1773,
+    100345,
+    108024,
+    91680,
+    66017,
+    46944,
+    102196,
+    99534,
+    72881,
+    1773,
+    30440,
+    27733,
+    107200,
+    5373,
+    99493,
+    102768,
+    5373,
+    102113,
+    5373,
+    114752,
+    24968,
+    42192,
+    105949,
+    5373,
+    102718,
+    1773,
+    105389,
+    50350,
+    33108,
+    104484,
+    101882,
+    3837,
+    16530,
+    99674,
+    104613,
+    3837,
+    16530,
+    102104,
+    86119,
+    1773,
+    103486,
+    46448,
+    100662,
+    99541,
+    81433,
+    1773,
+    14880,
+    100148,
+    66017,
+    104136,
+    28919,
+    28919,
+    28919,
+    28919,
+    28919,
+    28919,
+    151645,
+    198,
+    151644,
+    872,
+    198,
+    20002,
+    99900,
+    112696,
+    3837,
+    101895,
+    111130,
+    3837,
+    99880,
+    104354,
+    101760,
+    104493,
+    24968,
+    100299,
+    99319,
+    101054,
+    101035,
+    3837,
+    114752,
+    100662,
+    99541,
+    81433,
+    1773,
+    20002,
+    104241,
+    102631,
+    3837,
+    100148,
+    115458,
+    1773
+  ],
+  "canonical_source": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures/c512-m256-l2",
+  "canonical_source_input_sha256": "b4729dbcb6f221e8b5e767da5f6947b96401ecc2684ca805527d3de71b1ea63f",
+  "canonical_source_tokens_sha256": "c4247ad823feeb7083bb0e86c9b75019c543287cc721da0bf078cfe90080c1cc",
+  "history_source": "independent FP32 full-depth prefix; not captured NPU KV",
+  "nb_sha256": "34f3b3a2f8aec80ae712c5bd52a9bcbade6ca178bbff073ca54907cd1c08b250",
+  "input_sha256": "5063e49e2504abbaf6ab3e151060b800f2aa3d852a3848fa3b1c5b6ddbc20ca7",
+  "reference_sha256": "534a370d5dd76214954e30d947d31fca9787431f58f8fd52ea78792fd87a874e",
+  "source_fp32_sha256": "3a789bbdca3e55cce95c9ea906d735c15661fe3ac8d01579961b6679da72928d",
+  "inputs": [
+    [
+      "b0_hidden",
+      28672
+    ],
+    [
+      "b0_past_k",
+      65536
+    ],
+    [
+      "b1_past_k",
+      65536
+    ],
+    [
+      "b0_past_v",
+      65536
+    ],
+    [
+      "b1_past_v",
+      65536
+    ],
+    [
+      "b0_mask",
+      121856
+    ],
+    [
+      "b1_mask",
+      121856
+    ],
+    [
+      "b0_rope_cos",
+      2048
+    ],
+    [
+      "b1_rope_cos",
+      2048
+    ],
+    [
+      "b0_rope_sin",
+      2048
+    ],
+    [
+      "b1_rope_sin",
+      2048
+    ]
+  ],
+  "outputs": [
+    [
+      "b1_attach_hidden_out/out0",
+      28672
+    ],
+    [
+      "b0_attach_new_k/out0",
+      4096
+    ],
+    [
+      "b1_attach_new_k/out0",
+      4096
+    ],
+    [
+      "b0_attach_new_v/out0",
+      4096
+    ],
+    [
+      "b1_attach_new_v/out0",
+      4096
+    ]
+  ],
+  "input_contract": [
+    {
+      "name": "b0_hidden",
+      "shape": [
+        1,
+        32,
+        896
+      ],
+      "f32_sha256": "1c58b58e8c0afef012a5626bb21601365b112c07dfa9c0a0476ddb93b97731b0",
+      "canonical_same_values": true,
+      "operation": "exact query/mask slice"
+    },
+    {
+      "name": "b0_past_k",
+      "shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "f32_sha256": "0c76d666346ec1e64483658bf3ff3d1d989cf7fd203bb61ff60b05d8f7299c0a",
+      "canonical_same_values": true,
+      "operation": "unchanged full past"
+    },
+    {
+      "name": "b1_past_k",
+      "shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "f32_sha256": "e31d049ca1cedb1a1148aafeff8bb176a4b180a9ec538db0034034af0b809f69",
+      "canonical_same_values": true,
+      "operation": "unchanged full past"
+    },
+    {
+      "name": "b0_past_v",
+      "shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "f32_sha256": "b90dafccd37f5da7b976178bbf9a214ea28a6b6c9fe639e3056a7381c53da690",
+      "canonical_same_values": true,
+      "operation": "unchanged full past"
+    },
+    {
+      "name": "b1_past_v",
+      "shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "f32_sha256": "8815b1b52ba80d2d1145377163e89b29c899f75561dfd8b7f875a1e412aa2592",
+      "canonical_same_values": true,
+      "operation": "unchanged full past"
+    },
+    {
+      "name": "b0_mask",
+      "shape": [
+        1,
+        1,
+        224,
+        544
+      ],
+      "f32_sha256": "28a182a928a99df351c73c0527b9c72b5532bc30c1980b3c567623b3ff14b391",
+      "canonical_same_values": true,
+      "operation": "exact query/mask slice"
+    },
+    {
+      "name": "b1_mask",
+      "shape": [
+        1,
+        1,
+        224,
+        544
+      ],
+      "f32_sha256": "28a182a928a99df351c73c0527b9c72b5532bc30c1980b3c567623b3ff14b391",
+      "canonical_same_values": true,
+      "operation": "exact query/mask slice"
+    },
+    {
+      "name": "b0_rope_cos",
+      "shape": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "f32_sha256": "07e275f3a139a7c1624096cf35ad99d583d3a23a4c32606842b4dfdcb9537f64",
+      "canonical_same_values": true,
+      "operation": "exact query/mask slice"
+    },
+    {
+      "name": "b1_rope_cos",
+      "shape": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "f32_sha256": "07e275f3a139a7c1624096cf35ad99d583d3a23a4c32606842b4dfdcb9537f64",
+      "canonical_same_values": true,
+      "operation": "exact query/mask slice"
+    },
+    {
+      "name": "b0_rope_sin",
+      "shape": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "f32_sha256": "399a1fd6ad781e3ad8d042ad19cb4d47fae310b39d7e5579fd2c985c1b6106d9",
+      "canonical_same_values": true,
+      "operation": "exact query/mask slice"
+    },
+    {
+      "name": "b1_rope_sin",
+      "shape": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "f32_sha256": "399a1fd6ad781e3ad8d042ad19cb4d47fae310b39d7e5579fd2c985c1b6106d9",
+      "canonical_same_values": true,
+      "operation": "exact query/mask slice"
+    }
+  ],
+  "fp32_graph_same_effective_rows": {
+    "b1_attach_hidden_out/out0": {
+      "relative_l2": 4.536242670383217e-07,
+      "max_abs": 1.430511474609375e-06,
+      "finite": true
+    },
+    "b0_attach_new_k/out0": {
+      "relative_l2": 2.9159059167227497e-08,
+      "max_abs": 3.814697265625e-06,
+      "finite": true
+    },
+    "b0_attach_new_v/out0": {
+      "relative_l2": 2.0168386072327849e-07,
+      "max_abs": 3.5762786865234375e-07,
+      "finite": true
+    },
+    "b1_attach_new_k/out0": {
+      "relative_l2": 1.428839340178456e-07,
+      "max_abs": 2.86102294921875e-06,
+      "finite": true
+    },
+    "b1_attach_new_v/out0": {
+      "relative_l2": 4.303925607018755e-07,
+      "max_abs": 1.9669532775878906e-06,
+      "finite": true
+    }
+  },
+  "exported_weight_fp32_same_effective_rows": {
+    "b1_attach_hidden_out/out0": {
+      "relative_l2": 5.527573989638768e-07,
+      "max_abs": 1.430511474609375e-06,
+      "finite": true
+    },
+    "b0_attach_new_k/out0": {
+      "relative_l2": 6.104737337864208e-08,
+      "max_abs": 7.62939453125e-06,
+      "finite": true
+    },
+    "b0_attach_new_v/out0": {
+      "relative_l2": 1.9188142630355287e-07,
+      "max_abs": 4.76837158203125e-07,
+      "finite": true
+    },
+    "b1_attach_new_k/out0": {
+      "relative_l2": 1.7722832978961378e-07,
+      "max_abs": 3.814697265625e-06,
+      "finite": true
+    },
+    "b1_attach_new_v/out0": {
+      "relative_l2": 5.643988743031514e-07,
+      "max_abs": 1.5497207641601562e-06,
+      "finite": true
+    }
+  },
+  "exported_weight_records": [
+    [
+      {
+        "matrix": "down",
+        "dtype": "FLOAT16",
+        "relative_l2": 0.00020620944269467145
+      },
+      {
+        "matrix": "o",
+        "dtype": "INT8",
+        "relative_l2": 0.010442563332617283
+      },
+      {
+        "matrix": "v",
+        "dtype": "INT8",
+        "relative_l2": 0.025840848684310913
+      },
+      {
+        "matrix": "v_bias",
+        "dtype": "INT64",
+        "relative_l2": 0.0
+      },
+      {
+        "matrix": "up",
+        "dtype": "INT8",
+        "relative_l2": 0.06675630062818527
+      },
+      {
+        "matrix": "k",
+        "dtype": "INT8",
+        "relative_l2": 0.009053637273609638
+      },
+      {
+        "matrix": "k_bias",
+        "dtype": "INT64",
+        "relative_l2": 3.3203647831214766e-08
+      },
+      {
+        "matrix": "gate",
+        "dtype": "INT8",
+        "relative_l2": 0.024810967966914177
+      },
+      {
+        "matrix": "q",
+        "dtype": "INT8",
+        "relative_l2": 0.009599277749657631
+      },
+      {
+        "matrix": "q_bias",
+        "dtype": "INT64",
+        "relative_l2": 2.4153806066351535e-07
+      },
+      {
+        "matrix": "norm1",
+        "dtype": "INT16",
+        "relative_l2": 0.0
+      },
+      {
+        "matrix": "norm2",
+        "dtype": "INT16",
+        "relative_l2": 2.223562631797904e-07
+      }
+    ],
+    [
+      {
+        "matrix": "down",
+        "dtype": "FLOAT16",
+        "relative_l2": 0.00020622739975806326
+      },
+      {
+        "matrix": "o",
+        "dtype": "INT8",
+        "relative_l2": 0.009954224340617657
+      },
+      {
+        "matrix": "v",
+        "dtype": "INT8",
+        "relative_l2": 0.017975496128201485
+      },
+      {
+        "matrix": "v_bias",
+        "dtype": "INT64",
+        "relative_l2": 0.0
+      },
+      {
+        "matrix": "up",
+        "dtype": "INT8",
+        "relative_l2": 0.03306364640593529
+      },
+      {
+        "matrix": "k",
+        "dtype": "INT8",
+        "relative_l2": 0.008611063472926617
+      },
+      {
+        "matrix": "k_bias",
+        "dtype": "INT64",
+        "relative_l2": 8.781063343121787e-08
+      },
+      {
+        "matrix": "gate",
+        "dtype": "INT8",
+        "relative_l2": 0.025442954152822495
+      },
+      {
+        "matrix": "q",
+        "dtype": "INT8",
+        "relative_l2": 0.009323060512542725
+      },
+      {
+        "matrix": "q_bias",
+        "dtype": "INT64",
+        "relative_l2": 1.41002459486117e-07
+      },
+      {
+        "matrix": "norm1",
+        "dtype": "INT16",
+        "relative_l2": 0.0
+      },
+      {
+        "matrix": "norm2",
+        "dtype": "INT16",
+        "relative_l2": 3.6017200955029693e-07
+      }
+    ]
+  ],
+  "timing_scope": "canonical fixture generation and references excluded from board measurements"
+}

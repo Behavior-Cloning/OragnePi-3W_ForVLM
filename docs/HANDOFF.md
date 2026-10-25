@@ -1,3 +1,21 @@
+## 2026-10-25：100ms prefill新目标与原始数据对比
+
+任务目录 research/intern-prefill100-20261025。目标仍未完成：system固定64/128（正文59/123+模板5），动态正文64–256+模板8，只缓存system，要求完整prefill及TTFT均≤100ms。完整主格/边界与限制见PLAN.md/AUDIT.md。
+
+用户要求原始对比：ORIGINAL_COMPARISON.md 已重新读取最早 plain 与最新 combined-r2 的 raw events，systems/performance 输入逐项一致。旧prefill需要把scalar_prompt加回再取P50。system64/128 ×正文32/64：原TTFT 1.153/1.760/1.180/1.798秒，最新 .494/.870/.495/.890秒；原每格9次输出1，最新6次固定反馈输出32。跨轮历史对照，不能全部归因单项优化；decode只能使用同32步基线。
+
+C512 M16/32/64/128/256 × L0/L2 共10块已编译，原权重/量化/导出payload一致。各M独立FP32前向会引入小输入差，因此保留旧fixtures，新增fixtures-canonical从每layer唯一M256历史切片，110字段逐位核验，reference重新计算。runtime/已交付协议v2，独立M16 system bank、显式prefix长度、bulk和padding可选；host测试通过，不等于全模型NPU验证。
+
+single-block-c512-r1 已结束、rc0，数据回收 results/single-block-c512-r1，12组各3warm+30timed，全部正常released0。分析API P50：L0 M16/32/64/128/256为8.42/10.92/34.62/84.21/211.13ms；L2为112.21/222.12/456.72/922.93/1890.17ms；M16前后漂移约0.17%/0.13%。这是两层单块重复输入API，无语音/RAG背景，不是完整prefill或TTFT。大batch并未解决敏感L2瓶颈，下一步独立NPD/IO诊断和L2量化/算子对照；尚未编译完整C512栈，勿宣称100ms可达或全范围已测。
+
+控制器已释放hostlock；后续board动作仍仅root经WSL hostlock和board flock。WSL keepalive sleep21600 PID624（需验证存活而非沿用旧PID）。板端本轮新增约378MB文件；pre-health可用1.27GB，后续传大栈前重新核对空间。旧Intern候选仍保留，旧关闭崩溃根因未定位；RAG Top3冲突仍未修，不执行电机。
+
+IO/NPD8组已完成并回收results/single-block-profile-r1，4组输出与纯计时bitwise一致。L2 M16 run112.09ms、flush/invalidate合计0.037ms；M32 run222.04ms、同步0.092ms。实际NPD已用SDK解析，但当前仅NN计数，缺可验证node trace前不能声称CPU fallback或下游engine时间占比。
+
+完整新范围基线fullbaseline-c1280-r1由fullbaseline/controller_fullbaseline.py启动，WSL PID4991，配置48条固定32步+12自然+8格各4步诊断，语音/RAG常驻。只读该目录controller状态和log，勿绕锁轮询板卡、勿重复启动。C1280+mask/group/greedy，无真8，只system64/128复用。输入正文64/128/192/256另加8模板；输出32是固定反馈性能，不是自然回答。
+
+图侧正在独立补node trace和FP16 FC→1x1Conv候选，未上板。Mac原始报告副本 reports/intern-prefill100-20261025/ORIGINAL_COMPARISON.md。本阶段代码/证据将单独提交，GitHub是否已同步以实际commit及远程SHA验证为准。
+
 ## 2026-10-25 同输入NPU prefill/decode优化已完成本轮测试
 
 权威Windows仓库 F:/Files/OPi-Lab/repos/OragnePi-3W_ForVLM，分支codex/wsl-intern1b-reproduction。Mac→Windows Tailscale100.113.74.31→WSL→板卡192.168.10.11；板卡操作使用board_access.hostlock与板端flock。当前本轮控制器均结束，没有待续跑任务；不得重复启动旧run。

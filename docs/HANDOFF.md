@@ -1,3 +1,7 @@
+## 2026-10-26 C512/M32 FP16 Conv整模结果已回收
+
+`research/intern-prefill100-20261025/capacity512-conv-full/results/c512-m32-conv-aba-r1/REPORT.md`：控制器rc0，72性能/144自然/24诊断，3close driver0。相同static64/128（正文59/123+5模板）、dynamic正文64/128/192/256+8模板，新72/136/200/264，输出32固定反馈。TTFT P50动态64为.5678/.5683秒，128为.9940/.9978秒，256为1.8867/1.9198秒；配对比值中位数.64135，decode约15。仍远未100ms，44/48自然token同且有部件/约束丢失，拒绝默认晋升。原图A/A全同，候选logits relL2 2.696–3.229%。源图/候选/原始证据均保留；下一outputFP16 probe未启动，磁盘951275520B不足原预留与上传要求，不能降低阈值强跑。root质量判定已入QUALIFICATION_DECISION.md；独立审计已完成：Top1冲突19→21/48，两版Top3全部48例至少一冲突，禁止直接执行。动态128的P95/max为1.026/1.011秒，中位数低于1秒不代表稳定达标。
+
 ## 2026-10-26 独立结果审计与输出FP16四路单块准备
 
 C512 M16/M32父轮独立审计完成：INDEPENDENT_RESULT_AUDIT.md/json、NUMERIC、MANUAL均在capacity512-full/results/c512-m16-m32-aba-r1。计时与文件完整性通过，质量/100ms均不合格。M32 TTFT配对降14.1%，decode基本不变；M32自然旧24完整9例、新24完整4例，另有兼容但遗漏、安全不响应、信息不足、复述和冲突，不能用token43/48当质量率。RAG Top1明确冲突19/48，Top3在48/48情景中都有冲突项，不能依次执行。当前Conv run36947/watch36977仍运行，只看WSL状态，不并跑新板测。

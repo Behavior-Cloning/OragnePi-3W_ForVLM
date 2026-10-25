@@ -1,0 +1,363 @@
+{
+  "status": "MEASUREMENT_INTEGRITY_PASS_NOT_DEFAULT_QUALITY_OR_100MS_QUALIFIED",
+  "all_numeric_assertions_pass": true,
+  "candidate_promotion": false,
+  "goal100ms_met": false,
+  "counts": {
+    "resident_models": 1,
+    "audio_endpoint": 144,
+    "tail_graph_verified": 3,
+    "graph_verified": 3,
+    "loaded": 3,
+    "measure": 72,
+    "quality": 144,
+    "diagnostic": 24,
+    "closed": 3,
+    "complete": 1
+  },
+  "candidate_paired_ttft": {
+    "n": 24,
+    "min": 0.6076186115108769,
+    "p50": 0.6413502965617652,
+    "p95": 0.6795940541088352,
+    "max": 0.6825252167863326,
+    "mean": 0.6435170613812647
+  },
+  "candidate_paired_decode": {
+    "n": 24,
+    "min": 0.9753394481862654,
+    "p50": 0.9972739982369018,
+    "p95": 1.0099441418104023,
+    "max": 1.013484978608404,
+    "mean": 0.9983332624690368
+  },
+  "baseline_drift": {
+    "n": 24,
+    "min": 0.9649249762754291,
+    "p50": 1.0012957523226347,
+    "p95": 1.0406469976303412,
+    "max": 1.0449340490973453,
+    "mean": 1.005909796034891
+  },
+  "cross_previous_M32": {
+    "measure_tokens_equal": 24,
+    "quality_tokens_equal": 48,
+    "diagnostic_tokens_equal": 8,
+    "diagnostic_files_byte_equal": 8
+  },
+  "diagnostic_relL2": [
+    0.02696081447451112,
+    0.03229422194382009
+  ],
+  "manual_summary": [
+    {
+      "variant": "c512-m32-original",
+      "quality_set": "development-regression",
+      "n": 24,
+      "semantic_classes": {
+        "pass": 9,
+        "compatible_partial": 10,
+        "safe_underresponse": 3,
+        "underspecified": 2
+      },
+      "explicit_reply_conflicts": 0,
+      "rag_top1_conflicts": 10,
+      "rag_any_top3_conflicts": 24,
+      "all3_certified": 0
+    },
+    {
+      "variant": "c512-m32-original",
+      "quality_set": "new-frozen-household-v2",
+      "n": 24,
+      "semantic_classes": {
+        "conflict": 2,
+        "safe_underresponse": 6,
+        "compatible_partial": 9,
+        "underspecified": 2,
+        "pass": 4,
+        "unjudgeable": 1
+      },
+      "explicit_reply_conflicts": 2,
+      "rag_top1_conflicts": 9,
+      "rag_any_top3_conflicts": 24,
+      "all3_certified": 0
+    },
+    {
+      "variant": "c512-m32-conv-l2",
+      "quality_set": "development-regression",
+      "n": 24,
+      "semantic_classes": {
+        "pass": 9,
+        "compatible_partial": 9,
+        "underspecified": 4,
+        "safe_underresponse": 2
+      },
+      "explicit_reply_conflicts": 0,
+      "rag_top1_conflicts": 11,
+      "rag_any_top3_conflicts": 24,
+      "all3_certified": 0
+    },
+    {
+      "variant": "c512-m32-conv-l2",
+      "quality_set": "new-frozen-household-v2",
+      "n": 24,
+      "semantic_classes": {
+        "conflict": 2,
+        "safe_underresponse": 6,
+        "compatible_partial": 9,
+        "underspecified": 3,
+        "pass": 3,
+        "unjudgeable": 1
+      },
+      "explicit_reply_conflicts": 2,
+      "rag_top1_conflicts": 10,
+      "rag_any_top3_conflicts": 24,
+      "all3_certified": 0
+    },
+    {
+      "variant": "c512-m32-repeat",
+      "quality_set": "development-regression",
+      "n": 24,
+      "semantic_classes": {
+        "pass": 9,
+        "compatible_partial": 10,
+        "safe_underresponse": 3,
+        "underspecified": 2
+      },
+      "explicit_reply_conflicts": 0,
+      "rag_top1_conflicts": 10,
+      "rag_any_top3_conflicts": 24,
+      "all3_certified": 0
+    },
+    {
+      "variant": "c512-m32-repeat",
+      "quality_set": "new-frozen-household-v2",
+      "n": 24,
+      "semantic_classes": {
+        "conflict": 2,
+        "safe_underresponse": 6,
+        "compatible_partial": 9,
+        "underspecified": 2,
+        "pass": 4,
+        "unjudgeable": 1
+      },
+      "explicit_reply_conflicts": 2,
+      "rag_top1_conflicts": 9,
+      "rag_any_top3_conflicts": 24,
+      "all3_certified": 0
+    }
+  ],
+  "changes": [
+    {
+      "case": "s64-d128-head-left",
+      "quality_set": "development-regression",
+      "a_reply": "调整头部位置，向左转一点。",
+      "b_reply": "头部向左转一点。",
+      "a_class": "pass",
+      "b_class": "pass",
+      "a_top3": [
+        "R005",
+        "R006",
+        "R010"
+      ],
+      "b_top3": [
+        "R005",
+        "R006",
+        "R001"
+      ]
+    },
+    {
+      "case": "s64-d256-left-arm-correction",
+      "quality_set": "development-regression",
+      "a_reply": "保持静止。",
+      "b_reply": "低幅度抬起",
+      "a_class": "safe_underresponse",
+      "b_class": "underspecified",
+      "a_top3": [
+        "R108",
+        "R089",
+        "R090"
+      ],
+      "b_top3": [
+        "R004",
+        "R082",
+        "R125"
+      ]
+    },
+    {
+      "case": "s128-d128-head-left",
+      "quality_set": "development-regression",
+      "a_reply": "左转头部",
+      "b_reply": "左转",
+      "a_class": "compatible_partial",
+      "b_class": "underspecified",
+      "a_top3": [
+        "R005",
+        "R006",
+        "R001"
+      ],
+      "b_top3": [
+        "R101",
+        "R099",
+        "R102"
+      ]
+    },
+    {
+      "case": "s64-d128-left-turn-space",
+      "quality_set": "new-frozen-household-v2",
+      "a_reply": "底盘原地向左小角度转弯后停住",
+      "b_reply": "左转",
+      "a_class": "pass",
+      "b_class": "underspecified",
+      "a_top3": [
+        "R093",
+        "R107",
+        "R094"
+      ],
+      "b_top3": [
+        "R101",
+        "R099",
+        "R102"
+      ]
+    }
+  ],
+  "resources": {
+    "n": 1771,
+    "span_s": 910.4900265840115,
+    "cpu_pct_weighted": 7.322938612648336,
+    "cpu_core_equivalent": 0.5858350890118669,
+    "cpu_pct": {
+      "n": 1770,
+      "min": 3.43980343980344,
+      "p50": 6.553398058252427,
+      "p95": 13.447432762836186,
+      "max": 25.853658536585368,
+      "mean": 7.322680649619478
+    },
+    "temp_C": {
+      "n": 1771,
+      "min": 41.416,
+      "p50": 46.686,
+      "p95": 48.174,
+      "max": 49.848,
+      "mean": 46.37946583850932
+    },
+    "load1": {
+      "n": 1771,
+      "min": 0.82,
+      "p50": 3.48,
+      "p95": 3.72,
+      "max": 3.92,
+      "mean": 3.340446075663467
+    },
+    "rss_peak_MiB": 626.42578125,
+    "pss_peak_MiB": 618.28515625,
+    "mem_available_min_MiB": 2508.53515625,
+    "swap_MiB": {
+      "n": 1771,
+      "min": 828.5,
+      "p50": 919.75,
+      "p95": 927.0,
+      "max": 927.0,
+      "mean": 917.3225578769056
+    },
+    "pswpin_delta": 0,
+    "pswpout_delta": 25192,
+    "freq_khz": {
+      "cpu7": {
+        "n": 1771,
+        "min": 2002000.0,
+        "p50": 2002000.0,
+        "p95": 2002000.0,
+        "max": 2002000.0,
+        "mean": 2002000.0
+      },
+      "cpu5": {
+        "n": 1771,
+        "min": 416000.0,
+        "p50": 1794000.0,
+        "p95": 1794000.0,
+        "max": 1794000.0,
+        "mean": 1201666.8548842461
+      },
+      "cpu3": {
+        "n": 1771,
+        "min": 416000.0,
+        "p50": 1794000.0,
+        "p95": 1794000.0,
+        "max": 1794000.0,
+        "mean": 1201872.388481084
+      },
+      "cpu1": {
+        "n": 1771,
+        "min": 416000.0,
+        "p50": 1794000.0,
+        "p95": 1794000.0,
+        "max": 1794000.0,
+        "mean": 1202077.9220779222
+      },
+      "cpu6": {
+        "n": 1771,
+        "min": 2002000.0,
+        "p50": 2002000.0,
+        "p95": 2002000.0,
+        "max": 2002000.0,
+        "mean": 2002000.0
+      },
+      "cpu4": {
+        "n": 1771,
+        "min": 416000.0,
+        "p50": 1794000.0,
+        "p95": 1794000.0,
+        "max": 1794000.0,
+        "mean": 1201872.388481084
+      },
+      "cpu2": {
+        "n": 1771,
+        "min": 416000.0,
+        "p50": 1794000.0,
+        "p95": 1794000.0,
+        "max": 1794000.0,
+        "mean": 1202077.9220779222
+      },
+      "cpu0": {
+        "n": 1771,
+        "min": 416000.0,
+        "p50": 1794000.0,
+        "p95": 1794000.0,
+        "max": 1794000.0,
+        "mean": 1202077.9220779222
+      }
+    }
+  },
+  "audio": {
+    "frames": 57870,
+    "overruns": 2856,
+    "max_lag_s": 0.7639225469902158,
+    "max_compute_s": 0.7622719539795071,
+    "stage_seconds": {
+      "denoise": 206.40166685445,
+      "vad": 21.285116967192153,
+      "kws": 65.51781902232324,
+      "stream_asr": 52.41338740152423
+    },
+    "queue": 1,
+    "error": null
+  },
+  "limitations": [
+    "3 samples percell; P95 nearest-rank equals max",
+    "system preparation also uses Conv so fixed KV numeric differences included",
+    "only 8 cases ×4 fixed diagnostic steps; natural quality independent metric",
+    "same quantization does not mean actual bitwise output equivalence",
+    "old/new frozen quality datasets repeatedly observed, not fresh unseen holdout",
+    "boundary20 unrun; fullgoal unmet",
+    "no vision/real microphone/physical motors",
+    "15.2min samples not long stress qualification",
+    "audio overruns and swap increase observed"
+  ],
+  "audit_file_sha256": {
+    "INDEPENDENT_NUMERIC_AUDIT.json": "0e5076c5ee1da30b37f0058ce4efabc33438fb6b06e6ee425375520663b11b91",
+    "INDEPENDENT_MANUAL_REVIEW.json": "d44559f99a421be5562462dd972f57bda49d2f24d5a4b9c27fd397a0dd9cdda6",
+    "INDEPENDENT_RESULT_AUDIT.md": "0e6f9d48b950f6527dbb5a98f7c991fb5afe434102f58ed45f650b170251c513"
+  }
+}

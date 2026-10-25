@@ -1,3 +1,15 @@
+## 2026-10-26 C512 M16/M32完整结果与新Conv对照
+
+父轮 `capacity512-full/results/c512-m16-m32-aba-r1` 已complete/rc0，72性能、144自然、24四步实际logits，3close driver0；PID34040/34264已结束。M32配对TTFT中位较M16降低14.10%。静态64/128＝正文59/123＋模板5；动态正文64/128/192/256＋模板8，新72/136/200/264；仅system KV、固定反馈输出32。M32 TTFT P50：S64为842.9/1557.3/2309.0/3047.1ms；S128为853.8/1606.4/2354.0/3095.8ms；decode约15.1tok/s。每格仅3成本案，不是长期分位数资格。
+
+自然43/48序列同基线，M16重复48/48；logits relative L22.93–3.29%，非无损。根节点已逐案记录ROOT_QUALITY_REVIEW.json/QUALIFICATION_DECISION.md；两版仍有摇头→点头、缺方向/幅度、场景复述。M16“摆弄桌子”在M32变成右臂挥动一次，但不能称整个质量合格。最高49.786°C，全8核加权CPU7.392%，PSS峰618.91MiB；swap319→829MiB/换出130560页。音频68916帧、3393超帧预算，最大lag1.047s，不是严格实时。独立结果审计进行中。
+
+**新活跃run** `capacity512-conv-full/c512-m32-conv-aba-r1`，WSL控制器PID36947，watcher PID36977 (`finish_conv.py`)。三版均M32、原图→原精度FP16Conv-L2→原图；只主图两处down改写，真实M8尾段仍原图。已审source/candidate固定，勿覆盖。只读WSL controller/log/finish状态；占锁时不要另外访问板卡。watcher只等特定PID并在回收后分析，不自动晋升或启动其他测试。当前没有此轮速度结果。
+
+启动前free993349632B未满足预留；按已冻结计划逐SHA删除24个已完整保存在Windows的旧fulli16-range16 logits副本58,242,816B，free1051643904B。清单retained-diagnostics/deleted-1792956618.json。未删父轮48图/生产模型/当前结果。新upload35,607,575B；磁盘阈值未降低。
+
+离线输出FP16新量化候选已由独立静态审计通过，仅允许后续有界数值/速度实验；没有板测，保留pos0输入饱和风险。100ms目标尚未达到，不能缩小正文或偷偷复用动态KV。
+
 ## 2026-10-26 输出FP16的独立量化候选准备
 
 当前C512原精度完整对照 `capacity512-full/c512-m16-m32-aba-r1` 仍由WSL PID34040运行，PID34264等待结束自动分析；本轮已确认进程活跃，未重启或直接轮询板卡。继续先回收/审阅此轮，再决定是否启动已审 `capacity512-conv-full` 原精度候选。

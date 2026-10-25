@@ -1,3 +1,13 @@
+当前row-scale replay已启动：WSL controller PID46617、finish PID46639；仅读WSL down-row-scale-original-input-replay-r1-controller.json、finish-down-row-scale-status.json及日志，不另行访问占锁板卡。finish仅在complete/rc0后回收分析，不自动批准候选或报告达成。
+
+## 2026-10-26 prefixsafe与A8已完成；逐row归一化待板测
+
+完整≤100ms目标未达，且没有默认替换生产图。prefixsafe-i16-r2 complete/rc0：216主请求、6prefix、3driver0；whole-system原路径恢复两个system的prefix logits逐字节相等，动态仍有2.61%–3.17% logits误差。自然输出43/48一致不是准确率；三路都有两条“禁止点头却点头”，候选仍有缺失动作对象。速度为C1280/M16诊断组，不能替代历史C512最佳成绩。报告prefixsafe-i16/results/prefixsafe-i16-r2/REPORT.md，Mac已有副本。
+
+compact-gateup-a8-m64-r1 complete/rc0：两层API原13.75ms→13.67/13.68ms，收益不足1%，hidden误差9.39%/4.72%，不推广。实际16端口全同、A/A字节一致、4driver0，所有温度观察点峰43.834°C（资源流采样峰43.214）。独立审计和Mac报告可用。续跑器45443已complete，不得重启旧任务。
+
+新的离线真实down误差归因：activation量化更主要；固定通道缩放对另一开发prompt出现截断，放弃。无校准逐row max归一化候选graphs/down-row-scale-c1280-m16-l2已编译，NB SHA958ba4d609a51aaedd312ba9af43f1d3daad7f7672181d0f04da4ef448f47223；仅离线估算，未板测/未批准。下一步controller_down_row_scale_replay.py，34原NPU输入、104进程、原/range16/row-scale+两处原after；脚本dry-run通过，等静态审计完成再启动。分析器runtime/profile-analysis/analyze_down_row_scale_replay.py。模型仍全Transformer，局部算子/量化重表达，不是改CNN。
+
 ## 2026-10-26 当前续跑：prefixsafe全模与A8局部筛查
 
 完整100ms目标未完成。prefixsafe-i16-r2控制器PID43926仍运行，必须只查WSL状态，不能另行轮询占锁板卡。固定64/128含模板5，动态正文64/128/192/256另加模板8，只复用system，输出1测首token；另有48自然样例与固定logits质量诊断。本轮C1280/M16无语音RAG，不是最佳C512运行时的最终速度验证。

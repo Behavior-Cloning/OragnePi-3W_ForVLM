@@ -1,0 +1,369 @@
+{
+  "scope": "Offline per-row dynamic normalization using actual original-NPU x, actual exported FP16/I16 weights. No calibration fit. FP32 reduction/division/matmul plus specified FP16 rounding; no NPU accumulation or compiled kernels, no speed/full-model/semantic quality claim. Two reused prompts only.",
+  "layers": [
+    {
+      "layer": 2,
+      "metrics": [
+        {
+          "region": "first_token",
+          "activation_fl": 14,
+          "normalized_peak": 1.0,
+          "boundary": "fp32_ideal",
+          "rows": 2,
+          "relative_l2_vs_fp32": 0.0013317983830347657,
+          "relative_l2_vs_observed_npu": 0.0013410851825028658,
+          "max_abs_vs_npu": 0.16796875,
+          "finite": true
+        },
+        {
+          "region": "first_chunk_other",
+          "activation_fl": 14,
+          "normalized_peak": 1.0,
+          "boundary": "fp32_ideal",
+          "rows": 30,
+          "relative_l2_vs_fp32": 0.0004463791847229004,
+          "relative_l2_vs_observed_npu": 0.0004925247631035745,
+          "max_abs_vs_npu": 0.0003147423267364502,
+          "finite": true
+        },
+        {
+          "region": "later_system",
+          "activation_fl": 14,
+          "normalized_peak": 1.0,
+          "boundary": "fp32_ideal",
+          "rows": 160,
+          "relative_l2_vs_fp32": 0.0004335744888521731,
+          "relative_l2_vs_observed_npu": 0.0004799926246050745,
+          "max_abs_vs_npu": 0.0005150288343429565,
+          "finite": true
+        },
+        {
+          "region": "dynamic_and_template",
+          "activation_fl": 14,
+          "normalized_peak": 1.0,
+          "boundary": "fp32_ideal",
+          "rows": 336,
+          "relative_l2_vs_fp32": 0.0004387735389173031,
+          "relative_l2_vs_observed_npu": 0.00048530002823099494,
+          "max_abs_vs_npu": 0.000546380877494812,
+          "finite": true
+        },
+        {
+          "region": "first_token",
+          "activation_fl": 14,
+          "normalized_peak": 1.0,
+          "boundary": "fp16_boundaries",
+          "rows": 2,
+          "relative_l2_vs_fp32": 0.001355198328383267,
+          "relative_l2_vs_observed_npu": 0.0014294917928054929,
+          "max_abs_vs_npu": 0.5,
+          "finite": true
+        },
+        {
+          "region": "first_chunk_other",
+          "activation_fl": 14,
+          "normalized_peak": 1.0,
+          "boundary": "fp16_boundaries",
+          "rows": 30,
+          "relative_l2_vs_fp32": 0.000540450622793287,
+          "relative_l2_vs_observed_npu": 0.0005811257287859917,
+          "max_abs_vs_npu": 0.00048828125,
+          "finite": true
+        },
+        {
+          "region": "later_system",
+          "activation_fl": 14,
+          "normalized_peak": 1.0,
+          "boundary": "fp16_boundaries",
+          "rows": 160,
+          "relative_l2_vs_fp32": 0.0005214383127167821,
+          "relative_l2_vs_observed_npu": 0.0005591924418695271,
+          "max_abs_vs_npu": 0.00048828125,
+          "finite": true
+        },
+        {
+          "region": "dynamic_and_template",
+          "activation_fl": 14,
+          "normalized_peak": 1.0,
+          "boundary": "fp16_boundaries",
+          "rows": 336,
+          "relative_l2_vs_fp32": 0.0005285754450596869,
+          "relative_l2_vs_observed_npu": 0.0005665624048560858,
+          "max_abs_vs_npu": 0.0009765625,
+          "finite": true
+        },
+        {
+          "region": "first_token",
+          "activation_fl": 15,
+          "normalized_peak": 0.5,
+          "boundary": "fp32_ideal",
+          "rows": 2,
+          "relative_l2_vs_fp32": 0.0013433435233309865,
+          "relative_l2_vs_observed_npu": 0.0013523116940632463,
+          "max_abs_vs_npu": 0.16619873046875,
+          "finite": true
+        },
+        {
+          "region": "first_chunk_other",
+          "activation_fl": 15,
+          "normalized_peak": 0.5,
+          "boundary": "fp32_ideal",
+          "rows": 30,
+          "relative_l2_vs_fp32": 0.0004463791847229004,
+          "relative_l2_vs_observed_npu": 0.0004925247631035745,
+          "max_abs_vs_npu": 0.0003147423267364502,
+          "finite": true
+        },
+        {
+          "region": "later_system",
+          "activation_fl": 15,
+          "normalized_peak": 0.5,
+          "boundary": "fp32_ideal",
+          "rows": 160,
+          "relative_l2_vs_fp32": 0.0004335744888521731,
+          "relative_l2_vs_observed_npu": 0.0004799926246050745,
+          "max_abs_vs_npu": 0.0005150288343429565,
+          "finite": true
+        },
+        {
+          "region": "dynamic_and_template",
+          "activation_fl": 15,
+          "normalized_peak": 0.5,
+          "boundary": "fp32_ideal",
+          "rows": 336,
+          "relative_l2_vs_fp32": 0.0004387712979223579,
+          "relative_l2_vs_observed_npu": 0.00048529761261306703,
+          "max_abs_vs_npu": 0.000546380877494812,
+          "finite": true
+        },
+        {
+          "region": "first_token",
+          "activation_fl": 15,
+          "normalized_peak": 0.5,
+          "boundary": "fp16_boundaries",
+          "rows": 2,
+          "relative_l2_vs_fp32": 0.0013701757416129112,
+          "relative_l2_vs_observed_npu": 0.0014437909703701735,
+          "max_abs_vs_npu": 0.5,
+          "finite": true
+        },
+        {
+          "region": "first_chunk_other",
+          "activation_fl": 15,
+          "normalized_peak": 0.5,
+          "boundary": "fp16_boundaries",
+          "rows": 30,
+          "relative_l2_vs_fp32": 0.0005404505645856261,
+          "relative_l2_vs_observed_npu": 0.0005811257287859917,
+          "max_abs_vs_npu": 0.00048828125,
+          "finite": true
+        },
+        {
+          "region": "later_system",
+          "activation_fl": 15,
+          "normalized_peak": 0.5,
+          "boundary": "fp16_boundaries",
+          "rows": 160,
+          "relative_l2_vs_fp32": 0.0005214384873397648,
+          "relative_l2_vs_observed_npu": 0.0005591925582848489,
+          "max_abs_vs_npu": 0.00048828125,
+          "finite": true
+        },
+        {
+          "region": "dynamic_and_template",
+          "activation_fl": 15,
+          "normalized_peak": 0.5,
+          "boundary": "fp16_boundaries",
+          "rows": 336,
+          "relative_l2_vs_fp32": 0.000528609671164304,
+          "relative_l2_vs_observed_npu": 0.0005665752105414867,
+          "max_abs_vs_npu": 0.0009765625,
+          "finite": true
+        }
+      ]
+    },
+    {
+      "layer": 3,
+      "metrics": [
+        {
+          "region": "first_token",
+          "activation_fl": 14,
+          "normalized_peak": 1.0,
+          "boundary": "fp32_ideal",
+          "rows": 2,
+          "relative_l2_vs_fp32": 0.0007313609239645302,
+          "relative_l2_vs_observed_npu": 0.0007374676060862839,
+          "max_abs_vs_npu": 0.0966796875,
+          "finite": true
+        },
+        {
+          "region": "first_chunk_other",
+          "activation_fl": 14,
+          "normalized_peak": 1.0,
+          "boundary": "fp32_ideal",
+          "rows": 30,
+          "relative_l2_vs_fp32": 0.0006298726075328887,
+          "relative_l2_vs_observed_npu": 0.0006616312894038856,
+          "max_abs_vs_npu": 0.0010440349578857422,
+          "finite": true
+        },
+        {
+          "region": "later_system",
+          "activation_fl": 14,
+          "normalized_peak": 1.0,
+          "boundary": "fp32_ideal",
+          "rows": 160,
+          "relative_l2_vs_fp32": 0.0006523243500851095,
+          "relative_l2_vs_observed_npu": 0.000684548809658736,
+          "max_abs_vs_npu": 0.000846564769744873,
+          "finite": true
+        },
+        {
+          "region": "dynamic_and_template",
+          "activation_fl": 14,
+          "normalized_peak": 1.0,
+          "boundary": "fp32_ideal",
+          "rows": 336,
+          "relative_l2_vs_fp32": 0.0006670649163424969,
+          "relative_l2_vs_observed_npu": 0.0006991283153183758,
+          "max_abs_vs_npu": 0.0010374784469604492,
+          "finite": true
+        },
+        {
+          "region": "first_token",
+          "activation_fl": 14,
+          "normalized_peak": 1.0,
+          "boundary": "fp16_boundaries",
+          "rows": 2,
+          "relative_l2_vs_fp32": 0.0007420817273668945,
+          "relative_l2_vs_observed_npu": 0.000736189482267946,
+          "max_abs_vs_npu": 0.0859375,
+          "finite": true
+        },
+        {
+          "region": "first_chunk_other",
+          "activation_fl": 14,
+          "normalized_peak": 1.0,
+          "boundary": "fp16_boundaries",
+          "rows": 30,
+          "relative_l2_vs_fp32": 0.0006918876897543669,
+          "relative_l2_vs_observed_npu": 0.0007175768841989338,
+          "max_abs_vs_npu": 0.0009765625,
+          "finite": true
+        },
+        {
+          "region": "later_system",
+          "activation_fl": 14,
+          "normalized_peak": 1.0,
+          "boundary": "fp16_boundaries",
+          "rows": 160,
+          "relative_l2_vs_fp32": 0.0007148970034904778,
+          "relative_l2_vs_observed_npu": 0.0007446345407515764,
+          "max_abs_vs_npu": 0.001953125,
+          "finite": true
+        },
+        {
+          "region": "dynamic_and_template",
+          "activation_fl": 14,
+          "normalized_peak": 1.0,
+          "boundary": "fp16_boundaries",
+          "rows": 336,
+          "relative_l2_vs_fp32": 0.0007289124187082052,
+          "relative_l2_vs_observed_npu": 0.0007583502447232604,
+          "max_abs_vs_npu": 0.0009765625,
+          "finite": true
+        },
+        {
+          "region": "first_token",
+          "activation_fl": 15,
+          "normalized_peak": 0.5,
+          "boundary": "fp32_ideal",
+          "rows": 2,
+          "relative_l2_vs_fp32": 0.0007271305075846612,
+          "relative_l2_vs_observed_npu": 0.0007334602996706963,
+          "max_abs_vs_npu": 0.09747314453125,
+          "finite": true
+        },
+        {
+          "region": "first_chunk_other",
+          "activation_fl": 15,
+          "normalized_peak": 0.5,
+          "boundary": "fp32_ideal",
+          "rows": 30,
+          "relative_l2_vs_fp32": 0.0006298726075328887,
+          "relative_l2_vs_observed_npu": 0.0006616312894038856,
+          "max_abs_vs_npu": 0.0010440349578857422,
+          "finite": true
+        },
+        {
+          "region": "later_system",
+          "activation_fl": 15,
+          "normalized_peak": 0.5,
+          "boundary": "fp32_ideal",
+          "rows": 160,
+          "relative_l2_vs_fp32": 0.0006523243500851095,
+          "relative_l2_vs_observed_npu": 0.000684548809658736,
+          "max_abs_vs_npu": 0.000846564769744873,
+          "finite": true
+        },
+        {
+          "region": "dynamic_and_template",
+          "activation_fl": 15,
+          "normalized_peak": 0.5,
+          "boundary": "fp32_ideal",
+          "rows": 336,
+          "relative_l2_vs_fp32": 0.0006670674192719162,
+          "relative_l2_vs_observed_npu": 0.0006991294212639332,
+          "max_abs_vs_npu": 0.0010374784469604492,
+          "finite": true
+        },
+        {
+          "region": "first_token",
+          "activation_fl": 15,
+          "normalized_peak": 0.5,
+          "boundary": "fp16_boundaries",
+          "rows": 2,
+          "relative_l2_vs_fp32": 0.0007386409561149776,
+          "relative_l2_vs_observed_npu": 0.0007326560444198549,
+          "max_abs_vs_npu": 0.083984375,
+          "finite": true
+        },
+        {
+          "region": "first_chunk_other",
+          "activation_fl": 15,
+          "normalized_peak": 0.5,
+          "boundary": "fp16_boundaries",
+          "rows": 30,
+          "relative_l2_vs_fp32": 0.0006918877479620278,
+          "relative_l2_vs_observed_npu": 0.0007175768259912729,
+          "max_abs_vs_npu": 0.0009765625,
+          "finite": true
+        },
+        {
+          "region": "later_system",
+          "activation_fl": 15,
+          "normalized_peak": 0.5,
+          "boundary": "fp16_boundaries",
+          "rows": 160,
+          "relative_l2_vs_fp32": 0.000714896887075156,
+          "relative_l2_vs_observed_npu": 0.0007446344243362546,
+          "max_abs_vs_npu": 0.001953125,
+          "finite": true
+        },
+        {
+          "region": "dynamic_and_template",
+          "activation_fl": 15,
+          "normalized_peak": 0.5,
+          "boundary": "fp16_boundaries",
+          "rows": 336,
+          "relative_l2_vs_fp32": 0.0007288861088454723,
+          "relative_l2_vs_observed_npu": 0.0007583207916468382,
+          "max_abs_vs_npu": 0.0009765625,
+          "finite": true
+        }
+      ]
+    }
+  ],
+  "source_sha256": "78896544c5f29078ebd2773bb8ddfb08fdcb76a148fc542b00f23abd30ed4183",
+  "capture_config_sha256": "796c7656ec986437ab34d037ad8445fe4c68524bb2393d6587a2d53018f677b4"
+}

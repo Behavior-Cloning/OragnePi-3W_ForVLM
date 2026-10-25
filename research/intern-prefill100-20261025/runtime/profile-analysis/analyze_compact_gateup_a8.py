@@ -37,5 +37,7 @@ for label in ['range0','range1']:
 r=[read(R/'pre-health.json')]+[json.loads(l) for l in (R/'resources.jsonl').read_text().splitlines()]+[read(R/'post-health.json')]
 def vm(x):return {k:int(v) for k,v in (l.split() for l in x['vmstat'].splitlines())}
 res={'max_temperature_C':max(max(x['temperatures_mC'].values()) for x in r)/1000,'min_mem_available_B':min(int(x['memory']['MemAvailable'].split()[0])*1024 for x in r),'swapin_pages':vm(r[-1])['pswpin']-vm(r[0])['pswpin'],'swapout_pages':vm(r[-1])['pswpout']-vm(r[0])['pswpout']}
+res['sampled_max_temperature_C']=res['max_temperature_C']
+res['max_temperature_C']=max(res['max_temperature_C'],max(read(R/(label+'.json'))[k]/1000 for label in ['before','range0','range1','after'] for k in ['temperature_before_mC','temperature_after_mC']))
 out={'scope':'M64/current DFP weights, history128 two-layer API only, 120 timed and12warmup calls; one canonical input, not semantic quality or full TTFT','rows':rows,'segments':segments,'original_AA_byte_equal':True,'actual_sdk_16_ports_byte_equal':True,'resources':res,'goal_achieved':False}
 (R/'ANALYSIS.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps(out,indent=2))

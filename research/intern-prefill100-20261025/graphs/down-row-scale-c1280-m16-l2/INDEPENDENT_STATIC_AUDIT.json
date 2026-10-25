@@ -1,0 +1,407 @@
+{
+  "static_file_audit_pass": true,
+  "scope": "Files only; no SDK, board, compiler or model executed by auditor. Not runtime/quality approval.",
+  "candidate_nb_sha256": "958ba4d609a51aaedd312ba9af43f1d3daad7f7672181d0f04da4ef448f47223",
+  "candidate_nb_bytes": 29842112,
+  "source_graph_sha256": "b8a25a4eb21c6afb8a0df15526daa688303ebcf26a9aad2caf615f8f5a4737d0",
+  "candidate_graph_sha256": "e18888c07764cab69d1549057ec70eea502db9734abae65c218d23418c5222cf",
+  "source_quant_sha256": "65e84a1fa8d4941bbc082b274dab1b67d2929ace2089edf354d0f232bf650921",
+  "candidate_quant_sha256": "5da3a390fd7575dfe4ba8c61697186497de495e2433683682159526c1740b2a4",
+  "payload_sha256": "50bc2f49cd09df57aabdc0a9154915bb3891a9fdce445500228091f5f765e55f",
+  "source_payload_identical": true,
+  "producer_script_sha256": "aef6cb9800edbbf5d00f48c3bec8bb8bdd50e72b33dc06186fa63d694d96cf06",
+  "audit_script_sha256": "6966ce9d30a9e8955cd84464783e830cbf9b761bb3fe2975f9adc042a3e9b69b",
+  "graph_delta": {
+    "added_nodes": [
+      "row_abs_7000",
+      "row_abs_7010",
+      "row_max_7001",
+      "row_max_7011",
+      "row_normalized_7003",
+      "row_normalized_7013",
+      "row_restored_7004",
+      "row_restored_7014",
+      "row_scale_7002",
+      "row_scale_7012"
+    ],
+    "rewired_converter_inputs": 2,
+    "rewired_down_consumers": 2,
+    "old_quant_keys_changed": [
+      "@down_i16_2000:out0",
+      "@b0_fullconnect_116:out0",
+      "@down_i16_2001:out0",
+      "@b1_fullconnect_116:out0"
+    ],
+    "new_FP16_quant_keys": 10,
+    "all_other_graph_and_quant_equal": true
+  },
+  "generated_C": {
+    "fourteen_weights_exact_bytes_and_quant": true,
+    "constant_aliases": [
+      {
+        "name": "@b0_Reciprocal_output_0_85:from_var_data_to_b0_Divide_86_in0",
+        "type": "VSI_NN_TYPE_FLOAT16",
+        "bytes": 2,
+        "sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_Constant_2_output_0_48:from_var_data_to_b0_Div_1_output_0_40_in0",
+        "type": "VSI_NN_TYPE_FLOAT16",
+        "bytes": 2,
+        "sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_Reciprocal_1_output_0_81:from_var_data_to_b0_Divide_82_in0",
+        "type": "VSI_NN_TYPE_FLOAT16",
+        "bytes": 2,
+        "sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_Constant_44_output_0_61:from_var_data_to_b0_Div_4_output_0_53_in0",
+        "type": "VSI_NN_TYPE_FLOAT16",
+        "bytes": 2,
+        "sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_Reciprocal_output_0_85:from_var_data_to_b1_Divide_86_in0",
+        "type": "VSI_NN_TYPE_FLOAT16",
+        "bytes": 2,
+        "sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_Constant_2_output_0_48:from_var_data_to_b1_Div_1_output_0_40_in0",
+        "type": "VSI_NN_TYPE_FLOAT16",
+        "bytes": 2,
+        "sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_Reciprocal_1_output_0_81:from_var_data_to_b1_Divide_82_in0",
+        "type": "VSI_NN_TYPE_FLOAT16",
+        "bytes": 2,
+        "sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_Constant_44_output_0_61:from_var_data_to_b1_Div_4_output_0_53_in0",
+        "type": "VSI_NN_TYPE_FLOAT16",
+        "bytes": 2,
+        "sha256": "505114fe537172ea35e17ca1a7516edac516a89b31f983f7c6387d5d2bb462aa",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_Constant_1_output_0_74:from_var_data_to_b0_Mul_output_0_73_in1",
+        "type": "VSI_NN_TYPE_INT16",
+        "bytes": 2,
+        "sha256": "b0b25252b66e6dd745e26362817f43499c27378e8a5b38183ddfd34553ff7739",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_Constant_43_output_0_80:from_var_data_to_b0_Mul_9_output_0_79_in1",
+        "type": "VSI_NN_TYPE_INT16",
+        "bytes": 2,
+        "sha256": "b0b25252b66e6dd745e26362817f43499c27378e8a5b38183ddfd34553ff7739",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_Constant_1_output_0_74:from_var_data_to_b1_Mul_output_0_73_in1",
+        "type": "VSI_NN_TYPE_INT16",
+        "bytes": 2,
+        "sha256": "b0b25252b66e6dd745e26362817f43499c27378e8a5b38183ddfd34553ff7739",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_Constant_43_output_0_80:from_var_data_to_b1_Mul_9_output_0_79_in1",
+        "type": "VSI_NN_TYPE_INT16",
+        "bytes": 2,
+        "sha256": "b0b25252b66e6dd745e26362817f43499c27378e8a5b38183ddfd34553ff7739",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_norm1_39:from_var_data_to_b0_Mul_4_output_0_28_in1",
+        "type": "VSI_NN_TYPE_INT16",
+        "bytes": 1792,
+        "sha256": "9c88110df21bb448d72529e55ce60144f9336740d610812f080df649006604bf",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_fullconnect_122:weight",
+        "type": "VSI_NN_TYPE_INT8",
+        "bytes": 114688,
+        "sha256": "528f5d3496d2fa28bca9c51ccda0a109b8521175f79b394bb09a4bafd1a41288",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_fullconnect_122:bias",
+        "type": "VSI_NN_TYPE_INT64",
+        "bytes": 1024,
+        "sha256": "53a4bd3aa29e05c057a49683bf430856f063fc7fb98c509301ad088ee75421c8",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_fullconnect_128:weight",
+        "type": "VSI_NN_TYPE_INT8",
+        "bytes": 114688,
+        "sha256": "14ce33a47dad4c382c073b9dca87a43ad453ef95470a4db1a5be55c3ee703d05",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_fullconnect_128:bias",
+        "type": "VSI_NN_TYPE_INT64",
+        "bytes": 1024,
+        "sha256": "575233d099084778ca6a4e1a9a07071394cea1f34d719e816d45eb008a5647de",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_fullconnect_134:weight",
+        "type": "VSI_NN_TYPE_INT8",
+        "bytes": 802816,
+        "sha256": "c35d587c23ca972cd5c2381b21a2c0a5bdf7f43ee10520f5013f39f173b0e2cf",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_fullconnect_134:bias",
+        "type": "VSI_NN_TYPE_INT64",
+        "bytes": 7168,
+        "sha256": "990c6c410f9b762a32a60efc5a0ccdbeeab78016ea3293aa508b0543407a4f5c",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_Constant_40_output_0_67:from_var_data_to_b0_Div_2_output_0_59_in1",
+        "type": "VSI_NN_TYPE_FLOAT16",
+        "bytes": 2,
+        "sha256": "4d2ae2d6e0000b72a5739078e0e83bc029b6232edabff84d012acd1d4803db51",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_Constant_40_output_0_67:from_var_data_to_b1_Div_2_output_0_59_in1",
+        "type": "VSI_NN_TYPE_FLOAT16",
+        "bytes": 2,
+        "sha256": "4d2ae2d6e0000b72a5739078e0e83bc029b6232edabff84d012acd1d4803db51",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_fullconnect_119:weight",
+        "type": "VSI_NN_TYPE_INT8",
+        "bytes": 802816,
+        "sha256": "7f735566185805a4ea7841f64d72b73a48c565f79c30d3841c962b2b49ecc91f",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_fullconnect_119:bias",
+        "type": "VSI_NN_TYPE_INT64",
+        "bytes": 7168,
+        "sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_norm2_46:from_var_data_to_b0_Mul_13_output_0_36_in1",
+        "type": "VSI_NN_TYPE_INT16",
+        "bytes": 1792,
+        "sha256": "fe4c4922f538b06bfd4b4484062f660045c09b9a91ce38bac45b437b89f52a4f",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_fullconnect_125:weight",
+        "type": "VSI_NN_TYPE_INT8",
+        "bytes": 4358144,
+        "sha256": "a1b9b980075da6657c54cab9c4ac04b418b8689f58af461b91b693aa11aa47e3",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_fullconnect_125:bias",
+        "type": "VSI_NN_TYPE_INT64",
+        "bytes": 38912,
+        "sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_fullconnect_131:weight",
+        "type": "VSI_NN_TYPE_INT8",
+        "bytes": 4358144,
+        "sha256": "108f54f56737f431d229c01acae3258acf2a2f2b273ca36dfd628e15a735d7f9",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_fullconnect_131:bias",
+        "type": "VSI_NN_TYPE_INT64",
+        "bytes": 38912,
+        "sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_fullconnect_116:weight",
+        "type": "VSI_NN_TYPE_INT16",
+        "bytes": 8716288,
+        "sha256": "1a43e97af33b78cdbc0aeafd9c7656d90d857223c489d809b1f7ea38caa52fdd",
+        "same_grid": true
+      },
+      {
+        "name": "@b0_fullconnect_116:bias",
+        "type": "VSI_NN_TYPE_INT64",
+        "bytes": 7168,
+        "sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+        "same_grid": false
+      },
+      {
+        "name": "@b1_norm1_39:from_var_data_to_b1_Mul_4_output_0_28_in1",
+        "type": "VSI_NN_TYPE_INT16",
+        "bytes": 1792,
+        "sha256": "4c0727df2337b971f1bb226288dbc6dbfe27a3cb4a48d4368970e7c622c1c32b",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_fullconnect_122:weight",
+        "type": "VSI_NN_TYPE_INT8",
+        "bytes": 114688,
+        "sha256": "7532e3dd99e8ff6351e0b09c44c0f7abbd794d3a1d15a9a281e29fcd74705420",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_fullconnect_122:bias",
+        "type": "VSI_NN_TYPE_INT64",
+        "bytes": 1024,
+        "sha256": "ba269670c58739e3405249dbc8d2c82a928d0a42fa2df94270adbddab1706d0c",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_fullconnect_128:weight",
+        "type": "VSI_NN_TYPE_INT8",
+        "bytes": 114688,
+        "sha256": "514213383628ec92be1aa6ba10291a92ee10519a6d829c8e67c345cee3939402",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_fullconnect_128:bias",
+        "type": "VSI_NN_TYPE_INT64",
+        "bytes": 1024,
+        "sha256": "440ff921752bd1388bc9d55957ce1076b07b91311dd32e84285e19d508854566",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_fullconnect_134:weight",
+        "type": "VSI_NN_TYPE_INT8",
+        "bytes": 802816,
+        "sha256": "6e67322c494f710621c5399ddca38fec3074d88f4a6bd8c029c39c3ddd1efa5f",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_fullconnect_134:bias",
+        "type": "VSI_NN_TYPE_INT64",
+        "bytes": 7168,
+        "sha256": "ea7602620949145d9d3b55282b55dc7b9f10eb169c7223c4a1b282816bf5fc2e",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_fullconnect_119:weight",
+        "type": "VSI_NN_TYPE_INT8",
+        "bytes": 802816,
+        "sha256": "c02cca6c11c26ae8199b8191b96ae0c10c10fa6e663fe6f0db8bc88568b38d91",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_fullconnect_119:bias",
+        "type": "VSI_NN_TYPE_INT64",
+        "bytes": 7168,
+        "sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_norm2_46:from_var_data_to_b1_Mul_13_output_0_36_in1",
+        "type": "VSI_NN_TYPE_INT16",
+        "bytes": 1792,
+        "sha256": "bc7955c68b291a90e2789942a274bc447c7ed1d479c3ccbafd8839f5665e685f",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_fullconnect_125:weight",
+        "type": "VSI_NN_TYPE_INT8",
+        "bytes": 4358144,
+        "sha256": "760c7ebbece3d4144ce2073049cae2c768900cabdfd5ac1da7e048b8b685922c",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_fullconnect_125:bias",
+        "type": "VSI_NN_TYPE_INT64",
+        "bytes": 38912,
+        "sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_fullconnect_131:bias",
+        "type": "VSI_NN_TYPE_INT64",
+        "bytes": 38912,
+        "sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_fullconnect_131:weight",
+        "type": "VSI_NN_TYPE_INT8",
+        "bytes": 4358144,
+        "sha256": "e528ee56575df3bd507ae8376f4054efefffddea752fa608ac74db9930ff2dd4",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_fullconnect_116:weight",
+        "type": "VSI_NN_TYPE_INT16",
+        "bytes": 8716288,
+        "sha256": "df7de50fcf9d571394af976de95a8ccac7b8236027524f104538ffbe1dcd1ce1",
+        "same_grid": true
+      },
+      {
+        "name": "@b1_fullconnect_116:bias",
+        "type": "VSI_NN_TYPE_INT64",
+        "bytes": 7168,
+        "sha256": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+        "same_grid": false
+      }
+    ],
+    "derived_bias_metadata_deltas": [
+      {
+        "key": "@b0_fullconnect_116:bias",
+        "old_fl": 28,
+        "new_fl": 30,
+        "same_raw_zero": true
+      },
+      {
+        "key": "@b1_fullconnect_116:bias",
+        "old_fl": 26,
+        "new_fl": 29,
+        "same_raw_zero": true
+      }
+    ],
+    "all16normal_port_attrs_equal": true,
+    "normal_io_order_equal": true,
+    "generated_nbg_meta_equal": true,
+    "removed_generated_output_converters": [
+      "@b0_reshape_117_dtype_converter_11008:out0",
+      "@b1_reshape_117_dtype_converter_11009:out0"
+    ],
+    "reduce_channel_axis": 0,
+    "C_shapes": "[4864,16] to [1,16] scale; broadcast to [4864,16] division and [896,16] restore",
+    "normalized_dtype": "FLOAT16 then INT16 DFP fl14",
+    "FCoutput_and_restored_dtype": "FLOAT16",
+    "scale_clip": [
+      6.103515625e-05,
+      65504.0
+    ],
+    "actual_sdk_port_query_performed": false
+  },
+  "reasoning": [
+    "Each finite row uses s=clamp(max(abs(x)),2^-14,65504); real-valued s*((x/s)W) equals xW because actual down bias is zero.",
+    "Finite arithmetic changes: FP16 divide/inner result/restore, I16 fl14 rounding, already-I16 weight approximation and device accumulation remain; not numerical identity.",
+    "Normalized peak<=1 fits signed I16 fl14 representable[-2,1.99993896484375]; declared max/min are not independent saturation evidence.",
+    "For tiny nonzero rows the scale floor can make subnormal FP16 behavior relevant; zero rows mathematically stay zero; device flush-to-zero still unmeasured.",
+    "FP16 input inf/NaN, reduction/device overflow behavior and internal accumulator saturation are not established by successful host export.",
+    "Offline evidence uses actual original-NPU activations with FP32 matrix math and specified FP16 boundaries, only two reused prompts. It is not a compiled-kernel simulator or independent holdout.",
+    "Ten added reductions/divide/multiply nodes may cost latency; no timing can be inferred from offline error improvements.",
+    "Before any promotion require actual NPU same-input replay including pos0, finite/port checks, original A/A, full-model output/logit/semantic quality, system-only cache and speed/resource pairing."
+  ],
+  "promotion_approved": false,
+  "full100ms_goal_achieved": false
+}

@@ -1,0 +1,79 @@
+{
+  "audit": "independent source and actual candidate evidence review",
+  "created_utc": "2026-10-25T19:08:05.828433+00:00",
+  "status": "PASS_FOR_CONDITIONAL_BOUNDED_EXPERIMENT_NOT_QUALIFICATION",
+  "blocking_findings": [],
+  "resolved_findings": [
+    {
+      "issue": "upload compared mutable current source hash rather than frozen snapshot",
+      "resolution": "upload before and after SHA now equals state source_sha256",
+      "controller_sha256": "a79a31f69c1e36d0c623a991a05c7421204c854c6573aeec8307823a3e4b9a71"
+    }
+  ],
+  "checks": {
+    "candidate_actual_nb_hash_size": true,
+    "baseline_matches_current_parent_M32": true,
+    "14_weights_14_bias_dtype_bytes_exact": true,
+    "actual_export_dtype_assignments_exact": true,
+    "24_actual_export_scale_zp_arrays_exact": true,
+    "quantizer_file_bytes_exact": true,
+    "graph_changes_only2_reshape_and2_down_conv": true,
+    "recorded_actual_VIPLite16_ports_exact": true,
+    "parent_config_hash_main29_tail12_fixture_exact": true,
+    "execute_requires_parent_rc0_complete_recovered": true,
+    "same_binary_C512_M32_all3": true,
+    "candidate_only_one_main_L2_graph_changed": true,
+    "original_M8_tail_preserved": true,
+    "prefix_only_and_same_tokens": true,
+    "performance72_natural144_diagnostic24": true,
+    "diagnostic4steps_not_timing": true,
+    "analyzer_counts_actual_f32_hash_finite_argmax_resources_and_matched_ratios": true,
+    "dual_locks_unique_run_bounded_deadline_partial_recovery": true,
+    "source_snapshot_TOCTOU_corrected_before_launch": true,
+    "upload_storage_reserve_unchanged": true,
+    "8_negative_contract_tests_reject": true,
+    "no_board_access": true
+  },
+  "all_pass": true,
+  "source_sha256": {
+    "contract.py": "b92e6592025d91cda461e1082e74e884e5c759af975f7cdee831e201a858a359",
+    "controller_fulli16.py": "c04f5c31b87977a93c53921bde836ead1cafa4d3f3620e84ddb3d8c2c39b838c",
+    "board_fulli16.py": "73c2d8e358e95de2479cb58403f1dcab8fb4ebe3823a6b34c4ab3f967e4adbde",
+    "analyze_fulli16.py": "7e41ad7bf1496d1e7170c5087bd292a0231bf722277a2baf39bde2f96b8a6f13",
+    "config.fulli16.json": "afe94be71621a693677b96094c59c9340862a611e5286e19c3e48a0a7f206582",
+    "inputs.json": "d314a51d07b4a39ca9533cb805540ac90ce132819355c7ffe67aa4591d8cd49c",
+    "resident_worker_v1.py": "2c110a6821ce9ee21aa2c07b062f27a49e18a9289e0fd8aea12927f80448321d",
+    "context_rag.py": "81afe39a529dd5de5ca7b3a0ca21c870fe42777684cdebb1daec3dd7e6f4998e",
+    "README.md": "931d1673597590c57705f4391f34adaca54675660a884bbe2ebf39ee2c5cf1e3"
+  },
+  "candidate_evidence_sha256": "b630441bab3490ba816589766368c5a5d44d353135565cab9e8fe6dfdb45fdd0",
+  "candidate_sha256": "9b80e75c0ef95c367b5c1e423fd2ad76cb9ebb1bca4b115fda4b89dec70f9f7f",
+  "baseline_sha256": "34f3b3a2f8aec80ae712c5bd52a9bcbade6ca178bbff073ca54907cd1c08b250",
+  "binary_sha256": "bf19922fb62bdde70a15ccde742abf9b4ffa6e5b116e73929fa7310442dc1e11",
+  "upload_bytes_without_config": 35573970,
+  "scope_limits": [
+    "This is source launch review only; parent full M16/M32 result audit and root explicit execution decision remain prerequisites. Auditor did not run --execute or access board.",
+    "Original quantizer and exported constants are preserved, but changing two FP16 down FCs to 1x1 Conv may change FP16 accumulation order. Prior single-block output already differs; mathematical equivalence is not bitwise or semantic qualification.",
+    "Candidate main32 graph is used both for system KV preparation and dynamic input. System cache is reset/recomputed independently for every request; hot TTFT excludes that preparation but resources include it.",
+    "M8 tail remains entirely original, including L2. This tests main32-only Conv, not a full Conv stack or any I16 route.",
+    "Expected 3 variants x24 fixed-feedback performance /48 natural /8 four-step diagnostic requests. Fixed32 gives31 decode intervals; natural max32 can end on EOS. Each timing cell n=3 and no continuous-length/boundary20 or long-term stability coverage.",
+    "All48 natural presentations are prior-used regression fixtures (labels preserve historical24 development+24 frozen-v2); exact-match counts are not semantic accuracy. Inspect direction, negation, omitted constraints and RAG Top3 separately.",
+    "Read-only resource sample aggregation cannot prove absence of transient peaks or memory leaks; driver-zero must be observed at every actual close. No image encoder, true microphone, physical execution or liveASR-driven LLM prompt.",
+    "Parent run graph files are live dependencies: retain parent m32/m8 artifacts and symlink targets. Actual source and storage are rechecked under locks; reserve stays768MiB+150MiB, no lowering to force launch.",
+    "Controller gate checks completion/recovery, not a standalone human/independent quality signoff file; root must enforce the promised result review before choosing execution. No automatic continuation is included.",
+    "Observation failure does not prove board computation failure. No automatic rerun; retain original errors, recover partial only after both locks and report driver availability honestly."
+  ],
+  "post_audit_whitespace_review": {
+    "kind": "independent_git_index_vs_worktree_whitespace_review",
+    "created_utc": "2026-10-25T19:09:37.538199+00:00",
+    "old_sha256": "a79a31f69c1e36d0c623a991a05c7421204c854c6573aeec8307823a3e4b9a71",
+    "new_sha256": "c04f5c31b87977a93c53921bde836ead1cafa4d3f3620e84ddb3d8c2c39b838c",
+    "changed_lines": [
+      18,
+      35
+    ],
+    "rstrip_exact": true,
+    "AST_equal": true,
+    "behavior_changed": false
+  }
+}

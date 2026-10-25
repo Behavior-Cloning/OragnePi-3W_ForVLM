@@ -1,5 +1,10 @@
 ## 2026-10-26 原精度 C512 批处理对照准备与 I16 资格结论
 
+跟进：WSL PID34040为唯一c512-m16-m32-aba-r1控制器，约1.16GB上传及哈希/overlay验证已完成，controller状态running，已启动板端完整测量；以本地controller.json与活PID为准。PID34264运行finish_capacity512.py，只观察该控制器/proc身份，结束后对回收结果自动执行analyze_fulli16.py，绝不访问板卡或重启。仅读WSL status/log；原始结果目录未生成前不可宣称性能。
+
+预备下一隔离分支 capacity512-conv-full：M32原图→FP16Conv-L2→原图，尾M8仍原图，14权重与量化保留；复用已实测候选9b80e75c…，host preflight通过，源码独立审计通过（controller c04f5c…，纯空白修订已独立复核），未启动。execute须父run完整结束，需先读当前质量/数值结果；没有自动续跑。预计上传35.6MB；仍保留768MiB+150MiB磁盘阈值，空间不够时只可逐SHA清理已回收旧诊断，严禁删父run引用的48图。100ms目标未达到。
+
+
 完整性审计通过，候选不晋升。72性能、144自然输出、24份四步完整logits，控制器rc0，3次driver释放为0。实际结果和人工逐例判定见 REPORT.md 与 INDEPENDENT_RESULT_AUDIT.md。
 
 系统固定64/128 token＝正文59/123＋模板5；动态正文64/128/192/256＋模板8＝新增prefill72/136/200/264。每次仅复用systemKV。性能输出32固定反馈token，质量为自然生成上限32；预热/固定prefix准备不计热TTFT。C1280、M16，尾8仍pad16，不是真实M8。
@@ -10,7 +15,7 @@
 
 下一隔离试验 capacity512-full 保留原权重/量化，C512 M16→M32→M16重复，统一真实M8尾段；不启用失败I16替换。C1280数据仅作历史对照，不能将容量和batch收益混为单变量证据。C512足够覆盖最高128+256+8+31=423位置，未缩减用户输入范围。最终目标仍是整个动态prefill与TTFT低于100ms，尚未达到。
 
-板端清理完成：三个旧Laya/Nano派生ONNX在Windows保留并SHA一致后删除，共1,161,213,577B；空闲2,220,736,512B。清单 research/intern-prefill100-20261025/retained-diagnostics/derived-jev-cleanup.json。新C512源码审计通过，唯一run c512-m16-m32-aba-r1已由WSL控制器PID34040启动，launch.json固定源码SHA。只读WSL控制器状态/日志，不绕过双锁轮询板卡；无新性能结论。GitHub同步待重试，最新本地0370693，最后验证远端b2141f2。
+板端清理完成：三个旧Laya/Nano派生ONNX在Windows保留并SHA一致后删除，共1,161,213,577B；空闲2,220,736,512B。清单 research/intern-prefill100-20261025/retained-diagnostics/derived-jev-cleanup.json。新C512源码审计通过，唯一run c512-m16-m32-aba-r1已由WSL控制器PID34040启动，launch.json固定源码SHA。只读WSL控制器状态/日志，不绕过双锁轮询板卡；无新性能结论。GitHub已推送并独立ls-remote核实0431164f067473ebd76f87b5ed5a06df720814eb。本句及sync元数据是后续工作树记录。
 
 ## 2026-10-26 首段量化修复与C512/M32准备
 

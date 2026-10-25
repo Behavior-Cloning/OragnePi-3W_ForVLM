@@ -1,3 +1,7 @@
+## 新增：敏感down I16量化候选诊断
+
+见 `research/intern-prefill100-20261025/DOWN_I16_EXPORT_REPORT.md`。三份独立候选均在SDK Verify -3失败，无NB、无板测；单轨迹校准仅初筛。下一步隔离最小算子/核对fraction约束，不能宣称已提速。WSL keeper539（SSH session1296）仍用于保活，未启动板卡任务。
+
 ## 2026-10-25 最新检查点：整数Conv的M32/M256均无收益，不扩整模型
 
 - 100ms完整prefill/模型TTFT目标仍未达。固定口径：system正文59/123＋模板5＝64/128；动态正文64/128/192/256＋模板8，实际新prefill72/136/200/264，只复用system。TTFT不含语音、压缩、排队或system准备。总览 `research/intern-prefill100-20261025/OPTIMIZATION_PROGRESS_20261025.md`。

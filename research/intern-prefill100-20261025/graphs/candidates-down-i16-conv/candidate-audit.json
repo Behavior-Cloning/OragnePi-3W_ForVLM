@@ -1,0 +1,134 @@
+{
+  "scope": "independent I16 down weight/input candidate; single canonical calibration, not full-model quality",
+  "source_graph_sha256": "444667ba4a36208f13239a8b517007679e7ed08a0eec3692c701926572293eea",
+  "candidate_graph_sha256": "444667ba4a36208f13239a8b517007679e7ed08a0eec3692c701926572293eea",
+  "source_data_sha256": "49a36dce4d5eecf4bb5f09fc3ec8fec8438f0c6aeab86bfc29799c2465aac3a1",
+  "source_quant_sha256": "35ef6de51d90e057f69dfbb87d35c51dee1a85b435f3f6ab5a8d0c10f6afce6d",
+  "candidate_quant_sha256": "3f32ca9346fe0657870e1c919be6944100b7ec9061c362c3abafbd3d57202360",
+  "changes": [
+    {
+      "key": "@b0_reshape_115:out0",
+      "before": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      },
+      "after": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 4.964869916439056,
+        "min_value": -4.964869916439056,
+        "fl": 12
+      },
+      "kind": "activation",
+      "calibration_rows": "0:24 of one canonical trajectory",
+      "evaluation_rows": "24:32 same correlated trajectory; not independent quality",
+      "evaluation_saturation": 0,
+      "evaluation_relative_l2": 0.000919878348631776
+    },
+    {
+      "key": "@b0_fullconnect_116:out0",
+      "before": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      },
+      "after": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 1.4047414064407349,
+        "min_value": -1.4047414064407349,
+        "fl": 14
+      },
+      "kind": "output",
+      "calibration_rows": "0:24 of one canonical trajectory",
+      "evaluation_rows": "24:32 same correlated trajectory; not independent quality",
+      "evaluation_saturation": 0,
+      "evaluation_relative_l2": 0.000190514876260646
+    },
+    {
+      "key": "@b0_fullconnect_116:weight",
+      "before": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      },
+      "after": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 0.4374732971191406,
+        "min_value": -0.4374732971191406,
+        "fl": 16
+      },
+      "kind": "weight",
+      "calibration_rows": "all source FP32 weights",
+      "evaluation_rows": "all weights",
+      "evaluation_saturation": 0,
+      "evaluation_relative_l2": 0.0002649806887360837
+    },
+    {
+      "key": "@b1_reshape_115:out0",
+      "before": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      },
+      "after": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 6.345695853233337,
+        "min_value": -6.345695853233337,
+        "fl": 12
+      },
+      "kind": "activation",
+      "calibration_rows": "0:24 of one canonical trajectory",
+      "evaluation_rows": "24:32 same correlated trajectory; not independent quality",
+      "evaluation_saturation": 0,
+      "evaluation_relative_l2": 0.0007665233410837608
+    },
+    {
+      "key": "@b1_fullconnect_116:out0",
+      "before": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      },
+      "after": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 2.2983914613723755,
+        "min_value": -2.2983914613723755,
+        "fl": 13
+      },
+      "kind": "output",
+      "calibration_rows": "0:24 of one canonical trajectory",
+      "evaluation_rows": "24:32 same correlated trajectory; not independent quality",
+      "evaluation_saturation": 0,
+      "evaluation_relative_l2": 0.0003041219802529473
+    },
+    {
+      "key": "@b1_fullconnect_116:weight",
+      "before": {
+        "qtype": "float16",
+        "quantizer": "float16"
+      },
+      "after": {
+        "qtype": "i16",
+        "quantizer": "dynamic_fixed_point",
+        "rounding": "rtne",
+        "max_value": 0.50384521484375,
+        "min_value": -0.50384521484375,
+        "fl": 15
+      },
+      "kind": "weight",
+      "calibration_rows": "all source FP32 weights",
+      "evaluation_rows": "all weights",
+      "evaluation_saturation": 0,
+      "evaluation_relative_l2": 0.0005157531361871903
+    }
+  ],
+  "unchanged_external_contract_expected": true,
+  "external_actual_ports_pending": true,
+  "activation_basis": "FP32 source graph intermediate; does not simulate upstream NPU quantization",
+  "temperature_or_speed_claim": null
+}

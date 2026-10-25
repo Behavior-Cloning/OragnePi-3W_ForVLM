@@ -1,10 +1,19 @@
+## 2026-10-25 最新检查点：长语义已审计，W8轴布局无实质收益
+
+- 用户100ms完整prefill/TTFT目标仍active未达。报告research/intern-prefill100-20261025/OPTIMIZATION_PROGRESS_20261025.md。原C256+true8短输入.870/.890秒参照保留；C1280单项Conv不得称最新最快。
+- fullconv-long-quality-r1 complete rc0，48自然+2成本自然+2四步logits全部回收并独立审计。两版严格完成9/24，22/24自然token同，成本首词挥手→举起跨margin，不能声称无损。RAG仍不可直接全执行。
+- w8axis-c512-m32-r2 PID13584已结束complete rc0，3warm+30times A/B/A 10.8665455/10.8308580/10.8912750ms，5端口逐字节同，3release0；没有实质提速，不扩栈。r1仅dry误传status导致KeyError、0板端操作；已改用deployment-manifest。
+- 新runtime/bitcast-c512-m32-l0中，14个等码DATACONVERT→BITCAST最小改写Make/Create/Verify成功，但GenerateNBG(NULL,size) rc139，没NB。保留失败证据；runtimeagent正在做同原未改图的host导出对照，auditagent只读核查SDK调用。graphagent只读研究I16符号扩展保留原W8数值的Conv备选，未编新图。所有agent不触板，编译统一/tmp/opi-prefill-compile.lock。
+- Board当前root测试已释放锁。旧fullconv overlay candidate上传副本和quality两份f32共38904128B已按Windows真实SHA核验后清理，原生产图没改；旧overlay候选NB若再跑必须重传，勿引用其现存性。Windows完整源、NB与raw证据保留。
+- 当前代码/结果只在Windows权威仓库修改；Mac用于控制和报告副本。GitHub此前verified d35fd319；本检查点后同步。
+
 ## 2026-10-25 当前：长语义质量核验运行中，短窗口最快结果保留
 
 - 用户指明旧表0.87～0.89秒。重新审计raw确认：C256 combined-tail8，system总64/128（正文59/123+模板5），动态正文64+模板8，new72，TTFT P50 .869842/.8904535s，6次各格，输出32固定反馈。S128/D64最大.915570，不能说每次<.9s。
 - 最新C1280单项L2 Conv在相同两格1.229562/1.271436s，不是短窗口最高性能新版。输入没有增加，改变的是图容量/尾批路径；21%只相对同C1280原图。原最快配置继续保留，后续必须同时列容量、token与缓存，禁止将隔离候选称“最新最快”。ORIGINAL_COMPARISON.md已纠正解释。
-- fullconv-quality/controller_quality.py fullconv-long-quality-r1 --execute --timeout1200，WSL PID11625，已上传且running。只读其controller JSON/log；root唯一板端控制，双锁，禁止重复启动或修改冻结source。24长自然×A/B=48+2成本自然+2份4步logits；依赖上一轮fullconv board overlay及候选NB，不得删除。
+- fullconv-quality/controller_quality.py fullconv-long-quality-r1 --execute --timeout1200，WSL PID11625已结束，controller complete/rc0，48 quality+2 quality_cost+2 diagnostic+2 closed+1 complete已回收，正在独立质量审计。只读其controller JSON/log；root唯一板端控制，双锁，禁止重复启动或修改冻结source。24长自然×A/B=48+2成本自然+2份4步logits；依赖上一轮fullconv board overlay及候选NB，不得删除。
 - DFP-I16激活+DFP-I8权重直接Conv被拒；等网格affine候选也在DATACONVERT node16失败，无可部署NB。AFFINE_QUANTIZATION_AUDIT.md/JSON给出静态网格/权重证明，但不等于端侧数值/速度通过。第三路线仍在只读可行性研究。
-- 当前Git本地已提交290a512，GitHub此前verified fd47d11；本次口径修正后继续同步。当前100ms目标未达，quality尚未回收，不提前宣称可替换默认。
+- GitHub已verified d35fd319da7a636f41de281ff8dd6a88a5d652e8，包含290a512结果与原最快配置口径修正。当前100ms目标未达，quality已回收待审计，不提前宣称可替换默认。
 
 ## 2026-10-25 Fullconv A-B-A已结束，下一步长语义/首token翻转诊断
 

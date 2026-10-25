@@ -1,0 +1,29 @@
+{
+  "status": "complete",
+  "audio": {
+    "frames": 18739,
+    "overruns": 939,
+    "max_lag_s": 0.6416728399926797,
+    "max_compute_s": 0.6398415309959091,
+    "stage_seconds": {
+      "denoise": 71.76414849582943,
+      "vad": 7.228853489359608,
+      "kws": 21.779528856131947,
+      "stream_asr": 16.847324216971174
+    },
+    "queue": 1,
+    "error": null
+  },
+  "background_errors": [],
+  "scope": "Intern NPU text decoder + resident synthetic speech frontend and RAG; no image encoder, microphone or physical motors",
+  "timing": "Original vs Conv long natural24 each, output cap32/EOS; old cost natural1 each; fixed4step diagnostic1 each excluded from timing; no performance repeats",
+  "input_scope": "24 true semantic long prompts body64/128/192/256 +8, system64/128; one separately labeled old padded cost input s64-d64-2",
+  "counts_expected": {
+    "variants": 2,
+    "performance": 0,
+    "quality": 48,
+    "quality_cost": 2,
+    "diagnostic": 2
+  },
+  "parity": "exact tokens/logits versus first configured runtime; not an FP32 accuracy oracle"
+}

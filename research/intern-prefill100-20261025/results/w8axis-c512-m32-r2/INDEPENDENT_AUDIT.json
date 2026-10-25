@@ -1,0 +1,115 @@
+{
+  "audit_pass": true,
+  "method": "Independent raw JSON/API arrays and actual f32 using numpy; no parent analyzer imported; no board access",
+  "scope": "single fused2 W8 L0/M32 API A-B-A, not full-model TTFT, no audio/RAG residency",
+  "controller_rc": 0,
+  "events": 7,
+  "api_samples": 90,
+  "warmup_total": 9,
+  "three_releases_zero": true,
+  "rows": [
+    {
+      "case": "original-before",
+      "samples": 30,
+      "warmup": 3,
+      "p50_api_ms": 10.8665455,
+      "p95_linear_api_ms": 10.88983745,
+      "p95_nearest_rank_api_ms": 10.892087,
+      "min_api_ms": 10.714295,
+      "max_api_ms": 10.894836999999999,
+      "allocated_bytes": 27354672,
+      "released_bytes": 0,
+      "sha256": "2c99a1b67cc752dff7b8eecd065424cb194bfe604ab59bd2020f3a525aa179d3",
+      "finite": true,
+      "temperature_before_mC": 39494,
+      "temperature_after_mC": 38502
+    },
+    {
+      "case": "fc-axis3",
+      "samples": 30,
+      "warmup": 3,
+      "p50_api_ms": 10.830858000000001,
+      "p95_linear_api_ms": 10.845837399999999,
+      "p95_nearest_rank_api_ms": 10.848837999999999,
+      "min_api_ms": 10.705171,
+      "max_api_ms": 10.859004,
+      "allocated_bytes": 27354672,
+      "released_bytes": 0,
+      "sha256": "2c99a1b67cc752dff7b8eecd065424cb194bfe604ab59bd2020f3a525aa179d3",
+      "finite": true,
+      "temperature_before_mC": 38812,
+      "temperature_after_mC": 38812
+    },
+    {
+      "case": "original-after",
+      "samples": 30,
+      "warmup": 3,
+      "p50_api_ms": 10.891274999999998,
+      "p95_linear_api_ms": 11.001459200000001,
+      "p95_nearest_rank_api_ms": 11.003297,
+      "min_api_ms": 10.703128,
+      "max_api_ms": 11.004463000000001,
+      "allocated_bytes": 27354672,
+      "released_bytes": 0,
+      "sha256": "2c99a1b67cc752dff7b8eecd065424cb194bfe604ab59bd2020f3a525aa179d3",
+      "finite": true,
+      "temperature_before_mC": 39122,
+      "temperature_after_mC": 38688
+    }
+  ],
+  "ports": [
+    {
+      "port": "hidden",
+      "elements": 28672,
+      "all_three_bitwise_equal": true,
+      "finite": true,
+      "sha256": "725f117114449554dc62681961e13366b3d5bea13fa34f1764b41eb6ed00d4d4",
+      "vs_reference_relative_l2": 0.009194348934795702,
+      "vs_reference_maxabs": 0.06516027450561523
+    },
+    {
+      "port": "layer0_new_k",
+      "elements": 4096,
+      "all_three_bitwise_equal": true,
+      "finite": true,
+      "sha256": "148414fcb6a7eb86aec3a8ed28219c97609a025f2feaa3d9ad5b322faffe5045",
+      "vs_reference_relative_l2": 0.00023103167042334242,
+      "vs_reference_maxabs": 0.02378988265991211
+    },
+    {
+      "port": "layer1_new_k",
+      "elements": 4096,
+      "all_three_bitwise_equal": true,
+      "finite": true,
+      "sha256": "5d8505211b8dc666553b96c68529192ae0c1ed33084d840cee5b9af4f1e76b7d",
+      "vs_reference_relative_l2": 0.0008486415609793171,
+      "vs_reference_maxabs": 0.13509654998779297
+    },
+    {
+      "port": "layer0_new_v",
+      "elements": 4096,
+      "all_three_bitwise_equal": true,
+      "finite": true,
+      "sha256": "42b7e5c2696e593b9f3aa4cd6cc67cb39a8728db301fd7769f56f32f9bc856c7",
+      "vs_reference_relative_l2": 0.0010708858218565203,
+      "vs_reference_maxabs": 0.00011646002531051636
+    },
+    {
+      "port": "layer1_new_v",
+      "elements": 4096,
+      "all_three_bitwise_equal": true,
+      "finite": true,
+      "sha256": "8fdc275136865da6c183f848a562961da69adbfa6e9df9dc14b117fca1446771",
+      "vs_reference_relative_l2": 0.007636302179477683,
+      "vs_reference_maxabs": 0.021510779857635498
+    }
+  ],
+  "candidate_speedup_before": 1.0032949836476481,
+  "candidate_speedup_after": 1.00557822842844,
+  "baseline_repeat_drift_pct": 0.22757462341640444,
+  "resource_samples": 9,
+  "temperature_peak_C": 40.982,
+  "minimum_mem_available_bytes": 4623032320,
+  "source_hashes_verified": true,
+  "conclusion": "No material speed improvement. This one canonical input is bitwise equal across A-B-A; not a whole-model quality, TTFT or long-duration qualification."
+}

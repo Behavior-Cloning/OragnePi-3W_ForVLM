@@ -1,3 +1,11 @@
+## M32 trace定位已补齐
+
+`research/intern-prefill100-20261025/runtime/profile-analysis/REPORT_M32.md`：M32 L0/L2 trace重导出的NB与实测件逐位相同，旧NPD SHA/源config/解析manifest核对后已映射。L0已记录NN计数FC44.52%、add14.32%、softmax10.66%；这不是wall-time占比。原M16 softmax30%不适用于M32。下一测量建议M256 L0单独NPD，查明其每行API比M32更慢的算子来源；尚未采集/未启动该实验。没有板端后台任务。
+
+## 2026-10-26 output-FP16 tmpfs单块筛选已完成
+
+`research/intern-prefill100-20261025/results/down-outputfp16-c512-m32-tmpfs-r1/REPORT.md`：rc0，4×30纯API、12warm，实际4份f32哈希/finite及5端口、4release0独立审计通过。原FP16 221.865→221.810ms；旧I16 14.125ms，新I16计算/FP16输出14.101ms，额外收益仅0.172%，hidden相对L2略升(.303886%→.309506%)，不扩整模、不晋升。板端scratch改tmpfs但保留1GiB+100MiB余量且额外MemAvailable守卫；所有证据已回F。精确SHA清理94,721,054B临时复制品，原模型保留，无后台板端任务。下一方向是普通整数块FC/softmax与输入量化误差，M32 trace需先与实际NBG一致。100ms全范围目标未达成。
+
 ## 2026-10-26 C512/M32 FP16 Conv整模结果已回收
 
 `research/intern-prefill100-20261025/capacity512-conv-full/results/c512-m32-conv-aba-r1/REPORT.md`：控制器rc0，72性能/144自然/24诊断，3close driver0。相同static64/128（正文59/123+5模板）、dynamic正文64/128/192/256+8模板，新72/136/200/264，输出32固定反馈。TTFT P50动态64为.5678/.5683秒，128为.9940/.9978秒，256为1.8867/1.9198秒；配对比值中位数.64135，decode约15。仍远未100ms，44/48自然token同且有部件/约束丢失，拒绝默认晋升。原图A/A全同，候选logits relL2 2.696–3.229%。源图/候选/原始证据均保留；下一outputFP16 probe未启动，磁盘951275520B不足原预留与上传要求，不能降低阈值强跑。root质量判定已入QUALIFICATION_DECISION.md；独立审计已完成：Top1冲突19→21/48，两版Top3全部48例至少一冲突，禁止直接执行。动态128的P95/max为1.026/1.011秒，中位数低于1秒不代表稳定达标。

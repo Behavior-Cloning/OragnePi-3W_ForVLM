@@ -1,0 +1,51 @@
+"""Remove only completed tmpfs probe copies whose bytes are retained in WSL."""
+from pathlib import Path
+import argparse,json,hashlib,shlex,sys,time
+R=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+a=argparse.ArgumentParser();a.add_argument('run');a.add_argument('--execute-plan',type=Path);a=a.parse_args()
+assert a.run.replace('-','').replace('_','').isalnum()
+ctl=json.loads((R/(a.run+'-controller.json')).read_text());assert ctl['status']=='complete' and ctl['returncode']==0 and ctl['input_tmpfs_removed']
+root='/dev/shm/opi-prefill100-probe-'+a.run;assert ctl['remote']==root
+d=R/'results'/a.run;cfg=json.loads((d/'config.json').read_text());assert cfg['staging_storage']['kind']=='tmpfs'
+assert json.loads((d/'meta.json').read_text())['status']=='complete'
+cs=json.loads(Path(cfg['candidate_status']).read_text());ps=json.loads((R/'graphs/candidates-down-i16-range16/deployment-manifest.json').read_text())
+source={'candidate.nb':Path(cs['nb_path']),'prior-i16.nb':Path(ps['nb_path']),'original.nb':Path(cs['source_nb_path']),'tensor-probe':R/'runtime/tensor-probe-prefill100','board_probe_suite.py':R/'board_probe_suite.py','config.json':R/(a.run+'-config.json')}
+known={}
+for name,path in source.items():
+ digest=sha(path);assert digest==ctl['upload_source_sha256'][name];known[name]={'sha256':digest,'bytes':path.stat().st_size,'local_path':str(path)}
+raw_names=['config.json','events.jsonl','meta.json','pre-health.json','post-health.json','resources.jsonl','process.log']+[c['run_id']+suffix for c in cfg['sequence'] for suffix in ['.f32','.json','.log']]
+for name in raw_names:
+ path=d/name;assert path.is_file() and not path.is_symlink();known['result/'+name]={'sha256':sha(path),'bytes':path.stat().st_size,'local_path':str(path)}
+known['process.log']=known['result/process.log']
+exit_copy=R/(a.run+'-retained-exit.txt');exit_copy.write_text(str(ctl['returncode']));known['exit']={'sha256':sha(exit_copy),'bytes':exit_copy.stat().st_size,'local_path':str(exit_copy)}
+mode='plan'
+if a.execute_plan:
+ plan=json.loads(a.execute_plan.read_text());assert plan['root']==root and plan['status']=='plan_only'
+ for q in plan['files']:assert q['relative'] in known and q['sha256']==known[q['relative']]['sha256'] and q['bytes']==known[q['relative']]['bytes']
+ expected=plan['files'];mode='delete'
+else:expected=[]
+remote=r"""
+from pathlib import Path
+import json,hashlib,sys,shutil
+x=json.load(sys.stdin);p=Path(x['root']);assert p.parent==Path('/dev/shm') and p.name.startswith('opi-prefill100-probe-') and p.is_dir() and p.resolve()==p
+free=shutil.disk_usage(p).free;files=[];dirs=[]
+for f in p.rglob('*'):
+ assert not f.is_symlink() and f.resolve()==f
+ if f.is_dir():dirs.append(f);continue
+ assert f.is_file();n=str(f.relative_to(p));assert n in x['known'],n
+ k=x['known'][n];h=hashlib.sha256(f.read_bytes()).hexdigest();size=f.stat().st_size
+ assert h==k['sha256'] and size==k['bytes'],n
+ files.append({'relative':n,'sha256':h,'bytes':size,'local_path':k['local_path']})
+if x['mode']=='delete':
+ assert sorted(files,key=lambda q:q['relative'])==sorted(x['expected'],key=lambda q:q['relative'])
+ for q in files:(p/q['relative']).unlink()
+ for f in sorted(dirs,key=lambda z:len(z.parts),reverse=True):f.rmdir()
+ p.rmdir()
+print(json.dumps({'root':str(p),'status':'plan_only' if x['mode']=='plan' else 'removed_verified_tmpfs_copies','files':files,'bytes':sum(q['bytes'] for q in files),'free_before':free,'free_after':shutil.disk_usage('/dev/shm').free}))
+"""
+sys.path.insert(0,'/mnt/f/Files/OPi-Lab/scripts');import board_access as b
+with b.hostlock():
+ for k in known.values():assert sha(k['local_path'])==k['sha256']
+ z=b.ssh('flock -w 5 /run/opi-npu-kv-benchmark.lock python3 -c '+shlex.quote(remote),input=json.dumps({'root':root,'known':known,'mode':mode,'expected':expected}).encode(),capture_output=True,timeout=90,check=True)
+out=json.loads(z.stdout);out['source_sha256']=sha(Path(__file__));out['unix']=time.time();dest=R/(a.run+'-tmpfs-'+mode+'.json');dest.write_text(json.dumps(out,indent=2)+'\n');print(json.dumps({k:v for k,v in out.items() if k!='files'}))

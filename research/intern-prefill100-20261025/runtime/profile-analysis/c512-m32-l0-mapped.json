@@ -1,0 +1,4323 @@
+{
+  "case": "c512-m32-l0",
+  "binary_sha256": "d7adc37f977973a3ce3d40be0d2c1e8539ba187ce69f2fe12f6280d1b5b7d878",
+  "nb_equal_original": true,
+  "trace_sha256": "7741c2c9e95d6ad9ade17cfe84ae009e0f82acebb40ab885aff6e792e04874a0",
+  "vnn_sha256": "c297d17747c11196498aff33ee1d4d2f525779950305ab9a4cc4e00c1c5eb0df",
+  "target_field_present_in_trace": false,
+  "engine_time_fraction": null,
+  "observed_NN_cycles": 10030853,
+  "down": {
+    "uid": 116,
+    "candidate_lids": [
+      "b0_fullconnect_116",
+      "b1_fullconnect_116"
+    ],
+    "profile_nodes": [
+      318,
+      319,
+      320,
+      339,
+      340,
+      341
+    ],
+    "observed_NN_profile_nodes": [
+      318,
+      319,
+      320,
+      339,
+      340,
+      341
+    ],
+    "NN_cycles": 1648041,
+    "wall_time_s": null,
+    "engine": "unknown: this trace omits target"
+  },
+  "by_op": {
+    "fullconnect": {
+      "observed_nodes": 42,
+      "NN_BUSY_CYCLES": 4466100,
+      "share_of_observed_NN_busy": 0.44523631240533584
+    },
+    "add": {
+      "observed_nodes": 16,
+      "NN_BUSY_CYCLES": 1436207,
+      "share_of_observed_NN_busy": 0.1431789499856094
+    },
+    "softmax": {
+      "observed_nodes": 2,
+      "NN_BUSY_CYCLES": 1069254,
+      "share_of_observed_NN_busy": 0.10659651776374353
+    },
+    "matmul": {
+      "observed_nodes": 4,
+      "NN_BUSY_CYCLES": 773807,
+      "share_of_observed_NN_busy": 0.07714269165344163
+    },
+    "concat": {
+      "observed_nodes": 6,
+      "NN_BUSY_CYCLES": 625840,
+      "share_of_observed_NN_busy": 0.062391503494269134
+    },
+    "matmul+permute": {
+      "observed_nodes": 8,
+      "NN_BUSY_CYCLES": 504644,
+      "share_of_observed_NN_busy": 0.05030918108360276
+    },
+    "swish": {
+      "observed_nodes": 2,
+      "NN_BUSY_CYCLES": 376884,
+      "share_of_observed_NN_busy": 0.03757247763475349
+    },
+    "multiply": {
+      "observed_nodes": 30,
+      "NN_BUSY_CYCLES": 369215,
+      "share_of_observed_NN_busy": 0.03680793647359801
+    },
+    "real_div": {
+      "observed_nodes": 2,
+      "NN_BUSY_CYCLES": 188578,
+      "share_of_observed_NN_busy": 0.01879979698635799
+    },
+    "abs": {
+      "observed_nodes": 4,
+      "NN_BUSY_CYCLES": 149856,
+      "share_of_observed_NN_busy": 0.0149395071386252
+    },
+    "permute": {
+      "observed_nodes": 8,
+      "NN_BUSY_CYCLES": 20254,
+      "share_of_observed_NN_busy": 0.0020191702540152865
+    },
+    "reducemean": {
+      "observed_nodes": 4,
+      "NN_BUSY_CYCLES": 17938,
+      "share_of_observed_NN_busy": 0.0017882826116582507
+    },
+    "reducemax": {
+      "observed_nodes": 4,
+      "NN_BUSY_CYCLES": 17678,
+      "share_of_observed_NN_busy": 0.001762362582723523
+    },
+    "sqrt": {
+      "observed_nodes": 4,
+      "NN_BUSY_CYCLES": 6488,
+      "share_of_observed_NN_busy": 0.0006468044143404355
+    },
+    "neg": {
+      "observed_nodes": 4,
+      "NN_BUSY_CYCLES": 6450,
+      "share_of_observed_NN_busy": 0.000643016102419206
+    },
+    "clipbyvalue": {
+      "observed_nodes": 4,
+      "NN_BUSY_CYCLES": 1660,
+      "share_of_observed_NN_busy": 0.0001654894155063383
+    }
+  },
+  "nodes": [
+    {
+      "node_id": 268,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.059326360380318605,
+      "records": 1120,
+      "NN_TOTAL_BUSY_CYCLE": 595094,
+      "NN_TOTAL_READ_CYCLE_DDR": 32256,
+      "NN_TOTAL_READ_VALID_BW_DDR": 516096,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 6720,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 7840,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        57
+      ],
+      "ops": [
+        "add"
+      ],
+      "candidate_lids": [
+        "b0_Add_6_output_0_57",
+        "b1_Add_6_output_0_57"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 206,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.05930891420699715,
+      "records": 1120,
+      "NN_TOTAL_BUSY_CYCLE": 594919,
+      "NN_TOTAL_READ_CYCLE_DDR": 32264,
+      "NN_TOTAL_READ_VALID_BW_DDR": 516224,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 6720,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 7840,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        57
+      ],
+      "ops": [
+        "add"
+      ],
+      "candidate_lids": [
+        "b0_Add_6_output_0_57",
+        "b1_Add_6_output_0_57"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 269,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.053331755534648945,
+      "records": 65,
+      "NN_TOTAL_BUSY_CYCLE": 534963,
+      "NN_TOTAL_READ_CYCLE_DDR": 7408,
+      "NN_TOTAL_READ_VALID_BW_DDR": 118528,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 125392,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 487424,
+      "NN_TOTAL_READ_CYCLE_SRAM": 59417,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 29419,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        50
+      ],
+      "ops": [
+        "softmax"
+      ],
+      "candidate_lids": [
+        "b0_Softmax_output_0_50",
+        "b1_Softmax_output_0_50"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 207,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.05326476222909458,
+      "records": 65,
+      "NN_TOTAL_BUSY_CYCLE": 534291,
+      "NN_TOTAL_READ_CYCLE_DDR": 7400,
+      "NN_TOTAL_READ_VALID_BW_DDR": 118400,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 125392,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 487424,
+      "NN_TOTAL_READ_CYCLE_SRAM": 59418,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 29419,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        50
+      ],
+      "ops": [
+        "softmax"
+      ],
+      "candidate_lids": [
+        "b0_Softmax_output_0_50",
+        "b1_Softmax_output_0_50"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 338,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.05275653027713595,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 529193,
+      "NN_TOTAL_READ_CYCLE_DDR": 198380,
+      "NN_TOTAL_READ_VALID_BW_DDR": 3174080,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 39239,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 27232,
+      "NN_TOTAL_MAC_CYCLE": 351040,
+      "NN_TOTAL_MAC_COUNT": 93385728,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 4201145,
+      "uids": [
+        131
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_131",
+        "b1_fullconnect_131"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 341,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.05092956700691357,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 510867,
+      "NN_TOTAL_READ_CYCLE_DDR": 242508,
+      "NN_TOTAL_READ_VALID_BW_DDR": 3880128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 46524,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 30763,
+      "NN_TOTAL_MAC_CYCLE": 488783,
+      "NN_TOTAL_MAC_COUNT": 93067392,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 4299514,
+      "uids": [
+        116
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_116",
+        "b1_fullconnect_116"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 320,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.050891085733187395,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 510481,
+      "NN_TOTAL_READ_CYCLE_DDR": 241888,
+      "NN_TOTAL_READ_VALID_BW_DDR": 3870208,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 46448,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 30687,
+      "NN_TOTAL_MAC_CYCLE": 489977,
+      "NN_TOTAL_MAC_COUNT": 93068032,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 4297425,
+      "uids": [
+        116
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_116",
+        "b1_fullconnect_116"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 317,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.04175347799434405,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 418823,
+      "NN_TOTAL_READ_CYCLE_DDR": 197460,
+      "NN_TOTAL_READ_VALID_BW_DDR": 3159360,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 39126,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 27119,
+      "NN_TOTAL_MAC_CYCLE": 354775,
+      "NN_TOTAL_MAC_COUNT": 93384704,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 4195319,
+      "uids": [
+        131
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_131",
+        "b1_fullconnect_131"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 314,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.03945317511880595,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 395749,
+      "NN_TOTAL_READ_CYCLE_DDR": 187748,
+      "NN_TOTAL_READ_VALID_BW_DDR": 3003968,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 37909,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 25902,
+      "NN_TOTAL_MAC_CYCLE": 364786,
+      "NN_TOTAL_MAC_COUNT": 93381824,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 4162453,
+      "uids": [
+        125
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_125",
+        "b1_fullconnect_125"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 335,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.03874934664080911,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 388689,
+      "NN_TOTAL_READ_CYCLE_DDR": 184348,
+      "NN_TOTAL_READ_VALID_BW_DDR": 2949568,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 37485,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 25478,
+      "NN_TOTAL_MAC_CYCLE": 346724,
+      "NN_TOTAL_MAC_COUNT": 93382016,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 4148483,
+      "uids": [
+        125
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_125",
+        "b1_fullconnect_125"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 208,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.036383246768744396,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 364955,
+      "NN_TOTAL_READ_CYCLE_DDR": 172568,
+      "NN_TOTAL_READ_VALID_BW_DDR": 2761088,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 11376,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 8184,
+      "NN_TOTAL_MAC_CYCLE": 37129,
+      "NN_TOTAL_MAC_COUNT": 8787712,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        11006
+      ],
+      "ops": [
+        "matmul"
+      ],
+      "candidate_lids": [
+        "b0_split_value_past_11006",
+        "b1_split_value_past_11006"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 270,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.036365202440909065,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 364774,
+      "NN_TOTAL_READ_CYCLE_DDR": 172572,
+      "NN_TOTAL_READ_VALID_BW_DDR": 2761152,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 11376,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 8184,
+      "NN_TOTAL_MAC_CYCLE": 37356,
+      "NN_TOTAL_MAC_COUNT": 9504256,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        11006
+      ],
+      "ops": [
+        "matmul"
+      ],
+      "candidate_lids": [
+        "b0_split_value_past_11006",
+        "b1_split_value_past_11006"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 318,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.03053788147428738,
+      "records": 64,
+      "NN_TOTAL_BUSY_CYCLE": 306321,
+      "NN_TOTAL_READ_CYCLE_DDR": 20096,
+      "NN_TOTAL_READ_VALID_BW_DDR": 321536,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 9728,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 80256,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        116
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_116",
+        "b1_fullconnect_116"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 339,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.030436693669022963,
+      "records": 64,
+      "NN_TOTAL_BUSY_CYCLE": 305306,
+      "NN_TOTAL_READ_CYCLE_DDR": 20096,
+      "NN_TOTAL_READ_VALID_BW_DDR": 321536,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 9728,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 80256,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        116
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_116",
+        "b1_fullconnect_116"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 204,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.029256833890397956,
+      "records": 9,
+      "NN_TOTAL_BUSY_CYCLE": 293471,
+      "NN_TOTAL_READ_CYCLE_DDR": 57448,
+      "NN_TOTAL_READ_VALID_BW_DDR": 919168,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 81536,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 946176,
+      "NN_TOTAL_READ_CYCLE_SRAM": 19437,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 15349,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        66
+      ],
+      "ops": [
+        "concat"
+      ],
+      "candidate_lids": [
+        "b0_MatMul_3_output_0_66",
+        "b1_MatMul_3_output_0_66"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 266,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.029250852345259173,
+      "records": 9,
+      "NN_TOTAL_BUSY_CYCLE": 293411,
+      "NN_TOTAL_READ_CYCLE_DDR": 57440,
+      "NN_TOTAL_READ_VALID_BW_DDR": 919040,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 81536,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 946176,
+      "NN_TOTAL_READ_CYCLE_SRAM": 19437,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 15349,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        66
+      ],
+      "ops": [
+        "concat"
+      ],
+      "candidate_lids": [
+        "b0_MatMul_3_output_0_66",
+        "b1_MatMul_3_output_0_66"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 230,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.018787634511242463,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 188456,
+      "NN_TOTAL_READ_CYCLE_DDR": 25484,
+      "NN_TOTAL_READ_VALID_BW_DDR": 407744,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 2497,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 5953,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        26
+      ],
+      "ops": [
+        "swish"
+      ],
+      "candidate_lids": [
+        "b0_Sigmoid_output_0_35_Mul_14_output_0_26",
+        "b1_Sigmoid_output_0_35_Mul_14_output_0_26"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 292,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.01878484312351103,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 188428,
+      "NN_TOTAL_READ_CYCLE_DDR": 25484,
+      "NN_TOTAL_READ_VALID_BW_DDR": 407744,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 2497,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 5953,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        26
+      ],
+      "ops": [
+        "swish"
+      ],
+      "candidate_lids": [
+        "b0_Sigmoid_output_0_35_Mul_14_output_0_26",
+        "b1_Sigmoid_output_0_35_Mul_14_output_0_26"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 264,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.016337892699653758,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 163883,
+      "NN_TOTAL_READ_CYCLE_DDR": 57372,
+      "NN_TOTAL_READ_VALID_BW_DDR": 917952,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 28672,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 458752,
+      "NN_TOTAL_READ_CYCLE_SRAM": 26740,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1232,
+      "NN_TOTAL_MAC_CYCLE": 66997,
+      "NN_TOTAL_MAC_COUNT": 21100544,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        11000,
+        11001
+      ],
+      "ops": [
+        "matmul",
+        "permute"
+      ],
+      "candidate_lids": [
+        "b0_split_kpast_t_11000",
+        "b0_split_scores_past_11001",
+        "b1_split_kpast_t_11000",
+        "b1_split_scores_past_11001"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 202,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.016283660023728788,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 163339,
+      "NN_TOTAL_READ_CYCLE_DDR": 57368,
+      "NN_TOTAL_READ_VALID_BW_DDR": 917888,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 28672,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 458752,
+      "NN_TOTAL_READ_CYCLE_SRAM": 26740,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1232,
+      "NN_TOTAL_MAC_CYCLE": 67022,
+      "NN_TOTAL_MAC_COUNT": 21100544,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        11000,
+        11001
+      ],
+      "ops": [
+        "matmul",
+        "permute"
+      ],
+      "candidate_lids": [
+        "b0_split_kpast_t_11000",
+        "b0_split_scores_past_11001",
+        "b1_split_kpast_t_11000",
+        "b1_split_scores_past_11001"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 329,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.009872440559142876,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 99029,
+      "NN_TOTAL_READ_CYCLE_DDR": 46464,
+      "NN_TOTAL_READ_VALID_BW_DDR": 743424,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 8796,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 6259,
+      "NN_TOTAL_MAC_CYCLE": 88335,
+      "NN_TOTAL_MAC_COUNT": 17203200,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 794803,
+      "uids": [
+        134
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_134",
+        "b1_fullconnect_134"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 332,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.009771551831135398,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 98017,
+      "NN_TOTAL_READ_CYCLE_DDR": 46056,
+      "NN_TOTAL_READ_VALID_BW_DDR": 736896,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 8745,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 6208,
+      "NN_TOTAL_MAC_CYCLE": 89512,
+      "NN_TOTAL_MAC_COUNT": 17203136,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 793016,
+      "uids": [
+        119
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_119",
+        "b1_fullconnect_119"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 308,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.009655111085767084,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 96849,
+      "NN_TOTAL_READ_CYCLE_DDR": 45360,
+      "NN_TOTAL_READ_VALID_BW_DDR": 725760,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 8654,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 6117,
+      "NN_TOTAL_MAC_CYCLE": 66125,
+      "NN_TOTAL_MAC_COUNT": 17203200,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 791320,
+      "uids": [
+        134
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_134",
+        "b1_fullconnect_134"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 267,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00940877111846819,
+      "records": 7,
+      "NN_TOTAL_BUSY_CYCLE": 94378,
+      "NN_TOTAL_READ_CYCLE_DDR": 42856,
+      "NN_TOTAL_READ_VALID_BW_DDR": 685696,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 4480,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 8848,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        59
+      ],
+      "ops": [
+        "real_div"
+      ],
+      "candidate_lids": [
+        "b0_Div_2_output_0_59",
+        "b1_Div_2_output_0_59"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 205,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.009391025867889799,
+      "records": 7,
+      "NN_TOTAL_BUSY_CYCLE": 94200,
+      "NN_TOTAL_READ_CYCLE_DDR": 42856,
+      "NN_TOTAL_READ_VALID_BW_DDR": 685696,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 4480,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 8848,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        59
+      ],
+      "ops": [
+        "real_div"
+      ],
+      "candidate_lids": [
+        "b0_Div_2_output_0_59",
+        "b1_Div_2_output_0_59"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 311,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.009366800610077728,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 93957,
+      "NN_TOTAL_READ_CYCLE_DDR": 44024,
+      "NN_TOTAL_READ_VALID_BW_DDR": 704384,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 8489,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 5952,
+      "NN_TOTAL_MAC_CYCLE": 80260,
+      "NN_TOTAL_MAC_COUNT": 17203200,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 788624,
+      "uids": [
+        119
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_119",
+        "b1_fullconnect_119"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 334,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.009261326030797181,
+      "records": 16,
+      "NN_TOTAL_BUSY_CYCLE": 92899,
+      "NN_TOTAL_READ_CYCLE_DDR": 160,
+      "NN_TOTAL_READ_VALID_BW_DDR": 2560,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 21504,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 311296,
+      "NN_TOTAL_READ_CYCLE_SRAM": 6704,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 2432,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        125
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_125",
+        "b1_fullconnect_125"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 316,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.009253749406954722,
+      "records": 16,
+      "NN_TOTAL_BUSY_CYCLE": 92823,
+      "NN_TOTAL_READ_CYCLE_DDR": 160,
+      "NN_TOTAL_READ_VALID_BW_DDR": 2560,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 21504,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 311296,
+      "NN_TOTAL_READ_CYCLE_SRAM": 6704,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 2432,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        131
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_131",
+        "b1_fullconnect_131"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 313,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.009226932146249178,
+      "records": 16,
+      "NN_TOTAL_BUSY_CYCLE": 92554,
+      "NN_TOTAL_READ_CYCLE_DDR": 160,
+      "NN_TOTAL_READ_VALID_BW_DDR": 2560,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 21504,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 311296,
+      "NN_TOTAL_READ_CYCLE_SRAM": 6704,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 2432,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        125
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_125",
+        "b1_fullconnect_125"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 337,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.009196525958460362,
+      "records": 16,
+      "NN_TOTAL_BUSY_CYCLE": 92249,
+      "NN_TOTAL_READ_CYCLE_DDR": 160,
+      "NN_TOTAL_READ_VALID_BW_DDR": 2560,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 21504,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 311296,
+      "NN_TOTAL_READ_CYCLE_SRAM": 6704,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 2432,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        131
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_131",
+        "b1_fullconnect_131"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 293,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.007309049389917288,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 73316,
+      "NN_TOTAL_READ_CYCLE_DDR": 25228,
+      "NN_TOTAL_READ_VALID_BW_DDR": 403648,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 25088,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 311296,
+      "NN_TOTAL_READ_CYCLE_SRAM": 5856,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 2464,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        18
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_15_output_0_18",
+        "b1_Mul_15_output_0_18"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 231,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0072343797681014765,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 72567,
+      "NN_TOTAL_READ_CYCLE_DDR": 25228,
+      "NN_TOTAL_READ_VALID_BW_DDR": 403648,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 25088,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 311296,
+      "NN_TOTAL_READ_CYCLE_SRAM": 5856,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 2464,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        18
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_15_output_0_18",
+        "b1_Mul_15_output_0_18"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 203,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.006528657134144025,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 65488,
+      "NN_TOTAL_READ_CYCLE_DDR": 30236,
+      "NN_TOTAL_READ_VALID_BW_DDR": 483776,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 688,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 888,
+      "NN_TOTAL_MAC_CYCLE": 3493,
+      "NN_TOTAL_MAC_COUNT": 1318784,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        11002,
+        11003
+      ],
+      "ops": [
+        "matmul",
+        "permute"
+      ],
+      "candidate_lids": [
+        "b0_split_knew_t_11002",
+        "b0_split_scores_new_11003",
+        "b1_split_knew_t_11002",
+        "b1_split_scores_new_11003"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 265,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.006523373435938101,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 65435,
+      "NN_TOTAL_READ_CYCLE_DDR": 30232,
+      "NN_TOTAL_READ_VALID_BW_DDR": 483712,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 688,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 888,
+      "NN_TOTAL_MAC_CYCLE": 3492,
+      "NN_TOTAL_MAC_COUNT": 1318784,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        11002,
+        11003
+      ],
+      "ops": [
+        "matmul",
+        "permute"
+      ],
+      "candidate_lids": [
+        "b0_split_knew_t_11002",
+        "b0_split_scores_new_11003",
+        "b1_split_knew_t_11002",
+        "b1_split_scores_new_11003"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 213,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.005556157586996838,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 55733,
+      "NN_TOTAL_READ_CYCLE_DDR": 4620,
+      "NN_TOTAL_READ_VALID_BW_DDR": 73920,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 4480,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 57344,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1136,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 464,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        9
+      ],
+      "ops": [
+        "add"
+      ],
+      "candidate_lids": [
+        "b0_Add_7_output_0_9",
+        "b1_Add_7_output_0_9"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 295,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0054840799680745,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 55010,
+      "NN_TOTAL_READ_CYCLE_DDR": 4620,
+      "NN_TOTAL_READ_VALID_BW_DDR": 73920,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 4480,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 57344,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1136,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 464,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        5
+      ],
+      "ops": [
+        "add"
+      ],
+      "candidate_lids": [
+        "b0_hidden_out_5",
+        "b1_hidden_out_5"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 275,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00496438338793321,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 49797,
+      "NN_TOTAL_READ_CYCLE_DDR": 4624,
+      "NN_TOTAL_READ_VALID_BW_DDR": 73984,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 4480,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 57344,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1136,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 464,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        9
+      ],
+      "ops": [
+        "add"
+      ],
+      "candidate_lids": [
+        "b0_Add_7_output_0_9",
+        "b1_Add_7_output_0_9"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 233,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.004920618416001112,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 49358,
+      "NN_TOTAL_READ_CYCLE_DDR": 4624,
+      "NN_TOTAL_READ_VALID_BW_DDR": 73984,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 4480,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 57344,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1136,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 464,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        5
+      ],
+      "ops": [
+        "add"
+      ],
+      "candidate_lids": [
+        "b0_hidden_out_5",
+        "b1_hidden_out_5"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 172,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0037658811269589932,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 37775,
+      "NN_TOTAL_READ_CYCLE_DDR": 4876,
+      "NN_TOTAL_READ_VALID_BW_DDR": 78016,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 497,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1169,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        71
+      ],
+      "ops": [
+        "abs"
+      ],
+      "candidate_lids": [
+        "b0_Abs_output_0_71",
+        "b1_Abs_output_0_71"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 214,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0037444472568783534,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 37560,
+      "NN_TOTAL_READ_CYCLE_DDR": 4884,
+      "NN_TOTAL_READ_VALID_BW_DDR": 78144,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 497,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1169,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        77
+      ],
+      "ops": [
+        "abs"
+      ],
+      "candidate_lids": [
+        "b0_Abs_1_output_0_77",
+        "b1_Abs_1_output_0_77"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 276,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0037348767846563,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 37464,
+      "NN_TOTAL_READ_CYCLE_DDR": 4876,
+      "NN_TOTAL_READ_VALID_BW_DDR": 78016,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 497,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1169,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        77
+      ],
+      "ops": [
+        "abs"
+      ],
+      "candidate_lids": [
+        "b0_Abs_1_output_0_77",
+        "b1_Abs_1_output_0_77"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 234,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0036943019701315533,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 37057,
+      "NN_TOTAL_READ_CYCLE_DDR": 4876,
+      "NN_TOTAL_READ_VALID_BW_DDR": 78016,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 497,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1169,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        71
+      ],
+      "ops": [
+        "abs"
+      ],
+      "candidate_lids": [
+        "b0_Abs_output_0_71",
+        "b1_Abs_output_0_71"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 315,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.002251353897819059,
+      "records": 7,
+      "NN_TOTAL_BUSY_CYCLE": 22583,
+      "NN_TOTAL_READ_CYCLE_DDR": 3648,
+      "NN_TOTAL_READ_VALID_BW_DDR": 58368,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 616,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 3584,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        131
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_131",
+        "b1_fullconnect_131"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 336,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0022221440190580005,
+      "records": 7,
+      "NN_TOTAL_BUSY_CYCLE": 22290,
+      "NN_TOTAL_READ_CYCLE_DDR": 3656,
+      "NN_TOTAL_READ_VALID_BW_DDR": 58496,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 616,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 3584,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        131
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_131",
+        "b1_fullconnect_131"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 333,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0022196517085835074,
+      "records": 7,
+      "NN_TOTAL_BUSY_CYCLE": 22265,
+      "NN_TOTAL_READ_CYCLE_DDR": 3656,
+      "NN_TOTAL_READ_VALID_BW_DDR": 58496,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 616,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 3584,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        125
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_125",
+        "b1_fullconnect_125"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 209,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0022031027670328736,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 22099,
+      "NN_TOTAL_READ_CYCLE_DDR": 9248,
+      "NN_TOTAL_READ_VALID_BW_DDR": 147968,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 712,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 936,
+      "NN_TOTAL_MAC_CYCLE": 3150,
+      "NN_TOTAL_MAC_COUNT": 854272,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        11007
+      ],
+      "ops": [
+        "matmul"
+      ],
+      "candidate_lids": [
+        "b0_split_value_new_11007",
+        "b1_split_value_new_11007"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 324,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0021940307569057187,
+      "records": 7,
+      "NN_TOTAL_BUSY_CYCLE": 22008,
+      "NN_TOTAL_READ_CYCLE_DDR": 3648,
+      "NN_TOTAL_READ_VALID_BW_DDR": 58368,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 616,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 3584,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        128
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_128",
+        "b1_fullconnect_128"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 327,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0021918375236881647,
+      "records": 7,
+      "NN_TOTAL_BUSY_CYCLE": 21986,
+      "NN_TOTAL_READ_CYCLE_DDR": 3656,
+      "NN_TOTAL_READ_VALID_BW_DDR": 58496,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 616,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 3584,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        134
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_134",
+        "b1_fullconnect_134"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 271,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0021911396767553067,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 21979,
+      "NN_TOTAL_READ_CYCLE_DDR": 9244,
+      "NN_TOTAL_READ_VALID_BW_DDR": 147904,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 712,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 936,
+      "NN_TOTAL_MAC_CYCLE": 3214,
+      "NN_TOTAL_MAC_COUNT": 936448,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        11007
+      ],
+      "ops": [
+        "matmul"
+      ],
+      "candidate_lids": [
+        "b0_split_value_new_11007",
+        "b1_split_value_new_11007"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 321,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.002186155055806321,
+      "records": 7,
+      "NN_TOTAL_BUSY_CYCLE": 21929,
+      "NN_TOTAL_READ_CYCLE_DDR": 3656,
+      "NN_TOTAL_READ_VALID_BW_DDR": 58496,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 616,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 3584,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        122
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_122",
+        "b1_fullconnect_122"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 300,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00218286520597999,
+      "records": 7,
+      "NN_TOTAL_BUSY_CYCLE": 21896,
+      "NN_TOTAL_READ_CYCLE_DDR": 3656,
+      "NN_TOTAL_READ_VALID_BW_DDR": 58496,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 616,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 3584,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        122
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_122",
+        "b1_fullconnect_122"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 306,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0021807716651814158,
+      "records": 7,
+      "NN_TOTAL_BUSY_CYCLE": 21875,
+      "NN_TOTAL_READ_CYCLE_DDR": 3648,
+      "NN_TOTAL_READ_VALID_BW_DDR": 58368,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 616,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 3584,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        134
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_134",
+        "b1_fullconnect_134"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 303,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0021800738182485577,
+      "records": 7,
+      "NN_TOTAL_BUSY_CYCLE": 21868,
+      "NN_TOTAL_READ_CYCLE_DDR": 3656,
+      "NN_TOTAL_READ_VALID_BW_DDR": 58496,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 616,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 3584,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        128
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_128",
+        "b1_fullconnect_128"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 312,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0021780799698689632,
+      "records": 7,
+      "NN_TOTAL_BUSY_CYCLE": 21848,
+      "NN_TOTAL_READ_CYCLE_DDR": 3648,
+      "NN_TOTAL_READ_VALID_BW_DDR": 58368,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 616,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 3584,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        125
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_125",
+        "b1_fullconnect_125"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 298,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.002068418308991269,
+      "records": 4,
+      "NN_TOTAL_BUSY_CYCLE": 20748,
+      "NN_TOTAL_READ_CYCLE_DDR": 8232,
+      "NN_TOTAL_READ_VALID_BW_DDR": 131712,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1024,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 5060,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        11000,
+        11001
+      ],
+      "ops": [
+        "matmul",
+        "permute"
+      ],
+      "candidate_lids": [
+        "b0_split_kpast_t_11000",
+        "b0_split_scores_past_11001",
+        "b1_split_kpast_t_11000",
+        "b1_split_scores_past_11001"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 296,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.002043794281503278,
+      "records": 4,
+      "NN_TOTAL_BUSY_CYCLE": 20501,
+      "NN_TOTAL_READ_CYCLE_DDR": 8232,
+      "NN_TOTAL_READ_VALID_BW_DDR": 131712,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1024,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 5060,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        11000,
+        11001
+      ],
+      "ops": [
+        "matmul",
+        "permute"
+      ],
+      "candidate_lids": [
+        "b0_split_kpast_t_11000",
+        "b0_split_scores_past_11001",
+        "b1_split_kpast_t_11000",
+        "b1_split_scores_past_11001"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 227,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0018521854522242525,
+      "records": 16,
+      "NN_TOTAL_BUSY_CYCLE": 18579,
+      "NN_TOTAL_READ_CYCLE_DDR": 304,
+      "NN_TOTAL_READ_VALID_BW_DDR": 4864,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 4608,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 57344,
+      "NN_TOTAL_READ_CYCLE_SRAM": 528,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 16,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        36
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_13_output_0_36",
+        "b1_Mul_13_output_0_36"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 247,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0018453066753146518,
+      "records": 16,
+      "NN_TOTAL_BUSY_CYCLE": 18510,
+      "NN_TOTAL_READ_CYCLE_DDR": 304,
+      "NN_TOTAL_READ_VALID_BW_DDR": 4864,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 4608,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 57344,
+      "NN_TOTAL_READ_CYCLE_SRAM": 528,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 16,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        28
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_4_output_0_28",
+        "b1_Mul_4_output_0_28"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 185,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0018450075980577126,
+      "records": 16,
+      "NN_TOTAL_BUSY_CYCLE": 18507,
+      "NN_TOTAL_READ_CYCLE_DDR": 304,
+      "NN_TOTAL_READ_VALID_BW_DDR": 4864,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 4608,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 57344,
+      "NN_TOTAL_READ_CYCLE_SRAM": 528,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 16,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        28
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_4_output_0_28",
+        "b1_Mul_4_output_0_28"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 289,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0018387269756619902,
+      "records": 16,
+      "NN_TOTAL_BUSY_CYCLE": 18444,
+      "NN_TOTAL_READ_CYCLE_DDR": 304,
+      "NN_TOTAL_READ_VALID_BW_DDR": 4864,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 4608,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 57344,
+      "NN_TOTAL_READ_CYCLE_SRAM": 528,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 16,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        36
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_13_output_0_36",
+        "b1_Mul_13_output_0_36"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 259,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0015717506776342948,
+      "records": 4,
+      "NN_TOTAL_BUSY_CYCLE": 15766,
+      "NN_TOTAL_READ_CYCLE_DDR": 40,
+      "NN_TOTAL_READ_VALID_BW_DDR": 640,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 2020,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 2580,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        93
+      ],
+      "ops": [
+        "concat"
+      ],
+      "candidate_lids": [
+        "b0_Concat_output_0_93",
+        "b1_Concat_output_0_93"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 197,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0015707537534444976,
+      "records": 4,
+      "NN_TOTAL_BUSY_CYCLE": 15756,
+      "NN_TOTAL_READ_CYCLE_DDR": 40,
+      "NN_TOTAL_READ_VALID_BW_DDR": 640,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 2020,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 2580,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        93
+      ],
+      "ops": [
+        "concat"
+      ],
+      "candidate_lids": [
+        "b0_Concat_output_0_93",
+        "b1_Concat_output_0_93"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 326,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0015393506414658853,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 15441,
+      "NN_TOTAL_READ_CYCLE_DDR": 6684,
+      "NN_TOTAL_READ_VALID_BW_DDR": 106944,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1332,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 901,
+      "NN_TOTAL_MAC_CYCLE": 10623,
+      "NN_TOTAL_MAC_COUNT": 2457600,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 113601,
+      "uids": [
+        128
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_128",
+        "b1_fullconnect_128"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 305,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0015381543324381286,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 15429,
+      "NN_TOTAL_READ_CYCLE_DDR": 6752,
+      "NN_TOTAL_READ_VALID_BW_DDR": 108032,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1342,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 911,
+      "NN_TOTAL_MAC_CYCLE": 12268,
+      "NN_TOTAL_MAC_COUNT": 2457600,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 113742,
+      "uids": [
+        128
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_128",
+        "b1_fullconnect_128"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 302,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0012564235564014347,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 12603,
+      "NN_TOTAL_READ_CYCLE_DDR": 5204,
+      "NN_TOTAL_READ_VALID_BW_DDR": 83264,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1150,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 719,
+      "NN_TOTAL_MAC_CYCLE": 10901,
+      "NN_TOTAL_MAC_COUNT": 2457472,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 110068,
+      "uids": [
+        122
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_122",
+        "b1_fullconnect_122"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 323,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0012414696935544765,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 12453,
+      "NN_TOTAL_READ_CYCLE_DDR": 5192,
+      "NN_TOTAL_READ_VALID_BW_DDR": 83072,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1147,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 716,
+      "NN_TOTAL_MAC_CYCLE": 9041,
+      "NN_TOTAL_MAC_COUNT": 2457472,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 110023,
+      "uids": [
+        122
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_122",
+        "b1_fullconnect_122"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 288,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0012330955303601798,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 12369,
+      "NN_TOTAL_READ_CYCLE_DDR": 24,
+      "NN_TOTAL_READ_VALID_BW_DDR": 384,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 2859,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 2858,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        45
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_12_output_0_45",
+        "b1_Mul_12_output_0_45"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 184,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0012313010668185448,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 12351,
+      "NN_TOTAL_READ_CYCLE_DDR": 24,
+      "NN_TOTAL_READ_VALID_BW_DDR": 384,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 2859,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 2858,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        38
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_3_output_0_38",
+        "b1_Mul_3_output_0_38"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 226,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0012181416675132214,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 12219,
+      "NN_TOTAL_READ_CYCLE_DDR": 24,
+      "NN_TOTAL_READ_VALID_BW_DDR": 384,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 2859,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 2858,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        45
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_12_output_0_45",
+        "b1_Mul_12_output_0_45"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 246,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0012159484342956675,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 12197,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 2859,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 2858,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        38
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_3_output_0_38",
+        "b1_Mul_3_output_0_38"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 193,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0010011112713943669,
+      "records": 14,
+      "NN_TOTAL_BUSY_CYCLE": 10042,
+      "NN_TOTAL_READ_CYCLE_DDR": 400,
+      "NN_TOTAL_READ_VALID_BW_DDR": 6400,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 480,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 480,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        87
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_5_output_0_87",
+        "b1_Mul_5_output_0_87"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 255,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0009977217291490565,
+      "records": 14,
+      "NN_TOTAL_BUSY_CYCLE": 10008,
+      "NN_TOTAL_READ_CYCLE_DDR": 400,
+      "NN_TOTAL_READ_VALID_BW_DDR": 6400,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 480,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 480,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        87
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_5_output_0_87",
+        "b1_Mul_5_output_0_87"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 261,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.000993933417227827,
+      "records": 14,
+      "NN_TOTAL_BUSY_CYCLE": 9970,
+      "NN_TOTAL_READ_CYCLE_DDR": 400,
+      "NN_TOTAL_READ_VALID_BW_DDR": 6400,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 480,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 480,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        88
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_6_output_0_88",
+        "b1_Mul_6_output_0_88"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 199,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0009809734027604632,
+      "records": 14,
+      "NN_TOTAL_BUSY_CYCLE": 9840,
+      "NN_TOTAL_READ_CYCLE_DDR": 392,
+      "NN_TOTAL_READ_VALID_BW_DDR": 6272,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 480,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 480,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        88
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_6_output_0_88",
+        "b1_Mul_6_output_0_88"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 352,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0009009203903197465,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 9037,
+      "NN_TOTAL_READ_CYCLE_DDR": 56,
+      "NN_TOTAL_READ_VALID_BW_DDR": 896,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 3584,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 57344,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1641,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 9,
+      "NN_TOTAL_MAC_CYCLE": 3095,
+      "NN_TOTAL_MAC_COUNT": 385024,
+      "NN_ZERO_COEF_SKIP_COUNT": 3368,
+      "NN_NON_ZERO_COEF_COUNT": 224,
+      "uids": [
+        75
+      ],
+      "ops": [
+        "add"
+      ],
+      "candidate_lids": [
+        "b0_Add_4_output_0_75",
+        "b1_Add_4_output_0_75"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 349,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0008990262343591317,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 9018,
+      "NN_TOTAL_READ_CYCLE_DDR": 60,
+      "NN_TOTAL_READ_VALID_BW_DDR": 960,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 3584,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 57344,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1649,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 10,
+      "NN_TOTAL_MAC_CYCLE": 3094,
+      "NN_TOTAL_MAC_COUNT": 385024,
+      "NN_ZERO_COEF_SKIP_COUNT": 3368,
+      "NN_NON_ZERO_COEF_COUNT": 224,
+      "uids": [
+        75
+      ],
+      "ops": [
+        "add"
+      ],
+      "candidate_lids": [
+        "b0_Add_4_output_0_75",
+        "b1_Add_4_output_0_75"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 198,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0007919565763749105,
+      "records": 14,
+      "NN_TOTAL_BUSY_CYCLE": 7944,
+      "NN_TOTAL_READ_CYCLE_DDR": 392,
+      "NN_TOTAL_READ_VALID_BW_DDR": 6272,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 96,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 96,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        8
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_8_output_0_8",
+        "b1_Mul_8_output_0_8"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 260,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0007716193229030473,
+      "records": 14,
+      "NN_TOTAL_BUSY_CYCLE": 7740,
+      "NN_TOTAL_READ_CYCLE_DDR": 392,
+      "NN_TOTAL_READ_VALID_BW_DDR": 6272,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 96,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 96,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        8
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_8_output_0_8",
+        "b1_Mul_8_output_0_8"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 319,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0007533756102297581,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 7557,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 785,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1737,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        116
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_116",
+        "b1_fullconnect_116"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 309,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0007527774557158798,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 7551,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1681,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 895,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        119
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_119",
+        "b1_fullconnect_119"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 310,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0007527774557158798,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 7551,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 785,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1737,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        119
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_119",
+        "b1_fullconnect_119"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 330,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0007513817618501637,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 7537,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1681,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 895,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        119
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_119",
+        "b1_fullconnect_119"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 328,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0007497866831464882,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 7521,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 785,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1737,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        134
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_134",
+        "b1_fullconnect_134"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 331,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0007497866831464882,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 7521,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 785,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1737,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        119
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_119",
+        "b1_fullconnect_119"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 307,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0007485903741187315,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 7509,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 785,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1737,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        134
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_134",
+        "b1_fullconnect_134"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 340,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0007485903741187315,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 7509,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 785,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1737,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        116
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_116",
+        "b1_fullconnect_116"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 254,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0007271565040380913,
+      "records": 14,
+      "NN_TOTAL_BUSY_CYCLE": 7294,
+      "NN_TOTAL_READ_CYCLE_DDR": 400,
+      "NN_TOTAL_READ_VALID_BW_DDR": 6400,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 96,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 96,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        7
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_7_output_0_7",
+        "b1_Mul_7_output_0_7"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 192,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0007116044866772547,
+      "records": 14,
+      "NN_TOTAL_BUSY_CYCLE": 7138,
+      "NN_TOTAL_READ_CYCLE_DDR": 392,
+      "NN_TOTAL_READ_VALID_BW_DDR": 6272,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 96,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 96,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        7
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_7_output_0_7",
+        "b1_Mul_7_output_0_7"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 350,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0006064289846536481,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 6083,
+      "NN_TOTAL_READ_CYCLE_DDR": 28,
+      "NN_TOTAL_READ_VALID_BW_DDR": 448,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1480,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 451,
+      "NN_TOTAL_MAC_CYCLE": 3219,
+      "NN_TOTAL_MAC_COUNT": 286720,
+      "NN_ZERO_COEF_SKIP_COUNT": 315,
+      "NN_NON_ZERO_COEF_COUNT": 180,
+      "uids": [
+        41
+      ],
+      "ops": [
+        "add"
+      ],
+      "candidate_lids": [
+        "b0_MatMul_4_output_0_41",
+        "b1_MatMul_4_output_0_41"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 353,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0006020425182185404,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 6039,
+      "NN_TOTAL_READ_CYCLE_DDR": 24,
+      "NN_TOTAL_READ_VALID_BW_DDR": 384,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1480,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 451,
+      "NN_TOTAL_MAC_CYCLE": 3217,
+      "NN_TOTAL_MAC_COUNT": 286720,
+      "NN_ZERO_COEF_SKIP_COUNT": 315,
+      "NN_NON_ZERO_COEF_COUNT": 180,
+      "uids": [
+        41
+      ],
+      "ops": [
+        "add"
+      ],
+      "candidate_lids": [
+        "b0_MatMul_4_output_0_41",
+        "b1_MatMul_4_output_0_41"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 177,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0005503021527680647,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 5520,
+      "NN_TOTAL_READ_CYCLE_DDR": 268,
+      "NN_TOTAL_READ_VALID_BW_DDR": 4288,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 705,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 705,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        72
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_2_output_0_72",
+        "b1_Mul_2_output_0_72"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 239,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0005499033830921458,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 5516,
+      "NN_TOTAL_READ_CYCLE_DDR": 268,
+      "NN_TOTAL_READ_VALID_BW_DDR": 4288,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 705,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 705,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        72
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_2_output_0_72",
+        "b1_Mul_2_output_0_72"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 219,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0005485076892264297,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 5502,
+      "NN_TOTAL_READ_CYCLE_DDR": 276,
+      "NN_TOTAL_READ_VALID_BW_DDR": 4416,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 705,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 705,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        78
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_11_output_0_78",
+        "b1_Mul_11_output_0_78"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 281,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0005471119953607136,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 5488,
+      "NN_TOTAL_READ_CYCLE_DDR": 268,
+      "NN_TOTAL_READ_VALID_BW_DDR": 4288,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 705,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 705,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        78
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_11_output_0_78",
+        "b1_Mul_11_output_0_78"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 221,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00046596236631122,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 4674,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 672,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        69
+      ],
+      "ops": [
+        "reducemean"
+      ],
+      "candidate_lids": [
+        "b0_ReduceMean_1_output_0_69",
+        "b1_ReduceMean_1_output_0_69"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 179,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00044562511283935673,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 4470,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 672,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        64
+      ],
+      "ops": [
+        "reducemean"
+      ],
+      "candidate_lids": [
+        "b0_ReduceMean_output_0_64",
+        "b1_ReduceMean_output_0_64"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 235,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0004446281886495595,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 4460,
+      "NN_TOTAL_READ_CYCLE_DDR": 24,
+      "NN_TOTAL_READ_VALID_BW_DDR": 384,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 672,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        63
+      ],
+      "ops": [
+        "reducemax"
+      ],
+      "candidate_lids": [
+        "b0_ReduceMax_output_0_63",
+        "b1_ReduceMax_output_0_63"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 173,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0004440300341356812,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 4454,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 672,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        63
+      ],
+      "ops": [
+        "reducemax"
+      ],
+      "candidate_lids": [
+        "b0_ReduceMax_output_0_63",
+        "b1_ReduceMax_output_0_63"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 241,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00044303310994588395,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 4444,
+      "NN_TOTAL_READ_CYCLE_DDR": 24,
+      "NN_TOTAL_READ_VALID_BW_DDR": 384,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 672,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        64
+      ],
+      "ops": [
+        "reducemean"
+      ],
+      "candidate_lids": [
+        "b0_ReduceMean_output_0_64",
+        "b1_ReduceMean_output_0_64"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 215,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00043844725867281674,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 4398,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 672,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        68
+      ],
+      "ops": [
+        "reducemax"
+      ],
+      "candidate_lids": [
+        "b0_ReduceMax_1_output_0_68",
+        "b1_ReduceMax_1_output_0_68"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 277,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00043525710126546567,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 4366,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 672,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        68
+      ],
+      "ops": [
+        "reducemax"
+      ],
+      "candidate_lids": [
+        "b0_ReduceMax_1_output_0_68",
+        "b1_ReduceMax_1_output_0_68"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 283,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00043366202256179013,
+      "records": 2,
+      "NN_TOTAL_BUSY_CYCLE": 4350,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 672,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        69
+      ],
+      "ops": [
+        "reducemean"
+      ],
+      "candidate_lids": [
+        "b0_ReduceMean_1_output_0_69",
+        "b1_ReduceMean_1_output_0_69"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 196,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0003838158130719292,
+      "records": 4,
+      "NN_TOTAL_BUSY_CYCLE": 3850,
+      "NN_TOTAL_READ_CYCLE_DDR": 40,
+      "NN_TOTAL_READ_VALID_BW_DDR": 640,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 292,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 372,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        14
+      ],
+      "ops": [
+        "concat"
+      ],
+      "candidate_lids": [
+        "b0_Concat_1_output_0_14",
+        "b1_Concat_1_output_0_14"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 191,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0003593911704218973,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 3605,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 448,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 448,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        91
+      ],
+      "ops": [
+        "permute"
+      ],
+      "candidate_lids": [
+        "b0_Transpose_output_0_91",
+        "b1_Transpose_output_0_91"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 273,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0003593911704218973,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 3605,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 448,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 448,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        10001
+      ],
+      "ops": [
+        "permute"
+      ],
+      "candidate_lids": [
+        "b0_batch_attention_permute_10001",
+        "b1_batch_attention_permute_10001"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 211,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00035759670688026234,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 3587,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 448,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 448,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        10001
+      ],
+      "ops": [
+        "permute"
+      ],
+      "candidate_lids": [
+        "b0_batch_attention_permute_10001",
+        "b1_batch_attention_permute_10001"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 258,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0003574970144612826,
+      "records": 4,
+      "NN_TOTAL_BUSY_CYCLE": 3586,
+      "NN_TOTAL_READ_CYCLE_DDR": 40,
+      "NN_TOTAL_READ_VALID_BW_DDR": 640,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 292,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 372,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        14
+      ],
+      "ops": [
+        "concat"
+      ],
+      "candidate_lids": [
+        "b0_Concat_1_output_0_14",
+        "b1_Concat_1_output_0_14"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 253,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00035719793720434344,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 3583,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 448,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 448,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        91
+      ],
+      "ops": [
+        "permute"
+      ],
+      "candidate_lids": [
+        "b0_Transpose_output_0_91",
+        "b1_Transpose_output_0_91"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 297,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0002620913694976888,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 2629,
+      "NN_TOTAL_READ_CYCLE_DDR": 528,
+      "NN_TOTAL_READ_VALID_BW_DDR": 8448,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 512,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 8192,
+      "NN_TOTAL_READ_CYCLE_SRAM": 128,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 190,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        11002,
+        11003
+      ],
+      "ops": [
+        "matmul",
+        "permute"
+      ],
+      "candidate_lids": [
+        "b0_split_knew_t_11002",
+        "b0_split_scores_new_11003",
+        "b1_split_knew_t_11002",
+        "b1_split_scores_new_11003"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 299,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.000261293830145851,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 2621,
+      "NN_TOTAL_READ_CYCLE_DDR": 520,
+      "NN_TOTAL_READ_VALID_BW_DDR": 8320,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 512,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 8192,
+      "NN_TOTAL_READ_CYCLE_SRAM": 128,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 190,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        11002,
+        11003
+      ],
+      "ops": [
+        "matmul",
+        "permute"
+      ],
+      "candidate_lids": [
+        "b0_split_knew_t_11002",
+        "b0_split_scores_new_11003",
+        "b1_split_knew_t_11002",
+        "b1_split_scores_new_11003"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 195,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0002544150532362502,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 2552,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 448,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 224,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        95
+      ],
+      "ops": [
+        "neg"
+      ],
+      "candidate_lids": [
+        "b0_Neg_output_0_95",
+        "b1_Neg_output_0_95"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 257,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0002544150532362502,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 2552,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 448,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 224,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        95
+      ],
+      "ops": [
+        "neg"
+      ],
+      "candidate_lids": [
+        "b0_Neg_output_0_95",
+        "b1_Neg_output_0_95"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 189,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00022769748494968475,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 2284,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 512,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 8192,
+      "NN_TOTAL_READ_CYCLE_SRAM": 128,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 64,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        3
+      ],
+      "ops": [
+        "permute"
+      ],
+      "candidate_lids": [
+        "b0_new_v_3",
+        "b1_new_v_3"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 351,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0002051669982602676,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 2058,
+      "NN_TOTAL_READ_CYCLE_DDR": 32,
+      "NN_TOTAL_READ_VALID_BW_DDR": 512,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 512,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 8192,
+      "NN_TOTAL_READ_CYCLE_SRAM": 214,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 3,
+      "NN_TOTAL_MAC_CYCLE": 450,
+      "NN_TOTAL_MAC_COUNT": 40960,
+      "NN_ZERO_COEF_SKIP_COUNT": 49,
+      "NN_NON_ZERO_COEF_COUNT": 28,
+      "uids": [
+        4
+      ],
+      "ops": [
+        "add"
+      ],
+      "candidate_lids": [
+        "b0_new_k_4",
+        "b1_new_k_4"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 348,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00020506730584128786,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 2057,
+      "NN_TOTAL_READ_CYCLE_DDR": 28,
+      "NN_TOTAL_READ_VALID_BW_DDR": 448,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 512,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 8192,
+      "NN_TOTAL_READ_CYCLE_SRAM": 214,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 3,
+      "NN_TOTAL_MAC_CYCLE": 450,
+      "NN_TOTAL_MAC_COUNT": 40960,
+      "NN_ZERO_COEF_SKIP_COUNT": 49,
+      "NN_NON_ZERO_COEF_COUNT": 28,
+      "uids": [
+        4
+      ],
+      "ops": [
+        "add"
+      ],
+      "candidate_lids": [
+        "b0_new_k_4",
+        "b1_new_k_4"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 251,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00020317314988067315,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 2038,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 512,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 8192,
+      "NN_TOTAL_READ_CYCLE_SRAM": 128,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 64,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        3
+      ],
+      "ops": [
+        "permute"
+      ],
+      "candidate_lids": [
+        "b0_new_v_3",
+        "b1_new_v_3"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 180,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00017396327111961465,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 1745,
+      "NN_TOTAL_READ_CYCLE_DDR": 268,
+      "NN_TOTAL_READ_VALID_BW_DDR": 4288,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 34,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 34,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        65
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_1_output_0_65",
+        "b1_Mul_1_output_0_65"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 242,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00016558910792531802,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 1661,
+      "NN_TOTAL_READ_CYCLE_DDR": 268,
+      "NN_TOTAL_READ_VALID_BW_DDR": 4288,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 34,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 34,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        65
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_1_output_0_65",
+        "b1_Mul_1_output_0_65"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 244,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00016299710503184524,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 1635,
+      "NN_TOTAL_READ_CYCLE_DDR": 276,
+      "NN_TOTAL_READ_VALID_BW_DDR": 4416,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 34,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 34,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        49
+      ],
+      "ops": [
+        "sqrt"
+      ],
+      "candidate_lids": [
+        "b0_Sqrt_output_0_49",
+        "b1_Sqrt_output_0_49"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 182,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00016279772019388582,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 1633,
+      "NN_TOTAL_READ_CYCLE_DDR": 268,
+      "NN_TOTAL_READ_VALID_BW_DDR": 4288,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 34,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 34,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        49
+      ],
+      "ops": [
+        "sqrt"
+      ],
+      "candidate_lids": [
+        "b0_Sqrt_output_0_49",
+        "b1_Sqrt_output_0_49"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 222,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00016180079600408857,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 1623,
+      "NN_TOTAL_READ_CYCLE_DDR": 276,
+      "NN_TOTAL_READ_VALID_BW_DDR": 4416,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 34,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 34,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        70
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_10_output_0_70",
+        "b1_Mul_10_output_0_70"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 286,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00016060448697633194,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 1611,
+      "NN_TOTAL_READ_CYCLE_DDR": 268,
+      "NN_TOTAL_READ_VALID_BW_DDR": 4288,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 34,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 34,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        54
+      ],
+      "ops": [
+        "sqrt"
+      ],
+      "candidate_lids": [
+        "b0_Sqrt_1_output_0_54",
+        "b1_Sqrt_1_output_0_54"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 224,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0001604051021383725,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 1609,
+      "NN_TOTAL_READ_CYCLE_DDR": 268,
+      "NN_TOTAL_READ_VALID_BW_DDR": 4288,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 34,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 34,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        54
+      ],
+      "ops": [
+        "sqrt"
+      ],
+      "candidate_lids": [
+        "b0_Sqrt_1_output_0_54",
+        "b1_Sqrt_1_output_0_54"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 284,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.0001582118689208186,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 1587,
+      "NN_TOTAL_READ_CYCLE_DDR": 268,
+      "NN_TOTAL_READ_VALID_BW_DDR": 4288,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 34,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 34,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        70
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_10_output_0_70",
+        "b1_Mul_10_output_0_70"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 301,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00014146354253222532,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 1419,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 113,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 249,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        122
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_122",
+        "b1_fullconnect_122"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 304,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.000139070924476712,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 1395,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 113,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 249,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        128
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_128",
+        "b1_fullconnect_128"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 325,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00013807400028691477,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 1385,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 113,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 249,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        128
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_128",
+        "b1_fullconnect_128"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 322,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 0.00013608015190732034,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 1365,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 113,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 249,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        122
+      ],
+      "ops": [
+        "fullconnect"
+      ],
+      "candidate_lids": [
+        "b0_fullconnect_122",
+        "b1_fullconnect_122"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 252,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 7.746100954724389e-05,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 777,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 64,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 64,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        12
+      ],
+      "ops": [
+        "permute"
+      ],
+      "candidate_lids": [
+        "b0_Transpose_1_output_0_12",
+        "b1_Transpose_1_output_0_12"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 190,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 7.726162470928444e-05,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 775,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 64,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 64,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        12
+      ],
+      "ops": [
+        "permute"
+      ],
+      "candidate_lids": [
+        "b0_Transpose_1_output_0_12",
+        "b1_Transpose_1_output_0_12"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 194,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 7.317423553111585e-05,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 734,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 64,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 32,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        16
+      ],
+      "ops": [
+        "neg"
+      ],
+      "candidate_lids": [
+        "b0_Neg_1_output_0_16",
+        "b1_Neg_1_output_0_16"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 243,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 6.340437847110311e-05,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 636,
+      "NN_TOTAL_READ_CYCLE_DDR": 12,
+      "NN_TOTAL_READ_VALID_BW_DDR": 192,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 3,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        56
+      ],
+      "ops": [
+        "add"
+      ],
+      "candidate_lids": [
+        "b0_Add_output_0_56",
+        "b1_Add_output_0_56"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 256,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 6.101176041558978e-05,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 612,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 64,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 32,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        16
+      ],
+      "ops": [
+        "neg"
+      ],
+      "candidate_lids": [
+        "b0_Neg_1_output_0_16",
+        "b1_Neg_1_output_0_16"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 285,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 5.044436400373926e-05,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 506,
+      "NN_TOTAL_READ_CYCLE_DDR": 12,
+      "NN_TOTAL_READ_VALID_BW_DDR": 192,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 3,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        62
+      ],
+      "ops": [
+        "add"
+      ],
+      "candidate_lids": [
+        "b0_Add_8_output_0_62",
+        "b1_Add_8_output_0_62"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 174,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 4.6257282406590945e-05,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 464,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        55
+      ],
+      "ops": [
+        "clipbyvalue"
+      ],
+      "candidate_lids": [
+        "b0_Clip_output_0_55",
+        "b1_Clip_output_0_55"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 181,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 4.5858512730672055e-05,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 460,
+      "NN_TOTAL_READ_CYCLE_DDR": 12,
+      "NN_TOTAL_READ_VALID_BW_DDR": 192,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 3,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        56
+      ],
+      "ops": [
+        "add"
+      ],
+      "candidate_lids": [
+        "b0_Add_output_0_56",
+        "b1_Add_output_0_56"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 236,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 4.346589467515873e-05,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 436,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        55
+      ],
+      "ops": [
+        "clipbyvalue"
+      ],
+      "candidate_lids": [
+        "b0_Clip_output_0_55",
+        "b1_Clip_output_0_55"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 223,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 4.007635242984819e-05,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 402,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 3,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        62
+      ],
+      "ops": [
+        "add"
+      ],
+      "candidate_lids": [
+        "b0_Add_8_output_0_62",
+        "b1_Add_8_output_0_62"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 178,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 3.917912065903069e-05,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 393,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        73
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_output_0_73",
+        "b1_Mul_output_0_73"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 282,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 3.878035098311181e-05,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 389,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        79
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_9_output_0_79",
+        "b1_Mul_9_output_0_79"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 240,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 3.838158130719292e-05,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 385,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        73
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_output_0_73",
+        "b1_Mul_output_0_73"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 216,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 3.828188888821319e-05,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 384,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        60
+      ],
+      "ops": [
+        "clipbyvalue"
+      ],
+      "candidate_lids": [
+        "b0_Clip_1_output_0_60",
+        "b1_Clip_1_output_0_60"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 278,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 3.748434953637542e-05,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 376,
+      "NN_TOTAL_READ_CYCLE_DDR": 16,
+      "NN_TOTAL_READ_VALID_BW_DDR": 256,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        60
+      ],
+      "ops": [
+        "clipbyvalue"
+      ],
+      "candidate_lids": [
+        "b0_Clip_1_output_0_60",
+        "b1_Clip_1_output_0_60"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 220,
+      "engine": "unknown_without_matching_trace",
+      "cycle_share_of_observed_NN_counters": 3.698588744147681e-05,
+      "records": 1,
+      "NN_TOTAL_BUSY_CYCLE": 371,
+      "NN_TOTAL_READ_CYCLE_DDR": 8,
+      "NN_TOTAL_READ_VALID_BW_DDR": 128,
+      "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+      "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+      "NN_TOTAL_READ_CYCLE_SRAM": 1,
+      "NN_TOTAL_WRITE_CYCLE_SRAM": 1,
+      "NN_TOTAL_MAC_CYCLE": 0,
+      "NN_TOTAL_MAC_COUNT": 0,
+      "NN_ZERO_COEF_SKIP_COUNT": 0,
+      "NN_NON_ZERO_COEF_COUNT": 0,
+      "uids": [
+        79
+      ],
+      "ops": [
+        "multiply"
+      ],
+      "candidate_lids": [
+        "b0_Mul_9_output_0_79",
+        "b1_Mul_9_output_0_79"
+      ],
+      "trace_targets": []
+    }
+  ],
+  "trace_nodes_without_NPD": [
+    {
+      "node_id": 175,
+      "uids": [
+        47
+      ],
+      "candidate_lids": [
+        "b0_Div_output_0_47",
+        "b1_Div_output_0_47"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 176,
+      "uids": [
+        86
+      ],
+      "candidate_lids": [
+        "b0_Divide_86",
+        "b1_Divide_86"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 183,
+      "uids": [
+        40
+      ],
+      "candidate_lids": [
+        "b0_Div_1_output_0_40",
+        "b1_Div_1_output_0_40"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 217,
+      "uids": [
+        52
+      ],
+      "candidate_lids": [
+        "b0_Div_3_output_0_52",
+        "b1_Div_3_output_0_52"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 218,
+      "uids": [
+        82
+      ],
+      "candidate_lids": [
+        "b0_Divide_82",
+        "b1_Divide_82"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 225,
+      "uids": [
+        53
+      ],
+      "candidate_lids": [
+        "b0_Div_4_output_0_53",
+        "b1_Div_4_output_0_53"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 237,
+      "uids": [
+        47
+      ],
+      "candidate_lids": [
+        "b0_Div_output_0_47",
+        "b1_Div_output_0_47"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 238,
+      "uids": [
+        86
+      ],
+      "candidate_lids": [
+        "b0_Divide_86",
+        "b1_Divide_86"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 245,
+      "uids": [
+        40
+      ],
+      "candidate_lids": [
+        "b0_Div_1_output_0_40",
+        "b1_Div_1_output_0_40"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 279,
+      "uids": [
+        52
+      ],
+      "candidate_lids": [
+        "b0_Div_3_output_0_52",
+        "b1_Div_3_output_0_52"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 280,
+      "uids": [
+        82
+      ],
+      "candidate_lids": [
+        "b0_Divide_82",
+        "b1_Divide_82"
+      ],
+      "trace_targets": []
+    },
+    {
+      "node_id": 287,
+      "uids": [
+        53
+      ],
+      "candidate_lids": [
+        "b0_Div_4_output_0_53",
+        "b1_Div_4_output_0_53"
+      ],
+      "trace_targets": []
+    }
+  ],
+  "limitations": [
+    "UID116 repeats across both fused layers; labels kept as candidates, no guessed b0/b1 assignment.",
+    "NN cycle shares are not elapsed-time shares. Missing NN record does not identify TP/SHADER/SW/CPU.",
+    "The exact-binary node trace format has no target field, despite newer SDK reader support."
+  ]
+}

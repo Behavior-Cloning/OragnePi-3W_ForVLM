@@ -1,0 +1,80 @@
+{
+  "source_review_pass": true,
+  "unresolved_launch_blockers": [],
+  "scope": "Read-only WSL source and artifact inspection, did not run controller/dryrun/SDK/board/locks",
+  "source_sha256": {
+    "controller_compact_row_down.py": "14c95354546d093c09aaa8728495864471dea186800a736fa41863092336c07d",
+    "runtime/profile-analysis/analyze_compact_row_down.py": "90f9eb27f891e9cbf5fa6149e6f0e593b59fd87db53a6040fff8212aa1a8efcf",
+    "board_probe_compact.py": "a67ace526f77209d39225f6d6da68af445265a5bb924791973d872c5509243b3",
+    "controller_down_outputfp16_tmpfs.py": "59d2936d6f22ffdddf3433d9fdf2ab3865eb4cfcad785d2b6e420578c314043d"
+  },
+  "independent_static_audit_sha256": "d11195ddc894eae043462302803cd2b5f583a89e523a38df6e80d6d74d8596b2",
+  "expected_cases": [
+    "m64-before",
+    "m64-row",
+    "m64-after",
+    "m256-before",
+    "m256-row",
+    "m256-after"
+  ],
+  "expected_counts": {
+    "processes": 6,
+    "warmup_each": 3,
+    "pure_API_each": 30,
+    "total_warmup": 18,
+    "total_timed_API": 180
+  },
+  "contract_checks": {
+    "same_history": 128,
+    "same_capacity": 128,
+    "query_shapes": [
+      64,
+      256
+    ],
+    "fusion_first_layer": 2,
+    "fusion_layers": 2,
+    "one_canonical_input_per_shape_A_B_A": true,
+    "full_static_file_audit_candidate_sha_bytes_bound": true,
+    "old_m256_original_sha_bound_to_previous_conversion": true,
+    "source_hash_frozen_before_lock": true,
+    "verify_repeated_at_lock_and_upload": true,
+    "remote_all_uploads_sha_check": true,
+    "OPI_profile_flags_cleared": true,
+    "NPD_IO_profile_disallowed": true,
+    "three_warm30_pure_per_process_asserted": true,
+    "per_process_release0_and_repeat_byte_equality_asserted": true,
+    "max_controller_seconds": 720,
+    "runner_hard_timeout_seconds": 600,
+    "per_process_timeout_seconds": 180,
+    "thermal_abort_C": 78,
+    "cooldown_C": 65,
+    "dual_lock": true,
+    "temporary_scratch_retained_for_audit": true,
+    "no_auto_restart": true
+  },
+  "tmpfs": {
+    "reserve_bytes": 1178599424,
+    "reserve_excludes_staged_bytes": true,
+    "mem_available_additional_runtime_guard_bytes": 268435456,
+    "OS_swap_not_excluded": true
+  },
+  "analyzer_review": {
+    "geometry_repeat_profile_flags": "Matches both actual128/64/2 and128/256/2; checks outputs expected length and all16 logged port lines per shape.",
+    "API_timing": "Finite positive30 calls;P50/P95 NumPylinear; scalarwholemodeltiming not invented.",
+    "nonfinite": "Counts eachoutput nonfinite, segment finite=false producesnullL2/max. Completion must not be mistaken for numeric acceptance.",
+    "comparison": "A/A fullrawSHA;B-vsA fiveparts using fixture outputorder andfull-length total. No unconditional parity claim.",
+    "resources": "Boundary temps plus periodic pre/post included;swap delta explicit.",
+    "remaining_small_hardening": "Resolved: archive member uniqueness and exact ordered six result labels with len(ev)==6 explicitly asserted; reviewed offline-only delta."
+  },
+  "limits": [
+    "Prelaunch source checks do not assert any real run succeeded.",
+    "Graphhistory128 cannot coverlater validhistory>128 withoutlargerbank.",
+    "Query64/256 are singlefused2 localbatchsizes, not completeuserdynamicrequest lengths orfullTTFT.",
+    "Row changesactualtwo downweight precision comparedwithFP16 original. Source arrayssame is notbitwiseequivalence.",
+    "Noaudio/RAG/microphone/motor andno fullmodelquality qualification."
+  ],
+  "offline_analyzer_delta": {
+    "new_sha256": "90f9eb27f891e9cbf5fa6149e6f0e593b59fd87db53a6040fff8212aa1a8efcf",
+    "scope": "Only offline archive/order guards; controller, runner, graph, inputs unchanged."
+  }
+}

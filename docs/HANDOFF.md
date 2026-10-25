@@ -6,6 +6,7 @@
 - `results/native-rms-m32-r1` 六进程两层筛查完成：普通输入API P50 10.867→10.202ms（约6.1%）；hidden相对L2差异0.778%，大幅值压力输入均finite。history128、query32，无音频/RAG，不等于完整system/dynamic请求或全模TTFT；native gamma/epsilon表示改变，未认定无损。
 - 当前 `down-row-scale-tail` controller PID51776 / finish51777，独立目录运行完整M8 tail对照，禁止重复启动或绕过双锁轮询板卡；仅读WSL状态。两组均原system，B/C仅动态M8敏感块不同，其他输入/量化/亲和/语音驻留一致。待回收后检查质量/真实tail时间及温度完整口径。
 - 离线 `graphs/build_compact_row_down_screen.py` PID51887 已完成编译M64 plain/row与M256 row，history容量128保留全部有效历史；只为两层组合筛查，未板测、不是完整长动态请求支持。更晚位置必须保留其全部历史，不得以截断换速度。
+- 顺序接续已运行：`continue_compact_row.py` PID53069，读WSL `continue-compact-row-status.json`。等待tail控制器退出且分析完成、archive_verified及4driver0，再以既有双锁启动compact-row-down-r1；完成后自动运行局部analyzer，失败不自动重跑。当前仅waiting_tail。
 - compact-row候选已编译完成；`controller_compact_row_down.py` / `runtime/profile-analysis/analyze_compact_row_down.py` 与M64 L2紧凑fixture已准备，独立静态审计及dryrun已通过（board_operations=0，上传预算142895826B），未启动板测。native两层结果独立raw审计已通过，但不代表语义质量。
 - 代码权威仍Windows F/WSL；新测试未作为生产模型，100ms完整目标保持active。当前已提交本任务阶段成果 `f0fab4bce5ba6a008794692e878d032f886475be`；其后新runner/fixture尚未提交。GitHub ls-remote 再次curl28超时，不能确认远端同步；原有push也不据此认定成功或失败。
 

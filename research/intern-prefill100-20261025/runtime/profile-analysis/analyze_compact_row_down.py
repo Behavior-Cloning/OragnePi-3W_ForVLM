@@ -8,7 +8,8 @@ ctl=read(T/(run+'-controller.json'));assert ctl['status']=='complete' and ctl['r
 assert read(R/'meta.json')['status']=='complete'
 a=T/(run+'.tar.gz');assert sha(a)==ctl['archive_sha256']
 with tarfile.open(a) as tf:
- for m in tf.getmembers():
+ members=tf.getmembers();names=[m.name for m in members];assert len(names)==len(set(names)), "Duplicate archive members"
+ for m in members:
   f=(R/m.name).resolve();assert f==R.resolve() or R.resolve() in f.parents
   assert m.isfile() or m.isdir()
   if m.isfile():assert f.stat().st_size==m.size and hashlib.sha256(tf.extractfile(m).read()).hexdigest()==sha(f)
@@ -16,6 +17,9 @@ cfg=read(R/'config.json');assert cfg==read(T/(run+'-config.json'))
 for n,h in {**cfg['source_sha256'],**cfg['fixture_metadata_sha256']}.items():assert sha(T/n)==h,n
 assert sha(Path(cfg['candidate_status_path']))==cfg['candidate_status_sha256']
 e=[json.loads(l) for l in (R/'events.jsonl').read_text().splitlines()];assert [x['event'] for x in e]==['start','result']*6+['complete'];ev={x['case']:x for x in e if x['event']=='result'}
+expected_labels=[f'm{M}-{phase}' for M in [64,256] for phase in ['before','row','after']]
+assert [x['case'] for x in e if x['event']=='result']==expected_labels, 'Result order or duplicate labels'
+assert len(ev)==6
 rows=[];segments=[];boundary_temps=[];out_arrays={}
 for M in [64,256]:
  meta=read(T/f'fixtures-compact/c128-m{M}-l2/probe-fixture.json');expected=sum(n for _,n in meta['outputs']);ports0=None

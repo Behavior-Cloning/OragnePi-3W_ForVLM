@@ -1,0 +1,56 @@
+{
+  "MetaData": {
+    "Name": "down_probe",
+    "AcuityVersion": "6",
+    "Platform": "tensorflow",
+    "Org_Platform": "onnx"
+  },
+  "Layers": {
+    "output_0": {
+      "name": "output",
+      "op": "output",
+      "parameters": {},
+      "inputs": [
+        "@project_2:out0"
+      ],
+      "outputs": [
+        "out0"
+      ]
+    },
+    "input_1": {
+      "name": "input",
+      "op": "input",
+      "parameters": {
+        "size": "",
+        "channels": 1,
+        "shape": [
+          32,
+          4864
+        ],
+        "is_scalar": false,
+        "type": "float32"
+      },
+      "inputs": [],
+      "outputs": [
+        "out0"
+      ]
+    },
+    "project_2": {
+      "name": "project",
+      "op": "fullconnect",
+      "parameters": {
+        "weights": 896,
+        "bias": true,
+        "regularize": false,
+        "axis": 1
+      },
+      "inputs": [
+        "@input_1:out0"
+      ],
+      "outputs": [
+        "out0"
+      ]
+    }
+  },
+  "quantize_info": {}
+}

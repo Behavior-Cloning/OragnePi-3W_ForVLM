@@ -1,0 +1,79 @@
+{
+  "MetaData": {
+    "Name": "down_probe",
+    "AcuityVersion": "6",
+    "Platform": "tensorflow",
+    "Org_Platform": "onnx"
+  },
+  "Layers": {
+    "output": {
+      "name": "output",
+      "op": "output",
+      "parameters": {},
+      "inputs": [
+        "@project:out0"
+      ],
+      "outputs": [
+        "out0"
+      ]
+    },
+    "input": {
+      "name": "input",
+      "op": "input",
+      "parameters": {
+        "size": "",
+        "channels": 1,
+        "shape": [
+          1,
+          1,
+          32,
+          4864
+        ],
+        "is_scalar": false,
+        "type": "float32"
+      },
+      "inputs": [],
+      "outputs": [
+        "out0"
+      ]
+    },
+    "project": {
+      "name": "project",
+      "op": "convolution",
+      "parameters": {
+        "padding_mode": "CONSTANT",
+        "weights": 896,
+        "padding": "VALID",
+        "bias": true,
+        "group_number": 1,
+        "regularize": false,
+        "ksize_h": 1,
+        "ksize_w": 1,
+        "stride_h": 1,
+        "stride_w": 1,
+        "pad_h": 0,
+        "pad_w": 0,
+        "dilation": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "pad_method": "padding_const",
+        "pad": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "inputs": [
+        "@input:out0"
+      ],
+      "outputs": [
+        "out0"
+      ]
+    }
+  },
+  "quantize_info": {}
+}

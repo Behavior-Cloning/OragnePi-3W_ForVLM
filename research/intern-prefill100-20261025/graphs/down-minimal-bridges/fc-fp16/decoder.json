@@ -1,0 +1,90 @@
+{
+  "MetaData": {
+    "Name": "down_probe",
+    "AcuityVersion": "6",
+    "Platform": "tensorflow",
+    "Org_Platform": "onnx"
+  },
+  "Layers": {
+    "output_0": {
+      "name": "output",
+      "op": "output",
+      "parameters": {},
+      "inputs": [
+        "@reshape_out_4:out0"
+      ],
+      "outputs": [
+        "out0"
+      ]
+    },
+    "input_1": {
+      "name": "input",
+      "op": "input",
+      "parameters": {
+        "size": "",
+        "channels": 1,
+        "shape": [
+          1,
+          32,
+          4864
+        ],
+        "is_scalar": false,
+        "type": "float32"
+      },
+      "inputs": [],
+      "outputs": [
+        "out0"
+      ]
+    },
+    "project_2": {
+      "name": "project",
+      "op": "fullconnect",
+      "parameters": {
+        "weights": 896,
+        "bias": true,
+        "regularize": false,
+        "axis": 1
+      },
+      "inputs": [
+        "@reshape_in_3:out0"
+      ],
+      "outputs": [
+        "out0"
+      ]
+    },
+    "reshape_in_3": {
+      "name": "reshape_in",
+      "op": "reshape",
+      "parameters": {
+        "shape": [
+          32,
+          4864
+        ]
+      },
+      "inputs": [
+        "@input_1:out0"
+      ],
+      "outputs": [
+        "out0"
+      ]
+    },
+    "reshape_out_4": {
+      "name": "reshape_out",
+      "op": "reshape",
+      "parameters": {
+        "shape": [
+          1,
+          32,
+          896
+        ]
+      },
+      "inputs": [
+        "@project_2:out0"
+      ],
+      "outputs": [
+        "out0"
+      ]
+    }
+  },
+  "quantize_info": {}
+}

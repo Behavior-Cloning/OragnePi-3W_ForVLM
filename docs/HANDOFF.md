@@ -1,3 +1,7 @@
+## I16 down最新进展：显式转换候选已导出
+
+见research/intern-prefill100-20261025/DOWN_I16_EXPLICIT_REPORT.md及graphs/candidates-down-i16-explicit/deployment-manifest.json。完整两层NB已生成并通过实际端口/权重静态审计，但0板测；下一步L2独立精度候选A-B-A，不可使用要求14权重全等的旧controller。无活跃板任务，WSL keeper539。
+
 ## 新增：敏感down I16量化候选诊断
 
 见 `research/intern-prefill100-20261025/DOWN_I16_EXPORT_REPORT.md`。三份独立候选均在SDK Verify -3失败，无NB、无板测；单轨迹校准仅初筛。下一步隔离最小算子/核对fraction约束，不能宣称已提速。WSL keeper539（SSH session1296）仍用于保活，未启动板卡任务。

@@ -1,0 +1,25 @@
+version: 2
+quantize_parameters:
+  '@input:out0':
+    qtype: i16
+    quantizer: dynamic_fixed_point
+    rounding: rtne
+    max_value: 4.964869916439056
+    min_value: -4.964869916439056
+    fl: 12
+  '@project:weight':
+    qtype: i16
+    quantizer: dynamic_fixed_point
+    rounding: rtne
+    max_value: 0.4374732971191406
+    min_value: -0.4374732971191406
+    fl: 16
+  '@project:out0': &id001
+    qtype: i16
+    quantizer: dynamic_fixed_point
+    rounding: rtne
+    max_value: 1.4047414064407349
+    min_value: -1.4047414064407349
+    fl: 14
+  '@output:out0': *id001
+customized_quantize_layers: {}

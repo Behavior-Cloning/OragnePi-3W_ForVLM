@@ -1,0 +1,9 @@
+version: 2
+quantize_parameters:
+  '@input:out0': &id001
+    qtype: float16
+    quantizer: float16
+  '@project:weight': *id001
+  '@project:out0': *id001
+  '@output:out0': *id001
+customized_quantize_layers: {}

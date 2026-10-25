@@ -1,3 +1,13 @@
+## 2026-10-26 独立结果审计与输出FP16四路单块准备
+
+C512 M16/M32父轮独立审计完成：INDEPENDENT_RESULT_AUDIT.md/json、NUMERIC、MANUAL均在capacity512-full/results/c512-m16-m32-aba-r1。计时与文件完整性通过，质量/100ms均不合格。M32 TTFT配对降14.1%，decode基本不变；M32自然旧24完整9例、新24完整4例，另有兼容但遗漏、安全不响应、信息不足、复述和冲突，不能用token43/48当质量率。RAG Top1明确冲突19/48，Top3在48/48情景中都有冲突项，不能依次执行。当前Conv run36947/watch36977仍运行，只看WSL状态，不并跑新板测。
+
+新 `controller_down_outputfp16.py` / `analyze_down_outputfp16.py` / `OUTPUTFP16_PROBE_PLAN.md` 已准备，host dryrun生成down-outputfp16-c512-m32-r1-config.json，**尚未启动**。四路为原FP16→旧range16 I16→I16输出FP16→原FP16；相同C512/M32两层、canonical输入、3warm+30API，五端口数值分别比较。execute先要求Conv父轮完整结束/回收，不会排队偷跑。保留原1GiB+100MiB磁盘预留；预计传95.7MB，当前空间预计不足，须父轮后按Windows SHA备份清理旧副本，不能降低门槛。
+
+根节点已修两项source audit防漂移问题：candidate NB/bytes硬绑定独立审计；旧range16的geometry/sourceNB/actual_ports/input/ref/known NB hash及audit SHA固定；所有上传source在拿锁前冻结，并核对cfg源码SHA，拿锁后再次校验。独立审计仍在复查这些controller/analyzer，勿声称该单块已测。
+
+最新GitHub同步：代码与原始证据提交567f34d已推送，独立ls-remote匹配；以下旧网络超时仅为历史。后续资源报告补充/独立审计仍可能是工作区更新。
+
 ## 2026-10-26 C512 M16/M32完整结果与新Conv对照
 
 父轮 `capacity512-full/results/c512-m16-m32-aba-r1` 已complete/rc0，72性能、144自然、24四步实际logits，3close driver0；PID34040/34264已结束。M32配对TTFT中位较M16降低14.10%。静态64/128＝正文59/123＋模板5；动态正文64/128/192/256＋模板8，新72/136/200/264；仅system KV、固定反馈输出32。M32 TTFT P50：S64为842.9/1557.3/2309.0/3047.1ms；S128为853.8/1606.4/2354.0/3095.8ms；decode约15.1tok/s。每格仅3成本案，不是长期分位数资格。

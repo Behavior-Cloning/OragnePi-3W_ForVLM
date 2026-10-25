@@ -1,0 +1,121 @@
+{
+  "status": "PASS_FOR_CONDITIONAL_SINGLE_BLOCK_SCREEN_NOT_QUALIFICATION",
+  "board_calls": 0,
+  "sdk_calls": 0,
+  "source_sha256": {
+    "controller_down_outputfp16.py": "d76b32af54462b8d6f7bc5687b4a9ff4ba79d9e16eeb97a30df00eb4500aaca9",
+    "analyze_down_outputfp16.py": "abc2fd0535a1c039f591c6131d09efa51278a8df3f3b3dddb4f6bd33bb6d20dd",
+    "board_probe_suite.py": "28efcf567d0aec9e412b96cf38409c32b8d67f8463c8a7dee0414a2d133980c9",
+    "down-outputfp16-c512-m32-r1-config.json": "aeb588f019c733b10749768e8136669f7efe523935365a99d0260f27b7c641fe"
+  },
+  "candidate_manifest_sha256": "b0bba3d49c1b9fabc72238ba040fc2f7ff51f4fe37531cc7a77a0b3993eff42c",
+  "independent_static_audit_sha256": "23e893eb874a58ce18d4d014aa1f5fbda64dd404bf15377a52bf308d5353ab32",
+  "previous_manifest_sha256": "cf960a9ed4cda0f05d5fe45a56686ffe47af8186f1738883e624291c7636e168",
+  "current_exact_binding_verified": true,
+  "actual16_ports_recorded_json_equal": true,
+  "four_way_sequence": [
+    {
+      "run_id": "original-before",
+      "query_tokens": 32,
+      "first_layer": 2,
+      "capacity": 512,
+      "nb": "/opt/opi-vlm/intern-prefill100-20261025/runs/down-outputfp16-c512-m32-r1/original.nb",
+      "nb_sha256": "34f3b3a2f8aec80ae712c5bd52a9bcbade6ca178bbff073ca54907cd1c08b250",
+      "input": "/dev/shm/opi-prefill100-down-outputfp16-c512-m32-r1-input.f32",
+      "input_sha256": "5063e49e2504abbaf6ab3e151060b800f2aa3d852a3848fa3b1c5b6ddbc20ca7",
+      "reference_sha256": "534a370d5dd76214954e30d947d31fca9787431f58f8fd52ea78792fd87a874e",
+      "variant": "original-fp16-down",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m32-l2/probe-reference.f32"
+    },
+    {
+      "run_id": "prior-i16",
+      "query_tokens": 32,
+      "first_layer": 2,
+      "capacity": 512,
+      "nb": "/opt/opi-vlm/intern-prefill100-20261025/runs/down-outputfp16-c512-m32-r1/prior-i16.nb",
+      "nb_sha256": "b5014320464596fb92593a962a08b9d2a14b13f9e8ee23c8579bf44c8af62cd4",
+      "input": "/dev/shm/opi-prefill100-down-outputfp16-c512-m32-r1-input.f32",
+      "input_sha256": "5063e49e2504abbaf6ab3e151060b800f2aa3d852a3848fa3b1c5b6ddbc20ca7",
+      "reference_sha256": "534a370d5dd76214954e30d947d31fca9787431f58f8fd52ea78792fd87a874e",
+      "variant": "prior-down-i16-range16",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m32-l2/probe-reference.f32"
+    },
+    {
+      "run_id": "candidate",
+      "query_tokens": 32,
+      "first_layer": 2,
+      "capacity": 512,
+      "nb": "/opt/opi-vlm/intern-prefill100-20261025/runs/down-outputfp16-c512-m32-r1/candidate.nb",
+      "nb_sha256": "a10a3aa5c978509852d4607b40117fab7d1947cc624cb10b510e4897e6ca3c75",
+      "input": "/dev/shm/opi-prefill100-down-outputfp16-c512-m32-r1-input.f32",
+      "input_sha256": "5063e49e2504abbaf6ab3e151060b800f2aa3d852a3848fa3b1c5b6ddbc20ca7",
+      "reference_sha256": "534a370d5dd76214954e30d947d31fca9787431f58f8fd52ea78792fd87a874e",
+      "variant": "down-i16-output-fp16",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m32-l2/probe-reference.f32"
+    },
+    {
+      "run_id": "original-after",
+      "query_tokens": 32,
+      "first_layer": 2,
+      "capacity": 512,
+      "nb": "/opt/opi-vlm/intern-prefill100-20261025/runs/down-outputfp16-c512-m32-r1/original.nb",
+      "nb_sha256": "34f3b3a2f8aec80ae712c5bd52a9bcbade6ca178bbff073ca54907cd1c08b250",
+      "input": "/dev/shm/opi-prefill100-down-outputfp16-c512-m32-r1-input.f32",
+      "input_sha256": "5063e49e2504abbaf6ab3e151060b800f2aa3d852a3848fa3b1c5b6ddbc20ca7",
+      "reference_sha256": "534a370d5dd76214954e30d947d31fca9787431f58f8fd52ea78792fd87a874e",
+      "variant": "original-fp16-down-repeat",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m32-l2/probe-reference.f32"
+    }
+  ],
+  "input_bytes": 2170880,
+  "output_bytes": 180224,
+  "requested_hardenings": [
+    "Bind candidate manifest NB SHA/bytes to independent static audit candidate fields; assert previous manifest exact geometry/sourceNB/input/reference/actualports",
+    "Before upload snapshots, assert runner/controller and manifests remain equal to cfg source and artifact snapshot hashes; do not silently accept a runner edit after cfg creation"
+  ],
+  "scope_limits": [
+    "Fixed canonical32rows with128 FP32-derived history is not actual NPU pos0 distribution",
+    "Only output dtype/converter removal differs from prior range16, not original weights precision",
+    "No fullmodel TTFT/audio/RAG or long stability claim",
+    "Timing 3warm30sample ×4 variants; input/output/load conversion excluded",
+    "No launch while parent Conv controller running;execute parent complete/rc0/meta guard precedes board operations",
+    "Disk reserve unchanged1GiB+100MiB; tmpfs separate; no auditor spacecheckboardcall"
+  ],
+  "audited_utc": "2026-10-25T19:43:16.225688+00:00",
+  "requested_hardenings_resolved": true,
+  "resolution": [
+    "Candidate NB SHA/bytes bound to independent static audit; prior range16 knownNB+geometry+source/input/ref/actualports/static audit pinned",
+    "Frozen hashes created before hostlock; all upload files, controller/runner and manifests checked beforelock, afterlock and beforeupload; perfile pre/post + remote SHA"
+  ],
+  "analyzer_review": {
+    "five_ports_layout_exact": true,
+    "four_variants_exact_order": true,
+    "metrics_scope_capacity_rows_fusion_asserted": true,
+    "four_releases_zero_required": true,
+    "three_warm30timed_each": true,
+    "all_output_actual_sha_and_finite": true,
+    "original_reference_and_prior_i16_comparisons": true,
+    "timing_profile_exclusion": true,
+    "p95_method": "numpy.quantile linear interpolation",
+    "reference_definition": "same canonical ORIGINAL exported-weight FP32 oracle for all variants, not candidate-requantized oracle",
+    "synthetic_helper_tests": [
+      "port offsets and shapes",
+      "identity",
+      "one changed KV element localized",
+      "NaN rejected",
+      "incorrect total length rejected"
+    ]
+  },
+  "launch_conditions": [
+    "Parent capacity512-conv-full c512-m32-conv-aba-r1 complete+returncode0+meta.complete",
+    "Existing dual locks acquired; unique run directory",
+    "Disk free > upload +1178599424B; tmpfs and MemAvailable conditions unchanged",
+    "No test triggered by this audit"
+  ],
+  "analyzer_report_wording_update": {
+    "old_sha256": "4a085f9c494c3876bb589fb959f2d1031e199cd1fc482b116bc3e22ce13d0dee",
+    "new_sha256": "abc2fd0535a1c039f591c6131d09efa51278a8df3f3b3dddb4f6bd33bb6d20dd",
+    "exact_reverse_reconstruction": true,
+    "changes": "Only two report metadata fields and two MD sentences; no algorithm/source guard changes"
+  }
+}

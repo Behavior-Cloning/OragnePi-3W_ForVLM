@@ -22,3 +22,17 @@ new-frozen-household-v2：24例，候选与原图token完全一致22例，原图
 最高温度49.786°C；全8核CPU加权占用7.39%；采样进程RSS合计峰值626.9MiB、PSS618.9MiB；MemAvailable最低2477.6MiB。包含加载、system重建和诊断，不是纯生产热循环。3次NPU释放均0。
 
 全部24个4步logits文件实际重算SHA、finite和argmax后分析；详见analysis.json。目标100ms在当前24请求全部满足：False。
+
+## 补充：数值、资源和资格边界
+
+M32与M16的8份四步完整词表logits relative L2为2.93%–3.29%，32步argmax同；M16前后8份logits逐字节相同。自然输出43/48 token序列同不等于语义正确，见[逐案质量决定](QUALIFICATION_DECISION.md)。M32用于system准备和动态处理，前缀KV数值可能一起改变，不能把本轮解释成只改动态处理。
+
+NPU driver报告的ready分配单列，未加到PSS中冒充物理总内存：
+
+|版本|driver bytes|MiB|
+|---|---:|---:|
+|original-m16|1008436184|961.72|
+|original-m32|1030290968|982.56|
+|original-m16-repeat|1007649752|960.97|
+
+PSS/RSS统计仅采样前端/RAG Python进程及resident子进程；不是全系统所有进程。swap观测319→829MiB，换出130560页、换入5页；声音前端68916帧中3393帧超过16ms，最大lag1.047s，不满足严格帧实时性证明。资源采样跨度1087秒，包含模型加载、system准备和logits诊断，非1小时生产稳定性。没有图像编码器、真实麦克风或电机。

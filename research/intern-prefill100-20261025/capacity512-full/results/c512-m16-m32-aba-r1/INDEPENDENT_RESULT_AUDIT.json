@@ -1,0 +1,245 @@
+{
+  "status": "MEASUREMENT_INTEGRITY_PASS_NOT_QUALITY_OR_100MS_QUALIFIED",
+  "numeric_checks_pass": true,
+  "performance_measured_grid_below100ms": false,
+  "whole_objective_verified": false,
+  "natural_semantic_quality_qualified": false,
+  "rag_top3_sequential_execution_qualified": false,
+  "counts": {
+    "resident_models": 1,
+    "audio_endpoint": 172,
+    "tail_graph_verified": 3,
+    "graph_verified": 3,
+    "loaded": 3,
+    "measure": 72,
+    "quality": 144,
+    "diagnostic": 24,
+    "closed": 3,
+    "complete": 1
+  },
+  "semantic_summary": [
+    {
+      "variant": "original-m16",
+      "quality_set": "development-regression",
+      "n": 24,
+      "semantic_classes": {
+        "pass": 9,
+        "compatible_partial": 9,
+        "safe_underresponse": 3,
+        "underspecified": 3
+      },
+      "explicit_reply_conflicts": 0,
+      "rag_top1_conflicts": 10,
+      "rag_any_top3_conflicts": 24,
+      "rag_all3_certified": 0
+    },
+    {
+      "variant": "original-m16",
+      "quality_set": "new-frozen-household-v2",
+      "n": 24,
+      "semantic_classes": {
+        "conflict": 3,
+        "safe_underresponse": 6,
+        "compatible_partial": 7,
+        "underspecified": 2,
+        "pass": 5,
+        "unjudgeable": 1
+      },
+      "explicit_reply_conflicts": 3,
+      "rag_top1_conflicts": 10,
+      "rag_any_top3_conflicts": 24,
+      "rag_all3_certified": 0
+    },
+    {
+      "variant": "original-m32",
+      "quality_set": "development-regression",
+      "n": 24,
+      "semantic_classes": {
+        "pass": 9,
+        "compatible_partial": 10,
+        "safe_underresponse": 3,
+        "underspecified": 2
+      },
+      "explicit_reply_conflicts": 0,
+      "rag_top1_conflicts": 10,
+      "rag_any_top3_conflicts": 24,
+      "rag_all3_certified": 0
+    },
+    {
+      "variant": "original-m32",
+      "quality_set": "new-frozen-household-v2",
+      "n": 24,
+      "semantic_classes": {
+        "conflict": 2,
+        "safe_underresponse": 6,
+        "compatible_partial": 9,
+        "underspecified": 2,
+        "pass": 4,
+        "unjudgeable": 1
+      },
+      "explicit_reply_conflicts": 2,
+      "rag_top1_conflicts": 9,
+      "rag_any_top3_conflicts": 24,
+      "rag_all3_certified": 0
+    },
+    {
+      "variant": "original-m16-repeat",
+      "quality_set": "development-regression",
+      "n": 24,
+      "semantic_classes": {
+        "pass": 9,
+        "compatible_partial": 9,
+        "safe_underresponse": 3,
+        "underspecified": 3
+      },
+      "explicit_reply_conflicts": 0,
+      "rag_top1_conflicts": 10,
+      "rag_any_top3_conflicts": 24,
+      "rag_all3_certified": 0
+    },
+    {
+      "variant": "original-m16-repeat",
+      "quality_set": "new-frozen-household-v2",
+      "n": 24,
+      "semantic_classes": {
+        "conflict": 3,
+        "safe_underresponse": 6,
+        "compatible_partial": 7,
+        "underspecified": 2,
+        "pass": 5,
+        "unjudgeable": 1
+      },
+      "explicit_reply_conflicts": 3,
+      "rag_top1_conflicts": 10,
+      "rag_any_top3_conflicts": 24,
+      "rag_all3_certified": 0
+    }
+  ],
+  "changes": [
+    {
+      "case": "s64-d128-waist-bow",
+      "quality_set": "development-regression",
+      "a_reply": "鞠躬一次。",
+      "b_reply": "鞠躬一次",
+      "a_class": "compatible_partial",
+      "b_class": "compatible_partial",
+      "a_top3": [
+        "R110",
+        "R035",
+        "R055"
+      ],
+      "b_top3": [
+        "R110",
+        "R035",
+        "R055"
+      ]
+    },
+    {
+      "case": "s64-d128-head-left",
+      "quality_set": "development-regression",
+      "a_reply": "头部向左转一点。",
+      "b_reply": "调整头部位置，向左转一点。",
+      "a_class": "pass",
+      "b_class": "pass",
+      "a_top3": [
+        "R005",
+        "R006",
+        "R001"
+      ],
+      "b_top3": [
+        "R005",
+        "R006",
+        "R010"
+      ]
+    },
+    {
+      "case": "s128-d128-head-left",
+      "quality_set": "development-regression",
+      "a_reply": "左转",
+      "b_reply": "左转头部",
+      "a_class": "underspecified",
+      "b_class": "compatible_partial",
+      "a_top3": [
+        "R101",
+        "R099",
+        "R102"
+      ],
+      "b_top3": [
+        "R005",
+        "R006",
+        "R001"
+      ]
+    },
+    {
+      "case": "s64-d192-sleep-stop",
+      "quality_set": "new-frozen-household-v2",
+      "a_reply": "保持全身静止。",
+      "b_reply": "停止底盘运动。",
+      "a_class": "pass",
+      "b_class": "compatible_partial",
+      "a_top3": [
+        "R108",
+        "R109",
+        "R018"
+      ],
+      "b_top3": [
+        "R108",
+        "R097",
+        "R098"
+      ]
+    },
+    {
+      "case": "s128-d192-arm-low-wave",
+      "quality_set": "new-frozen-household-v2",
+      "a_reply": "摆弄桌子",
+      "b_reply": "右臂挥动一次",
+      "a_class": "conflict",
+      "b_class": "compatible_partial",
+      "a_top3": [
+        "R020",
+        "R021",
+        "R107"
+      ],
+      "b_top3": [
+        "R055",
+        "R035",
+        "R078"
+      ]
+    }
+  ],
+  "diagnostic_relL2_range": [
+    0.02931954969959249,
+    0.0328542345816339
+  ],
+  "paired_ttft_ratio": {
+    "n": 24,
+    "min": 0.8142429243138563,
+    "p50": 0.8589774088406095,
+    "p95": 0.8821107538174543,
+    "max": 0.8821321898919646,
+    "mean": 0.8594344859589582
+  },
+  "baseline_drift": {
+    "n": 24,
+    "min": 0.9530403947188276,
+    "p50": 0.998955655072729,
+    "p95": 1.0179008021316582,
+    "max": 1.019962637551768,
+    "mean": 0.9962921095745069
+  },
+  "audit_file_sha256": {
+    "INDEPENDENT_NUMERIC_AUDIT.json": "c06e0e8760deae573e537f3e5c8f9027c00943f4ea7f72b7118e023c5fc60003",
+    "INDEPENDENT_MANUAL_REVIEW.json": "09087400d63dade29e22024ec390da7634a967bd4ce484d90c00e1743b0e63af",
+    "INDEPENDENT_RESULT_AUDIT.md": "3af56c13419be25b4b60a0ee041db2c5fe9facd78544bd065f2c8df64dcf130b"
+  },
+  "limitations": [
+    "original precision means unchanged quantization constants, not bitwise shape invariance",
+    "static prefix preparation changes with M32 as well",
+    "3 samples/cell, 20 boundary fixtures unrun",
+    "repeatedly observed quality fixtures; no new unseen holdout",
+    "no vision/real microphone/motors",
+    "audio frame overruns and swap growth observed",
+    "NPU driver separate from process PSS",
+    "short A-B-A, not long stability qualification"
+  ]
+}

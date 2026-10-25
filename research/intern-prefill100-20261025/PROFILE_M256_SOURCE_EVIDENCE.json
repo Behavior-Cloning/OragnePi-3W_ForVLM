@@ -1,0 +1,165 @@
+{
+  "source_hashes": {
+    "controller_profile_m256.py": "3f180a14b4bc78702358ea4d1896fb7e64025182050ce182d47bd10faa696b0d",
+    "board_profile_m256.py": "565b4e387bfe357b16717c1bae4bb968f5e46f973b23d8dbf2e7993484b576d6",
+    "profile-m256-l0-r1-config.json": "516725ede67e9d57ca216132817a0de7bf410ea2c67b2e66d241323d55f86936",
+    "controller_down_outputfp16_tmpfs.py": "59d2936d6f22ffdddf3433d9fdf2ab3865eb4cfcad785d2b6e420578c314043d",
+    "runtime/tensor-probe-prefill100": "eed89e71c0030ea15fb90d490611b6d6efdcf88a530906fdc57a1c42498e4da3",
+    "runtime/build-probe.json": "02921ac16763678226d7d5792c2bbe7b493f4ea44b3241777ba1e059e364841e",
+    "runtime/probe-source/tensor_probe.c": "6a498254a3761a45e18fb8d9f0c7d86545af3e6f77be0b8ed1256808b8977940",
+    "fixtures-canonical/c512-m256-l0/probe-fixture.json": "b6541753aaf63ca71b7952f731fe0daf1eaa754e3f3ff3b8355fa8cf1524ca36",
+    "graphs/cases/c512-m256-l0/export_nbg_unify/network_binary.nb": "e9b2d8af40f96341eda1e7ff07b867ccde9bbcf9a755746c86e6dafec2de11d5"
+  },
+  "input_checks": [
+    {
+      "name": "b0_hidden",
+      "shape": [
+        1,
+        256,
+        896
+      ],
+      "elements": 229376,
+      "sha256": "d2793db14cfc20af324ec828839d37b8172572d20a35bfd6658d433df24a2af3",
+      "finite": true
+    },
+    {
+      "name": "b0_past_k",
+      "shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "elements": 65536,
+      "sha256": "6370ec3bda41c9548e1f3ab7909068efdce1db8e17b096681a0f5c99e309664f",
+      "finite": true
+    },
+    {
+      "name": "b1_past_k",
+      "shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "elements": 65536,
+      "sha256": "adc13779d6d2bac0591cd805b538494c9516f114c441349f0b1d2bf7b4a0a573",
+      "finite": true
+    },
+    {
+      "name": "b0_past_v",
+      "shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "elements": 65536,
+      "sha256": "d72661e7e5d9b3f1b6aa247c4a5ce30cae04a40227b73d99ff9792e02eef7d39",
+      "finite": true
+    },
+    {
+      "name": "b1_past_v",
+      "shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "elements": 65536,
+      "sha256": "f8ad41573903e7477a09dc7b87ac94d99e5df02dcb2d8c9602f58a60810ac109",
+      "finite": true
+    },
+    {
+      "name": "b0_mask",
+      "shape": [
+        1,
+        1,
+        1792,
+        768
+      ],
+      "elements": 1376256,
+      "sha256": "3ba58a8fa99996587bc20cfa3f40feb457e30567e47f47a5c12173b09d33e2ca",
+      "finite": true
+    },
+    {
+      "name": "b1_mask",
+      "shape": [
+        1,
+        1,
+        1792,
+        768
+      ],
+      "elements": 1376256,
+      "sha256": "3ba58a8fa99996587bc20cfa3f40feb457e30567e47f47a5c12173b09d33e2ca",
+      "finite": true
+    },
+    {
+      "name": "b0_rope_cos",
+      "shape": [
+        1,
+        1,
+        256,
+        64
+      ],
+      "elements": 16384,
+      "sha256": "7306837cd97479193b3aa1ae36406e6dbc0e7025e4d73c57c5bca5d8aeff5732",
+      "finite": true
+    },
+    {
+      "name": "b1_rope_cos",
+      "shape": [
+        1,
+        1,
+        256,
+        64
+      ],
+      "elements": 16384,
+      "sha256": "7306837cd97479193b3aa1ae36406e6dbc0e7025e4d73c57c5bca5d8aeff5732",
+      "finite": true
+    },
+    {
+      "name": "b0_rope_sin",
+      "shape": [
+        1,
+        1,
+        256,
+        64
+      ],
+      "elements": 16384,
+      "sha256": "1ea08404d0003907297575eeae15c5789e364f7693c2e0e5d5e087bd175b439d",
+      "finite": true
+    },
+    {
+      "name": "b1_rope_sin",
+      "shape": [
+        1,
+        1,
+        256,
+        64
+      ],
+      "elements": 16384,
+      "sha256": "1ea08404d0003907297575eeae15c5789e364f7693c2e0e5d5e087bd175b439d",
+      "finite": true
+    }
+  ],
+  "input_bytes": 13238272,
+  "output_bytes": 1441792,
+  "history": 128,
+  "capacity": 512,
+  "query_rows": 256,
+  "fusion_layers": 2,
+  "history_source": "independent FP32 full-depth prefix; not captured NPU KV",
+  "same_source_graph_and_input_both_modes": true,
+  "reserve_bytes": 1178599424,
+  "controller_status_exists": false,
+  "incremental_review": {
+    "old_runner_sha256": "886d4f67c850a7ec53486bd6e828e0ab6fd385296faf05dad3cbb1d76da31079",
+    "new_runner_sha256": "565b4e387bfe357b16717c1bae4bb968f5e46f973b23d8dbf2e7993484b576d6",
+    "reverse_removed_exact_six_added_lines_reproduces_old_sha": true,
+    "config_only_runner_sha_changed": true,
+    "controller_and_probe_unchanged": true,
+    "review_utc": "2026-10-25T20:23:45.902227+00:00",
+    "board_or_sdk_calls_by_auditor": 0
+  }
+}

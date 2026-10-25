@@ -1,0 +1,91 @@
+{
+  "audit": "independent source-only review; no board, SDK, or controller execution",
+  "status": "PASS_BOUNDED_DIAGNOSTIC_SOURCE",
+  "reviewed_utc": "2026-10-25T20:21:07.200407+00:00",
+  "source_sha256": {
+    "controller_profile_m256.py": "3f180a14b4bc78702358ea4d1896fb7e64025182050ce182d47bd10faa696b0d",
+    "board_profile_m256.py": "565b4e387bfe357b16717c1bae4bb968f5e46f973b23d8dbf2e7993484b576d6",
+    "profile-m256-l0-r1-config.json": "516725ede67e9d57ca216132817a0de7bf410ea2c67b2e66d241323d55f86936",
+    "controller_down_outputfp16_tmpfs.py": "59d2936d6f22ffdddf3433d9fdf2ab3865eb4cfcad785d2b6e420578c314043d",
+    "runtime/tensor-probe-prefill100": "eed89e71c0030ea15fb90d490611b6d6efdcf88a530906fdc57a1c42498e4da3",
+    "runtime/build-probe.json": "02921ac16763678226d7d5792c2bbe7b493f4ea44b3241777ba1e059e364841e",
+    "runtime/probe-source/tensor_probe.c": "6a498254a3761a45e18fb8d9f0c7d86545af3e6f77be0b8ed1256808b8977940",
+    "fixtures-canonical/c512-m256-l0/probe-fixture.json": "b6541753aaf63ca71b7952f731fe0daf1eaa754e3f3ff3b8355fa8cf1524ca36",
+    "graphs/cases/c512-m256-l0/export_nbg_unify/network_binary.nb": "e9b2d8af40f96341eda1e7ff07b867ccde9bbcf9a755746c86e6dafec2de11d5"
+  },
+  "evidence_sha256": "9d36db4914814f0db76162c0e385c0c1dc232124a523e03b506c826f4c651636",
+  "blocking_findings": [],
+  "geometry": {
+    "capacity": 512,
+    "query_rows": 256,
+    "fusion_layers": 2,
+    "history": 128,
+    "input_bytes": 13238272,
+    "output_bytes": 1441792
+  },
+  "protocol": {
+    "io": {
+      "warmup": 3,
+      "diagnostic_repeats": 5
+    },
+    "npd": {
+      "warmup": 0,
+      "diagnostic_repeats": 1
+    },
+    "timing_eligible": false,
+    "audio_RAG_residency": false,
+    "full_model": false,
+    "same_graph_input_probe": true
+  },
+  "guards": {
+    "all_source_hashes_before_and_after_lock_upload": true,
+    "remote_hash_check": true,
+    "hostlock_and_board_flock": true,
+    "tmpfs_executable_mount_check": true,
+    "tmpfs_free_min": "all staging including input + 1 GiB + 100 MiB",
+    "memavailable_min": "all staging + 1 GiB + 100 MiB + 256 MiB",
+    "thermal_stop_C": 78,
+    "start_cooldown_below_C": 65,
+    "single_probe_deadline_s": 180,
+    "whole_process_deadline_s": 600,
+    "controller_observation_deadline_s": 720,
+    "unique_directory": true,
+    "no_auto_restart": true,
+    "failure_partial_recovery_lock_required": true,
+    "scratch_preserved": true
+  },
+  "post_run_required": [
+    "Verify all returned source/config hashes, two successful releases, monitor errors and pre/post driver.",
+    "Verify both actual F32 outputs finite, SHA and five-port parity against archived original graph, not only in-process repeat counts.",
+    "Verify actual NPD VNPD v2 target 0x1000003b record stride128 and SDK/prior parser equality; map only exact-NB matching trace.",
+    "Separate NN busy counter shares from elapsed time and do not invent engine/CPU fallback labels.",
+    "Do not use NPD/IO instrumented times as pure speed, TTFT or full-range 100ms qualification."
+  ],
+  "limitations": [
+    "Two-layer L0/L1 single canonical trajectory at history128, not full24-layer prefill.",
+    "History derives from FP32 reference prefix rather than live NPU KV.",
+    "No audio/RAG concurrency or stability qualification.",
+    "Explicit root disk artifacts are zero; system logging and swap writes remain possible.",
+    "No statement about actual board run success until evidence recovery."
+  ],
+  "incremental_review": {
+    "old_runner_sha256": "886d4f67c850a7ec53486bd6e828e0ab6fd385296faf05dad3cbb1d76da31079",
+    "new_runner_sha256": "565b4e387bfe357b16717c1bae4bb968f5e46f973b23d8dbf2e7993484b576d6",
+    "reverse_removed_exact_six_added_lines_reproduces_old_sha": true,
+    "config_only_runner_sha_changed": true,
+    "controller_and_probe_unchanged": true,
+    "review_utc": "2026-10-25T20:23:45.908298+00:00",
+    "board_or_sdk_calls_by_auditor": 0
+  },
+  "resolved_hardening": [
+    {
+      "item": "Explicit result geometry assertions",
+      "detail": "Pinned NB and output size already bind this reviewed run; add metrics scope=two_layer_probe/capacity512/query_rows256/fusion_layers2 for fail-fast diagnostic validation."
+    },
+    {
+      "item": "Require NPD raw artifact",
+      "detail": "Current runner verifies npd_enabled, return code, repeat output and records all artifact hashes. Require exactly one nonempty *.npd for NPD and no *.npd for IO before declaring diagnostics complete; offline parser currently fails on missing artifact."
+    }
+  ],
+  "nonblocking_hardening": []
+}

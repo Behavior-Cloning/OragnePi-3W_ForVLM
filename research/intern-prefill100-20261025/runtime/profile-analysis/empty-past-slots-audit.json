@@ -1,0 +1,115 @@
+{
+  "scope": "host validation of one canonical history128 fixture only; not yet a specialized graph or runtime implementation",
+  "input_sha256": "e3e1224831b8b33be92e3d3c2ee26c7d30e9ea3b9eb5ff8fe1583de18718a932",
+  "rows": [
+    {
+      "name": "b0_past_k",
+      "past_shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "active_history": 128,
+      "empty_past_slots": 384,
+      "empty_slots_all_zero": true
+    },
+    {
+      "name": "b1_past_k",
+      "past_shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "active_history": 128,
+      "empty_past_slots": 384,
+      "empty_slots_all_zero": true
+    },
+    {
+      "name": "b0_past_v",
+      "past_shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "active_history": 128,
+      "empty_past_slots": 384,
+      "empty_slots_all_zero": true
+    },
+    {
+      "name": "b1_past_v",
+      "past_shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "active_history": 128,
+      "empty_past_slots": 384,
+      "empty_slots_all_zero": true
+    },
+    {
+      "name": "b0_mask",
+      "mask_shape": [
+        1,
+        1,
+        1792,
+        768
+      ],
+      "discardable_columns": [
+        128,
+        512
+      ],
+      "all_discardable_mask_values": -10000.0,
+      "keep_key_columns": [
+        [
+          0,
+          128
+        ],
+        [
+          512,
+          768
+        ]
+      ],
+      "preserved_new_columns": 256
+    },
+    {
+      "name": "b1_mask",
+      "mask_shape": [
+        1,
+        1,
+        1792,
+        768
+      ],
+      "discardable_columns": [
+        128,
+        512
+      ],
+      "all_discardable_mask_values": -10000.0,
+      "keep_key_columns": [
+        [
+          0,
+          128
+        ],
+        [
+          512,
+          768
+        ]
+      ],
+      "preserved_new_columns": 256
+    }
+  ],
+  "proposed_physical_keys": 384,
+  "current_physical_keys": 768,
+  "semantic_history_retained": 128,
+  "queries_retained": 256,
+  "requires_runtime_checks": [
+    "only dispatch if all active past positions fit128",
+    "retain RoPE absolute positions",
+    "remap mask columns alongside K/V",
+    "subsequent chunks with past>128 must use adequate history shape",
+    "end-to-end numeric and output parity still required"
+  ]
+}

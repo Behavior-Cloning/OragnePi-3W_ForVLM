@@ -1,0 +1,429 @@
+{
+  "status": "PASS_DIAGNOSTIC_INTEGRITY_NOT_SPEED_OR_MODEL_QUALIFICATION",
+  "audit_utc": "2026-10-25T20:27:10.165101+00:00",
+  "scope": "Independent WSL retained-files review; no board or SDK calls",
+  "source_sha256": {
+    "controller_profile_m256.py": "3f180a14b4bc78702358ea4d1896fb7e64025182050ce182d47bd10faa696b0d",
+    "board_profile_m256.py": "565b4e387bfe357b16717c1bae4bb968f5e46f973b23d8dbf2e7993484b576d6",
+    "controller_down_outputfp16_tmpfs.py": "59d2936d6f22ffdddf3433d9fdf2ab3865eb4cfcad785d2b6e420578c314043d"
+  },
+  "archive_sha256": "cad50e34e4a254a0f94c3c4dc05a71d8989837324a91bda4774945c1cc5b6d5b",
+  "archive_all_recovered_files_match": true,
+  "retained_archive_members": [
+    {
+      "path": "process.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "meta.json",
+      "bytes": 163,
+      "sha256": "57222f95ae47ed32a2ae52d8412799cb882efd94b4e20e486be9b33b1813bbea"
+    },
+    {
+      "path": "post-health.json",
+      "bytes": 7360,
+      "sha256": "94cabdb0149da4e451d5c9d58ba748f67e944762462473693f311bb12c58a477"
+    },
+    {
+      "path": "c512-m256-l0-npd/result.json",
+      "bytes": 601,
+      "sha256": "b9dc70d1fc40df746e3d6cd6a811b77ae9726b0a3a54b2f2d22fd540e95ed88c"
+    },
+    {
+      "path": "c512-m256-l0-npd/decoder_NCHW_5e218_ae6a27e0_74bc2132.npd",
+      "bytes": 3643520,
+      "sha256": "901764ad8309d0205af6c8168dae749964a6c1f561e3cbab328c0595dafbfd85"
+    },
+    {
+      "path": "c512-m256-l0-npd/output.f32",
+      "bytes": 1441792,
+      "sha256": "2548582d5782a9e74f36c02ad70d65a082e16c652c4779d8786d3cfc62934414"
+    },
+    {
+      "path": "c512-m256-l0-npd/process.log",
+      "bytes": 1209,
+      "sha256": "83c90abee1e335aee2721524110b0acf2861af03a170cf5d4f44c803eeb09581"
+    },
+    {
+      "path": "c512-m256-l0-io/result.json",
+      "bytes": 1173,
+      "sha256": "fb1ba59f046a0346b3002fc4401362bb0936c7b6a6ce167a4e8a9a5d60bac0c7"
+    },
+    {
+      "path": "c512-m256-l0-io/output.f32",
+      "bytes": 1441792,
+      "sha256": "2548582d5782a9e74f36c02ad70d65a082e16c652c4779d8786d3cfc62934414"
+    },
+    {
+      "path": "c512-m256-l0-io/process.log",
+      "bytes": 1209,
+      "sha256": "83c90abee1e335aee2721524110b0acf2861af03a170cf5d4f44c803eeb09581"
+    },
+    {
+      "path": "resources.jsonl",
+      "bytes": 113291,
+      "sha256": "4da0a1140003902e6264c8177f92cad6060aff304c445c3e8cfaa8b387906aee"
+    },
+    {
+      "path": "pre-health.json",
+      "bytes": 7344,
+      "sha256": "e52419817b5785968e3968d7c9c1f0fc9cd42e801a05781dcbb09034b0fde66b"
+    },
+    {
+      "path": "events.jsonl",
+      "bytes": 4877,
+      "sha256": "cc021f265259d0bd2b6f9211905f1a56adfb1e1670748ab3b1f7b03d778ed75d"
+    },
+    {
+      "path": "config.json",
+      "bytes": 2030,
+      "sha256": "c96ca8dbf7df1e1973b64e6c80eae68e4cac1185059ff31148da4dc609482a6b"
+    }
+  ],
+  "output_checks": [
+    {
+      "case": "c512-m256-l0-io",
+      "output_sha256": "2548582d5782a9e74f36c02ad70d65a082e16c652c4779d8786d3cfc62934414",
+      "ports": [
+        {
+          "name": "b1_attach_hidden_out/out0",
+          "elements": 229376,
+          "finite": true,
+          "byte_equal_pure_baseline": true,
+          "sha256": "667fee4ae3e3477a030847e85f1cf7e283b88bfe6542c064c4cc5132037553f2"
+        },
+        {
+          "name": "b0_attach_new_k/out0",
+          "elements": 32768,
+          "finite": true,
+          "byte_equal_pure_baseline": true,
+          "sha256": "7df62b0a1092c071eaa8a214bd46f837b0ccbf09d5269bb4ad203f270c163fe5"
+        },
+        {
+          "name": "b1_attach_new_k/out0",
+          "elements": 32768,
+          "finite": true,
+          "byte_equal_pure_baseline": true,
+          "sha256": "b2402176f80e28456c4359b970a642cbe2306a9b91644e77547b70d3134975b3"
+        },
+        {
+          "name": "b0_attach_new_v/out0",
+          "elements": 32768,
+          "finite": true,
+          "byte_equal_pure_baseline": true,
+          "sha256": "0eec5533e31112400fef91115acffb21f1554aa021e318a75b4f684b37e15d6c"
+        },
+        {
+          "name": "b1_attach_new_v/out0",
+          "elements": 32768,
+          "finite": true,
+          "byte_equal_pure_baseline": true,
+          "sha256": "af5d2983257990742c6979287a8b893aedd8d7fc145e89bc3b9cdcc9c4e29637"
+        }
+      ],
+      "release_bytes": 0
+    },
+    {
+      "case": "c512-m256-l0-npd",
+      "output_sha256": "2548582d5782a9e74f36c02ad70d65a082e16c652c4779d8786d3cfc62934414",
+      "ports": [
+        {
+          "name": "b1_attach_hidden_out/out0",
+          "elements": 229376,
+          "finite": true,
+          "byte_equal_pure_baseline": true,
+          "sha256": "667fee4ae3e3477a030847e85f1cf7e283b88bfe6542c064c4cc5132037553f2"
+        },
+        {
+          "name": "b0_attach_new_k/out0",
+          "elements": 32768,
+          "finite": true,
+          "byte_equal_pure_baseline": true,
+          "sha256": "7df62b0a1092c071eaa8a214bd46f837b0ccbf09d5269bb4ad203f270c163fe5"
+        },
+        {
+          "name": "b1_attach_new_k/out0",
+          "elements": 32768,
+          "finite": true,
+          "byte_equal_pure_baseline": true,
+          "sha256": "b2402176f80e28456c4359b970a642cbe2306a9b91644e77547b70d3134975b3"
+        },
+        {
+          "name": "b0_attach_new_v/out0",
+          "elements": 32768,
+          "finite": true,
+          "byte_equal_pure_baseline": true,
+          "sha256": "0eec5533e31112400fef91115acffb21f1554aa021e318a75b4f684b37e15d6c"
+        },
+        {
+          "name": "b1_attach_new_v/out0",
+          "elements": 32768,
+          "finite": true,
+          "byte_equal_pure_baseline": true,
+          "sha256": "af5d2983257990742c6979287a8b893aedd8d7fc145e89bc3b9cdcc9c4e29637"
+        }
+      ],
+      "release_bytes": 0
+    }
+  ],
+  "profiles": {
+    "32": {
+      "npd_sha256": "90a8b5f980cfba49e488ac8709cd047640d7f5b59005d088ca0470a97838e12c",
+      "records": 2986,
+      "nodes": 144,
+      "NB_sha256": "d7adc37f977973a3ce3d40be0d2c1e8539ba187ce69f2fe12f6280d1b5b7d878",
+      "trace_sha256": "7741c2c9e95d6ad9ade17cfe84ae009e0f82acebb40ab885aff6e792e04874a0",
+      "source_sha256": "c297d17747c11196498aff33ee1d4d2f525779950305ab9a4cc4e00c1c5eb0df",
+      "all_raw_fields_match_sdk_segment_output": true,
+      "observed_NN_busy_cycles": 10030853,
+      "by_op": {
+        "abs": 149856,
+        "reducemax": 17678,
+        "clipbyvalue": 1660,
+        "multiply": 369215,
+        "reducemean": 17938,
+        "add": 1436207,
+        "sqrt": 6488,
+        "fullconnect": 4466100,
+        "permute": 20254,
+        "neg": 6450,
+        "concat": 625840,
+        "matmul+permute": 504644,
+        "real_div": 188578,
+        "softmax": 1069254,
+        "matmul": 773807,
+        "swish": 376884
+      },
+      "softmax_nodes": [
+        {
+          "node_id": 207,
+          "cycles": 534291,
+          "uids": [
+            50
+          ],
+          "ops": "softmax",
+          "candidate_lids": [
+            "b0_Softmax_output_0_50",
+            "b1_Softmax_output_0_50"
+          ]
+        },
+        {
+          "node_id": 269,
+          "cycles": 534963,
+          "uids": [
+            50
+          ],
+          "ops": "softmax",
+          "candidate_lids": [
+            "b0_Softmax_output_0_50",
+            "b1_Softmax_output_0_50"
+          ]
+        }
+      ],
+      "query_rows": 32,
+      "softmax_reduction_keys": 544,
+      "both_layer_softmax_elements": 487424,
+      "no_target_field": true
+    },
+    "256": {
+      "npd_sha256": "901764ad8309d0205af6c8168dae749964a6c1f561e3cbab328c0595dafbfd85",
+      "records": 28462,
+      "nodes": 144,
+      "NB_sha256": "e9b2d8af40f96341eda1e7ff07b867ccde9bbcf9a755746c86e6dafec2de11d5",
+      "trace_sha256": "7741c2c9e95d6ad9ade17cfe84ae009e0f82acebb40ab885aff6e792e04874a0",
+      "source_sha256": "ffee484717875f8932de79cb36f0eb6dc7ee9c7e83e034ca15627d6cc2dab8df",
+      "all_raw_fields_match_sdk_segment_output": true,
+      "observed_NN_busy_cycles": 207039008,
+      "by_op": {
+        "abs": 392945,
+        "reducemax": 1159097,
+        "clipbyvalue": 2979,
+        "multiply": 7995056,
+        "reducemean": 1160451,
+        "add": 16626139,
+        "sqrt": 6686,
+        "fullconnect": 41695927,
+        "permute": 532828,
+        "neg": 127292,
+        "concat": 9056239,
+        "matmul+permute": 5251074,
+        "real_div": 1949129,
+        "softmax": 111509399,
+        "matmul": 8708733,
+        "swish": 865034
+      },
+      "softmax_nodes": [
+        {
+          "node_id": 207,
+          "cycles": 55567130,
+          "uids": [
+            50
+          ],
+          "ops": "softmax",
+          "candidate_lids": [
+            "b0_Softmax_output_0_50",
+            "b1_Softmax_output_0_50"
+          ]
+        },
+        {
+          "node_id": 269,
+          "cycles": 55942269,
+          "uids": [
+            50
+          ],
+          "ops": "softmax",
+          "candidate_lids": [
+            "b0_Softmax_output_0_50",
+            "b1_Softmax_output_0_50"
+          ]
+        }
+      ],
+      "query_rows": 256,
+      "softmax_reduction_keys": 768,
+      "both_layer_softmax_elements": 5505024,
+      "no_target_field": true
+    }
+  },
+  "normalized_comparison": {
+    "query_rows_ratio": 8,
+    "keys_ratio": 1.411764705882353,
+    "softmax_element_work_ratio": 11.294117647058824,
+    "softmax_busy_total_ratio": 104.28710016516187,
+    "softmax_busy_per_query_row_ratio": 13.035887520645234,
+    "softmax_busy_per_element_ratio": 9.23375366045704,
+    "softmax_share_M32": 0.10659651776374353,
+    "softmax_share_M256": 0.5385912542625784,
+    "total_observed_NN_cycles_ratio": 20.640219530681986,
+    "by_op": {
+      "abs": {
+        "m32_cycles": 149856,
+        "m256_cycles": 392945,
+        "total_ratio": 2.6221505979073245,
+        "per_query_row_ratio": 0.32776882473841557
+      },
+      "reducemax": {
+        "m32_cycles": 17678,
+        "m256_cycles": 1159097,
+        "total_ratio": 65.56720217219143,
+        "per_query_row_ratio": 8.195900271523929
+      },
+      "clipbyvalue": {
+        "m32_cycles": 1660,
+        "m256_cycles": 2979,
+        "total_ratio": 1.794578313253012,
+        "per_query_row_ratio": 0.2243222891566265
+      },
+      "multiply": {
+        "m32_cycles": 369215,
+        "m256_cycles": 7995056,
+        "total_ratio": 21.654201481521607,
+        "per_query_row_ratio": 2.706775185190201
+      },
+      "reducemean": {
+        "m32_cycles": 17938,
+        "m256_cycles": 1160451,
+        "total_ratio": 64.69232913368269,
+        "per_query_row_ratio": 8.086541141710336
+      },
+      "add": {
+        "m32_cycles": 1436207,
+        "m256_cycles": 16626139,
+        "total_ratio": 11.576422479489377,
+        "per_query_row_ratio": 1.4470528099361721
+      },
+      "sqrt": {
+        "m32_cycles": 6488,
+        "m256_cycles": 6686,
+        "total_ratio": 1.030517879161529,
+        "per_query_row_ratio": 0.12881473489519113
+      },
+      "fullconnect": {
+        "m32_cycles": 4466100,
+        "m256_cycles": 41695927,
+        "total_ratio": 9.336093459618011,
+        "per_query_row_ratio": 1.1670116824522514
+      },
+      "permute": {
+        "m32_cycles": 20254,
+        "m256_cycles": 532828,
+        "total_ratio": 26.307297323985384,
+        "per_query_row_ratio": 3.288412165498173
+      },
+      "neg": {
+        "m32_cycles": 6450,
+        "m256_cycles": 127292,
+        "total_ratio": 19.73519379844961,
+        "per_query_row_ratio": 2.4668992248062014
+      },
+      "concat": {
+        "m32_cycles": 625840,
+        "m256_cycles": 9056239,
+        "total_ratio": 14.470534002300907,
+        "per_query_row_ratio": 1.8088167502876134
+      },
+      "matmul+permute": {
+        "m32_cycles": 504644,
+        "m256_cycles": 5251074,
+        "total_ratio": 10.405501700208465,
+        "per_query_row_ratio": 1.300687712526058
+      },
+      "real_div": {
+        "m32_cycles": 188578,
+        "m256_cycles": 1949129,
+        "total_ratio": 10.335929960016545,
+        "per_query_row_ratio": 1.291991245002068
+      },
+      "softmax": {
+        "m32_cycles": 1069254,
+        "m256_cycles": 111509399,
+        "total_ratio": 104.28710016516187,
+        "per_query_row_ratio": 13.035887520645234
+      },
+      "matmul": {
+        "m32_cycles": 773807,
+        "m256_cycles": 8708733,
+        "total_ratio": 11.254399352810196,
+        "per_query_row_ratio": 1.4067999191012746
+      },
+      "swish": {
+        "m32_cycles": 376884,
+        "m256_cycles": 865034,
+        "total_ratio": 2.295226117319918,
+        "per_query_row_ratio": 0.2869032646649898
+      }
+    }
+  },
+  "instrumented_IO_ms": {
+    "input_flush_ms": 0.027041000000000003,
+    "run_ms": 210.24213,
+    "output_invalidate_ms": 0.018834,
+    "wall_ms": 210.288588,
+    "sync_p50_ms": 0.046458,
+    "sync_fraction_of_wall": 0.00022092497002262432,
+    "npd_api_ms": 268.991118
+  },
+  "resources": {
+    "samples": 16,
+    "span_s": 4.343798588990467,
+    "peak_temperature_C": 39.866,
+    "memavailable_min_MiB": 3838.3359375,
+    "swap_used_min_MiB": 919.75,
+    "swap_used_max_MiB": 919.75,
+    "swap_in_pages": 0,
+    "swap_out_pages": 0,
+    "whole8CPU_weighted_percent": 7.674245453017924,
+    "tmpfs_free_min_bytes": 2439761920,
+    "pre_post_driver_zero": true,
+    "monitor_errors": []
+  },
+  "limitations": [
+    "NN busy counters and their normalized shares are not wall-time fractions; exact binary trace contains no target/engine field.",
+    "M256 has 8x query rows and 768 vs544 reduction keys; both factors must be stated.",
+    "One NPD capture per shape, separate prior/current runs; no confidence interval or controlled long-run inference.",
+    "Input history is FP32-derived, not live NPU KV; this is fused L0/L1 only without audio/RAG.",
+    "All IO/NPD times are diagnostic and timing_eligible=false.",
+    "Observed softmax counter expansion motivates a candidate test, but does not establish an optimization benefit or kernel engine/fallback mechanism.",
+    "No full-model TTFT, 100ms goal, natural quality, or deployment qualification from this experiment."
+  ]
+}

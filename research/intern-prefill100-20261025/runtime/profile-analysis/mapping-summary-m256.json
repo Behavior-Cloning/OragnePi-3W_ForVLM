@@ -1,0 +1,125 @@
+[
+  {
+    "case": "c512-m256-l0",
+    "binary_sha256": "e9b2d8af40f96341eda1e7ff07b867ccde9bbcf9a755746c86e6dafec2de11d5",
+    "nb_equal_original": true,
+    "trace_sha256": "7741c2c9e95d6ad9ade17cfe84ae009e0f82acebb40ab885aff6e792e04874a0",
+    "vnn_sha256": "ffee484717875f8932de79cb36f0eb6dc7ee9c7e83e034ca15627d6cc2dab8df",
+    "target_field_present_in_trace": false,
+    "engine_time_fraction": null,
+    "observed_NN_cycles": 207039008,
+    "down": {
+      "uid": 116,
+      "candidate_lids": [
+        "b0_fullconnect_116",
+        "b1_fullconnect_116"
+      ],
+      "profile_nodes": [
+        318,
+        319,
+        320,
+        339,
+        340,
+        341
+      ],
+      "observed_NN_profile_nodes": [
+        318,
+        319,
+        320,
+        339,
+        340,
+        341
+      ],
+      "NN_cycles": 23225832,
+      "wall_time_s": null,
+      "engine": "unknown: this trace omits target"
+    },
+    "by_op": {
+      "softmax": {
+        "observed_nodes": 2,
+        "NN_BUSY_CYCLES": 111509399,
+        "share_of_observed_NN_busy": 0.5385912542625784
+      },
+      "fullconnect": {
+        "observed_nodes": 42,
+        "NN_BUSY_CYCLES": 41695927,
+        "share_of_observed_NN_busy": 0.2013916478966128
+      },
+      "add": {
+        "observed_nodes": 16,
+        "NN_BUSY_CYCLES": 16626139,
+        "share_of_observed_NN_busy": 0.08030437916317683
+      },
+      "concat": {
+        "observed_nodes": 6,
+        "NN_BUSY_CYCLES": 9056239,
+        "share_of_observed_NN_busy": 0.04374170397879804
+      },
+      "matmul": {
+        "observed_nodes": 4,
+        "NN_BUSY_CYCLES": 8708733,
+        "share_of_observed_NN_busy": 0.04206324732776927
+      },
+      "multiply": {
+        "observed_nodes": 30,
+        "NN_BUSY_CYCLES": 7995056,
+        "share_of_observed_NN_busy": 0.03861618193224728
+      },
+      "matmul+permute": {
+        "observed_nodes": 8,
+        "NN_BUSY_CYCLES": 5251074,
+        "share_of_observed_NN_busy": 0.02536272778123048
+      },
+      "real_div": {
+        "observed_nodes": 2,
+        "NN_BUSY_CYCLES": 1949129,
+        "share_of_observed_NN_busy": 0.009414308051553261
+      },
+      "reducemean": {
+        "observed_nodes": 4,
+        "NN_BUSY_CYCLES": 1160451,
+        "share_of_observed_NN_busy": 0.005604987249552509
+      },
+      "reducemax": {
+        "observed_nodes": 4,
+        "NN_BUSY_CYCLES": 1159097,
+        "share_of_observed_NN_busy": 0.005598447419145285
+      },
+      "swish": {
+        "observed_nodes": 2,
+        "NN_BUSY_CYCLES": 865034,
+        "share_of_observed_NN_busy": 0.004178120868894426
+      },
+      "permute": {
+        "observed_nodes": 8,
+        "NN_BUSY_CYCLES": 532828,
+        "share_of_observed_NN_busy": 0.0025735633354657494
+      },
+      "abs": {
+        "observed_nodes": 4,
+        "NN_BUSY_CYCLES": 392945,
+        "share_of_observed_NN_busy": 0.0018979273702856999
+      },
+      "neg": {
+        "observed_nodes": 4,
+        "NN_BUSY_CYCLES": 127292,
+        "share_of_observed_NN_busy": 0.0006148213384020851
+      },
+      "sqrt": {
+        "observed_nodes": 4,
+        "NN_BUSY_CYCLES": 6686,
+        "share_of_observed_NN_busy": 3.2293431390474975e-05
+      },
+      "clipbyvalue": {
+        "observed_nodes": 4,
+        "NN_BUSY_CYCLES": 2979,
+        "share_of_observed_NN_busy": 1.4388592897431194e-05
+      }
+    },
+    "limitations": [
+      "UID116 repeats across both fused layers; labels kept as candidates, no guessed b0/b1 assignment.",
+      "NN cycle shares are not elapsed-time shares. Missing NN record does not identify TP/SHADER/SW/CPU.",
+      "The exact-binary node trace format has no target field, despite newer SDK reader support."
+    ]
+  }
+]

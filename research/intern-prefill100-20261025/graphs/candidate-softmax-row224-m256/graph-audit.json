@@ -1,0 +1,121 @@
+{
+  "source_sha256": {
+    "decoder.json": "0ec7bb2edbb1598fdd1cf5853b9181fe7bf5ae1afa3206261c564aaf35c07b46",
+    "decoder.quantize": "9a0243d7caeb1fd3731acf04ad8452fbd07003260e7bb23bf6f7d57476608e34",
+    "decoder.data": "429a9a766e0a5f3ea05bb509b893716739cfff0bafaaf8e4f10a6c0da63c08fb",
+    "tensor-inputmeta.yml": "3b87cee25d20c2cb1ce545e6669310ec8e321972c49f3d7369fc42d13d126fd8",
+    "export/decoder.export.data": "839fa51843b33140e864d01423f9da81e14a996cbe3d666c57fa0e84040a55e2",
+    "export_nbg_unify/network_binary.nb": "e9b2d8af40f96341eda1e7ff07b867ccde9bbcf9a755746c86e6dafec2de11d5"
+  },
+  "edits": [
+    {
+      "node": "b0_Softmax_output_0_50",
+      "row_axis": 2,
+      "key_axis": 3,
+      "original_shape": [
+        1,
+        2,
+        1792,
+        768
+      ],
+      "chunk_shape": [
+        1,
+        2,
+        224,
+        768
+      ],
+      "chunks": 8,
+      "original_node": {
+        "name": "b0_Softmax_output_0",
+        "op": "softmax",
+        "parameters": {
+          "sf_axis": -1,
+          "beta": 1.0
+        },
+        "inputs": [
+          "@b0_Add_6_output_0_57:out0"
+        ],
+        "outputs": [
+          "out0"
+        ]
+      },
+      "replacement": {
+        "name": "b0_Softmax_output_0",
+        "op": "concat",
+        "parameters": {
+          "dim": 2
+        },
+        "inputs": [
+          "@b0_softmax_rowpart_21001:out0",
+          "@b0_softmax_rowpart_21003:out0",
+          "@b0_softmax_rowpart_21005:out0",
+          "@b0_softmax_rowpart_21007:out0",
+          "@b0_softmax_rowpart_21009:out0",
+          "@b0_softmax_rowpart_21011:out0",
+          "@b0_softmax_rowpart_21013:out0",
+          "@b0_softmax_rowpart_21015:out0"
+        ],
+        "outputs": [
+          "out0"
+        ]
+      }
+    },
+    {
+      "node": "b1_Softmax_output_0_50",
+      "row_axis": 2,
+      "key_axis": 3,
+      "original_shape": [
+        1,
+        2,
+        1792,
+        768
+      ],
+      "chunk_shape": [
+        1,
+        2,
+        224,
+        768
+      ],
+      "chunks": 8,
+      "original_node": {
+        "name": "b1_Softmax_output_0",
+        "op": "softmax",
+        "parameters": {
+          "sf_axis": -1,
+          "beta": 1.0
+        },
+        "inputs": [
+          "@b1_Add_6_output_0_57:out0"
+        ],
+        "outputs": [
+          "out0"
+        ]
+      },
+      "replacement": {
+        "name": "b1_Softmax_output_0",
+        "op": "concat",
+        "parameters": {
+          "dim": 2
+        },
+        "inputs": [
+          "@b1_softmax_rowpart_21001:out0",
+          "@b1_softmax_rowpart_21003:out0",
+          "@b1_softmax_rowpart_21005:out0",
+          "@b1_softmax_rowpart_21007:out0",
+          "@b1_softmax_rowpart_21009:out0",
+          "@b1_softmax_rowpart_21011:out0",
+          "@b1_softmax_rowpart_21013:out0",
+          "@b1_softmax_rowpart_21015:out0"
+        ],
+        "outputs": [
+          "out0"
+        ]
+      }
+    }
+  ],
+  "all_other_original_nodes_equal": true,
+  "all_original_quantizers_equal": true,
+  "full_key_axis_preserved": 768,
+  "source_weight_file_identical": true,
+  "numerical_parity": "not measured; different scheduling may change numeric output"
+}

@@ -1,3 +1,11 @@
+## 2026-10-26 M256 softmax 定位与分行候选（目标未完成）
+
+权威任务 research/intern-prefill100-20261025。profile-m256-l0-r1 与 softmax-row224-m256-aba-r1 均 complete/rc0，当前这两个controller已退出，无待重启任务。原始结果保留results对应目录。M256 softmax NN busy计数相对M32增104.287倍（8倍查询行、1.412倍key宽度，按元素9.234倍）；I/O显式同步仅0.046ms。仅为NN计数，不是wall占比。
+
+新图不改Transformer架构，只将两个softmax的query/group行分8×224，完整768key轴保留，原权重/量化payload不变。90次纯API A/B/A P50 210.421→115.811→210.398ms（降低44.96%），3次driver释放0。候选hidden relL2差0.043864%，非无损；没有整模/自然质量/不同history覆盖，保留候选不替换默认。M256物理256查询不等于正文256+模板8。报告 runtime/profile-analysis/REPORT_M256.md、results/softmax-row224-m256-aba-r1/REPORT.md；独立审计同目录。
+
+下一步优先核对空past槽mask，评估固定system<=128时仅移除无效槽、保留全部有效历史的专用prefill图；需配对验证绝对RoPE/键顺序和后续块routing。100ms完整目标仍是system64/128 + body64/128/192/256 +8动态模板，实际新增72/136/200/264。不得用两层块115.8ms宣布完整TTFT达标；不得截断有效上下文换速度。WSL keeper PID539原sleep21600需在后续长任务前确认余量。
+
 ## M32 trace定位已补齐
 
 `research/intern-prefill100-20261025/runtime/profile-analysis/REPORT_M32.md`：M32 L0/L2 trace重导出的NB与实测件逐位相同，旧NPD SHA/源config/解析manifest核对后已映射。L0已记录NN计数FC44.52%、add14.32%、softmax10.66%；这不是wall-time占比。原M16 softmax30%不适用于M32。下一测量建议M256 L0单独NPD，查明其每行API比M32更慢的算子来源；尚未采集/未启动该实验。没有板端后台任务。

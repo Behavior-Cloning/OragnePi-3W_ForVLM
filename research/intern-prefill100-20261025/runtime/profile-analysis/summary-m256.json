@@ -1,0 +1,131 @@
+{
+  "scope": "SDK NN hardware counters; NOT all-engine wall-time decomposition",
+  "sdk_record_adaptation": "Use unmodified SDK segment readers for actual 8 x 16-byte record. Do not invent missing SEL20..23.",
+  "cases": [
+    {
+      "case": "c512-m256-l0-npd",
+      "npd_sha256": "901764ad8309d0205af6c8168dae749964a6c1f561e3cbab328c0595dafbfd85",
+      "format": {
+        "magic": "VNPD",
+        "version": 2,
+        "target": "0x1000003b",
+        "record_bytes": 128,
+        "count": 28462
+      },
+      "sdk_vs_prior_parser_all_records_identical": true,
+      "summed_NN_busy_cycles": 207039008,
+      "unique_observed_nodes": 144,
+      "engine_time_fraction": null,
+      "p50_io_run_ms": 210.24213,
+      "p50_io_sync_ms": 0.046458,
+      "p50_io_wall_ms": 210.288588,
+      "npd_api_ms": 268.991118,
+      "npd_only_diagnostic": true,
+      "top5_observed_nodes": [
+        {
+          "node_id": 269,
+          "engine": "unknown_without_matching_trace",
+          "cycle_share_of_observed_NN_counters": 0.2702015892580011,
+          "records": 360,
+          "NN_TOTAL_BUSY_CYCLE": 55942269,
+          "NN_TOTAL_READ_CYCLE_DDR": 41472,
+          "NN_TOTAL_READ_VALID_BW_DDR": 663552,
+          "NN_TOTAL_WRITE_CYCLE_DDR": 11010048,
+          "NN_TOTAL_WRITE_VALID_BW_DDR": 5505024,
+          "NN_TOTAL_READ_CYCLE_SRAM": 8021502,
+          "NN_TOTAL_WRITE_CYCLE_SRAM": 2578392,
+          "NN_TOTAL_MAC_CYCLE": 0,
+          "NN_TOTAL_MAC_COUNT": 0,
+          "NN_ZERO_COEF_SKIP_COUNT": 0,
+          "NN_NON_ZERO_COEF_COUNT": 0
+        },
+        {
+          "node_id": 207,
+          "engine": "unknown_without_matching_trace",
+          "cycle_share_of_observed_NN_counters": 0.2683896650045773,
+          "records": 360,
+          "NN_TOTAL_BUSY_CYCLE": 55567130,
+          "NN_TOTAL_READ_CYCLE_DDR": 40896,
+          "NN_TOTAL_READ_VALID_BW_DDR": 654336,
+          "NN_TOTAL_WRITE_CYCLE_DDR": 11010048,
+          "NN_TOTAL_WRITE_VALID_BW_DDR": 5505024,
+          "NN_TOTAL_READ_CYCLE_SRAM": 8021519,
+          "NN_TOTAL_WRITE_CYCLE_SRAM": 2578392,
+          "NN_TOTAL_MAC_CYCLE": 0,
+          "NN_TOTAL_MAC_COUNT": 0,
+          "NN_ZERO_COEF_SKIP_COUNT": 0,
+          "NN_NON_ZERO_COEF_COUNT": 0
+        },
+        {
+          "node_id": 341,
+          "engine": "unknown_without_matching_trace",
+          "cycle_share_of_observed_NN_counters": 0.044553145270093256,
+          "records": 1,
+          "NN_TOTAL_BUSY_CYCLE": 9224239,
+          "NN_TOTAL_READ_CYCLE_DDR": 4378504,
+          "NN_TOTAL_READ_VALID_BW_DDR": 70056064,
+          "NN_TOTAL_WRITE_CYCLE_DDR": 35840,
+          "NN_TOTAL_WRITE_VALID_BW_DDR": 458752,
+          "NN_TOTAL_READ_CYCLE_SRAM": 604404,
+          "NN_TOTAL_WRITE_CYCLE_SRAM": 454900,
+          "NN_TOTAL_MAC_CYCLE": 2631577,
+          "NN_TOTAL_MAC_COUNT": 744539136,
+          "NN_ZERO_COEF_SKIP_COUNT": 0,
+          "NN_NON_ZERO_COEF_COUNT": 12898542
+        },
+        {
+          "node_id": 320,
+          "engine": "unknown_without_matching_trace",
+          "cycle_share_of_observed_NN_counters": 0.04446139444408466,
+          "records": 1,
+          "NN_TOTAL_BUSY_CYCLE": 9205243,
+          "NN_TOTAL_READ_CYCLE_DDR": 4369232,
+          "NN_TOTAL_READ_VALID_BW_DDR": 69907712,
+          "NN_TOTAL_WRITE_CYCLE_DDR": 35840,
+          "NN_TOTAL_WRITE_VALID_BW_DDR": 458752,
+          "NN_TOTAL_READ_CYCLE_SRAM": 604164,
+          "NN_TOTAL_WRITE_CYCLE_SRAM": 453738,
+          "NN_TOTAL_MAC_CYCLE": 2631488,
+          "NN_TOTAL_MAC_COUNT": 744544256,
+          "NN_ZERO_COEF_SKIP_COUNT": 0,
+          "NN_NON_ZERO_COEF_COUNT": 12892275
+        },
+        {
+          "node_id": 268,
+          "engine": "unknown_without_matching_trace",
+          "cycle_share_of_observed_NN_counters": 0.03372374639662107,
+          "records": 13048,
+          "NN_TOTAL_BUSY_CYCLE": 6982131,
+          "NN_TOTAL_READ_CYCLE_DDR": 374192,
+          "NN_TOTAL_READ_VALID_BW_DDR": 5987072,
+          "NN_TOTAL_WRITE_CYCLE_DDR": 0,
+          "NN_TOTAL_WRITE_VALID_BW_DDR": 0,
+          "NN_TOTAL_READ_CYCLE_SRAM": 75264,
+          "NN_TOTAL_WRITE_CYCLE_SRAM": 78992,
+          "NN_TOTAL_MAC_CYCLE": 0,
+          "NN_TOTAL_MAC_COUNT": 0,
+          "NN_ZERO_COEF_SKIP_COUNT": 0,
+          "NN_NON_ZERO_COEF_COUNT": 0
+        }
+      ],
+      "io_sync_fraction_of_wall": 0.00022092497002262432
+    }
+  ],
+  "source_sha256": {
+    "sdk-source/device_profiler.py": "7cf0e5828e188a7fa29b340103fab373c182d4a02e04219c074554d14eeb02e7",
+    "sdk-source/fused_layer.py": "74fadc3b111be2407b12970fe2e497031836fb5cbd61096583f353240129a4b7",
+    "sdk-source/fused_trace_db.py": "6e462ed8b24668d9bb4389ed825fb701c7eedd7e532122f4cd3b1e6ccbaad6c8",
+    "sdk-source/nb_data.py": "fc3b82a8f7e9036b425422f6f424490ce257273a3b6a38e534b4e4a94941ef92",
+    "sdk-source/nb_data_item.py": "6e32121f5dd71a7e181f42ba13a7b6dcb80717a1fef789f9bc3e9e26140505cc",
+    "sdk-source/node_trace.py": "10c749c52133ca212bc9c3bcb478789c0e91a69957fe17efdc3327c1c0c0ab73",
+    "sdk-source/utils.py": "131979098f5a47daab816c078078e5ae564d27c5ddd4a4e260da76c854e63deb",
+    "sdk-source/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "IO_OUTPUT_AUDIT_sha256": "b3f4fbee93092b24710d34dcef2b2c601e72f434b957f25b9fe6768c5e2c0768",
+  "limitations": [
+    "NPD records report NN counters only; cannot assign full latency to CPU/TP/SHADER.",
+    "Without exact-binary node trace, node IDs have no safe op/engine mapping.",
+    "NPD API timings have profiling overhead and are excluded from pure timing.",
+    "Busy counters can overlap; their sum is not end-to-end latency."
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "status": "PASS_BOUNDED_SINGLEBLOCK_SOURCE_NOT_NUMERIC_OR_SPEED_QUALIFIED",
+  "audit_utc": "2026-10-25T20:30:09.813510+00:00",
+  "board_sdk_calls": 0,
+  "blocking_findings": [],
+  "source_sha256": {
+    "controller_softmax_row224_m256.py": "f7713433e277cdf9c473dd6bf0515137d880f5a33dbf6ad252d6928ece9e3b10",
+    "board_probe_suite.py": "28efcf567d0aec9e412b96cf38409c32b8d67f8463c8a7dee0414a2d133980c9",
+    "controller_down_outputfp16_tmpfs.py": "59d2936d6f22ffdddf3433d9fdf2ab3865eb4cfcad785d2b6e420578c314043d",
+    "graphs/build_softmax_row224_m256.py": "863eb5a5953e01752dfa26d8587bc23b22cfa51b0762d4a24df3dedc97b64270"
+  },
+  "config_sha256": "60425cc4626b5d97fc3a84d282cc6a1e10bc57f048cd162fcbe49a1736c5dde1",
+  "candidate_files_sha256": {
+    "decoder.json": "fc294266d751f574c687368e7433515230d6ecf3f103b87be2165d24680305d0",
+    "decoder.quantize": "609c4c0ee6240e770edae93771687b859ad5861077a2f6a532cff45e01d6a75f",
+    "decoder.data": "429a9a766e0a5f3ea05bb509b893716739cfff0bafaaf8e4f10a6c0da63c08fb",
+    "export/decoder.export.data": "839fa51843b33140e864d01423f9da81e14a996cbe3d666c57fa0e84040a55e2",
+    "export/vnn_decoder.c": "ba5230b02165b3d5c536571bcb063aba5b57aa86fa2adfe87b8d1587dda2f7ce",
+    "export_nbg_unify/nbg_meta.json": "35a660bea63c8695e3a0775e8688370e5084caaae5861c7521568f8321601c06",
+    "export_nbg_unify/network_binary.nb": "0588fb60e18097dc0c6c3e544c8bf11be0c544d84b8a82422e4a67ac9cbebcb7",
+    "status.json": "24b604bb8d68e908866d2aee5934d7e7960587619e939da9bdf94972da066139"
+  },
+  "graph_changes": {
+    "changed_original_nodes": [
+      "b0_Softmax_output_0_50",
+      "b1_Softmax_output_0_50"
+    ],
+    "new_nodes": 32,
+    "chunks_per_original_softmax": 8,
+    "original_shape": [
+      1,
+      2,
+      1792,
+      768
+    ],
+    "chunk_shape": [
+      1,
+      2,
+      224,
+      768
+    ],
+    "slice_axis": 2,
+    "full_reduction_axis": 3,
+    "full_reduction_keys": 768,
+    "query_rows_no_gap_no_overlap_same_order": true,
+    "other_original_nodes_equal": true,
+    "all_original_quantizers_equal": true,
+    "new_slice_FP16_original_input": true,
+    "new_softmax_original_I16_fl15": true,
+    "generated_C_softmax_axis_0_concat_axis_1_verified": true
+  },
+  "constants_ports": {
+    "source_data_identical": true,
+    "entire_exported_payload_identical": true,
+    "all_constant_declaration_blocks_byte_equal": 32,
+    "all_norm_external_port_declaration_blocks_byte_equal": 16,
+    "nbg_meta_json_equal": true,
+    "actual_NB_SDK_port_query_by_auditor": false,
+    "status_actual_ports_exact_evidence_is_generated_C_order_only": true
+  },
+  "run_contract": {
+    "order": [
+      "original-before",
+      "candidate",
+      "original-after"
+    ],
+    "warmup_each": 3,
+    "timed_each": 30,
+    "same_canonical_input": true,
+    "OPI_env_cleared": true,
+    "NPD_IO_disabled_asserted": true,
+    "taskset": "4,5",
+    "dual_lock": true,
+    "unique_tmpfs_run": true,
+    "reserve_bytes": 1178599424,
+    "extra_memory_reserve_bytes": 268435456,
+    "timing_scope": "API execution including synchronization; excludes load/conversion; not full TTFT",
+    "thermal_stop_C": 78,
+    "failure_partial_recovery_no_restart": true
+  },
+  "limits": [
+    "Semantic row slicing is mathematically equivalent because no key-axis reduction is split; hardware rounding/scheduling/output parity still unmeasured.",
+    "One canonical two-layer L0 input, FP32-derived history128; no audio/RAG or natural quality.",
+    "Source/runtime external declarations and nbg_meta equality are not a separate SDK binary-port query.",
+    "No fullmodel speed prediction, no 100ms objective qualification."
+  ]
+}

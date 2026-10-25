@@ -1,3 +1,11 @@
+C512/M32 row-scale编译已完成（PID46905退出），NB SHA f0bebd8b9489f487a5b72658184c9d8f90bb8ec36a6682afde9bb61e097ea25a；独立静态审计进行中，尚未整模运行。
+
+## 2026-10-26 row-scale板测完成，准备C512整模接轨
+
+controller46617和finish46639均complete/rc0，勿重复启动。results/down-row-scale-original-input-replay-r1：104进程全部driver0、34原历史/2AA逐字节相同，16实际端口相同。两层API原120.4467ms→row18.3396ms（旧range16为17.4842）；hidden首token99.4167%→0.12055%，首块后续31.0200%→0.41985%，动态0.32080%→0.29781%。这不是整模TTFT或质量批准。
+
+下一步graphs/build_down_row_scale_c512.py已启动，WSL PID46905，目录graphs/down-row-scale-c512-m32-l2；先读status.json和该PID。完成后需静态审计并接入历史较快C512/M32的完整对照，不能继续把C1280诊断配置与0.85秒历史混比。C512原整模冻结配置capacity512-full/c512-m16-m32-aba-r1-config.json，binary SHA bf19922f…，m32 graph与m8 tail在旧板端run目录，切勿原地覆盖。板上此刻无本任务推理进程，新编译在WSL，访问仍需双锁。
+
 当前row-scale replay已启动：WSL controller PID46617、finish PID46639；仅读WSL down-row-scale-original-input-replay-r1-controller.json、finish-down-row-scale-status.json及日志，不另行访问占锁板卡。finish仅在complete/rc0后回收分析，不自动批准候选或报告达成。
 
 ## 2026-10-26 prefixsafe与A8已完成；逐row归一化待板测

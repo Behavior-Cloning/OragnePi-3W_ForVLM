@@ -1,0 +1,100 @@
+{
+  "runtime_source_sha256": "8256a1d31b5ceb2ca643a9e14143d1065211d6873d1abd6583737c686cfd45c4",
+  "tests": [
+    {
+      "name": "test_two_prefill_banks",
+      "compile_command": [
+        "gcc",
+        "-std=c11",
+        "-O2",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-combined/test_two_prefill_banks.c",
+        "-lm",
+        "-o",
+        "/tmp/combined-test_two_prefill_banks"
+      ],
+      "compile_rc": 0,
+      "compile_stdout": "",
+      "compile_stderr": "",
+      "runs": [
+        {
+          "mode": "plain",
+          "returncode": 0,
+          "stdout": "{\"checked_mask_tensors\":1920,\"cache_freed\":true,\"kv_reset_zero\":true}\n",
+          "stderr": "",
+          "seconds": 2.327015959000164
+        },
+        {
+          "mode": "templates",
+          "returncode": 0,
+          "stdout": "{\"checked_mask_tensors\":1920,\"cache_freed\":true,\"kv_reset_zero\":true}\n",
+          "stderr": "",
+          "seconds": 1.447298597000099
+        },
+        {
+          "mode": "validate",
+          "returncode": 0,
+          "stdout": "{\"checked_mask_tensors\":1920,\"cache_freed\":true,\"kv_reset_zero\":true}\n",
+          "stderr": "",
+          "seconds": 1.4872737000000598
+        }
+      ]
+    },
+    {
+      "name": "test_greedy",
+      "compile_command": [
+        "gcc",
+        "-std=c11",
+        "-O2",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-combined/test_greedy.c",
+        "-lm",
+        "-o",
+        "/tmp/combined-test_greedy"
+      ],
+      "compile_rc": 0,
+      "compile_stdout": "",
+      "compile_stderr": "",
+      "runs": [
+        {
+          "mode": "exhaustive-random",
+          "returncode": 0,
+          "stdout": "{\"cases\":221212,\"mismatches\":0,\"all_int16_values_tested\":true,\"exhaustive_lengths1to8_alphabet4\":true,\"random_cases\":2000,\"max_count\":65537}\n",
+          "stderr": "",
+          "seconds": 0.3961702100000366
+        }
+      ]
+    }
+  ],
+  "arm_selftest": {
+    "command": [
+      "aarch64-linux-gnu-gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-combined/test_greedy.c",
+      "-o",
+      "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-combined/test-greedy-arm"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "not_executed_by_this_agent": true,
+    "binary_sha256": "096435fe19729ebcbcc0cf63fc3174d141a3fc2b2544a3ef6deac4d53b8ed28f",
+    "bytes": 13552
+  },
+  "scope": "Host vector source and actual merged reset/truncate functions under sanitizers. Full-stack NPU numerical agreement and speed require parent-owned board experiment."
+}

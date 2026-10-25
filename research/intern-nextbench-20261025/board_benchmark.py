@@ -105,6 +105,11 @@ def main():
     tokenizer_path=Path(cfg['tokenizer_path']);assert sha(tokenizer_path)==doc['tokenizer_sha256']
     tok=Tokenizer.from_file(str(tokenizer_path));encode=lambda s:tok.encode(s,add_special_tokens=False).ids
     diag_cases=validate_fixture(doc,encode)
+    performance_by_id={case['id']:case for case in doc['performance']}
+    for case_id in cfg.get('extra_diagnostic_case_ids',[]):
+        assert case_id in performance_by_id
+        if all(c['id']!=case_id for c in diag_cases):diag_cases.append(performance_by_id[case_id])
+    cost_quality_cases=doc['performance'] if cfg.get('all_cost_quality') else diag_cases[:4]
     feedback=cfg.get('feedback_tokens',[100662]*32)
     assert len(feedback)==32 and all(type(t) is int and 0<=t<cfg['defaults']['vocab'] for t in feedback)
     out=Path(args.out);out.mkdir(parents=True,exist_ok=False)
@@ -184,6 +189,9 @@ def main():
             dumps=out/(name+'-diagnostic');dumps.mkdir()
             worker=ResidentWorker(command,base,out/(name+'.log'),dump_dir=dumps);state['worker']=worker
             assert worker.capacity==settings['capacity'] and worker.ready.get('layers')==settings['layers']
+            if binary.name=='resident-combined':
+                assert worker.ready.get('true_tail8_enabled')==bool(env.get('OPI_PREFILL8_DIR'))
+                assert worker.ready.get('single_pass_greedy_enabled')==(env.get('OPI_GREEDY_I16_SINGLE_PASS')=='1')
             emit('loaded',variant=name,ready=worker.ready,binary_sha256=sha(binary),settings=settings,
                  graph_files=[{'name':z.name,'bytes':z.stat().st_size} for z in sorted(graph.glob('*.nb'))])
             # All measured requests reset and prepare only the frozen system prefix.
@@ -216,7 +224,7 @@ def main():
                     emit('quality',variant=name,case=case['id'],static_tokens=case['static_tokens'],system_body_tokens=case['system_body_tokens'],system_template_tokens=case['static_tokens']-case['system_body_tokens'],body_tokens=case['body_tokens'],template_overhead=case['template_overhead'],dynamic_tokens=len(case['tokens'])-case['static_tokens'],total_prompt_tokens=len(case['tokens']),expected_new_tokens=case['expected_new_tokens'],actual_new_tokens=done['new_tokens'],actual_reused_tokens=done['reused_tokens'],output_tokens_including_eos=done['generated_tokens'],output_tokens_excluding_terminal_eos=done['generated_tokens']-int(done['tokens'][-1]==settings['eos']),input=case['input'],reply=reply,metrics=done,wall_s=wall,token_events=tokens,prefix_prepare_metrics=prep,top3=actions,rag_s=rag_s,rag_metrics=rag.last_query,output_parity=parity(('quality',case['id']),done['tokens']))
                 # Extra natural-decoding coverage of all four exact-length tail8 cells.
                 # Cost padding is retained and these are not independent quality examples.
-                for case in diag_cases:
+                for case in cost_quality_cases:
                     prep=prepare(case);done,tokens,wall=request(worker,case['tokens'],32,diagnostic=False,timeout=90)
                     validate(done,case,False,False,32)
                     if settings['env'].get('OPI_PREFILL8_DIR'):

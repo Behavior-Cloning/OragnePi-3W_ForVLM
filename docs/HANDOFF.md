@@ -1,12 +1,14 @@
-## 2026-10-25 prefill / decode 全图候选测试进行中
+## 2026-10-25 prefill全图优化r3完成；ctx256真8组合正在继续
 
-用户要求先同步GitHub，再继续降低NPU首token及decode开销，最新强调prefill瓶颈。已验证GitHub同步到899c3b02db0939fe69ba3f9bdf478909e85b0ac2；本轮源文件checkpoint本地854fb86，后续结果待提交。权威任务research/intern-nextbench-20261025，候选源research/intern-nextopt-20261025与intern-context256-20261025。
+GitHub已同步f36733f（含实验源协议）；权威任务research/intern-nextbench-20261025。candidate-matrix-r3结束rc0/meta complete：144性能、72自然、24cost自然、24×4步完整logits、6次driver关闭均0。报告analysis/candidate-matrix-r3/REPORT.md和INDEPENDENT_RESULT_AUDIT.md/json；Mac reports/intern-nextopt-20261025/candidate-matrix-r3可打开。
 
-controller_next.py candidate-matrix-r3于WSL PID7878启动，双锁串行6候选，仅读candidate-matrix-r3-controller.json及log；禁止重复启动、直接轮询占锁板卡。已完成部署SHA校验（现役29/ctx256 29/tail8 12文件），ARM greedy 221212例0不匹配。全模型证据未回收前不能宣称提速或无损。 首次r2在首组24次性能之后记录自然结果时缺system_body_tokens，退出1且driver0；失败证据保留。已按相同system prefix映射补日志字段，4个正反单测通过，r3重测不改变输入ID和量化。
+输入固定64/128=正文59/123+模板5；动态正文32/64+模板8；总104/136/168/200；reused64/128，new40/72；性能输出32固定反馈。ctx256-greedy四格TTFT P50 .578593/.954445/.581457/.978168s，P95 .581129/1.006803/.58258/1.010522s；decode15.19–15.41t/s。仍不能说64全部<1s。相同quant/payload，图尺寸使logits相对L2约2.93–3.26%；该候选24/24固定序列、12/12自然、4/4cost自然token与mask-base相同。tail8-c1280固定仅22/24整序列一致，s64-d64-2首token“挥手”→“举起”；四diag只覆盖case0，不能掩盖。未替换默认运行时。
 
-输入固定64/128=正文59/123+模板5，动态正文32/64+模板8，总104/136/168/200，reused64/128，new40/72。每格3场景×2次、性能固定反馈32步，另12自然输入和4个cost输入自然生成，再4格×4步完整logits；语音合成回放常驻、RAG质量阶段查询，纯Intern NPU文本，无视觉/电机。ctx256最大当前prompt+32=232，仅短文本用；不可用于256图像追加或最大格64输出。比较mask-base/context256/tail8-c1280/greedy-c1280/context256-greedy/mask-repeat；不覆盖现役默认。
+整轮最高53.32℃，CPU均7.59%(8核归一化)，PSS峰595.5MiB；ctx256-greedy driver666.4MiB，对照718.4MiB，tail8-c1280 1019.7MiB。swap-out1013页=3.96MiB，swap-in0；音频maxlag.704s首次出现在初始图hash阶段。ctx256最大当前prompt200+32输出需231KV，不适用于最大格64输出/图像256追加。仅Intern NPU文本、合成语音、RAG质量阶段查询、mock无电机；并非新一小时全agent稳定性测试。
 
-profile-smoke证实prefill占TTFT 97–98%；单块ctx256 prefill API约17.0→6.78ms、decode3.62→3.37ms，尾批8约17.0→9.1ms，单块5输出同字节。单块无并行音频且非全模型，报告需分开。所有runtime/hashes/边界详见任务README。
+继续队列：deploy_combined.py（WSL PID10495）传新ctx256 true8十二图（286MB）并校验后自动启动combined-matrix-r1，3候选同resident-combined binary（base/true8/repeat），相同输入、repeats2、输出32；自然cost扩到全部12条并加s64-d64-2的4步完整logits。两开关独立，tail图强制ctx256。仅读deploy-combined-status.json、combined-matrix-r1-controller.json及log；禁止重复启动或绕过双锁轮询板卡。完成后再分析、更新报告和GitHub，不把启动当完成。
+
+r2首次因质量日志缺system_body_tokens停止且driver0，保留失败证据；已严格按同prefix元数据补齐并通过4正反测试，r3完整通过，不混用失败数据。
 
 ## 2026-10-25 同输入首字优化已完成：32正文小样本<1s，64正文未达标
 

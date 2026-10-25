@@ -24,3 +24,5 @@ fig.suptitle('Intern 1B NPU: matched-input prefill and decode candidates',fontsi
 fig.text(.5,.015,'6 observations per cell / 3 fixtures. Bars: median; whiskers: observed range. 32 fixed-feedback steps.\nSystem KV only; speech resident; RAG queries outside timing. Text-only, no camera or physical motors.',ha='center',fontsize=8)
 fig.tight_layout(rect=[0,.055,1,.95]);out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
 for suffix in ['png','svg']:fig.savefig(out/('prefill-decode-comparison.'+suffix),dpi=170)
+
+svg=out/'prefill-decode-comparison.svg';svg.write_text('\n'.join(line.rstrip() for line in svg.read_text().splitlines())+'\n')

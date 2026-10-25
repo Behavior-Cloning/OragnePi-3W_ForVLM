@@ -1,0 +1,42 @@
+{
+  "command": [
+    "aarch64-linux-gnu-gcc",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-DMODEL_DIM=896",
+    "-DMODEL_KV=2",
+    "-DMODEL_HD=64",
+    "-DROPE_BASE=1000000.0",
+    "-DFUSED_LAYERS=2",
+    "-DKEY_CACHE_TRANSPOSED=0",
+    "-DHEAD_SHARDS=4",
+    "-DHEAD_CHUNK=49152",
+    "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-combined/resident_session.c",
+    "-L/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-Wl,-rpath-link,/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-lNBGlinker",
+    "-lVIPhal",
+    "-lm",
+    "-o",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-combined/resident-combined"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "",
+  "parent_source_sha256": "59d420aa8433b2c6d67bb74350ed8443724e3cc4d91173fe6f045fbfbb41c610",
+  "greedy_header_parent_sha256": "6909b4b67ac0b86b2eb49c107cd03364c0718b6413d214412ecb23726c242e16",
+  "source_hashes": {
+    "batch_prefill.h": "f80acdcb0c4574546bb9716cde040f9c069d2e4f7245263bb950c6d113aee094",
+    "board_probe.c": "992fc2211d42b1d2410d523931cd18395997160a768bba01b16fa789b7c29b60",
+    "full_model.c": "669d3dc7dbeeba5d1a1276874aa4a89a04773d5a32dca42038a8437db23d6ed0",
+    "greedy_i16.h": "54b2202b91a2b4b33c372b89fdd4e1d6b106069c7c1414f51a82f0da7e5406f8",
+    "greedy_single_pass.h": "6909b4b67ac0b86b2eb49c107cd03364c0718b6413d214412ecb23726c242e16",
+    "mask_templates.h": "55b8fb3cbb404c11ef3a41ffc1b8c8d9df32d4f95ce9c78dd39b26f141e96fa8",
+    "resident_session.c": "8256a1d31b5ceb2ca643a9e14143d1065211d6873d1abd6583737c686cfd45c4"
+  },
+  "binary_sha256": "c222d12ef7876b483b6b5748fa439f75bf315baebd49e318adbe01515997aa8e",
+  "bytes": 70648
+}

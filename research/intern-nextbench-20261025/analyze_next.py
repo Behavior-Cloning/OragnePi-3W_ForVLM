@@ -42,12 +42,54 @@ def resources_stats(rows):
         if total>0:cpu.append(100*(total-d[3]-d[4])/total)
     def memory(r,key):return sum(p.get(key,0) for p in r.get('processes',{}).values())/1024
     out={'samples':len(rows),'cpu_percent_all_cores':stats(cpu),'temperature_C':stats([r['temp_mC']/1000 for r in rows]),'harness_plus_worker_pss_MiB':stats([memory(r,'Pss') for r in rows]),'harness_plus_worker_rss_MiB':stats([memory(r,'VmRSS') for r in rows]),'mem_available_MiB':stats([r['meminfo']['MemAvailable']/1024 for r in rows]),'load1':stats([float(r['loadavg'].split()[0]) for r in rows])}
+    freq_names=sorted({k for r in rows for k in r.get('freq_khz',{})})
+    out['cpu_frequency_khz']={k:stats([r.get('freq_khz',{}).get(k) for r in rows]) for k in freq_names}
+    out['cpu_frequency_note']='0.5s scaling_cur_freq samples, not sustained work-weighted clock or proof of thermal throttling'
     if rows:
         a,b=rows[0],rows[-1]
         out['swap_in_pages']=b['vmstat']['pswpin']-a['vmstat']['pswpin'];out['swap_out_pages']=b['vmstat']['pswpout']-a['vmstat']['pswpout']
         out['pss_first_last_MiB']=[memory(a,'Pss'),memory(b,'Pss')]
         out['audio']={'first':a.get('frontend',{}),'last':b.get('frontend',{}),'note':'Frontend counters cumulative across variants; queue is whole WAV jobs, not raw audio samples'}
     return out
+
+def paired_performance(events, baseline, issues):
+    groups={}
+    for row in events:
+        if row['event']!='measure':continue
+        key=(row['case'],row['repeat']);group=groups.setdefault(row['variant'],{})
+        if key in group:issues.append('duplicate pair key '+row['variant']+' '+str(key))
+        group[key]=row
+    base=groups.get(baseline,{})
+    def decode(row):
+        m=row['metrics'];denom=m['total_seconds']-m['ttft_seconds']
+        return (m['generated_tokens']-1)/denom if m['generated_tokens']>1 and denom>0 else None
+    result={}
+    def summary(pairs):
+        return {key:stats([x[key] for x in pairs]) for key in ['ttft_candidate_over_baseline','ttft_speedup_baseline_over_candidate','decode_candidate_over_baseline','ttft_change_seconds','decode_change_tokens_s']}
+    for variant,group in groups.items():
+        pairs=[]
+        for key in sorted(set(base)&set(group)):
+            a,b=base[key],group[key]
+            fields=('static_tokens','body_tokens','prompt_sha256','feedback_tokens')
+            equal=all(a.get(k)==b.get(k) for k in fields)
+            if not equal:issues.append('paired input mismatch '+variant+' '+str(key));continue
+            am,bm=a['metrics'],b['metrics'];ad,bd=decode(a),decode(b)
+            if am['ttft_seconds']<=0 or bm['ttft_seconds']<=0 or not ad or not bd:issues.append('invalid matched timing '+variant+' '+str(key));continue
+            pairs.append({'case':key[0],'repeat':key[1],'static_tokens':a['static_tokens'],'body_tokens':a['body_tokens'],
+                'baseline_ttft_seconds':am['ttft_seconds'],'candidate_ttft_seconds':bm['ttft_seconds'],
+                'baseline_decode_tokens_s':ad,'candidate_decode_tokens_s':bd,
+                'ttft_candidate_over_baseline':bm['ttft_seconds']/am['ttft_seconds'],
+                'ttft_speedup_baseline_over_candidate':am['ttft_seconds']/bm['ttft_seconds'],
+                'decode_candidate_over_baseline':bd/ad,
+                'ttft_change_seconds':bm['ttft_seconds']-am['ttft_seconds'],'decode_change_tokens_s':bd-ad})
+        missing=sorted(set(base)-set(group));extra=sorted(set(group)-set(base))
+        if missing or extra:issues.append('unmatched performance keys '+variant)
+        cells={}
+        for static,dynamic in [(64,32),(64,64),(128,32),(128,64)]:
+            subset=[p for p in pairs if (p['static_tokens'],p['body_tokens'])==(static,dynamic)]
+            cells['s%d-d%d'%(static,dynamic)]={'pairs':len(subset),'ratios':summary(subset)}
+        result[variant]={'baseline_variant':baseline,'pairs':pairs,'pairs_count':len(pairs),'missing_keys':missing,'extra_keys':extra,'ratios':summary(pairs),'cells':cells,'interpretation':'Ratios computed per exact(case,repeat), then summarized; lower TTFT ratio and higher decode ratio are better. Repeated cases are not independent tasks.'}
+    return result
 
 def analyze(root):
     issues=[];events=read_rows(root/'events.jsonl',issues);resources=read_rows(root/'resources.jsonl',issues)
@@ -67,7 +109,17 @@ def analyze(root):
     out['configured_variants']=configured_names
     out['expected_candidate_set_present']=set(configured_names)=={'mask-base','context256','tail8-c1280','greedy-c1280','context256-greedy','mask-repeat'}
     feedback_reference=None
-    require_cost=out['expected_candidate_set_present'] or any(x['event']=='quality_cost' for x in events)
+    require_cost=out['expected_candidate_set_present'] or bool(config.get('all_cost_quality')) or any(x['event']=='quality_cost' for x in events)
+    first_per_cell={}
+    for item in fixture.get('performance',[]):first_per_cell.setdefault((item['static_tokens'],item['body_tokens']),item['id'])
+    core_diagnostic_ids=list(first_per_cell.values())
+    extra_ids=config.get('extra_diagnostic_case_ids',[])
+    if not isinstance(extra_ids,list) or any(k not in by_case for k in extra_ids):issues.append('invalid extra_diagnostic_case_ids');extra_ids=[]
+    if len(set(extra_ids))!=len(extra_ids):issues.append('duplicate extra diagnostic case IDs')
+    expected_diagnostic_ids=list(dict.fromkeys(core_diagnostic_ids+extra_ids))
+    expected_cost_ids=list(by_case) if config.get('all_cost_quality',False) else core_diagnostic_ids
+    out['expected_diagnostic_case_ids']=expected_diagnostic_ids
+    out['expected_quality_cost_case_ids']=expected_cost_ids
     quality_by_case={x['id']:x for x in fixture.get('quality',[])}
     for name in names:
         rows=[x for x in events if x.get('variant')==name];perf=[x for x in rows if x['event']=='measure'];quality=[x for x in rows if x['event']=='quality'];diagnostic=[x for x in rows if x['event']=='diagnostic'];quality_cost=[x for x in rows if x['event']=='quality_cost']
@@ -78,9 +130,12 @@ def analyze(root):
             if v['ready'].get(key)!=v['settings'].get(key):issues.append('ready/settings mismatch '+name+' '+key)
         v['resources_by_phase']={phase:resources_stats([x for x in resources if x.get('variant')==name and x.get('phase')==phase]) for phase in sorted({x.get('phase','unknown') for x in resources if x.get('variant')==name})}
         v['resource_interpretation']='Same Python harness across variants; diagnostics/allocator highwater can persist. Performance-only host PSS is still not independently loaded model footprint; NPU driver recorded separately.'
-        for kind,actual,expected in [('performance',len(perf),12*repeat_count if repeat_count else None),('quality',len(quality),12),('diagnostic',len(diagnostic),4)]:
+        for kind,actual,expected in [('performance',len(perf),12*repeat_count if repeat_count else None),('quality',len(quality),12),('diagnostic',len(diagnostic),len(expected_diagnostic_ids))]:
             if kind in enabled and expected is not None and actual!=expected:issues.append('count mismatch '+name+' '+kind)
-        if 'quality' in enabled and require_cost and len(quality_cost)!=4:issues.append('quality_cost count mismatch '+name)
+        if 'quality' in enabled and require_cost:
+            if len(quality_cost)!=len(expected_cost_ids):issues.append('quality_cost count mismatch '+name)
+            if {x['case'] for x in quality_cost}!=set(expected_cost_ids):issues.append('quality_cost case coverage mismatch '+name)
+        if 'diagnostic' in enabled and {x['case'] for x in diagnostic}!=set(expected_diagnostic_ids):issues.append('diagnostic case coverage mismatch '+name)
         if 'performance' in enabled and repeat_count:
             expected_keys={(i,k) for i in range(repeat_count) for k in by_case}
             if {(x['repeat'],x['case']) for x in perf}!=expected_keys:issues.append('performance fixture/repeat coverage mismatch '+name)
@@ -124,9 +179,11 @@ def analyze(root):
             if name==baseline:refs[key]=tokens
             v['quality_cost'].append({'case':x['case'],'input':x['input'],'reply':x['reply'],'cost_padding':x.get('cost_padding'),'finish_reason':x['metrics']['finish_reason'],'generated_tokens':x['metrics']['generated_tokens'],'exact_tokens_vs_baseline':tokens==refs.get(key) if key in refs else None,'tokens':tokens,'true_tail8_calls':x['metrics'].get('true_tail8_calls'),'new_tokens':x['metrics']['new_tokens'],'reused_tokens':x['metrics']['reused_tokens']})
         for x in diagnostic:
-            dm=x['metrics']
+            dm=x['metrics'];case=by_case.get(x['case'])
+            if case is None:issues.append('unknown diagnostic performance case '+name+' '+x['case'])
+            elif dm['prompt_tokens']!=len(case['tokens']) or dm['new_tokens']!=case['expected_new_tokens'] or dm['reused_tokens']!=case['expected_reused_tokens']:issues.append('diagnostic input/cache mismatch '+name+' '+x['case'])
             if not dm.get('diagnostic') or not dm.get('fixed_feedback') or dm.get('generated_tokens')!=4:issues.append('invalid diagnostic flags/count '+name+' '+x['case'])
-            file=root/x['logits_file'];d={'case':x['case'],'path':x['logits_file'],'exists':file.exists(),'logged_comparison':x.get('logits_parity')}
+            file=root/x['logits_file'];d={'case':x['case'],'path':x['logits_file'],'exists':file.exists(),'logged_comparison':x.get('logits_parity'),'token_accounting':{'static_tokens':case.get('static_tokens') if case else None,'body_tokens':case.get('body_tokens') if case else None,'actual_prompt_tokens':dm['prompt_tokens'],'actual_new_tokens':dm['new_tokens'],'actual_reused_tokens':dm['reused_tokens']}}
             if file.exists():
                 raw=file.read_bytes();a=array.array('f');a.frombytes(raw)
                 if sys.byteorder!='little':a.byteswap()
@@ -156,6 +213,9 @@ def analyze(root):
         v['diagnostic_stage_profile']=aggregate_stage(diagnostic)
         if not v['close'] or any(x.get('driver_bytes')!=0 for x in v['close']):issues.append('release unconfirmed '+name)
         out['variants'][name]=v
+    pair_baseline='mask-base' if 'mask-base' in names else baseline
+    out['matched_performance']=paired_performance(events,pair_baseline,issues)
+    out['mask_repeat_drift']=out['matched_performance'].get('mask-repeat',{})
     if meta.get('status')!='complete':issues.append('workload meta not complete')
     out['audit_pass']=not issues
     return out
@@ -171,8 +231,11 @@ def markdown(data):
     for name,v in data['variants'].items():
         for cell,c in v['cells'].items():
             m=c['metrics'];lines.append('| %s | %s | %d | %s / %s | %s | %s | %s |'%(name,cell,c['requests'],n(m['ttft_seconds']),n(m['ttft_seconds'],'p95'),n(m['decode_tokens_s_recomputed']),n(m['prefill_seconds']),n(m['first_head_seconds'])))
-    lines+=['','P95采用nearest-rank；每格仅3次的烟测P95等于样本最大值，不能当稳定尾延迟结论。','',
-        '## 质量与诊断','', '一致性仅相对首个配置，不能据此认定模型决策正确。']
+    lines+=['','P95采用nearest-rank；每格少于20次时P95通常等于样本最大值，重复同fixture不等于独立用户场景，不能当稳定尾延迟结论。','',
+        '## 按同case/repeat配对比较','', '先逐对计算ratio，再汇总；TTFT candidate/base越小越好，decode candidate/base越大越好。mask-repeat用于顺序漂移检查，不能当新优化。','', '| 配置 | 格 | 配对数 | TTFT ratio P50 | decode ratio P50 |','|---|---|---:|---:|---:|']
+    for name,v in data.get('matched_performance',{}).items():
+        for cell,c in v['cells'].items():lines.append('| %s | %s | %s | %s | %s |'%(name,cell,c['pairs'],n(c['ratios']['ttft_candidate_over_baseline']),n(c['ratios']['decode_candidate_over_baseline'])))
+    lines+=['','## 质量与诊断','', '一致性仅相对首个配置，不能据此认定模型决策正确。']
     for name,v in data['variants'].items():
         lines+=['', '真tail8计量（seconds已包含在prefill_seconds内）：', '', '| 配置/格 | calls P50 | tail8秒 P50 |', '|---|---:|---:|']
         for cell,c in v['cells'].items():
@@ -180,7 +243,7 @@ def markdown(data):
         natural=v['quality'];measure=[q for c in v['cells'].values() for q in c['fixed_feedback_parity']]
         lines+=['','### '+name,'', '固定反馈完全一致：%d/%d；自然输出完全一致：%d/%d。'%(sum(x['exact'] is True for x in measure),len(measure),sum(x['exact_tokens_vs_baseline'] is True for x in natural),len(natural)), '', '| case | 输出 | Top1 | 与基线token一致 |','|---|---|---|---|']
         for q in natural:lines.append('| %s | %s | %s | %s |'%(q['case'],q['reply'].replace('|','/').replace('\n',' '),q['top3'][0][1] if q['top3'] else '—',q['exact_tokens_vs_baseline']))
-        lines+=['', '标点cost fixture自然解码（额外4条，非独立质量样本）：', '', '| case | 输出 | token数含EOS | tail8调用 | 与基线token一致 |','|---|---|---:|---:|---|']
+        lines+=['', '标点cost fixture自然解码（%d条，非独立质量样本）：'%len(v.get('quality_cost',[])), '', '| case | 输出 | token数含EOS | tail8调用 | 与基线token一致 |','|---|---|---:|---:|---|']
         for q in v.get('quality_cost',[]):lines.append('| %s | %s | %s | %s | %s |'%(q['case'],q['reply'].replace('|','/').replace('\n',' '),q['generated_tokens'],q.get('true_tail8_calls'),q['exact_tokens_vs_baseline']))
         for d in v['diagnostic']:lines.append('- %s：存在=%s，finite=%s，SHA匹配=%s，独立对照=%s'%(d['case'],d['exists'],d.get('finite'),d.get('hash_matches'),d.get('independent_comparison','基线')))
         lines+=['','阶段profile：合批prefill未内部拆分；npu_run是SDK运行调用墙钟时间，不是净芯片算力时间。', '', '| phase | calls | NPU调用wall秒 | 搬运/KV host秒 | embedding/sampling host秒 |','|---|---:|---:|---:|---:|']
@@ -189,6 +252,8 @@ def markdown(data):
         r=v['resources'];lines+=['', '资源：CPU均值%s%%，最高温度%s°C，PSS峰值%sMiB，最低MemAvailable%sMiB；swap in/out=%s/%s页。'%(n(r['cpu_percent_all_cores'],'mean'),n(r['temperature_C'],'max'),n(r['harness_plus_worker_pss_MiB'],'max'),n(r['mem_available_MiB'],'min'),r.get('swap_in_pages'),r.get('swap_out_pages')), 'NPU driver常驻峰值：%s MiB（单列，不能未经核对直接与宿主PSS相加）；closed=%s。'%(n(v.get('driver_MiB',{}),'max'),v['close'])]
         pr=v.get('resources_by_phase',{}).get('performance',{})
         lines+=['性能阶段资源（排除载入/quality/diagnostic）：CPU均值%s%%，最高温度%s°C，宿主PSS峰值%sMiB。'%(n(pr.get('cpu_percent_all_cores',{}),'mean'),n(pr.get('temperature_C',{}),'max'),n(pr.get('harness_plus_worker_pss_MiB',{}),'max'))]
+        lines+=['性能阶段load1 min/P50/max：%s/%s/%s。'%(n(pr.get('load1',{}),'min'),n(pr.get('load1',{})),n(pr.get('load1',{}),'max')), '', '| CPU | 频率min kHz | P50 kHz | max kHz |','|---|---:|---:|---:|']
+        for cpu,freq in pr.get('cpu_frequency_khz',{}).items():lines.append('| %s | %s | %s | %s |'%(cpu,n(freq,'min'),n(freq),n(freq,'max')))
     lines+=['','## 限制与审计','', '- CPU按全8核容量归一化；PSS为harness+worker，不代表全板所有服务。','- 宿主Python跨variant复用，诊断数组与allocator高水位可能保留；每phase细分在JSON，PSS不能据差额推导独立模型footprint。','- 最大prompt200；32输出需要231个KV位置。capacity240最多41个输出，capacity256最多57个输出；不得把本矩阵直接改64输出。', '- 音频由Frontend以真实时间播放预录WAV；RAG性能阶段仅常驻，质量阶段才查询。','- 无视觉、真实麦克风、电机；固定反馈不代表真实对话质量。','- SDK NPU查询仅诊断集合，查询时间不得纳入速度比较。','- diagnostic关闭时profile logit_dump的微秒值是空分支计时开销；实际目录检查确保性能阶段没有写词表。']
     lines += ['- '+x for x in data['issues']] or ['- 结构、有限值与释放检查无异常。']
     return '\n'.join(lines)+'\n'

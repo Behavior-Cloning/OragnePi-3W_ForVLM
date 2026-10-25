@@ -1,0 +1,52 @@
+--- frozen-runtime-tail8/resident_session.c
++++ runtime-combined/resident_session.c
+@@ -7,11 +7,13 @@
+  */
+ #define OPI_FULL_MODEL_ENTRY full_model_example_main
+ #include "full_model.c"
++#include "greedy_single_pass.h"
+ #if __BYTE_ORDER__ != __ORDER_LITTLE_ENDIAN__
+ #error Resident protocol requires a little-endian host
+ #endif
+ 
+ typedef struct {
++    int single_pass_greedy;
+     Layer *decoder, head[HEAD_SHARDS];
+     BatchPrefill batch, tail8;
+     vip_group decoder_group, head_group;
+@@ -117,7 +119,7 @@
+         if(out->p.data_format==VIP_BUFFER_FORMAT_INT16&&
+            out->p.quant_format==VIP_BUFFER_QUANTIZE_DYNAMIC_FIXED_POINT&&
+            out->p.quant_data.dfp.fixed_point_pos>=-110&&out->p.quant_data.dfp.fixed_point_pos<=110)
+-            maximum=greedy_i16((const int16_t*)out->data,out->count);
++            maximum=s->single_pass_greedy?greedy_i16_single_pass((const int16_t*)out->data,out->count):greedy_i16((const int16_t*)out->data,out->count);
+         else{
+             float current=-INFINITY;
+             for(unsigned j=0;j<out->count;j++){
+@@ -139,7 +141,7 @@
+ 
+ int main(int argc,char **argv) {
+     if(argc!=8){fprintf(stderr,"usage: resident networks layers capacity vocab embeddings prefill_tokens eos_id\n");return 2;}
+-    Session s={0};s.layers=atoi(argv[2]);s.capacity=atoi(argv[3]);s.vocab=atoi(argv[4]);
++    Session s={0};s.single_pass_greedy=getenv("OPI_GREEDY_I16_SINGLE_PASS")!=NULL;s.layers=atoi(argv[2]);s.capacity=atoi(argv[3]);s.vocab=atoi(argv[4]);
+     int batch_tokens=atoi(argv[6]),eos=atoi(argv[7]);
+     int tail_min=getenv("OPI_TTFT_TAIL_MIN")?atoi(getenv("OPI_TTFT_TAIL_MIN")):0;
+     if(tail_min<0||tail_min>batch_tokens)return 2;
+@@ -194,12 +196,15 @@
+     if(tail_dir){
+         /* Separate graph topology: weights are not claimed to be shared. Both
+          * prefill sets alias only the checked decoder KV input buffers. */
+-        if(!*tail_dir||batch_tokens!=16||getenv("OPI_PREFILL_SCALAR_BLOCK"))return 2;
++        /* This combined experiment is restricted to the verified short-context
++         * design. load_prefill also checks every actual KV IO contract, so a
++         * mistakenly supplied c1280 tail graph cannot pass by filename alone. */
++        if(!*tail_dir||s.capacity!=256||batch_tokens!=16||getenv("OPI_PREFILL_SCALAR_BLOCK"))return 2;
+         s.tail8=load_prefill(tail_dir,8,s.blocks,s.capacity,s.decoder);
+     }
+     reset_session(&s);
+     fprintf(stderr,"mask_templates enabled=%d host_bytes=%zu\n",getenv("OPI_MASK_TEMPLATE")!=NULL,mask_template_bytes);
+-    fprintf(events,"{\"event\":\"ready\",\"layers\":%d,\"capacity\":%d,\"load_seconds\":%.6f,\"driver_bytes\":%lld}\n",s.layers,s.capacity,now()-load_start,npu_bytes());
++    fprintf(events,"{\"event\":\"ready\",\"layers\":%d,\"capacity\":%d,\"load_seconds\":%.6f,\"driver_bytes\":%lld,\"true_tail8_enabled\":%s,\"single_pass_greedy_enabled\":%s}\n",s.layers,s.capacity,now()-load_start,npu_bytes(),s.tail8.tokens?"true":"false",s.single_pass_greedy?"true":"false");
+     uint32_t header[8];size_t header_bytes;
+     while((header_bytes=fread(header,1,sizeof(header),stdin))!=0){
+         if(header_bytes!=sizeof(header))return 2;

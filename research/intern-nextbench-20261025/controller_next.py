@@ -19,7 +19,7 @@ try:
   sources['resident-profile']=p.parent/'intern-nextopt-20261025/resident-profile'
   sources['atoms.json']=p.parent/'home-companion-atoms128-v2-20261022/atoms.json'
   needed={Path(v['binary']).name for v in cfg['variants']}
-  for name,rel in [('resident-tail8','runtime-tail8/resident-tail8'),('resident-greedy','runtime-greedy/resident-greedy')]:
+  for name,rel in [('resident-tail8','runtime-tail8/resident-tail8'),('resident-greedy','runtime-greedy/resident-greedy'),('resident-combined','runtime-combined/resident-combined')]:
    if name in needed:sources[name]=p.parent/'intern-nextopt-20261025'/rel
   for n,src in sources.items():b.scp(str(src),b.HOST+':'+runroot+'/'+n,check=True,timeout=40)
   for v in cfg['variants']:

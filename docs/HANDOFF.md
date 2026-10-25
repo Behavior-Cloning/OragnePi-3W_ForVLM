@@ -1,3 +1,11 @@
+## 2026-10-26 正在运行：完整模型I16 range16 A-B-A
+
+`research/intern-prefill100-20261025/fulli16-range16/controller_fulli16.py` WSL PID8417，run `fulli16-range16-c1280-aba-r1`，双锁+3600s deadline。只读WSL controller JSON/log；勿板端并发轮询、勿重启。WSL keeper539。原图→修复I16→原图，72固定反馈32输出性能、72旧集自然输出、24×4全词表诊断。相同静态64/128、动态正文64/128/192/256另8模板。合成语音/RAG常驻，但ASR未触发冻结输入。源审计无阻断。等待rc0回收后用analyze_fulli16.py，并由审计智能体独立复核。未有整模I16速度结论。
+
+独立新12家庭场景/24提示已冻结`independent-household-v2/semantic-inputs.json`（b35122a9a4db5b013ac23c1395cd96d1a5397f543f97cf3e6e663b5a314bfc50），明确完整背景句拼接以对齐token，不是真人语料、不声称训练集隔离。新场景尚未跑模型、禁止先拿来调参。
+
+M8同量化尾块候选已编译并实际端口核验，`graphs/candidates-down-i16-c1280-m8-range16/integration-manifest.json`，NB fae2ea7300300b86bc377b8a81a83d94d30a25bedfd9f653820472f2aea1fa3e。完整payload与M16 range16相同，后续单独评测true8，勿将编译成功说成速度收益。
+
 ## 2026-10-26 当前检查点：I16 down数值尾部定位
 
 权威报告 research/intern-prefill100-20261025/DOWN_I16_NUMERICAL_REPORT.md。A/B/A单块222.025/14.111/222.068ms已独立审计；48窗口原版/候选96运行已完成，hidden最大2.9111%而非仅canonical0.300%。FP32范围诊断4窗口b1输入超±8；新range16只将b1输入fl12→11，全部payload相同、16外部端口同。range16复测rc0完成，48窗口最大hidden relative L2降至0.3468%，旧新原图48份逐位相同；当前无活跃板端控制器。WSL keeper539保活。已用样例属于调参回归，C1280/M16修复范围集成候选现已编译并核验16实际端口与原图一致，manifest在graphs/candidates-down-i16-c1280-range16。下一步以独立overlay部署做完整模型对照、另冻结独立新场景；旧14.1ms不能冒充新范围版本正式速度。

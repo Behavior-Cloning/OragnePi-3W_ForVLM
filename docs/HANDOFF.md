@@ -1,3 +1,12 @@
+## 2026-10-25 Fullconv A-B-A已结束，下一步长语义/首token翻转诊断
+
+- `fullconv-c1280-aba-r1` PID7665已退出、rc0，72perf/36自然/24diagnostic完整回收并重算f32SHA，3次driver0。`fullconv/results/fullconv-c1280-aba-r1/ANALYSIS.md`与analysis-fullconv.json已生成。
+- 同C1280、同input/cache/原binary，只L2 FP16 Conv：逐case TTFT中位1.266倍快（延迟约-21%）。静态64/128、动态正文64/128/192/256+8模板、新72/136/200/264、固定32输出。D64 TTFT1.230/1.271秒，D2564.258/4.269秒；不是C256短窗口速度，100ms目标未达。
+- A前后8份logits逐字节相同；B的8份全logits relL2约2.67%～2.95%，32/32诊断argmax同。但成本case `s64-d64-2` 首预测117057→114209（其余23固定32序列同），它未在原8诊断里；必须追加此case诊断和自然输出，不能宣称无损。12短自然回复全同、任务仍9/12；RAG Top3冲突仍在，mock未执行。
+- `semantic-long/inputs.json`已冻结独立12情景×2system=24自然长case，动态精确64/128/192/256，无padding/截断；gold rubric分任务完成/保守未完成/冲突。SHA07ae4c67e0816ba0782d595a48edd8238c4812b7798d13a4d2ccab80311a483f。尚未跑。runtimeagent准备独立长语义+翻转case诊断控制器，root后续审并启动，不重复全A-B-A。
+- 普通W8层14FC→Conv保持原DFP激活/权重的编译被SDK拒绝，失败证据保留；graphagent准备一个等整数网格的DFP→affine(scale2^-fl,zp0)元数据候选（仍I16/I8），未证明输出等价，不改现役/不自动扩栈。auditagent独立核对该metadata假设。板卡当前无已知任务占锁，接下来root单独管理。
+- 已推送GitHub verified fd47d11b150fbd0e30e08cda74433d3c0e0e2235；上述新增结果与分析后续需再提交。Windows权威，Mac仅报告副本。
+
 ## 2026-10-25 当前运行：C1280 Conv 单块替换完整A-B-A
 
 - 用户目标确认：短固定system总64～128、动态正文64～256，完整动态prefill与TTFT均≤100ms。未达标，不能降低长度或混入动态KV命中。

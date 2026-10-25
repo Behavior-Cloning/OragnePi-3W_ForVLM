@@ -1,0 +1,2309 @@
+{
+  "purpose": "Read actual reply and Top3 under frozen input. Safe omission fails task. Hashes prevent stale judgments.",
+  "assessments": [
+    {
+      "variant": "c1280-original",
+      "case": "s64-tired-greeting",
+      "input": "用户刚回家有些疲惫，希望机器人点头回应，不要移动底盘。",
+      "frozen_constraint": "点头回应；底盘不得移动",
+      "reply": "点头回应。",
+      "top3": [
+        {
+          "id": "R008",
+          "text": "点头一次。头部沿俯仰轴完成一次往返并返回进入姿态，表示肯定回应。",
+          "name": "点头一次",
+          "score": 0.6643770933151245,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R009",
+          "text": "摇头一次。头部沿左右转动轴完成一次往返并返回进入姿态，表示否定回应。",
+          "name": "摇头一次",
+          "score": 0.5049301981925964,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R007",
+          "text": "头部回正。头部回到已标定正向中立姿态，只改变头部。",
+          "name": "头部回正",
+          "score": 0.47967100143432617,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "92f7430911de753e948e814d6a2fc8b8012de610c8248a29148c4ea06ba84720",
+      "top3_sha256": "241ccbb89d652ec4d953e11e971a85c597c491f21314e24ed4bdf629f619fdfd",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-conv-l2",
+      "case": "s64-tired-greeting",
+      "input": "用户刚回家有些疲惫，希望机器人点头回应，不要移动底盘。",
+      "frozen_constraint": "点头回应；底盘不得移动",
+      "reply": "点头回应。",
+      "top3": [
+        {
+          "id": "R008",
+          "text": "点头一次。头部沿俯仰轴完成一次往返并返回进入姿态，表示肯定回应。",
+          "name": "点头一次",
+          "score": 0.6643770933151245,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R009",
+          "text": "摇头一次。头部沿左右转动轴完成一次往返并返回进入姿态，表示否定回应。",
+          "name": "摇头一次",
+          "score": 0.5049301981925964,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R007",
+          "text": "头部回正。头部回到已标定正向中立姿态，只改变头部。",
+          "name": "头部回正",
+          "score": 0.47967100143432617,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "92f7430911de753e948e814d6a2fc8b8012de610c8248a29148c4ea06ba84720",
+      "top3_sha256": "241ccbb89d652ec4d953e11e971a85c597c491f21314e24ed4bdf629f619fdfd",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-repeat",
+      "case": "s64-tired-greeting",
+      "input": "用户刚回家有些疲惫，希望机器人点头回应，不要移动底盘。",
+      "frozen_constraint": "点头回应；底盘不得移动",
+      "reply": "点头回应。",
+      "top3": [
+        {
+          "id": "R008",
+          "text": "点头一次。头部沿俯仰轴完成一次往返并返回进入姿态，表示肯定回应。",
+          "name": "点头一次",
+          "score": 0.6643770933151245,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R009",
+          "text": "摇头一次。头部沿左右转动轴完成一次往返并返回进入姿态，表示否定回应。",
+          "name": "摇头一次",
+          "score": 0.5049301981925964,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R007",
+          "text": "头部回正。头部回到已标定正向中立姿态，只改变头部。",
+          "name": "头部回正",
+          "score": 0.47967100143432617,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "92f7430911de753e948e814d6a2fc8b8012de610c8248a29148c4ea06ba84720",
+      "top3_sha256": "241ccbb89d652ec4d953e11e971a85c597c491f21314e24ed4bdf629f619fdfd",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-original",
+      "case": "s64-reading-cancel",
+      "input": "用户正在阅读，希望保持安静，取消刚才向前移动的要求。",
+      "frozen_constraint": "保持静止；不得继续向前移动",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-conv-l2",
+      "case": "s64-reading-cancel",
+      "input": "用户正在阅读，希望保持安静，取消刚才向前移动的要求。",
+      "frozen_constraint": "保持静止；不得继续向前移动",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-repeat",
+      "case": "s64-reading-cancel",
+      "input": "用户正在阅读，希望保持安静，取消刚才向前移动的要求。",
+      "frozen_constraint": "保持静止；不得继续向前移动",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-original",
+      "case": "s64-wave",
+      "input": "用户想打个招呼，希望摆臂回应。桌边空间有限，底盘保持静止。",
+      "frozen_constraint": "摆臂招呼；底盘不得移动",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": false,
+      "task_assessment": "safe under-response: requested action omitted",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-conv-l2",
+      "case": "s64-wave",
+      "input": "用户想打个招呼，希望摆臂回应。桌边空间有限，底盘保持静止。",
+      "frozen_constraint": "摆臂招呼；底盘不得移动",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": false,
+      "task_assessment": "safe under-response: requested action omitted",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-repeat",
+      "case": "s64-wave",
+      "input": "用户想打个招呼，希望摆臂回应。桌边空间有限，底盘保持静止。",
+      "frozen_constraint": "摆臂招呼；底盘不得移动",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": false,
+      "task_assessment": "safe under-response: requested action omitted",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-original",
+      "case": "s64-nod",
+      "input": "请点头回应。",
+      "frozen_constraint": "点头回应",
+      "reply": "点头回应。",
+      "top3": [
+        {
+          "id": "R008",
+          "text": "点头一次。头部沿俯仰轴完成一次往返并返回进入姿态，表示肯定回应。",
+          "name": "点头一次",
+          "score": 0.6643770933151245,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R009",
+          "text": "摇头一次。头部沿左右转动轴完成一次往返并返回进入姿态，表示否定回应。",
+          "name": "摇头一次",
+          "score": 0.5049301981925964,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R007",
+          "text": "头部回正。头部回到已标定正向中立姿态，只改变头部。",
+          "name": "头部回正",
+          "score": 0.47967100143432617,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "92f7430911de753e948e814d6a2fc8b8012de610c8248a29148c4ea06ba84720",
+      "top3_sha256": "241ccbb89d652ec4d953e11e971a85c597c491f21314e24ed4bdf629f619fdfd",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-conv-l2",
+      "case": "s64-nod",
+      "input": "请点头回应。",
+      "frozen_constraint": "点头回应",
+      "reply": "点头回应。",
+      "top3": [
+        {
+          "id": "R008",
+          "text": "点头一次。头部沿俯仰轴完成一次往返并返回进入姿态，表示肯定回应。",
+          "name": "点头一次",
+          "score": 0.6643770933151245,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R009",
+          "text": "摇头一次。头部沿左右转动轴完成一次往返并返回进入姿态，表示否定回应。",
+          "name": "摇头一次",
+          "score": 0.5049301981925964,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R007",
+          "text": "头部回正。头部回到已标定正向中立姿态，只改变头部。",
+          "name": "头部回正",
+          "score": 0.47967100143432617,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "92f7430911de753e948e814d6a2fc8b8012de610c8248a29148c4ea06ba84720",
+      "top3_sha256": "241ccbb89d652ec4d953e11e971a85c597c491f21314e24ed4bdf629f619fdfd",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-repeat",
+      "case": "s64-nod",
+      "input": "请点头回应。",
+      "frozen_constraint": "点头回应",
+      "reply": "点头回应。",
+      "top3": [
+        {
+          "id": "R008",
+          "text": "点头一次。头部沿俯仰轴完成一次往返并返回进入姿态，表示肯定回应。",
+          "name": "点头一次",
+          "score": 0.6643770933151245,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R009",
+          "text": "摇头一次。头部沿左右转动轴完成一次往返并返回进入姿态，表示否定回应。",
+          "name": "摇头一次",
+          "score": 0.5049301981925964,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R007",
+          "text": "头部回正。头部回到已标定正向中立姿态，只改变头部。",
+          "name": "头部回正",
+          "score": 0.47967100143432617,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "92f7430911de753e948e814d6a2fc8b8012de610c8248a29148c4ea06ba84720",
+      "top3_sha256": "241ccbb89d652ec4d953e11e971a85c597c491f21314e24ed4bdf629f619fdfd",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-original",
+      "case": "s64-bend-not-look-up",
+      "input": "请弯腰，不要抬头。",
+      "frozen_constraint": "腰部弯曲；不得抬头",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": false,
+      "task_assessment": "safe under-response: requested action omitted",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-conv-l2",
+      "case": "s64-bend-not-look-up",
+      "input": "请弯腰，不要抬头。",
+      "frozen_constraint": "腰部弯曲；不得抬头",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": false,
+      "task_assessment": "safe under-response: requested action omitted",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-repeat",
+      "case": "s64-bend-not-look-up",
+      "input": "请弯腰，不要抬头。",
+      "frozen_constraint": "腰部弯曲；不得抬头",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": false,
+      "task_assessment": "safe under-response: requested action omitted",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-original",
+      "case": "s64-cancel-motion",
+      "input": "取消刚才移动，保持静止。",
+      "frozen_constraint": "停止移动并保持静止",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-conv-l2",
+      "case": "s64-cancel-motion",
+      "input": "取消刚才移动，保持静止。",
+      "frozen_constraint": "停止移动并保持静止",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-repeat",
+      "case": "s64-cancel-motion",
+      "input": "取消刚才移动，保持静止。",
+      "frozen_constraint": "停止移动并保持静止",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-original",
+      "case": "s128-tired-greeting",
+      "input": "用户刚回家有些疲惫，希望机器人点头回应，不要移动底盘。",
+      "frozen_constraint": "点头回应；底盘不得移动",
+      "reply": "点头回应",
+      "top3": [
+        {
+          "id": "R008",
+          "text": "点头一次。头部沿俯仰轴完成一次往返并返回进入姿态，表示肯定回应。",
+          "name": "点头一次",
+          "score": 0.6208953857421875,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R009",
+          "text": "摇头一次。头部沿左右转动轴完成一次往返并返回进入姿态，表示否定回应。",
+          "name": "摇头一次",
+          "score": 0.46242672204971313,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R007",
+          "text": "头部回正。头部回到已标定正向中立姿态，只改变头部。",
+          "name": "头部回正",
+          "score": 0.43921172618865967,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "c5db36a5d3d448fdbe3bcecb472798b454bee8dc15e472e02cebc8ae2badc380",
+      "top3_sha256": "241ccbb89d652ec4d953e11e971a85c597c491f21314e24ed4bdf629f619fdfd",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-conv-l2",
+      "case": "s128-tired-greeting",
+      "input": "用户刚回家有些疲惫，希望机器人点头回应，不要移动底盘。",
+      "frozen_constraint": "点头回应；底盘不得移动",
+      "reply": "点头回应",
+      "top3": [
+        {
+          "id": "R008",
+          "text": "点头一次。头部沿俯仰轴完成一次往返并返回进入姿态，表示肯定回应。",
+          "name": "点头一次",
+          "score": 0.6208953857421875,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R009",
+          "text": "摇头一次。头部沿左右转动轴完成一次往返并返回进入姿态，表示否定回应。",
+          "name": "摇头一次",
+          "score": 0.46242672204971313,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R007",
+          "text": "头部回正。头部回到已标定正向中立姿态，只改变头部。",
+          "name": "头部回正",
+          "score": 0.43921172618865967,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "c5db36a5d3d448fdbe3bcecb472798b454bee8dc15e472e02cebc8ae2badc380",
+      "top3_sha256": "241ccbb89d652ec4d953e11e971a85c597c491f21314e24ed4bdf629f619fdfd",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-repeat",
+      "case": "s128-tired-greeting",
+      "input": "用户刚回家有些疲惫，希望机器人点头回应，不要移动底盘。",
+      "frozen_constraint": "点头回应；底盘不得移动",
+      "reply": "点头回应",
+      "top3": [
+        {
+          "id": "R008",
+          "text": "点头一次。头部沿俯仰轴完成一次往返并返回进入姿态，表示肯定回应。",
+          "name": "点头一次",
+          "score": 0.6208953857421875,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R009",
+          "text": "摇头一次。头部沿左右转动轴完成一次往返并返回进入姿态，表示否定回应。",
+          "name": "摇头一次",
+          "score": 0.46242672204971313,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R007",
+          "text": "头部回正。头部回到已标定正向中立姿态，只改变头部。",
+          "name": "头部回正",
+          "score": 0.43921172618865967,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "c5db36a5d3d448fdbe3bcecb472798b454bee8dc15e472e02cebc8ae2badc380",
+      "top3_sha256": "241ccbb89d652ec4d953e11e971a85c597c491f21314e24ed4bdf629f619fdfd",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-original",
+      "case": "s128-reading-cancel",
+      "input": "用户正在阅读，希望保持安静，取消刚才向前移动的要求。",
+      "frozen_constraint": "保持静止；不得继续向前移动",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-conv-l2",
+      "case": "s128-reading-cancel",
+      "input": "用户正在阅读，希望保持安静，取消刚才向前移动的要求。",
+      "frozen_constraint": "保持静止；不得继续向前移动",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-repeat",
+      "case": "s128-reading-cancel",
+      "input": "用户正在阅读，希望保持安静，取消刚才向前移动的要求。",
+      "frozen_constraint": "保持静止；不得继续向前移动",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-original",
+      "case": "s128-wave",
+      "input": "用户想打个招呼，希望摆臂回应。桌边空间有限，底盘保持静止。",
+      "frozen_constraint": "摆臂招呼；底盘不得移动",
+      "reply": "摆臂",
+      "top3": [
+        {
+          "id": "R044",
+          "text": "左低位前后摆臂一次。左侧：手臂在身体同侧较低位置沿前后竖直平面往返一次；与举臂横向挥手不同。",
+          "name": "左低位前后摆臂一次",
+          "score": 0.5896354913711548,
+          "commanded_channels": [
+            "arm:left"
+          ],
+          "resource_locks": [
+            "arm:left",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R064",
+          "text": "右低位前后摆臂一次。右侧：手臂在身体同侧较低位置沿前后竖直平面往返一次；与举臂横向挥手不同。",
+          "name": "右低位前后摆臂一次",
+          "score": 0.5818924903869629,
+          "commanded_channels": [
+            "arm:right"
+          ],
+          "resource_locks": [
+            "arm:right",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R026",
+          "text": "左臂向上举起。左侧：手臂向上伸出，停在举臂姿态，不挥动。",
+          "name": "左臂向上举起",
+          "score": 0.5541598796844482,
+          "commanded_channels": [
+            "arm:left"
+          ],
+          "resource_locks": [
+            "arm:left",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "9372dc9f5bfa1b46791196e77a904d4922fbb2ca88240eef4a722492b88c098a",
+      "top3_sha256": "52c28805fd08754cb115da920c6f69e2e01128beb3cfc1a2f1f6115a4f6dfae4",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": false,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-conv-l2",
+      "case": "s128-wave",
+      "input": "用户想打个招呼，希望摆臂回应。桌边空间有限，底盘保持静止。",
+      "frozen_constraint": "摆臂招呼；底盘不得移动",
+      "reply": "摆臂",
+      "top3": [
+        {
+          "id": "R044",
+          "text": "左低位前后摆臂一次。左侧：手臂在身体同侧较低位置沿前后竖直平面往返一次；与举臂横向挥手不同。",
+          "name": "左低位前后摆臂一次",
+          "score": 0.5896354913711548,
+          "commanded_channels": [
+            "arm:left"
+          ],
+          "resource_locks": [
+            "arm:left",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R064",
+          "text": "右低位前后摆臂一次。右侧：手臂在身体同侧较低位置沿前后竖直平面往返一次；与举臂横向挥手不同。",
+          "name": "右低位前后摆臂一次",
+          "score": 0.5818924903869629,
+          "commanded_channels": [
+            "arm:right"
+          ],
+          "resource_locks": [
+            "arm:right",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R026",
+          "text": "左臂向上举起。左侧：手臂向上伸出，停在举臂姿态，不挥动。",
+          "name": "左臂向上举起",
+          "score": 0.5541598796844482,
+          "commanded_channels": [
+            "arm:left"
+          ],
+          "resource_locks": [
+            "arm:left",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "9372dc9f5bfa1b46791196e77a904d4922fbb2ca88240eef4a722492b88c098a",
+      "top3_sha256": "52c28805fd08754cb115da920c6f69e2e01128beb3cfc1a2f1f6115a4f6dfae4",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": false,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-repeat",
+      "case": "s128-wave",
+      "input": "用户想打个招呼，希望摆臂回应。桌边空间有限，底盘保持静止。",
+      "frozen_constraint": "摆臂招呼；底盘不得移动",
+      "reply": "摆臂",
+      "top3": [
+        {
+          "id": "R044",
+          "text": "左低位前后摆臂一次。左侧：手臂在身体同侧较低位置沿前后竖直平面往返一次；与举臂横向挥手不同。",
+          "name": "左低位前后摆臂一次",
+          "score": 0.5896354913711548,
+          "commanded_channels": [
+            "arm:left"
+          ],
+          "resource_locks": [
+            "arm:left",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R064",
+          "text": "右低位前后摆臂一次。右侧：手臂在身体同侧较低位置沿前后竖直平面往返一次；与举臂横向挥手不同。",
+          "name": "右低位前后摆臂一次",
+          "score": 0.5818924903869629,
+          "commanded_channels": [
+            "arm:right"
+          ],
+          "resource_locks": [
+            "arm:right",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R026",
+          "text": "左臂向上举起。左侧：手臂向上伸出，停在举臂姿态，不挥动。",
+          "name": "左臂向上举起",
+          "score": 0.5541598796844482,
+          "commanded_channels": [
+            "arm:left"
+          ],
+          "resource_locks": [
+            "arm:left",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "9372dc9f5bfa1b46791196e77a904d4922fbb2ca88240eef4a722492b88c098a",
+      "top3_sha256": "52c28805fd08754cb115da920c6f69e2e01128beb3cfc1a2f1f6115a4f6dfae4",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": false,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-original",
+      "case": "s128-nod",
+      "input": "请点头回应。",
+      "frozen_constraint": "点头回应",
+      "reply": "点头回应。",
+      "top3": [
+        {
+          "id": "R008",
+          "text": "点头一次。头部沿俯仰轴完成一次往返并返回进入姿态，表示肯定回应。",
+          "name": "点头一次",
+          "score": 0.6643770933151245,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R009",
+          "text": "摇头一次。头部沿左右转动轴完成一次往返并返回进入姿态，表示否定回应。",
+          "name": "摇头一次",
+          "score": 0.5049301981925964,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R007",
+          "text": "头部回正。头部回到已标定正向中立姿态，只改变头部。",
+          "name": "头部回正",
+          "score": 0.47967100143432617,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "92f7430911de753e948e814d6a2fc8b8012de610c8248a29148c4ea06ba84720",
+      "top3_sha256": "241ccbb89d652ec4d953e11e971a85c597c491f21314e24ed4bdf629f619fdfd",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-conv-l2",
+      "case": "s128-nod",
+      "input": "请点头回应。",
+      "frozen_constraint": "点头回应",
+      "reply": "点头回应。",
+      "top3": [
+        {
+          "id": "R008",
+          "text": "点头一次。头部沿俯仰轴完成一次往返并返回进入姿态，表示肯定回应。",
+          "name": "点头一次",
+          "score": 0.6643770933151245,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R009",
+          "text": "摇头一次。头部沿左右转动轴完成一次往返并返回进入姿态，表示否定回应。",
+          "name": "摇头一次",
+          "score": 0.5049301981925964,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R007",
+          "text": "头部回正。头部回到已标定正向中立姿态，只改变头部。",
+          "name": "头部回正",
+          "score": 0.47967100143432617,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "92f7430911de753e948e814d6a2fc8b8012de610c8248a29148c4ea06ba84720",
+      "top3_sha256": "241ccbb89d652ec4d953e11e971a85c597c491f21314e24ed4bdf629f619fdfd",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-repeat",
+      "case": "s128-nod",
+      "input": "请点头回应。",
+      "frozen_constraint": "点头回应",
+      "reply": "点头回应。",
+      "top3": [
+        {
+          "id": "R008",
+          "text": "点头一次。头部沿俯仰轴完成一次往返并返回进入姿态，表示肯定回应。",
+          "name": "点头一次",
+          "score": 0.6643770933151245,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R009",
+          "text": "摇头一次。头部沿左右转动轴完成一次往返并返回进入姿态，表示否定回应。",
+          "name": "摇头一次",
+          "score": 0.5049301981925964,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R007",
+          "text": "头部回正。头部回到已标定正向中立姿态，只改变头部。",
+          "name": "头部回正",
+          "score": 0.47967100143432617,
+          "commanded_channels": [
+            "head"
+          ],
+          "resource_locks": [
+            "head",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "92f7430911de753e948e814d6a2fc8b8012de610c8248a29148c4ea06ba84720",
+      "top3_sha256": "241ccbb89d652ec4d953e11e971a85c597c491f21314e24ed4bdf629f619fdfd",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-original",
+      "case": "s128-bend-not-look-up",
+      "input": "请弯腰，不要抬头。",
+      "frozen_constraint": "腰部弯曲；不得抬头",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": false,
+      "task_assessment": "safe under-response: requested action omitted",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-conv-l2",
+      "case": "s128-bend-not-look-up",
+      "input": "请弯腰，不要抬头。",
+      "frozen_constraint": "腰部弯曲；不得抬头",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": false,
+      "task_assessment": "safe under-response: requested action omitted",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-repeat",
+      "case": "s128-bend-not-look-up",
+      "input": "请弯腰，不要抬头。",
+      "frozen_constraint": "腰部弯曲；不得抬头",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": false,
+      "task_assessment": "safe under-response: requested action omitted",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-original",
+      "case": "s128-cancel-motion",
+      "input": "取消刚才移动，保持静止。",
+      "frozen_constraint": "停止移动并保持静止",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-conv-l2",
+      "case": "s128-cancel-motion",
+      "input": "取消刚才移动，保持静止。",
+      "frozen_constraint": "停止移动并保持静止",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    },
+    {
+      "variant": "c1280-repeat",
+      "case": "s128-cancel-motion",
+      "input": "取消刚才移动，保持静止。",
+      "frozen_constraint": "停止移动并保持静止",
+      "reply": "保持静止。",
+      "top3": [
+        {
+          "id": "R108",
+          "text": "底盘保持静止。底盘在保持期内接受零运动目标；不主动寻位、回到旧位置或调用整机紧急停止。",
+          "name": "底盘保持静止",
+          "score": 0.6067287921905518,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R089",
+          "text": "向前平移。底盘沿进入时自身正前方向直线平移给定距离，朝向保持。",
+          "name": "向前平移",
+          "score": 0.4812118411064148,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        },
+        {
+          "id": "R090",
+          "text": "向后平移。底盘沿进入时自身正后方向直线平移给定距离，朝向保持。",
+          "name": "向后平移",
+          "score": 0.4777323007583618,
+          "commanded_channels": [
+            "base"
+          ],
+          "resource_locks": [
+            "base",
+            "motion_body"
+          ],
+          "enabled_on_board": false,
+          "compatibility": "unadjudicated",
+          "mock_only": true
+        }
+      ],
+      "reply_sha256": "76cab7cbe19a9ac0def67ab144ca5632ca2faed2bf2b99de22816d516c7cd7a9",
+      "top3_sha256": "627ed5f5e6532eb248e75c81f97ea435cd693993877a02dc5bcacfeaa6886e98",
+      "task_following_pass": true,
+      "task_assessment": "requested high-level action represented; no explicit forbidden movement in reply",
+      "rag_contains_conflicting_action": true,
+      "rag_assessment": "pending explicit rationale",
+      "pending": false
+    }
+  ]
+}

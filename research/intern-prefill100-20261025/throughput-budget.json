@@ -1,0 +1,86 @@
+{
+  "scope": "optimistic dense FC operation count; not measured NPU execution time or achievable INT16/FP16 throughput",
+  "source_graph_sha256": "730f07c680b336b9e945a9956d226f1f04b6f1087386d93478062cb7c8a271cc",
+  "layers": 24,
+  "FC_per_layer": [
+    {
+      "node": "b0_fullconnect_116",
+      "input_features": 4864,
+      "output_features": 896,
+      "mac_per_token": 4358144
+    },
+    {
+      "node": "b0_fullconnect_119",
+      "input_features": 896,
+      "output_features": 896,
+      "mac_per_token": 802816
+    },
+    {
+      "node": "b0_fullconnect_122",
+      "input_features": 896,
+      "output_features": 128,
+      "mac_per_token": 114688
+    },
+    {
+      "node": "b0_fullconnect_125",
+      "input_features": 896,
+      "output_features": 4864,
+      "mac_per_token": 4358144
+    },
+    {
+      "node": "b0_fullconnect_128",
+      "input_features": 896,
+      "output_features": 128,
+      "mac_per_token": 114688
+    },
+    {
+      "node": "b0_fullconnect_131",
+      "input_features": 896,
+      "output_features": 4864,
+      "mac_per_token": 4358144
+    },
+    {
+      "node": "b0_fullconnect_134",
+      "input_features": 896,
+      "output_features": 896,
+      "mac_per_token": 802816
+    }
+  ],
+  "all_FC_MAC_per_new_token": 357826560,
+  "peak_reference_OPS": 3000000000000.0,
+  "peak_reference_precision": "INT8; not valid as an achieved rate for the actual mixed INT8/INT16/FP16 workload",
+  "sources": [
+    "https://www.allwinnertech.com/index.php?a=index&c=product&id=139&solveid=34",
+    "https://docs.radxa.com/en/cubie/a7s"
+  ],
+  "cases": [
+    {
+      "dynamic_body": 64,
+      "dynamic_template": 8,
+      "actual_new": 72,
+      "FC_operations": 51527024640,
+      "ideal_FC_ms_at_3TOPS": 17.17567488
+    },
+    {
+      "dynamic_body": 128,
+      "dynamic_template": 8,
+      "actual_new": 136,
+      "FC_operations": 97328824320,
+      "ideal_FC_ms_at_3TOPS": 32.44294144
+    },
+    {
+      "dynamic_body": 192,
+      "dynamic_template": 8,
+      "actual_new": 200,
+      "FC_operations": 143130624000,
+      "ideal_FC_ms_at_3TOPS": 47.710207999999994
+    },
+    {
+      "dynamic_body": 256,
+      "dynamic_template": 8,
+      "actual_new": 264,
+      "FC_operations": 188932423680,
+      "ideal_FC_ms_at_3TOPS": 62.97747456
+    }
+  ]
+}

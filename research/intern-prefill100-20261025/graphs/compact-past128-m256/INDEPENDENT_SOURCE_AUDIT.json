@@ -1,0 +1,305 @@
+{
+  "status": "PASS_BOUNDED_COMPACT_SOURCE_AND_EFFECTIVE_INPUT_NOT_RUNTIME_QUALIFIED",
+  "scope": "WSL files only; no board/SDK/locks or execution by auditor",
+  "source_sha256": {
+    "controller_compact_past128_m256.py": "116f72038044e18c9aa4014e7e0e564d476c84c005a698a6c5d9de96d266d074",
+    "board_probe_compact.py": "a67ace526f77209d39225f6d6da68af445265a5bb924791973d872c5509243b3",
+    "controller_down_outputfp16_tmpfs.py": "59d2936d6f22ffdddf3433d9fdf2ab3865eb4cfcad785d2b6e420578c314043d",
+    "graphs/build_compact_past128_m256.py": "8ea7d0ba6047ef85db9a202c87a039022b4420bd85a9f6377bd0326a8fd173c7",
+    "derive_compact_fixture.py": "fd2644b4d562396f641867cfd76eda51a36cafa7e5091c060c1c0f6dd1fafe18",
+    "fixtures-compact/c128-m256-l0/probe-fixture.json": "003ad1f137844611198bb4bb34127fe87f4c405b60f2b6b22f4ac18ad54a9597",
+    "runtime/compact-probe/build.json": "22dbec03c222621db6cdb69a1bacbdd76bd3788bf7d8f845837ae8a5f6e70090"
+  },
+  "config_sha256": "1b6ed43654fcc7e3593e221058e5f10fa39ae5b33e7ad947ae6c8c5850613090",
+  "candidate_status_sha256": "69a5027521361e44223734a88b3d48a8b609cf0526b61c2a53645f44268295da",
+  "probe_source_audit_sha256": "ac922dfe66eaf4a0c9c176f14b6c92a86ebfea43b2cbbe814c8eb4f26c05d2a2",
+  "cases": [
+    {
+      "variant": "plain",
+      "NB_sha256": "19be7c9fb4ad2196aac3f509f40a6422ce2079d5b3df27b445000258f68f1978",
+      "NB_bytes": 28824672,
+      "geometry_edit_count": 10,
+      "reversing_only_recorded_edits_recovers_entire_source_graph": true,
+      "quantize_file_byte_equal": true,
+      "source_data_byte_equal": true,
+      "exported_payload_byte_equal": true,
+      "constant_declaration_blocks_byte_equal": 32,
+      "export_nbg_meta_only_six_input_shape_changes": [
+        "b0_past_k_102",
+        "b1_past_k_102",
+        "b0_past_v_103",
+        "b1_past_v_103",
+        "b0_mask_104",
+        "b1_mask_104"
+      ],
+      "all_outputs_dtype_quant_shape_equal": true,
+      "actual_SDK_port_query": false
+    },
+    {
+      "variant": "row224",
+      "NB_sha256": "e5d0bb11bbd684d9d2b4d3a9f4f44b3833d18316198e7a0772140b0a057adc34",
+      "NB_bytes": 28682464,
+      "geometry_edit_count": 26,
+      "reversing_only_recorded_edits_recovers_entire_source_graph": true,
+      "quantize_file_byte_equal": true,
+      "source_data_byte_equal": true,
+      "exported_payload_byte_equal": true,
+      "constant_declaration_blocks_byte_equal": 32,
+      "export_nbg_meta_only_six_input_shape_changes": [
+        "b0_past_k_102",
+        "b1_past_k_102",
+        "b0_past_v_103",
+        "b1_past_v_103",
+        "b0_mask_104",
+        "b1_mask_104"
+      ],
+      "all_outputs_dtype_quant_shape_equal": true,
+      "actual_SDK_port_query": false
+    }
+  ],
+  "fixture": {
+    "input_sha256": "e05e1dbb2e4a88cee933b6cc8b968d946ce9b05a9e75dd1fa89bdcb39d8227a2",
+    "original_input_sha256": "e3e1224831b8b33be92e3d3c2ee26c7d30e9ea3b9eb5ff8fe1583de18718a932",
+    "reference_sha256": "376697d408c95617b0a96859eaef5ce2717ff5dd5907391c0e2a21e439c4e817",
+    "query_rows": 256,
+    "all128_active_history_preserved": true,
+    "all256query_and_rope_and_token_ids_preserved": true,
+    "all11segments_independently_repacked_byte_equal": true,
+    "input512_f32_bytes": 13238272,
+    "input128_f32_bytes": 6946816,
+    "segment_checks": [
+      {
+        "name": "b0_hidden",
+        "old_shape": [
+          1,
+          256,
+          896
+        ],
+        "new_shape": [
+          1,
+          256,
+          896
+        ],
+        "preserved_values_byte_equal": true,
+        "removed": null
+      },
+      {
+        "name": "b0_past_k",
+        "old_shape": [
+          1,
+          2,
+          512,
+          64
+        ],
+        "new_shape": [
+          1,
+          2,
+          128,
+          64
+        ],
+        "preserved_values_byte_equal": true,
+        "removed": {
+          "slots_per_head": 384,
+          "all_zero": true
+        }
+      },
+      {
+        "name": "b1_past_k",
+        "old_shape": [
+          1,
+          2,
+          512,
+          64
+        ],
+        "new_shape": [
+          1,
+          2,
+          128,
+          64
+        ],
+        "preserved_values_byte_equal": true,
+        "removed": {
+          "slots_per_head": 384,
+          "all_zero": true
+        }
+      },
+      {
+        "name": "b0_past_v",
+        "old_shape": [
+          1,
+          2,
+          512,
+          64
+        ],
+        "new_shape": [
+          1,
+          2,
+          128,
+          64
+        ],
+        "preserved_values_byte_equal": true,
+        "removed": {
+          "slots_per_head": 384,
+          "all_zero": true
+        }
+      },
+      {
+        "name": "b1_past_v",
+        "old_shape": [
+          1,
+          2,
+          512,
+          64
+        ],
+        "new_shape": [
+          1,
+          2,
+          128,
+          64
+        ],
+        "preserved_values_byte_equal": true,
+        "removed": {
+          "slots_per_head": 384,
+          "all_zero": true
+        }
+      },
+      {
+        "name": "b0_mask",
+        "old_shape": [
+          1,
+          1,
+          1792,
+          768
+        ],
+        "new_shape": [
+          1,
+          1,
+          1792,
+          384
+        ],
+        "preserved_values_byte_equal": true,
+        "removed": {
+          "columns": 384,
+          "all_minus10000": true
+        }
+      },
+      {
+        "name": "b1_mask",
+        "old_shape": [
+          1,
+          1,
+          1792,
+          768
+        ],
+        "new_shape": [
+          1,
+          1,
+          1792,
+          384
+        ],
+        "preserved_values_byte_equal": true,
+        "removed": {
+          "columns": 384,
+          "all_minus10000": true
+        }
+      },
+      {
+        "name": "b0_rope_cos",
+        "old_shape": [
+          1,
+          1,
+          256,
+          64
+        ],
+        "new_shape": [
+          1,
+          1,
+          256,
+          64
+        ],
+        "preserved_values_byte_equal": true,
+        "removed": null
+      },
+      {
+        "name": "b1_rope_cos",
+        "old_shape": [
+          1,
+          1,
+          256,
+          64
+        ],
+        "new_shape": [
+          1,
+          1,
+          256,
+          64
+        ],
+        "preserved_values_byte_equal": true,
+        "removed": null
+      },
+      {
+        "name": "b0_rope_sin",
+        "old_shape": [
+          1,
+          1,
+          256,
+          64
+        ],
+        "new_shape": [
+          1,
+          1,
+          256,
+          64
+        ],
+        "preserved_values_byte_equal": true,
+        "removed": null
+      },
+      {
+        "name": "b1_rope_sin",
+        "old_shape": [
+          1,
+          1,
+          256,
+          64
+        ],
+        "new_shape": [
+          1,
+          1,
+          256,
+          64
+        ],
+        "preserved_values_byte_equal": true,
+        "removed": null
+      }
+    ]
+  },
+  "controller": {
+    "same_new_probe_all5_variants": true,
+    "five_way_order": [
+      "original-before",
+      "row224-c512",
+      "plain-c128",
+      "row224-c128",
+      "original-after"
+    ],
+    "warmup_each": 3,
+    "timed_each": 30,
+    "expected_API_count": 150,
+    "runner_only_added_per_case_capacity_query_scope_assertion": true,
+    "profile_disabled": true,
+    "hostlock_boardflock": true,
+    "all_uploads_snapshot_SHA_checked": true,
+    "reserve_bytes": 1178599424,
+    "additional_MemAvailable_reserve_bytes": 268435456,
+    "failure_partial_recovery_no_restart": true
+  },
+  "blocking_findings": [],
+  "limitations": [
+    "No active history or query removed for this exact canonical fixture; this alone does not justify dispatch for arbitrary history>128.",
+    "The128 capacity names only the past-input dimension; full-model KV storage must remain sufficient and separately modeled.",
+    "Mask -10000 is finite; changed kernel shape may alter numerical rounding/quantization even though removed data are inactive.",
+    "Port evidence is generated C/nbg_meta, not an independent SDK binary query.",
+    "New probe is common to all5 groups; actual C512 baseline must reproduce old raw output before accepting comparisons.",
+    "No fullmodel natural quality, speech/RAG residency, or complete100msobjective qualification."
+  ]
+}

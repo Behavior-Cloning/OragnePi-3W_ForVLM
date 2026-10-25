@@ -1,0 +1,359 @@
+{
+  "audit_pass": true,
+  "scope": "one same canonical FP32-history input, actual two-layer NPU diagnostic outputs; no full-model NPU-history/pos0/general qualification",
+  "counts": {
+    "pure_api": 90,
+    "warmup": 9,
+    "driver_zero_releases": 3
+  },
+  "archive_sha256": "eb65d727f65d67f2a5a7c72517e5174f707db838ef22ed12e5dcd07db36a7628",
+  "archive_members": [
+    {
+      "path": "process.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "meta.json",
+      "sha256": "e99272a4839f5d579fbc0d64d660be23062918218ab242832b74f4ab102f1239",
+      "bytes": 145
+    },
+    {
+      "path": "post-health.json",
+      "sha256": "87a5ab352bd85752c0f9ccfaec351c86f1e10a1042c08a68e07011c1815aeca8",
+      "bytes": 7350
+    },
+    {
+      "path": "original-after.json",
+      "sha256": "f9a91adccc49df7acdc146f5df4d9e82c21a028e06eadfdcf19e7037054d0aec",
+      "bytes": 949
+    },
+    {
+      "path": "original-after.f32",
+      "sha256": "29692e588d3eb1fdb418287f6eb4fc9ae1f10ef4dc656bf93ec72b72aacbf66c",
+      "bytes": 180224
+    },
+    {
+      "path": "original-after.log",
+      "sha256": "29bc631ba647497db019ba39959387f4598dec696d88431da91239795770c846",
+      "bytes": 1187
+    },
+    {
+      "path": "capture.json",
+      "sha256": "401c8acf56cd3de9858ca2cd1f0051899e58d996d4191c7d81733c8235e6f30c",
+      "bytes": 950
+    },
+    {
+      "path": "capture.f32",
+      "sha256": "52389a83bd18f2d99b9c0d12bb3c88807f8af321274bb7c910dcba8b5bd2e5f3",
+      "bytes": 1425408
+    },
+    {
+      "path": "capture.log",
+      "sha256": "b694741757dbab60ede251a11bfa8008503c16367face8883d5008f6571a39f5",
+      "bytes": 1325
+    },
+    {
+      "path": "original-before.json",
+      "sha256": "3e162181d753e6a92f05165b27dd7c7d75e404d7d21a34701531969d88d351bc",
+      "bytes": 949
+    },
+    {
+      "path": "original-before.f32",
+      "sha256": "29692e588d3eb1fdb418287f6eb4fc9ae1f10ef4dc656bf93ec72b72aacbf66c",
+      "bytes": 180224
+    },
+    {
+      "path": "original-before.log",
+      "sha256": "29bc631ba647497db019ba39959387f4598dec696d88431da91239795770c846",
+      "bytes": 1187
+    },
+    {
+      "path": "resources.jsonl",
+      "sha256": "bd250b2057be369aeaccbf8c93346bad2dde4eb9b1495f90af7fc5c021d76fe6",
+      "bytes": 686195
+    },
+    {
+      "path": "pre-health.json",
+      "sha256": "24c3898f43e75fd19ccf23be143605e25c7d0da3f3dc2a46d835696f84790c1b",
+      "bytes": 7348
+    },
+    {
+      "path": "events.jsonl",
+      "sha256": "19be19e0e742523eb4e6a58321ed6dc1bdc1ae8ce988488dbbb729eae341e9f8",
+      "bytes": 5964
+    },
+    {
+      "path": "config.json",
+      "sha256": "4969b723a599b6005a6114d2eb2fd1aa5dd3ac9e96d9ac2e59e1cd2b1decb719",
+      "bytes": 2870
+    }
+  ],
+  "source_sha256": {
+    "controller_down_capture.py": "29976941b69948e42f2ac4cbdea5c4f0fce78bc9a74eb4a6bfcc50a2648bd5f7",
+    "board_probe_down_capture.py": "21ed5f41235fb6395df3c03e295b3bef61821b68e183589a8f45eddd15e3de9e",
+    "controller_down_outputfp16_tmpfs.py": "59d2936d6f22ffdddf3433d9fdf2ab3865eb4cfcad785d2b6e420578c314043d",
+    "graphs/build_down_capture.py": "43a699804770110d61027065f4b3c7258b6ce447165aa2afa9f7c14cec43d67b",
+    "graphs/down-capture-c512-m32-l2/conversion.json": "4a6be939237a09a8c51dcc0f67219c507fdcea104db6f86581f755e40f98eb7b",
+    "graphs/down-capture-c512-m32-l2/source-audit.json": "76ffae18db0e5a187811a865815faaa88ee0666df926c6f91f5c784962434224",
+    "runtime/down-capture-probe/build.json": "837f80b4f5591f03c37d92a4d0333084afb84adfd48d478aca0c2fa361a42665",
+    "fixtures-canonical/c512-m32-l2/probe-fixture.json": "2832b3ba5cf70368f3334dfc0185e8533cb583cf8ac8417708bfe4c151e6a61f"
+  },
+  "timing_ms": {
+    "original-before": {
+      "p50_ms": 221.85701650000001,
+      "p95_ms": 222.7416369,
+      "min_ms": 221.57128600000001,
+      "max_ms": 223.42437800000002,
+      "allocated_bytes": 36535568,
+      "released_bytes": 0
+    },
+    "capture": {
+      "p50_ms": 221.73062050000001,
+      "p95_ms": 223.01095085,
+      "min_ms": 221.52245200000002,
+      "max_ms": 223.425003,
+      "allocated_bytes": 37173968,
+      "released_bytes": 0
+    },
+    "original-after": {
+      "p50_ms": 221.794724,
+      "p95_ms": 222.71909305,
+      "min_ms": 221.531744,
+      "max_ms": 223.49704400000002,
+      "allocated_bytes": 36535568,
+      "released_bytes": 0
+    }
+  },
+  "baseline_after_before_p50_change_percent": -0.02807776872814083,
+  "normal_output_bytes_equal_all_three": true,
+  "capture_outputs": [
+    {
+      "layer": 2,
+      "elements": 155648,
+      "sha256": "630069fdb1df4ab6dcd4f11ccd80b2d1e18373280484871425f4d0d9c849715e",
+      "finite": true,
+      "maxabs": 3.916015625,
+      "gt8": 0,
+      "gt16": 0,
+      "top16": [
+        {
+          "channel": 3832,
+          "maxabs": 3.916015625
+        },
+        {
+          "channel": 4003,
+          "maxabs": 3.330078125
+        },
+        {
+          "channel": 4492,
+          "maxabs": 2.375
+        },
+        {
+          "channel": 759,
+          "maxabs": 2.33203125
+        },
+        {
+          "channel": 1292,
+          "maxabs": 2.25390625
+        },
+        {
+          "channel": 2048,
+          "maxabs": 2.1953125
+        },
+        {
+          "channel": 4753,
+          "maxabs": 2.14453125
+        },
+        {
+          "channel": 3861,
+          "maxabs": 1.9521484375
+        },
+        {
+          "channel": 1404,
+          "maxabs": 1.939453125
+        },
+        {
+          "channel": 277,
+          "maxabs": 1.8310546875
+        },
+        {
+          "channel": 2004,
+          "maxabs": 1.7705078125
+        },
+        {
+          "channel": 504,
+          "maxabs": 1.763671875
+        },
+        {
+          "channel": 95,
+          "maxabs": 1.650390625
+        },
+        {
+          "channel": 4382,
+          "maxabs": 1.640625
+        },
+        {
+          "channel": 3214,
+          "maxabs": 1.61328125
+        },
+        {
+          "channel": 4459,
+          "maxabs": 1.603515625
+        }
+      ],
+      "producer_relative_l2_vs_graph_fp32": 0.07871906641997442,
+      "reference_raw_not_retained_independent_recompute": false
+    },
+    {
+      "layer": 3,
+      "elements": 155648,
+      "sha256": "13057cb97e183f4b13f1d8814e8b3bac6e75cc0a4ee1c1e24794cb8b036d6fc8",
+      "finite": true,
+      "maxabs": 5.20703125,
+      "gt8": 0,
+      "gt16": 0,
+      "top16": [
+        {
+          "channel": 2855,
+          "maxabs": 5.20703125
+        },
+        {
+          "channel": 1920,
+          "maxabs": 4.65625
+        },
+        {
+          "channel": 3368,
+          "maxabs": 4.63671875
+        },
+        {
+          "channel": 3739,
+          "maxabs": 4.62109375
+        },
+        {
+          "channel": 2589,
+          "maxabs": 3.681640625
+        },
+        {
+          "channel": 3641,
+          "maxabs": 3.63671875
+        },
+        {
+          "channel": 3635,
+          "maxabs": 3.3046875
+        },
+        {
+          "channel": 3073,
+          "maxabs": 3.298828125
+        },
+        {
+          "channel": 289,
+          "maxabs": 3.294921875
+        },
+        {
+          "channel": 2058,
+          "maxabs": 3.03515625
+        },
+        {
+          "channel": 173,
+          "maxabs": 2.953125
+        },
+        {
+          "channel": 3722,
+          "maxabs": 2.8359375
+        },
+        {
+          "channel": 2380,
+          "maxabs": 2.78515625
+        },
+        {
+          "channel": 3660,
+          "maxabs": 2.71484375
+        },
+        {
+          "channel": 3491,
+          "maxabs": 2.548828125
+        },
+        {
+          "channel": 864,
+          "maxabs": 2.52734375
+        }
+      ],
+      "producer_relative_l2_vs_graph_fp32": 0.07034776349682999,
+      "reference_raw_not_retained_independent_recompute": false
+    }
+  ],
+  "resources": {
+    "samples": 97,
+    "duration_s": 24.703186981001636,
+    "temperature_max_C": 40.672,
+    "mem_available_min_MiB": 3850.94921875,
+    "whole_8core_cpu_busy_percent": 3.4482758620689653,
+    "swap_used_min_MiB": 919.75,
+    "swap_used_max_MiB": 919.75,
+    "swap_in_pages_delta": 0,
+    "swap_out_pages_delta": 0,
+    "tmpfs_free_min_bytes": 2423255040,
+    "driver_pre_post": [
+      0,
+      0
+    ],
+    "cpu_frequency_kHz": {
+      "cpu7": {
+        "min": 416000,
+        "p50": 780000.0,
+        "max": 2002000
+      },
+      "cpu5": {
+        "min": 416000,
+        "p50": 1794000.0,
+        "max": 1794000
+      },
+      "cpu3": {
+        "min": 416000,
+        "p50": 1794000.0,
+        "max": 1794000
+      },
+      "cpu1": {
+        "min": 416000,
+        "p50": 1794000.0,
+        "max": 1794000
+      },
+      "cpu6": {
+        "min": 416000,
+        "p50": 780000.0,
+        "max": 2002000
+      },
+      "cpu4": {
+        "min": 416000,
+        "p50": 1794000.0,
+        "max": 1794000
+      },
+      "cpu2": {
+        "min": 416000,
+        "p50": 1794000.0,
+        "max": 1794000
+      },
+      "cpu0": {
+        "min": 416000,
+        "p50": 1794000.0,
+        "max": 1794000
+      }
+    }
+  },
+  "actual_capture_log_numeric_metadata": "out[5/6] size155648 dtype1 quant0 fl0 shape4864,32; generated C FP16, no separate SDK binary introspection by auditor",
+  "timing_boundary": "vip_run_network only; explicit flush/invalidate, conversion/load/serialization outside API timer; diagnostic not speed candidate",
+  "limitations": [
+    "One input repeated30 times, not30 independent quality inputs.",
+    "Original5 byte parity proves local output noninterference on this input only, not every internal tensor/program schedule.",
+    "Producer FP32 comparison formula/source reviewed; raw reference activations not retained, auditor did not rerun model.",
+    "No audio/RAG/full-model TTFT/decode/long stability/action quality measured."
+  ],
+  "deployment_qualified": false,
+  "full_goal_verified": false,
+  "actual_local_reference_source_sha256": {
+    "input": "5063e49e2504abbaf6ab3e151060b800f2aa3d852a3848fa3b1c5b6ddbc20ca7",
+    "source_graph": "730f07c680b336b9e945a9956d226f1f04b6f1087386d93478062cb7c8a271cc",
+    "source_data": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877"
+  }
+}

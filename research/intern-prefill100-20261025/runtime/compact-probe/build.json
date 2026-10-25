@@ -1,0 +1,46 @@
+{
+  "command": [
+    "aarch64-linux-gnu-gcc",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-DMODEL_DIM=896",
+    "-DMODEL_KV=2",
+    "-DMODEL_HD=64",
+    "-DROPE_BASE=1000000.0",
+    "-DFUSED_LAYERS=2",
+    "-DKEY_CACHE_TRANSPOSED=0",
+    "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/compact-probe/source/tensor_probe.c",
+    "-L/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-Wl,-rpath-link,/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-lNBGlinker",
+    "-lVIPhal",
+    "-lm",
+    "-o",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/compact-probe/tensor-probe-compact"
+  ],
+  "returncode": 0,
+  "original_source": {
+    "batch_prefill.h": "f80acdcb0c4574546bb9716cde040f9c069d2e4f7245263bb950c6d113aee094",
+    "board_probe.c": "992fc2211d42b1d2410d523931cd18395997160a768bba01b16fa789b7c29b60",
+    "full_model.c": "669d3dc7dbeeba5d1a1276874aa4a89a04773d5a32dca42038a8437db23d6ed0",
+    "greedy_i16.h": "54b2202b91a2b4b33c372b89fdd4e1d6b106069c7c1414f51a82f0da7e5406f8",
+    "tensor_probe.c": "6a498254a3761a45e18fb8d9f0c7d86545af3e6f77be0b8ed1256808b8977940"
+  },
+  "candidate_source": {
+    "batch_prefill.h": "f80acdcb0c4574546bb9716cde040f9c069d2e4f7245263bb950c6d113aee094",
+    "board_probe.c": "992fc2211d42b1d2410d523931cd18395997160a768bba01b16fa789b7c29b60",
+    "full_model.c": "669d3dc7dbeeba5d1a1276874aa4a89a04773d5a32dca42038a8437db23d6ed0",
+    "greedy_i16.h": "54b2202b91a2b4b33c372b89fdd4e1d6b106069c7c1414f51a82f0da7e5406f8",
+    "tensor_probe.c": "42c3468e6122a3c125ad7847fe52a993de5e003defede8105e4682bbb811a855"
+  },
+  "binary_sha256": "18b29578182bf1067512008ad914897a7639bcdba6d89dff2bc4bee173f4c1e4",
+  "binary_bytes": 61832,
+  "allowed_past_capacity": [
+    128,
+    512
+  ],
+  "changes": "context guard + exact all 11 input and5 output element count checks; original execution/conversion unchanged"
+}

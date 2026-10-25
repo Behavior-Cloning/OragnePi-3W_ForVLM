@@ -1,0 +1,57 @@
+{
+  "run": "down-capture-c512-m32-aba-r1",
+  "warmup": 3,
+  "repeats": 30,
+  "binary": "/dev/shm/opi-prefill100-probe-down-capture-c512-m32-aba-r1/probe",
+  "binary_sha256": "46dd00227f281ddd235dc46d128ab087752bfd6019bc191b5fb2f2cc60c45541",
+  "sequence": [
+    {
+      "run_id": "original-before",
+      "capacity": 512,
+      "query_tokens": 32,
+      "first_layer": 2,
+      "nb": "/dev/shm/opi-prefill100-probe-down-capture-c512-m32-aba-r1/original.nb",
+      "nb_sha256": "34f3b3a2f8aec80ae712c5bd52a9bcbade6ca178bbff073ca54907cd1c08b250",
+      "input": "/dev/shm/opi-prefill100-probe-down-capture-c512-m32-aba-r1/input.f32",
+      "input_sha256": "5063e49e2504abbaf6ab3e151060b800f2aa3d852a3848fa3b1c5b6ddbc20ca7",
+      "expected_output_bytes": 180224
+    },
+    {
+      "run_id": "capture",
+      "capacity": 512,
+      "query_tokens": 32,
+      "first_layer": 2,
+      "nb": "/dev/shm/opi-prefill100-probe-down-capture-c512-m32-aba-r1/capture.nb",
+      "nb_sha256": "e6a441a774a2ae264686231c1ac665612dffdf52c2f5abdcd64a764b5bad254b",
+      "input": "/dev/shm/opi-prefill100-probe-down-capture-c512-m32-aba-r1/input.f32",
+      "input_sha256": "5063e49e2504abbaf6ab3e151060b800f2aa3d852a3848fa3b1c5b6ddbc20ca7",
+      "expected_output_bytes": 1425408
+    },
+    {
+      "run_id": "original-after",
+      "capacity": 512,
+      "query_tokens": 32,
+      "first_layer": 2,
+      "nb": "/dev/shm/opi-prefill100-probe-down-capture-c512-m32-aba-r1/original.nb",
+      "nb_sha256": "34f3b3a2f8aec80ae712c5bd52a9bcbade6ca178bbff073ca54907cd1c08b250",
+      "input": "/dev/shm/opi-prefill100-probe-down-capture-c512-m32-aba-r1/input.f32",
+      "input_sha256": "5063e49e2504abbaf6ab3e151060b800f2aa3d852a3848fa3b1c5b6ddbc20ca7",
+      "expected_output_bytes": 180224
+    }
+  ],
+  "source_sha256": {
+    "controller_down_capture.py": "29976941b69948e42f2ac4cbdea5c4f0fce78bc9a74eb4a6bfcc50a2648bd5f7",
+    "board_probe_down_capture.py": "21ed5f41235fb6395df3c03e295b3bef61821b68e183589a8f45eddd15e3de9e",
+    "controller_down_outputfp16_tmpfs.py": "59d2936d6f22ffdddf3433d9fdf2ab3865eb4cfcad785d2b6e420578c314043d",
+    "graphs/build_down_capture.py": "43a699804770110d61027065f4b3c7258b6ce447165aa2afa9f7c14cec43d67b",
+    "graphs/down-capture-c512-m32-l2/conversion.json": "4a6be939237a09a8c51dcc0f67219c507fdcea104db6f86581f755e40f98eb7b",
+    "graphs/down-capture-c512-m32-l2/source-audit.json": "76ffae18db0e5a187811a865815faaa88ee0666df926c6f91f5c784962434224",
+    "runtime/down-capture-probe/build.json": "837f80b4f5591f03c37d92a4d0333084afb84adfd48d478aca0c2fa361a42665",
+    "fixtures-canonical/c512-m32-l2/probe-fixture.json": "2832b3ba5cf70368f3334dfc0185e8533cb583cf8ac8417708bfe4c151e6a61f"
+  },
+  "reserve_bytes": 1178599424,
+  "staging_kind": "tmpfs",
+  "explicit_root_disk_artifact_bytes": 0,
+  "no_full_model_claim": true,
+  "no_speedup_claim": true
+}

@@ -1,0 +1,107 @@
+{
+  "status": "PASS_PROBE_SOURCE_DELTA_NOT_BOARD_QUALIFIED",
+  "scope": "WSL static source/hash review only; no compiler, SDK, board or model execution by auditor",
+  "audit_utc": "2026-10-25T20:39:44.092321+00:00",
+  "build_json_sha256": "22dbec03c222621db6cdb69a1bacbdd76bd3788bf7d8f845837ae8a5f6e70090",
+  "binary_sha256": "18b29578182bf1067512008ad914897a7639bcdba6d89dff2bc4bee173f4c1e4",
+  "original_probe_sha256": "eed89e71c0030ea15fb90d490611b6d6efdcf88a530906fdc57a1c42498e4da3",
+  "old_source_sha256": {
+    "batch_prefill.h": "f80acdcb0c4574546bb9716cde040f9c069d2e4f7245263bb950c6d113aee094",
+    "board_probe.c": "992fc2211d42b1d2410d523931cd18395997160a768bba01b16fa789b7c29b60",
+    "full_model.c": "669d3dc7dbeeba5d1a1276874aa4a89a04773d5a32dca42038a8437db23d6ed0",
+    "greedy_i16.h": "54b2202b91a2b4b33c372b89fdd4e1d6b106069c7c1414f51a82f0da7e5406f8",
+    "tensor_probe.c": "6a498254a3761a45e18fb8d9f0c7d86545af3e6f77be0b8ed1256808b8977940"
+  },
+  "new_source_sha256": {
+    "batch_prefill.h": "f80acdcb0c4574546bb9716cde040f9c069d2e4f7245263bb950c6d113aee094",
+    "board_probe.c": "992fc2211d42b1d2410d523931cd18395997160a768bba01b16fa789b7c29b60",
+    "full_model.c": "669d3dc7dbeeba5d1a1276874aa4a89a04773d5a32dca42038a8437db23d6ed0",
+    "greedy_i16.h": "54b2202b91a2b4b33c372b89fdd4e1d6b106069c7c1414f51a82f0da7e5406f8",
+    "tensor_probe.c": "42c3468e6122a3c125ad7847fe52a993de5e003defede8105e4682bbb811a855"
+  },
+  "change_scope": {
+    "only_tensor_probe_c_changed": true,
+    "reverse_delta_recreates_old_source_exactly": true,
+    "context_allowed": [
+      128,
+      512
+    ],
+    "query_rows_allowed": [
+      8,
+      16,
+      32,
+      64,
+      128,
+      256
+    ],
+    "all_11_input_and5_output_element_counts_checked": true,
+    "query_rows_greater_than_past_capacity_allowed": true,
+    "compiler_command_identical_except_input_output_paths": true,
+    "conversion_execution_timing_cleanup_unchanged": true
+  },
+  "geometry_examples": [
+    {
+      "past_input_capacity": 128,
+      "query_rows": 256,
+      "input_element_counts": [
+        229376,
+        16384,
+        16384,
+        16384,
+        16384,
+        688128,
+        688128,
+        16384,
+        16384,
+        16384,
+        16384
+      ],
+      "output_element_counts": [
+        229376,
+        32768,
+        32768,
+        32768,
+        32768
+      ],
+      "input_f32_bytes": 6946816,
+      "output_f32_bytes": 1441792
+    },
+    {
+      "past_input_capacity": 512,
+      "query_rows": 256,
+      "input_element_counts": [
+        229376,
+        65536,
+        65536,
+        65536,
+        65536,
+        1376256,
+        1376256,
+        16384,
+        16384,
+        16384,
+        16384
+      ],
+      "output_element_counts": [
+        229376,
+        32768,
+        32768,
+        32768,
+        32768
+      ],
+      "input_f32_bytes": 13238272,
+      "output_f32_bytes": 1441792
+    }
+  ],
+  "timing_scope": "vip_run_network call only; explicit input flush and output invalidation outside timer; same original path",
+  "result_capacity_semantics": "past-input tensor length, not total cache capacity, context length, or proof that256query cannot fit",
+  "limitations": [
+    "This probe does not itself prove that removed slots are inactive; forthcoming fixture/controller must verify all removed KV slots and mask columns, and preserve every active history position.",
+    "Element-count checks are not axis/dtype/order checks; frozen NB contract/metadata and actual probe schema must be validated separately.",
+    "Compact fixture must gather four KV segments and both mask segments by axis; never truncate the flat input byte stream.",
+    "RoPE values and absolute positions must remain unchanged.",
+    "Separate full-model storage capacity512 from compact prefill past-input capacity128; dispatch only when active past fits, with adequate fallback otherwise.",
+    "Finite -10000 masks are not mathematical negative infinity; output parity still needs actual numeric checks.",
+    "Build rc0 and source identity are not runtime/numeric/performance/fullTTFT qualification."
+  ]
+}

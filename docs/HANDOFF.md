@@ -1,3 +1,26 @@
+## 2026-10-26 板端down capture诊断已完成
+
+- `research/intern-prefill100-20261025/results/down-capture-c512-m32-aba-r1/REPORT.md`：同一canonical history128/query32，原/额外两输出/原，90pure+9warm，原5端口逐位相同，3driver0。
+- 实际两层内部down激活相对导入图FP32 relL2 7.87%/7.03%；原量化未改，不是候选质量退化。仅FP32输入历史，不是真实整模NPU KV。
+- 诊断图/探针为独立版本，未改生产。完整100ms目标未达。下一步多输入/真实NPU上游capture与量化校准，不能凭单样本或离线通道名单启用混合精度。
+
+## 2026-10-26 异常通道筛查更新（Windows权威）
+
+- 新增 `research/intern-prefill100-20261025/graphs/down-outlier-screen/REPORT.md`。48个导入图窗口按6/6场景校准/留出；固定top128仍漏掉L3范围8的留出异常（局部down投影最大relL2约1.58%）。未部署。
+- 补充24完整prompt source-Q8 FP32全位置捕获：system部分L2/L3最大约2013.63/1180.65，动态最大9.33/10.68。与导入图路径不同；只能作为分布证据，非真实NPU中间值或完整质量。
+- 下一步先做原量化图的额外down激活输出诊断并核正常输出是否被扰动，再决定分通道精度。禁止把小样本固定名单、纯块耗时或FP32离线误差当整模达标。
+- 两个compact实测及清理均完成，板卡控制器已退出。目标仍system64/128、动态正文64–256+8模板、新72–264，完整prefill/TTFT≤100ms；未达到。
+
+## 2026-10-26 紧凑past128两轮已完成（100ms目标仍未完成）
+
+新实验 compact-past128-m256-abcd-a-r1（150纯API）与 compact-past128-screen-aba-r1（270纯API）均complete/rc0，共14次NPU释放0。两controller已退出，无待重启任务。原始WSL results保留；两轮tmpfs逐文件留存核SHA后共清理392,209,436B。新probe18b29578…只允许128/512 past并增加11/5端口元素检查，旧probe未改。
+
+普通L0/L1同有效history128：M64原34.56→compact13.91ms；M128原90.39/84.20→37.41ms（AA漂移6.85%，报告收益55.57%–58.61%，不能说频率稳定）；M256原210.69→83.43ms。紧凑M256 row224反慢至93.82ms，五输出与紧凑plain相同。L2/L3原FP16 down慢块M2561887.40→1760.63ms，仅降6.7%；去空槽解决不了主瓶颈。全部紧凑输出有数值变化，hidden相对原版0.042%～0.076%，未整模/自然质量合格。最高43.648°C、swap无增长，未长期全链路。
+
+报告 results/compact-past128-m256-abcd-a-r1/REPORT.md 与 results/compact-past128-screen-aba-r1/REPORT.md，独立审计同目录。compact图只删全零且mask−10000的384空past槽，完整128有效KV、query、绝对RoPE与tokenIDs保留；capacity128只是past输入，不是整模cache。真实整模binary源应看capacity512-runtime/runtime（不能把旧runtime/快照当最新），prefill/decode目前同shape共享KV，专用past128需要明确gather和成本/形状路由。
+
+下一重点FP16 down通道离群分布与保真提速，考虑少数outlier通道FP16+其余高精度整数路径的可行性，先读现有数据避免重做已否定路线。此方案尚未实现，不能称已提速。禁止直接恢复旧整体I16或旧Conv默认；需全logits/中文质量。完整100ms目标保持system64/128含5模板、body64/128/192/256+8动态模板、实际new72/136/200/264，only-system KV。单两层块API不是TTFT，flush/gather/head必须算完整延迟。
+
 ## 2026-10-26 M256 softmax 定位与分行候选（目标未完成）
 
 权威任务 research/intern-prefill100-20261025。profile-m256-l0-r1 与 softmax-row224-m256-aba-r1 均 complete/rc0，当前这两个controller已退出，无待重启任务。原始结果保留results对应目录。M256 softmax NN busy计数相对M32增104.287倍（8倍查询行、1.412倍key宽度，按元素9.234倍）；I/O显式同步仅0.046ms。仅为NN计数，不是wall占比。

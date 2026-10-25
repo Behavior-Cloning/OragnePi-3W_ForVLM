@@ -74,7 +74,7 @@
     "unique_tmpfs_run": true,
     "reserve_bytes": 1178599424,
     "extra_memory_reserve_bytes": 268435456,
-    "timing_scope": "API execution including synchronization; excludes load/conversion; not full TTFT",
+    "timing_scope": "vip_run_network API call only; explicit input flush/output invalidation and load/conversion excluded; not full TTFT",
     "thermal_stop_C": 78,
     "failure_partial_recovery_no_restart": true
   },
@@ -83,5 +83,6 @@
     "One canonical two-layer L0 input, FP32-derived history128; no audio/RAG or natural quality.",
     "Source/runtime external declarations and nbg_meta equality are not a separate SDK binary-port query.",
     "No fullmodel speed prediction, no 100ms objective qualification."
-  ]
+  ],
+  "timing_scope_wording_correction": "Independently re-read unchanged execute() in full_model.c; source/data/timing values unchanged."
 }

@@ -1,0 +1,48 @@
+{
+  "audit_pass": true,
+  "scope": "private bounded diagnostic source only, no SDK or board execution by auditor",
+  "source_graph_difference": "exactly two output nodes; all existing nodes unchanged",
+  "source_and_exported_weight_quantization_bytes_equal": true,
+  "constant_tensor_C_blocks_equal": 33,
+  "existing_normal_tensor_C_blocks_equal": 16,
+  "generated_C_and_nbg_metadata_original_ports_equal": true,
+  "actual_SDK_port_introspection_by_auditor": false,
+  "normal_output_indices": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "extra_output_indices": [
+    5,
+    6
+  ],
+  "extra_elements_each": 155648,
+  "output_f32_bytes_normal": 180224,
+  "output_f32_bytes_capture": 1425408,
+  "runtime_original_5_and_new_7_bounds_checked_before_init": true,
+  "all_output_loops_use_actual_no": true,
+  "private_source_only_changes": [
+    "output storage maximum7",
+    "allow queried 5/7 outputs",
+    "C512/M32 and two155648 output guards"
+  ],
+  "production_source_hashes_unchanged": true,
+  "binary_sha256": "46dd00227f281ddd235dc46d128ab087752bfd6019bc191b5fb2f2cc60c45541",
+  "graph_sha256": "e6a441a774a2ae264686231c1ac665612dffdf52c2f5abdcd64a764b5bad254b",
+  "source_sha256": {
+    "batch_prefill.h": "f80acdcb0c4574546bb9716cde040f9c069d2e4f7245263bb950c6d113aee094",
+    "board_probe.c": "992fc2211d42b1d2410d523931cd18395997160a768bba01b16fa789b7c29b60",
+    "full_model.c": "26c404b3d2d2a2716c1ef03cee1d272fa8a6e34140a2312331c8ebfa8b61d5c0",
+    "greedy_i16.h": "54b2202b91a2b4b33c372b89fdd4e1d6b106069c7c1414f51a82f0da7e5406f8",
+    "tensor_probe.c": "c9a9a568f93e99b3487e7104468a55f40dcfa0d30b6223e00908adb1b8b25253"
+  },
+  "limitations": [
+    "Added outputs may change compilation; same-input original5 output byte parity is required before interpreting capture.",
+    "FP16 is verified in generated C/metadata, not independently imported actual SDK binary metadata.",
+    "Shape validation errors exit process; outer controller must verify driver release.",
+    "Probe API timer excludes explicit flush/invalidate; diagnostic timing cannot be promoted to uninstrumented performance.",
+    "Canonical input uses FP32-derived prefix history, not full-NPU KV or system pos0."
+  ]
+}

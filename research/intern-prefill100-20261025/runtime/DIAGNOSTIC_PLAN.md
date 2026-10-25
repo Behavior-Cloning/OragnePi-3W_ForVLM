@@ -52,11 +52,11 @@ python3 research/intern-prefill100-20261025/runtime/profile-analysis/analyze.py
 
 L2的已记录NN busy更低，不能用这些counter解释其更大的总wall time。累计busy可能重叠，不直接乘频率换算为端到端时间，也不把缺失的时间全部分给某引擎。`engine_time_fraction`暂为null，不编造L2 down耗时占比。
 
-## 现在的最小下一步：补可追溯的node映射
+## 已完成node映射：执行引擎仍有明确证据缺口
 
-当前10图未保留 `node_trace_db.json`；`export_nbg_unify/vnn_decoder.c`只有一个BINARY_GRAPH包装节点，无法把内部node IDs映射到具体算子。
+原始10图未保留 `node_trace_db.json`。随后图侧已在 `graphs/trace-export/` 补齐 L0/L2 M16 的 node trace；两份最终NBG SHA均与实际板测原件逐位相同。`profile-analysis/map_trace.py` 已逐node映射原NPD，未把 M16 mapping套用到M32。
 
-图侧在独立目录重跑原L0/L2 M16编译，仅添加容器环境 `VIV_VX_DUMP_NODE_TRACE_DB=1`（入口核对于 `npu/kv-cache/compile_fused_decoder.py`）。保留：
+独立trace编译仅添加容器环境 `VIV_VX_DUMP_NODE_TRACE_DB=1`（入口核对于 `npu/kv-cache/compile_fused_decoder.py`）。保留：
 
 1. 未包装 `export/vnn_decoder.c` 与 `node_trace_db.json`、fused trace（若SDK生成）。
 2. 新旧最终NBG SHA、大小、完整编译命令、SDK image digest。
@@ -64,7 +64,7 @@ L2的已记录NN busy更低，不能用这些counter解释其更大的总wall ti
 
 只有最终NBG SHA相同，才能直接给已有NPD套该node映射。若不同，先确认仅trace导致差异，再由root决定对新NBG重跑同输入NPD；不能用近似node编号硬映原记录。融合图中UID后缀可能重复，必须保留b0/b1候选标签，不能猜层号。
 
-SDK target 枚举为 NONE0、SHADER1、NN2、TP3、SW4、SCALER5、NBG6。拿到真实target后可以说明某节点由何引擎处理；若其无NPD counter，依旧不能提供该节点占总时延百分比。若需精确归因，应做保持全部FP16精度的独立down子图/替换图对照，记录NPU API差分，并说明图切分会改变调度，差分不是精确单算子原位时间。
+实际trace生产者没有写 `target` 字段，所有profile条目只有node_id。SDK新版reader的target枚举 NONE0、SHADER1、NN2、TP3、SW4、SCALER5、NBG6 不能补充不存在的事实。真实映射确认L0的UID116 down对应nodes318/319/320及339/340/341，6个都有NN计数，累计1,069,044 cycles；L2同一UID的两处FP16 down对应nodes232/294，二者均没有NN计数。它们究竟是TP、SHADER或其他路径仍未知，不能从缺失计数叫CPUfallback。拿到真实target后可以说明执行引擎；若其无NPD counter，依旧不能给总时延占比。若需精确归因，应做保持全部FP16精度的独立down子图/替换图对照，记录NPU API差分，并说明图切分会改变调度，差分不是精确单算子原位时间。
 
 ## 板端开关契约（仅root执行，本文未访问板卡）
 
@@ -84,4 +84,6 @@ tensor-probe-prefill100 graph.nb input.f32 output.f32 repeats result.json
 
 ## 优先级与停止条件
 
-先映射原L2 down的真实target，再测保持FP16的FC→1×1 Conv等独立图改写；每次确认量化payload、端口、相同输入输出误差。若改写没有改善，不扩大完整24层编译。全模型最终仍须真实system64/128+动态正文64/128/192/256+8模板，以及完整KV、全词表、首token边界和中文质量验证。
+原L2 down节点已定位，真实target暂不可得；停止无界搜索，优先测保持FP16的FC→1×1 Conv等独立图改写；每次确认量化payload、端口、相同输入输出误差。若改写没有改善，不扩大完整24层编译。全模型最终仍须真实system64/128+动态正文64/128/192/256+8模板，以及完整KV、全词表、首token边界和中文质量验证。
+
+当前交付：`profile-analysis/summary.json`（4份SDK counter解码与IO统计）、`mapping-summary.json`（2份exact-binary映射）、每份完整raw record/node JSON及可复现脚本。没有改动冻结resident/probe，没有额外板卡调用。

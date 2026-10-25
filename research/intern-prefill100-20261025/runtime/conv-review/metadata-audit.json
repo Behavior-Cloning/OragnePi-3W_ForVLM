@@ -1,0 +1,125 @@
+{
+  "scope": "independent read-only metadata/compiled-weight audit; no new inference",
+  "changed_graph_nodes": [
+    "b0_reshape_115",
+    "b0_fullconnect_116",
+    "b1_reshape_115",
+    "b1_fullconnect_116"
+  ],
+  "exact_quantizer_bytes": true,
+  "exact_ports": true,
+  "all_14_compiled_fc_weights": [
+    {
+      "node": "b0_fullconnect_116",
+      "dtype": "FLOAT16",
+      "bytes": 8716288,
+      "sha256": "618d23406fdf5b08347abd7782dabc1a02254cdd1991fb453c33a003864635d0",
+      "exact": true
+    },
+    {
+      "node": "b0_fullconnect_119",
+      "dtype": "INT8",
+      "bytes": 802816,
+      "sha256": "7f735566185805a4ea7841f64d72b73a48c565f79c30d3841c962b2b49ecc91f",
+      "exact": true
+    },
+    {
+      "node": "b0_fullconnect_122",
+      "dtype": "INT8",
+      "bytes": 114688,
+      "sha256": "528f5d3496d2fa28bca9c51ccda0a109b8521175f79b394bb09a4bafd1a41288",
+      "exact": true
+    },
+    {
+      "node": "b0_fullconnect_125",
+      "dtype": "INT8",
+      "bytes": 4358144,
+      "sha256": "a1b9b980075da6657c54cab9c4ac04b418b8689f58af461b91b693aa11aa47e3",
+      "exact": true
+    },
+    {
+      "node": "b0_fullconnect_128",
+      "dtype": "INT8",
+      "bytes": 114688,
+      "sha256": "14ce33a47dad4c382c073b9dca87a43ad453ef95470a4db1a5be55c3ee703d05",
+      "exact": true
+    },
+    {
+      "node": "b0_fullconnect_131",
+      "dtype": "INT8",
+      "bytes": 4358144,
+      "sha256": "108f54f56737f431d229c01acae3258acf2a2f2b273ca36dfd628e15a735d7f9",
+      "exact": true
+    },
+    {
+      "node": "b0_fullconnect_134",
+      "dtype": "INT8",
+      "bytes": 802816,
+      "sha256": "c35d587c23ca972cd5c2381b21a2c0a5bdf7f43ee10520f5013f39f173b0e2cf",
+      "exact": true
+    },
+    {
+      "node": "b1_fullconnect_116",
+      "dtype": "FLOAT16",
+      "bytes": 8716288,
+      "sha256": "fbbddba10e998277efa22aae84f95eff04bd3d32fe466e92271b0ca0ae4b766b",
+      "exact": true
+    },
+    {
+      "node": "b1_fullconnect_119",
+      "dtype": "INT8",
+      "bytes": 802816,
+      "sha256": "c02cca6c11c26ae8199b8191b96ae0c10c10fa6e663fe6f0db8bc88568b38d91",
+      "exact": true
+    },
+    {
+      "node": "b1_fullconnect_122",
+      "dtype": "INT8",
+      "bytes": 114688,
+      "sha256": "7532e3dd99e8ff6351e0b09c44c0f7abbd794d3a1d15a9a281e29fcd74705420",
+      "exact": true
+    },
+    {
+      "node": "b1_fullconnect_125",
+      "dtype": "INT8",
+      "bytes": 4358144,
+      "sha256": "760c7ebbece3d4144ce2073049cae2c768900cabdfd5ac1da7e048b8b685922c",
+      "exact": true
+    },
+    {
+      "node": "b1_fullconnect_128",
+      "dtype": "INT8",
+      "bytes": 114688,
+      "sha256": "514213383628ec92be1aa6ba10291a92ee10519a6d829c8e67c345cee3939402",
+      "exact": true
+    },
+    {
+      "node": "b1_fullconnect_131",
+      "dtype": "INT8",
+      "bytes": 4358144,
+      "sha256": "e528ee56575df3bd507ae8376f4054efefffddea752fa608ac74db9930ff2dd4",
+      "exact": true
+    },
+    {
+      "node": "b1_fullconnect_134",
+      "dtype": "INT8",
+      "bytes": 802816,
+      "sha256": "6e67322c494f710621c5399ddca38fec3074d88f4a6bd8c029c39c3ddd1efa5f",
+      "exact": true
+    }
+  ],
+  "candidate_binary_sha256": "425bc11857e5691b30abf3d60700dcc735dd13f6b12bed3671f32a287dfe02b5",
+  "actual_source_data_check": {
+    "arrays": 46,
+    "all_dtype_and_value_bytes_equal": true,
+    "shape_changes_only": [
+      "b0_fullconnect_116.weight [4864,896]\u2192[1,1,4864,896]",
+      "b1_fullconnect_116.weight [4864,896]\u2192[1,1,4864,896]"
+    ],
+    "down_bias_maxabs": [
+      0.0,
+      0.0
+    ]
+  },
+  "host_equivalence_scope": "One real canonical fixture; FP32 interpreter and down f16-reexpanded weights; not NPU accumulation simulation."
+}

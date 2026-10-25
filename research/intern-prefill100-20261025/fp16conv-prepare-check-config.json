@@ -1,0 +1,64 @@
+{
+  "scope": "single fused2 L2/M16 API A-B-A, not full-model TTFT, no audio/RAG residency",
+  "phase": "timing-only; NPD and IO profiling forbidden",
+  "binary": "/opt/opi-vlm/intern-prefill100-20261025/runs/single-block-c512-r1/probe",
+  "binary_sha256": "eed89e71c0030ea15fb90d490611b6d6efdcf88a530906fdc57a1c42498e4da3",
+  "warmup": 3,
+  "repeats": 30,
+  "sequence": [
+    {
+      "run_id": "original-before",
+      "query_tokens": 16,
+      "first_layer": 2,
+      "capacity": 512,
+      "nb": "/opt/opi-vlm/intern-prefill100-20261025/runs/single-block-c512-r1/c512-m16-l2.nb",
+      "nb_sha256": "b36f7ddc26234336c2f71d7c6f8f58ec038547042e670717f3f6612e2745f2d0",
+      "input": "/opt/opi-vlm/intern-prefill100-20261025/runs/single-block-c512-r1/c512-m16-l2.input.f32",
+      "input_sha256": "bac32821aeeb424405384e4a3d827d38eea2116cd228f1249f2f0c295a5421da",
+      "reference_sha256": "24fb4dfc49eba40c46a97d76d169e29f80b08b68c4df815c59a11d270621fed7",
+      "variant": "fp16-fcl",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m16-l2/probe-reference.f32"
+    },
+    {
+      "run_id": "conv1x1",
+      "query_tokens": 16,
+      "first_layer": 2,
+      "capacity": 512,
+      "nb": "/opt/opi-vlm/intern-prefill100-20261025/runs/fp16conv-prepare-check/candidate.nb",
+      "nb_sha256": "425bc11857e5691b30abf3d60700dcc735dd13f6b12bed3671f32a287dfe02b5",
+      "input": "/opt/opi-vlm/intern-prefill100-20261025/runs/single-block-c512-r1/c512-m16-l2.input.f32",
+      "input_sha256": "bac32821aeeb424405384e4a3d827d38eea2116cd228f1249f2f0c295a5421da",
+      "reference_sha256": "24fb4dfc49eba40c46a97d76d169e29f80b08b68c4df815c59a11d270621fed7",
+      "variant": "fp16-conv1x1",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m16-l2/probe-reference.f32"
+    },
+    {
+      "run_id": "original-after",
+      "query_tokens": 16,
+      "first_layer": 2,
+      "capacity": 512,
+      "nb": "/opt/opi-vlm/intern-prefill100-20261025/runs/single-block-c512-r1/c512-m16-l2.nb",
+      "nb_sha256": "b36f7ddc26234336c2f71d7c6f8f58ec038547042e670717f3f6612e2745f2d0",
+      "input": "/opt/opi-vlm/intern-prefill100-20261025/runs/single-block-c512-r1/c512-m16-l2.input.f32",
+      "input_sha256": "bac32821aeeb424405384e4a3d827d38eea2116cd228f1249f2f0c295a5421da",
+      "reference_sha256": "24fb4dfc49eba40c46a97d76d169e29f80b08b68c4df815c59a11d270621fed7",
+      "variant": "fp16-fcl-repeat",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m16-l2/probe-reference.f32"
+    }
+  ],
+  "canonical_input_sha256": "bac32821aeeb424405384e4a3d827d38eea2116cd228f1249f2f0c295a5421da",
+  "canonical_reference_sha256": "24fb4dfc49eba40c46a97d76d169e29f80b08b68c4df815c59a11d270621fed7",
+  "fixture_meta_sha256": "d5cc15f96c61bacddb5b6986c01b8c79f03a254d2c038441e0f1284419fb4819",
+  "candidate_status_sha256": "66782bee1240ba03b7aec470fe55a8f63f6b24042a7ab0446e01a39caf312d31",
+  "source_sha256": {
+    "controller_fp16conv.py": "03f349ae5972ef0e6ea6a3c1d1f1d2d2a25367b76a48881489cb1be4b5f3c3f0",
+    "board_probe_suite.py": "28efcf567d0aec9e412b96cf38409c32b8d67f8463c8a7dee0414a2d133980c9",
+    "analyze_fp16conv.py": "04a2a20ef72b3031ed2a249f35732b8c660ca4f63cd0caa58f5eee77e8ecf44d"
+  },
+  "shared_file_verification": {
+    "/opt/opi-vlm/intern-prefill100-20261025/runs/single-block-c512-r1/probe": "eed89e71c0030ea15fb90d490611b6d6efdcf88a530906fdc57a1c42498e4da3",
+    "/opt/opi-vlm/intern-prefill100-20261025/runs/single-block-c512-r1/c512-m16-l2.nb": "b36f7ddc26234336c2f71d7c6f8f58ec038547042e670717f3f6612e2745f2d0",
+    "/opt/opi-vlm/intern-prefill100-20261025/runs/single-block-c512-r1/c512-m16-l2.input.f32": "bac32821aeeb424405384e4a3d827d38eea2116cd228f1249f2f0c295a5421da"
+  },
+  "diagnostic_policy": "Run any NPD/IO diagnostics separately in another unique directory; no diagnostic data admitted to timing stats"
+}

@@ -1,3 +1,12 @@
+## 2026-10-25 Prefill长输入基线与FP16 Conv单块实测
+
+- 权威任务 `research/intern-prefill100-20261025`；目标仍为动态正文64～256、完整动态prefill和模型TTFT均≤100ms，未实现。不可把单块计时、少输入、上轮动态KV或C256小窗口冒充达标。
+- GitHub远程已通过ls-remote核对 `0f09467c55f32c4a0352d8087d95ba1ffb18fc6f`，分支 `codex/wsl-intern1b-reproduction`；以下新结果/脚本需后续提交，不意味着已包含在该提交。
+- `fullbaseline-c1280-r1` PID4991已退出、rc0，48性能/12自然/8诊断完整；系统64/128含5模板，动态64/128/192/256另8模板、新72/136/200/264、输出固定32。TTFT各长度约1.6/2.9/4.1/5.4s，decode14.65～14.69。driver0。报告 `fullbaseline/results/fullbaseline-c1280-r1/REPORT.md`，含swap-out46.13MiB、音频启动最大lag626ms和质量9/12边界。
+- `fp16conv-m16-r1` PID6598已退出、rc0；C512/M16两层块A-B-A:112.345→45.894→112.362ms（2.448x），hidden relL2 .0007477，非bitwise。保持原FP16权重/量化，3次release0。报告 `results/fp16conv-m16-r1/REPORT.md`。单块没语音/RAG，不是全模型TTFT。
+- 全12个C1280 prefill图只有L2内部真实层2/3的两处down FP16，其余22层down I16/I8/I16。图agent准备仅替换C1280 prefill-layer2.nb的Conv候选，runtimeagent准备同C1280完整A-B-A控制器；尚未部署完整候选，decoder不改。节点trace缺engine字段，FP16 down没有NN计数不等于已证实CPU fallback。
+- 板卡只能通过Windows/WSL并持hostlock+板flock，root独占板；agent只Windows编译/分析。当前已完成两任务，新的完整候选须先审配置并唯一命名启动。最新比较文件 `ORIGINAL_COMPARISON.md` 已补长输入表。
+
 ## 2026-10-25：100ms prefill新目标与原始数据对比
 
 任务目录 research/intern-prefill100-20261025。目标仍未完成：system固定64/128（正文59/123+模板5），动态正文64–256+模板8，只缓存system，要求完整prefill及TTFT均≤100ms。完整主格/边界与限制见PLAN.md/AUDIT.md。

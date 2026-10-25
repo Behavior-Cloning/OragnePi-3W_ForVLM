@@ -1,0 +1,428 @@
+{
+  "status": "independent_integrity_pass_not_fullmodel_qualification",
+  "scope": "C512/M16 fused layers2/3 only; no full-model TTFT, no audio/RAG",
+  "counts": {
+    "groups": 3,
+    "timed": 90,
+    "warmup": 9,
+    "normal_releases_zero": 3,
+    "finite_f32_actual_SHA_valid": 3
+  },
+  "source_hashes_verified": {
+    "controller_fp16conv.py": "03f349ae5972ef0e6ea6a3c1d1f1d2d2a25367b76a48881489cb1be4b5f3c3f0",
+    "board_probe_suite.py": "28efcf567d0aec9e412b96cf38409c32b8d67f8463c8a7dee0414a2d133980c9",
+    "analyze_fp16conv.py": "04a2a20ef72b3031ed2a249f35732b8c660ca4f63cd0caa58f5eee77e8ecf44d"
+  },
+  "candidate_nb_sha256": "425bc11857e5691b30abf3d60700dcc735dd13f6b12bed3671f32a287dfe02b5",
+  "same_canonical_input_and_reference_verified": true,
+  "analysis_script_recomputed_match": true,
+  "P95_note": "Existing analyze_fp16conv uses numpy linear quantile; previous single-block analyzer used nearest-rank. Both given here; do not mix definitions silently.",
+  "rows": [
+    {
+      "case": "original-before",
+      "api_ms": {
+        "n": 30,
+        "min": 112.04478499999999,
+        "p50": 112.34518249999999,
+        "p95_linear": 112.3977309,
+        "p95_nearest_rank": 112.398162,
+        "max": 112.403204
+      },
+      "released_bytes": 0,
+      "driver_allocated_bytes": 34674672,
+      "output_sha256": "8e2bcdbb5a0b49bc6ae7e56e977020b73940fb906846121895932786ad942608",
+      "against_exported_weight_FP32": [
+        {
+          "port": 0,
+          "elements": 14336,
+          "different_elements": 14336,
+          "byte_equal": false,
+          "relative_l2": 0.005990798297107346,
+          "max_abs": 0.017418384552001953
+        },
+        {
+          "port": 1,
+          "elements": 2048,
+          "different_elements": 2048,
+          "byte_equal": false,
+          "relative_l2": 0.00010349267249726726,
+          "max_abs": 0.004993438720703125
+        },
+        {
+          "port": 2,
+          "elements": 2048,
+          "different_elements": 2048,
+          "byte_equal": false,
+          "relative_l2": 0.0010265864186469818,
+          "max_abs": 0.03748726844787598
+        },
+        {
+          "port": 3,
+          "elements": 2048,
+          "different_elements": 2048,
+          "byte_equal": false,
+          "relative_l2": 0.0006174102641049882,
+          "max_abs": 0.0014920234680175781
+        },
+        {
+          "port": 4,
+          "elements": 2048,
+          "different_elements": 2048,
+          "byte_equal": false,
+          "relative_l2": 0.004229429805918742,
+          "max_abs": 0.015136562287807465
+        }
+      ]
+    },
+    {
+      "case": "conv1x1",
+      "api_ms": {
+        "n": 30,
+        "min": 45.441390999999996,
+        "p50": 45.894122499999995,
+        "p95_linear": 50.664091899999995,
+        "p95_nearest_rank": 50.815705,
+        "max": 54.213135
+      },
+      "released_bytes": 0,
+      "driver_allocated_bytes": 34678464,
+      "output_sha256": "27987930ca20002a17a4431b29e6ac7266cead9d9895549078e0a77bc09bd5e4",
+      "against_exported_weight_FP32": [
+        {
+          "port": 0,
+          "elements": 14336,
+          "different_elements": 14336,
+          "byte_equal": false,
+          "relative_l2": 0.0059882449667571615,
+          "max_abs": 0.017418384552001953
+        },
+        {
+          "port": 1,
+          "elements": 2048,
+          "different_elements": 2048,
+          "byte_equal": false,
+          "relative_l2": 0.00010349267249726726,
+          "max_abs": 0.004993438720703125
+        },
+        {
+          "port": 2,
+          "elements": 2048,
+          "different_elements": 2048,
+          "byte_equal": false,
+          "relative_l2": 0.0010272792059071282,
+          "max_abs": 0.03748726844787598
+        },
+        {
+          "port": 3,
+          "elements": 2048,
+          "different_elements": 2048,
+          "byte_equal": false,
+          "relative_l2": 0.0006174102641049882,
+          "max_abs": 0.0014920234680175781
+        },
+        {
+          "port": 4,
+          "elements": 2048,
+          "different_elements": 2048,
+          "byte_equal": false,
+          "relative_l2": 0.0042294638835764795,
+          "max_abs": 0.015136562287807465
+        }
+      ]
+    },
+    {
+      "case": "original-after",
+      "api_ms": {
+        "n": 30,
+        "min": 112.085036,
+        "p50": 112.36228700000001,
+        "p95_linear": 112.39810955,
+        "p95_nearest_rank": 112.399703,
+        "max": 112.43132899999999
+      },
+      "released_bytes": 0,
+      "driver_allocated_bytes": 34674672,
+      "output_sha256": "8e2bcdbb5a0b49bc6ae7e56e977020b73940fb906846121895932786ad942608",
+      "against_exported_weight_FP32": [
+        {
+          "port": 0,
+          "elements": 14336,
+          "different_elements": 14336,
+          "byte_equal": false,
+          "relative_l2": 0.005990798297107346,
+          "max_abs": 0.017418384552001953
+        },
+        {
+          "port": 1,
+          "elements": 2048,
+          "different_elements": 2048,
+          "byte_equal": false,
+          "relative_l2": 0.00010349267249726726,
+          "max_abs": 0.004993438720703125
+        },
+        {
+          "port": 2,
+          "elements": 2048,
+          "different_elements": 2048,
+          "byte_equal": false,
+          "relative_l2": 0.0010265864186469818,
+          "max_abs": 0.03748726844787598
+        },
+        {
+          "port": 3,
+          "elements": 2048,
+          "different_elements": 2048,
+          "byte_equal": false,
+          "relative_l2": 0.0006174102641049882,
+          "max_abs": 0.0014920234680175781
+        },
+        {
+          "port": 4,
+          "elements": 2048,
+          "different_elements": 2048,
+          "byte_equal": false,
+          "relative_l2": 0.004229429805918742,
+          "max_abs": 0.015136562287807465
+        }
+      ]
+    }
+  ],
+  "candidate_vs_original_ports": [
+    {
+      "port": 0,
+      "elements": 14336,
+      "different_elements": 2403,
+      "byte_equal": false,
+      "relative_l2": 0.0007476820246039767,
+      "max_abs": 0.00421142578125
+    },
+    {
+      "port": 1,
+      "elements": 2048,
+      "different_elements": 0,
+      "byte_equal": true,
+      "relative_l2": 0.0,
+      "max_abs": 0.0
+    },
+    {
+      "port": 2,
+      "elements": 2048,
+      "different_elements": 8,
+      "byte_equal": false,
+      "relative_l2": 1.7846176667892953e-05,
+      "max_abs": 0.0009765625
+    },
+    {
+      "port": 3,
+      "elements": 2048,
+      "different_elements": 0,
+      "byte_equal": true,
+      "relative_l2": 0.0,
+      "max_abs": 0.0
+    },
+    {
+      "port": 4,
+      "elements": 2048,
+      "different_elements": 23,
+      "byte_equal": false,
+      "relative_l2": 3.0281703506027044e-05,
+      "max_abs": 0.0001220703125
+    }
+  ],
+  "baseline_repeat_ports": [
+    {
+      "port": 0,
+      "elements": 14336,
+      "different_elements": 0,
+      "byte_equal": true,
+      "relative_l2": 0.0,
+      "max_abs": 0.0
+    },
+    {
+      "port": 1,
+      "elements": 2048,
+      "different_elements": 0,
+      "byte_equal": true,
+      "relative_l2": 0.0,
+      "max_abs": 0.0
+    },
+    {
+      "port": 2,
+      "elements": 2048,
+      "different_elements": 0,
+      "byte_equal": true,
+      "relative_l2": 0.0,
+      "max_abs": 0.0
+    },
+    {
+      "port": 3,
+      "elements": 2048,
+      "different_elements": 0,
+      "byte_equal": true,
+      "relative_l2": 0.0,
+      "max_abs": 0.0
+    },
+    {
+      "port": 4,
+      "elements": 2048,
+      "different_elements": 0,
+      "byte_equal": true,
+      "relative_l2": 0.0,
+      "max_abs": 0.0
+    }
+  ],
+  "speedup_before_after": [
+    2.4479209184138995,
+    2.4482936131963307
+  ],
+  "baseline_repeat_drift_percent": 0.015224951902159667,
+  "resources": {
+    "samples": 39,
+    "board_suite_duration_s": 10.278765591006959,
+    "temperature_sampled_peak_C": 41.478,
+    "temperature_including_health_peak_C": 41.478,
+    "temperature_pre_C": 40.114,
+    "temperature_post_C": 39.432,
+    "MemAvailable_min_bytes": 4617547776,
+    "swap_used_pre_post_MiB": [
+      105.5,
+      105.5
+    ],
+    "swapin_pages_delta": 0,
+    "swapout_pages_delta": 0,
+    "oom_delta": 0,
+    "driver_pre_post": [
+      0,
+      0
+    ],
+    "frequency_kHz": {
+      "cpu7": {
+        "n": 39,
+        "min": 416000.0,
+        "p50": 416000.0,
+        "p95_linear": 2002000.0,
+        "p95_nearest_rank": 2002000.0,
+        "max": 2002000.0
+      },
+      "cpu5": {
+        "n": 39,
+        "min": 416000.0,
+        "p50": 416000.0,
+        "p95_linear": 1794000.0,
+        "p95_nearest_rank": 1794000.0,
+        "max": 1794000.0
+      },
+      "cpu3": {
+        "n": 39,
+        "min": 416000.0,
+        "p50": 416000.0,
+        "p95_linear": 1794000.0,
+        "p95_nearest_rank": 1794000.0,
+        "max": 1794000.0
+      },
+      "cpu1": {
+        "n": 39,
+        "min": 416000.0,
+        "p50": 416000.0,
+        "p95_linear": 1794000.0,
+        "p95_nearest_rank": 1794000.0,
+        "max": 1794000.0
+      },
+      "cpu6": {
+        "n": 39,
+        "min": 416000.0,
+        "p50": 416000.0,
+        "p95_linear": 2002000.0,
+        "p95_nearest_rank": 2002000.0,
+        "max": 2002000.0
+      },
+      "cpu4": {
+        "n": 39,
+        "min": 416000.0,
+        "p50": 416000.0,
+        "p95_linear": 1794000.0,
+        "p95_nearest_rank": 1794000.0,
+        "max": 1794000.0
+      },
+      "cpu2": {
+        "n": 39,
+        "min": 416000.0,
+        "p50": 416000.0,
+        "p95_linear": 1794000.0,
+        "p95_nearest_rank": 1794000.0,
+        "max": 1794000.0
+      },
+      "cpu0": {
+        "n": 39,
+        "min": 416000.0,
+        "p50": 416000.0,
+        "p95_linear": 1794000.0,
+        "p95_nearest_rank": 1794000.0,
+        "max": 1794000.0
+      }
+    },
+    "phase": {
+      "original-before": {
+        "samples": 15,
+        "temp_min_C": 39.37,
+        "temp_max_C": 40.486,
+        "cpu4_kHz": {
+          "n": 15,
+          "min": 416000.0,
+          "p50": 416000.0,
+          "p95_linear": 1794000.0,
+          "p95_nearest_rank": 1794000.0,
+          "max": 1794000.0
+        }
+      },
+      "conv1x1": {
+        "samples": 8,
+        "temp_min_C": 39.122,
+        "temp_max_C": 41.478,
+        "cpu4_kHz": {
+          "n": 8,
+          "min": 780000.0,
+          "p50": 1794000.0,
+          "p95_linear": 1794000.0,
+          "p95_nearest_rank": 1794000.0,
+          "max": 1794000.0
+        }
+      },
+      "original-after": {
+        "samples": 16,
+        "temp_min_C": 39.742,
+        "temp_max_C": 40.362,
+        "cpu4_kHz": {
+          "n": 16,
+          "min": 416000.0,
+          "p50": 416000.0,
+          "p95_linear": 1033500.0,
+          "p95_nearest_rank": 1794000.0,
+          "max": 1794000.0
+        }
+      }
+    }
+  },
+  "raw_sha256": {
+    "config.json": "8d8618401a0506725f7421c7f0a02f997452e51144a7454dd7b768145cecd7a9",
+    "meta.json": "e99272a4839f5d579fbc0d64d660be23062918218ab242832b74f4ab102f1239",
+    "events.jsonl": "62a7d96dde44ac04876db0772193662e65ef08279740e5b871e067b3dd0c519b",
+    "resources.jsonl": "d4eb36d6b54e031f373ed14ad3771d2e602d7d7b54f5c0dd2d4d57d3c1825f40",
+    "pre-health.json": "3a6f61d9bbd9c1952ca5cb90d1e7239128503d4b918add071a8bb2f619a99822",
+    "post-health.json": "8dc86d9932933ea9efa6d0c36f7087d557cf841b400b9b27856c45e0b5bd7cd4"
+  },
+  "limitations": [
+    "Only one canonical input and 30 repeated calls per variant.",
+    "Non-bitwise candidate: hidden relative L2 0.074768%, 2403 values differ; small local error does not imply full-model answer parity.",
+    "Candidate has larger latency variation: P95 and max must accompany P50.",
+    "A-B-A only controls this short interval; CPU frequency varies and NPU clock is not sampled.",
+    "FP32 reference uses actual exported weights but does not emulate every NPU activation rounding.",
+    "Full-model C1280 overlay has a different NB SHA and must be verified independently."
+  ],
+  "next_full_model_gate": [
+    "Freeze same whole-model input/token IDs and system-only KV contract, including D64/128/192/256 and batch boundaries.",
+    "A-B-A baseline/overlay/baseline with identical old runtime and one declared replacement; preserve graph/binary SHA evidence.",
+    "Fixed32 performance separate from 4-step full-vocab diagnostic and natural action-quality evaluation; compare logits, argmax and repeat output, no bitwise assumption.",
+    "Check real normal closes driver0 plus resident speech/RAG resources, swap/audio overruns and output quality before promotion."
+  ]
+}

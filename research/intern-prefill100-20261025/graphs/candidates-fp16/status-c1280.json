@@ -1,0 +1,237 @@
+{
+  "state": "complete",
+  "start": 1792936389.5877097,
+  "source": "/opt/opi-lab/source-validation-20261017/gguf-fresh/export/w8-fused2-c1280-t16-cap1-productwide/l2",
+  "candidate": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/candidates-fp16/conv1x1-c1280-m16-l2",
+  "runtime_scope": "only replace prefill-layer2.nb; decode and all other blocks/head unchanged",
+  "graph_equivalence": {
+    "source-f32": {
+      "b1_attach_hidden_out/out0": {
+        "relative_l2": 3.1647343234908476e-07,
+        "maxabs": 1.430511474609375e-06,
+        "finite": true
+      },
+      "b0_attach_new_k/out0": {
+        "relative_l2": 0.0,
+        "maxabs": 0.0,
+        "finite": true
+      },
+      "b0_attach_new_v/out0": {
+        "relative_l2": 0.0,
+        "maxabs": 0.0,
+        "finite": true
+      },
+      "b1_attach_new_k/out0": {
+        "relative_l2": 7.011579583604544e-08,
+        "maxabs": 1.9073486328125e-06,
+        "finite": true
+      },
+      "b1_attach_new_v/out0": {
+        "relative_l2": 2.0051311366842128e-07,
+        "maxabs": 3.2782554626464844e-07,
+        "finite": true
+      }
+    },
+    "down-weight-f16-reexpanded": {
+      "b1_attach_hidden_out/out0": {
+        "relative_l2": 3.227203819733404e-07,
+        "maxabs": 9.5367431640625e-07,
+        "finite": true
+      },
+      "b0_attach_new_k/out0": {
+        "relative_l2": 0.0,
+        "maxabs": 0.0,
+        "finite": true
+      },
+      "b0_attach_new_v/out0": {
+        "relative_l2": 0.0,
+        "maxabs": 0.0,
+        "finite": true
+      },
+      "b1_attach_new_k/out0": {
+        "relative_l2": 7.522996270381554e-08,
+        "maxabs": 1.9073486328125e-06,
+        "finite": true
+      },
+      "b1_attach_new_v/out0": {
+        "relative_l2": 2.1472273203926306e-07,
+        "maxabs": 4.172325134277344e-07,
+        "finite": true
+      }
+    }
+  },
+  "independent_two_constructions_equal": true,
+  "original_array_values_equal": true,
+  "source_hashes": {
+    "decoder.json": "ca1762115c6ae29d4618fe15cee0dc1be991b289b5bd9096a9c10c0597cfcde3",
+    "decoder.data": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+    "decoder.quantize": "35ef6de51d90e057f69dfbb87d35c51dee1a85b435f3f6ab5a8d0c10f6afce6d",
+    "export/decoder.export.data": "705351fcfc1445a29c2d7677b600d5468f47fae19c4322af01a5531fc2461a9e",
+    "export_nbg_unify/network_binary.nb": "48b0b3a0c45b1280a6bc818620b3e34117d9c20629b53bb4c7d899a202b3e7d6"
+  },
+  "canonical_input_sha256": "90503bab6e868424973d0b45e31ae40b78b2f3c8cc9b4af16989c952f8e23a38",
+  "source_precision": "Original calibrated FP16-down exception preserved; all other dtype/quantize identical",
+  "generator_sha256": "191eff01be3ec386defccb56e0513503a22baa584238f10258b1a60752ae5e95",
+  "compile_command": [
+    "docker",
+    "run",
+    "--rm",
+    "-e",
+    "VIV_VX_DUMP_NODE_TRACE_DB=1",
+    "--name",
+    "opi-conv1280-0a74cebd0f",
+    "--network",
+    "none",
+    "--cpus",
+    "4",
+    "--memory",
+    "8g",
+    "-e",
+    "TF_CPP_MIN_LOG_LEVEL=3",
+    "-e",
+    "OMP_NUM_THREADS=4",
+    "-e",
+    "VSIMULATOR_SHADER_CORE_COUNT=1",
+    "-e",
+    "VSIMULATOR_CONFIG=VIP9000NANODI_PLUS_PID0X1000003B",
+    "-v",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs:/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs",
+    "-v",
+    "/opt/opi-lab/source-validation-20261017/gguf-fresh/export:/opt/opi-lab/source-validation-20261017/gguf-fresh/export:ro",
+    "-w",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/candidates-fp16/conv1x1-c1280-m16-l2",
+    "ubuntu-npu:v2.0.10.2",
+    "python3",
+    "/root/acuity-toolkit-whl-6.30.22/bin/pegasus.py",
+    "export",
+    "ovxlib",
+    "--model",
+    "decoder.json",
+    "--model-data",
+    "decoder.data",
+    "--model-quantize",
+    "decoder.quantize",
+    "--dtype",
+    "quantized",
+    "--with-input-meta",
+    "tensor-inputmeta.yml",
+    "--target-ide-project",
+    "linux64",
+    "--pack-nbg-unify",
+    "--optimize",
+    "VIP9000NANODI_PLUS_PID0X1000003B",
+    "--viv-sdk",
+    "/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools",
+    "--output-path",
+    "export/decoder"
+  ],
+  "end": 1792936414.1111205,
+  "compile_seconds": 22.336664159000065,
+  "nb": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/candidates-fp16/conv1x1-c1280-m16-l2/export_nbg_unify/network_binary.nb",
+  "nb_sha256": "dc772225e8c2b9ec2f6376132ba12aa9938dbe966b678e2bd7672832299fcfa6",
+  "nb_bytes": 34050560,
+  "quantizer_byte_equal": true,
+  "all_14_exported_fc_weight_dtype_and_bytes_same": [
+    {
+      "key": "b0_fullconnect_116",
+      "dtype": "FLOAT16",
+      "bytes": 8716288,
+      "sha256": "618d23406fdf5b08347abd7782dabc1a02254cdd1991fb453c33a003864635d0",
+      "source_exported_weight_exact": true
+    },
+    {
+      "key": "b0_fullconnect_119",
+      "dtype": "INT8",
+      "bytes": 802816,
+      "sha256": "7f735566185805a4ea7841f64d72b73a48c565f79c30d3841c962b2b49ecc91f",
+      "source_exported_weight_exact": true
+    },
+    {
+      "key": "b0_fullconnect_122",
+      "dtype": "INT8",
+      "bytes": 114688,
+      "sha256": "528f5d3496d2fa28bca9c51ccda0a109b8521175f79b394bb09a4bafd1a41288",
+      "source_exported_weight_exact": true
+    },
+    {
+      "key": "b0_fullconnect_125",
+      "dtype": "INT8",
+      "bytes": 4358144,
+      "sha256": "a1b9b980075da6657c54cab9c4ac04b418b8689f58af461b91b693aa11aa47e3",
+      "source_exported_weight_exact": true
+    },
+    {
+      "key": "b0_fullconnect_128",
+      "dtype": "INT8",
+      "bytes": 114688,
+      "sha256": "14ce33a47dad4c382c073b9dca87a43ad453ef95470a4db1a5be55c3ee703d05",
+      "source_exported_weight_exact": true
+    },
+    {
+      "key": "b0_fullconnect_131",
+      "dtype": "INT8",
+      "bytes": 4358144,
+      "sha256": "108f54f56737f431d229c01acae3258acf2a2f2b273ca36dfd628e15a735d7f9",
+      "source_exported_weight_exact": true
+    },
+    {
+      "key": "b0_fullconnect_134",
+      "dtype": "INT8",
+      "bytes": 802816,
+      "sha256": "c35d587c23ca972cd5c2381b21a2c0a5bdf7f43ee10520f5013f39f173b0e2cf",
+      "source_exported_weight_exact": true
+    },
+    {
+      "key": "b1_fullconnect_116",
+      "dtype": "FLOAT16",
+      "bytes": 8716288,
+      "sha256": "fbbddba10e998277efa22aae84f95eff04bd3d32fe466e92271b0ca0ae4b766b",
+      "source_exported_weight_exact": true
+    },
+    {
+      "key": "b1_fullconnect_119",
+      "dtype": "INT8",
+      "bytes": 802816,
+      "sha256": "c02cca6c11c26ae8199b8191b96ae0c10c10fa6e663fe6f0db8bc88568b38d91",
+      "source_exported_weight_exact": true
+    },
+    {
+      "key": "b1_fullconnect_122",
+      "dtype": "INT8",
+      "bytes": 114688,
+      "sha256": "7532e3dd99e8ff6351e0b09c44c0f7abbd794d3a1d15a9a281e29fcd74705420",
+      "source_exported_weight_exact": true
+    },
+    {
+      "key": "b1_fullconnect_125",
+      "dtype": "INT8",
+      "bytes": 4358144,
+      "sha256": "760c7ebbece3d4144ce2073049cae2c768900cabdfd5ac1da7e048b8b685922c",
+      "source_exported_weight_exact": true
+    },
+    {
+      "key": "b1_fullconnect_128",
+      "dtype": "INT8",
+      "bytes": 114688,
+      "sha256": "514213383628ec92be1aa6ba10291a92ee10519a6d829c8e67c345cee3939402",
+      "source_exported_weight_exact": true
+    },
+    {
+      "key": "b1_fullconnect_131",
+      "dtype": "INT8",
+      "bytes": 4358144,
+      "sha256": "e528ee56575df3bd507ae8376f4054efefffddea752fa608ac74db9930ff2dd4",
+      "source_exported_weight_exact": true
+    },
+    {
+      "key": "b1_fullconnect_134",
+      "dtype": "INT8",
+      "bytes": 802816,
+      "sha256": "6e67322c494f710621c5399ddca38fec3074d88f4a6bd8c029c39c3ddd1efa5f",
+      "source_exported_weight_exact": true
+    }
+  ],
+  "all_external_ports_exact": true,
+  "trace": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/candidates-fp16/conv1x1-c1280-m16-l2/export/node_trace_db.json",
+  "board_status": "prepared only; no board access or deployment"
+}

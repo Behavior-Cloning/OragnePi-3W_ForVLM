@@ -104,4 +104,14 @@ for label,qs in report['quality_sets'].items():
 text+='\n两个自然样例分组均已在先前实验使用，本轮作为回归集；不能称新增独立留出集。\n'
 text+=f"\n最高温度{res['temperature_C']['max']:.3f}°C；全8核CPU加权占用{res['cpu_weighted_mean_percent_whole_8cores']:.2f}%；采样进程RSS合计峰值{res['process_RSS_sum_MiB']['max']:.1f}MiB、PSS{res['process_PSS_sum_MiB']['max']:.1f}MiB；MemAvailable最低{res['MemAvailable_MiB']['min']:.1f}MiB。包含加载、system重建和诊断，不是纯生产热循环。3次NPU释放均0。\n"
 text+='\n全部24个4步logits文件实际重算SHA、finite和argmax后分析；详见analysis.json。目标100ms在当前24请求全部满足：'+str(report['measured_grid_all_below100ms'])+'。\n'
+text+='\n|静态|动态正文|候选setup中位ms|候选head中位ms|候选TTFT P95 ms|候选<100ms次数/3|\n|---:|---:|---:|---:|---:|---:|\n'
+for c in cells:
+ b=c['variants'][NAMES[1]]
+ es=[e for e in measure if e['variant']==NAMES[1] and e['static_tokens']==c['static_tokens'] and e['body_tokens']==c['dynamic_body_tokens']]
+ setup=float(np.median([e['metrics']['setup_seconds'] for e in es]))*1000
+ head=float(np.median([e['metrics']['first_head_seconds'] for e in es]))*1000
+ p95=max(e['metrics']['ttft_seconds'] for e in es)*1000
+ hit=sum(e['metrics']['ttft_seconds']<=.1 for e in es)
+ text+=f"|{c['static_tokens']}|{c['dynamic_body_tokens']}|{setup:.2f}|{head:.2f}|{p95:.2f}|{hit}/3|\n"
+text+='\nP95使用nearest rank，n=3时等于最大值；这是小样本配对而非长期尾延迟结论。模型计时不含上游语音/摘要/分词；实际new包含8模板token。\n'
 (D/'REPORT.md').write_text(text);print(text)

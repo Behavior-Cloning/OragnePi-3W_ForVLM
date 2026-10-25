@@ -61,16 +61,47 @@ def analyze(root):
     baseline=next((x['variant'] for x in events if x['event']=='loaded'),None);refs={};diag_refs={}
     fixture=json.loads((root/'fixtures.json').read_text()) if (root/'fixtures.json').exists() else {}
     by_case={x['id']:x for x in fixture.get('performance',[])}
+    config=json.loads((root/'config.json').read_text()) if (root/'config.json').exists() else {}
+    configured_names=[x['name'] for x in config.get('variants',[])]
+    if configured_names and names!=configured_names:issues.append('configured/runtime variant sequence mismatch')
+    out['configured_variants']=configured_names
+    out['expected_candidate_set_present']=set(configured_names)=={'mask-base','context256','tail8-c1280','greedy-c1280','context256-greedy','mask-repeat'}
+    feedback_reference=None
+    require_cost=out['expected_candidate_set_present'] or any(x['event']=='quality_cost' for x in events)
+    quality_by_case={x['id']:x for x in fixture.get('quality',[])}
     for name in names:
-        rows=[x for x in events if x.get('variant')==name];perf=[x for x in rows if x['event']=='measure'];quality=[x for x in rows if x['event']=='quality'];diagnostic=[x for x in rows if x['event']=='diagnostic']
-        v={'counts':dict(collections.Counter(x['event'] for x in rows)),'cells':{},'stage_profile':aggregate_stage(perf),'quality':[],'diagnostic':[],'resources':resources_stats([x for x in resources if x.get('variant')==name]),'close':[x.get('metrics',{}) for x in rows if x['event'] in ['closed','closed_on_failure']]}
+        rows=[x for x in events if x.get('variant')==name];perf=[x for x in rows if x['event']=='measure'];quality=[x for x in rows if x['event']=='quality'];diagnostic=[x for x in rows if x['event']=='diagnostic'];quality_cost=[x for x in rows if x['event']=='quality_cost']
+        v={'counts':dict(collections.Counter(x['event'] for x in rows)),'cells':{},'stage_profile':aggregate_stage(perf),'quality':[],'quality_cost':[],'diagnostic':[],'resources':resources_stats([x for x in resources if x.get('variant')==name]),'close':[x.get('metrics',{}) for x in rows if x['event'] in ['closed','closed_on_failure']]}
+        load=next((x for x in rows if x['event']=='loaded'),{})
+        v['ready']=load.get('ready',{});v['settings']=load.get('settings',{})
+        for key in ['layers','capacity']:
+            if v['ready'].get(key)!=v['settings'].get(key):issues.append('ready/settings mismatch '+name+' '+key)
+        v['resources_by_phase']={phase:resources_stats([x for x in resources if x.get('variant')==name and x.get('phase')==phase]) for phase in sorted({x.get('phase','unknown') for x in resources if x.get('variant')==name})}
+        v['resource_interpretation']='Same Python harness across variants; diagnostics/allocator highwater can persist. Performance-only host PSS is still not independently loaded model footprint; NPU driver recorded separately.'
         for kind,actual,expected in [('performance',len(perf),12*repeat_count if repeat_count else None),('quality',len(quality),12),('diagnostic',len(diagnostic),4)]:
             if kind in enabled and expected is not None and actual!=expected:issues.append('count mismatch '+name+' '+kind)
+        if 'quality' in enabled and require_cost and len(quality_cost)!=4:issues.append('quality_cost count mismatch '+name)
+        if 'performance' in enabled and repeat_count:
+            expected_keys={(i,k) for i in range(repeat_count) for k in by_case}
+            if {(x['repeat'],x['case']) for x in perf}!=expected_keys:issues.append('performance fixture/repeat coverage mismatch '+name)
+        for natural_kind,natural_rows in [('quality',quality),('quality_cost',quality_cost)]:
+            for x in natural_rows:
+                m=x['metrics'];case=(quality_by_case if natural_kind=='quality' else by_case).get(x['case'],{})
+                if m.get('diagnostic') or m.get('fixed_feedback') or not (1<=m['generated_tokens']<=32) or len(m['tokens'])!=m['generated_tokens']:issues.append('natural flags/token count mismatch '+name+' '+x['case'])
+                if case and (m['prompt_tokens']!=len(case['tokens']) or m['new_tokens']!=case['expected_new_tokens'] or m['reused_tokens']!=case['expected_reused_tokens']):issues.append('natural input/cache mismatch '+name+' '+x['case'])
+                if natural_kind=='quality_cost':
+                    if not x.get('cost_padding'):issues.append('cost sample unlabelled '+name+' '+x['case'])
+                    if v['settings'].get('env',{}).get('OPI_PREFILL8_DIR') and m.get('true_tail8_calls')!=1:issues.append('natural tail8 not exercised '+name+' '+x['case'])
         for cell in [(64,32),(64,64),(128,32),(128,64)]:
             subset=[x for x in perf if (x['static_tokens'],x['body_tokens'])==cell];decode=[];parity=[]
             if 'performance' in enabled and repeat_count and len(subset)!=3*repeat_count:issues.append('cell count mismatch '+name+' '+str(cell))
             for x in subset:
                 m=x['metrics'];count=m['generated_tokens'];denom=m['total_seconds']-m['ttft_seconds']
+                fb=x.get('feedback_tokens',[])
+                if feedback_reference is None:feedback_reference=fb
+                if len(fb)!=32 or fb!=feedback_reference:issues.append('feedback sequence mismatch '+name+' '+x['case'])
+                if m['prompt_tokens']+count-1>v['ready'].get('capacity',0):issues.append('capacity overflow '+name+' '+x['case'])
+                if x.get('prompt_sha256')!=by_case.get(x['case'],{}).get('tokens_sha256'):issues.append('prompt SHA mismatch '+name+' '+x['case'])
                 if count>1 and denom>0:decode.append((count-1)/denom)
                 if m.get('diagnostic') or not m.get('fixed_feedback') or count!=32:issues.append('invalid speed flags/count '+name+' '+x['case'])
                 if m.get('stage_profile',{}).get('network_queries_enabled'):issues.append('SDK query contaminated speed '+name)
@@ -88,7 +119,13 @@ def analyze(root):
             key=('quality',x['case']);tokens=x['metrics']['tokens']
             if name==baseline:refs[key]=tokens
             v['quality'].append({'case':x['case'],'input':x['input'],'reply':x['reply'],'finish_reason':x['metrics']['finish_reason'],'generated_tokens':x['metrics']['generated_tokens'],'exact_tokens_vs_baseline':tokens==refs.get(key) if key in refs else None,'tokens':tokens,'top3':[(a['id'],a['name'],a['score']) for a in x['top3']],'rag_s':x['rag_s'],'token_accounting':{k:x.get(k) for k in ['static_tokens','system_body_tokens','system_template_tokens','body_tokens','template_overhead','dynamic_tokens','total_prompt_tokens','expected_new_tokens','actual_new_tokens','actual_reused_tokens','output_tokens_including_eos','output_tokens_excluding_terminal_eos']}})
+        for x in quality_cost:
+            key=('quality_cost',x['case']);tokens=x['metrics']['tokens']
+            if name==baseline:refs[key]=tokens
+            v['quality_cost'].append({'case':x['case'],'input':x['input'],'reply':x['reply'],'cost_padding':x.get('cost_padding'),'finish_reason':x['metrics']['finish_reason'],'generated_tokens':x['metrics']['generated_tokens'],'exact_tokens_vs_baseline':tokens==refs.get(key) if key in refs else None,'tokens':tokens,'true_tail8_calls':x['metrics'].get('true_tail8_calls'),'new_tokens':x['metrics']['new_tokens'],'reused_tokens':x['metrics']['reused_tokens']})
         for x in diagnostic:
+            dm=x['metrics']
+            if not dm.get('diagnostic') or not dm.get('fixed_feedback') or dm.get('generated_tokens')!=4:issues.append('invalid diagnostic flags/count '+name+' '+x['case'])
             file=root/x['logits_file'];d={'case':x['case'],'path':x['logits_file'],'exists':file.exists(),'logged_comparison':x.get('logits_parity')}
             if file.exists():
                 raw=file.read_bytes();a=array.array('f');a.frombytes(raw)
@@ -108,10 +145,14 @@ def analyze(root):
                         d['independent_comparison']={'relative_l2':math.sqrt(err/max(denom,1e-60)),'max_abs':max(abs(u-v) for u,v in zip(a,b)),'top1_matches':top1,'steps':4}
             else:issues.append('missing diagnostic '+str(file))
             v['diagnostic'].append(d)
-        driver_values=[x.get('ready',{}).get('driver_bytes') for x in rows if x['event']=='loaded']+[x.get('metrics',{}).get('driver_bytes') for x in rows if x['event'] in ['measure','quality','diagnostic']]
+        driver_values=[x.get('ready',{}).get('driver_bytes') for x in rows if x['event']=='loaded']+[x.get('metrics',{}).get('driver_bytes') for x in rows if x['event'] in ['measure','quality','quality_cost','diagnostic']]
         v['driver_bytes']=stats(driver_values)
         v['driver_MiB']=stats([b/1048576 for b in driver_values if b is not None])
         v['graph_verification']=[x.get('files',[]) for x in rows if x['event']=='graph_verified']
+        declared=v['settings'].get('expected_graph_sha256',{})
+        records=[r for group in v['graph_verification'] for r in group]
+        if declared and set(declared)!={r['declared_path'] for r in records}:issues.append('graph hash coverage mismatch '+name)
+        if any(r.get('sha256')!=r.get('expected_sha256') for r in records):issues.append('graph hash mismatch '+name)
         v['diagnostic_stage_profile']=aggregate_stage(diagnostic)
         if not v['close'] or any(x.get('driver_bytes')!=0 for x in v['close']):issues.append('release unconfirmed '+name)
         out['variants'][name]=v
@@ -139,12 +180,16 @@ def markdown(data):
         natural=v['quality'];measure=[q for c in v['cells'].values() for q in c['fixed_feedback_parity']]
         lines+=['','### '+name,'', '固定反馈完全一致：%d/%d；自然输出完全一致：%d/%d。'%(sum(x['exact'] is True for x in measure),len(measure),sum(x['exact_tokens_vs_baseline'] is True for x in natural),len(natural)), '', '| case | 输出 | Top1 | 与基线token一致 |','|---|---|---|---|']
         for q in natural:lines.append('| %s | %s | %s | %s |'%(q['case'],q['reply'].replace('|','/').replace('\n',' '),q['top3'][0][1] if q['top3'] else '—',q['exact_tokens_vs_baseline']))
+        lines+=['', '标点cost fixture自然解码（额外4条，非独立质量样本）：', '', '| case | 输出 | token数含EOS | tail8调用 | 与基线token一致 |','|---|---|---:|---:|---|']
+        for q in v.get('quality_cost',[]):lines.append('| %s | %s | %s | %s | %s |'%(q['case'],q['reply'].replace('|','/').replace('\n',' '),q['generated_tokens'],q.get('true_tail8_calls'),q['exact_tokens_vs_baseline']))
         for d in v['diagnostic']:lines.append('- %s：存在=%s，finite=%s，SHA匹配=%s，独立对照=%s'%(d['case'],d['exists'],d.get('finite'),d.get('hash_matches'),d.get('independent_comparison','基线')))
         lines+=['','阶段profile：合批prefill未内部拆分；npu_run是SDK运行调用墙钟时间，不是净芯片算力时间。', '', '| phase | calls | NPU调用wall秒 | 搬运/KV host秒 | embedding/sampling host秒 |','|---|---:|---:|---:|---:|']
         for phase,z in v['stage_profile']['phases'].items():
             g=z['groups_seconds_total'];lines.append('| %s | %s | %.5f | %.5f | %.5f |'%(phase,z['calls'],g['npu_run_wall'],g['transfer_and_kv_host_wall'],g['embedding_and_sampling_host_wall']))
         r=v['resources'];lines+=['', '资源：CPU均值%s%%，最高温度%s°C，PSS峰值%sMiB，最低MemAvailable%sMiB；swap in/out=%s/%s页。'%(n(r['cpu_percent_all_cores'],'mean'),n(r['temperature_C'],'max'),n(r['harness_plus_worker_pss_MiB'],'max'),n(r['mem_available_MiB'],'min'),r.get('swap_in_pages'),r.get('swap_out_pages')), 'NPU driver常驻峰值：%s MiB（单列，不能未经核对直接与宿主PSS相加）；closed=%s。'%(n(v.get('driver_MiB',{}),'max'),v['close'])]
-    lines+=['','## 限制与审计','', '- CPU按全8核容量归一化；PSS为harness+worker，不代表全板所有服务。', '- 音频由Frontend以真实时间播放预录WAV；RAG性能阶段仅常驻，质量阶段才查询。','- 无视觉、真实麦克风、电机；固定反馈不代表真实对话质量。','- SDK NPU查询仅诊断集合，查询时间不得纳入速度比较。','- diagnostic关闭时profile logit_dump的微秒值是空分支计时开销；实际目录检查确保性能阶段没有写词表。']
+        pr=v.get('resources_by_phase',{}).get('performance',{})
+        lines+=['性能阶段资源（排除载入/quality/diagnostic）：CPU均值%s%%，最高温度%s°C，宿主PSS峰值%sMiB。'%(n(pr.get('cpu_percent_all_cores',{}),'mean'),n(pr.get('temperature_C',{}),'max'),n(pr.get('harness_plus_worker_pss_MiB',{}),'max'))]
+    lines+=['','## 限制与审计','', '- CPU按全8核容量归一化；PSS为harness+worker，不代表全板所有服务。','- 宿主Python跨variant复用，诊断数组与allocator高水位可能保留；每phase细分在JSON，PSS不能据差额推导独立模型footprint。','- 最大prompt200；32输出需要231个KV位置。capacity240最多41个输出，capacity256最多57个输出；不得把本矩阵直接改64输出。', '- 音频由Frontend以真实时间播放预录WAV；RAG性能阶段仅常驻，质量阶段才查询。','- 无视觉、真实麦克风、电机；固定反馈不代表真实对话质量。','- SDK NPU查询仅诊断集合，查询时间不得纳入速度比较。','- diagnostic关闭时profile logit_dump的微秒值是空分支计时开销；实际目录检查确保性能阶段没有写词表。']
     lines += ['- '+x for x in data['issues']] or ['- 结构、有限值与释放检查无异常。']
     return '\n'.join(lines)+'\n'
 

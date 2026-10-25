@@ -26,7 +26,7 @@ try:
    v['binary']=runroot+'/'+Path(v['binary']).name
   cfg['rag_catalog']=runroot+'/atoms.json';cfg['fixture_path']=runroot+'/aligned-inputs.json'
   frozen=p/(args.run+'-config.json');frozen.write_text(json.dumps(cfg,ensure_ascii=False,indent=2));b.scp(str(frozen),b.HOST+':'+runroot+'/config.json',check=True,timeout=30)
-  ssh('chmod 755 '+runroot+'/resident-mask '+runroot+'/resident-profile',check=True)
+  ssh('chmod 755 '+' '.join(shlex.quote(runroot+'/'+name) for name in sorted(needed|{'resident-mask','resident-profile'})),check=True)
   cmd='flock -w 5 /run/opi-npu-kv-benchmark.lock timeout -k 15 '+str(args.timeout)+' /opt/opi-vlm/jev-lab-20261020/venv/bin/python -u '+runroot+'/board_benchmark.py --config '+runroot+'/config.json --out '+output+' --repeats '+str(args.repeats)+' --phases '+shlex.quote(args.phases)
   shell=cmd+' >'+log+' 2>&1; rc=$?; printf "%s" "$rc" >'+exitfile
   ssh('nohup sh -c '+shlex.quote(shell)+' </dev/null >/dev/null 2>&1 &',check=True)

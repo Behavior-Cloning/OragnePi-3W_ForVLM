@@ -1,0 +1,7 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Traceback (most recent call last):
+  File "/opt/opi-vlm/intern-nextbench-20261025/runs/candidate-matrix-r2/board_benchmark.py", line 247, in <module>
+    if __name__=='__main__':main()
+  File "/opt/opi-vlm/intern-nextbench-20261025/runs/candidate-matrix-r2/board_benchmark.py", line 202, in main
+    emit('quality',variant=name,case=case['id'],static_tokens=case['static_tokens'],system_body_tokens=case['system_body_tokens'],system_template_tokens=case['static_tokens']-case['system_body_tokens'],body_tokens=case['body_tokens'],template_overhead=case['template_overhead'],dynamic_tokens=len(case['tokens'])-case['static_tokens'],total_prompt_tokens=len(case['tokens']),expected_new_tokens=case['expected_new_tokens'],actual_new_tokens=done['new_tokens'],actual_reused_tokens=done['reused_tokens'],output_tokens_including_eos=done['generated_tokens'],output_tokens_excluding_terminal_eos=done['generated_tokens']-int(done['tokens'][-1]==settings['eos']),input=case['input'],reply=reply,metrics=done,wall_s=wall,token_events=tokens,prefix_prepare_metrics=prep,top3=actions,rag_s=rag_s,rag_metrics=rag.last_query,output_parity=parity(('quality',case['id']),done['tokens']))
+KeyError: 'system_body_tokens'

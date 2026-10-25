@@ -1,0 +1,907 @@
+{
+  "version": 1,
+  "frozen_before_candidate_results": true,
+  "method": "Manual semantic rubric derived from user instructions and atom contracts; baseline already visible, so development pilot not blind/unseen evaluation. Candidate results must use unchanged rubric. No RAG code changes.",
+  "provenance": {
+    "fixture": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextbench-20261025/aligned-inputs.json",
+    "fixture_sha256": "ab861cabd9fd75f7d71d8232abc4e805a0cf848b6b7bbcd367e5d12736761e5c",
+    "profile_events": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextbench-20261025/results/profile-smoke/events.jsonl",
+    "profile_events_sha256": "da982f5baa8cd2cd0790a81c2535dea16257208bb7ee798d23f59707021fa770",
+    "catalog_sha256": "91aa5560704c978685ece1be379a083f697db1080214736f8019996f283ab39a"
+  },
+  "hardware_constraints": [
+    "head",
+    "two arms",
+    "no fingers",
+    "waist",
+    "base-like low-DoF legs with forward/back/left/right/turn",
+    "no eyes",
+    "no screen or facial display"
+  ],
+  "global_rules": {
+    "do_not_conflate": [
+      "same tokens vs same correctness",
+      "no explicit prohibited action vs task completion",
+      "semantic compatibility vs physical execution approval",
+      "rank similarity score vs compatibility probability",
+      "contains a good top1 vs safe to execute every top3"
+    ],
+    "permissibility_labels": {
+      "compatible": "supports target without known conflict",
+      "compatible_nonfulfilling": "not clearly prohibited/contradictory but does not itself accomplish target",
+      "conditional_nonfulfilling": "insufficient context; not counted as clear incompatibility, no goal completion",
+      "conflicting": "explicit prohibition or clear opposite of required intent"
+    },
+    "unknown_rule": "Missing robot state/space/kinematics is conditional, not silently correct and not automatically unrelated. Additional nonconflicting actions are not rejected merely for lacking lexical match.",
+    "goal_rule": "Require requested body motion or stop/hold intention; safe stillness only completes stop/hold tasks. Semantic stop intention does not verify queue cancellation or stop latency.",
+    "topk_execution_rule": "Any known-conflicting member makes execute-all set fail semantic screening; shared locks/trajectory entry conditions must be resolved separately. No physical actions executed."
+  },
+  "scenarios": [
+    {
+      "case": "tired-greeting",
+      "goal": "点头回应疲惫归家的用户",
+      "required_motion": "头部俯仰点头一次或同义轻点头；底盘无位移/转弯",
+      "explicit_constraints": [
+        "不要移动底盘"
+      ],
+      "reference_atom_ids": [
+        "R008"
+      ],
+      "acceptable_examples": [
+        "点头回应",
+        "轻轻点头"
+      ],
+      "abstention_examples": [
+        "保持静止"
+      ],
+      "abstention_counts_as_goal": false,
+      "clear_failures": [
+        "仅静止而不点头",
+        "摇头表达否定",
+        "前后左右平移或转动底盘"
+      ],
+      "compatible_support_examples": [
+        "不引入禁止动作的头部回正；只作为辅助，不能代替点头"
+      ],
+      "conditional_examples": [
+        "额外动作空间/幅度须有状态支持"
+      ]
+    },
+    {
+      "case": "reading-cancel",
+      "goal": "取消先前向前移动意图，让用户安静阅读",
+      "required_motion": "停止/撤销前向运动并维持安静；短语保持静止满足语义目标",
+      "explicit_constraints": [
+        "取消刚才向前移动的要求",
+        "保持安静"
+      ],
+      "reference_atom_ids": [
+        "R108"
+      ],
+      "acceptable_examples": [
+        "保持静止",
+        "停止前进",
+        "取消移动，静止等待"
+      ],
+      "abstention_examples": [
+        "保持静止"
+      ],
+      "abstention_counts_as_goal": true,
+      "clear_failures": [
+        "继续前进",
+        "无依据产生声音或打扰阅读"
+      ],
+      "compatible_support_examples": [
+        "安静、无新运动的保持状态"
+      ],
+      "conditional_examples": [
+        "向后移动不是原句逐字禁止，但未获任务支持，且与保持静止回复冲突；不单凭未明确禁止就自动准许"
+      ],
+      "runtime_unverified": [
+        "旧运动队列撤销",
+        "制动/停机响应",
+        "音频播放静音"
+      ]
+    },
+    {
+      "case": "wave",
+      "goal": "用手臂摆动打招呼",
+      "required_motion": "至少一个臂摆动；左右/双臂均可，底盘静止",
+      "explicit_constraints": [
+        "桌边空间有限",
+        "底盘保持静止"
+      ],
+      "reference_atom_ids": [
+        "R044",
+        "R064"
+      ],
+      "acceptable_examples": [
+        "摆臂",
+        "挥臂招呼",
+        "轻轻摆动左臂"
+      ],
+      "abstention_examples": [
+        "保持静止"
+      ],
+      "abstention_counts_as_goal": false,
+      "clear_failures": [
+        "仅静止而无臂部招呼",
+        "底盘平移或转弯",
+        "要求手指/屏幕/眼睛动作"
+      ],
+      "compatible_support_examples": [
+        "举臂作为与招呼不冲突的辅助姿态；单独举臂不等于完成摆臂"
+      ],
+      "conditional_examples": [
+        "摆幅/举臂高度是否碰桌需实机几何，文本不足以确认；缺条件单列不直接判不相关"
+      ]
+    },
+    {
+      "case": "nod",
+      "goal": "点头回应",
+      "required_motion": "头部俯仰点头",
+      "explicit_constraints": [],
+      "reference_atom_ids": [
+        "R008"
+      ],
+      "acceptable_examples": [
+        "点头",
+        "点头回应"
+      ],
+      "abstention_examples": [
+        "保持静止"
+      ],
+      "abstention_counts_as_goal": false,
+      "clear_failures": [
+        "仅静止",
+        "摇头表达否定",
+        "只移动底盘代替点头"
+      ],
+      "compatible_support_examples": [
+        "头部回正可作为不冲突的辅助；不独立完成目标"
+      ],
+      "conditional_examples": [
+        "未要求的额外运动不自动当成冲突，但不计目标完成"
+      ]
+    },
+    {
+      "case": "bend-not-look-up",
+      "goal": "弯腰且不抬头",
+      "required_motion": "腰部前倾/弯腰；头部不主动上仰",
+      "explicit_constraints": [
+        "不要抬头"
+      ],
+      "reference_atom_ids": [
+        "R013"
+      ],
+      "acceptable_examples": [
+        "弯腰",
+        "上身前倾"
+      ],
+      "abstention_examples": [
+        "保持静止"
+      ],
+      "abstention_counts_as_goal": false,
+      "clear_failures": [
+        "抬头/上仰头部",
+        "仅低头、未动腰",
+        "仅静止、未弯腰"
+      ],
+      "compatible_support_examples": [
+        "保持头部姿态",
+        "保持底盘静止，作为辅助而不是弯腰"
+      ],
+      "conditional_examples": [
+        "头部回正可能使原低头状态上仰，缺初态不能无条件批准",
+        "前后移动未被原句明确禁止，故不能仅因其不是弯腰就算明确冲突；但不完成目标，且与保持静止回复冲突",
+        "腰部与头部机械耦合、实际pitch轴需硬件验证"
+      ]
+    },
+    {
+      "case": "cancel-motion",
+      "goal": "取消先前移动并保持静止",
+      "required_motion": "停止当前/待执行移动，维持无位移状态",
+      "explicit_constraints": [
+        "取消刚才移动",
+        "保持静止"
+      ],
+      "reference_atom_ids": [
+        "R108"
+      ],
+      "acceptable_examples": [
+        "保持静止",
+        "停止移动"
+      ],
+      "abstention_examples": [
+        "保持静止"
+      ],
+      "abstention_counts_as_goal": true,
+      "clear_failures": [
+        "任何新的底盘平移/转弯",
+        "继续执行旧移动任务"
+      ],
+      "compatible_support_examples": [
+        "无位移保持状态"
+      ],
+      "conditional_examples": [
+        "R108只是零运动目标，不证明执行器已撤销旧队列"
+      ],
+      "runtime_unverified": [
+        "取消旧队列",
+        "实际运动停止",
+        "停止响应时间"
+      ]
+    }
+  ],
+  "profile_baseline_assessments": [
+    {
+      "id": "s64-tired-greeting",
+      "case": "tired-greeting",
+      "system_tokens": 64,
+      "system_body_tokens": 59,
+      "system_template_tokens": 5,
+      "dynamic_body_tokens": 15,
+      "dynamic_template_tokens": 8,
+      "total_prompt_tokens": 87,
+      "input": "用户刚回家有些疲惫，希望机器人点头回应，不要移动底盘。",
+      "baseline_reply": "点头回应。",
+      "baseline_finish_reason": "eos",
+      "llm_no_explicit_constraint_conflict": true,
+      "llm_goal_intent_complete": true,
+      "llm_label": "goal_complete",
+      "llm_rationale": "输出执行了目标动作或停止/保持意图。",
+      "rag_top3": [
+        {
+          "rank": 1,
+          "id": "R008",
+          "name": "点头一次",
+          "semantic_permissibility": "compatible",
+          "fulfills_high_level_goal": true,
+          "reply_consistency": "supports",
+          "reason": "点头实现目标。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 2,
+          "id": "R009",
+          "name": "摇头一次",
+          "semantic_permissibility": "conflicting",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "摇头的否定含义与本轮点头回应目标相反。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 3,
+          "id": "R007",
+          "name": "头部回正",
+          "semantic_permissibility": "compatible_nonfulfilling",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "supports",
+          "reason": "头部回正不直接冲突，但不能代替点头。",
+          "physical_execution_approved": false
+        }
+      ],
+      "rag_top1_supports_reply": true,
+      "rag_top1_fulfills_original_goal": true,
+      "rag_top3_has_clear_high_level_conflict": true,
+      "rag_top3_has_reply_conflict": true,
+      "execution_scope": "all atoms mock_only and disabled; semantic judgement is not actual hardware approval"
+    },
+    {
+      "id": "s64-reading-cancel",
+      "case": "reading-cancel",
+      "system_tokens": 64,
+      "system_body_tokens": 59,
+      "system_template_tokens": 5,
+      "dynamic_body_tokens": 14,
+      "dynamic_template_tokens": 8,
+      "total_prompt_tokens": 86,
+      "input": "用户正在阅读，希望保持安静，取消刚才向前移动的要求。",
+      "baseline_reply": "保持静止。",
+      "baseline_finish_reason": "eos",
+      "llm_no_explicit_constraint_conflict": true,
+      "llm_goal_intent_complete": true,
+      "llm_label": "goal_complete",
+      "llm_rationale": "输出执行了目标动作或停止/保持意图。",
+      "rag_top3": [
+        {
+          "rank": 1,
+          "id": "R108",
+          "name": "底盘保持静止",
+          "semantic_permissibility": "compatible",
+          "fulfills_high_level_goal": true,
+          "reply_consistency": "supports",
+          "reason": "零运动目标与静止回复一致；满足停/保持的语义意图，但取消执行未实测。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 2,
+          "id": "R089",
+          "name": "向前平移",
+          "semantic_permissibility": "conflicting",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "与原始禁令/取消目标冲突，也与保持静止回复冲突。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 3,
+          "id": "R090",
+          "name": "向后平移",
+          "semantic_permissibility": "conditional_nonfulfilling",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "原句没有逐字禁止该方向平移，保守不判明确原指令冲突；但不完成本轮目标，且与保持静止回复相反。",
+          "physical_execution_approved": false
+        }
+      ],
+      "rag_top1_supports_reply": true,
+      "rag_top1_fulfills_original_goal": true,
+      "rag_top3_has_clear_high_level_conflict": true,
+      "rag_top3_has_reply_conflict": true,
+      "execution_scope": "all atoms mock_only and disabled; semantic judgement is not actual hardware approval"
+    },
+    {
+      "id": "s64-wave",
+      "case": "wave",
+      "system_tokens": 64,
+      "system_body_tokens": 59,
+      "system_template_tokens": 5,
+      "dynamic_body_tokens": 21,
+      "dynamic_template_tokens": 8,
+      "total_prompt_tokens": 93,
+      "input": "用户想打个招呼，希望摆臂回应。桌边空间有限，底盘保持静止。",
+      "baseline_reply": "保持静止。",
+      "baseline_finish_reason": "eos",
+      "llm_no_explicit_constraint_conflict": true,
+      "llm_goal_intent_complete": false,
+      "llm_label": "safe_abstention_goal_incomplete",
+      "llm_rationale": "保持静止没有违反当前禁令，但没有完成用户明确要求的动作。",
+      "rag_top3": [
+        {
+          "rank": 1,
+          "id": "R108",
+          "name": "底盘保持静止",
+          "semantic_permissibility": "compatible_nonfulfilling",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "supports",
+          "reason": "零运动目标与静止回复一致；只满足底盘约束/安全退让，未完成所需摆臂或弯腰。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 2,
+          "id": "R089",
+          "name": "向前平移",
+          "semantic_permissibility": "conflicting",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "与原始禁令/取消目标冲突，也与保持静止回复冲突。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 3,
+          "id": "R090",
+          "name": "向后平移",
+          "semantic_permissibility": "conflicting",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "与原始禁令/取消目标冲突，也与保持静止回复冲突。",
+          "physical_execution_approved": false
+        }
+      ],
+      "rag_top1_supports_reply": true,
+      "rag_top1_fulfills_original_goal": false,
+      "rag_top3_has_clear_high_level_conflict": true,
+      "rag_top3_has_reply_conflict": true,
+      "execution_scope": "all atoms mock_only and disabled; semantic judgement is not actual hardware approval"
+    },
+    {
+      "id": "s64-nod",
+      "case": "nod",
+      "system_tokens": 64,
+      "system_body_tokens": 59,
+      "system_template_tokens": 5,
+      "dynamic_body_tokens": 4,
+      "dynamic_template_tokens": 8,
+      "total_prompt_tokens": 76,
+      "input": "请点头回应。",
+      "baseline_reply": "点头回应。",
+      "baseline_finish_reason": "eos",
+      "llm_no_explicit_constraint_conflict": true,
+      "llm_goal_intent_complete": true,
+      "llm_label": "goal_complete",
+      "llm_rationale": "输出执行了目标动作或停止/保持意图。",
+      "rag_top3": [
+        {
+          "rank": 1,
+          "id": "R008",
+          "name": "点头一次",
+          "semantic_permissibility": "compatible",
+          "fulfills_high_level_goal": true,
+          "reply_consistency": "supports",
+          "reason": "点头实现目标。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 2,
+          "id": "R009",
+          "name": "摇头一次",
+          "semantic_permissibility": "conflicting",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "摇头的否定含义与本轮点头回应目标相反。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 3,
+          "id": "R007",
+          "name": "头部回正",
+          "semantic_permissibility": "compatible_nonfulfilling",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "supports",
+          "reason": "头部回正不直接冲突，但不能代替点头。",
+          "physical_execution_approved": false
+        }
+      ],
+      "rag_top1_supports_reply": true,
+      "rag_top1_fulfills_original_goal": true,
+      "rag_top3_has_clear_high_level_conflict": true,
+      "rag_top3_has_reply_conflict": true,
+      "execution_scope": "all atoms mock_only and disabled; semantic judgement is not actual hardware approval"
+    },
+    {
+      "id": "s64-bend-not-look-up",
+      "case": "bend-not-look-up",
+      "system_tokens": 64,
+      "system_body_tokens": 59,
+      "system_template_tokens": 5,
+      "dynamic_body_tokens": 7,
+      "dynamic_template_tokens": 8,
+      "total_prompt_tokens": 79,
+      "input": "请弯腰，不要抬头。",
+      "baseline_reply": "保持静止。",
+      "baseline_finish_reason": "eos",
+      "llm_no_explicit_constraint_conflict": true,
+      "llm_goal_intent_complete": false,
+      "llm_label": "safe_abstention_goal_incomplete",
+      "llm_rationale": "保持静止没有违反当前禁令，但没有完成用户明确要求的动作。",
+      "rag_top3": [
+        {
+          "rank": 1,
+          "id": "R108",
+          "name": "底盘保持静止",
+          "semantic_permissibility": "compatible_nonfulfilling",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "supports",
+          "reason": "零运动目标与静止回复一致；只满足底盘约束/安全退让，未完成所需摆臂或弯腰。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 2,
+          "id": "R089",
+          "name": "向前平移",
+          "semantic_permissibility": "conditional_nonfulfilling",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "原句没有逐字禁止该方向平移，保守不判明确原指令冲突；但不完成本轮目标，且与保持静止回复相反。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 3,
+          "id": "R090",
+          "name": "向后平移",
+          "semantic_permissibility": "conditional_nonfulfilling",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "原句没有逐字禁止该方向平移，保守不判明确原指令冲突；但不完成本轮目标，且与保持静止回复相反。",
+          "physical_execution_approved": false
+        }
+      ],
+      "rag_top1_supports_reply": true,
+      "rag_top1_fulfills_original_goal": false,
+      "rag_top3_has_clear_high_level_conflict": false,
+      "rag_top3_has_reply_conflict": true,
+      "execution_scope": "all atoms mock_only and disabled; semantic judgement is not actual hardware approval"
+    },
+    {
+      "id": "s64-cancel-motion",
+      "case": "cancel-motion",
+      "system_tokens": 64,
+      "system_body_tokens": 59,
+      "system_template_tokens": 5,
+      "dynamic_body_tokens": 8,
+      "dynamic_template_tokens": 8,
+      "total_prompt_tokens": 80,
+      "input": "取消刚才移动，保持静止。",
+      "baseline_reply": "保持静止。",
+      "baseline_finish_reason": "eos",
+      "llm_no_explicit_constraint_conflict": true,
+      "llm_goal_intent_complete": true,
+      "llm_label": "goal_complete",
+      "llm_rationale": "输出执行了目标动作或停止/保持意图。",
+      "rag_top3": [
+        {
+          "rank": 1,
+          "id": "R108",
+          "name": "底盘保持静止",
+          "semantic_permissibility": "compatible",
+          "fulfills_high_level_goal": true,
+          "reply_consistency": "supports",
+          "reason": "零运动目标与静止回复一致；满足停/保持的语义意图，但取消执行未实测。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 2,
+          "id": "R089",
+          "name": "向前平移",
+          "semantic_permissibility": "conflicting",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "与原始禁令/取消目标冲突，也与保持静止回复冲突。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 3,
+          "id": "R090",
+          "name": "向后平移",
+          "semantic_permissibility": "conflicting",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "与原始禁令/取消目标冲突，也与保持静止回复冲突。",
+          "physical_execution_approved": false
+        }
+      ],
+      "rag_top1_supports_reply": true,
+      "rag_top1_fulfills_original_goal": true,
+      "rag_top3_has_clear_high_level_conflict": true,
+      "rag_top3_has_reply_conflict": true,
+      "execution_scope": "all atoms mock_only and disabled; semantic judgement is not actual hardware approval"
+    },
+    {
+      "id": "s128-tired-greeting",
+      "case": "tired-greeting",
+      "system_tokens": 128,
+      "system_body_tokens": 123,
+      "system_template_tokens": 5,
+      "dynamic_body_tokens": 15,
+      "dynamic_template_tokens": 8,
+      "total_prompt_tokens": 151,
+      "input": "用户刚回家有些疲惫，希望机器人点头回应，不要移动底盘。",
+      "baseline_reply": "点头回应",
+      "baseline_finish_reason": "eos",
+      "llm_no_explicit_constraint_conflict": true,
+      "llm_goal_intent_complete": true,
+      "llm_label": "goal_complete",
+      "llm_rationale": "输出执行了目标动作或停止/保持意图。",
+      "rag_top3": [
+        {
+          "rank": 1,
+          "id": "R008",
+          "name": "点头一次",
+          "semantic_permissibility": "compatible",
+          "fulfills_high_level_goal": true,
+          "reply_consistency": "supports",
+          "reason": "点头实现目标。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 2,
+          "id": "R009",
+          "name": "摇头一次",
+          "semantic_permissibility": "conflicting",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "摇头的否定含义与本轮点头回应目标相反。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 3,
+          "id": "R007",
+          "name": "头部回正",
+          "semantic_permissibility": "compatible_nonfulfilling",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "supports",
+          "reason": "头部回正不直接冲突，但不能代替点头。",
+          "physical_execution_approved": false
+        }
+      ],
+      "rag_top1_supports_reply": true,
+      "rag_top1_fulfills_original_goal": true,
+      "rag_top3_has_clear_high_level_conflict": true,
+      "rag_top3_has_reply_conflict": true,
+      "execution_scope": "all atoms mock_only and disabled; semantic judgement is not actual hardware approval"
+    },
+    {
+      "id": "s128-reading-cancel",
+      "case": "reading-cancel",
+      "system_tokens": 128,
+      "system_body_tokens": 123,
+      "system_template_tokens": 5,
+      "dynamic_body_tokens": 14,
+      "dynamic_template_tokens": 8,
+      "total_prompt_tokens": 150,
+      "input": "用户正在阅读，希望保持安静，取消刚才向前移动的要求。",
+      "baseline_reply": "保持静止。",
+      "baseline_finish_reason": "eos",
+      "llm_no_explicit_constraint_conflict": true,
+      "llm_goal_intent_complete": true,
+      "llm_label": "goal_complete",
+      "llm_rationale": "输出执行了目标动作或停止/保持意图。",
+      "rag_top3": [
+        {
+          "rank": 1,
+          "id": "R108",
+          "name": "底盘保持静止",
+          "semantic_permissibility": "compatible",
+          "fulfills_high_level_goal": true,
+          "reply_consistency": "supports",
+          "reason": "零运动目标与静止回复一致；满足停/保持的语义意图，但取消执行未实测。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 2,
+          "id": "R089",
+          "name": "向前平移",
+          "semantic_permissibility": "conflicting",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "与原始禁令/取消目标冲突，也与保持静止回复冲突。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 3,
+          "id": "R090",
+          "name": "向后平移",
+          "semantic_permissibility": "conditional_nonfulfilling",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "原句没有逐字禁止该方向平移，保守不判明确原指令冲突；但不完成本轮目标，且与保持静止回复相反。",
+          "physical_execution_approved": false
+        }
+      ],
+      "rag_top1_supports_reply": true,
+      "rag_top1_fulfills_original_goal": true,
+      "rag_top3_has_clear_high_level_conflict": true,
+      "rag_top3_has_reply_conflict": true,
+      "execution_scope": "all atoms mock_only and disabled; semantic judgement is not actual hardware approval"
+    },
+    {
+      "id": "s128-wave",
+      "case": "wave",
+      "system_tokens": 128,
+      "system_body_tokens": 123,
+      "system_template_tokens": 5,
+      "dynamic_body_tokens": 21,
+      "dynamic_template_tokens": 8,
+      "total_prompt_tokens": 157,
+      "input": "用户想打个招呼，希望摆臂回应。桌边空间有限，底盘保持静止。",
+      "baseline_reply": "摆臂",
+      "baseline_finish_reason": "eos",
+      "llm_no_explicit_constraint_conflict": true,
+      "llm_goal_intent_complete": true,
+      "llm_label": "goal_complete",
+      "llm_rationale": "输出执行了目标动作或停止/保持意图。",
+      "rag_top3": [
+        {
+          "rank": 1,
+          "id": "R044",
+          "name": "左低位前后摆臂一次",
+          "semantic_permissibility": "compatible",
+          "fulfills_high_level_goal": true,
+          "reply_consistency": "supports",
+          "reason": "实际摆臂动作满足宽泛的摆臂招呼意图，需另验证空间包络。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 2,
+          "id": "R064",
+          "name": "右低位前后摆臂一次",
+          "semantic_permissibility": "compatible",
+          "fulfills_high_level_goal": true,
+          "reply_consistency": "supports",
+          "reason": "实际摆臂动作满足宽泛的摆臂招呼意图，需另验证空间包络。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 3,
+          "id": "R026",
+          "name": "左臂向上举起",
+          "semantic_permissibility": "compatible_nonfulfilling",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "supports",
+          "reason": "举臂不直接违背摆臂招呼/底盘静止，但仅此动作没有摆动，属辅助而非独立完成。",
+          "physical_execution_approved": false
+        }
+      ],
+      "rag_top1_supports_reply": true,
+      "rag_top1_fulfills_original_goal": true,
+      "rag_top3_has_clear_high_level_conflict": false,
+      "rag_top3_has_reply_conflict": false,
+      "execution_scope": "all atoms mock_only and disabled; semantic judgement is not actual hardware approval"
+    },
+    {
+      "id": "s128-nod",
+      "case": "nod",
+      "system_tokens": 128,
+      "system_body_tokens": 123,
+      "system_template_tokens": 5,
+      "dynamic_body_tokens": 4,
+      "dynamic_template_tokens": 8,
+      "total_prompt_tokens": 140,
+      "input": "请点头回应。",
+      "baseline_reply": "点头回应。",
+      "baseline_finish_reason": "eos",
+      "llm_no_explicit_constraint_conflict": true,
+      "llm_goal_intent_complete": true,
+      "llm_label": "goal_complete",
+      "llm_rationale": "输出执行了目标动作或停止/保持意图。",
+      "rag_top3": [
+        {
+          "rank": 1,
+          "id": "R008",
+          "name": "点头一次",
+          "semantic_permissibility": "compatible",
+          "fulfills_high_level_goal": true,
+          "reply_consistency": "supports",
+          "reason": "点头实现目标。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 2,
+          "id": "R009",
+          "name": "摇头一次",
+          "semantic_permissibility": "conflicting",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "摇头的否定含义与本轮点头回应目标相反。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 3,
+          "id": "R007",
+          "name": "头部回正",
+          "semantic_permissibility": "compatible_nonfulfilling",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "supports",
+          "reason": "头部回正不直接冲突，但不能代替点头。",
+          "physical_execution_approved": false
+        }
+      ],
+      "rag_top1_supports_reply": true,
+      "rag_top1_fulfills_original_goal": true,
+      "rag_top3_has_clear_high_level_conflict": true,
+      "rag_top3_has_reply_conflict": true,
+      "execution_scope": "all atoms mock_only and disabled; semantic judgement is not actual hardware approval"
+    },
+    {
+      "id": "s128-bend-not-look-up",
+      "case": "bend-not-look-up",
+      "system_tokens": 128,
+      "system_body_tokens": 123,
+      "system_template_tokens": 5,
+      "dynamic_body_tokens": 7,
+      "dynamic_template_tokens": 8,
+      "total_prompt_tokens": 143,
+      "input": "请弯腰，不要抬头。",
+      "baseline_reply": "保持静止。",
+      "baseline_finish_reason": "eos",
+      "llm_no_explicit_constraint_conflict": true,
+      "llm_goal_intent_complete": false,
+      "llm_label": "safe_abstention_goal_incomplete",
+      "llm_rationale": "保持静止没有违反当前禁令，但没有完成用户明确要求的动作。",
+      "rag_top3": [
+        {
+          "rank": 1,
+          "id": "R108",
+          "name": "底盘保持静止",
+          "semantic_permissibility": "compatible_nonfulfilling",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "supports",
+          "reason": "零运动目标与静止回复一致；只满足底盘约束/安全退让，未完成所需摆臂或弯腰。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 2,
+          "id": "R089",
+          "name": "向前平移",
+          "semantic_permissibility": "conditional_nonfulfilling",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "原句没有逐字禁止该方向平移，保守不判明确原指令冲突；但不完成本轮目标，且与保持静止回复相反。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 3,
+          "id": "R090",
+          "name": "向后平移",
+          "semantic_permissibility": "conditional_nonfulfilling",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "原句没有逐字禁止该方向平移，保守不判明确原指令冲突；但不完成本轮目标，且与保持静止回复相反。",
+          "physical_execution_approved": false
+        }
+      ],
+      "rag_top1_supports_reply": true,
+      "rag_top1_fulfills_original_goal": false,
+      "rag_top3_has_clear_high_level_conflict": false,
+      "rag_top3_has_reply_conflict": true,
+      "execution_scope": "all atoms mock_only and disabled; semantic judgement is not actual hardware approval"
+    },
+    {
+      "id": "s128-cancel-motion",
+      "case": "cancel-motion",
+      "system_tokens": 128,
+      "system_body_tokens": 123,
+      "system_template_tokens": 5,
+      "dynamic_body_tokens": 8,
+      "dynamic_template_tokens": 8,
+      "total_prompt_tokens": 144,
+      "input": "取消刚才移动，保持静止。",
+      "baseline_reply": "保持静止。",
+      "baseline_finish_reason": "eos",
+      "llm_no_explicit_constraint_conflict": true,
+      "llm_goal_intent_complete": true,
+      "llm_label": "goal_complete",
+      "llm_rationale": "输出执行了目标动作或停止/保持意图。",
+      "rag_top3": [
+        {
+          "rank": 1,
+          "id": "R108",
+          "name": "底盘保持静止",
+          "semantic_permissibility": "compatible",
+          "fulfills_high_level_goal": true,
+          "reply_consistency": "supports",
+          "reason": "零运动目标与静止回复一致；满足停/保持的语义意图，但取消执行未实测。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 2,
+          "id": "R089",
+          "name": "向前平移",
+          "semantic_permissibility": "conflicting",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "与原始禁令/取消目标冲突，也与保持静止回复冲突。",
+          "physical_execution_approved": false
+        },
+        {
+          "rank": 3,
+          "id": "R090",
+          "name": "向后平移",
+          "semantic_permissibility": "conflicting",
+          "fulfills_high_level_goal": false,
+          "reply_consistency": "conflicts",
+          "reason": "与原始禁令/取消目标冲突，也与保持静止回复冲突。",
+          "physical_execution_approved": false
+        }
+      ],
+      "rag_top1_supports_reply": true,
+      "rag_top1_fulfills_original_goal": true,
+      "rag_top3_has_clear_high_level_conflict": true,
+      "rag_top3_has_reply_conflict": true,
+      "execution_scope": "all atoms mock_only and disabled; semantic judgement is not actual hardware approval"
+    }
+  ],
+  "baseline_summary": {
+    "case_instantiations": 12,
+    "distinct_high_level_scenarios": 6,
+    "llm_goal_complete_system64": 4,
+    "llm_goal_complete_system128": 5,
+    "llm_goal_complete_total": 9,
+    "llm_no_explicit_constraint_conflict": 12,
+    "safe_abstentions_goal_incomplete": 3,
+    "rag_top1_reply_consistency": 12,
+    "rag_top1_goal_complete": 9,
+    "rag_top3_clear_high_level_conflict_requests": 9,
+    "rag_top3_reply_conflict_requests": 11
+  },
+  "candidate_application": [
+    "Apply to natural quality only, not fixed-feedback performance",
+    "Compare each scenario within same system length; do not claim duplicated128-token prompt semantically identical to64",
+    "Score outputs semantically even if token sequences differ; preserve contradictions/abstentions explicitly",
+    "Report cost-padded quality_cost separately; it verifies tail-path generation but is not additional independent quality coverage",
+    "If output introduces ambiguous actions or claims, record unknown/manual review rather than matching broad positive keywords",
+    "Do not alter rubric after candidate outputs become known without versioned rationale"
+  ]
+}

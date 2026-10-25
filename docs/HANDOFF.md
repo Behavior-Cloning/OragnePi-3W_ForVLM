@@ -1,3 +1,13 @@
+## 2026-10-25 prefill / decode 全图候选测试进行中
+
+用户要求先同步GitHub，再继续降低NPU首token及decode开销，最新强调prefill瓶颈。已验证GitHub同步到899c3b02db0939fe69ba3f9bdf478909e85b0ac2；本轮源文件checkpoint本地854fb86，后续结果待提交。权威任务research/intern-nextbench-20261025，候选源research/intern-nextopt-20261025与intern-context256-20261025。
+
+controller_next.py candidate-matrix-r3于WSL PID7878启动，双锁串行6候选，仅读candidate-matrix-r3-controller.json及log；禁止重复启动、直接轮询占锁板卡。已完成部署SHA校验（现役29/ctx256 29/tail8 12文件），ARM greedy 221212例0不匹配。全模型证据未回收前不能宣称提速或无损。 首次r2在首组24次性能之后记录自然结果时缺system_body_tokens，退出1且driver0；失败证据保留。已按相同system prefix映射补日志字段，4个正反单测通过，r3重测不改变输入ID和量化。
+
+输入固定64/128=正文59/123+模板5，动态正文32/64+模板8，总104/136/168/200，reused64/128，new40/72。每格3场景×2次、性能固定反馈32步，另12自然输入和4个cost输入自然生成，再4格×4步完整logits；语音合成回放常驻、RAG质量阶段查询，纯Intern NPU文本，无视觉/电机。ctx256最大当前prompt+32=232，仅短文本用；不可用于256图像追加或最大格64输出。比较mask-base/context256/tail8-c1280/greedy-c1280/context256-greedy/mask-repeat；不覆盖现役默认。
+
+profile-smoke证实prefill占TTFT 97–98%；单块ctx256 prefill API约17.0→6.78ms、decode3.62→3.37ms，尾批8约17.0→9.1ms，单块5输出同字节。单块无并行音频且非全模型，报告需分开。所有runtime/hashes/边界详见任务README。
+
 ## 2026-10-25 同输入首字优化已完成：32正文小样本<1s，64正文未达标
 
 运行ttft-aligned-matrix-v2完成returncode=0：180速度请求、60自然输出、24份完整logits诊断，6次driver关闭均0。控制器已结束，不要重复启动。报告：research/async-agent-20261025/results/ttft-aligned-matrix-v2/REPORT.md；统计analysis.json，独立数值numerical-audit.json。

@@ -34,8 +34,22 @@ def resolve(path, base=ROOT):
     p = Path(path)
     return p if p.is_absolute() else base / p
 
+def attach_system_metadata(doc):
+    systems={system['prefix_sha256']:system for system in doc['systems']}
+    assert len(systems)==len(doc['systems'])
+    for case in doc['performance']+doc['quality']:
+        system=systems[case['prefix_sha256']]
+        assert case['prefix_tokens']==system['prefix_tokens']
+        assert case['static_tokens']==len(system['prefix_tokens'])
+        body=system['system_body_tokens'];template=case['static_tokens']-body
+        assert template==5
+        for key,value in [('system_body_tokens',body),('system_template_tokens',template)]:
+            assert key not in case or case[key]==value, (case['id'],key)
+            case[key]=value
+
 def validate_fixture(doc, encode):
     assert len(doc['performance']) == 12 and len(doc['quality']) == 12
+    attach_system_metadata(doc)
     cells = {}
     for system in doc['systems']:
         assert encode(system['prefix']) == system['prefix_tokens']
@@ -200,6 +214,15 @@ def main():
                     validate(done,case,False,False,32);reply=tok.decode(done['tokens']);t=time.monotonic();actions=rag.query(reply,k=3);rag_s=time.monotonic()-t
                     assert not list(dumps.glob('*')), 'Unexpected dump during natural phase'
                     emit('quality',variant=name,case=case['id'],static_tokens=case['static_tokens'],system_body_tokens=case['system_body_tokens'],system_template_tokens=case['static_tokens']-case['system_body_tokens'],body_tokens=case['body_tokens'],template_overhead=case['template_overhead'],dynamic_tokens=len(case['tokens'])-case['static_tokens'],total_prompt_tokens=len(case['tokens']),expected_new_tokens=case['expected_new_tokens'],actual_new_tokens=done['new_tokens'],actual_reused_tokens=done['reused_tokens'],output_tokens_including_eos=done['generated_tokens'],output_tokens_excluding_terminal_eos=done['generated_tokens']-int(done['tokens'][-1]==settings['eos']),input=case['input'],reply=reply,metrics=done,wall_s=wall,token_events=tokens,prefix_prepare_metrics=prep,top3=actions,rag_s=rag_s,rag_metrics=rag.last_query,output_parity=parity(('quality',case['id']),done['tokens']))
+                # Extra natural-decoding coverage of all four exact-length tail8 cells.
+                # Cost padding is retained and these are not independent quality examples.
+                for case in diag_cases:
+                    prep=prepare(case);done,tokens,wall=request(worker,case['tokens'],32,diagnostic=False,timeout=90)
+                    validate(done,case,False,False,32)
+                    if settings['env'].get('OPI_PREFILL8_DIR'):
+                        assert done.get('true_tail8_calls')==1, done
+                    assert not list(dumps.glob('*')), 'Unexpected dump during natural cost coverage'
+                    emit('quality_cost',variant=name,case=case['id'],static_tokens=case['static_tokens'],system_body_tokens=case['system_body_tokens'],body_tokens=case['body_tokens'],template_overhead=case['template_overhead'],cost_padding=True,input=case['body'],reply=tok.decode(done['tokens']),metrics=done,wall_s=wall,token_events=tokens,prefix_prepare_metrics=prep,output_parity=parity(('quality_cost',case['id']),done['tokens']))
             if 'diagnostic' in phases:
                 state['phase']='diagnostic'
                 for case in diag_cases:

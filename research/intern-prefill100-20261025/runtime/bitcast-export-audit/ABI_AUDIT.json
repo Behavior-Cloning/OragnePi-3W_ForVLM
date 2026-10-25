@@ -1,0 +1,62 @@
+{
+  "hashes": {
+    "/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib/vsi_nn_graph.h": "234c2285464c949a81a68a778efecceda6208e23682b2a607194ca8b64703e2e",
+    "/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX/vx_api.h": "3010e44db1083879f745168dd31eedcd39befcf44bc6f6419fef55945e1b2467",
+    "/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX/vx_types.h": "42e68a5e8e5fdad64760ea338b808257d4b0aa73515f4fbfb308e52755f45759",
+    "/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/libovxlib.so": "a4e3e5ba4bd8f6c2f460177002920d66b00be2ddc87f3332fd26eaad4d15182e",
+    "/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/libOpenVX.so": "0d2ee44aaf78e0f2a7e4470ad5f24ea2094c8c7d772b2b050e2f7f81361bcd12",
+    "/usr/local/lib/python3.8/dist-packages/acuitylib/app/exporter/nbgenerator.cpython-38-x86_64-linux-gnu.so": "6a5df7874b9b740ab2c71553a2b093667257583ee03d65cf305e9157fd1defe9",
+    "/usr/local/lib/python3.8/dist-packages/acuitylib/app/exporter/ovxlib_case/casegenerator.cpython-38-x86_64-linux-gnu.so": "54aa6ee67adef80e6e4f9c67b0db26cb1eea2dda40a8cd721e33545a82287d72",
+    "/usr/local/lib/python3.8/dist-packages/acuitylib/app/exporter/ovxlib_case/vxcode/template/main.c": "1339ce6fb275007e8bbf73b820a59294046a5aec5b6a4971bd8ead79c75e9d78"
+  },
+  "snippets": {
+    "/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib/vsi_nn_graph.h:256": " * Genearate NBG cache\n * Genearate NBG cache\n *\n * @param[in] graph Graph handle\n * @param[in] nbg buffer pointer\n * @param[in] nbg buffer size\n * @return VSI_SUCCESS on success, or appropriate error code otherwise\n */\nOVXLIB_API vsi_status vsi_nn_GenerateNBG(\n    vsi_nn_graph_t * graph,\n    void * nbg_buffer,\n    size_t * size\n    );\n\n/**\n * Run graph in asynch way\n * Invoke the all nodes in graph.",
+    "/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX/vx_api.h:1248": "\n/*! \\brief Get the size of binary graph and generate binary graph into buffer.\n * \\param [in] graph The graph.\n * \\param [in] buffer Generate binary graph into buffer if *size value is the size of actual NBG.\n * \\param [in] size Get the size of binary graph if buffer is NULL.\n * \\return A <tt>\\ref vx_status</tt> value.\n * \\ingroup group_graph\n */\nVX_API_ENTRY vx_status VX_API_CALL vxGenerateNBG(vx_graph graph, void *buffer, vx_size *size);\n\n/*==============================================================================\n NODE\n =============================================================================*/\n\n/*! \\brief Creates a reference to a node object for a given kernel.\n * \\details This node has no references assigned as parameters after completion.\n * The client is then required to set these parameters manually by <tt>\\ref vxSetParameterByIndex</tt>.",
+    "/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX/vx_types.h:161": " * enforce enumeration ranges and sizeof() operations.\n * \\ingroup group_basic_features\n */\ntypedef int32_t vx_enum;\n\n/*! \\brief A wrapper of <tt>size_t</tt> to keep the naming convention uniform.\n * \\ingroup group_basic_features\n */\ntypedef size_t vx_size;\n\n/*! \\brief Used to hold a VX_DF_IMAGE code to describe the pixel format and color space.\n * \\ingroup group_basic_features\n */\ntypedef uint32_t vx_df_image;\n\n/*! \\brief Holds the address of a variable where the map/unmap functions return a map identifier.\n * \\ingroup group_image"
+  },
+  "bitcast-c512-m32-l0": {
+    "state": "failed_verify-export",
+    "stage": "verify-export",
+    "verify_export": {
+      "rc": 139,
+      "seconds": 10.945146354999451,
+      "log_sha256": "1a337ef7feb25e01c2122097ba7e0fd83ec1aaec401aadea4c1e76a2d737fdfc"
+    },
+    "main_sha256": "351b6fe5ef586a8272a9d1104a6e01ea0031a81f7d480144ae96c85c06e883ea",
+    "decoder_sha256": "fa168ee01de7c2bdbfe133d034ab3b267c8e49fcb53bb48eb8237c9fa9145dae",
+    "log": "STAGE create\nPORT_COUNTS inputs=11 outputs=5\nSTAGE verify\nVERIFY_STATUS 0\nSTAGE nbg_size_query\n",
+    "current_nb_exists": false
+  },
+  "native-export-control-c512-m32-l0": {
+    "state": "failed_verify-export",
+    "stage": "verify-export",
+    "verify_export": {
+      "rc": 139,
+      "seconds": 10.693142093999995,
+      "log_sha256": "1a337ef7feb25e01c2122097ba7e0fd83ec1aaec401aadea4c1e76a2d737fdfc"
+    },
+    "main_sha256": "351b6fe5ef586a8272a9d1104a6e01ea0031a81f7d480144ae96c85c06e883ea",
+    "decoder_sha256": "c297d17747c11196498aff33ee1d4d2f525779950305ab9a4cc4e00c1c5eb0df",
+    "log": "STAGE create\nPORT_COUNTS inputs=11 outputs=5\nSTAGE verify\nVERIFY_STATUS 0\nSTAGE nbg_size_query\n",
+    "current_nb_exists": false
+  },
+  "findings": {
+    "api_contract": "NULL nbg_buffer plus size_t* is explicitly documented and wrapper ABI matches",
+    "null_query_known_crash_location": false,
+    "both_graphs_failed_same_stage": true,
+    "pegasus_official_route": "ENABLE_SAVE_NETWORK_BINARY=1 plus SAVE_NETWORK_BINARY_PATH / NBG_NAME / NBG_INPUT_RANK, SDK main Verify+PreProcess+RunGraph",
+    "GenerateNBG_may_process_graph_internally": true,
+    "bitcast_specific_rejection_proven": false,
+    "fix_candidate": "Restore official generated main and initialized 11 inputs with official auto-save env in fresh directories; first plain control then BITCAST only with parent authorization",
+    "fixed_or_successful": false,
+    "no_board_access": true,
+    "no_new_model_executed_by_auditor": true
+  },
+  "followup": {
+    "official_route_both_rc0": true,
+    "plain_nb_reproduced": true,
+    "bitcast_nb_sha256": "d194bada4a35f2759c5de89d7d0fcb10da982f213de5245b40c35085b7c4e50d",
+    "audit": "../official-export-c512-m32-l0/INDEPENDENT_EXPORT_AUDIT.json",
+    "unique_crash_root_cause_located": false
+  }
+}

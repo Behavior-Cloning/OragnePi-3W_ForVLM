@@ -1,0 +1,65 @@
+{
+  "scope": "single fused2 integer-grid-preserving Conv L0/M32 API A-B-A, not full-model TTFT, no audio/RAG residency",
+  "phase": "timing-only; NPD and IO profiling forbidden",
+  "binary": "/opt/opi-vlm/intern-prefill100-20261025/runs/w8axis-c512-m32-r2/tensor-probe",
+  "binary_sha256": "eed89e71c0030ea15fb90d490611b6d6efdcf88a530906fdc57a1c42498e4da3",
+  "warmup": 3,
+  "repeats": 30,
+  "sequence": [
+    {
+      "run_id": "original-before",
+      "query_tokens": 32,
+      "first_layer": 0,
+      "capacity": 512,
+      "nb": "/opt/opi-vlm/intern-prefill100-20261025/runs/w8axis-c512-m32-r2/original.nb",
+      "nb_sha256": "d7adc37f977973a3ce3d40be0d2c1e8539ba187ce69f2fe12f6280d1b5b7d878",
+      "input": "/opt/opi-vlm/intern-prefill100-20261025/runs/w8axis-c512-m32-r2/input.f32",
+      "input_sha256": "b4bd76f70c9fa53260b78aff30e03a3f72cbc6bcda1dc9dcbd8214444028a9e5",
+      "reference_sha256": "a8b6e8d40b143ad43edb264969a09a9473f3a15893c0a8aa749def7f58f70530",
+      "variant": "w8-fcl",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m32-l0/probe-reference.f32"
+    },
+    {
+      "run_id": "candidate",
+      "query_tokens": 32,
+      "first_layer": 0,
+      "capacity": 512,
+      "nb": "/opt/opi-vlm/intern-prefill100-20261025/runs/bitcast-c512-m32-r2/candidate.nb",
+      "nb_sha256": "d194bada4a35f2759c5de89d7d0fcb10da982f213de5245b40c35085b7c4e50d",
+      "input": "/opt/opi-vlm/intern-prefill100-20261025/runs/w8axis-c512-m32-r2/input.f32",
+      "input_sha256": "b4bd76f70c9fa53260b78aff30e03a3f72cbc6bcda1dc9dcbd8214444028a9e5",
+      "reference_sha256": "a8b6e8d40b143ad43edb264969a09a9473f3a15893c0a8aa749def7f58f70530",
+      "variant": "i8-preserved",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m32-l0/probe-reference.f32"
+    },
+    {
+      "run_id": "original-after",
+      "query_tokens": 32,
+      "first_layer": 0,
+      "capacity": 512,
+      "nb": "/opt/opi-vlm/intern-prefill100-20261025/runs/w8axis-c512-m32-r2/original.nb",
+      "nb_sha256": "d7adc37f977973a3ce3d40be0d2c1e8539ba187ce69f2fe12f6280d1b5b7d878",
+      "input": "/opt/opi-vlm/intern-prefill100-20261025/runs/w8axis-c512-m32-r2/input.f32",
+      "input_sha256": "b4bd76f70c9fa53260b78aff30e03a3f72cbc6bcda1dc9dcbd8214444028a9e5",
+      "reference_sha256": "a8b6e8d40b143ad43edb264969a09a9473f3a15893c0a8aa749def7f58f70530",
+      "variant": "w8-fcl-repeat",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m32-l0/probe-reference.f32"
+    }
+  ],
+  "canonical_input_sha256": "b4bd76f70c9fa53260b78aff30e03a3f72cbc6bcda1dc9dcbd8214444028a9e5",
+  "canonical_reference_sha256": "a8b6e8d40b143ad43edb264969a09a9473f3a15893c0a8aa749def7f58f70530",
+  "fixture_meta_sha256": "9fade5873bcf2b6c56b2d7a69f161e0dccb4f12fa30f03e43a4ba6c76664b38b",
+  "candidate_status_sha256": "3c00f3c5cfb039eecca77d1a603970e2873ddf2c167dffff7b44142c29dd7702",
+  "source_sha256": {
+    "controller_integer_conv.py": "b8225dfdf84d24828abd13ef0bb0e6f02a1ef8fc9df1906eec3149c7648e571d",
+    "board_probe_suite.py": "28efcf567d0aec9e412b96cf38409c32b8d67f8463c8a7dee0414a2d133980c9"
+  },
+  "shared_file_verification": {
+    "/opt/opi-vlm/intern-prefill100-20261025/runs/w8axis-c512-m32-r2/tensor-probe": "eed89e71c0030ea15fb90d490611b6d6efdcf88a530906fdc57a1c42498e4da3",
+    "/opt/opi-vlm/intern-prefill100-20261025/runs/w8axis-c512-m32-r2/original.nb": "d7adc37f977973a3ce3d40be0d2c1e8539ba187ce69f2fe12f6280d1b5b7d878",
+    "/opt/opi-vlm/intern-prefill100-20261025/runs/w8axis-c512-m32-r2/input.f32": "b4bd76f70c9fa53260b78aff30e03a3f72cbc6bcda1dc9dcbd8214444028a9e5"
+  },
+  "candidate_status": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/official-export-c512-m32-l0/deployment-manifest.json",
+  "reserve_bytes": 1178599424,
+  "diagnostic_policy": "Run any NPD/IO diagnostics separately in another unique directory; no diagnostic data admitted to timing stats"
+}

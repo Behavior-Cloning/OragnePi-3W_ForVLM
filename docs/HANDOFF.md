@@ -1,11 +1,16 @@
-## 2026-10-25 最新检查点：长语义已审计，W8轴布局无实质收益
+## 2026-10-25 最新检查点：整数Conv的M32/M256均无收益，不扩整模型
 
-- 用户100ms完整prefill/TTFT目标仍active未达。报告research/intern-prefill100-20261025/OPTIMIZATION_PROGRESS_20261025.md。原C256+true8短输入.870/.890秒参照保留；C1280单项Conv不得称最新最快。
-- fullconv-long-quality-r1 complete rc0，48自然+2成本自然+2四步logits全部回收并独立审计。两版严格完成9/24，22/24自然token同，成本首词挥手→举起跨margin，不能声称无损。RAG仍不可直接全执行。
-- w8axis-c512-m32-r2 PID13584已结束complete rc0，3warm+30times A/B/A 10.8665455/10.8308580/10.8912750ms，5端口逐字节同，3release0；没有实质提速，不扩栈。r1仅dry误传status导致KeyError、0板端操作；已改用deployment-manifest。
-- 新runtime/bitcast-c512-m32-l0中，14个等码DATACONVERT→BITCAST最小改写Make/Create/Verify成功，但GenerateNBG(NULL,size) rc139，没NB。保留失败证据；runtimeagent正在做同原未改图的host导出对照，auditagent只读核查SDK调用。graphagent只读研究I16符号扩展保留原W8数值的Conv备选，未编新图。所有agent不触板，编译统一/tmp/opi-prefill-compile.lock。
-- Board当前root测试已释放锁。旧fullconv overlay candidate上传副本和quality两份f32共38904128B已按Windows真实SHA核验后清理，原生产图没改；旧overlay候选NB若再跑必须重传，勿引用其现存性。Windows完整源、NB与raw证据保留。
-- 当前代码/结果只在Windows权威仓库修改；Mac用于控制和报告副本。GitHub此前verified d35fd319；本检查点后同步。
+- 100ms完整prefill/模型TTFT目标仍未达。固定口径：system正文59/123＋模板5＝64/128；动态正文64/128/192/256＋模板8，实际新prefill72/136/200/264，只复用system。TTFT不含语音、压缩、排队或system准备。总览 `research/intern-prefill100-20261025/OPTIMIZATION_PROGRESS_20261025.md`。
+- 原最快短输入参照继续保留：C256＋true8，S64/D64与S128/D64 TTFT P50 0.869842/0.8904535s，输出32固定反馈；C256是图容量，不是system长度。C1280单项FP16 L2 Conv的1.230/1.271s不是更快合并版，不把单项21%收益叠加或外推到C256。
+- `results/bitcast-c512-m32-r2` 已完成rc0并独立审计：C512/M32/L0/1单块，3warm＋30times，A/B/A API P50 10.8287535/13.5229945/10.8320665ms；候选耗时增加24.880%，原前后漂移+0.031%。五输出45,056个f32逐字节同，3release0，峰值采样40.176°C。该M32配置不扩栈。
+- `results/w16conv-c512-m32-r2` 已完成rc0并独立审计：同契约A/B/A P50 10.8661680/13.1410940/10.8389805ms；候选耗时增加20.936%，原前后漂移−0.250%。五输出逐字节同，3release0，峰值采样40.548°C。W16是原I8码符号扩展到I16存储、保持数值/scale；driver 45,351,216 B，较原增加17,996,544 B，不是增精度量化。此M32配置也不扩栈。
+- 上述两组仅一个canonical输入、历史128位置＋物理query32行的两层API，排除加载/转换/宿主IO，没有语音/RAG常驻；不能替代完整模型TTFT、中文任务质量或长稳验收。1×1 Conv只是Linear `y=Wx+b`的另一种SDK实现，不跨token、不改Transformer/attention/KV；数学等价不自动保证低精度bitwise或提速。
+- 导出问题的证据更新：显式GenerateNBG(NULL)在原图和BITCAST都崩溃；SDK官方main＋真实11tensor输入＋SAVE_NETWORK_BINARY流程可复现原NB SHA并导出候选。旧失败保留，不能把NULL-query崩溃归为BITCAST本身失败，也未单独确定崩溃根因。
+- `results/bitcast-c512-m256-r2` 已完成rc0，主分析已生成，独立审计已完成：C512/M256、真实层0/1两层单块，同canonical历史128位置＋256物理query行，3warm＋30times；A/B/A API P50 210.7638185/213.5066215/210.8479020ms，候选耗时增加1.301%，前后基线漂移+0.040%。五输出共360,448个f32逐字节同，3release0，111点最高41.974°C。M256不是动态正文token数，也不是整模型prefill/TTFT；没有语音/RAG并发。NB清单仍为 `runtime/official-export-c512-m256-l0/deployment-manifest.json`，SHA `907689cdee9a1f767f4b64d8854bcbae27b5c16871f26500519ed977fee4c250`。
+- M256 r1在上传阶段因WSL保活失效中断，0有效样本，失败证据保留；r2使用独立SSH保活。13,238,272 B canonical输入放tmpfs，A/B/A相同输入均在计时前预载，SHA核验后收尾清除；不要误称r1跑出失败性能，也不要推断所有板端NB/日志已清理。
+- 普通整数Conv当前M32和M256都无速度收益，停止扩整模型、不替换默认。下一步重点是回到历史C256＋true8最快配置评估合并，或单独建立量化校准新路线；必须同输入、同缓存、同质量门槛重新验证，不承诺100ms。后续板测仍仅root持hostlock＋板flock，编译统一 `/tmp/opi-prefill-compile.lock`。
+- fullconv-long-quality-r1此前已完成：两版严格完整表达9/24，22/24自然token相同，成本case挥手→举起跨margin，RAG Top3仍有冲突；M32单块bitwise不能推翻这些质量限制。旧fullconv overlay上传副本已按SHA清理，若再跑须重新上传；Windows源和证据保留。
+- Windows为权威仓库，Mac仅控制/报告副本。本地HEAD `57a45e075880d4182b0bf3c455bedae5d344f980` 因网络错误尚未成功推送；最近已核实GitHub远端 `d35fd319da7a636f41de281ff8dd6a88a5d652e8`。新实验文件与本次文档仍需后续提交/同步；本次文档更新没有提交、推送或板端操作。
 
 ## 2026-10-25 当前：长语义质量核验运行中，短窗口最快结果保留
 

@@ -1,0 +1,35 @@
+{
+  "review_pass": true,
+  "controller_sha256": "dac95faea4c8b3f8ae7150d3611f3e024a2e46fdb69771d79ba72039be31248d",
+  "analyzer_sha256": "3b93bc2d4fdb26b0d75711a6c3ab68afeb9e081d4969ae8d88d01d88eabd1e69",
+  "runner_sha256": "28efcf567d0aec9e412b96cf38409c32b8d67f8463c8a7dee0414a2d133980c9",
+  "manifest_sha256": "b50c3194c9e33dd445af6f1a90475197f521278106f57d8e2c5ebb342c7ed215",
+  "export_audit_sha256": "08c480712cc22273d30d54d617b1f3ce5fdf5f276e9639533a6954870d41bbad",
+  "no_board_execution_by_reviewer": true,
+  "geometry": {
+    "first_layer": 0,
+    "fusion_width": 2,
+    "capacity": 512,
+    "query_tokens": 256
+  },
+  "f32_output_elements": 360448,
+  "f32_output_bytes": 1441792,
+  "checks": [
+    "Default dry; explicit execute needed.",
+    "Host lock encloses job, board flock covers uploads/test/recovery; no automatic rerun.",
+    "Actual original/candidate NB and canonical input/ref SHA guarded; geometry C512 M256 L0 fused2 checked.",
+    "3 warmups and 30 timing samples for each A-B-A with identical canonical input.",
+    "Same unique tmpfs input for all variants, preloaded and hash-verified outside API timing.",
+    "Disk upload need excludes tmpfs input; disk reserve remains 1GiB+100MiB; tmpfs free and MemAvailable separately guarded.",
+    "All sources use destinations mapping for upload and post-upload SHA verification.",
+    "Output archive recovered and extracted before successful input cleanup; cleanup requires returncode0 plus complete meta and repeats SHA check.",
+    "Nonzero/meta failure preserves tmpfs input; exception preserves partial evidence and never restarts.",
+    "Analyzer requires C512/query_rows256/fusion_layers2, 3 warmups+30 finitepositive timings, no NPD/IO profile, driverrelease0.",
+    "Analyzer five output sizes and ordering total360448 little-endian f32 elements/1441792bytes."
+  ],
+  "limits": [
+    "This only qualifies launching a single fused2 probe, not full-model TTFT or quality.",
+    "Resource sampling is short, without speech/RAG residency.",
+    "No cumulative or general M-range performance conclusion before real board evidence."
+  ]
+}

@@ -1,0 +1,128 @@
+--- original/vnn_decoder.c
++++ bitcast/vnn_decoder.c
+@@ -590,7 +590,7 @@
+       input     - [896, 32, 1]
+       output    - [896, 32, 1]
+     -----------------------------------------*/
+-    NEW_VXNODE(node[16], VSI_NN_OP_DATACONVERT, 1, 1, 11010);
++    NEW_VXNODE(node[16], VSI_NN_OP_BITCAST, 1, 1, 11010);
+ 
+     /*-----------------------------------------
+       lid       - b0_reshape_127_dtype_converter_11012
+@@ -600,7 +600,7 @@
+       input     - [896, 32, 1]
+       output    - [896, 32, 1]
+     -----------------------------------------*/
+-    NEW_VXNODE(node[17], VSI_NN_OP_DATACONVERT, 1, 1, 11012);
++    NEW_VXNODE(node[17], VSI_NN_OP_BITCAST, 1, 1, 11012);
+ 
+     /*-----------------------------------------
+       lid       - b0_reshape_133_dtype_converter_11014
+@@ -610,7 +610,7 @@
+       input     - [896, 32, 1]
+       output    - [896, 32, 1]
+     -----------------------------------------*/
+-    NEW_VXNODE(node[18], VSI_NN_OP_DATACONVERT, 1, 1, 11014);
++    NEW_VXNODE(node[18], VSI_NN_OP_BITCAST, 1, 1, 11014);
+ 
+     /*-----------------------------------------
+       lid       - b0_reshape_121
+@@ -1256,7 +1256,7 @@
+       input     - [896, 32, 1]
+       output    - [896, 32, 1]
+     -----------------------------------------*/
+-    NEW_VXNODE(node[67], VSI_NN_OP_DATACONVERT, 1, 1, 11009);
++    NEW_VXNODE(node[67], VSI_NN_OP_BITCAST, 1, 1, 11009);
+ 
+     /*-----------------------------------------
+       lid       - b0_reshape_118
+@@ -1536,7 +1536,7 @@
+       input     - [896, 32, 1]
+       output    - [896, 32, 1]
+     -----------------------------------------*/
+-    NEW_VXNODE(node[88], VSI_NN_OP_DATACONVERT, 1, 1, 11011);
++    NEW_VXNODE(node[88], VSI_NN_OP_BITCAST, 1, 1, 11011);
+ 
+     /*-----------------------------------------
+       lid       - b0_reshape_130_dtype_converter_11013
+@@ -1546,7 +1546,7 @@
+       input     - [896, 32, 1]
+       output    - [896, 32, 1]
+     -----------------------------------------*/
+-    NEW_VXNODE(node[89], VSI_NN_OP_DATACONVERT, 1, 1, 11013);
++    NEW_VXNODE(node[89], VSI_NN_OP_BITCAST, 1, 1, 11013);
+ 
+     /*-----------------------------------------
+       lid       - b0_reshape_124
+@@ -1734,7 +1734,7 @@
+       input     - [4864, 32, 1]
+       output    - [4864, 32, 1]
+     -----------------------------------------*/
+-    NEW_VXNODE(node[102], VSI_NN_OP_DATACONVERT, 1, 1, 11008);
++    NEW_VXNODE(node[102], VSI_NN_OP_BITCAST, 1, 1, 11008);
+ 
+     /*-----------------------------------------
+       lid       - b0_reshape_115
+@@ -2014,7 +2014,7 @@
+       input     - [896, 32, 1]
+       output    - [896, 32, 1]
+     -----------------------------------------*/
+-    NEW_VXNODE(node[123], VSI_NN_OP_DATACONVERT, 1, 1, 11017);
++    NEW_VXNODE(node[123], VSI_NN_OP_BITCAST, 1, 1, 11017);
+ 
+     /*-----------------------------------------
+       lid       - b1_reshape_127_dtype_converter_11019
+@@ -2024,7 +2024,7 @@
+       input     - [896, 32, 1]
+       output    - [896, 32, 1]
+     -----------------------------------------*/
+-    NEW_VXNODE(node[124], VSI_NN_OP_DATACONVERT, 1, 1, 11019);
++    NEW_VXNODE(node[124], VSI_NN_OP_BITCAST, 1, 1, 11019);
+ 
+     /*-----------------------------------------
+       lid       - b1_reshape_133_dtype_converter_11021
+@@ -2034,7 +2034,7 @@
+       input     - [896, 32, 1]
+       output    - [896, 32, 1]
+     -----------------------------------------*/
+-    NEW_VXNODE(node[125], VSI_NN_OP_DATACONVERT, 1, 1, 11021);
++    NEW_VXNODE(node[125], VSI_NN_OP_BITCAST, 1, 1, 11021);
+ 
+     /*-----------------------------------------
+       lid       - b1_reshape_121
+@@ -2680,7 +2680,7 @@
+       input     - [896, 32, 1]
+       output    - [896, 32, 1]
+     -----------------------------------------*/
+-    NEW_VXNODE(node[174], VSI_NN_OP_DATACONVERT, 1, 1, 11016);
++    NEW_VXNODE(node[174], VSI_NN_OP_BITCAST, 1, 1, 11016);
+ 
+     /*-----------------------------------------
+       lid       - b1_reshape_118
+@@ -2960,7 +2960,7 @@
+       input     - [896, 32, 1]
+       output    - [896, 32, 1]
+     -----------------------------------------*/
+-    NEW_VXNODE(node[195], VSI_NN_OP_DATACONVERT, 1, 1, 11018);
++    NEW_VXNODE(node[195], VSI_NN_OP_BITCAST, 1, 1, 11018);
+ 
+     /*-----------------------------------------
+       lid       - b1_reshape_130_dtype_converter_11020
+@@ -2970,7 +2970,7 @@
+       input     - [896, 32, 1]
+       output    - [896, 32, 1]
+     -----------------------------------------*/
+-    NEW_VXNODE(node[196], VSI_NN_OP_DATACONVERT, 1, 1, 11020);
++    NEW_VXNODE(node[196], VSI_NN_OP_BITCAST, 1, 1, 11020);
+ 
+     /*-----------------------------------------
+       lid       - b1_reshape_124
+@@ -3158,7 +3158,7 @@
+       input     - [4864, 32, 1]
+       output    - [4864, 32, 1]
+     -----------------------------------------*/
+-    NEW_VXNODE(node[209], VSI_NN_OP_DATACONVERT, 1, 1, 11015);
++    NEW_VXNODE(node[209], VSI_NN_OP_BITCAST, 1, 1, 11015);
+ 
+     /*-----------------------------------------
+       lid       - b1_reshape_115

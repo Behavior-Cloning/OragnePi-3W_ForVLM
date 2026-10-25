@@ -1,0 +1,42 @@
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_decoder.c
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_pre_process.c
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_post_process.c
+cc1: warning: command line option '-std=c++11' is valid for C++/ObjC++ but not for C
+cc1: warning: command line option '-std=c++11' is valid for C++/ObjC++ but not for C
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c main.c
+cc1: warning: command line option '-std=c++11' is valid for C++/ObjC++ but not for C
+cc1: warning: command line option '-std=c++11' is valid for C++/ObjC++ but not for C
+vnn_pre_process.c: In function '_handle_multiple_inputs':
+vnn_pre_process.c:707:11: warning: variable 'p1' set but not used [-Wunused-but-set-variable]
+  707 |     char *p1 = NULL;
+      |           ^~
+At top level:
+vnn_pre_process.c:667:13: warning: '_get_image_handle_buffer' defined but not used [-Wunused-function]
+  667 | static void _get_image_handle_buffer
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~
+vnn_decoder.c: In function 'vnn_CreateDecoder':
+vnn_decoder.c:436:36: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+  436 |     node[4]->nn_param.clip.max = *((float*)&_infinity);
+      |                                   ~^~~~~~~~~~~~~~~~~~~
+vnn_decoder.c:504:35: warning: pointer targets in assignment from 'uint32_t *' {aka 'unsigned int *'} to 'const int32_t *' {aka 'const int *'} differ in signedness [-Wpointer-sign]
+  504 |     node[9]->nn_param.reduce.axis = axis_list_1;
+      |                                   ^
+vnn_decoder.c:1382:37: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ 1382 |     node[76]->nn_param.clip.max = *((float*)&_infinity);
+      |                                    ~^~~~~~~~~~~~~~~~~~~
+vnn_decoder.c:1450:36: warning: pointer targets in assignment from 'uint32_t *' {aka 'unsigned int *'} to 'const int32_t *' {aka 'const int *'} differ in signedness [-Wpointer-sign]
+ 1450 |     node[81]->nn_param.reduce.axis = axis_list_2;
+      |                                    ^
+vnn_decoder.c:1860:38: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ 1860 |     node[111]->nn_param.clip.max = *((float*)&_infinity);
+      |                                     ~^~~~~~~~~~~~~~~~~~~
+vnn_decoder.c:1928:37: warning: pointer targets in assignment from 'uint32_t *' {aka 'unsigned int *'} to 'const int32_t *' {aka 'const int *'} differ in signedness [-Wpointer-sign]
+ 1928 |     node[116]->nn_param.reduce.axis = axis_list_3;
+      |                                     ^
+vnn_decoder.c:2806:38: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ 2806 |     node[183]->nn_param.clip.max = *((float*)&_infinity);
+      |                                     ~^~~~~~~~~~~~~~~~~~~
+vnn_decoder.c:2874:37: warning: pointer targets in assignment from 'uint32_t *' {aka 'unsigned int *'} to 'const int32_t *' {aka 'const int *'} differ in signedness [-Wpointer-sign]
+ 2874 |     node[188]->nn_param.reduce.axis = axis_list_4;
+      |                                     ^
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -O3  vnn_decoder.o vnn_pre_process.o vnn_post_process.o main.o -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/../common/lib/ -lvdtproxy /root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/../common/lib/libjpeg.a -o gen_nbg

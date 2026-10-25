@@ -1,0 +1,420 @@
+{
+  "state": "complete",
+  "qualification": "host export + exact actual binary port and constant audit only; ready for root single-block board validation, not deployment approval",
+  "geometry": {
+    "first_layer": 0,
+    "fusion_width": 2,
+    "capacity": 512,
+    "query_tokens": 32
+  },
+  "nb_path": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/official-export-c512-m32-l0/bitcast/network_binary.nb",
+  "nb_sha256": "d194bada4a35f2759c5de89d7d0fcb10da982f213de5245b40c35085b7c4e50d",
+  "nb_bytes": 24751168,
+  "source_nb_sha256": "d7adc37f977973a3ce3d40be0d2c1e8539ba187ce69f2fe12f6280d1b5b7d878",
+  "all_external_ports_exact": true,
+  "all_14_weight_values_exact": true,
+  "all_14_weight_integer_codes_exact": true,
+  "all_14_bias_values_exact": true,
+  "all_external_quant_grids_equal": true,
+  "weight_storage": "i8-preserved",
+  "actual_binary_ports": [
+    {
+      "index": 0,
+      "direction": "input",
+      "name_from_unchanged_source": "b0_hidden_101",
+      "dimensions_vx": [
+        896,
+        32,
+        1
+      ],
+      "shape_framework": [
+        1,
+        32,
+        896
+      ],
+      "dtype": "float16",
+      "quant": {
+        "type": "none"
+      }
+    },
+    {
+      "index": 1,
+      "direction": "input",
+      "name_from_unchanged_source": "b0_past_k_102",
+      "dimensions_vx": [
+        64,
+        512,
+        2,
+        1
+      ],
+      "shape_framework": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "dtype": "int16",
+      "quant": {
+        "type": "DFP",
+        "fl": 6,
+        "scale": 0.015625,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 2,
+      "direction": "input",
+      "name_from_unchanged_source": "b1_past_k_102",
+      "dimensions_vx": [
+        64,
+        512,
+        2,
+        1
+      ],
+      "shape_framework": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "dtype": "int16",
+      "quant": {
+        "type": "DFP",
+        "fl": 6,
+        "scale": 0.015625,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 3,
+      "direction": "input",
+      "name_from_unchanged_source": "b0_past_v_103",
+      "dimensions_vx": [
+        64,
+        512,
+        2,
+        1
+      ],
+      "shape_framework": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "dtype": "int16",
+      "quant": {
+        "type": "DFP",
+        "fl": 15,
+        "scale": 3.0517578125e-05,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 4,
+      "direction": "input",
+      "name_from_unchanged_source": "b1_past_v_103",
+      "dimensions_vx": [
+        64,
+        512,
+        2,
+        1
+      ],
+      "shape_framework": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "dtype": "int16",
+      "quant": {
+        "type": "DFP",
+        "fl": 12,
+        "scale": 0.000244140625,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 5,
+      "direction": "input",
+      "name_from_unchanged_source": "b0_mask_104",
+      "dimensions_vx": [
+        544,
+        224,
+        1,
+        1
+      ],
+      "shape_framework": [
+        1,
+        1,
+        224,
+        544
+      ],
+      "dtype": "float16",
+      "quant": {
+        "type": "none"
+      }
+    },
+    {
+      "index": 6,
+      "direction": "input",
+      "name_from_unchanged_source": "b1_mask_104",
+      "dimensions_vx": [
+        544,
+        224,
+        1,
+        1
+      ],
+      "shape_framework": [
+        1,
+        1,
+        224,
+        544
+      ],
+      "dtype": "float16",
+      "quant": {
+        "type": "none"
+      }
+    },
+    {
+      "index": 7,
+      "direction": "input",
+      "name_from_unchanged_source": "b0_rope_cos_105",
+      "dimensions_vx": [
+        64,
+        32,
+        1,
+        1
+      ],
+      "shape_framework": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "dtype": "int16",
+      "quant": {
+        "type": "DFP",
+        "fl": 14,
+        "scale": 6.103515625e-05,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 8,
+      "direction": "input",
+      "name_from_unchanged_source": "b1_rope_cos_105",
+      "dimensions_vx": [
+        64,
+        32,
+        1,
+        1
+      ],
+      "shape_framework": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "dtype": "int16",
+      "quant": {
+        "type": "DFP",
+        "fl": 14,
+        "scale": 6.103515625e-05,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 9,
+      "direction": "input",
+      "name_from_unchanged_source": "b0_rope_sin_106",
+      "dimensions_vx": [
+        64,
+        32,
+        1,
+        1
+      ],
+      "shape_framework": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "dtype": "int16",
+      "quant": {
+        "type": "DFP",
+        "fl": 14,
+        "scale": 6.103515625e-05,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 10,
+      "direction": "input",
+      "name_from_unchanged_source": "b1_rope_sin_106",
+      "dimensions_vx": [
+        64,
+        32,
+        1,
+        1
+      ],
+      "shape_framework": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "dtype": "int16",
+      "quant": {
+        "type": "DFP",
+        "fl": 14,
+        "scale": 6.103515625e-05,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 11,
+      "direction": "output",
+      "name_from_unchanged_source": "b1_attach_hidden_out/out0_0",
+      "dimensions_vx": [
+        896,
+        32,
+        1
+      ],
+      "shape_framework": [
+        1,
+        32,
+        896
+      ],
+      "dtype": "float16",
+      "quant": {
+        "type": "none"
+      }
+    },
+    {
+      "index": 12,
+      "direction": "output",
+      "name_from_unchanged_source": "b0_attach_new_k/out0_1",
+      "dimensions_vx": [
+        64,
+        32,
+        2,
+        1
+      ],
+      "shape_framework": [
+        1,
+        2,
+        32,
+        64
+      ],
+      "dtype": "int16",
+      "quant": {
+        "type": "DFP",
+        "fl": 6,
+        "scale": 0.015625,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 13,
+      "direction": "output",
+      "name_from_unchanged_source": "b1_attach_new_k/out0_1",
+      "dimensions_vx": [
+        64,
+        32,
+        2,
+        1
+      ],
+      "shape_framework": [
+        1,
+        2,
+        32,
+        64
+      ],
+      "dtype": "int16",
+      "quant": {
+        "type": "DFP",
+        "fl": 6,
+        "scale": 0.015625,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 14,
+      "direction": "output",
+      "name_from_unchanged_source": "b0_attach_new_v/out0_2",
+      "dimensions_vx": [
+        64,
+        32,
+        2,
+        1
+      ],
+      "shape_framework": [
+        1,
+        2,
+        32,
+        64
+      ],
+      "dtype": "int16",
+      "quant": {
+        "type": "DFP",
+        "fl": 15,
+        "scale": 3.0517578125e-05,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 15,
+      "direction": "output",
+      "name_from_unchanged_source": "b1_attach_new_v/out0_2",
+      "dimensions_vx": [
+        64,
+        32,
+        2,
+        1
+      ],
+      "shape_framework": [
+        1,
+        2,
+        32,
+        64
+      ],
+      "dtype": "int16",
+      "quant": {
+        "type": "DFP",
+        "fl": 12,
+        "scale": 0.000244140625,
+        "zero_point": 0
+      }
+    }
+  ],
+  "constant_audit": {
+    "path": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/official-export-c512-m32-l0/INDEPENDENT_EXPORT_AUDIT.json",
+    "sha256": "cd0a70b171b31eb3b85e1cd8b4af513a60d6c6c9a228061845021fdc287053b8",
+    "weight_count": 14,
+    "bias_count": 14,
+    "qtype_changed_count": 12,
+    "note": "6 weights +6 biases changed DFP\u2192equivalent affine schema; perchannel weight axis1\u21923 tracks reshape. Quantization files are not byte-identical; actual integer payload/grid values are equal."
+  },
+  "bitcast_opcode_changes": 14,
+  "input_fixture_path": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m32-l0/probe-input.f32",
+  "input_fixture_sha256": "b4bd76f70c9fa53260b78aff30e03a3f72cbc6bcda1dc9dcbd8214444028a9e5",
+  "input_bytes": 2170880,
+  "reference_fixture_path": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m32-l0/probe-fixture.json",
+  "binary_port_query_method": "SDK vxImportKernelFromURL(FILE) + vxGetKernelParameterByIndex + vxQueryParameter(META_FORMAT) + vxQueryMetaFormatAttribute; actual .nb imported, no graph execution",
+  "binary_port_query_source_sha256": "e89fc08ec4649ae1607046b51cce896bef7450983237bb6c812a9e24facc4ebb",
+  "binary_port_query_raw_sha256": "7199df5d3a61841286b43d4ffdd444daf5af214b9a4913a9ef78b3b6663e6a96",
+  "original_binary_port_query_raw_sha256": "7199df5d3a61841286b43d4ffdd444daf5af214b9a4913a9ef78b3b6663e6a96",
+  "board_test_status": "not_run",
+  "notes": [
+    "Host simulator timing is not board latency.",
+    "External port union fields irrelevant to their quant type are retained only in raw query JSON; normalized DFP uses fl, not alias scale bytes.",
+    "Graph layout can change arithmetic scheduling and outputs; must compare all5 actual board outputs before speed acceptance."
+  ],
+  "sources": {
+    "source-proof.json": "ece6bb1d9f45b7b962850e1bb8d72698d047b68af90adfa02acf75becd10ea50",
+    "run_official.py": "7bbb63ee06e14dd7c3ad954c17cd19f1d780c942ec59ccd705c1ba95dcfcba10",
+    "prepare_inputs.py": "428b9c89c71c5ab94d2364c23faf1a5ef2e230025cac3eb90c5613d15377d3b7",
+    "inspect_binary_ports.py": "091f1c8509d3c300a36d3a56fa1885a734fb52e8a77c3adf51f46a8475401968",
+    "status.json": "2ef9672bcab953f9b8f5cd326010eed380cce144d3818069788d0c93e49b9df1"
+  }
+}

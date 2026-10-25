@@ -1,0 +1,50 @@
+/* Independent native SDK verify/export only; no simulator inference. */
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include "vsi_nn_pub.h"
+#include "vnn_global.h"
+#include "vnn_pre_process.h"
+#include "vnn_post_process.h"
+#include "vnn_decoder.h"
+static int dump_ports(vsi_nn_graph_t *g,const char *path) {
+ FILE *f=fopen(path,"w");if(!f)return 1;
+ fprintf(f,"{\"inputs\":[");
+ for(int mode=0;mode<2;mode++) {
+  uint32_t n=mode?g->output.num:g->input.num;
+  vsi_nn_tensor_id_t *ids=mode?g->output.tensors:g->input.tensors;
+  if(mode)fprintf(f,"],\"outputs\":[");
+  for(uint32_t i=0;i<n;i++) {
+   vsi_nn_tensor_t *t=vsi_nn_GetTensor(g,ids[i]);if(!t){fclose(f);return 2;}
+   vsi_nn_tensor_attr_t *a=&t->attr;
+   fprintf(f,"%s{\"index\":%u,\"tensor_id\":%u,\"dtype\":%d,\"quant_type\":%d,\"dimensions\":[",i?",":"",i,(unsigned)ids[i],(int)a->dtype.vx_type,(int)a->dtype.qnt_type);
+   for(uint32_t j=0;j<a->dim_num;j++)fprintf(f,"%s%zu",j?",":"",(size_t)a->size[j]);
+   fprintf(f,"]");
+   if(a->dtype.qnt_type==VSI_NN_QNT_TYPE_DFP)fprintf(f,",\"fl\":%d",(int)a->dtype.fl);
+   if(a->dtype.qnt_type==VSI_NN_QNT_TYPE_AFFINE_ASYMMETRIC)fprintf(f,",\"scale\":%.17g,\"zero_point\":%d",(double)a->dtype.scale,(int)a->dtype.zero_point);
+   fprintf(f,"}");
+  }
+ }
+ fprintf(f,"]}\n");return fclose(f)!=0;
+}
+int main(int argc,char **argv) {
+ vsi_nn_graph_t *g=NULL;vsi_status st=VSI_FAILURE;size_t bytes=0;void *buf=NULL;FILE *f=NULL;int rc=1;
+ setvbuf(stdout,NULL,_IONBF,0);setvbuf(stderr,NULL,_IONBF,0);
+ if(argc!=3){fprintf(stderr,"usage: %s decoder.export.data output.nb\n",argv[0]);return 2;}
+ printf("STAGE create\n");
+ g=vnn_CreateDecoder(argv[1],NULL,vnn_GetPreProcessMap(),vnn_GetPreProcessMapCount(),vnn_GetPostProcessMap(),vnn_GetPostProcessMapCount());
+ if(!g){fprintf(stderr,"CREATE_FAILED\n");goto done;}
+ printf("PORT_COUNTS inputs=%u outputs=%u\n",g->input.num,g->output.num);
+ if(g->input.num!=11 || g->output.num!=5 || dump_ports(g,"ports-before-verify.json")){fprintf(stderr,"PORT_FAILED\n");goto done;}
+ printf("STAGE verify\n");st=vsi_nn_VerifyGraph(g);printf("VERIFY_STATUS %d\n",(int)st);if(st!=VSI_SUCCESS)goto done;
+ if(dump_ports(g,"ports-after-verify.json")){fprintf(stderr,"PORT_AFTER_FAILED\n");goto done;}
+ printf("STAGE nbg_size_query\n");st=vsi_nn_GenerateNBG(g,NULL,&bytes);printf("NBG_QUERY_STATUS %d bytes=%zu\n",(int)st,bytes);if(st!=VSI_SUCCESS || !bytes || bytes>512*1024*1024)goto done;
+ buf=malloc(bytes);if(!buf)goto done;
+ printf("STAGE nbg_generate\n");st=vsi_nn_GenerateNBG(g,buf,&bytes);printf("NBG_GENERATE_STATUS %d bytes=%zu\n",(int)st,bytes);if(st!=VSI_SUCCESS)goto done;
+ f=fopen(argv[2],"wb");if(!f)goto done;
+ if(fwrite(buf,1,bytes,f)!=bytes)goto done;
+ if(fclose(f)){f=NULL;goto done;}f=NULL;rc=0;
+ printf("NBG_SAVED bytes=%zu\n",bytes);
+ done:if(f)fclose(f);free(buf);if(g)vnn_ReleaseDecoder(g,TRUE);
+ printf("FINAL_STATUS %d\n",rc);return rc;
+}

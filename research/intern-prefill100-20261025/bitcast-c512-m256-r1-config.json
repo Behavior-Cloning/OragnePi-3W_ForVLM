@@ -1,0 +1,67 @@
+{
+  "scope": "single fused2 integer-grid-preserving Conv L0/M256 API A-B-A, not full-model TTFT, no audio/RAG residency",
+  "phase": "timing-only; NPD and IO profiling forbidden",
+  "binary": "/opt/opi-vlm/intern-prefill100-20261025/runs/bitcast-c512-m256-r1/tensor-probe",
+  "binary_sha256": "eed89e71c0030ea15fb90d490611b6d6efdcf88a530906fdc57a1c42498e4da3",
+  "warmup": 3,
+  "repeats": 30,
+  "sequence": [
+    {
+      "run_id": "original-before",
+      "query_tokens": 256,
+      "first_layer": 0,
+      "capacity": 512,
+      "nb": "/opt/opi-vlm/intern-prefill100-20261025/runs/bitcast-c512-m256-r1/original.nb",
+      "nb_sha256": "e9b2d8af40f96341eda1e7ff07b867ccde9bbcf9a755746c86e6dafec2de11d5",
+      "input": "/dev/shm/opi-prefill100-bitcast-c512-m256-r1-input.f32",
+      "input_sha256": "e3e1224831b8b33be92e3d3c2ee26c7d30e9ea3b9eb5ff8fe1583de18718a932",
+      "reference_sha256": "376697d408c95617b0a96859eaef5ce2717ff5dd5907391c0e2a21e439c4e817",
+      "variant": "w8-fcl",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m256-l0/probe-reference.f32"
+    },
+    {
+      "run_id": "candidate",
+      "query_tokens": 256,
+      "first_layer": 0,
+      "capacity": 512,
+      "nb": "/opt/opi-vlm/intern-prefill100-20261025/runs/bitcast-c512-m256-r1/candidate.nb",
+      "nb_sha256": "907689cdee9a1f767f4b64d8854bcbae27b5c16871f26500519ed977fee4c250",
+      "input": "/dev/shm/opi-prefill100-bitcast-c512-m256-r1-input.f32",
+      "input_sha256": "e3e1224831b8b33be92e3d3c2ee26c7d30e9ea3b9eb5ff8fe1583de18718a932",
+      "reference_sha256": "376697d408c95617b0a96859eaef5ce2717ff5dd5907391c0e2a21e439c4e817",
+      "variant": "i8-preserved",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m256-l0/probe-reference.f32"
+    },
+    {
+      "run_id": "original-after",
+      "query_tokens": 256,
+      "first_layer": 0,
+      "capacity": 512,
+      "nb": "/opt/opi-vlm/intern-prefill100-20261025/runs/bitcast-c512-m256-r1/original.nb",
+      "nb_sha256": "e9b2d8af40f96341eda1e7ff07b867ccde9bbcf9a755746c86e6dafec2de11d5",
+      "input": "/dev/shm/opi-prefill100-bitcast-c512-m256-r1-input.f32",
+      "input_sha256": "e3e1224831b8b33be92e3d3c2ee26c7d30e9ea3b9eb5ff8fe1583de18718a932",
+      "reference_sha256": "376697d408c95617b0a96859eaef5ce2717ff5dd5907391c0e2a21e439c4e817",
+      "variant": "w8-fcl-repeat",
+      "local_reference": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m256-l0/probe-reference.f32"
+    }
+  ],
+  "canonical_input_sha256": "e3e1224831b8b33be92e3d3c2ee26c7d30e9ea3b9eb5ff8fe1583de18718a932",
+  "canonical_reference_sha256": "376697d408c95617b0a96859eaef5ce2717ff5dd5907391c0e2a21e439c4e817",
+  "fixture_meta_sha256": "b6541753aaf63ca71b7952f731fe0daf1eaa754e3f3ff3b8355fa8cf1524ca36",
+  "candidate_status_sha256": "b50c3194c9e33dd445af6f1a90475197f521278106f57d8e2c5ebb342c7ed215",
+  "source_sha256": {
+    "controller_integer_conv_m256.py": "dac95faea4c8b3f8ae7150d3611f3e024a2e46fdb69771d79ba72039be31248d",
+    "board_probe_suite.py": "28efcf567d0aec9e412b96cf38409c32b8d67f8463c8a7dee0414a2d133980c9"
+  },
+  "shared_file_verification": {},
+  "candidate_status": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/official-export-c512-m256-l0/deployment-manifest.json",
+  "reserve_bytes": 1178599424,
+  "input_storage": {
+    "path": "/dev/shm/opi-prefill100-bitcast-c512-m256-r1-input.f32",
+    "kind": "tmpfs",
+    "purpose": "same canonical input preloaded before all timed API calls; avoids duplicate disk use",
+    "min_mem_available_after_upload": 268435456
+  },
+  "diagnostic_policy": "Run any NPD/IO diagnostics separately in another unique directory; no diagnostic data admitted to timing stats"
+}

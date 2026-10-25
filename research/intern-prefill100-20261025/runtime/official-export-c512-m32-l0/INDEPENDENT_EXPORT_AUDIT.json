@@ -1,0 +1,544 @@
+{
+  "audit_pass": true,
+  "scope": "host export and source/payload/input audit only, not board performance or output qualification",
+  "source_c_unchanged_within_each_variant": true,
+  "official_main_exact": true,
+  "input_count": 11,
+  "both_reconstructed_f32": {
+    "plain": "b4bd76f70c9fa53260b78aff30e03a3f72cbc6bcda1dc9dcbd8214444028a9e5",
+    "bitcast": "b4bd76f70c9fa53260b78aff30e03a3f72cbc6bcda1dc9dcbd8214444028a9e5"
+  },
+  "canonical_f32_bytes": 2170880,
+  "exact_runtime_argv_order": true,
+  "official_environment_exact": true,
+  "plain_reproduces_prior_nb_bitwise": true,
+  "plain_nb": {
+    "path": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/official-export-c512-m32-l0/plain/network_binary.nb",
+    "bytes": 24760720,
+    "sha256": "d7adc37f977973a3ce3d40be0d2c1e8539ba187ce69f2fe12f6280d1b5b7d878",
+    "first32bytes_hex": "56504d4e000002003b0000101e95145790d1790100000000300000000c000000"
+  },
+  "bitcast_nb": {
+    "path": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/official-export-c512-m32-l0/bitcast/network_binary.nb",
+    "bytes": 24751168,
+    "sha256": "d194bada4a35f2759c5de89d7d0fcb10da982f213de5245b40c35085b7c4e50d",
+    "first32bytes_hex": "56504d4e000002003b000010baac153140ac790100000000300000000c000000"
+  },
+  "constant_count": 28,
+  "weights": 14,
+  "biases": 14,
+  "all_constant_integer_bytes_and_numeric_values_equal": true,
+  "qtype_changed_count": 12,
+  "constant_records": [
+    {
+      "key": "@b0_fullconnect_122:weight",
+      "dtype": "INT8",
+      "bytes": 114688,
+      "raw_sha": "f5d19254a991d0a976bfe14d44ac292fafd7d7e5f925d11877f1e55a977acfd7",
+      "grid_sha": "549f1d8951d3f71bcea2e761822f0875ee1a4fd8e40393104a405e426a7e0159",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_DFP",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_ASYMMETRIC",
+      "old_shape": {
+        "0": 896,
+        "1": 128
+      },
+      "new_shape": {
+        "0": 1,
+        "1": 1,
+        "2": 896,
+        "3": 128
+      }
+    },
+    {
+      "key": "@b0_fullconnect_122:bias",
+      "dtype": "INT64",
+      "bytes": 1024,
+      "raw_sha": "c364a630fd1ac2d58a6e38cdd50dac93acae3d385a6c06bf84872e66f46acdab",
+      "grid_sha": "6ba4089cf6844e318dd7eb5be156638b2b6d982dece0b7fb1c310929338c7349",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_DFP",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_ASYMMETRIC",
+      "old_shape": {
+        "0": 128
+      },
+      "new_shape": {
+        "0": 128
+      }
+    },
+    {
+      "key": "@b0_fullconnect_128:weight",
+      "dtype": "INT8",
+      "bytes": 114688,
+      "raw_sha": "4b75de9a479259c7656144be221c11123d8ced2c9f6e9ca30628c8cbfaed3291",
+      "grid_sha": "b6cb685c22a7e3772862556c49a5c5d215e7f24d55cb4134ea570f073ad27678",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "old_shape": {
+        "0": 896,
+        "1": 128
+      },
+      "new_shape": {
+        "0": 1,
+        "1": 1,
+        "2": 896,
+        "3": 128
+      }
+    },
+    {
+      "key": "@b0_fullconnect_128:bias",
+      "dtype": "INT64",
+      "bytes": 1024,
+      "raw_sha": "de7b1b56f30c1a6668fdba99dd38e550999a6c465182e674689394e5d4c8de47",
+      "grid_sha": "07ebff79786d9ac00a88490dd7425d6fb4a28f681e29a3eba6d7688a8782a42b",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "old_shape": {
+        "0": 128
+      },
+      "new_shape": {
+        "0": 128
+      }
+    },
+    {
+      "key": "@b0_fullconnect_134:weight",
+      "dtype": "INT8",
+      "bytes": 802816,
+      "raw_sha": "cf2d4ba29ace9e49e3acc58e99e13a831b978a373bd2d984865491f84a1cedb6",
+      "grid_sha": "8410a58a1383c9a6e4c534524a0ed79f06a281a2e37432ab1a90264f24ce856b",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "old_shape": {
+        "0": 896,
+        "1": 896
+      },
+      "new_shape": {
+        "0": 1,
+        "1": 1,
+        "2": 896,
+        "3": 896
+      }
+    },
+    {
+      "key": "@b0_fullconnect_134:bias",
+      "dtype": "INT64",
+      "bytes": 7168,
+      "raw_sha": "79223aff11d941c8273af20a942e3542434d4b0f004c747b1e734c82130ce95b",
+      "grid_sha": "0ba32d3f69a01c2746072598f8081f1d6496eae6d6834ac171779c964c54b12b",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "old_shape": {
+        "0": 896
+      },
+      "new_shape": {
+        "0": 896
+      }
+    },
+    {
+      "key": "@b0_fullconnect_119:weight",
+      "dtype": "INT8",
+      "bytes": 802816,
+      "raw_sha": "9b6fa31a78d9bf72ebe8d92ffa24f117794c3ac0ea38979089ea5dd89dbaeea6",
+      "grid_sha": "6cd9c1784fd071c22b7e663f74af2bc31f338e4634ce096f44aed24160b7df75",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "old_shape": {
+        "0": 896,
+        "1": 896
+      },
+      "new_shape": {
+        "0": 1,
+        "1": 1,
+        "2": 896,
+        "3": 896
+      }
+    },
+    {
+      "key": "@b0_fullconnect_119:bias",
+      "dtype": "INT64",
+      "bytes": 7168,
+      "raw_sha": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+      "grid_sha": "6cf1b57d59e7111bc218dfb01dda93ac0f776715599a1c69f89035bd20c16a10",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "old_shape": {
+        "0": 896
+      },
+      "new_shape": {
+        "0": 896
+      }
+    },
+    {
+      "key": "@b0_fullconnect_125:weight",
+      "dtype": "INT8",
+      "bytes": 4358144,
+      "raw_sha": "cd66f3b72022d915f2577c1f479d70df13f93531ca0328e08c69370ad43b1e31",
+      "grid_sha": "0c6316499dd70e31943fffa5b9aea5ed006752c498e9255c7293d1d82526724f",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_DFP",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_ASYMMETRIC",
+      "old_shape": {
+        "0": 896,
+        "1": 4864
+      },
+      "new_shape": {
+        "0": 1,
+        "1": 1,
+        "2": 896,
+        "3": 4864
+      }
+    },
+    {
+      "key": "@b0_fullconnect_125:bias",
+      "dtype": "INT64",
+      "bytes": 38912,
+      "raw_sha": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+      "grid_sha": "c597b1b463b7cec49548fac00d7588c9652bb67cc2b1b0c88676bf8f1558571e",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_DFP",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_ASYMMETRIC",
+      "old_shape": {
+        "0": 4864
+      },
+      "new_shape": {
+        "0": 4864
+      }
+    },
+    {
+      "key": "@b0_fullconnect_131:bias",
+      "dtype": "INT64",
+      "bytes": 38912,
+      "raw_sha": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+      "grid_sha": "c597b1b463b7cec49548fac00d7588c9652bb67cc2b1b0c88676bf8f1558571e",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_DFP",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_ASYMMETRIC",
+      "old_shape": {
+        "0": 4864
+      },
+      "new_shape": {
+        "0": 4864
+      }
+    },
+    {
+      "key": "@b1_fullconnect_125:bias",
+      "dtype": "INT64",
+      "bytes": 38912,
+      "raw_sha": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+      "grid_sha": "c597b1b463b7cec49548fac00d7588c9652bb67cc2b1b0c88676bf8f1558571e",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_DFP",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_ASYMMETRIC",
+      "old_shape": {
+        "0": 4864
+      },
+      "new_shape": {
+        "0": 4864
+      }
+    },
+    {
+      "key": "@b1_fullconnect_131:bias",
+      "dtype": "INT64",
+      "bytes": 38912,
+      "raw_sha": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6",
+      "grid_sha": "c597b1b463b7cec49548fac00d7588c9652bb67cc2b1b0c88676bf8f1558571e",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_DFP",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_ASYMMETRIC",
+      "old_shape": {
+        "0": 4864
+      },
+      "new_shape": {
+        "0": 4864
+      }
+    },
+    {
+      "key": "@b0_fullconnect_131:weight",
+      "dtype": "INT8",
+      "bytes": 4358144,
+      "raw_sha": "d44b313ccfb1c51496f99677301d65ddbfa5db4bb901b765d766a1cbc200b693",
+      "grid_sha": "be0291cc7618b15fa7b0714acea8ff110c8b32e4a291a5292f4b4f62b4a41f40",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_DFP",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_ASYMMETRIC",
+      "old_shape": {
+        "0": 896,
+        "1": 4864
+      },
+      "new_shape": {
+        "0": 1,
+        "1": 1,
+        "2": 896,
+        "3": 4864
+      }
+    },
+    {
+      "key": "@b0_fullconnect_116:weight",
+      "dtype": "INT8",
+      "bytes": 4358144,
+      "raw_sha": "ce4b61afe999ee4ae08b11b2280b0e06065bfe3760025cb6bd616b51b45a9ace",
+      "grid_sha": "98a797390fc4805c9e9f9766204cb128a4eaa7a4b4397261ebc3b10cee05d259",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "old_shape": {
+        "0": 4864,
+        "1": 896
+      },
+      "new_shape": {
+        "0": 1,
+        "1": 1,
+        "2": 4864,
+        "3": 896
+      }
+    },
+    {
+      "key": "@b0_fullconnect_116:bias",
+      "dtype": "INT64",
+      "bytes": 7168,
+      "raw_sha": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+      "grid_sha": "6cf1b57d59e7111bc218dfb01dda93ac0f776715599a1c69f89035bd20c16a10",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "old_shape": {
+        "0": 896
+      },
+      "new_shape": {
+        "0": 896
+      }
+    },
+    {
+      "key": "@b1_fullconnect_122:weight",
+      "dtype": "INT8",
+      "bytes": 114688,
+      "raw_sha": "0201e3658b19e1738bda843138416e8e0a1f51e9e88c46c493eba5f96634aef7",
+      "grid_sha": "01eea65cdc5841e06d55f423c825caf74de6906dbb5c96c38f9a0db21c6d66cb",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_DFP",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_ASYMMETRIC",
+      "old_shape": {
+        "0": 896,
+        "1": 128
+      },
+      "new_shape": {
+        "0": 1,
+        "1": 1,
+        "2": 896,
+        "3": 128
+      }
+    },
+    {
+      "key": "@b1_fullconnect_122:bias",
+      "dtype": "INT64",
+      "bytes": 1024,
+      "raw_sha": "fb082a3851faa0782e712c9fe26e9a29e383aea144aaecd66fe04919f8655aa3",
+      "grid_sha": "983ec62ec41282ea220c01261462fc34976138eccf2daab711105ac9b5e2a082",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_DFP",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_ASYMMETRIC",
+      "old_shape": {
+        "0": 128
+      },
+      "new_shape": {
+        "0": 128
+      }
+    },
+    {
+      "key": "@b1_fullconnect_128:weight",
+      "dtype": "INT8",
+      "bytes": 114688,
+      "raw_sha": "7315304834305c05cbd6e6e7c9ed39638380f6d48cc9f030bf857cffc9072554",
+      "grid_sha": "c32f15beb5003193718ee9b177d57156c5e14f4378d03d95d1f2966bb9f4c5bf",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "old_shape": {
+        "0": 896,
+        "1": 128
+      },
+      "new_shape": {
+        "0": 1,
+        "1": 1,
+        "2": 896,
+        "3": 128
+      }
+    },
+    {
+      "key": "@b1_fullconnect_128:bias",
+      "dtype": "INT64",
+      "bytes": 1024,
+      "raw_sha": "d702805f00062c391ef040422863257933b156cd7f30a6377d44d0cee9156b2f",
+      "grid_sha": "49e21a1f213208e80a882fcbe9570060f27d5b35560b437e89bb207083e02cc9",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "old_shape": {
+        "0": 128
+      },
+      "new_shape": {
+        "0": 128
+      }
+    },
+    {
+      "key": "@b1_fullconnect_134:weight",
+      "dtype": "INT8",
+      "bytes": 802816,
+      "raw_sha": "ec24a8119fd37f2156df4861aeab5f79ed13b14100b7ca1b8fe4bebd55f76a00",
+      "grid_sha": "2d8e7976395fcb3513084cdc0542efaf01bd29e64803a0fc2260ffc41859d5c9",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "old_shape": {
+        "0": 896,
+        "1": 896
+      },
+      "new_shape": {
+        "0": 1,
+        "1": 1,
+        "2": 896,
+        "3": 896
+      }
+    },
+    {
+      "key": "@b1_fullconnect_134:bias",
+      "dtype": "INT64",
+      "bytes": 7168,
+      "raw_sha": "7615fd360bd507bb32bd297e01f091653840917798748f8cd8b53fd26b0e91d6",
+      "grid_sha": "63082210d37ad7e36d76ed652208e2aae7ab7230874214095256573b75d111b5",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "old_shape": {
+        "0": 896
+      },
+      "new_shape": {
+        "0": 896
+      }
+    },
+    {
+      "key": "@b1_fullconnect_119:weight",
+      "dtype": "INT8",
+      "bytes": 802816,
+      "raw_sha": "8737a45a9aebaf15e11ee37d4303e14beab1fedefeb96140aad89085101c40c6",
+      "grid_sha": "3ea6656f0a39b183f76f99c7141154b4e5958fb95e3699fb6b63b7ae21f708d4",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "old_shape": {
+        "0": 896,
+        "1": 896
+      },
+      "new_shape": {
+        "0": 1,
+        "1": 1,
+        "2": 896,
+        "3": 896
+      }
+    },
+    {
+      "key": "@b1_fullconnect_119:bias",
+      "dtype": "INT64",
+      "bytes": 7168,
+      "raw_sha": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+      "grid_sha": "6cf1b57d59e7111bc218dfb01dda93ac0f776715599a1c69f89035bd20c16a10",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "old_shape": {
+        "0": 896
+      },
+      "new_shape": {
+        "0": 896
+      }
+    },
+    {
+      "key": "@b1_fullconnect_125:weight",
+      "dtype": "INT8",
+      "bytes": 4358144,
+      "raw_sha": "de08f9021e35139aba4874a3ccfe509e47277afc3b1b4d8971fce3dfb370f065",
+      "grid_sha": "6bf59dbc8056046e1aaaa6d0538d3c0c0232a751b57491c63bca1085551183d0",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_DFP",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_ASYMMETRIC",
+      "old_shape": {
+        "0": 896,
+        "1": 4864
+      },
+      "new_shape": {
+        "0": 1,
+        "1": 1,
+        "2": 896,
+        "3": 4864
+      }
+    },
+    {
+      "key": "@b1_fullconnect_131:weight",
+      "dtype": "INT8",
+      "bytes": 4358144,
+      "raw_sha": "acb67a86d1bc0139703d4d6126498b1d1b5b461a8e5f8853a70eceddee739501",
+      "grid_sha": "ae343e46df057d1470f75c269c14ead9918234922513bbc0122ba5634a4ea9de",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_DFP",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_ASYMMETRIC",
+      "old_shape": {
+        "0": 896,
+        "1": 4864
+      },
+      "new_shape": {
+        "0": 1,
+        "1": 1,
+        "2": 896,
+        "3": 4864
+      }
+    },
+    {
+      "key": "@b1_fullconnect_116:weight",
+      "dtype": "INT8",
+      "bytes": 4358144,
+      "raw_sha": "6f7a2f5c2b762a9870ca678c7b883e3bfd4d21a848cf9ecb7277d9faf95a1a10",
+      "grid_sha": "1a904a8d8fd3e79e30651eb63406f05d76cd0a4bbc34ffdaf7ad637b028dc06f",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "old_shape": {
+        "0": 4864,
+        "1": 896
+      },
+      "new_shape": {
+        "0": 1,
+        "1": 1,
+        "2": 4864,
+        "3": 896
+      }
+    },
+    {
+      "key": "@b1_fullconnect_116:bias",
+      "dtype": "INT64",
+      "bytes": 7168,
+      "raw_sha": "1aae2dda4016febd2765e64d20dd992319d388cc8a8690f1ae5f7984a4734dd3",
+      "grid_sha": "6cf1b57d59e7111bc218dfb01dda93ac0f776715599a1c69f89035bd20c16a10",
+      "raw_and_numeric_equal": true,
+      "old_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "new_qtype": "VSI_NN_QNT_TYPE_AFFINE_PERCHANNEL_SYMMETRIC",
+      "old_shape": {
+        "0": 896
+      },
+      "new_shape": {
+        "0": 896
+      }
+    }
+  ],
+  "limitations": [
+    "DFP-to-affine qtype metadata changed even though scale/zp grids and stored integer bytes are equal. Do not claim quantization metadata/files are byte-identical.",
+    "Generated NB ports still require actual binary metadata audit (runtime agent), followed by board canonical output validation.",
+    "Host generation runs SDK graph process under save-NBG mode; not a claim of no simulator graph processing.",
+    "No new model or board execution by independent auditor."
+  ]
+}

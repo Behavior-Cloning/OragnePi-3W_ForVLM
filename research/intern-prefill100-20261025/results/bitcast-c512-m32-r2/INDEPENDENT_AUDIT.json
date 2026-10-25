@@ -1,0 +1,86 @@
+{
+  "audit_pass": true,
+  "scope": "single L0/1 fused block C512 M32, one canonical input; no audio/RAG or full model",
+  "method": "Independent raw API arrays and f32; parent analyzer not imported; no board access",
+  "rows": [
+    {
+      "case": "original-before",
+      "n": 30,
+      "warmup": 3,
+      "p50_ms": 10.8287535,
+      "p95_linear_ms": 10.85599135,
+      "min_ms": 10.734252999999999,
+      "max_ms": 10.878421,
+      "allocated_bytes": 27354672,
+      "released_bytes": 0,
+      "sha256": "2c99a1b67cc752dff7b8eecd065424cb194bfe604ab59bd2020f3a525aa179d3",
+      "finite": true
+    },
+    {
+      "case": "candidate",
+      "n": 30,
+      "warmup": 3,
+      "p50_ms": 13.5229945,
+      "p95_linear_ms": 13.5780263,
+      "min_ms": 13.313139,
+      "max_ms": 13.590474,
+      "allocated_bytes": 27350944,
+      "released_bytes": 0,
+      "sha256": "2c99a1b67cc752dff7b8eecd065424cb194bfe604ab59bd2020f3a525aa179d3",
+      "finite": true
+    },
+    {
+      "case": "original-after",
+      "n": 30,
+      "warmup": 3,
+      "p50_ms": 10.832066500000002,
+      "p95_linear_ms": 10.850141650000001,
+      "min_ms": 10.708753999999999,
+      "max_ms": 10.857837,
+      "allocated_bytes": 27354672,
+      "released_bytes": 0,
+      "sha256": "2c99a1b67cc752dff7b8eecd065424cb194bfe604ab59bd2020f3a525aa179d3",
+      "finite": true
+    }
+  ],
+  "ports": [
+    {
+      "name": "hidden",
+      "elements": 28672,
+      "all_three_bitwise_equal": true,
+      "sha256": "725f117114449554dc62681961e13366b3d5bea13fa34f1764b41eb6ed00d4d4"
+    },
+    {
+      "name": "layer0_new_k",
+      "elements": 4096,
+      "all_three_bitwise_equal": true,
+      "sha256": "148414fcb6a7eb86aec3a8ed28219c97609a025f2feaa3d9ad5b322faffe5045"
+    },
+    {
+      "name": "layer1_new_k",
+      "elements": 4096,
+      "all_three_bitwise_equal": true,
+      "sha256": "5d8505211b8dc666553b96c68529192ae0c1ed33084d840cee5b9af4f1e76b7d"
+    },
+    {
+      "name": "layer0_new_v",
+      "elements": 4096,
+      "all_three_bitwise_equal": true,
+      "sha256": "42b7e5c2696e593b9f3aa4cd6cc67cb39a8728db301fd7769f56f32f9bc856c7"
+    },
+    {
+      "name": "layer1_new_v",
+      "elements": 4096,
+      "all_three_bitwise_equal": true,
+      "sha256": "8fdc275136865da6c183f848a562961da69adbfa6e9df9dc14b117fca1446771"
+    }
+  ],
+  "candidate_slowdown_percent_vs_before": 24.88043522276133,
+  "baseline_drift_percent": 0.030594472392442285,
+  "peak_temperature_C": 40.176,
+  "resource_n": 10,
+  "minimum_mem_available_bytes": 4624281600,
+  "three_release_zero": true,
+  "source_and_fixture_hashes_passed": true,
+  "not_generalized_to_large_M": true
+}

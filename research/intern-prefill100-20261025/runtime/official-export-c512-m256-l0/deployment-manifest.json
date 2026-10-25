@@ -1,0 +1,338 @@
+{
+  "state": "complete",
+  "qualification": "Host export and exact actual binary-port/constant audit only; board validation is pending.",
+  "geometry": {
+    "first_layer": 0,
+    "fusion_width": 2,
+    "capacity": 512,
+    "query_tokens": 256
+  },
+  "nb_path": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/official-export-c512-m256-l0/bitcast/network_binary.nb",
+  "nb_sha256": "907689cdee9a1f767f4b64d8854bcbae27b5c16871f26500519ed977fee4c250",
+  "nb_bytes": 35975168,
+  "source_nb_sha256": "e9b2d8af40f96341eda1e7ff07b867ccde9bbcf9a755746c86e6dafec2de11d5",
+  "source_nb_path": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/official-export-c512-m256-l0/plain/network_binary.nb",
+  "all_external_ports_exact": true,
+  "all_14_weight_values_exact": true,
+  "all_14_weight_integer_codes_exact": true,
+  "all_14_bias_values_exact": true,
+  "all_external_quant_grids_equal": true,
+  "weight_storage": "i8-preserved",
+  "actual_binary_ports": [
+    {
+      "index": 0,
+      "direction": "input",
+      "source_name": "b0_hidden_101",
+      "dimensions_vx": [
+        896,
+        256,
+        1
+      ],
+      "dtype": "float16",
+      "quantization": {
+        "type": "none"
+      }
+    },
+    {
+      "index": 1,
+      "direction": "input",
+      "source_name": "b0_past_k_102",
+      "dimensions_vx": [
+        64,
+        512,
+        2,
+        1
+      ],
+      "dtype": "int16",
+      "quantization": {
+        "type": "DFP",
+        "fl": 6,
+        "scale": 0.015625,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 2,
+      "direction": "input",
+      "source_name": "b1_past_k_102",
+      "dimensions_vx": [
+        64,
+        512,
+        2,
+        1
+      ],
+      "dtype": "int16",
+      "quantization": {
+        "type": "DFP",
+        "fl": 6,
+        "scale": 0.015625,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 3,
+      "direction": "input",
+      "source_name": "b0_past_v_103",
+      "dimensions_vx": [
+        64,
+        512,
+        2,
+        1
+      ],
+      "dtype": "int16",
+      "quantization": {
+        "type": "DFP",
+        "fl": 15,
+        "scale": 3.0517578125e-05,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 4,
+      "direction": "input",
+      "source_name": "b1_past_v_103",
+      "dimensions_vx": [
+        64,
+        512,
+        2,
+        1
+      ],
+      "dtype": "int16",
+      "quantization": {
+        "type": "DFP",
+        "fl": 12,
+        "scale": 0.000244140625,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 5,
+      "direction": "input",
+      "source_name": "b0_mask_104",
+      "dimensions_vx": [
+        768,
+        1792,
+        1,
+        1
+      ],
+      "dtype": "float16",
+      "quantization": {
+        "type": "none"
+      }
+    },
+    {
+      "index": 6,
+      "direction": "input",
+      "source_name": "b1_mask_104",
+      "dimensions_vx": [
+        768,
+        1792,
+        1,
+        1
+      ],
+      "dtype": "float16",
+      "quantization": {
+        "type": "none"
+      }
+    },
+    {
+      "index": 7,
+      "direction": "input",
+      "source_name": "b0_rope_cos_105",
+      "dimensions_vx": [
+        64,
+        256,
+        1,
+        1
+      ],
+      "dtype": "int16",
+      "quantization": {
+        "type": "DFP",
+        "fl": 14,
+        "scale": 6.103515625e-05,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 8,
+      "direction": "input",
+      "source_name": "b1_rope_cos_105",
+      "dimensions_vx": [
+        64,
+        256,
+        1,
+        1
+      ],
+      "dtype": "int16",
+      "quantization": {
+        "type": "DFP",
+        "fl": 14,
+        "scale": 6.103515625e-05,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 9,
+      "direction": "input",
+      "source_name": "b0_rope_sin_106",
+      "dimensions_vx": [
+        64,
+        256,
+        1,
+        1
+      ],
+      "dtype": "int16",
+      "quantization": {
+        "type": "DFP",
+        "fl": 14,
+        "scale": 6.103515625e-05,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 10,
+      "direction": "input",
+      "source_name": "b1_rope_sin_106",
+      "dimensions_vx": [
+        64,
+        256,
+        1,
+        1
+      ],
+      "dtype": "int16",
+      "quantization": {
+        "type": "DFP",
+        "fl": 14,
+        "scale": 6.103515625e-05,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 11,
+      "direction": "output",
+      "source_name": "b1_attach_hidden_out/out0_0",
+      "dimensions_vx": [
+        896,
+        256,
+        1
+      ],
+      "dtype": "float16",
+      "quantization": {
+        "type": "none"
+      }
+    },
+    {
+      "index": 12,
+      "direction": "output",
+      "source_name": "b0_attach_new_k/out0_1",
+      "dimensions_vx": [
+        64,
+        256,
+        2,
+        1
+      ],
+      "dtype": "int16",
+      "quantization": {
+        "type": "DFP",
+        "fl": 6,
+        "scale": 0.015625,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 13,
+      "direction": "output",
+      "source_name": "b1_attach_new_k/out0_1",
+      "dimensions_vx": [
+        64,
+        256,
+        2,
+        1
+      ],
+      "dtype": "int16",
+      "quantization": {
+        "type": "DFP",
+        "fl": 6,
+        "scale": 0.015625,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 14,
+      "direction": "output",
+      "source_name": "b0_attach_new_v/out0_2",
+      "dimensions_vx": [
+        64,
+        256,
+        2,
+        1
+      ],
+      "dtype": "int16",
+      "quantization": {
+        "type": "DFP",
+        "fl": 15,
+        "scale": 3.0517578125e-05,
+        "zero_point": 0
+      }
+    },
+    {
+      "index": 15,
+      "direction": "output",
+      "source_name": "b1_attach_new_v/out0_2",
+      "dimensions_vx": [
+        64,
+        256,
+        2,
+        1
+      ],
+      "dtype": "int16",
+      "quantization": {
+        "type": "DFP",
+        "fl": 12,
+        "scale": 0.000244140625,
+        "zero_point": 0
+      }
+    }
+  ],
+  "bitcast_opcode_changes": 14,
+  "constant_audit": {
+    "path": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/official-export-c512-m256-l0/INDEPENDENT_EXPORT_AUDIT.json",
+    "sha256": "08c480712cc22273d30d54d617b1f3ce5fdf5f276e9639533a6954870d41bbad",
+    "weight_count": 14,
+    "bias_count": 14,
+    "qtype_changed_count": 12,
+    "note": "Six weight and six bias DFP descriptors become equivalent affine descriptors; PC axes follow reshaped Conv weights. Quantization files are not byte-identical."
+  },
+  "input_fixture_path": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m256-l0/probe-input.f32",
+  "input_fixture_sha256": "e3e1224831b8b33be92e3d3c2ee26c7d30e9ea3b9eb5ff8fe1583de18718a932",
+  "input_bytes": 13238272,
+  "reference_fixture_path": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/fixtures-canonical/c512-m256-l0/probe-fixture.json",
+  "reference_fixture_sha256": "b6541753aaf63ca71b7952f731fe0daf1eaa754e3f3ff3b8355fa8cf1524ca36",
+  "probe_history_tokens": 128,
+  "probe_query_rows": 256,
+  "history_source": "independent FP32 full-depth prefix; not captured NPU KV",
+  "timing_scope": "Single fused two-layer block. Not whole 24-layer prefill or TTFT. Query rows are not user dynamic-body tokens; chat adds eight template tokens.",
+  "binary_port_query_method": "SDK vxImportKernelFromURL then vxQueryKernel/vxQueryParameter/vxQueryMetaFormatAttribute; no execution graph run.",
+  "binary_port_query_source_sha256": "e89fc08ec4649ae1607046b51cce896bef7450983237bb6c812a9e24facc4ebb",
+  "binary_port_query_raw_sha256": "7ded1d6a9829c947e9234b803dd06e6a75da2fffa7a0e93cc66561a2e60313c7",
+  "original_binary_port_query_raw_sha256": "7ded1d6a9829c947e9234b803dd06e6a75da2fffa7a0e93cc66561a2e60313c7",
+  "board_test_status": "not_run",
+  "source_sha256": {
+    "source-proof.json": "328821d59467969d7aa770068ad5d6127e883050ae0d2c27cfd8cbea7336ae6c",
+    "patch-proof.json": "5e0a12dd3be82c3eb77657a7393d7f27d42d35fb827c091c28a16cf58d63f3c7",
+    "prepare_bitcast.py": "071ba76fc3631c92d1e06a74b5c18e2e4b79cdc247506522214c14872c678aad",
+    "prepare_inputs.py": "ea49a9a14045a7c6b6df601d612602279c43d631c36ea94b80f7da0835d71884",
+    "run_official.py": "7bbb63ee06e14dd7c3ad954c17cd19f1d780c942ec59ccd705c1ba95dcfcba10",
+    "inspect_binary_ports.py": "091f1c8509d3c300a36d3a56fa1885a734fb52e8a77c3adf51f46a8475401968",
+    "inspect_nbg.c": "e89fc08ec4649ae1607046b51cce896bef7450983237bb6c812a9e24facc4ebb",
+    "status.json": "ca2a298833f8aec67d07cc0e991d5445a6a47136f52788d114624ef5f1c536e8",
+    "finalize_manifest.py": "96ecad9d8dc264f08fee797379bdab51bc492940bd2515be5dfa8be1759ab137",
+    "INDEPENDENT_EXPORT_AUDIT.json": "08c480712cc22273d30d54d617b1f3ce5fdf5f276e9639533a6954870d41bbad"
+  },
+  "notes": [
+    "M32 BITCAST was bitwise equal on board but about 25% slower; M256 is a separate bounded batch-efficiency experiment.",
+    "Host generation time is not NPU board inference time.",
+    "DFP is interpreted by fl; SCALE/ZERO_POINT union aliases are not active quantization fields.",
+    "All five board outputs, A-B-A timing and driver release must be checked before acceptance."
+  ]
+}

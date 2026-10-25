@@ -1,0 +1,258 @@
+
+/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/libOpenVX.so:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000259260 <vxGenerateNBG>:
+  259260:	41 56                	push   %r14
+  259262:	41 55                	push   %r13
+  259264:	41 54                	push   %r12
+  259266:	55                   	push   %rbp
+  259267:	53                   	push   %rbx
+  259268:	48 83 ec 20          	sub    $0x20,%rsp
+  25926c:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+  259273:	00 00 
+  259275:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+  25927a:	31 c0                	xor    %eax,%eax
+  25927c:	48 85 ff             	test   %rdi,%rdi
+  25927f:	0f 84 50 03 00 00    	je     2595d5 <vxGenerateNBG+0x375>
+  259285:	48 89 fb             	mov    %rdi,%rbx
+  259288:	49 89 f6             	mov    %rsi,%r14
+  25928b:	49 89 d5             	mov    %rdx,%r13
+  25928e:	48 8b 6f 08          	mov    0x8(%rdi),%rbp
+  259292:	e8 c9 53 e5 ff       	callq  ae660 <vxoBinaryGraph_HasBinaryInGraph@plt>
+  259297:	83 f8 01             	cmp    $0x1,%eax
+  25929a:	0f 84 8a 03 00 00    	je     25962a <vxGenerateNBG+0x3ca>
+  2592a0:	8b b5 d0 96 2e 00    	mov    0x2e96d0(%rbp),%esi
+  2592a6:	85 f6                	test   %esi,%esi
+  2592a8:	0f 85 ca 02 00 00    	jne    259578 <vxGenerateNBG+0x318>
+  2592ae:	8b 8b b0 00 00 00    	mov    0xb0(%rbx),%ecx
+  2592b4:	85 c9                	test   %ecx,%ecx
+  2592b6:	0f 84 ec 02 00 00    	je     2595a8 <vxGenerateNBG+0x348>
+  2592bc:	4d 85 ed             	test   %r13,%r13
+  2592bf:	0f 95 c0             	setne  %al
+  2592c2:	4d 85 f6             	test   %r14,%r14
+  2592c5:	0f 94 c2             	sete   %dl
+  2592c8:	84 c2                	test   %al,%dl
+  2592ca:	75 0a                	jne    2592d6 <vxGenerateNBG+0x76>
+  2592cc:	8b 93 24 01 00 00    	mov    0x124(%rbx),%edx
+  2592d2:	85 d2                	test   %edx,%edx
+  2592d4:	75 72                	jne    259348 <vxGenerateNBG+0xe8>
+  2592d6:	48 8b 83 18 9f 0e 00 	mov    0xe9f18(%rbx),%rax
+  2592dd:	48 89 df             	mov    %rbx,%rdi
+  2592e0:	8b 68 68             	mov    0x68(%rax),%ebp
+  2592e3:	c7 40 68 01 00 00 00 	movl   $0x1,0x68(%rax)
+  2592ea:	c7 83 f0 01 01 00 01 	movl   $0x1,0x101f0(%rbx)
+  2592f1:	00 00 00 
+  2592f4:	e8 57 0f e6 ff       	callq  ba250 <vxVerifyGraph@plt>
+  2592f9:	85 c0                	test   %eax,%eax
+  2592fb:	41 89 c4             	mov    %eax,%r12d
+  2592fe:	0f 84 dc 00 00 00    	je     2593e0 <vxGenerateNBG+0x180>
+  259304:	48 8b 83 18 9f 0e 00 	mov    0xe9f18(%rbx),%rax
+  25930b:	c7 83 f0 01 01 00 00 	movl   $0x0,0x101f0(%rbx)
+  259312:	00 00 00 
+  259315:	89 68 68             	mov    %ebp,0x68(%rax)
+  259318:	48 89 df             	mov    %rbx,%rdi
+  25931b:	e8 10 76 fd ff       	callq  230930 <vxoBinaryGraph_unInitial>
+  259320:	48 8b 4c 24 18       	mov    0x18(%rsp),%rcx
+  259325:	64 48 33 0c 25 28 00 	xor    %fs:0x28,%rcx
+  25932c:	00 00 
+  25932e:	44 89 e0             	mov    %r12d,%eax
+  259331:	0f 85 1d 03 00 00    	jne    259654 <vxGenerateNBG+0x3f4>
+  259337:	48 83 c4 20          	add    $0x20,%rsp
+  25933b:	5b                   	pop    %rbx
+  25933c:	5d                   	pop    %rbp
+  25933d:	41 5c                	pop    %r12
+  25933f:	41 5d                	pop    %r13
+  259341:	41 5e                	pop    %r14
+  259343:	c3                   	retq   
+  259344:	0f 1f 40 00          	nopl   0x0(%rax)
+  259348:	4d 85 f6             	test   %r14,%r14
+  25934b:	40 0f 95 c5          	setne  %bpl
+  25934f:	40 20 c5             	and    %al,%bpl
+  259352:	0f 84 18 01 00 00    	je     259470 <vxGenerateNBG+0x210>
+  259358:	48 8b 83 e8 01 01 00 	mov    0x101e8(%rbx),%rax
+  25935f:	4d 8b 6d 00          	mov    0x0(%r13),%r13
+  259363:	48 c7 44 24 08 00 00 	movq   $0x0,0x8(%rsp)
+  25936a:	00 00 
+  25936c:	48 c7 44 24 10 00 00 	movq   $0x0,0x10(%rsp)
+  259373:	00 00 
+  259375:	4c 89 b0 70 a1 07 00 	mov    %r14,0x7a170(%rax)
+  25937c:	48 8b 83 e8 01 01 00 	mov    0x101e8(%rbx),%rax
+  259383:	4c 8b 88 88 a1 07 00 	mov    0x7a188(%rax),%r9
+  25938a:	4d 39 cd             	cmp    %r9,%r13
+  25938d:	0f 82 6a 02 00 00    	jb     2595fd <vxGenerateNBG+0x39d>
+  259393:	c7 83 f0 01 01 00 01 	movl   $0x1,0x101f0(%rbx)
+  25939a:	00 00 00 
+  25939d:	48 89 df             	mov    %rbx,%rdi
+  2593a0:	c7 80 6c a1 07 00 03 	movl   $0x3,0x7a16c(%rax)
+  2593a7:	00 00 00 
+  2593aa:	e8 61 3e fd ff       	callq  22d210 <vxoBinaryGraph_SaveCacheBufferIntoNBG>
+  2593af:	85 c0                	test   %eax,%eax
+  2593b1:	41 89 c4             	mov    %eax,%r12d
+  2593b4:	0f 84 e6 00 00 00    	je     2594a0 <vxGenerateNBG+0x240>
+  2593ba:	48 8b 74 24 10       	mov    0x10(%rsp),%rsi
+  2593bf:	48 85 f6             	test   %rsi,%rsi
+  2593c2:	74 07                	je     2593cb <vxGenerateNBG+0x16b>
+  2593c4:	31 ff                	xor    %edi,%edi
+  2593c6:	e8 d5 a8 e5 ff       	callq  b3ca0 <gcoOS_Close@plt>
+  2593cb:	c7 83 f0 01 01 00 00 	movl   $0x0,0x101f0(%rbx)
+  2593d2:	00 00 00 
+  2593d5:	48 89 df             	mov    %rbx,%rdi
+  2593d8:	e8 53 75 fd ff       	callq  230930 <vxoBinaryGraph_unInitial>
+  2593dd:	eb 6e                	jmp    25944d <vxGenerateNBG+0x1ed>
+  2593df:	90                   	nop
+  2593e0:	48 8b 83 e8 01 01 00 	mov    0x101e8(%rbx),%rax
+  2593e7:	48 89 df             	mov    %rbx,%rdi
+  2593ea:	c7 80 6c a1 07 00 02 	movl   $0x2,0x7a16c(%rax)
+  2593f1:	00 00 00 
+  2593f4:	e8 d7 97 e5 ff       	callq  b2bd0 <vxProcessGraph@plt>
+  2593f9:	85 c0                	test   %eax,%eax
+  2593fb:	41 89 c4             	mov    %eax,%r12d
+  2593fe:	0f 85 00 ff ff ff    	jne    259304 <vxGenerateNBG+0xa4>
+  259404:	48 8b 83 e8 01 01 00 	mov    0x101e8(%rbx),%rax
+  25940b:	48 8d 15 6e 28 3a 00 	lea    0x3a286e(%rip),%rdx        # 5fbc80 <__FUNCTION__.59381>
+  259412:	48 8d 35 df f9 39 00 	lea    0x39f9df(%rip),%rsi        # 5f8df8 <__FUNCTION__.51966+0x8298>
+  259419:	b9 ab 93 00 00       	mov    $0x93ab,%ecx
+  25941e:	bf 01 00 00 00       	mov    $0x1,%edi
+  259423:	4c 8b b0 88 a1 07 00 	mov    0x7a188(%rax),%r14
+  25942a:	31 c0                	xor    %eax,%eax
+  25942c:	4d 89 f0             	mov    %r14,%r8
+  25942f:	e8 ac 0a e6 ff       	callq  b9ee0 <vxPRINT@plt>
+  259434:	48 8b 83 18 9f 0e 00 	mov    0xe9f18(%rbx),%rax
+  25943b:	4d 85 ed             	test   %r13,%r13
+  25943e:	89 68 68             	mov    %ebp,0x68(%rax)
+  259441:	0f 84 01 01 00 00    	je     259548 <vxGenerateNBG+0x2e8>
+  259447:	4d 89 75 00          	mov    %r14,0x0(%r13)
+  25944b:	31 ed                	xor    %ebp,%ebp
+  25944d:	8b 83 f0 01 01 00    	mov    0x101f0(%rbx),%eax
+  259453:	85 c0                	test   %eax,%eax
+  259455:	0f 84 bd fe ff ff    	je     259318 <vxGenerateNBG+0xb8>
+  25945b:	40 84 ed             	test   %bpl,%bpl
+  25945e:	0f 84 bc fe ff ff    	je     259320 <vxGenerateNBG+0xc0>
+  259464:	e9 af fe ff ff       	jmpq   259318 <vxGenerateNBG+0xb8>
+  259469:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  259470:	48 8d 15 31 28 3a 00 	lea    0x3a2831(%rip),%rdx        # 5fbca8 <__FUNCTION__.59406>
+  259477:	48 8d 35 02 fa 39 00 	lea    0x39fa02(%rip),%rsi        # 5f8e80 <__FUNCTION__.51966+0x8320>
+  25947e:	4d 89 e9             	mov    %r13,%r9
+  259481:	4d 89 f0             	mov    %r14,%r8
+  259484:	b9 25 94 00 00       	mov    $0x9425,%ecx
+  259489:	bf 01 00 00 00       	mov    $0x1,%edi
+  25948e:	31 c0                	xor    %eax,%eax
+  259490:	45 31 e4             	xor    %r12d,%r12d
+  259493:	e8 48 0a e6 ff       	callq  b9ee0 <vxPRINT@plt>
+  259498:	eb b3                	jmp    25944d <vxGenerateNBG+0x1ed>
+  25949a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  2594a0:	48 8b 83 e8 01 01 00 	mov    0x101e8(%rbx),%rax
+  2594a7:	48 8d 54 24 08       	lea    0x8(%rsp),%rdx
+  2594ac:	48 8d 35 c2 15 3a 00 	lea    0x3a15c2(%rip),%rsi        # 5faa75 <__FUNCTION__.51966+0x9f15>
+  2594b3:	31 ff                	xor    %edi,%edi
+  2594b5:	c7 80 6c a1 07 00 00 	movl   $0x0,0x7a16c(%rax)
+  2594bc:	00 00 00 
+  2594bf:	e8 fc f1 e5 ff       	callq  b86c0 <gcoOS_GetEnv@plt>
+  2594c4:	85 c0                	test   %eax,%eax
+  2594c6:	75 1b                	jne    2594e3 <vxGenerateNBG+0x283>
+  2594c8:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  2594cd:	48 85 ff             	test   %rdi,%rdi
+  2594d0:	74 11                	je     2594e3 <vxGenerateNBG+0x283>
+  2594d2:	31 f6                	xor    %esi,%esi
+  2594d4:	ba 0a 00 00 00       	mov    $0xa,%edx
+  2594d9:	e8 72 a7 e5 ff       	callq  b3c50 <strtol@plt>
+  2594de:	83 f8 01             	cmp    $0x1,%eax
+  2594e1:	74 07                	je     2594ea <vxGenerateNBG+0x28a>
+  2594e3:	31 ed                	xor    %ebp,%ebp
+  2594e5:	e9 d0 fe ff ff       	jmpq   2593ba <vxGenerateNBG+0x15a>
+  2594ea:	48 8d 4c 24 10       	lea    0x10(%rsp),%rcx
+  2594ef:	48 8d 35 96 15 3a 00 	lea    0x3a1596(%rip),%rsi        # 5faa8c <__FUNCTION__.51966+0x9f2c>
+  2594f6:	31 d2                	xor    %edx,%edx
+  2594f8:	31 ff                	xor    %edi,%edi
+  2594fa:	e8 81 e7 e5 ff       	callq  b7c80 <gcoOS_Open@plt>
+  2594ff:	85 c0                	test   %eax,%eax
+  259501:	0f 88 52 01 00 00    	js     259659 <vxGenerateNBG+0x3f9>
+  259507:	48 8b 74 24 10       	mov    0x10(%rsp),%rsi
+  25950c:	31 c9                	xor    %ecx,%ecx
+  25950e:	31 d2                	xor    %edx,%edx
+  259510:	31 ff                	xor    %edi,%edi
+  259512:	e8 89 61 e5 ff       	callq  af6a0 <gcoOS_Seek@plt>
+  259517:	48 8b 7c 24 10       	mov    0x10(%rsp),%rdi
+  25951c:	4c 89 f2             	mov    %r14,%rdx
+  25951f:	4c 89 ee             	mov    %r13,%rsi
+  259522:	e8 19 76 fc ff       	callq  220b40 <vxoBinaryGraph_FileWriteImp.isra.87>
+  259527:	85 c0                	test   %eax,%eax
+  259529:	41 89 c4             	mov    %eax,%r12d
+  25952c:	0f 85 88 fe ff ff    	jne    2593ba <vxGenerateNBG+0x15a>
+  259532:	48 8b 74 24 10       	mov    0x10(%rsp),%rsi
+  259537:	31 ff                	xor    %edi,%edi
+  259539:	31 ed                	xor    %ebp,%ebp
+  25953b:	e8 00 4e e5 ff       	callq  ae340 <gcoOS_Flush@plt>
+  259540:	e9 75 fe ff ff       	jmpq   2593ba <vxGenerateNBG+0x15a>
+  259545:	0f 1f 00             	nopl   (%rax)
+  259548:	48 8d 15 59 27 3a 00 	lea    0x3a2759(%rip),%rdx        # 5fbca8 <__FUNCTION__.59406>
+  25954f:	48 8d 35 86 01 3a 00 	lea    0x3a0186(%rip),%rsi        # 5f96dc <__FUNCTION__.51966+0x8b7c>
+  259556:	b9 1c 94 00 00       	mov    $0x941c,%ecx
+  25955b:	bf 01 00 00 00       	mov    $0x1,%edi
+  259560:	31 c0                	xor    %eax,%eax
+  259562:	41 bc ff ff ff ff    	mov    $0xffffffff,%r12d
+  259568:	e8 73 09 e6 ff       	callq  b9ee0 <vxPRINT@plt>
+  25956d:	e9 a6 fd ff ff       	jmpq   259318 <vxGenerateNBG+0xb8>
+  259572:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  259578:	48 8d 15 29 27 3a 00 	lea    0x3a2729(%rip),%rdx        # 5fbca8 <__FUNCTION__.59406>
+  25957f:	48 8d 35 2a f8 39 00 	lea    0x39f82a(%rip),%rsi        # 5f8db0 <__FUNCTION__.51966+0x8250>
+  259586:	b9 0f 94 00 00       	mov    $0x940f,%ecx
+  25958b:	bf 01 00 00 00       	mov    $0x1,%edi
+  259590:	31 c0                	xor    %eax,%eax
+  259592:	41 bc fd ff ff ff    	mov    $0xfffffffd,%r12d
+  259598:	e8 43 09 e6 ff       	callq  b9ee0 <vxPRINT@plt>
+  25959d:	e9 76 fd ff ff       	jmpq   259318 <vxGenerateNBG+0xb8>
+  2595a2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  2595a8:	48 8d 15 f9 26 3a 00 	lea    0x3a26f9(%rip),%rdx        # 5fbca8 <__FUNCTION__.59406>
+  2595af:	48 8d 35 a6 14 3a 00 	lea    0x3a14a6(%rip),%rsi        # 5faa5c <__FUNCTION__.51966+0x9efc>
+  2595b6:	45 31 c0             	xor    %r8d,%r8d
+  2595b9:	b9 15 94 00 00       	mov    $0x9415,%ecx
+  2595be:	bf 01 00 00 00       	mov    $0x1,%edi
+  2595c3:	31 c0                	xor    %eax,%eax
+  2595c5:	e8 16 09 e6 ff       	callq  b9ee0 <vxPRINT@plt>
+  2595ca:	41 bc ff ff ff ff    	mov    $0xffffffff,%r12d
+  2595d0:	e9 43 fd ff ff       	jmpq   259318 <vxGenerateNBG+0xb8>
+  2595d5:	48 8d 15 cc 26 3a 00 	lea    0x3a26cc(%rip),%rdx        # 5fbca8 <__FUNCTION__.59406>
+  2595dc:	48 8d 35 c3 01 3a 00 	lea    0x3a01c3(%rip),%rsi        # 5f97a6 <__FUNCTION__.51966+0x8c46>
+  2595e3:	b9 00 94 00 00       	mov    $0x9400,%ecx
+  2595e8:	bf 01 00 00 00       	mov    $0x1,%edi
+  2595ed:	41 bc ff ff ff ff    	mov    $0xffffffff,%r12d
+  2595f3:	e8 e8 08 e6 ff       	callq  b9ee0 <vxPRINT@plt>
+  2595f8:	e9 23 fd ff ff       	jmpq   259320 <vxGenerateNBG+0xc0>
+  2595fd:	48 8d 15 3c 26 3a 00 	lea    0x3a263c(%rip),%rdx        # 5fbc40 <__FUNCTION__.59395>
+  259604:	48 8d 35 2d f8 39 00 	lea    0x39f82d(%rip),%rsi        # 5f8e38 <__FUNCTION__.51966+0x82d8>
+  25960b:	4d 89 e8             	mov    %r13,%r8
+  25960e:	b9 d7 93 00 00       	mov    $0x93d7,%ecx
+  259613:	bf 01 00 00 00       	mov    $0x1,%edi
+  259618:	31 c0                	xor    %eax,%eax
+  25961a:	e8 c1 08 e6 ff       	callq  b9ee0 <vxPRINT@plt>
+  25961f:	41 bc ff ff ff ff    	mov    $0xffffffff,%r12d
+  259625:	e9 90 fd ff ff       	jmpq   2593ba <vxGenerateNBG+0x15a>
+  25962a:	48 8d 15 77 26 3a 00 	lea    0x3a2677(%rip),%rdx        # 5fbca8 <__FUNCTION__.59406>
+  259631:	48 8d 35 40 f7 39 00 	lea    0x39f740(%rip),%rsi        # 5f8d78 <__FUNCTION__.51966+0x8218>
+  259638:	b9 09 94 00 00       	mov    $0x9409,%ecx
+  25963d:	bf 01 00 00 00       	mov    $0x1,%edi
+  259642:	31 c0                	xor    %eax,%eax
+  259644:	41 bc fd ff ff ff    	mov    $0xfffffffd,%r12d
+  25964a:	e8 91 08 e6 ff       	callq  b9ee0 <vxPRINT@plt>
+  25964f:	e9 c4 fc ff ff       	jmpq   259318 <vxGenerateNBG+0xb8>
+  259654:	e8 e7 cd e5 ff       	callq  b6440 <__stack_chk_fail@plt>
+  259659:	48 8d 15 e0 25 3a 00 	lea    0x3a25e0(%rip),%rdx        # 5fbc40 <__FUNCTION__.59395>
+  259660:	48 8d 35 b1 7a 39 00 	lea    0x397ab1(%rip),%rsi        # 5f1118 <__FUNCTION__.51966+0x5b8>
+  259667:	b9 e4 93 00 00       	mov    $0x93e4,%ecx
+  25966c:	bf 01 00 00 00       	mov    $0x1,%edi
+  259671:	31 c0                	xor    %eax,%eax
+  259673:	41 83 cc ff          	or     $0xffffffff,%r12d
+  259677:	e8 64 08 e6 ff       	callq  b9ee0 <vxPRINT@plt>
+  25967c:	e9 39 fd ff ff       	jmpq   2593ba <vxGenerateNBG+0x15a>
+
+Disassembly of section .fini:

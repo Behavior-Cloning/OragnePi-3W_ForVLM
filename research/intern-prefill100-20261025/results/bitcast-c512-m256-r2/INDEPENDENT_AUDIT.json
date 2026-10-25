@@ -1,0 +1,114 @@
+{
+  "audit_pass": true,
+  "scope": "C512 M256 fused layers0/1; single canonical history128 input; not full-model TTFT, no audio/RAG",
+  "method": "Independent raw API arrays and f32 recomputation; no parent analyzer imported and no board access",
+  "rows": [
+    {
+      "case": "original-before",
+      "n": 30,
+      "warmup": 3,
+      "p50_ms": 210.76381849999999,
+      "p95_linear_ms": 211.02951065,
+      "min_ms": 207.184491,
+      "max_ms": 211.037632,
+      "allocated_bytes": 53883104,
+      "released_bytes": 0,
+      "sha256": "2548582d5782a9e74f36c02ad70d65a082e16c652c4779d8786d3cfc62934414",
+      "finite": true
+    },
+    {
+      "case": "candidate",
+      "n": 30,
+      "warmup": 3,
+      "p50_ms": 213.5066215,
+      "p95_linear_ms": 213.78340070000002,
+      "min_ms": 210.614172,
+      "max_ms": 213.984602,
+      "allocated_bytes": 53424912,
+      "released_bytes": 0,
+      "sha256": "2548582d5782a9e74f36c02ad70d65a082e16c652c4779d8786d3cfc62934414",
+      "finite": true
+    },
+    {
+      "case": "original-after",
+      "n": 30,
+      "warmup": 3,
+      "p50_ms": 210.847902,
+      "p95_linear_ms": 211.05066789999998,
+      "min_ms": 207.88795199999998,
+      "max_ms": 211.07859100000002,
+      "allocated_bytes": 53883104,
+      "released_bytes": 0,
+      "sha256": "2548582d5782a9e74f36c02ad70d65a082e16c652c4779d8786d3cfc62934414",
+      "finite": true
+    }
+  ],
+  "ports": [
+    {
+      "name": "hidden",
+      "elements": 229376,
+      "all_three_bitwise_equal": true,
+      "sha256": "667fee4ae3e3477a030847e85f1cf7e283b88bfe6542c064c4cc5132037553f2",
+      "relative_l2_vs_exported_fp32": 0.007896102881422104,
+      "max_abs_vs_exported_fp32": 0.06516313552856445
+    },
+    {
+      "name": "layer0_new_k",
+      "elements": 32768,
+      "all_three_bitwise_equal": true,
+      "sha256": "7df62b0a1092c071eaa8a214bd46f837b0ccbf09d5269bb4ad203f270c163fe5",
+      "relative_l2_vs_exported_fp32": 0.00023231952136757336,
+      "max_abs_vs_exported_fp32": 0.025496482849121094
+    },
+    {
+      "name": "layer1_new_k",
+      "elements": 32768,
+      "all_three_bitwise_equal": true,
+      "sha256": "b2402176f80e28456c4359b970a642cbe2306a9b91644e77547b70d3134975b3",
+      "relative_l2_vs_exported_fp32": 0.0007911744050639515,
+      "max_abs_vs_exported_fp32": 0.1350994110107422
+    },
+    {
+      "name": "layer0_new_v",
+      "elements": 32768,
+      "all_three_bitwise_equal": true,
+      "sha256": "0eec5533e31112400fef91115acffb21f1554aa021e318a75b4f684b37e15d6c",
+      "relative_l2_vs_exported_fp32": 0.0011289499537182014,
+      "max_abs_vs_exported_fp32": 0.0001584896817803383
+    },
+    {
+      "name": "layer1_new_v",
+      "elements": 32768,
+      "all_three_bitwise_equal": true,
+      "sha256": "af5d2983257990742c6979287a8b893aedd8d7fc145e89bc3b9cdcc9c4e29637",
+      "relative_l2_vs_exported_fp32": 0.006456024658227164,
+      "max_abs_vs_exported_fp32": 0.021511316299438477
+    }
+  ],
+  "candidate_slowdown_percent_vs_before": 1.3013633077633813,
+  "baseline_drift_percent": 0.039894655827765746,
+  "peak_temperature_C": 41.974,
+  "resource_n": 111,
+  "minimum_mem_available_bytes": 4573208576,
+  "swap_used_min_bytes": 112721920,
+  "swap_used_max_bytes": 112721920,
+  "pswpin_delta_pages": 0,
+  "pswpout_delta_pages": 0,
+  "three_release_zero": true,
+  "post_health_driver_zero": true,
+  "source_and_fixture_hashes_passed": true,
+  "same_tmpfs_input_all_variants": true,
+  "tmpfs_input_removed_after_verified_success": true,
+  "tmpfs_input_bytes": 13238272,
+  "controller_source_sha256": "dac95faea4c8b3f8ae7150d3611f3e024a2e46fdb69771d79ba72039be31248d",
+  "manifest_sha256": "b50c3194c9e33dd445af6f1a90475197f521278106f57d8e2c5ebb342c7ed215",
+  "diagnostic_samples_in_timing": false,
+  "provenance_warning": {
+    "field": "deployment-manifest.json reference_fixture_sha256",
+    "recorded": "b6541753aaf63ca71b7952f731fe0daf1eaa754e3f3ff3b8355fa8cf1524ca36",
+    "actual_meaning": "SHA256 of probe-fixture.json metadata, not the reference f32",
+    "actual_reference_f32_sha256": "376697d408c95617b0a96859eaef5ce2717ff5dd5907391c0e2a21e439c4e817",
+    "effect": "No effect on run: controller/config/analyzer correctly hash and read actual reference f32. Frozen manifest retained; correction must be separate."
+  },
+  "prior_failed_r1_not_counted": true
+}

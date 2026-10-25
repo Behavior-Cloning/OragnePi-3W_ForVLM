@@ -1,0 +1,45 @@
+{
+  "compile": {
+    "command": [
+      "gcc",
+      "-std=c11",
+      "-O1",
+      "-g",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+      "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-tail8/test_two_prefill_banks.c",
+      "-lm",
+      "-o",
+      "/tmp/test-intern-two-banks"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "tests": [
+    {
+      "mode": "plain",
+      "returncode": 0,
+      "stdout": "{\"checked_mask_tensors\":1920,\"cache_freed\":true,\"kv_reset_zero\":true}\n",
+      "stderr": ""
+    },
+    {
+      "mode": "templates",
+      "returncode": 0,
+      "stdout": "{\"checked_mask_tensors\":1920,\"cache_freed\":true,\"kv_reset_zero\":true}\n",
+      "stderr": ""
+    },
+    {
+      "mode": "validate",
+      "returncode": 0,
+      "stdout": "{\"checked_mask_tensors\":1920,\"cache_freed\":true,\"kv_reset_zero\":true}\n",
+      "stderr": ""
+    }
+  ],
+  "resident_source_sha256": "59d420aa8433b2c6d67bb74350ed8443724e3cc4d91173fe6f045fbfbb41c610",
+  "caveat": "Host SDK structs and put emulate INT16 masks. Actual candidate reset/truncate functions are extracted verbatim. No NPU execution or full language correctness tested."
+}

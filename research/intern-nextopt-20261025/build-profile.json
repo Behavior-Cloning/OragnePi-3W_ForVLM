@@ -1,0 +1,32 @@
+{
+  "command": [
+    "aarch64-linux-gnu-gcc",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-DMODEL_DIM=896",
+    "-DMODEL_KV=2",
+    "-DMODEL_HD=64",
+    "-DROPE_BASE=1000000.0",
+    "-DFUSED_LAYERS=2",
+    "-DKEY_CACHE_TRANSPOSED=0",
+    "-DHEAD_SHARDS=4",
+    "-DHEAD_CHUNK=49152",
+    "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/resident_session.c",
+    "-L/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-Wl,-rpath-link,/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-lNBGlinker",
+    "-lVIPhal",
+    "-lm",
+    "-o",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/resident-profile"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "",
+  "seconds": 0.9264938990000076,
+  "binary_sha256": "3a9f49581482b3946832717e518d4537250b633d81af23774a0d1959e88ad476",
+  "bytes": 74984
+}

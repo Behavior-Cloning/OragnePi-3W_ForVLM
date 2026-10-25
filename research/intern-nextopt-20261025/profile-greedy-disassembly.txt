@@ -1,0 +1,85 @@
+0000000000004d90 <greedy_i16>:
+    4d90:	aa0003e5 	mov	x5, x0
+    4d94:	71001c3f 	cmp	w1, #0x7
+    4d98:	540004e9 	b.ls	4e34 <greedy_i16+0xa4>  // b.plast
+    4d9c:	4f04a400 	movi	v0.8h, #0x80, lsl #8
+    4da0:	52800102 	mov	w2, #0x8                   	// #8
+    4da4:	d503201f 	nop
+    4da8:	51002044 	sub	w4, w2, #0x8
+    4dac:	2a0203e3 	mov	w3, w2
+    4db0:	11002042 	add	w2, w2, #0x8
+    4db4:	d37ff884 	lsl	x4, x4, #1
+    4db8:	3ce468a1 	ldr	q1, [x5, x4]
+    4dbc:	4e616400 	smax	v0.8h, v0.8h, v1.8h
+    4dc0:	6b01005f 	cmp	w2, w1
+    4dc4:	54ffff29 	b.ls	4da8 <greedy_i16+0x18>  // b.plast
+    4dc8:	4e70a800 	smaxv	h0, v0.8h
+    4dcc:	0e022c02 	smov	w2, v0.h[0]
+    4dd0:	6b01007f 	cmp	w3, w1
+    4dd4:	54000182 	b.cs	4e04 <greedy_i16+0x74>  // b.hs, b.nlast
+    4dd8:	8b2344a4 	add	x4, x5, w3, uxtw #1
+    4ddc:	d503201f 	nop
+    4de0:	79c00086 	ldrsh	w6, [x4]
+    4de4:	11000463 	add	w3, w3, #0x1
+    4de8:	78402480 	ldrh	w0, [x4], #2
+    4dec:	6b0200df 	cmp	w6, w2
+    4df0:	1a82a002 	csel	w2, w0, w2, ge  // ge = tcont
+    4df4:	13003c42 	sxth	w2, w2
+    4df8:	6b03003f 	cmp	w1, w3
+    4dfc:	54ffff28 	b.hi	4de0 <greedy_i16+0x50>  // b.pmore
+    4e00:	34000161 	cbz	w1, 4e2c <greedy_i16+0x9c>
+    4e04:	d2800003 	mov	x3, #0x0                   	// #0
+    4e08:	14000003 	b	4e14 <greedy_i16+0x84>
+    4e0c:	6b03003f 	cmp	w1, w3
+    4e10:	540000e9 	b.ls	4e2c <greedy_i16+0x9c>  // b.plast
+    4e14:	78e378a4 	ldrsh	w4, [x5, x3, lsl #1]
+    4e18:	2a0303e0 	mov	w0, w3
+    4e1c:	91000463 	add	x3, x3, #0x1
+    4e20:	6b02009f 	cmp	w4, w2
+    4e24:	54ffff41 	b.ne	4e0c <greedy_i16+0x7c>  // b.any
+    4e28:	d65f03c0 	ret
+    4e2c:	52800000 	mov	w0, #0x0                   	// #0
+    4e30:	d65f03c0 	ret
+
+    4d98:	540004e9 	b.ls	4e34 <greedy_i16+0xa4>  // b.plast
+    4d9c:	4f04a400 	movi	v0.8h, #0x80, lsl #8
+    4da0:	52800102 	mov	w2, #0x8                   	// #8
+    4da4:	d503201f 	nop
+    4da8:	51002044 	sub	w4, w2, #0x8
+    4dac:	2a0203e3 	mov	w3, w2
+    4db0:	11002042 	add	w2, w2, #0x8
+    4db4:	d37ff884 	lsl	x4, x4, #1
+    4db8:	3ce468a1 	ldr	q1, [x5, x4]
+    4dbc:	4e616400 	smax	v0.8h, v0.8h, v1.8h
+    4dc0:	6b01005f 	cmp	w2, w1
+    4dc4:	54ffff29 	b.ls	4da8 <greedy_i16+0x18>  // b.plast
+    4dc8:	4e70a800 	smaxv	h0, v0.8h
+    4dcc:	0e022c02 	smov	w2, v0.h[0]
+    4dd0:	6b01007f 	cmp	w3, w1
+    4dd4:	54000182 	b.cs	4e04 <greedy_i16+0x74>  // b.hs, b.nlast
+    4dd8:	8b2344a4 	add	x4, x5, w3, uxtw #1
+    4ddc:	d503201f 	nop
+    4de0:	79c00086 	ldrsh	w6, [x4]
+    4de4:	11000463 	add	w3, w3, #0x1
+    4de8:	78402480 	ldrh	w0, [x4], #2
+    4dec:	6b0200df 	cmp	w6, w2
+    4df0:	1a82a002 	csel	w2, w0, w2, ge  // ge = tcont
+    4df4:	13003c42 	sxth	w2, w2
+    4df8:	6b03003f 	cmp	w1, w3
+    4dfc:	54ffff28 	b.hi	4de0 <greedy_i16+0x50>  // b.pmore
+    4e00:	34000161 	cbz	w1, 4e2c <greedy_i16+0x9c>
+    4e04:	d2800003 	mov	x3, #0x0                   	// #0
+    4e08:	14000003 	b	4e14 <greedy_i16+0x84>
+    4e0c:	6b03003f 	cmp	w1, w3
+    4e10:	540000e9 	b.ls	4e2c <greedy_i16+0x9c>  // b.plast
+    4e14:	78e378a4 	ldrsh	w4, [x5, x3, lsl #1]
+    4e18:	2a0303e0 	mov	w0, w3
+    4e1c:	91000463 	add	x3, x3, #0x1
+    4e20:	6b02009f 	cmp	w4, w2
+    4e24:	54ffff41 	b.ne	4e0c <greedy_i16+0x7c>  // b.any
+    4e28:	d65f03c0 	ret
+    4e2c:	52800000 	mov	w0, #0x0                   	// #0
+    4e30:	d65f03c0 	ret
+    4e34:	34ffffc1 	cbz	w1, 4e2c <greedy_i16+0x9c>
+    4e38:	52800003 	mov	w3, #0x0                   	// #0
+    4e3c:	128fffe2 	mov	w2, #0xffff8000            	// #-32768

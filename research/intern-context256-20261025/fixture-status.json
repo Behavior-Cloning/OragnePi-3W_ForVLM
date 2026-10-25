@@ -1,0 +1,47 @@
+{
+  "state": "complete",
+  "start": 1792898812.588164,
+  "cases": [
+    {
+      "name": "decode",
+      "returncode": 0,
+      "command": [
+        "/opt/opi-lab/export-venv/bin/python",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/npu/kv-cache/resized_fixture.py",
+        "--model",
+        "/opt/opi-lab/restored-slim3-20261017/projects/orangepi-zero3w/models/internvl3-1b/InternVL3-1B-Instruct-Q8_0.gguf",
+        "--source",
+        "/opt/opi-lab/source-validation-20261017/gguf-fresh/export",
+        "--folder",
+        "/opt/opi-lab/source-validation-20261017/gguf-fresh/export/w8-fused2-c1280-cap1-headmse/l0",
+        "--prompt-folder",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-context256-20261025/frozen-prompt",
+        "--output",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-context256-20261025/fixtures/cap1280-decode",
+        "--history",
+        "128"
+      ]
+    },
+    {
+      "name": "prefill16",
+      "returncode": 0,
+      "command": [
+        "/opt/opi-lab/export-venv/bin/python",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/npu/kv-cache/resized_fixture.py",
+        "--model",
+        "/opt/opi-lab/restored-slim3-20261017/projects/orangepi-zero3w/models/internvl3-1b/InternVL3-1B-Instruct-Q8_0.gguf",
+        "--source",
+        "/opt/opi-lab/source-validation-20261017/gguf-fresh/export",
+        "--folder",
+        "/opt/opi-lab/source-validation-20261017/gguf-fresh/export/w8-fused2-c1280-t16-cap1-productwide/l0",
+        "--prompt-folder",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-context256-20261025/frozen-prompt",
+        "--output",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-context256-20261025/fixtures/cap1280-prefill16",
+        "--history",
+        "128"
+      ]
+    }
+  ],
+  "end": 1792898824.6109097
+}

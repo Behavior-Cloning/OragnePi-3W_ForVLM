@@ -1,0 +1,107 @@
+{
+  "state": "compiled",
+  "start": {
+    "unix": 1792898600.6321082,
+    "f_available_bytes": 28679995392,
+    "task_file_bytes": 12418
+  },
+  "sequential": true,
+  "cases": [
+    {
+      "name": "decode",
+      "query_tokens": 1,
+      "command": [
+        "/opt/opi-lab/export-venv/bin/python",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/npu/kv-cache/compile_fused_decoder.py",
+        "--source",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-context256-20261025/source",
+        "--results-root",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-context256-20261025",
+        "--variant",
+        "w8-balanced",
+        "--first",
+        "0",
+        "--width",
+        "2",
+        "--output",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-context256-20261025/artifacts/decode",
+        "--timeout",
+        "300",
+        "--compact-gqa",
+        "--capacity",
+        "256",
+        "--tokens",
+        "1",
+        "--split-kv-attention",
+        "--split-softmax-i16",
+        "--split-current-matmul",
+        "--fc-weight-dfp",
+        "gateup",
+        "--fc-weight-dfp-method",
+        "mse",
+        "--fc-weight-dfp-max-extra-bits",
+        "1"
+      ],
+      "returncode": 0,
+      "wall_seconds": 15.956392073000075,
+      "original_graph": "/opt/opi-lab/source-validation-20261017/gguf-fresh/export/w8-fused2-c1280-cap1-headmse/l0",
+      "output": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-context256-20261025/artifacts/decode",
+      "after": {
+        "unix": 1792898617.8078558,
+        "f_available_bytes": 28384305152,
+        "task_file_bytes": 295587329
+      }
+    },
+    {
+      "name": "prefill16",
+      "query_tokens": 16,
+      "command": [
+        "/opt/opi-lab/export-venv/bin/python",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/npu/kv-cache/compile_fused_decoder.py",
+        "--source",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-context256-20261025/source",
+        "--results-root",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-context256-20261025",
+        "--variant",
+        "w8-balanced",
+        "--first",
+        "0",
+        "--width",
+        "2",
+        "--output",
+        "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-context256-20261025/artifacts/prefill16",
+        "--timeout",
+        "300",
+        "--compact-gqa",
+        "--capacity",
+        "256",
+        "--tokens",
+        "16",
+        "--split-kv-attention",
+        "--split-softmax-i16",
+        "--split-current-matmul",
+        "--fc-weight-dfp",
+        "gateup",
+        "--fc-weight-dfp-method",
+        "mse",
+        "--fc-weight-dfp-max-extra-bits",
+        "1"
+      ],
+      "returncode": 0,
+      "wall_seconds": 13.894428085000072,
+      "original_graph": "/opt/opi-lab/source-validation-20261017/gguf-fresh/export/w8-fused2-c1280-t16-cap1-productwide/l0",
+      "output": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-context256-20261025/artifacts/prefill16",
+      "after": {
+        "unix": 1792898631.7799366,
+        "f_available_bytes": 28208603136,
+        "task_file_bytes": 471195495
+      }
+    }
+  ],
+  "current": "prefill16",
+  "end": {
+    "unix": 1792898631.906432,
+    "f_available_bytes": 28208603136,
+    "task_file_bytes": 471197039
+  }
+}

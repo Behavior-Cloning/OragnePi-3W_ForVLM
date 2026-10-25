@@ -1,0 +1,148 @@
+--- frozen-mask/resident_session.c
++++ nextopt/resident_session.c
+@@ -11,7 +11,10 @@
+ #error Resident protocol requires a little-endian host
+ #endif
+ 
++#include "runtime_profile.h"
++
+ typedef struct {
++    RuntimeProfile profile;
+     Layer *decoder, head[HEAD_SHARDS];
+     BatchPrefill batch;
+     vip_group decoder_group, head_group;
+@@ -65,7 +68,10 @@
+     }
+ }
+ 
+-static void session_scalar(Session *s,int token,int pos,double *api) {
++static void session_scalar(Session *s,int token,int pos,double *api,int decoding) {
++    RuntimeProfile *p=&s->profile;int phase=decoding?1:0;
++    if(p->enabled)p->calls[phase]++;
++    double mark=profile_stamp(p);
+     Layer *d=s->decoder;
+     for(int j=0;j<DIM;j++)put(&d[0].in[0],j,s->embedding[(size_t)token*DIM+j]);
+     float cosine[HD],sine[HD];
+@@ -73,6 +79,7 @@
+         float angle=pos/powf(ROPE_BASE,(j%(HD/2))/(float)(HD/2));
+         cosine[j]=cosf(angle);sine[j]=sinf(angle);
+     }
++    profile_mark(p,phase,0,&mark);
+     for(int i=0;i<s->blocks;i++){
+         Layer *l=&d[i];
+         for(int k=0;k<FUSED_LAYERS;k++){
+@@ -81,36 +88,51 @@
+                 put(&l->in[IN_COS(k)],j,cosine[j]);put(&l->in[IN_SIN(k)],j,sine[j]);
+             }
+         }
++        profile_mark(p,phase,1,&mark);
+         for(unsigned j=i?1:0;j<TENSOR_MAX_INPUTS;j++)
+             check(vip_flush_buffer(l->in[j].b,VIP_BUFFER_OPER_TYPE_FLUSH),"session flush");
++        profile_mark(p,phase,2,&mark);
+     }
+     double start=now();
+     check(vip_run_group(s->decoder_group,s->blocks),"session decoder");*api+=now()-start;
++    profile_mark(p,phase,3,&mark);
++    profile_networks(p,phase,d,s->blocks);mark=profile_stamp(p);
+     for(int i=0;i<s->blocks;i++){
+         Layer *l=&d[i];
+         for(unsigned j=i==s->blocks-1?0:1;j<TENSOR_MAX_OUTPUTS;j++)
+             check(vip_flush_buffer(l->out[j].b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"session read");
++        profile_mark(p,phase,4,&mark);
+         for(int k=0;k<FUSED_LAYERS;k++){
+             append_key(&l->in[IN_K(k)],&l->out[OUT_K(k)],s->capacity,pos,1);
+             for(int h=0;h<KV;h++)copy_values(&l->in[IN_V(k)],(h*s->capacity+pos)*HD,&l->out[OUT_V(k)],h*HD,HD);
+         }
++        profile_mark(p,phase,5,&mark);
+     }
+     for(int j=0;j<DIM;j++){
+         s->hidden[j]=get(&d[s->blocks-1].out[0],j);
+         if(!isfinite(s->hidden[j])){fprintf(stderr,"nonfinite session hidden\n");exit(3);}
+     }
+-}
+-
+-static int session_head(Session *s,double *api,FILE *dump) {
++    profile_mark(p,phase,6,&mark);
++}
++
++static int session_head(Session *s,double *api,FILE *dump,int first) {
++    RuntimeProfile *p=&s->profile;int phase=first?2:3;
++    if(p->enabled)p->calls[phase]++;
++    double mark=profile_stamp(p);
+     for(int i=0;i<HEAD_SHARDS;i++){
+         for(int j=0;j<DIM;j++)put(&s->head[i].in[0],j,s->hidden[j]);
++        profile_mark(p,phase,1,&mark);
+         check(vip_flush_buffer(s->head[i].in[0].b,VIP_BUFFER_OPER_TYPE_FLUSH),"session head flush");
++        profile_mark(p,phase,2,&mark);
+     }
+     double start=now();check(vip_run_group(s->head_group,HEAD_SHARDS),"session head");*api+=now()-start;
++    profile_mark(p,phase,3,&mark);
++    profile_networks(p,phase,s->head,HEAD_SHARDS);mark=profile_stamp(p);
+     int best=-1,reference=-1;float value=-INFINITY,refvalue=-INFINITY;
+     for(int i=0;i<HEAD_SHARDS;i++){
+         Tensor *out=&s->head[i].out[0];
+         check(vip_flush_buffer(out->b,VIP_BUFFER_OPER_TYPE_INVALIDATE),"session head read");
++        profile_mark(p,phase,4,&mark);
+         unsigned maximum=0;
+         if(out->p.data_format==VIP_BUFFER_FORMAT_INT16&&
+            out->p.quant_format==VIP_BUFFER_QUANTIZE_DYNAMIC_FIXED_POINT&&
+@@ -125,11 +147,13 @@
+         }
+         float x=get(out,maximum);if(!isfinite(x))exit(3);
+         if(x>value){value=x;best=i*s->chunk+(int)maximum;}
++        profile_mark(p,phase,7,&mark);
+         if(dump)for(unsigned j=0;j<out->count;j++){
+             x=get(out,j);if(!isfinite(x))exit(3);
+             if(x>refvalue){refvalue=x;reference=i*s->chunk+(int)j;}
+             if(fwrite(&x,sizeof(x),1,dump)!=1)exit(2);
+         }
++        profile_mark(p,phase,8,&mark);
+     }
+     if(best<0||(dump&&best!=reference))exit(3);
+     return best;
+@@ -137,7 +161,9 @@
+ 
+ int main(int argc,char **argv) {
+     if(argc!=8){fprintf(stderr,"usage: resident networks layers capacity vocab embeddings prefill_tokens eos_id\n");return 2;}
+-    Session s={0};s.layers=atoi(argv[2]);s.capacity=atoi(argv[3]);s.vocab=atoi(argv[4]);
++    Session s={0};s.profile.network_enabled=getenv("OPI_PROFILE_NPU")!=NULL;
++    s.profile.enabled=getenv("OPI_PROFILE_STAGES")!=NULL||s.profile.network_enabled;
++    s.layers=atoi(argv[2]);s.capacity=atoi(argv[3]);s.vocab=atoi(argv[4]);
+     int batch_tokens=atoi(argv[6]),eos=atoi(argv[7]);
+     int tail_min=getenv("OPI_TTFT_TAIL_MIN")?atoi(getenv("OPI_TTFT_TAIL_MIN")):0;
+     if(tail_min<0||tail_min>batch_tokens)return 2;
+@@ -208,6 +234,7 @@
+             char path[1024];snprintf(path,sizeof(path),"%s/%u-logits.f32",getenv("OPI_SESSION_DUMP_DIR"),id);
+             dump=fopen(path,"wbx");if(!dump)return 2;
+         }
++        profile_reset(&s.profile);
+         double start=now(),cpu_start=cpu_time(),api=0,first=0;
+         int temp_start=temperature();if(temp_start<0||temp_start>=80000)return 2;
+         int reused=0;
+@@ -236,12 +263,12 @@
+                 memcpy(s.history+pos,prompt+pos,valid*sizeof(int32_t));pos+=valid-1;
+             }else{
+                 int token=pos<n?prompt[pos]:(nf?feedback[generated-1]:last);
+-                double st=now();session_scalar(&s,token,pos,&api);s.history[pos]=token;
++                double st=now();session_scalar(&s,token,pos,&api,pos>=n);s.history[pos]=token;
+                 if(pos<n){scalar_prompt_seconds+=now()-st;scalar_prompt_tokens++;}
+             }
+             s.valid=pos+1;
+             if(pos<n-1)continue;
+-            double ht=now();last=session_head(&s,&api,dump);
++            double ht=now();last=session_head(&s,&api,dump,generated==0);
+             if(generated==0)first_head_seconds=now()-ht;
+             generated++;
+             double elapsed=now()-start;if(generated==1)first=elapsed;
+@@ -250,9 +277,10 @@
+         }
+         double total=now()-start,cpu=cpu_time()-cpu_start;
+         if(dump)fclose(dump);
+-        fprintf(events,"{\"event\":\"done\",\"id\":%u,\"prompt_tokens\":%d,\"reused_tokens\":%d,\"new_tokens\":%d,\"kv_tokens\":%d,\"generated_tokens\":%d,\"setup_seconds\":%.6f,\"prefill_seconds\":%.6f,\"scalar_prompt_seconds\":%.6f,\"first_head_seconds\":%.6f,\"batch_calls\":%d,\"tail_rows\":%d,\"scalar_prompt_tokens\":%d,\"ttft_seconds\":%.6f,\"total_seconds\":%.6f,\"decode_tokens_per_second\":%.6f,\"api_seconds\":%.6f,\"cpu_seconds\":%.6f,\"rss_kib\":%ld,\"driver_bytes\":%lld,\"temperature_start_mC\":%d,\"temperature_end_mC\":%d,\"diagnostic\":%s,\"fixed_feedback\":%s,\"finish_reason\":\"%s\"}\n",
++        fprintf(events,"{\"event\":\"done\",\"id\":%u,\"prompt_tokens\":%d,\"reused_tokens\":%d,\"new_tokens\":%d,\"kv_tokens\":%d,\"generated_tokens\":%d,\"setup_seconds\":%.6f,\"prefill_seconds\":%.6f,\"scalar_prompt_seconds\":%.6f,\"first_head_seconds\":%.6f,\"batch_calls\":%d,\"tail_rows\":%d,\"scalar_prompt_tokens\":%d,\"ttft_seconds\":%.6f,\"total_seconds\":%.6f,\"decode_tokens_per_second\":%.6f,\"api_seconds\":%.6f,\"cpu_seconds\":%.6f,\"rss_kib\":%ld,\"driver_bytes\":%lld,\"temperature_start_mC\":%d,\"temperature_end_mC\":%d,\"diagnostic\":%s,\"fixed_feedback\":%s,\"finish_reason\":\"%s\"",
+                 id,n,reused,n-reused,s.valid,generated,setup_seconds,prefill_seconds,scalar_prompt_seconds,first_head_seconds,batch_calls,tail_rows,scalar_prompt_tokens,first,total,generated>1?(generated-1)/(total-first):0,
+                 api,cpu,current_rss_kib(),npu_bytes(),temp_start,temperature(),dump?"true":"false",nf?"true":"false",!nf&&last==eos?"eos":"length");
++        profile_emit(events,&s.profile,s.blocks);fputs("}\n",events);
+     }
+     if(!feof(stdin))return 2;
+     check(vip_destroy_group(s.decoder_group),"session free group");

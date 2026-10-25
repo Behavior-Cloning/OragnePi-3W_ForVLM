@@ -1,0 +1,221 @@
+{
+  "scope": "layer0+1 only; graph/quantizer/weight audit, not board output or whole-model accuracy",
+  "cases": [
+    {
+      "name": "decode",
+      "graph_changes": [
+        {
+          "path": "/Layers/b0_mask_104/parameters/shape/3",
+          "before": 1281,
+          "after": 257
+        },
+        {
+          "path": "/Layers/b0_past_k_102/parameters/shape/2",
+          "before": 1280,
+          "after": 256
+        },
+        {
+          "path": "/Layers/b0_past_v_103/parameters/shape/2",
+          "before": 1280,
+          "after": 256
+        },
+        {
+          "path": "/Layers/b0_split_probs_new_11007/parameters/begin/3",
+          "before": 1280,
+          "after": 256
+        },
+        {
+          "path": "/Layers/b0_split_probs_past_11006/parameters/size/3",
+          "before": 1280,
+          "after": 256
+        },
+        {
+          "path": "/Layers/b1_mask_104/parameters/shape/3",
+          "before": 1281,
+          "after": 257
+        },
+        {
+          "path": "/Layers/b1_past_k_102/parameters/shape/2",
+          "before": 1280,
+          "after": 256
+        },
+        {
+          "path": "/Layers/b1_past_v_103/parameters/shape/2",
+          "before": 1280,
+          "after": 256
+        },
+        {
+          "path": "/Layers/b1_split_probs_new_11007/parameters/begin/3",
+          "before": 1280,
+          "after": 256
+        },
+        {
+          "path": "/Layers/b1_split_probs_past_11006/parameters/size/3",
+          "before": 1280,
+          "after": 256
+        }
+      ],
+      "quantizer_semantically_identical": true,
+      "quantizer_bytes_identical": true,
+      "weight_arrays_identical": true,
+      "weight_arrays_compared": 48,
+      "weight_elements_compared": 29847824,
+      "nb_old_sha256": "f6dc56df18b2537893e9089d79d9d6928fa0339d3ae485e450bb9a951cf63365",
+      "nb_new_sha256": "868aa8f01e2b58b1f351da93e9a2ef7ad6d58e139d1a78b5ef9e3d3cca190abf",
+      "artifacts": {
+        "decoder.json": {
+          "sha256": "81a9ff83767c56aabdb685464422e976bf5eb4ee2eb29bcadbd7d3765eccf6b7",
+          "bytes": 70548
+        },
+        "decoder.data": {
+          "sha256": "5760da7cd92900296f557b12246a5a8ded3706807d338539e22b8bd086763714",
+          "bytes": 119348690
+        },
+        "decoder.quantize": {
+          "sha256": "c91e36b868e04cc6d4ca7e2b5fc44845cb829a91925e3d206a23dae103316fb5",
+          "bytes": 193073
+        },
+        "tensor-inputmeta.yml": {
+          "sha256": "5c486ae02cd8d2fa875a68414a8073a24c99dd9440824f2fd86d2f16af5142cd",
+          "bytes": 4522
+        },
+        "conversion.json": {
+          "sha256": "bb82dd36c61197bbcd30aaabaae72cb6868d7fe3d09fba2cbe2c4767c89ab00e",
+          "bytes": 734498
+        },
+        "export_nbg_unify/network_binary.nb": {
+          "sha256": "868aa8f01e2b58b1f351da93e9a2ef7ad6d58e139d1a78b5ef9e3d3cca190abf",
+          "bytes": 23568128
+        }
+      },
+      "input_order": [
+        "b0_hidden_101",
+        "b0_past_k_102",
+        "b1_past_k_102",
+        "b0_past_v_103",
+        "b1_past_v_103",
+        "b0_mask_104",
+        "b1_mask_104",
+        "b0_rope_cos_105",
+        "b1_rope_cos_105",
+        "b0_rope_sin_106",
+        "b1_rope_sin_106"
+      ],
+      "output_order": [
+        "b1_attach_hidden_out/out0_0",
+        "b0_attach_new_k/out0_1",
+        "b1_attach_new_k/out0_1",
+        "b0_attach_new_v/out0_2",
+        "b1_attach_new_v/out0_2"
+      ]
+    },
+    {
+      "name": "prefill16",
+      "graph_changes": [
+        {
+          "path": "/Layers/b0_mask_104/parameters/shape/3",
+          "before": 1296,
+          "after": 272
+        },
+        {
+          "path": "/Layers/b0_past_k_102/parameters/shape/2",
+          "before": 1280,
+          "after": 256
+        },
+        {
+          "path": "/Layers/b0_past_v_103/parameters/shape/2",
+          "before": 1280,
+          "after": 256
+        },
+        {
+          "path": "/Layers/b0_split_probs_new_11005/parameters/begin/3",
+          "before": 1280,
+          "after": 256
+        },
+        {
+          "path": "/Layers/b0_split_probs_past_11004/parameters/size/3",
+          "before": 1280,
+          "after": 256
+        },
+        {
+          "path": "/Layers/b1_mask_104/parameters/shape/3",
+          "before": 1296,
+          "after": 272
+        },
+        {
+          "path": "/Layers/b1_past_k_102/parameters/shape/2",
+          "before": 1280,
+          "after": 256
+        },
+        {
+          "path": "/Layers/b1_past_v_103/parameters/shape/2",
+          "before": 1280,
+          "after": 256
+        },
+        {
+          "path": "/Layers/b1_split_probs_new_11005/parameters/begin/3",
+          "before": 1280,
+          "after": 256
+        },
+        {
+          "path": "/Layers/b1_split_probs_past_11004/parameters/size/3",
+          "before": 1280,
+          "after": 256
+        }
+      ],
+      "quantizer_semantically_identical": true,
+      "quantizer_bytes_identical": true,
+      "weight_arrays_identical": true,
+      "weight_arrays_compared": 46,
+      "weight_elements_compared": 29847822,
+      "nb_old_sha256": "44271ccc82b1ac33037c25994f101966c6493041a60264ba705fa8ff5def6e4a",
+      "nb_new_sha256": "bba28d9f9920b19aa0426580a6350f67f530e3df2e8e8e6ef6055592d7f8f0c4",
+      "artifacts": {
+        "decoder.json": {
+          "sha256": "af024d3c1ace4842a0fa23b687a091d7744a2568c39884c83095d182579541fc",
+          "bytes": 69573
+        },
+        "decoder.data": {
+          "sha256": "429a9a766e0a5f3ea05bb509b893716739cfff0bafaaf8e4f10a6c0da63c08fb",
+          "bytes": 119348411
+        },
+        "decoder.quantize": {
+          "sha256": "9a0243d7caeb1fd3731acf04ad8452fbd07003260e7bb23bf6f7d57476608e34",
+          "bytes": 192954
+        },
+        "tensor-inputmeta.yml": {
+          "sha256": "4046555fa22d3605f4244436ebc87d6459be9231f6bd43e7105dfc2e0791764a",
+          "bytes": 4531
+        },
+        "conversion.json": {
+          "sha256": "9e5805d0ae25e00a42c25b3c4d18f94fe38815718e7216f86ce7a7ad7ee18bb8",
+          "bytes": 742763
+        },
+        "export_nbg_unify/network_binary.nb": {
+          "sha256": "bba28d9f9920b19aa0426580a6350f67f530e3df2e8e8e6ef6055592d7f8f0c4",
+          "bytes": 23801088
+        }
+      },
+      "input_order": [
+        "b0_hidden_101",
+        "b0_past_k_102",
+        "b1_past_k_102",
+        "b0_past_v_103",
+        "b1_past_v_103",
+        "b0_mask_104",
+        "b1_mask_104",
+        "b0_rope_cos_105",
+        "b1_rope_cos_105",
+        "b0_rope_sin_106",
+        "b1_rope_sin_106"
+      ],
+      "output_order": [
+        "b1_attach_hidden_out/out0_0",
+        "b0_attach_new_k/out0_1",
+        "b1_attach_new_k/out0_1",
+        "b0_attach_new_v/out0_2",
+        "b1_attach_new_v/out0_2"
+      ]
+    }
+  ]
+}

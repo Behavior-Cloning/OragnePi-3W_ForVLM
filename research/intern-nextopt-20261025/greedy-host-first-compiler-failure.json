@@ -1,0 +1,35 @@
+{
+  "host_compile": {
+    "command": [
+      "gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-greedy/test_greedy.c",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-o",
+      "/tmp/test-intern-greedy"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-greedy/test_greedy.c: In function \u2018main\u2019:\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-greedy/test_greedy.c:16:3: error: this \u2018for\u2019 clause does not guard... [-Werror=misleading-indentation]\n   16 |   for(unsigned i=0;i<17;i++)v[i]=(int16_t)value;check(v,17);\n      |   ^~~\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-greedy/test_greedy.c:16:49: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the \u2018for\u2019\n   16 |   for(unsigned i=0;i<17;i++)v[i]=(int16_t)value;check(v,17);\n      |                                                 ^~~~~\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-greedy/test_greedy.c:23:3: error: this \u2018for\u2019 clause does not guard... [-Werror=misleading-indentation]\n   23 |   for(unsigned i=0;i<n;i++)v[i]=(i%8==7)?0:-1;check(v,n);\n      |   ^~~\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-greedy/test_greedy.c:23:47: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the \u2018for\u2019\n   23 |   for(unsigned i=0;i<n;i++)v[i]=(i%8==7)?0:-1;check(v,n);\n      |                                               ^~~~~\ncc1: all warnings being treated as errors\n"
+  },
+  "arm_compile": {
+    "command": [
+      "aarch64-linux-gnu-gcc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-greedy/test_greedy.c",
+      "-o",
+      "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-greedy/test-greedy-arm"
+    ],
+    "returncode": 1,
+    "stderr": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-greedy/test_greedy.c: In function \u2018main\u2019:\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-greedy/test_greedy.c:16:3: error: this \u2018for\u2019 clause does not guard... [-Werror=misleading-indentation]\n   16 |   for(unsigned i=0;i<17;i++)v[i]=(int16_t)value;check(v,17);\n      |   ^~~\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-greedy/test_greedy.c:16:49: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the \u2018for\u2019\n   16 |   for(unsigned i=0;i<17;i++)v[i]=(int16_t)value;check(v,17);\n      |                                                 ^~~~~\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-greedy/test_greedy.c:23:3: error: this \u2018for\u2019 clause does not guard... [-Werror=misleading-indentation]\n   23 |   for(unsigned i=0;i<n;i++)v[i]=(i%8==7)?0:-1;check(v,n);\n      |   ^~~\n/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-greedy/test_greedy.c:23:47: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the \u2018for\u2019\n   23 |   for(unsigned i=0;i<n;i++)v[i]=(i%8==7)?0:-1;check(v,n);\n      |                                               ^~~~~\ncc1: all warnings being treated as errors\n"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "base_path": "/opt/opi-vlm/resident-agent-20261019",
+  "fixture_path": "aligned-inputs.json",
+  "tokenizer_path": "/opt/opi-vlm/resident-agent-20261019/tokenizer.json",
+  "rag_catalog": "/opt/opi-vlm/async-agent-20261025/atoms.json",
+  "defaults": {
+    "graph": "/opt/opi-vlm/npu-kv-probe/wsl-fresh-peak155-20261018",
+    "capacity": 1280,
+    "layers": 24,
+    "vocab": 151674,
+    "prefill_batch": 16,
+    "eos": 151645,
+    "affinity": "4,5"
+  },
+  "repeats": 1,
+  "quality": true,
+  "diagnostic": true,
+  "feedback_tokens": [
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662,
+    100662
+  ],
+  "variants": [
+    {
+      "name": "mask-baseline",
+      "binary": "/opt/opi-vlm/async-agent-20261025/resident-mask",
+      "env": {
+        "OPI_TTFT_TAIL_MIN": "8",
+        "OPI_GROUP_PREFILL": "1",
+        "OPI_MASK_TEMPLATE": "1"
+      },
+      "speed_profileflag": "none"
+    },
+    {
+      "name": "profile-stage",
+      "binary": "/opt/opi-vlm/intern-nextbench-20261025/resident-profile",
+      "env": {
+        "OPI_TTFT_TAIL_MIN": "8",
+        "OPI_GROUP_PREFILL": "1",
+        "OPI_MASK_TEMPLATE": "1",
+        "OPI_PROFILE_STAGES": "1"
+      },
+      "speed_profileflag": "stage_only"
+    }
+  ]
+}

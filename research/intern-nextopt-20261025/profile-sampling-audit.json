@@ -1,0 +1,203 @@
+{
+  "diagnostic_only_not_speed_benchmark": [
+    {
+      "case": "s64-d32-0",
+      "phase": "first_head",
+      "calls": 1,
+      "sum_second_pass_reads": [
+        46028
+      ],
+      "per_shard_max_indices": [
+        [
+          14880,
+          23499,
+          3456,
+          4189
+        ]
+      ],
+      "sampling_per_call_ms": 9.643623999999999
+    },
+    {
+      "case": "s64-d32-0",
+      "phase": "decode_head",
+      "calls": 3,
+      "sum_second_pass_reads": [
+        43201,
+        15269,
+        23527
+      ],
+      "per_shard_max_indices": [
+        [
+          34794,
+          2977,
+          1237,
+          4189
+        ],
+        [
+          1773,
+          8066,
+          1237,
+          4189
+        ],
+        [
+          1773,
+          15203,
+          2358,
+          4189
+        ]
+      ],
+      "sampling_per_call_ms": 5.472412
+    },
+    {
+      "case": "s64-d64-0",
+      "phase": "first_head",
+      "calls": 1,
+      "sum_second_pass_reads": [
+        37732
+      ],
+      "per_shard_max_indices": [
+        [
+          14880,
+          15203,
+          3456,
+          4189
+        ]
+      ],
+      "sampling_per_call_ms": 7.67024
+    },
+    {
+      "case": "s64-d64-0",
+      "phase": "decode_head",
+      "calls": 3,
+      "sum_second_pass_reads": [
+        10180,
+        10180,
+        16390
+      ],
+      "per_shard_max_indices": [
+        [
+          1773,
+          2977,
+          1237,
+          4189
+        ],
+        [
+          1773,
+          2977,
+          1237,
+          4189
+        ],
+        [
+          1773,
+          8066,
+          2358,
+          4189
+        ]
+      ],
+      "sampling_per_call_ms": 3.9152666666666667
+    },
+    {
+      "case": "s128-d32-0",
+      "phase": "first_head",
+      "calls": 1,
+      "sum_second_pass_reads": [
+        46028
+      ],
+      "per_shard_max_indices": [
+        [
+          14880,
+          23499,
+          3456,
+          4189
+        ]
+      ],
+      "sampling_per_call_ms": 8.887413
+    },
+    {
+      "case": "s128-d32-0",
+      "phase": "decode_head",
+      "calls": 3,
+      "sum_second_pass_reads": [
+        55427,
+        15269,
+        16390
+      ],
+      "per_shard_max_indices": [
+        [
+          34794,
+          15203,
+          1237,
+          4189
+        ],
+        [
+          1773,
+          8066,
+          1237,
+          4189
+        ],
+        [
+          1773,
+          8066,
+          2358,
+          4189
+        ]
+      ],
+      "sampling_per_call_ms": 6.006527
+    },
+    {
+      "case": "s128-d64-0",
+      "phase": "first_head",
+      "calls": 1,
+      "sum_second_pass_reads": [
+        37732
+      ],
+      "per_shard_max_indices": [
+        [
+          14880,
+          15203,
+          3456,
+          4189
+        ]
+      ],
+      "sampling_per_call_ms": 8.529746
+    },
+    {
+      "case": "s128-d64-0",
+      "phase": "decode_head",
+      "calls": 3,
+      "sum_second_pass_reads": [
+        22406,
+        15269,
+        16390
+      ],
+      "per_shard_max_indices": [
+        [
+          1773,
+          15203,
+          1237,
+          4189
+        ],
+        [
+          1773,
+          8066,
+          1237,
+          4189
+        ],
+        [
+          1773,
+          8066,
+          2358,
+          4189
+        ]
+      ],
+      "sampling_per_call_ms": 4.4505196666666675
+    }
+  ],
+  "diagnostic_pearson_read_count_vs_time": 0.9774956388166163,
+  "fixed32_measure_only": {
+    "requests": 12,
+    "decode_steps": 372,
+    "sampling_per_step_ms": 7.5272018387096775
+  },
+  "interpretation": "Assembly confirms first-pass NEON and second-pass scalar loads. Small diagnostic association is suggestive only; profiling stage is wall time and may include scheduling. A/B actual mapped-buffer benchmark is required."
+}

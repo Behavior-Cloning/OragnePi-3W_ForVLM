@@ -1,0 +1,63 @@
+[
+  {
+    "name": "resident-combined-close-trace",
+    "bytes": 70648,
+    "sha256": "a6c29a8c8643c8e8e1c8f72faf2856dc0e23c75fd1075974097a53252ac95b51",
+    "command": [
+      "aarch64-linux-gnu-gcc",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-DMODEL_DIM=896",
+      "-DMODEL_KV=2",
+      "-DMODEL_HD=64",
+      "-DROPE_BASE=1000000.0",
+      "-DFUSED_LAYERS=2",
+      "-DKEY_CACHE_TRANSPOSED=0",
+      "-DHEAD_SHARDS=4",
+      "-DHEAD_CHUNK=49152",
+      "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+      "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-combined-debug/resident_session.c",
+      "-L/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+      "-Wl,-rpath-link,/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+      "-lNBGlinker",
+      "-lVIPhal",
+      "-lm",
+      "-o",
+      "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-combined-debug/resident-combined-close-trace"
+    ]
+  },
+  {
+    "name": "resident-combined-asan-o2",
+    "bytes": 555032,
+    "sha256": "f33f4b6524c770d0fe100867396f53c4845ef8cab3ddebdb4a7ab0b9ca84b43a",
+    "command": [
+      "aarch64-linux-gnu-gcc",
+      "-O2",
+      "-g3",
+      "-fno-omit-frame-pointer",
+      "-fsanitize=address",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-DMODEL_DIM=896",
+      "-DMODEL_KV=2",
+      "-DMODEL_HD=64",
+      "-DROPE_BASE=1000000.0",
+      "-DFUSED_LAYERS=2",
+      "-DKEY_CACHE_TRANSPOSED=0",
+      "-DHEAD_SHARDS=4",
+      "-DHEAD_CHUNK=49152",
+      "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+      "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-combined-debug/resident_session.c",
+      "-L/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+      "-Wl,-rpath-link,/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+      "-lNBGlinker",
+      "-lVIPhal",
+      "-lm",
+      "-o",
+      "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-combined-debug/resident-combined-asan-o2"
+    ]
+  }
+]

@@ -189,7 +189,7 @@ def main():
             dumps=out/(name+'-diagnostic');dumps.mkdir()
             worker=ResidentWorker(command,base,out/(name+'.log'),dump_dir=dumps);state['worker']=worker
             assert worker.capacity==settings['capacity'] and worker.ready.get('layers')==settings['layers']
-            if binary.name=='resident-combined':
+            if binary.name.startswith('resident-combined'):
                 assert worker.ready.get('true_tail8_enabled')==bool(env.get('OPI_PREFILL8_DIR'))
                 assert worker.ready.get('single_pass_greedy_enabled')==(env.get('OPI_GREEDY_I16_SINGLE_PASS')=='1')
             emit('loaded',variant=name,ready=worker.ready,binary_sha256=sha(binary),settings=settings,
@@ -245,7 +245,12 @@ def main():
                         compare={'reference':False,'baseline_variant':refname,'relative_l2':float(np.linalg.norm(delta))/max(denom,1e-30),'max_abs':float(np.abs(delta).max()),'top1_matches':int(np.sum(arr.reshape(4,-1).argmax(1)==ref.reshape(4,-1).argmax(1))),'steps':4}
                     else:diag_refs[case['id']]=(name,file)
                     emit('diagnostic',variant=name,case=case['id'],metrics=done,logits_file=str(file.relative_to(out)),bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest(),logits_parity=compare,timing_eligible=False)
-            state['phase']='close';closed=worker.close();state['worker']=None
+            state['phase']='close'
+            try:
+                closed=worker.close()
+            finally:
+                # ResidentWorker.close already aborts on failure; preserve the first error.
+                state['worker']=None
             emit('closed',variant=name,metrics=closed);assert closed.get('driver_bytes')==0
         check_health();success=True
     except BaseException:

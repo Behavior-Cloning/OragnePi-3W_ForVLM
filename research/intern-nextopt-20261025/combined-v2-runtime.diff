@@ -1,0 +1,27 @@
+--- runtime-combined/resident_session.c
++++ runtime-combined-v2/resident_session.c
+@@ -23,6 +23,7 @@
+     float *hidden;
+ } Session;
+ #include "mask_templates.h"
++#include "session_release.h"
+ 
+ static void reset_session(Session *s) {
+     int templated=getenv("OPI_MASK_TEMPLATE")!=NULL;
+@@ -278,12 +279,10 @@
+                 api,cpu,current_rss_kib(),npu_bytes(),temp_start,temperature(),dump?"true":"false",nf?"true":"false",!nf&&last==eos?"eos":"length",tail8_calls,tail8_seconds);
+     }
+     if(!feof(stdin))return 2;
+-    check(vip_destroy_group(s.decoder_group),"session free group");
+-    check(vip_destroy_group(s.head_group),"session free head group");
+-    free_prefill(&s.tail8);free_prefill(&s.batch);
+-    for(int i=0;i<s.blocks;i++)free_net(&s.decoder[i],TENSOR_MAX_INPUTS,TENSOR_MAX_OUTPUTS);
+-    for(int i=0;i<HEAD_SHARDS;i++)free_net(&s.head[i],1,1);
+-    check(vip_destroy(),"session release");free_mask_templates();
++    release_session_networks_and_buffers(&s);
++    fprintf(stderr,"CLOSE phase=vip_destroy\n");
++    check(vip_destroy(),"session release");
++    fprintf(stderr,"CLOSE phase=mask_templates\n");free_mask_templates();
+     fprintf(events,"{\"event\":\"closed\",\"driver_bytes\":%lld}\n",npu_bytes());
+     fclose(events);free(s.decoder);free(s.hidden);free(s.history);free(prompt);free(feedback);
+     munmap((void*)s.embedding,st.st_size);close(emb_fd);return 0;

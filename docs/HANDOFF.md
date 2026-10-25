@@ -1,4 +1,22 @@
-## 2026-10-25 prefill全图优化r3完成；ctx256真8组合正在继续
+## 2026-10-25 同输入NPU prefill/decode优化已完成本轮测试
+
+权威Windows仓库 F:/Files/OPi-Lab/repos/OragnePi-3W_ForVLM，分支codex/wsl-intern1b-reproduction。Mac→Windows Tailscale100.113.74.31→WSL→板卡192.168.10.11；板卡操作使用board_access.hostlock与板端flock。当前本轮控制器均结束，没有待续跑任务；不得重复启动旧run。
+
+最新报告 research/intern-nextbench-20261025/analysis/combined-matrix-r2/REPORT.md，配套INDEPENDENT_RESULT_AUDIT.md/json、summary_next.json、post-health.json。Mac副本在reports/intern-nextopt-20261025/combined-matrix-r2。combined-matrix-r2 rc0/meta complete：72性能、36自然、36cost自然、15份4步完整logits、3次正常关闭driver0。
+
+对齐契约：static64/128=system正文59/123+模板5；dynamic正文32/64+模板8；总输入104/136/168/200，reused64/128，new40/72；性能输出32固定反馈，不是自然32token回答，每格3fixture×2观察。真8组合四格TTFT P50 0.493827/0.869842/0.494815/0.890454秒，P95(max)0.497368/0.874951/0.496498/0.915570；24/24性能请求<1s，decode P50 15.499/15.384/15.285/15.298t/s。当前有限短测试达标，未承诺长期全部<1s；不含VAD/压缩/排队/RAG。
+
+机制：C1280→C256短图减少无效容量计算，真8图替代8尾部的16padding，单遍argmax提速decode。输入没有减少。C256真8比本轮C256基线再省约0.086–0.088秒，但driver从666.4增至942.4MiB。整轮CPU平均7.20%（8核归一化），温度峰50.282℃，harness+worker PSS峰591.9MiB，MemAvailable最低3065.1MiB，load1峰4.11；swap-out1708页=6.672MiB（仅加载），swap-in0，性能阶段无新增swapout。收尾driver0、alloc/free550/550、可用约4478MiB。音频31514帧=504.224秒、77端点、1566 overruns、maxlag0.649秒，不能称无音频迟到；无audio error。
+
+相对本轮C256基线，24固定预测/12自然/12cost完全相同，5×4步完整logits bitwise相同；与r3 C256greedy共有4diag也bitwise同。C1280→C256的logits relativeL2仍约2.93–3.26%，不能称旧图无损。自然目标完成9/12、RAG Top3有移动/摇头冲突，禁止全Top3执行。无视觉、真实麦克风或电机；语音常驻合成录音，RAG仅quality调用；并非优化版1小时完整Agent重测。
+
+关闭故障边界：原combined-matrix-r1在close报double free/corruption，失败证据保留。原ASan及O2详细trace全顺序均未复现。runtime-combined-v2仅调整全groups→全networks→自有buffers顺序，推理模块不变；3次最小加载关闭+本轮三完整配置正常，根因仍未知，不能称根治/默认部署。见analysis/CLOSE_INVESTIGATION.md。v2 binary SHA ff758d8eb013b7ebd05eae1f95634ecef065b92f0bf1fca7b292256351a2900d。
+
+C256限制：最大prompt200、32输出使用231KV，不支持该格64输出或追加256图像tokens。原容量图保留。下一步研究文档intern-context256-20261025/OPT_NEXT_PREFILL.md提出仅裁prefill内部无效历史H176/H192，未编译实测。后续重点：确定旧close根因、更多语义/heldout质量、RAG门控、优化版长期稳定与视觉，不要把本轮性能测试结束当整个项目完成。
+
+GitHub已确认源码checkpoint c660150；本条最新交接与本轮最终报告/审计在同一个后续结果提交归档，最终SHA以git log为准。Windows HTTPS push曾超时，Mac临时bare仓库仅中继Windows bundle，源码依然Windows编辑。凭据仅进程内使用，没有写入仓库。没有活动heartbeat。
+
+## 2026-10-25 r3阶段记录（后续组合已结束，见最新记录）
 
 GitHub已同步f36733f（含实验源协议）；权威任务research/intern-nextbench-20261025。candidate-matrix-r3结束rc0/meta complete：144性能、72自然、24cost自然、24×4步完整logits、6次driver关闭均0。报告analysis/candidate-matrix-r3/REPORT.md和INDEPENDENT_RESULT_AUDIT.md/json；Mac reports/intern-nextopt-20261025/candidate-matrix-r3可打开。
 
@@ -6,7 +24,7 @@ GitHub已同步f36733f（含实验源协议）；权威任务research/intern-nex
 
 整轮最高53.32℃，CPU均7.59%(8核归一化)，PSS峰595.5MiB；ctx256-greedy driver666.4MiB，对照718.4MiB，tail8-c1280 1019.7MiB。swap-out1013页=3.96MiB，swap-in0；音频maxlag.704s首次出现在初始图hash阶段。ctx256最大当前prompt200+32输出需231KV，不适用于最大格64输出/图像256追加。仅Intern NPU文本、合成语音、RAG质量阶段查询、mock无电机；并非新一小时全agent稳定性测试。
 
-继续队列：deploy_combined.py（WSL PID10495）传新ctx256 true8十二图（286MB）并校验后自动启动combined-matrix-r1，3候选同resident-combined binary（base/true8/repeat），相同输入、repeats2、输出32；自然cost扩到全部12条并加s64-d64-2的4步完整logits。两开关独立，tail图强制ctx256。仅读deploy-combined-status.json、combined-matrix-r1-controller.json及log；禁止重复启动或绕过双锁轮询板卡。完成后再分析、更新报告和GitHub，不把启动当完成。
+后续combined-matrix-r1推理完成但close堆损坏失败；combined-matrix-r2已完成，详见最新记录。这里的旧PID/自动队列均已结束，不要重启。
 
 r2首次因质量日志缺system_body_tokens停止且driver0，保留失败证据；已严格按同prefix元数据补齐并通过4正反测试，r3完整通过，不混用失败数据。
 

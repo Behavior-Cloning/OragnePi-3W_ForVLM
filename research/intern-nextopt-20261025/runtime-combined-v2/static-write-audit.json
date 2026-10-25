@@ -1,0 +1,34 @@
+{
+  "status": "root cause unresolved; original ASan minimal close passed; full ASan replay pending",
+  "checked_paths": [
+    {
+      "path": "prompt/history/feedback",
+      "bound": "request enforces n+limit-1<=capacity; reads use n,nf<=capacity; copies end at n; scalar history positions <n+limit-1"
+    },
+    {
+      "path": "tail8 vs padded16",
+      "bound": "bulk16 branch consumes full blocks first; remaining final8 uses true8, remaining>=tail_min and<16 uses valid rows; memcpy uses exact valid"
+    },
+    {
+      "path": "KV",
+      "bound": "append_key_rows validates pos+tokens<=capacity and exact src/dst counts; copy_values validates both ranges"
+    },
+    {
+      "path": "mask templates",
+      "bound": "restore validates count=repeat*tokens*(capacity+tokens), keep0..capacity; separate entries by full tensor contract and batch size; only next/raw freed"
+    },
+    {
+      "path": "greedy",
+      "bound": "read-only; vector loop count-i>=8; counts>65535 fallback; earliest ties exhaustively validated"
+    },
+    {
+      "path": "diagnostic logits",
+      "bound": "iterates each output count, writes FILE only; snprintf1024; max4step used by test; no array writes from vocab indices"
+    },
+    {
+      "path": "SDK",
+      "limitation": "external libraries are not ASan-instrumented. Minimal ASan pass cannot exclude internal SDK writes or allocator-sensitive faults."
+    }
+  ],
+  "proposed_next": "Root full original-behavior ASan replay, then original O2 detailed close trace if needed. Do not promote close-barrier candidate based on mock test alone."
+}

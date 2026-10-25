@@ -216,6 +216,10 @@ def analyze(root):
     pair_baseline='mask-base' if 'mask-base' in names else baseline
     out['matched_performance']=paired_performance(events,pair_baseline,issues)
     out['mask_repeat_drift']=out['matched_performance'].get('mask-repeat',{})
+    # Keep legacy mask-only field unchanged; expose the actual repeated baseline generically.
+    repeat_name='combined-repeat' if 'combined-repeat' in names else ('mask-repeat' if 'mask-repeat' in names else None)
+    out['baseline_repeat_variant']=repeat_name
+    out['baseline_repeat_drift']=out['matched_performance'].get(repeat_name,{})
     if meta.get('status')!='complete':issues.append('workload meta not complete')
     out['audit_pass']=not issues
     return out

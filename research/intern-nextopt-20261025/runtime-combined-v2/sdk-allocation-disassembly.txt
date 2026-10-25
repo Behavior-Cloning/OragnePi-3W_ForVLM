@@ -1,0 +1,479 @@
+
+/opt/opi-lab/restored-slim3-20261017/board-runtime/lib/libVIPhal.so:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000000050f0 <viphal_heap_alloc@@Base>:
+    50f0:	a9bb7bfd 	stp	x29, x30, [sp, #-80]!
+    50f4:	11000c21 	add	w1, w1, #0x3
+    50f8:	910003fd 	mov	x29, sp
+    50fc:	a90153f3 	stp	x19, x20, [sp, #16]
+    5100:	a9025bf5 	stp	x21, x22, [sp, #32]
+    5104:	aa0003f6 	mov	x22, x0
+    5108:	b9400000 	ldr	w0, [x0]
+    510c:	121e7435 	and	w21, w1, #0xfffffffc
+    5110:	6b15001f 	cmp	w0, w21
+    5114:	540007a3 	b.cc	5208 <viphal_heap_alloc@@Base+0x118>  // b.lo, b.ul, b.last
+    5118:	aa1603e3 	mov	x3, x22
+    511c:	f8408c73 	ldr	x19, [x3, #8]!
+    5120:	eb13007f 	cmp	x3, x19
+    5124:	54000ba0 	b.eq	5298 <viphal_heap_alloc@@Base+0x1a8>  // b.none
+    5128:	528b4b54 	mov	w20, #0x5a5a                	// #23130
+    512c:	72ab4b54 	movk	w20, #0x5a5a, lsl #16
+    5130:	a90363f7 	stp	x23, x24, [sp, #48]
+    5134:	aa0203f7 	mov	x23, x2
+    5138:	14000004 	b	5148 <viphal_heap_alloc@@Base+0x58>
+    513c:	f9400273 	ldr	x19, [x19]
+    5140:	eb13007f 	cmp	x3, x19
+    5144:	540002e0 	b.eq	51a0 <viphal_heap_alloc@@Base+0xb0>  // b.none
+    5148:	b9401a61 	ldr	w1, [x19, #24]
+    514c:	6b14003f 	cmp	w1, w20
+    5150:	54ffff61 	b.ne	513c <viphal_heap_alloc@@Base+0x4c>  // b.any
+    5154:	b9401661 	ldr	w1, [x19, #20]
+    5158:	6b15003f 	cmp	w1, w21
+    515c:	54ffff03 	b.cc	513c <viphal_heap_alloc@@Base+0x4c>  // b.lo, b.ul, b.last
+    5160:	540002e8 	b.hi	51bc <viphal_heap_alloc@@Base+0xcc>  // b.pmore
+    5164:	f9400ec2 	ldr	x2, [x22, #24]
+    5168:	529e01a4 	mov	w4, #0xf00d                	// #61453
+    516c:	72b57744 	movk	w4, #0xabba, lsl #16
+    5170:	b9401263 	ldr	w3, [x19, #16]
+    5174:	b9001a64 	str	w4, [x19, #24]
+    5178:	4b010000 	sub	w0, w0, w1
+    517c:	8b030041 	add	x1, x2, x3
+    5180:	f90002e1 	str	x1, [x23]
+    5184:	a94363f7 	ldp	x23, x24, [sp, #48]
+    5188:	b90002c0 	str	w0, [x22]
+    518c:	aa1303e0 	mov	x0, x19
+    5190:	a94153f3 	ldp	x19, x20, [sp, #16]
+    5194:	a9425bf5 	ldp	x21, x22, [sp, #32]
+    5198:	a8c57bfd 	ldp	x29, x30, [sp], #80
+    519c:	d65f03c0 	ret
+    51a0:	a94363f7 	ldp	x23, x24, [sp, #48]
+    51a4:	d2800013 	mov	x19, #0x0                   	// #0
+    51a8:	aa1303e0 	mov	x0, x19
+    51ac:	a94153f3 	ldp	x19, x20, [sp, #16]
+    51b0:	a9425bf5 	ldp	x21, x22, [sp, #32]
+    51b4:	a8c57bfd 	ldp	x29, x30, [sp], #80
+    51b8:	d65f03c0 	ret
+    51bc:	910123e1 	add	x1, sp, #0x48
+    51c0:	aa1603e0 	mov	x0, x22
+    51c4:	97ffff7f 	bl	4fc0 <viphal_hardware_multivip_sync@@Base+0x190>
+    51c8:	2a0003f8 	mov	w24, w0
+    51cc:	35000420 	cbnz	w0, 5250 <viphal_heap_alloc@@Base+0x160>
+    51d0:	f94027e0 	ldr	x0, [sp, #72]
+    51d4:	2a1503e1 	mov	w1, w21
+    51d8:	29420a63 	ldp	w3, w2, [x19, #16]
+    51dc:	f9400664 	ldr	x4, [x19, #8]
+    51e0:	0b150063 	add	w3, w3, w21
+    51e4:	4b150042 	sub	w2, w2, w21
+    51e8:	29020803 	stp	w3, w2, [x0, #16]
+    51ec:	b9001814 	str	w20, [x0, #24]
+    51f0:	f9000660 	str	x0, [x19, #8]
+    51f4:	a9001013 	stp	x19, x4, [x0]
+    51f8:	f9000080 	str	x0, [x4]
+    51fc:	b94002c0 	ldr	w0, [x22]
+    5200:	b9001675 	str	w21, [x19, #20]
+    5204:	17ffffd8 	b	5164 <viphal_heap_alloc@@Base+0x74>
+    5208:	97fff396 	bl	2060 <viphal_os_get_tid@plt>
+    520c:	2a0003e2 	mov	w2, w0
+    5210:	d0000003 	adrp	x3, 7000 <viphal_os_strcpy@@Base+0xd50>
+    5214:	9100c063 	add	x3, x3, #0x30
+    5218:	91004063 	add	x3, x3, #0x10
+    521c:	52801924 	mov	w4, #0xc9                  	// #201
+    5220:	b0000001 	adrp	x1, 6000 <viphal_os_create_mutex@@Base>
+    5224:	52800000 	mov	w0, #0x0                   	// #0
+    5228:	910b2021 	add	x1, x1, #0x2c8
+    522c:	97fff3b9 	bl	2110 <viphal_os_print@plt>
+    5230:	b94002c3 	ldr	w3, [x22]
+    5234:	2a1503e2 	mov	w2, w21
+    5238:	d2800013 	mov	x19, #0x0                   	// #0
+    523c:	b0000001 	adrp	x1, 6000 <viphal_os_create_mutex@@Base>
+    5240:	52800000 	mov	w0, #0x0                   	// #0
+    5244:	913b0021 	add	x1, x1, #0xec0
+    5248:	97fff3b2 	bl	2110 <viphal_os_print@plt>
+    524c:	17ffffd7 	b	51a8 <viphal_heap_alloc@@Base+0xb8>
+    5250:	97fff384 	bl	2060 <viphal_os_get_tid@plt>
+    5254:	2a0003e2 	mov	w2, w0
+    5258:	d0000003 	adrp	x3, 7000 <viphal_os_strcpy@@Base+0xd50>
+    525c:	9100c063 	add	x3, x3, #0x30
+    5260:	9100a063 	add	x3, x3, #0x28
+    5264:	52800ea4 	mov	w4, #0x75                  	// #117
+    5268:	b0000001 	adrp	x1, 6000 <viphal_os_create_mutex@@Base>
+    526c:	52800000 	mov	w0, #0x0                   	// #0
+    5270:	910b2021 	add	x1, x1, #0x2c8
+    5274:	97fff3a7 	bl	2110 <viphal_os_print@plt>
+    5278:	2a1803e2 	mov	w2, w24
+    527c:	b0000001 	adrp	x1, 6000 <viphal_os_create_mutex@@Base>
+    5280:	52800000 	mov	w0, #0x0                   	// #0
+    5284:	913be021 	add	x1, x1, #0xef8
+    5288:	97fff3a2 	bl	2110 <viphal_os_print@plt>
+    528c:	b9401661 	ldr	w1, [x19, #20]
+    5290:	b94002c0 	ldr	w0, [x22]
+    5294:	17ffffb4 	b	5164 <viphal_heap_alloc@@Base+0x74>
+    5298:	d2800013 	mov	x19, #0x0                   	// #0
+    529c:	17ffffc3 	b	51a8 <viphal_heap_alloc@@Base+0xb8>
+
+Disassembly of section .fini:
+
+
+/opt/opi-lab/restored-slim3-20261017/board-runtime/lib/libVIPhal.so:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000005570 <viphal_heap_free_mem@@Base>:
+    5570:	b9402803 	ldr	w3, [x0, #40]
+    5574:	f9400c04 	ldr	x4, [x0, #24]
+    5578:	4b040024 	sub	w4, w1, w4
+    557c:	34000263 	cbz	w3, 55c8 <viphal_heap_free_mem@@Base+0x58>
+    5580:	f9401801 	ldr	x1, [x0, #48]
+    5584:	51000463 	sub	w3, w3, #0x1
+    5588:	52800406 	mov	w6, #0x20                  	// #32
+    558c:	529e01a5 	mov	w5, #0xf00d                	// #61453
+    5590:	72b57745 	movk	w5, #0xabba, lsl #16
+    5594:	91008022 	add	x2, x1, #0x20
+    5598:	9ba60863 	umaddl	x3, w3, w6, x2
+    559c:	14000004 	b	55ac <viphal_heap_free_mem@@Base+0x3c>
+    55a0:	91008021 	add	x1, x1, #0x20
+    55a4:	eb03003f 	cmp	x1, x3
+    55a8:	54000100 	b.eq	55c8 <viphal_heap_free_mem@@Base+0x58>  // b.none
+    55ac:	b9401022 	ldr	w2, [x1, #16]
+    55b0:	6b02009f 	cmp	w4, w2
+    55b4:	54ffff61 	b.ne	55a0 <viphal_heap_free_mem@@Base+0x30>  // b.any
+    55b8:	b9401822 	ldr	w2, [x1, #24]
+    55bc:	6b05005f 	cmp	w2, w5
+    55c0:	54ffff01 	b.ne	55a0 <viphal_heap_free_mem@@Base+0x30>  // b.any
+    55c4:	17fff2b3 	b	2090 <viphal_heap_free@plt>
+    55c8:	12800080 	mov	w0, #0xfffffffb            	// #-5
+    55cc:	d65f03c0 	ret
+
+Disassembly of section .fini:
+
+
+/opt/opi-lab/restored-slim3-20261017/board-runtime/lib/libVIPhal.so:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000000053a0 <viphal_heap_free@@Base>:
+    53a0:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!
+    53a4:	910003fd 	mov	x29, sp
+    53a8:	b4000c01 	cbz	x1, 5528 <viphal_heap_free@@Base+0x188>
+    53ac:	b9401823 	ldr	w3, [x1, #24]
+    53b0:	529e01a2 	mov	w2, #0xf00d                	// #61453
+    53b4:	72b57742 	movk	w2, #0xabba, lsl #16
+    53b8:	6b02007f 	cmp	w3, w2
+    53bc:	54000961 	b.ne	54e8 <viphal_heap_free@@Base+0x148>  // b.any
+    53c0:	aa0003e7 	mov	x7, x0
+    53c4:	b9400003 	ldr	w3, [x0]
+    53c8:	b9401425 	ldr	w5, [x1, #20]
+    53cc:	528b4b48 	mov	w8, #0x5a5a                	// #23130
+    53d0:	72ab4b48 	movk	w8, #0x5a5a, lsl #16
+    53d4:	f8408ce2 	ldr	x2, [x7, #8]!
+    53d8:	b9001828 	str	w8, [x1, #24]
+    53dc:	0b050063 	add	w3, w3, w5
+    53e0:	b9000003 	str	w3, [x0]
+    53e4:	eb07005f 	cmp	x2, x7
+    53e8:	54000380 	b.eq	5458 <viphal_heap_free@@Base+0xb8>  // b.none
+    53ec:	b9401024 	ldr	w4, [x1, #16]
+    53f0:	5299b9a9 	mov	w9, #0xcdcd                	// #52685
+    53f4:	72b9b9a9 	movk	w9, #0xcdcd, lsl #16
+    53f8:	b9401043 	ldr	w3, [x2, #16]
+    53fc:	0b050086 	add	w6, w4, w5
+    5400:	6b06007f 	cmp	w3, w6
+    5404:	540001c0 	b.eq	543c <viphal_heap_free@@Base+0x9c>  // b.none
+    5408:	b9401446 	ldr	w6, [x2, #20]
+    540c:	0b060063 	add	w3, w3, w6
+    5410:	6b03009f 	cmp	w4, w3
+    5414:	54000280 	b.eq	5464 <viphal_heap_free@@Base+0xc4>  // b.none
+    5418:	f9400042 	ldr	x2, [x2]
+    541c:	eb07005f 	cmp	x2, x7
+    5420:	540001c0 	b.eq	5458 <viphal_heap_free@@Base+0xb8>  // b.none
+    5424:	b9401425 	ldr	w5, [x1, #20]
+    5428:	b9401024 	ldr	w4, [x1, #16]
+    542c:	b9401043 	ldr	w3, [x2, #16]
+    5430:	0b050086 	add	w6, w4, w5
+    5434:	6b06007f 	cmp	w3, w6
+    5438:	54fffe81 	b.ne	5408 <viphal_heap_free@@Base+0x68>  // b.any
+    543c:	b9401844 	ldr	w4, [x2, #24]
+    5440:	f9400043 	ldr	x3, [x2]
+    5444:	6b08009f 	cmp	w4, w8
+    5448:	54000320 	b.eq	54ac <viphal_heap_free@@Base+0x10c>  // b.none
+    544c:	aa0303e2 	mov	x2, x3
+    5450:	eb07005f 	cmp	x2, x7
+    5454:	54fffe81 	b.ne	5424 <viphal_heap_free@@Base+0x84>  // b.any
+    5458:	52800000 	mov	w0, #0x0                   	// #0
+    545c:	a8c17bfd 	ldp	x29, x30, [sp], #16
+    5460:	d65f03c0 	ret
+    5464:	b9401843 	ldr	w3, [x2, #24]
+    5468:	6b08007f 	cmp	w3, w8
+    546c:	54fffd61 	b.ne	5418 <viphal_heap_free@@Base+0x78>  // b.any
+    5470:	f9400423 	ldr	x3, [x1, #8]
+    5474:	0b0500c5 	add	w5, w6, w5
+    5478:	b9001445 	str	w5, [x2, #20]
+    547c:	b4000063 	cbz	x3, 5488 <viphal_heap_free@@Base+0xe8>
+    5480:	f9400024 	ldr	x4, [x1]
+    5484:	f9000064 	str	x4, [x3]
+    5488:	f9400024 	ldr	x4, [x1]
+    548c:	b4000044 	cbz	x4, 5494 <viphal_heap_free@@Base+0xf4>
+    5490:	f9000483 	str	x3, [x4, #8]
+    5494:	b9402003 	ldr	w3, [x0, #32]
+    5498:	b9001829 	str	w9, [x1, #24]
+    549c:	aa0203e1 	mov	x1, x2
+    54a0:	51000463 	sub	w3, w3, #0x1
+    54a4:	b9002003 	str	w3, [x0, #32]
+    54a8:	17ffffdc 	b	5418 <viphal_heap_free@@Base+0x78>
+    54ac:	b9401444 	ldr	w4, [x2, #20]
+    54b0:	f9400446 	ldr	x6, [x2, #8]
+    54b4:	0b050085 	add	w5, w4, w5
+    54b8:	b9001425 	str	w5, [x1, #20]
+    54bc:	b4000066 	cbz	x6, 54c8 <viphal_heap_free@@Base+0x128>
+    54c0:	f90000c3 	str	x3, [x6]
+    54c4:	f9400043 	ldr	x3, [x2]
+    54c8:	b4000043 	cbz	x3, 54d0 <viphal_heap_free@@Base+0x130>
+    54cc:	f9000466 	str	x6, [x3, #8]
+    54d0:	b9402004 	ldr	w4, [x0, #32]
+    54d4:	b9001849 	str	w9, [x2, #24]
+    54d8:	aa0303e2 	mov	x2, x3
+    54dc:	51000483 	sub	w3, w4, #0x1
+    54e0:	b9002003 	str	w3, [x0, #32]
+    54e4:	17ffffce 	b	541c <viphal_heap_free@@Base+0x7c>
+    54e8:	97fff2de 	bl	2060 <viphal_os_get_tid@plt>
+    54ec:	2a0003e2 	mov	w2, w0
+    54f0:	d0000003 	adrp	x3, 7000 <viphal_os_strcpy@@Base+0xd50>
+    54f4:	9100c063 	add	x3, x3, #0x30
+    54f8:	91014063 	add	x3, x3, #0x50
+    54fc:	52802524 	mov	w4, #0x129                 	// #297
+    5500:	b0000001 	adrp	x1, 6000 <viphal_os_create_mutex@@Base>
+    5504:	52800000 	mov	w0, #0x0                   	// #0
+    5508:	910b2021 	add	x1, x1, #0x2c8
+    550c:	97fff301 	bl	2110 <viphal_os_print@plt>
+    5510:	b0000001 	adrp	x1, 6000 <viphal_os_create_mutex@@Base>
+    5514:	913e0021 	add	x1, x1, #0xf80
+    5518:	52800000 	mov	w0, #0x0                   	// #0
+    551c:	97fff2fd 	bl	2110 <viphal_os_print@plt>
+    5520:	12800140 	mov	w0, #0xfffffff5            	// #-11
+    5524:	17ffffce 	b	545c <viphal_heap_free@@Base+0xbc>
+    5528:	97fff2ce 	bl	2060 <viphal_os_get_tid@plt>
+    552c:	2a0003e2 	mov	w2, w0
+    5530:	d0000003 	adrp	x3, 7000 <viphal_os_strcpy@@Base+0xd50>
+    5534:	9100c063 	add	x3, x3, #0x30
+    5538:	91014063 	add	x3, x3, #0x50
+    553c:	52802444 	mov	w4, #0x122                 	// #290
+    5540:	b0000001 	adrp	x1, 6000 <viphal_os_create_mutex@@Base>
+    5544:	52800000 	mov	w0, #0x0                   	// #0
+    5548:	910b2021 	add	x1, x1, #0x2c8
+    554c:	97fff2f1 	bl	2110 <viphal_os_print@plt>
+    5550:	b0000001 	adrp	x1, 6000 <viphal_os_create_mutex@@Base>
+    5554:	913da021 	add	x1, x1, #0xf68
+    5558:	52800000 	mov	w0, #0x0                   	// #0
+    555c:	97fff2ed 	bl	2110 <viphal_os_print@plt>
+    5560:	12800040 	mov	w0, #0xfffffffd            	// #-3
+    5564:	17ffffbe 	b	545c <viphal_heap_free@@Base+0xbc>
+
+Disassembly of section .fini:
+
+
+/opt/opi-lab/restored-slim3-20261017/board-runtime/lib/libVIPhal.so:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000002f70 <viphal_allocate_memory@@Base>:
+    2f70:	a9bc7bfd 	stp	x29, x30, [sp, #-64]!
+    2f74:	910003fd 	mov	x29, sp
+    2f78:	34000940 	cbz	w0, 30a0 <viphal_allocate_memory@@Base+0x130>
+    2f7c:	a90153f3 	stp	x19, x20, [sp, #16]
+    2f80:	d00000b3 	adrp	x19, 18000 <viphal_os_strcpy@@Base+0x11d50>
+    2f84:	2a0003f4 	mov	w20, w0
+    2f88:	f947e673 	ldr	x19, [x19, #4040]
+    2f8c:	f9401e60 	ldr	x0, [x19, #56]
+    2f90:	f90013f5 	str	x21, [sp, #32]
+    2f94:	aa0103f5 	mov	x21, x1
+    2f98:	b4000080 	cbz	x0, 2fa8 <viphal_allocate_memory@@Base+0x38>
+    2f9c:	b9400260 	ldr	w0, [x19]
+    2fa0:	6b14001f 	cmp	w0, w20
+    2fa4:	54000148 	b.hi	2fcc <viphal_allocate_memory@@Base+0x5c>  // b.pmore
+    2fa8:	aa1503e1 	mov	x1, x21
+    2fac:	2a1403e0 	mov	w0, w20
+    2fb0:	97fffca8 	bl	2250 <viphal_os_allocate_memory@plt>
+    2fb4:	35000500 	cbnz	w0, 3054 <viphal_allocate_memory@@Base+0xe4>
+    2fb8:	a94153f3 	ldp	x19, x20, [sp, #16]
+    2fbc:	52800000 	mov	w0, #0x0                   	// #0
+    2fc0:	f94013f5 	ldr	x21, [sp, #32]
+    2fc4:	a8c47bfd 	ldp	x29, x30, [sp], #64
+    2fc8:	d65f03c0 	ret
+    2fcc:	b9402260 	ldr	w0, [x19, #32]
+    2fd0:	b9402a61 	ldr	w1, [x19, #40]
+    2fd4:	11000400 	add	w0, w0, #0x1
+    2fd8:	6b01001f 	cmp	w0, w1
+    2fdc:	54fffe62 	b.cs	2fa8 <viphal_allocate_memory@@Base+0x38>  // b.hs, b.nlast
+    2fe0:	f9402260 	ldr	x0, [x19, #64]
+    2fe4:	f9001fff 	str	xzr, [sp, #56]
+    2fe8:	97fffc0a 	bl	2010 <viphal_os_lock_mutex@plt>
+    2fec:	aa1303e0 	mov	x0, x19
+    2ff0:	97fffc68 	bl	2190 <viphal_heap_max_size@plt>
+    2ff4:	6b00029f 	cmp	w20, w0
+    2ff8:	540001c2 	b.cs	3030 <viphal_allocate_memory@@Base+0xc0>  // b.hs, b.nlast
+    2ffc:	9100e3e2 	add	x2, sp, #0x38
+    3000:	2a1403e1 	mov	w1, w20
+    3004:	aa1303e0 	mov	x0, x19
+    3008:	97fffc86 	bl	2220 <viphal_heap_alloc@plt>
+    300c:	b40006a0 	cbz	x0, 30e0 <viphal_allocate_memory@@Base+0x170>
+    3010:	f9401fe0 	ldr	x0, [sp, #56]
+    3014:	f90002a0 	str	x0, [x21]
+    3018:	f9402260 	ldr	x0, [x19, #64]
+    301c:	97fffbf1 	bl	1fe0 <viphal_os_unlock_mutex@plt>
+    3020:	52800000 	mov	w0, #0x0                   	// #0
+    3024:	a94153f3 	ldp	x19, x20, [sp, #16]
+    3028:	f94013f5 	ldr	x21, [sp, #32]
+    302c:	17ffffe6 	b	2fc4 <viphal_allocate_memory@@Base+0x54>
+    3030:	aa1503e1 	mov	x1, x21
+    3034:	2a1403e0 	mov	w0, w20
+    3038:	97fffc86 	bl	2250 <viphal_os_allocate_memory@plt>
+    303c:	2a0003e1 	mov	w1, w0
+    3040:	f9402260 	ldr	x0, [x19, #64]
+    3044:	2a0103f3 	mov	w19, w1
+    3048:	97fffbe6 	bl	1fe0 <viphal_os_unlock_mutex@plt>
+    304c:	34fffb73 	cbz	w19, 2fb8 <viphal_allocate_memory@@Base+0x48>
+    3050:	17ffffd6 	b	2fa8 <viphal_allocate_memory@@Base+0x38>
+    3054:	97fffc03 	bl	2060 <viphal_os_get_tid@plt>
+    3058:	2a0003e2 	mov	w2, w0
+    305c:	f0000003 	adrp	x3, 6000 <viphal_os_create_mutex@@Base>
+    3060:	9127a063 	add	x3, x3, #0x9e8
+    3064:	91054063 	add	x3, x3, #0x150
+    3068:	52807ee4 	mov	w4, #0x3f7                 	// #1015
+    306c:	f0000001 	adrp	x1, 6000 <viphal_os_create_mutex@@Base>
+    3070:	52800000 	mov	w0, #0x0                   	// #0
+    3074:	910b2021 	add	x1, x1, #0x2c8
+    3078:	97fffc26 	bl	2110 <viphal_os_print@plt>
+    307c:	2a1403e2 	mov	w2, w20
+    3080:	f0000001 	adrp	x1, 6000 <viphal_os_create_mutex@@Base>
+    3084:	52800000 	mov	w0, #0x0                   	// #0
+    3088:	91154021 	add	x1, x1, #0x550
+    308c:	97fffc21 	bl	2110 <viphal_os_print@plt>
+    3090:	128000a0 	mov	w0, #0xfffffffa            	// #-6
+    3094:	a94153f3 	ldp	x19, x20, [sp, #16]
+    3098:	f94013f5 	ldr	x21, [sp, #32]
+    309c:	17ffffca 	b	2fc4 <viphal_allocate_memory@@Base+0x54>
+    30a0:	97fffbf0 	bl	2060 <viphal_os_get_tid@plt>
+    30a4:	2a0003e2 	mov	w2, w0
+    30a8:	f0000003 	adrp	x3, 6000 <viphal_os_create_mutex@@Base>
+    30ac:	9127a063 	add	x3, x3, #0x9e8
+    30b0:	91054063 	add	x3, x3, #0x150
+    30b4:	52807d04 	mov	w4, #0x3e8                 	// #1000
+    30b8:	f0000001 	adrp	x1, 6000 <viphal_os_create_mutex@@Base>
+    30bc:	52800000 	mov	w0, #0x0                   	// #0
+    30c0:	910b2021 	add	x1, x1, #0x2c8
+    30c4:	97fffc13 	bl	2110 <viphal_os_print@plt>
+    30c8:	f0000001 	adrp	x1, 6000 <viphal_os_create_mutex@@Base>
+    30cc:	9113e021 	add	x1, x1, #0x4f8
+    30d0:	52800000 	mov	w0, #0x0                   	// #0
+    30d4:	97fffc0f 	bl	2110 <viphal_os_print@plt>
+    30d8:	12800040 	mov	w0, #0xfffffffd            	// #-3
+    30dc:	17ffffba 	b	2fc4 <viphal_allocate_memory@@Base+0x54>
+    30e0:	97fffbe0 	bl	2060 <viphal_os_get_tid@plt>
+    30e4:	2a0003e2 	mov	w2, w0
+    30e8:	f0000003 	adrp	x3, 6000 <viphal_os_create_mutex@@Base>
+    30ec:	9127a063 	add	x3, x3, #0x9e8
+    30f0:	9105a063 	add	x3, x3, #0x168
+    30f4:	52802644 	mov	w4, #0x132                 	// #306
+    30f8:	f0000001 	adrp	x1, 6000 <viphal_os_create_mutex@@Base>
+    30fc:	52800000 	mov	w0, #0x0                   	// #0
+    3100:	910b2021 	add	x1, x1, #0x2c8
+    3104:	97fffc03 	bl	2110 <viphal_os_print@plt>
+    3108:	f0000001 	adrp	x1, 6000 <viphal_os_create_mutex@@Base>
+    310c:	91148021 	add	x1, x1, #0x520
+    3110:	52800000 	mov	w0, #0x0                   	// #0
+    3114:	97fffbff 	bl	2110 <viphal_os_print@plt>
+    3118:	f9402260 	ldr	x0, [x19, #64]
+    311c:	97fffbb1 	bl	1fe0 <viphal_os_unlock_mutex@plt>
+    3120:	17ffffa2 	b	2fa8 <viphal_allocate_memory@@Base+0x38>
+
+Disassembly of section .fini:
+
+
+/opt/opi-lab/restored-slim3-20261017/board-runtime/lib/libVIPhal.so:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000003130 <viphal_free_memory@@Base>:
+    3130:	a9bd7bfd 	stp	x29, x30, [sp, #-48]!
+    3134:	910003fd 	mov	x29, sp
+    3138:	a90153f3 	stp	x19, x20, [sp, #16]
+    313c:	b4000640 	cbz	x0, 3204 <viphal_free_memory@@Base+0xd4>
+    3140:	b00000b4 	adrp	x20, 18000 <viphal_os_strcpy@@Base+0x11d50>
+    3144:	f947e694 	ldr	x20, [x20, #4040]
+    3148:	f9401e81 	ldr	x1, [x20, #56]
+    314c:	b4000561 	cbz	x1, 31f8 <viphal_free_memory@@Base+0xc8>
+    3150:	f90013f5 	str	x21, [sp, #32]
+    3154:	aa0003f5 	mov	x21, x0
+    3158:	f9402280 	ldr	x0, [x20, #64]
+    315c:	97fffbad 	bl	2010 <viphal_os_lock_mutex@plt>
+    3160:	aa1503e1 	mov	x1, x21
+    3164:	aa1403e0 	mov	x0, x20
+    3168:	97fffbae 	bl	2020 <viphal_heap_free_mem@plt>
+    316c:	2a0003f3 	mov	w19, w0
+    3170:	f9402280 	ldr	x0, [x20, #64]
+    3174:	97fffb9b 	bl	1fe0 <viphal_os_unlock_mutex@plt>
+    3178:	350000d3 	cbnz	w19, 3190 <viphal_free_memory@@Base+0x60>
+    317c:	f94013f5 	ldr	x21, [sp, #32]
+    3180:	2a1303e0 	mov	w0, w19
+    3184:	a94153f3 	ldp	x19, x20, [sp, #16]
+    3188:	a8c37bfd 	ldp	x29, x30, [sp], #48
+    318c:	d65f03c0 	ret
+    3190:	aa1503e0 	mov	x0, x21
+    3194:	97fffc53 	bl	22e0 <viphal_os_free_memory@plt>
+    3198:	f94013f5 	ldr	x21, [sp, #32]
+    319c:	2a0003f3 	mov	w19, w0
+    31a0:	34ffff13 	cbz	w19, 3180 <viphal_free_memory@@Base+0x50>
+    31a4:	97fffbaf 	bl	2060 <viphal_os_get_tid@plt>
+    31a8:	2a0003e2 	mov	w2, w0
+    31ac:	528084a4 	mov	w4, #0x425                 	// #1061
+    31b0:	f0000003 	adrp	x3, 6000 <viphal_os_create_mutex@@Base>
+    31b4:	9127a063 	add	x3, x3, #0x9e8
+    31b8:	f0000001 	adrp	x1, 6000 <viphal_os_create_mutex@@Base>
+    31bc:	91060063 	add	x3, x3, #0x180
+    31c0:	910b2021 	add	x1, x1, #0x2c8
+    31c4:	52800000 	mov	w0, #0x0                   	// #0
+    31c8:	97fffbd2 	bl	2110 <viphal_os_print@plt>
+    31cc:	2a1303e3 	mov	w3, w19
+    31d0:	f0000002 	adrp	x2, 6000 <viphal_os_create_mutex@@Base>
+    31d4:	f0000001 	adrp	x1, 6000 <viphal_os_create_mutex@@Base>
+    31d8:	91160042 	add	x2, x2, #0x580
+    31dc:	910ca021 	add	x1, x1, #0x328
+    31e0:	52800000 	mov	w0, #0x0                   	// #0
+    31e4:	97fffbcb 	bl	2110 <viphal_os_print@plt>
+    31e8:	2a1303e0 	mov	w0, w19
+    31ec:	a94153f3 	ldp	x19, x20, [sp, #16]
+    31f0:	a8c37bfd 	ldp	x29, x30, [sp], #48
+    31f4:	d65f03c0 	ret
+    31f8:	97fffc3a 	bl	22e0 <viphal_os_free_memory@plt>
+    31fc:	2a0003f3 	mov	w19, w0
+    3200:	17ffffe8 	b	31a0 <viphal_free_memory@@Base+0x70>
+    3204:	12800053 	mov	w19, #0xfffffffd            	// #-3
+    3208:	17ffffde 	b	3180 <viphal_free_memory@@Base+0x50>
+
+Disassembly of section .fini:

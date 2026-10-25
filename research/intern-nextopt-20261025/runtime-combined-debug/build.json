@@ -1,0 +1,33 @@
+{
+  "command": [
+    "aarch64-linux-gnu-gcc",
+    "-O1",
+    "-g3",
+    "-fno-omit-frame-pointer",
+    "-fsanitize=address",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-DMODEL_DIM=896",
+    "-DMODEL_KV=2",
+    "-DMODEL_HD=64",
+    "-DROPE_BASE=1000000.0",
+    "-DFUSED_LAYERS=2",
+    "-DKEY_CACHE_TRANSPOSED=0",
+    "-DHEAD_SHARDS=4",
+    "-DHEAD_CHUNK=49152",
+    "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-combined-debug/resident_session.c",
+    "-L/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-Wl,-rpath-link,/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-lNBGlinker",
+    "-lVIPhal",
+    "-lm",
+    "-o",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-combined-debug/resident-combined-debug"
+  ],
+  "exit": 0,
+  "note": "Original release behavior, close breadcrumbs and ASan only; not for performance.",
+  "binary_bytes": 497656,
+  "binary_sha256": "719f390ffadace84f8afe68ffdfd18363e6efef3abb97fa38e5dd39b76b1871b"
+}

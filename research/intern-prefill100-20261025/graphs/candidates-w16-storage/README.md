@@ -38,3 +38,7 @@
 `deployment-manifest.json` 的 state=complete 表示单块候选准备完成，**不是端侧验收通过**。`actual-nbg-ports-audit.json` 通过 SDK 导入真实 NB 的 kernel metadata，确认 11 输入/5 输出的顺序、shape、dtype 和有效量化属性与原 FC NB 相同。DFP 只比较有效的 fl，不把 quant union 内不活跃的 scale 解释为量化比例。查询不执行图、没有使用板卡。
 
 manifest 给出 NB、source、canonical 输入/参考路径及 SHA、14 权重码值与宽度变更、逐常量 offset 和独立审计证据。root 可据此运行原 FC→本候选→原 FC；本轮没有修改默认图或扩展到全栈。
+
+## 2026-10-26 板测状态补记
+
+板测已完成：同canonical输入原版10.866/10.839ms，Conv为13.141ms，反而更慢；五输出逐字节一致。 见 `../../results/w16conv-c512-m32-r2/REPORT.md`。上文“未板测”是原交付时点，当前以该原始结果为准；未扩展为默认整模型。

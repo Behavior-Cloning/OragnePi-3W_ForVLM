@@ -1,0 +1,122 @@
+{
+  "source_sha256": {
+    "decoder.json": "a35b843e701c81297383110645c1e3db1fa38acafb5d0d45da59539a3855b469",
+    "decoder.data": "429a9a766e0a5f3ea05bb509b893716739cfff0bafaaf8e4f10a6c0da63c08fb",
+    "decoder.quantize": "9a0243d7caeb1fd3731acf04ad8452fbd07003260e7bb23bf6f7d57476608e34",
+    "tensor-inputmeta.yml": "efa4220ef7326a8d4959fc833176bcbba993b46bbc694625220b39b5a994ebdb",
+    "export/decoder.export.data": "839fa51843b33140e864d01423f9da81e14a996cbe3d666c57fa0e84040a55e2",
+    "export_nbg_unify/network_binary.nb": "96fa305b43f264fbc49d70f09b955c7a780d60338e7f2b22698c660b11387ecb"
+  },
+  "helper_sha256": "79349bd8b5bd0b05ac6437a3cc2229c3b404bde123a58f830a76a54ce2f67894",
+  "change": {
+    "selection": "gateup",
+    "range_reduction_bits": 1,
+    "changes": [
+      {
+        "linear": "b0_fullconnect_125",
+        "source": "@b0_reshape_124:out0",
+        "converted": "@fc_input_i8_0:out0",
+        "before": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 11.500901222229004,
+          "min_value": -14.749719619750977,
+          "fl": 10
+        },
+        "after": {
+          "qtype": "i8",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 11.500901222229004,
+          "min_value": -14.749719619750977,
+          "fl": 3
+        },
+        "weight_shape": [
+          896,
+          4864
+        ]
+      },
+      {
+        "linear": "b0_fullconnect_131",
+        "source": "@b0_reshape_130:out0",
+        "converted": "@fc_input_i8_1:out0",
+        "before": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 11.500901222229004,
+          "min_value": -14.749719619750977,
+          "fl": 10
+        },
+        "after": {
+          "qtype": "i8",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 11.500901222229004,
+          "min_value": -14.749719619750977,
+          "fl": 3
+        },
+        "weight_shape": [
+          896,
+          4864
+        ]
+      },
+      {
+        "linear": "b1_fullconnect_125",
+        "source": "@b1_reshape_124:out0",
+        "converted": "@fc_input_i8_2:out0",
+        "before": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 8.815516471862793,
+          "min_value": -9.670693397521973,
+          "fl": 10
+        },
+        "after": {
+          "qtype": "i8",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 8.815516471862793,
+          "min_value": -9.670693397521973,
+          "fl": 3
+        },
+        "weight_shape": [
+          896,
+          4864
+        ]
+      },
+      {
+        "linear": "b1_fullconnect_131",
+        "source": "@b1_reshape_130:out0",
+        "converted": "@fc_input_i8_3:out0",
+        "before": {
+          "qtype": "i16",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 8.815516471862793,
+          "min_value": -9.670693397521973,
+          "fl": 10
+        },
+        "after": {
+          "qtype": "i8",
+          "quantizer": "dynamic_fixed_point",
+          "rounding": "rtne",
+          "max_value": 8.815516471862793,
+          "min_value": -9.670693397521973,
+          "fl": 3
+        },
+        "weight_shape": [
+          896,
+          4864
+        ]
+      }
+    ]
+  },
+  "only_four_local_converter_paths": true,
+  "all_original_quantizers_unchanged": true,
+  "weight_source_identical": true,
+  "calibration": "none; existing range shifted by8 bits, range1 halves range explicitly",
+  "no_quality_approval": true
+}

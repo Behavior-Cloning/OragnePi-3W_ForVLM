@@ -20,3 +20,10 @@
 ## 后续可复用证据
 
 单一canonical C512/M32 down额外输出观测已过原5输出逐位一致门禁，见results/down-capture-c512-m32-aba-r1。已有actual-npu-range-diagnostic保留C1280/M16原整模上游输入34窗口，应先适配同图7输出并重放这些输入；只使用c1280-original轨迹，不能混I16候选污染历史。完成实测activation范围后才决定精度分区与整模接入。
+
+## 2026-10-26 真实NPU轨迹与后续分支
+
+- 已完成C1280/M16真实原NPU输入34窗口重放，原/诊断正常输出逐字节一致，实测异常集中固定system首token；详见results/down-capture-c1280-replay-r1/REPORT.md。
+- 已完成同34输入的两种INT16候选对照：两层API120.443→17.476ms，但首tokenhidden误差99.42%、首块其他行31.02%。后续原历史强制输入的system/动态误差约0.34%/0.32%，不代表传播后完整质量。
+- prefixsafe-i16-r2正在独立三路全模型对照；显式保护整个固定prefix，所有新动态token仍计算。C1280/M16、无语音/RAG，本轮先隔离质量；100ms目标未达到。
+- 历史gate/up A8是M1/旧PC权重，板测没有提速且局部误差9.42%，不推广。新compact-gateup-a8-m64分支只测当前DFP gate/up权重的M64 prefill四处局部A8转换：range0使用近似同幅度范围（正端点31.999023→31.75），range1减半；不读取质量输入选范围、不改权重、不称重校准。已完成生成C/14矩阵权重/16静态端口审计；四个共用零bias改变存储dtype但仍为零。待实际SDK端口及同输入板测；它可能同样失败，不能用“INT8峰值”推断速度。

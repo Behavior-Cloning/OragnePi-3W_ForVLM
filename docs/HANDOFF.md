@@ -1,3 +1,11 @@
+## 2026-10-26 当前续跑：prefixsafe全模与A8局部筛查
+
+完整100ms目标未完成。prefixsafe-i16-r2控制器PID43926仍运行，必须只查WSL状态，不能另行轮询占锁板卡。固定64/128含模板5，动态正文64/128/192/256另加模板8，只复用system，输出1测首token；另有48自然样例与固定logits质量诊断。本轮C1280/M16无语音RAG，不是最佳C512运行时的最终速度验证。
+
+新续跑器PID45443，task/continue_prefixsafe_a8.py：等待前任务complete+rc0+PID退出和离线分析成功后，才启动compact-gateup-a8-m64-r1。查看continue-prefixsafe-a8-status.json与对应controller/log，勿重复启动。A8编译与静态审计通过，未有板测速度/质量结论；它是M64/history128两层纯API筛查，不能称完整TTFT。权重保留，激活网格有损、零bias存储格式派生变化已记录。
+
+GitHub c323710同步尚未核实，最近ls-remote15秒超时；不要报告已推送。
+
 ## 2026-10-26 原始NPU输入INT16定位与整system保护候选
 
 - 目标仍为static64/128、dynamic正文64–256（另模板8）的完整新prefill和TTFT≤100ms，未达到。

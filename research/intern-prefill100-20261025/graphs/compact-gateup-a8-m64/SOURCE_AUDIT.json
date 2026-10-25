@@ -1,0 +1,72 @@
+{
+  "source_audit_pass": true,
+  "scope": "WSL files only; no controller execution, board calls, SDK calls, or locks by auditor",
+  "source_sha256": {
+    "controller_compact_gateup_a8.py": "1ee48292c72cc93d3aa8d01e2871b9352fcea9ade8b9b87ccffa584c26431d0d",
+    "runtime/profile-analysis/analyze_compact_gateup_a8.py": "44397bde96fff00c262ae6b899649081728fb060eea37da8490cb00214cb6995",
+    "continue_prefixsafe_a8.py": "3065f4aa2f226be385573ac563273a0a32af5bbf1306c7523e644efa1eae6f39",
+    "board_probe_compact.py": "a67ace526f77209d39225f6d6da68af445265a5bb924791973d872c5509243b3",
+    "controller_down_outputfp16_tmpfs.py": "59d2936d6f22ffdddf3433d9fdf2ab3865eb4cfcad785d2b6e420578c314043d",
+    "prefixsafe-i16/analyze.py": "b9d74c10e818e0714fa94b3e8c417c18d186e8d31fc252f031bb5c08f2d57b43"
+  },
+  "config_sha256": "57cb7288de59b78b43b80f1bfdd4c73b242db1ecbab6a0e23bfc18e73bb1cc64",
+  "static_audit_sha256": "958cbd3bb3d293966f81fc654ed12d4baebee59cb427b0d0bb07bf10783a352f",
+  "continuation_state_at_review": {
+    "state": "waiting_prefixsafe",
+    "wait_pid": 43926,
+    "started": 1792965181.165393
+  },
+  "checks": {
+    "four_way_order": [
+      "before",
+      "range0",
+      "range1",
+      "after"
+    ],
+    "all_same_input_sha": "bf9fec847d62d5f94687f3e924beac465fe69045a650c9af0cba1ba4bdb86fe9",
+    "geometry": {
+      "past_capacity": 128,
+      "history": 128,
+      "query_rows": 64,
+      "first_layer": 0,
+      "fusion_layers": 2
+    },
+    "same_original_before_after": true,
+    "candidate_hashes_match_independent_static_audit": true,
+    "same_binary_all_four": true,
+    "warmup_each": 3,
+    "timed_each": 30,
+    "total_timed": 120,
+    "total_warmup": 12,
+    "output_bytes_each": 360448,
+    "profile_NPD_disabled": true,
+    "profile_IO_disabled": true,
+    "thread_affinity": "4,5",
+    "thermal_guard_C": 78,
+    "cooldown_C": 65,
+    "controller_board_timeout_s": 600,
+    "observation_timeout_s": 720,
+    "all_uploads_frozen_sha": true,
+    "dual_locks": true,
+    "tmpfs_space_includes_upload_and_reserve": true,
+    "mem_guard_includes_upload_reserve_plus256MiB": true,
+    "mount_exec_check": true,
+    "failure_partial_recovery_or_pending": true,
+    "no_auto_restart": true,
+    "continuation_requires_prefix_complete_rc0_process_exit_and_analyzer_success": true,
+    "analysis_archive_all_files_sha": true,
+    "analysis_runtime_geometry_count_release_finite": true,
+    "analysis_actual_16_port_logs_equal": true,
+    "analysis_AA_f32_byte_equal": true,
+    "analysis_five_segment_sizes_independently_checked": true
+  },
+  "limitations": [
+    "Only one canonical FP32-derived-prefix input, not true fullmodel propagated-history/semantic validation.",
+    "API-only timing excludes conversions/load/explicit cache flush-invalidate, no speech/RAG residency.",
+    "Continuation checks PID existence rather than cmdline identity; PID reuse causes conservative wait, not safe automatic recovery.",
+    "Source hashes are frozen when the A8 controller starts, not by the waiting continuation; source edits before start must be reviewed against this audit.",
+    "Analyzer changed_elements is numeric != and does not distinguish signed-zero bit changes; AA uses SHA and is byte-exact.",
+    "Actual port comparison is equality across logs; independent result audit should additionally bind the literal expected 16-port contract.",
+    "Both candidates intentionally reduce activation precision; successful completion/analysis does not qualify them or achieve fullmodel <=100ms goal."
+  ]
+}

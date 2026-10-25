@@ -1,0 +1,63 @@
+{
+  "delta_source_review_pass": true,
+  "parent_source_audit_sha256": "6bb077e7bd7be8c063faed385245914b5840b2d9db268ef9ad56e0c72f411967",
+  "original_attempt": {
+    "run": "prefixsafe-i16-r1",
+    "status": "preflight_failed_before_mkdir_upload_or_model",
+    "root_available_bytes": 951275520,
+    "required_bytes": 1073741824,
+    "valid_inference_samples": 0,
+    "frozen_files": {
+      "controller.json": "0b47b5ab6290dbd61526f36d9c0b2c47eaad72bd0c2a6327b350c33970cecd34",
+      "controller.log": "0e5873b993e5975ca140e646c5edaf8d9e89e3f409e9a37ed23b727af0f4c4bd",
+      "controller.py": "6f34a5b5efdc9bebe8b0b281c64688306622f4cdbd5a34fdea9f5f04ad7e96e6",
+      "dryrun.json": "c9e7ee12cfd26cbf4e787e26bd5ba810de764dfc7d8c63ae29440e983b767309",
+      "launch.json": "38e460939d7432a62a5c318d2a175db8a61cb81717193a4c56eac0cea1a7f9b0"
+    }
+  },
+  "new_attempt": {
+    "run": "prefixsafe-i16-r2",
+    "status_at_review": "running",
+    "controller_sha256": "9256fcbb33e4aaddbe0b4a8cd953379b7403dc53c2af6ef188bef0ed08907220",
+    "source_sha256": {
+      "board_prefix.py": "ff0d4e315f13fed434efd5d4055c6e830e8db06e41382c87738ab0a0a8eb247e",
+      "resident_worker_v1.py": "bcbe53332193702f95db89b365ebce5af4ba99c51a5a09770c194c3e73db4a5d",
+      "config.json": "b019de463869ade4f18b134745aef8aff40b7bb55a1b631d8aa1d4c1097ffee7",
+      "build.json": "92c3fcc6c076590466594e39eb48f9386b2acacfc4fb6fa6134b25978bd746a6",
+      "controller.py": "9256fcbb33e4aaddbe0b4a8cd953379b7403dc53c2af6ef188bef0ed08907220",
+      "resident-prefixsafe": "49080184af8eb2da99fb4b35da19a05e60601d64d469af9be48ce9f3591b6bb2"
+    },
+    "staging": "tmpfs source and output, existing graph/model paths remain read-only dependencies",
+    "initial_tmpfs_available_bytes": 2495737856,
+    "initial_mem_available_bytes": 4170485760,
+    "tmpfs_preflight_threshold_bytes": 734003200,
+    "memory_preflight_threshold_bytes": 2147483648,
+    "explicit_root_artifact_bytes": 0
+  },
+  "unchanged": [
+    "runtime source and binary",
+    "board runner",
+    "worker",
+    "config and 3 variants",
+    "fixture tokens",
+    "output policies 1/32/4/1",
+    "dual locks and bounded timeout",
+    "frozen upload hash check",
+    "no automatic restart",
+    "recovery archive path validation"
+  ],
+  "changes": [
+    "r2 unique run name",
+    "source upload/log/exit moved from root filesystem to unique tmpfs source directory",
+    "preflight checks tmpfs executable and still checks tmpfs>700MiB plus MemAvailable>2GiB",
+    "TF root free threshold removed because explicit task artifacts no longer written there",
+    "PYTHONDONTWRITEBYTECODE=1 prevents Python bytecode output"
+  ],
+  "limitations": [
+    "700MiB/2GiB are entry thresholds, not guaranteed continuously maintained post-allocation reserves",
+    "System/logging/swap may still write root filesystem; explicit_root_artifact_bytes=0 is not a claim of zero physical writes",
+    "findmnt success is implied by running state and assertion, but literal mount output is not retained in controller state",
+    "Temporary artifacts remain for verified recovery/cleanup; current source does not auto-delete",
+    "r1 no model run; r2 numerical quality/performance remains unaudited until results recover"
+  ]
+}

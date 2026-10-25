@@ -1,0 +1,112 @@
+{
+  "audit_pass_for_graph_and_probe_source": true,
+  "controller_not_yet_reviewed": false,
+  "scope": "9-output diagnostic replay source only; no SDK/board by auditor",
+  "graph_only_added_output_nodes": [
+    "z0_attach_down_input_12000",
+    "z1_attach_down_input_12000",
+    "zz0_attach_down_output_12001",
+    "zz1_attach_down_output_12001"
+  ],
+  "source_weight_quant_payload_bytes_equal": true,
+  "generated_C_const_normal_counts": {
+    "NEW_CONST_TENSOR": [
+      33,
+      33
+    ],
+    "NEW_NORM_TENSOR": [
+      16,
+      20
+    ]
+  },
+  "original_16_external_metadata_preserved": true,
+  "additional_output_generated_dtypes": [
+    "FP16",
+    "FP16",
+    "FP16",
+    "FP16"
+  ],
+  "additional_output_elements": [
+    77824,
+    77824,
+    14336,
+    14336
+  ],
+  "normal_f32_bytes": 90112,
+  "capture_f32_bytes": 827392,
+  "normal_port_indices": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "extra_port_indices": [
+    5,
+    6,
+    7,
+    8
+  ],
+  "runtime_bounds": "Layer.out[9], queried no restricted5/9 before initialization; all init/run/serialize/release loops use no; extra ports require C1280/M16",
+  "metadata_lifetime": "After free_net, Layer stack object and embedded Tensor.count/p/sizes still alive. Logging reads these only, not freed buffer handle/data pointer. free_net does not zero/free Layer.",
+  "graph_sha256": "b8b4cf216a70f8b6ad9aa07e2a92919a9c86399657cfbefb623038b08bab7e0e",
+  "historical_original_graph_sha256": "48b0b3a0c45b1280a6bc818620b3e34117d9c20629b53bb4c7d899a202b3e7d6",
+  "binary_sha256": "20a272386599f68b45c72533e82fc4d590a37d09a77933a991ee336d382ca066",
+  "source_sha256": {
+    "batch_prefill.h": "f80acdcb0c4574546bb9716cde040f9c069d2e4f7245263bb950c6d113aee094",
+    "board_probe.c": "992fc2211d42b1d2410d523931cd18395997160a768bba01b16fa789b7c29b60",
+    "full_model.c": "60b84b770ac016176e03041c34c9ef3f9dcba695155a9b330768e4bde94202dd",
+    "greedy_i16.h": "54b2202b91a2b4b33c372b89fdd4e1d6b106069c7c1414f51a82f0da7e5406f8",
+    "tensor_probe.c": "abfed7351d5ac3b0b8de6daf9d843eddb5f30b216826ef90cdcd37cbf1955198"
+  },
+  "requirements": [
+    "Each original5 output must match historical output and capture before interpreting diagnostic internals.",
+    "34 input windows are 9+25 from2 scenarios; n16-v8 tails have8valid/8padding rows. Keep full raw for byteparity, report valid and padding statistics separately.",
+    "One warmup/two repeats are diagnostic, not speed benchmark.",
+    "Direct output metadata must be verified from recorded actual query properties after replay; generated C metadata alone is static evidence.",
+    "Observation may perturb compilation despite unchanged graphmath/weights; local output parity is not universal proof.",
+    "Source/model/fixture/SDK lifecycle/failure recovery must be frozen in pending controller."
+  ],
+  "deployment_qualified": false,
+  "full_goal_verified": false,
+  "controller_source_sha256": {
+    "controller_down_capture1280.py": "40f3fd5774cf8899faa5eba668ffef08d80ea1099022e2e54b4bbc9bab2b34c4",
+    "board_probe_down_capture1280.py": "bf6681c74a6150bcf4e7b887752960153ccd28b08c37e3e84046f6392e6521fd",
+    "controller_down_outputfp16_tmpfs.py": "59d2936d6f22ffdddf3433d9fdf2ab3865eb4cfcad785d2b6e420578c314043d",
+    "graphs/build_down_capture1280.py": "9c3e088b67ccead7d20805ab279c105b9c9fe307843b09000346b9b99255ca5b",
+    "graphs/down-capture-c1280-m16-l2/conversion.json": "61f861266bda3d2984e3d8f677d14bcb2ce6d244bc203d8d33d1f34a0725da3f",
+    "graphs/down-capture-c1280-m16-l2/source-audit.json": "564cd0cb5d80c2101732443365e3ff9bf55bca8c78ae98088e993a928a6d5f32",
+    "runtime/down-capture1280-probe/build.json": "8bbcf74932489ad99e9cf24a34978dd4c6c67d2d6ca9457803094b19f453a83e",
+    "actual-npu-range-diagnostic/results/actual-npu-range-r1/events.jsonl": "7f1a6d2a678c9de9a3f2669f0b362d342ee5b9e7b202b16e9641870f2cf7100a"
+  },
+  "config_sha256": "68459eab36f2e3e78c1678869bfa458de73bd98804939f229c820c25a73501b9",
+  "replay_contract": {
+    "fixtures": 34,
+    "unique_input_sha": 31,
+    "cases": 2,
+    "valid_rows": 528,
+    "padded_rows": 16,
+    "original_runs": 34,
+    "capture_runs": 34,
+    "extra_pos0_original_after": 2,
+    "total_processes": 70,
+    "timed_api_calls": 140,
+    "warmup_calls": 70,
+    "all_api_calls": 210,
+    "upload_tar_members": 39,
+    "upload_sha256": "90303ec207e987648212d19ac15f29711d845c3a39c37e1e1a78da2a1f61caef",
+    "regular_files_only": true,
+    "all_member_sha_match_frozen": true
+  },
+  "controller_review": "hostlock+board flock; immutable archive hashes and each extracted file checked; tmpfs raw+archive+1GiB+100MiB reserve, extra256MiB MemAvailable; no autorestart; failure retains scratch with recovery_pending, manual locked recovery required",
+  "analyzer_review_at_source_audit": {
+    "sha256": "cec03a2aef98be80302fb5b62caed8419bfea480ea7bf97c6bdaa929ab9c719d",
+    "valid_vs_padding_separate": true,
+    "history_and_capture_full_normal_bytes_compared": true,
+    "limitations": [
+      "ports currently only count16/20 checked, individual attributes must be verified in independent result audit",
+      "range16 quantize qkey/fl provenance not yet included in analyzer result SHA; independent audit must bind it",
+      "result dict len70 alone does not reject duplicate event records; independent audit checks exact sequence cross-product"
+    ]
+  }
+}

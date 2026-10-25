@@ -1,3 +1,12 @@
+## 2026-10-26 原始NPU输入INT16定位与整system保护候选
+
+- 目标仍为static64/128、dynamic正文64–256（另模板8）的完整新prefill和TTFT≤100ms，未达到。
+- `research/intern-prefill100-20261025/results/down-capture-c1280-replay-r1/REPORT.md`：直接捕获原版NPU down输入/输出，34窗口/528有效行；异常集中同一system首token，诊断原5输出逐字节不变。
+- `results/down-i16-original-input-replay-r1/REPORT.md`：104进程208计时；原始上游teacher-forced两层API120.443ms→17.476ms；range16 hidden误差首token99.4167%、首块其余31.0200%、后续system0.33847%、动态0.32080%。不能以局部误差替代全模型质量。全部释放driver0。
+- 两组tmpfs重复副本SHA核对后分别清理303983051/333477996B；raw证据在WSL保留。
+- `prefixsafe-i16/`：新私有runtime显式header7设置整system原精度阈值；只在reset完整prefix请求允许，拒绝缓存续用时更改边界；候选未晋升。已编译及4项协议测试通过，r1因TF空余951275520B低于1GiB预留，在上传和加载前终止；证据在attempt-r1-disk-preflight。r2改程序和输出全tmpfs，WSL controller PID43926；启动/结果以其controller.json、实际进程和events为准。不要重复启动。
+- GitHub最后确认d5a3204；后续push超时结果未确认，不得声称已同步。
+
 ## 2026-10-26 板端down capture诊断已完成
 
 - `research/intern-prefill100-20261025/results/down-capture-c512-m32-aba-r1/REPORT.md`：同一canonical history128/query32，原/额外两输出/原，90pure+9warm，原5端口逐位相同，3driver0。

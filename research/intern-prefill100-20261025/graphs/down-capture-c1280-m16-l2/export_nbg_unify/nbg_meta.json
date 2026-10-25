@@ -1,0 +1,289 @@
+{
+    "Inputs": {
+        "b0_hidden_101": {
+            "name": "b0_hidden",
+            "shape": [
+                1,
+                16,
+                896
+            ],
+            "format": "nchw",
+            "dtype": "float16"
+        },
+        "b0_past_k_102": {
+            "name": "b0_past_k",
+            "shape": [
+                1,
+                2,
+                1280,
+                64
+            ],
+            "format": "nchw",
+            "quantizer": "dynamic_fixed_point",
+            "quantize": {
+                "qtype": "i16",
+                "max_value": 63.29560089111328,
+                "min_value": -41.789730072021484,
+                "fl": 9
+            }
+        },
+        "b1_past_k_102": {
+            "name": "b1_past_k",
+            "shape": [
+                1,
+                2,
+                1280,
+                64
+            ],
+            "format": "nchw",
+            "quantizer": "dynamic_fixed_point",
+            "quantize": {
+                "qtype": "i16",
+                "max_value": 24.983150482177734,
+                "min_value": -24.441293716430664,
+                "fl": 10
+            }
+        },
+        "b0_past_v_103": {
+            "name": "b0_past_v",
+            "shape": [
+                1,
+                2,
+                1280,
+                64
+            ],
+            "format": "nchw",
+            "quantizer": "dynamic_fixed_point",
+            "quantize": {
+                "qtype": "i16",
+                "max_value": 1.8476228713989258,
+                "min_value": -1.4927794933319092,
+                "fl": 14
+            }
+        },
+        "b1_past_v_103": {
+            "name": "b1_past_v",
+            "shape": [
+                1,
+                2,
+                1280,
+                64
+            ],
+            "format": "nchw",
+            "quantizer": "dynamic_fixed_point",
+            "quantize": {
+                "qtype": "i16",
+                "max_value": 3.1267037391662598,
+                "min_value": -1.602387547492981,
+                "fl": 13
+            }
+        },
+        "b0_mask_104": {
+            "name": "b0_mask",
+            "shape": [
+                1,
+                1,
+                112,
+                1296
+            ],
+            "format": "nchw",
+            "dtype": "float16"
+        },
+        "b1_mask_104": {
+            "name": "b1_mask",
+            "shape": [
+                1,
+                1,
+                112,
+                1296
+            ],
+            "format": "nchw",
+            "dtype": "float16"
+        },
+        "b0_rope_cos_105": {
+            "name": "b0_rope_cos",
+            "shape": [
+                1,
+                1,
+                16,
+                64
+            ],
+            "format": "nchw",
+            "quantizer": "dynamic_fixed_point",
+            "quantize": {
+                "qtype": "i16",
+                "max_value": 1.0,
+                "min_value": -0.9975273609161377,
+                "fl": 15
+            }
+        },
+        "b1_rope_cos_105": {
+            "name": "b1_rope_cos",
+            "shape": [
+                1,
+                1,
+                16,
+                64
+            ],
+            "format": "nchw",
+            "quantizer": "dynamic_fixed_point",
+            "quantize": {
+                "qtype": "i16",
+                "max_value": 1.0,
+                "min_value": -0.9975273609161377,
+                "fl": 15
+            }
+        },
+        "b0_rope_sin_106": {
+            "name": "b0_rope_sin",
+            "shape": [
+                1,
+                1,
+                16,
+                64
+            ],
+            "format": "nchw",
+            "quantizer": "dynamic_fixed_point",
+            "quantize": {
+                "qtype": "i16",
+                "max_value": 0.9999218583106995,
+                "min_value": -0.9999286532402039,
+                "fl": 15
+            }
+        },
+        "b1_rope_sin_106": {
+            "name": "b1_rope_sin",
+            "shape": [
+                1,
+                1,
+                16,
+                64
+            ],
+            "format": "nchw",
+            "quantizer": "dynamic_fixed_point",
+            "quantize": {
+                "qtype": "i16",
+                "max_value": 0.9999218583106995,
+                "min_value": -0.9999286532402039,
+                "fl": 15
+            }
+        }
+    },
+    "Outputs": {
+        "b1_attach_hidden_out/out0_0": {
+            "name": "b1_attach_hidden_out/out0",
+            "shape": [
+                1,
+                16,
+                896
+            ],
+            "format": "nchw",
+            "dtype": "float16"
+        },
+        "b0_attach_new_k/out0_1": {
+            "name": "b0_attach_new_k/out0",
+            "shape": [
+                1,
+                2,
+                16,
+                64
+            ],
+            "format": "nchw",
+            "quantizer": "dynamic_fixed_point",
+            "quantize": {
+                "qtype": "i16",
+                "max_value": 63.29560089111328,
+                "min_value": -41.789730072021484,
+                "fl": 9
+            }
+        },
+        "b1_attach_new_k/out0_1": {
+            "name": "b1_attach_new_k/out0",
+            "shape": [
+                1,
+                2,
+                16,
+                64
+            ],
+            "format": "nchw",
+            "quantizer": "dynamic_fixed_point",
+            "quantize": {
+                "qtype": "i16",
+                "max_value": 24.983150482177734,
+                "min_value": -24.441293716430664,
+                "fl": 10
+            }
+        },
+        "b0_attach_new_v/out0_2": {
+            "name": "b0_attach_new_v/out0",
+            "shape": [
+                1,
+                2,
+                16,
+                64
+            ],
+            "format": "nchw",
+            "quantizer": "dynamic_fixed_point",
+            "quantize": {
+                "qtype": "i16",
+                "max_value": 1.8476228713989258,
+                "min_value": -1.4927794933319092,
+                "fl": 14
+            }
+        },
+        "b1_attach_new_v/out0_2": {
+            "name": "b1_attach_new_v/out0",
+            "shape": [
+                1,
+                2,
+                16,
+                64
+            ],
+            "format": "nchw",
+            "quantizer": "dynamic_fixed_point",
+            "quantize": {
+                "qtype": "i16",
+                "max_value": 3.1267037391662598,
+                "min_value": -1.602387547492981,
+                "fl": 13
+            }
+        },
+        "z0_attach_down_input_12000": {
+            "name": "z0_attach_down_input",
+            "shape": [
+                16,
+                4864
+            ],
+            "format": "nchw",
+            "dtype": "float16"
+        },
+        "z1_attach_down_input_12000": {
+            "name": "z1_attach_down_input",
+            "shape": [
+                16,
+                4864
+            ],
+            "format": "nchw",
+            "dtype": "float16"
+        },
+        "zz0_attach_down_output_12001": {
+            "name": "zz0_attach_down_output",
+            "shape": [
+                16,
+                896
+            ],
+            "format": "nchw",
+            "dtype": "float16"
+        },
+        "zz1_attach_down_output_12001": {
+            "name": "zz1_attach_down_output",
+            "shape": [
+                16,
+                896
+            ],
+            "format": "nchw",
+            "dtype": "float16"
+        }
+    },
+    "Recurrent_connections": {}
+}

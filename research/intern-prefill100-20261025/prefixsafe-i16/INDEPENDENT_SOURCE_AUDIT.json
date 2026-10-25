@@ -1,0 +1,86 @@
+{
+  "source_review_pass": true,
+  "verdict": "No source blocker found for the bounded isolated experiment; not model qualification",
+  "runtime_changed_files": [
+    "batch_prefill.h",
+    "resident_session.c"
+  ],
+  "source_sha256": {
+    "board_prefix.py": "ff0d4e315f13fed434efd5d4055c6e830e8db06e41382c87738ab0a0a8eb247e",
+    "controller.py": "6f34a5b5efdc9bebe8b0b281c64688306622f4cdbd5a34fdea9f5f04ad7e96e6",
+    "resident_worker_v1.py": "bcbe53332193702f95db89b365ebce5af4ba99c51a5a09770c194c3e73db4a5d",
+    "build.json": "92c3fcc6c076590466594e39eb48f9386b2acacfc4fb6fa6134b25978bd746a6",
+    "config.json": "b019de463869ade4f18b134745aef8aff40b7bb55a1b631d8aa1d4c1097ffee7",
+    "test_prefix_protocol.py": "023e78a2b6503b68c6fd63092f6751befb316f95b61746a84f4d4dcf60177697"
+  },
+  "runtime_sources": {
+    "batch_prefill.h": "3f84bffb4078782fb38fe44f6afb3dabe0632b27d0f57d8b46201c56b9a8136f",
+    "board_probe.c": "992fc2211d42b1d2410d523931cd18395997160a768bba01b16fa789b7c29b60",
+    "full_model.c": "669d3dc7dbeeba5d1a1276874aa4a89a04773d5a32dca42038a8437db23d6ed0",
+    "greedy_i16.h": "54b2202b91a2b4b33c372b89fdd4e1d6b106069c7c1414f51a82f0da7e5406f8",
+    "greedy_single_pass.h": "6909b4b67ac0b86b2eb49c107cd03364c0718b6413d214412ecb23726c242e16",
+    "mask_templates.h": "55b8fb3cbb404c11ef3a41ffc1b8c8d9df32d4f95ce9c78dd39b26f141e96fa8",
+    "resident_session.c": "34ae0eca80906292591a9b68185da14e54d12d8c61a51114d02d88f2735cb29e",
+    "session_release.h": "3754c684dc3ea3a0cabf55879630463b5bb7ce6868ac3ac785b1d80701bc7475",
+    "test_greedy.c": "207d85d056d7c8fb42eab7a3ad8a6301672f10da4364b61a0fcc7e421954b665",
+    "test_release_ownership.c": "06549fed64e3843b23da356a0a548980e6d6a3acd03bd19fa27ed21781d42701",
+    "test_two_prefill_banks.c": "bbb17fc4b883c53a2f71758400c96920c6d8f3a164acdf8433e13a7e41b734ea"
+  },
+  "binary_sha256": "49080184af8eb2da99fb4b35da19a05e60601d64d469af9be48ce9f3591b6bb2",
+  "checks": {
+    "parent_fixture_exact_except_removed_obsolete_timing": true,
+    "prefix_header7_reset_exact_request_M16_only": true,
+    "no_true8_on_protected_prefix": true,
+    "continuation_must_reuse_entire_protected_prefix": true,
+    "system_reset_keeps_policy": true,
+    "same_effective_buffer_alias_contract": true,
+    "permanent_suffix10_group_no_reentry": true,
+    "graphs_each": 29,
+    "only_replaced_graph": "prefill-layer2.nb",
+    "extra_original_sha_bound": true,
+    "same_new_binary_all_variants": true,
+    "speed_output1_diagnostic_false": true,
+    "natural_max32_EOS": true,
+    "diagnostic4_fixed_feedback": true,
+    "prefix_checks1_fixed_feedback": true,
+    "ready24_C1280_no_true8_assert": true,
+    "monitor_join_alive_fail": true,
+    "uploads_compare_frozen_sha": true,
+    "dual_locks": true,
+    "board_deadline2400s": true,
+    "no_automatic_restart": true
+  },
+  "expected_counts": {
+    "speed_results": 48,
+    "natural_results": 144,
+    "diagnostic_results": 24,
+    "prefix_checks": 6,
+    "system_preparations": 216,
+    "original_block_calls": [
+      0,
+      74,
+      444
+    ]
+  },
+  "host_protocol_tests": {
+    "count": 4,
+    "log_sha256": "e6ec182765cd965f2837d8eeaef5a64af48a104f245cd1a0b7281559194c57c1",
+    "not_independent_C_execution": true
+  },
+  "status_at_review": {
+    "status": "failed",
+    "run": "prefixsafe-i16-r1",
+    "started": 1792964232.9645853
+  },
+  "limitations": [
+    "This is C1280 M16, not the fastest C512/M32 configuration.",
+    "No current numerical acceptance; actual prefix logits and 48 natural responses per mode remain to audit.",
+    "8 speed cells use one cost scenario and only two repetitions; no boundary20. Output1 cannot measure decode.",
+    "All 48 natural fixtures are reused regression data; not a new independent dataset.",
+    "No speech/RAG residency, no vision or motors.",
+    "Candidate history is propagated in this fullmodel test; unlike prior local replay, accuracy may change substantially.",
+    "Three prefill submissions for hybrid modes versus one grouped submission in baseline are part of measured configuration.",
+    "On SSH/observation failure, controller preserves remote/output paths but exception branch does not fetch partial automatically. Must confirm terminal state and recover before considering retry.",
+    "Complete dynamic64-256 <=100ms target remains unproven."
+  ]
+}

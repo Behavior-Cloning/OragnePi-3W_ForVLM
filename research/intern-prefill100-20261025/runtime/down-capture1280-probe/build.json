@@ -1,0 +1,41 @@
+{
+  "command": [
+    "aarch64-linux-gnu-gcc",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-DMODEL_DIM=896",
+    "-DMODEL_KV=2",
+    "-DMODEL_HD=64",
+    "-DROPE_BASE=1000000.0",
+    "-DFUSED_LAYERS=2",
+    "-DKEY_CACHE_TRANSPOSED=0",
+    "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/down-capture1280-probe/source/tensor_probe.c",
+    "-L/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-Wl,-rpath-link,/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-lNBGlinker",
+    "-lVIPhal",
+    "-lm",
+    "-o",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/runtime/down-capture1280-probe/tensor-probe-capture1280"
+  ],
+  "returncode": 0,
+  "source_sha256": {
+    "batch_prefill.h": "f80acdcb0c4574546bb9716cde040f9c069d2e4f7245263bb950c6d113aee094",
+    "board_probe.c": "992fc2211d42b1d2410d523931cd18395997160a768bba01b16fa789b7c29b60",
+    "full_model.c": "60b84b770ac016176e03041c34c9ef3f9dcba695155a9b330768e4bde94202dd",
+    "greedy_i16.h": "54b2202b91a2b4b33c372b89fdd4e1d6b106069c7c1414f51a82f0da7e5406f8",
+    "tensor_probe.c": "abfed7351d5ac3b0b8de6daf9d843eddb5f30b216826ef90cdcd37cbf1955198"
+  },
+  "original_source_sha256": {
+    "batch_prefill.h": "f80acdcb0c4574546bb9716cde040f9c069d2e4f7245263bb950c6d113aee094",
+    "board_probe.c": "992fc2211d42b1d2410d523931cd18395997160a768bba01b16fa789b7c29b60",
+    "full_model.c": "26c404b3d2d2a2716c1ef03cee1d272fa8a6e34140a2312331c8ebfa8b61d5c0",
+    "greedy_i16.h": "54b2202b91a2b4b33c372b89fdd4e1d6b106069c7c1414f51a82f0da7e5406f8",
+    "tensor_probe.c": "c9a9a568f93e99b3487e7104468a55f40dcfa0d30b6223e00908adb1b8b25253"
+  },
+  "binary_sha256": "20a272386599f68b45c72533e82fc4d590a37d09a77933a991ee336d382ca066",
+  "scope": "private c1280 diagnostic5/9 outputs, no production changes"
+}

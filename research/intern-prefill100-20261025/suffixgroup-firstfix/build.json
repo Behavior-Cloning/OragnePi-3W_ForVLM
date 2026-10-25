@@ -1,0 +1,42 @@
+{
+  "command": [
+    "aarch64-linux-gnu-gcc",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-DMODEL_DIM=896",
+    "-DMODEL_KV=2",
+    "-DMODEL_HD=64",
+    "-DROPE_BASE=1000000.0",
+    "-DFUSED_LAYERS=2",
+    "-DKEY_CACHE_TRANSPOSED=0",
+    "-DHEAD_SHARDS=4",
+    "-DHEAD_CHUNK=49152",
+    "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/suffixgroup-firstfix/runtime/resident_session.c",
+    "-L/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-Wl,-rpath-link,/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-lNBGlinker",
+    "-lVIPhal",
+    "-lm",
+    "-o",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/suffixgroup-firstfix/runtime/resident-suffixgroup"
+  ],
+  "returncode": 0,
+  "binary_sha256": "c5bc0a10e7ae571252428646a704935c805e07346b47940ca078bf4cb0418797",
+  "sources": {
+    "batch_prefill.h": "f4c9351fd582b02f11088d2410bd71fdecb78dfad300bf8a3deeaaaf8dab106f",
+    "board_probe.c": "992fc2211d42b1d2410d523931cd18395997160a768bba01b16fa789b7c29b60",
+    "full_model.c": "669d3dc7dbeeba5d1a1276874aa4a89a04773d5a32dca42038a8437db23d6ed0",
+    "greedy_i16.h": "54b2202b91a2b4b33c372b89fdd4e1d6b106069c7c1414f51a82f0da7e5406f8",
+    "greedy_single_pass.h": "6909b4b67ac0b86b2eb49c107cd03364c0718b6413d214412ecb23726c242e16",
+    "mask_templates.h": "55b8fb3cbb404c11ef3a41ffc1b8c8d9df32d4f95ce9c78dd39b26f141e96fa8",
+    "resident_session.c": "efe0879dcc90d6a223f0f5763f754f7372200f365e630858be4b723100f5747a",
+    "session_release.h": "3754c684dc3ea3a0cabf55879630463b5bb7ce6868ac3ac785b1d80701bc7475",
+    "test_greedy.c": "207d85d056d7c8fb42eab7a3ad8a6301672f10da4364b61a0fcc7e421954b665",
+    "test_release_ownership.c": "06549fed64e3843b23da356a0a548980e6d6a3acd03bd19fa27ed21781d42701",
+    "test_two_prefill_banks.c": "bbb17fc4b883c53a2f71758400c96920c6d8f3a164acdf8433e13a7e41b734ea"
+  },
+  "scope": "Permanent suffix group10, block0 and block1 always standalone. Original block1 onlyposition0, all other calls I16.3submissions per batch instead1. No dynamic group membership."
+}

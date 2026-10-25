@@ -1,0 +1,1 @@
+The grouped detach/rebuild binary failed with SDK -9 group membership persists. Do not launch this prepared matrix. Replace/runtime-revalidate before using; suffixgroup-firstfix is a separate diagnostic, not automatically qualified.

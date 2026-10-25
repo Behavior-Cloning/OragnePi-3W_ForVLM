@@ -1,0 +1,698 @@
+{
+  "audit_pass": true,
+  "scope": "Causal diagnostic: original group / original ungroup / I16 ungroup / I16 ungroup with original first system chunk L2; no performance claim, no speech frontend or RAG",
+  "counts": {
+    "ready": 4,
+    "result": 32,
+    "closed": 4
+  },
+  "source_hash_checks": true,
+  "result_logit_files": 32,
+  "additional_system_prep_logit_files": 32,
+  "all_values_finite_and_argmax_match": true,
+  "driver_closed_zero": 4,
+  "first_chunk_switches": {
+    "original-grouped": 0,
+    "original-ungrouped": 0,
+    "i16-ungrouped": 0,
+    "i16-first-original": 8
+  },
+  "original_grouped_ungrouped_full_logits_exact_results": 8,
+  "previous_fullmodel_cost_diagnostic_reproduced": [
+    {
+      "variant": "original-grouped",
+      "case": "s64-d64-0",
+      "previous_sha256": "90bccf4b24ccf38befd1be1a62f85e7fb115139a463051b99fa6ba6afd6d4eb6",
+      "exact": true
+    },
+    {
+      "variant": "i16-ungrouped",
+      "case": "s64-d64-0",
+      "previous_sha256": "5a448f714fb4402c396887d42f8c923cdcfc45f99d5b5e7205475ea864823464",
+      "exact": true
+    },
+    {
+      "variant": "original-grouped",
+      "case": "s128-d256-0",
+      "previous_sha256": "defe499b4105c9672f3207aec86ad126dbec936b92b25ca9a7fc165d78f80ef3",
+      "exact": true
+    },
+    {
+      "variant": "i16-ungrouped",
+      "case": "s128-d256-0",
+      "previous_sha256": "23063d0db1fb6b5986db5e1e7289cf1041a3c35fe14e995ce307aea82e2f28a3",
+      "exact": true
+    }
+  ],
+  "comparisons": [
+    {
+      "case": "s64-d64-0",
+      "kind": "fixed",
+      "variant": "i16-ungrouped",
+      "tokens_equal": false,
+      "full_logits_bitwise": false,
+      "steps_compared": 4,
+      "argmax_matches": 2,
+      "relative_l2": 0.46499404957466245,
+      "max_abs": 8.98828125,
+      "numerical_same_history": true,
+      "reply": "点头静静保持",
+      "baseline_reply": "点头静。。"
+    },
+    {
+      "case": "s64-d64-0",
+      "kind": "fixed",
+      "variant": "i16-first-original",
+      "tokens_equal": true,
+      "full_logits_bitwise": false,
+      "steps_compared": 4,
+      "argmax_matches": 4,
+      "relative_l2": 0.028916741157784642,
+      "max_abs": 0.44140625,
+      "numerical_same_history": true,
+      "reply": "点头静。。",
+      "baseline_reply": "点头静。。"
+    },
+    {
+      "case": "s64-d64-0",
+      "kind": "natural",
+      "variant": "i16-ungrouped",
+      "tokens_equal": true,
+      "full_logits_bitwise": false,
+      "steps_compared": 3,
+      "argmax_matches": 3,
+      "relative_l2": 0.49822601169361874,
+      "max_abs": 8.98828125,
+      "numerical_same_history": true,
+      "reply": "点头回应",
+      "baseline_reply": "点头回应"
+    },
+    {
+      "case": "s64-d64-0",
+      "kind": "natural",
+      "variant": "i16-first-original",
+      "tokens_equal": true,
+      "full_logits_bitwise": false,
+      "steps_compared": 3,
+      "argmax_matches": 3,
+      "relative_l2": 0.0311284975057391,
+      "max_abs": 0.4921875,
+      "numerical_same_history": true,
+      "reply": "点头回应",
+      "baseline_reply": "点头回应"
+    },
+    {
+      "case": "s128-d256-0",
+      "kind": "fixed",
+      "variant": "i16-ungrouped",
+      "tokens_equal": false,
+      "full_logits_bitwise": false,
+      "steps_compared": 4,
+      "argmax_matches": 3,
+      "relative_l2": 0.4974746813913155,
+      "max_abs": 8.646484375,
+      "numerical_same_history": true,
+      "reply": "用户静静保持",
+      "baseline_reply": "点头静静保持"
+    },
+    {
+      "case": "s128-d256-0",
+      "kind": "fixed",
+      "variant": "i16-first-original",
+      "tokens_equal": true,
+      "full_logits_bitwise": false,
+      "steps_compared": 4,
+      "argmax_matches": 4,
+      "relative_l2": 0.02920786694873934,
+      "max_abs": 0.576171875,
+      "numerical_same_history": true,
+      "reply": "点头静静保持",
+      "baseline_reply": "点头静静保持"
+    },
+    {
+      "case": "s128-d256-0",
+      "kind": "natural",
+      "variant": "i16-ungrouped",
+      "tokens_equal": false,
+      "full_logits_bitwise": false,
+      "steps_compared": 3,
+      "argmax_matches": 0,
+      "relative_l2": 0.7532945803438773,
+      "max_abs": 17.525390625,
+      "numerical_same_history": false,
+      "reply": "用户刚回到家，有些疲惫，希望机器人点头回应；桌边空间有限，底盘保持静止。用户还在讲话，不要打断。刚才提过",
+      "baseline_reply": "点头回应"
+    },
+    {
+      "case": "s128-d256-0",
+      "kind": "natural",
+      "variant": "i16-first-original",
+      "tokens_equal": true,
+      "full_logits_bitwise": false,
+      "steps_compared": 3,
+      "argmax_matches": 3,
+      "relative_l2": 0.031158413978667383,
+      "max_abs": 0.576171875,
+      "numerical_same_history": true,
+      "reply": "点头回应",
+      "baseline_reply": "点头回应"
+    },
+    {
+      "case": "s64-d128-base-back",
+      "kind": "fixed",
+      "variant": "i16-ungrouped",
+      "tokens_equal": false,
+      "full_logits_bitwise": false,
+      "steps_compared": 4,
+      "argmax_matches": 2,
+      "relative_l2": 0.5111080648905767,
+      "max_abs": 9.06640625,
+      "numerical_same_history": true,
+      "reply": "用户静静保持",
+      "baseline_reply": "后静。保持"
+    },
+    {
+      "case": "s64-d128-base-back",
+      "kind": "fixed",
+      "variant": "i16-first-original",
+      "tokens_equal": true,
+      "full_logits_bitwise": false,
+      "steps_compared": 4,
+      "argmax_matches": 4,
+      "relative_l2": 0.028939566398708257,
+      "max_abs": 0.52734375,
+      "numerical_same_history": true,
+      "reply": "后静。保持",
+      "baseline_reply": "后静。保持"
+    },
+    {
+      "case": "s64-d128-base-back",
+      "kind": "natural",
+      "variant": "i16-ungrouped",
+      "tokens_equal": false,
+      "full_logits_bitwise": false,
+      "steps_compared": 5,
+      "argmax_matches": 0,
+      "relative_l2": 0.788438833698584,
+      "max_abs": 18.34375,
+      "numerical_same_history": false,
+      "reply": "用户开始说向前挪。",
+      "baseline_reply": "后退两厘米"
+    },
+    {
+      "case": "s64-d128-base-back",
+      "kind": "natural",
+      "variant": "i16-first-original",
+      "tokens_equal": true,
+      "full_logits_bitwise": false,
+      "steps_compared": 5,
+      "argmax_matches": 5,
+      "relative_l2": 0.02828548998770159,
+      "max_abs": 0.52734375,
+      "numerical_same_history": true,
+      "reply": "后退两厘米",
+      "baseline_reply": "后退两厘米"
+    },
+    {
+      "case": "s128-d128-base-back",
+      "kind": "fixed",
+      "variant": "i16-ungrouped",
+      "tokens_equal": false,
+      "full_logits_bitwise": false,
+      "steps_compared": 4,
+      "argmax_matches": 2,
+      "relative_l2": 0.5297318583135237,
+      "max_abs": 9.390625,
+      "numerical_same_history": true,
+      "reply": "用户静静保持",
+      "baseline_reply": "后静。保持"
+    },
+    {
+      "case": "s128-d128-base-back",
+      "kind": "fixed",
+      "variant": "i16-first-original",
+      "tokens_equal": true,
+      "full_logits_bitwise": false,
+      "steps_compared": 4,
+      "argmax_matches": 4,
+      "relative_l2": 0.029925078018921317,
+      "max_abs": 0.53125,
+      "numerical_same_history": true,
+      "reply": "后静。保持",
+      "baseline_reply": "后静。保持"
+    },
+    {
+      "case": "s128-d128-base-back",
+      "kind": "natural",
+      "variant": "i16-ungrouped",
+      "tokens_equal": false,
+      "full_logits_bitwise": false,
+      "steps_compared": 5,
+      "argmax_matches": 0,
+      "relative_l2": 0.8056578785974875,
+      "max_abs": 18.193359375,
+      "numerical_same_history": false,
+      "reply": "用户开始说向前挪。",
+      "baseline_reply": "后退两厘米"
+    },
+    {
+      "case": "s128-d128-base-back",
+      "kind": "natural",
+      "variant": "i16-first-original",
+      "tokens_equal": true,
+      "full_logits_bitwise": false,
+      "steps_compared": 5,
+      "argmax_matches": 5,
+      "relative_l2": 0.03059150669346665,
+      "max_abs": 0.53125,
+      "numerical_same_history": true,
+      "reply": "后退两厘米",
+      "baseline_reply": "后退两厘米"
+    }
+  ],
+  "manual_natural_restoration": [
+    {
+      "case": "s64-d64-0",
+      "reply": "点头回应",
+      "label": "cost_fixture_not_independent_quality",
+      "reason": "成本输入恢复点头回应，不计独立家庭质量。"
+    },
+    {
+      "case": "s128-d256-0",
+      "reply": "点头回应",
+      "label": "cost_fixture_not_independent_quality",
+      "reason": "成本输入恢复点头回应，不计独立家庭质量。"
+    },
+    {
+      "case": "s64-d128-base-back",
+      "reply": "后退两厘米",
+      "label": "compatible_partial",
+      "reason": "后退两厘米恢复方向/距离，但缺缓慢，仍为原基线部分兼容。"
+    },
+    {
+      "case": "s128-d128-base-back",
+      "reply": "后退两厘米",
+      "label": "compatible_partial",
+      "reason": "后退两厘米恢复方向/距离，但缺缓慢，仍为原基线部分兼容。"
+    }
+  ],
+  "files": [
+    {
+      "path": "original-grouped/logits/2-logits.f32",
+      "sha256": "90bccf4b24ccf38befd1be1a62f85e7fb115139a463051b99fa6ba6afd6d4eb6",
+      "bytes": 2426784,
+      "kind": "result"
+    },
+    {
+      "path": "original-grouped/logits/1-logits.f32",
+      "sha256": "6cfac24d69c3c28c8ca3e9f671613974ca6441b1f2e9376ddd412013a268c153",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "original-grouped/logits/4-logits.f32",
+      "sha256": "d7752a9edba133ea1c89b147ea3268da9024778698e63d99b0937a0ae2490304",
+      "bytes": 1820088,
+      "kind": "result"
+    },
+    {
+      "path": "original-grouped/logits/3-logits.f32",
+      "sha256": "6cfac24d69c3c28c8ca3e9f671613974ca6441b1f2e9376ddd412013a268c153",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "original-grouped/logits/6-logits.f32",
+      "sha256": "defe499b4105c9672f3207aec86ad126dbec936b92b25ca9a7fc165d78f80ef3",
+      "bytes": 2426784,
+      "kind": "result"
+    },
+    {
+      "path": "original-grouped/logits/5-logits.f32",
+      "sha256": "71729f26ea31f8eb689a45dffe4dcb328dd8e4242c092d5c2284042e5c3ccd9d",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "original-grouped/logits/8-logits.f32",
+      "sha256": "5ecbea14db7e6f85bf0eab727c42f7b4683fb0e7f2ffffe65c3b0d461c604fc7",
+      "bytes": 1820088,
+      "kind": "result"
+    },
+    {
+      "path": "original-grouped/logits/7-logits.f32",
+      "sha256": "71729f26ea31f8eb689a45dffe4dcb328dd8e4242c092d5c2284042e5c3ccd9d",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "original-grouped/logits/10-logits.f32",
+      "sha256": "cc04ac77ba4e7b48bb470e0815c45e228d3ab767ee095a14978240e2bd1e9c76",
+      "bytes": 2426784,
+      "kind": "result"
+    },
+    {
+      "path": "original-grouped/logits/9-logits.f32",
+      "sha256": "6cfac24d69c3c28c8ca3e9f671613974ca6441b1f2e9376ddd412013a268c153",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "original-grouped/logits/12-logits.f32",
+      "sha256": "5c9c4586c82c7aab47534a60fc5306f4a25b13e031d7bab9c6139b745d37f29d",
+      "bytes": 3033480,
+      "kind": "result"
+    },
+    {
+      "path": "original-grouped/logits/11-logits.f32",
+      "sha256": "6cfac24d69c3c28c8ca3e9f671613974ca6441b1f2e9376ddd412013a268c153",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "original-grouped/logits/14-logits.f32",
+      "sha256": "6be39992b0802b1b7b30c0a00ca9d425584fc738b536bf495e689f417f7465e1",
+      "bytes": 2426784,
+      "kind": "result"
+    },
+    {
+      "path": "original-grouped/logits/13-logits.f32",
+      "sha256": "71729f26ea31f8eb689a45dffe4dcb328dd8e4242c092d5c2284042e5c3ccd9d",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "original-grouped/logits/16-logits.f32",
+      "sha256": "3e216fb5353d89c0d84e5087ac54669fb27422f08ebc7151ffeee41ffeb8aaed",
+      "bytes": 3033480,
+      "kind": "result"
+    },
+    {
+      "path": "original-grouped/logits/15-logits.f32",
+      "sha256": "71729f26ea31f8eb689a45dffe4dcb328dd8e4242c092d5c2284042e5c3ccd9d",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "original-ungrouped/logits/2-logits.f32",
+      "sha256": "90bccf4b24ccf38befd1be1a62f85e7fb115139a463051b99fa6ba6afd6d4eb6",
+      "bytes": 2426784,
+      "kind": "result"
+    },
+    {
+      "path": "original-ungrouped/logits/1-logits.f32",
+      "sha256": "6cfac24d69c3c28c8ca3e9f671613974ca6441b1f2e9376ddd412013a268c153",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "original-ungrouped/logits/4-logits.f32",
+      "sha256": "d7752a9edba133ea1c89b147ea3268da9024778698e63d99b0937a0ae2490304",
+      "bytes": 1820088,
+      "kind": "result"
+    },
+    {
+      "path": "original-ungrouped/logits/3-logits.f32",
+      "sha256": "6cfac24d69c3c28c8ca3e9f671613974ca6441b1f2e9376ddd412013a268c153",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "original-ungrouped/logits/6-logits.f32",
+      "sha256": "defe499b4105c9672f3207aec86ad126dbec936b92b25ca9a7fc165d78f80ef3",
+      "bytes": 2426784,
+      "kind": "result"
+    },
+    {
+      "path": "original-ungrouped/logits/5-logits.f32",
+      "sha256": "71729f26ea31f8eb689a45dffe4dcb328dd8e4242c092d5c2284042e5c3ccd9d",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "original-ungrouped/logits/8-logits.f32",
+      "sha256": "5ecbea14db7e6f85bf0eab727c42f7b4683fb0e7f2ffffe65c3b0d461c604fc7",
+      "bytes": 1820088,
+      "kind": "result"
+    },
+    {
+      "path": "original-ungrouped/logits/7-logits.f32",
+      "sha256": "71729f26ea31f8eb689a45dffe4dcb328dd8e4242c092d5c2284042e5c3ccd9d",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "original-ungrouped/logits/10-logits.f32",
+      "sha256": "cc04ac77ba4e7b48bb470e0815c45e228d3ab767ee095a14978240e2bd1e9c76",
+      "bytes": 2426784,
+      "kind": "result"
+    },
+    {
+      "path": "original-ungrouped/logits/9-logits.f32",
+      "sha256": "6cfac24d69c3c28c8ca3e9f671613974ca6441b1f2e9376ddd412013a268c153",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "original-ungrouped/logits/12-logits.f32",
+      "sha256": "5c9c4586c82c7aab47534a60fc5306f4a25b13e031d7bab9c6139b745d37f29d",
+      "bytes": 3033480,
+      "kind": "result"
+    },
+    {
+      "path": "original-ungrouped/logits/11-logits.f32",
+      "sha256": "6cfac24d69c3c28c8ca3e9f671613974ca6441b1f2e9376ddd412013a268c153",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "original-ungrouped/logits/14-logits.f32",
+      "sha256": "6be39992b0802b1b7b30c0a00ca9d425584fc738b536bf495e689f417f7465e1",
+      "bytes": 2426784,
+      "kind": "result"
+    },
+    {
+      "path": "original-ungrouped/logits/13-logits.f32",
+      "sha256": "71729f26ea31f8eb689a45dffe4dcb328dd8e4242c092d5c2284042e5c3ccd9d",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "original-ungrouped/logits/16-logits.f32",
+      "sha256": "3e216fb5353d89c0d84e5087ac54669fb27422f08ebc7151ffeee41ffeb8aaed",
+      "bytes": 3033480,
+      "kind": "result"
+    },
+    {
+      "path": "original-ungrouped/logits/15-logits.f32",
+      "sha256": "71729f26ea31f8eb689a45dffe4dcb328dd8e4242c092d5c2284042e5c3ccd9d",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "i16-ungrouped/logits/2-logits.f32",
+      "sha256": "5a448f714fb4402c396887d42f8c923cdcfc45f99d5b5e7205475ea864823464",
+      "bytes": 2426784,
+      "kind": "result"
+    },
+    {
+      "path": "i16-ungrouped/logits/1-logits.f32",
+      "sha256": "62ead1bb41f1bf183e7e0ad55f4feab66637ebf7f5e2622ff9fe480576375cab",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "i16-ungrouped/logits/4-logits.f32",
+      "sha256": "cd92ac4bd22a61488ff1a8d0eeb11fc35fafc40e8cc26d149d8d784c01e195ca",
+      "bytes": 1820088,
+      "kind": "result"
+    },
+    {
+      "path": "i16-ungrouped/logits/3-logits.f32",
+      "sha256": "62ead1bb41f1bf183e7e0ad55f4feab66637ebf7f5e2622ff9fe480576375cab",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "i16-ungrouped/logits/6-logits.f32",
+      "sha256": "23063d0db1fb6b5986db5e1e7289cf1041a3c35fe14e995ce307aea82e2f28a3",
+      "bytes": 2426784,
+      "kind": "result"
+    },
+    {
+      "path": "i16-ungrouped/logits/5-logits.f32",
+      "sha256": "3063ab4350b32c41a9af36f856b4b2d02940feaffbd9177a346c7677b1fc9d18",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "i16-ungrouped/logits/8-logits.f32",
+      "sha256": "adc2811b8c509a906ebf28ec22cc8829a2569b5f5fa4c939d57ba353ed2c69ba",
+      "bytes": 19414272,
+      "kind": "result"
+    },
+    {
+      "path": "i16-ungrouped/logits/7-logits.f32",
+      "sha256": "3063ab4350b32c41a9af36f856b4b2d02940feaffbd9177a346c7677b1fc9d18",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "i16-ungrouped/logits/10-logits.f32",
+      "sha256": "c619bb3064b1983d34545a1012efce050976862a46a93c90b44594dc2ad4756a",
+      "bytes": 2426784,
+      "kind": "result"
+    },
+    {
+      "path": "i16-ungrouped/logits/9-logits.f32",
+      "sha256": "62ead1bb41f1bf183e7e0ad55f4feab66637ebf7f5e2622ff9fe480576375cab",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "i16-ungrouped/logits/12-logits.f32",
+      "sha256": "8a3ba24322f45214ce5bc36fc26597a0cfc23dd7e3abefe09a00300d6b0ee1db",
+      "bytes": 4246872,
+      "kind": "result"
+    },
+    {
+      "path": "i16-ungrouped/logits/11-logits.f32",
+      "sha256": "62ead1bb41f1bf183e7e0ad55f4feab66637ebf7f5e2622ff9fe480576375cab",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "i16-ungrouped/logits/14-logits.f32",
+      "sha256": "c0c57951adf09e33e635ad7fbf61dad83eaba925a1e5761f267a297d2d45e1a1",
+      "bytes": 2426784,
+      "kind": "result"
+    },
+    {
+      "path": "i16-ungrouped/logits/13-logits.f32",
+      "sha256": "3063ab4350b32c41a9af36f856b4b2d02940feaffbd9177a346c7677b1fc9d18",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "i16-ungrouped/logits/16-logits.f32",
+      "sha256": "343c19d0134a310fa52ee740c6eaa4c8523bcbc99530c9929ebb87c9171c8494",
+      "bytes": 4246872,
+      "kind": "result"
+    },
+    {
+      "path": "i16-ungrouped/logits/15-logits.f32",
+      "sha256": "3063ab4350b32c41a9af36f856b4b2d02940feaffbd9177a346c7677b1fc9d18",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "i16-first-original/logits/2-logits.f32",
+      "sha256": "28724ff4417b26ddedc68628f54e14c42c67082cf8cb2976af5ff740f481807b",
+      "bytes": 2426784,
+      "kind": "result"
+    },
+    {
+      "path": "i16-first-original/logits/1-logits.f32",
+      "sha256": "9de6c59dbeafc8a16dabf5b545ca36564d2b286eb281470744b8220d2d94c828",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "i16-first-original/logits/4-logits.f32",
+      "sha256": "383993b4648897f7a25a3018a95426a565cab1722ed4ef2ec99ac7a24459868b",
+      "bytes": 1820088,
+      "kind": "result"
+    },
+    {
+      "path": "i16-first-original/logits/3-logits.f32",
+      "sha256": "9de6c59dbeafc8a16dabf5b545ca36564d2b286eb281470744b8220d2d94c828",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "i16-first-original/logits/6-logits.f32",
+      "sha256": "43243a5d02c61970e21adea96448e81e727d3ace6030004c55578165aeb2ce4c",
+      "bytes": 2426784,
+      "kind": "result"
+    },
+    {
+      "path": "i16-first-original/logits/5-logits.f32",
+      "sha256": "08223830e96d13f41dde474b710c4e6652dece2afd04290b4726225b589e9d87",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "i16-first-original/logits/8-logits.f32",
+      "sha256": "80dea65f30c60622ff9f4cf8f765a3e09f744e44176990f090b013c19cf56909",
+      "bytes": 1820088,
+      "kind": "result"
+    },
+    {
+      "path": "i16-first-original/logits/7-logits.f32",
+      "sha256": "08223830e96d13f41dde474b710c4e6652dece2afd04290b4726225b589e9d87",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "i16-first-original/logits/10-logits.f32",
+      "sha256": "857e7f47d4a0f8db3143ffb0530b1d2c0b6970dfea9a0712f1bd98bc44e03b70",
+      "bytes": 2426784,
+      "kind": "result"
+    },
+    {
+      "path": "i16-first-original/logits/9-logits.f32",
+      "sha256": "9de6c59dbeafc8a16dabf5b545ca36564d2b286eb281470744b8220d2d94c828",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "i16-first-original/logits/12-logits.f32",
+      "sha256": "dbb04cdea52a493ec87683f06842acc5b59e30200532038145d8499ebaca6b66",
+      "bytes": 3033480,
+      "kind": "result"
+    },
+    {
+      "path": "i16-first-original/logits/11-logits.f32",
+      "sha256": "9de6c59dbeafc8a16dabf5b545ca36564d2b286eb281470744b8220d2d94c828",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "i16-first-original/logits/14-logits.f32",
+      "sha256": "2e38601dbad9a3fb5e39aa52189788d98ebb44bdfec92d1c44e6ec1780c96f49",
+      "bytes": 2426784,
+      "kind": "result"
+    },
+    {
+      "path": "i16-first-original/logits/13-logits.f32",
+      "sha256": "08223830e96d13f41dde474b710c4e6652dece2afd04290b4726225b589e9d87",
+      "bytes": 606696,
+      "kind": "system_prep"
+    },
+    {
+      "path": "i16-first-original/logits/16-logits.f32",
+      "sha256": "2a477be6a167216aafa13fd689435bd976732eddb758636bdb3268032dafb95d",
+      "bytes": 3033480,
+      "kind": "result"
+    },
+    {
+      "path": "i16-first-original/logits/15-logits.f32",
+      "sha256": "08223830e96d13f41dde474b710c4e6652dece2afd04290b4726225b589e9d87",
+      "bytes": 606696,
+      "kind": "system_prep"
+    }
+  ],
+  "data_sha256": {
+    "config.json": "337a7385d49522fd51d317e2f558a8557786011f87e10696d7d4d6034268b407",
+    "events.jsonl": "22bb1dce0ef8563f6a4395cad27b0fe38bd7a79dd035fae80ccc70dc9d8f9a65",
+    "meta.json": "9d3d58d58e32a43084cd0d987c3bdf12911ea32f938077728693afa80a96ba4f"
+  },
+  "limits": [
+    "4 development presentations:2 cost fixtures plus2system versions of one known backward scenario; not4 independent semantic scenarios.",
+    "No speech/RAG; all diagnostic timings ineligible.",
+    "Firstchunk intervention supports dominant earlyprecision error; not proof all residual errors have that cause.",
+    "Fixedlogit relativeL2 remains2.89-2.99%, not bitwise.",
+    "Natural divergent histories are not valid later-step same-input numerical comparisons.",
+    "Grouping-hotpath changes need separate controls and broader natural+independent quality."
+  ]
+}

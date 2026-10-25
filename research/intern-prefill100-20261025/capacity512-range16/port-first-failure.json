@@ -1,0 +1,30 @@
+{
+  "returncode": 137,
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--cpus",
+    "2",
+    "--memory",
+    "2g",
+    "-v",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025:/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025",
+    "-v",
+    "/opt/opi-lab/source-validation-20261017/gguf-fresh/export/w8-fused2-c1280-cap1-headmse/l0:/opt/opi-lab/source-validation-20261017/gguf-fresh/export/w8-fused2-c1280-cap1-headmse/l0:ro",
+    "-e",
+    "LD_LIBRARY_PATH=/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib:/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/../common/lib",
+    "-e",
+    "VSIMULATOR_CONFIG=VIP9000NANODI_PLUS_PID0X1000003B",
+    "-e",
+    "VSIMULATOR_SHADER_CORE_COUNT=1",
+    "--entrypoint",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/graphs/candidates-w16-storage/inspect_nbg",
+    "ubuntu-npu:v2.0.10.2",
+    "/opt/opi-lab/source-validation-20261017/gguf-fresh/export/w8-fused2-c1280-cap1-headmse/l0/export_nbg_unify/network_binary.nb"
+  ],
+  "stdout": "",
+  "stderr": ""
+}

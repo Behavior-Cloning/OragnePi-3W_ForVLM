@@ -1,0 +1,2399 @@
+{
+  "audit_pass": true,
+  "scope": "Read-only WSL recovered evidence; actual NPU external IO vs FP32 estimated internals distinguished",
+  "source_sha": {
+    "config.json": "9d2da700bc492b727b94af9632b34d75fa380b3e38d756d82259385692a12ecd",
+    "resident-capture": "634d55c01e91b73ec2f50ed2dff6fd06f23d3a2b97a7dbac4f75296bb8220bed",
+    "process.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "resident_worker_v1.py": "2c110a6821ce9ee21aa2c07b062f27a49e18a9289e0fd8aea12927f80448321d",
+    "board_capture.py": "28c49b8e81e88343f862c84d9d2a52c5ac26516f65d44c152be00a7ba05c003f"
+  },
+  "analysis_sha256": "32b8b47e254d5a4caa3fd473a1b3f445ccb2cf3617e4000a5c9988aefedde929",
+  "capture_control_full_logits_exact": 4,
+  "normal_driver_zero": 8,
+  "actual_io_files_verified": 136,
+  "captured_chunk_windows": 68,
+  "distinct_case_shapes": 2,
+  "window_counts": {
+    "c1280-original-s64-d64-0-capture": 9,
+    "c1280-original-s128-d256-0-capture": 25,
+    "c1280-i16-range16-l2-s64-d64-0-capture": 9,
+    "c1280-i16-range16-l2-s128-d256-0-capture": 25
+  },
+  "first_chunk_estimated_overflow_windows": 4,
+  "other_windows_without_estimated_overflow": 64,
+  "input_hidden_original_candidate_exact_all34": true,
+  "pairs": [
+    {
+      "case": "s64-d64-0",
+      "file": "p0000-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.993948235925016,
+          "max_abs": 1893.5625,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.05479650592673888,
+          "max_abs": 2.203125,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.18152875468162735,
+          "max_abs": 1.5262451171875,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.9941671854430851,
+          "max_abs": 1893.5625,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.3102002842064003,
+          "max_abs": 1.6015625,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": true
+    },
+    {
+      "case": "s64-d64-0",
+      "file": "p0016-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.2784461478476642,
+          "max_abs": 1.283203125,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00020695494230133467,
+          "max_abs": 0.0029296875,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006353200818626304,
+          "max_abs": 0.0010986328125,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.27436674916816606,
+          "max_abs": 0.66015625,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.2787165530843152,
+          "max_abs": 1.283203125,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s64-d64-0",
+      "file": "p0032-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.2543054648923092,
+          "max_abs": 1.28125,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00023887703235293175,
+          "max_abs": 0.0068359375,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.000672351932258621,
+          "max_abs": 0.001220703125,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.24293244181774515,
+          "max_abs": 0.873046875,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.2550746584872072,
+          "max_abs": 1.28125,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s64-d64-0",
+      "file": "p0048-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.27012274828235,
+          "max_abs": 1.1484375,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00022543244492494036,
+          "max_abs": 0.00390625,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006302992934904937,
+          "max_abs": 0.0010986328125,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.30108860656013114,
+          "max_abs": 1.03515625,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.2679085137113963,
+          "max_abs": 1.1484375,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s64-d64-0",
+      "file": "p0064-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.25260643997808374,
+          "max_abs": 1.513671875,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00021504900282868106,
+          "max_abs": 0.0029296875,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0005968432273411857,
+          "max_abs": 0.0010986328125,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.21701102793239008,
+          "max_abs": 0.560546875,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.25559743993332373,
+          "max_abs": 1.513671875,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s64-d64-0",
+      "file": "p0080-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.23645172582616583,
+          "max_abs": 1.2421875,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.0002049028095122982,
+          "max_abs": 0.0029296875,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0005859278117981305,
+          "max_abs": 0.0009765625,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.28137106222056496,
+          "max_abs": 1.0859375,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.23196923361632846,
+          "max_abs": 1.2421875,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s64-d64-0",
+      "file": "p0096-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.2337618273922842,
+          "max_abs": 1.20703125,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00021342127758257567,
+          "max_abs": 0.00390625,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.000599475686906763,
+          "max_abs": 0.0009765625,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.23478678666433936,
+          "max_abs": 1.20703125,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.23366928060517697,
+          "max_abs": 1.03125,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s64-d64-0",
+      "file": "p0112-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.22772760946489856,
+          "max_abs": 1.486328125,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00022137254544057008,
+          "max_abs": 0.00390625,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006215364547262107,
+          "max_abs": 0.00146484375,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.33039967195632824,
+          "max_abs": 1.486328125,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.22000151771729456,
+          "max_abs": 1.083984375,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s64-d64-0",
+      "file": "p0128-n16-v8-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.21827487740679138,
+          "max_abs": 0.9189453125,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00023131686466610908,
+          "max_abs": 0.00390625,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006643259473413487,
+          "max_abs": 0.0013427734375,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.2775272995095586,
+          "max_abs": 0.9189453125,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.21305692154415945,
+          "max_abs": 0.82421875,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0000-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.993948235925016,
+          "max_abs": 1893.5625,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.05479650592673888,
+          "max_abs": 2.203125,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.18152875468162735,
+          "max_abs": 1.5262451171875,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.9941671854430851,
+          "max_abs": 1893.5625,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.3102002842064003,
+          "max_abs": 1.6015625,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": true
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0016-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.2784461478476642,
+          "max_abs": 1.283203125,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00020695494230133467,
+          "max_abs": 0.0029296875,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006353200818626304,
+          "max_abs": 0.0010986328125,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.27436674916816606,
+          "max_abs": 0.66015625,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.2787165530843152,
+          "max_abs": 1.283203125,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0032-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.2543054648923092,
+          "max_abs": 1.28125,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00023887703235293175,
+          "max_abs": 0.0068359375,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.000672351932258621,
+          "max_abs": 0.001220703125,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.24293244181774515,
+          "max_abs": 0.873046875,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.2550746584872072,
+          "max_abs": 1.28125,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0048-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.2605084401174504,
+          "max_abs": 1.1484375,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.0002229832519559729,
+          "max_abs": 0.00390625,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006267426031982731,
+          "max_abs": 0.0010986328125,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.30108860656013114,
+          "max_abs": 1.03515625,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.25762636886448886,
+          "max_abs": 1.1484375,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0064-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.23247946109860135,
+          "max_abs": 1.265625,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00021422392132589113,
+          "max_abs": 0.001953125,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.000569698333002929,
+          "max_abs": 0.0008544921875,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.23472041935735372,
+          "max_abs": 1.265625,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.2322793770807714,
+          "max_abs": 1.08203125,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0080-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.23367712293229906,
+          "max_abs": 1.21875,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00021356695480050225,
+          "max_abs": 0.00390625,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006681526928421054,
+          "max_abs": 0.0010986328125,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.21700472055493714,
+          "max_abs": 0.767578125,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.23468051229750414,
+          "max_abs": 1.21875,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0096-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.2206143695798711,
+          "max_abs": 1.05859375,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00022658786788744343,
+          "max_abs": 0.005859375,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006410991660295435,
+          "max_abs": 0.0009765625,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.20028327073659938,
+          "max_abs": 1.05859375,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.22234044634761174,
+          "max_abs": 0.927734375,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0112-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.24665703149975374,
+          "max_abs": 1.0927734375,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.0002545598411494828,
+          "max_abs": 0.005859375,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006905897638692388,
+          "max_abs": 0.0018310546875,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.21298335628345494,
+          "max_abs": 0.90234375,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.2487883464471971,
+          "max_abs": 1.0927734375,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0128-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.25263978203560017,
+          "max_abs": 1.431640625,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.0002033208804034456,
+          "max_abs": 0.00390625,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006035213880230448,
+          "max_abs": 0.0009765625,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.2314795870721736,
+          "max_abs": 0.56640625,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.25442259903653663,
+          "max_abs": 1.431640625,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0144-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.22819524702792385,
+          "max_abs": 1.22265625,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00021074773640900485,
+          "max_abs": 0.00390625,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0005997309360358195,
+          "max_abs": 0.0009765625,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.2734023978190548,
+          "max_abs": 0.91015625,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.2236813163482676,
+          "max_abs": 1.22265625,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0160-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.22636389454585099,
+          "max_abs": 1.1328125,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00023526713947081665,
+          "max_abs": 0.0068359375,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006074680659739401,
+          "max_abs": 0.0010986328125,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.229461483502305,
+          "max_abs": 1.1328125,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.22608258586383448,
+          "max_abs": 1.04296875,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0176-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.22226617711101151,
+          "max_abs": 1.4609375,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00020298792878646648,
+          "max_abs": 0.0029296875,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.000584059401229223,
+          "max_abs": 0.0009765625,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.33437451031860954,
+          "max_abs": 1.4609375,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.21365549108445195,
+          "max_abs": 1.04296875,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0192-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.22992647123491727,
+          "max_abs": 1.064453125,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00023766224555370313,
+          "max_abs": 0.0068359375,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006631792207202327,
+          "max_abs": 0.001220703125,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.20465717256601465,
+          "max_abs": 0.373046875,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.23066200406320336,
+          "max_abs": 1.064453125,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0208-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.22279738758091622,
+          "max_abs": 1.119140625,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00024063366566621006,
+          "max_abs": 0.0078125,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006358212804996824,
+          "max_abs": 0.001220703125,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.20539947108593898,
+          "max_abs": 0.69140625,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.22409376840430636,
+          "max_abs": 1.119140625,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0224-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.22012971569782105,
+          "max_abs": 1.080078125,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.0002361005448408811,
+          "max_abs": 0.0048828125,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006521782444788332,
+          "max_abs": 0.0018310546875,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.17034880103682215,
+          "max_abs": 0.541015625,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.223238931563861,
+          "max_abs": 1.080078125,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0240-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.2331333472694287,
+          "max_abs": 1.177734375,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00020146186201109987,
+          "max_abs": 0.0029296875,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0005844433985219986,
+          "max_abs": 0.0008544921875,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.21600603009381247,
+          "max_abs": 0.46484375,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.23377381196835836,
+          "max_abs": 1.177734375,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0256-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.227207063147562,
+          "max_abs": 1.029296875,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.0002159192991658629,
+          "max_abs": 0.0029296875,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006198180315423002,
+          "max_abs": 0.0010986328125,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.19265830350759636,
+          "max_abs": 0.73046875,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.22959643406294875,
+          "max_abs": 1.029296875,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0272-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.21077920895409655,
+          "max_abs": 1.189453125,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.0002107081822424314,
+          "max_abs": 0.0029296875,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0005828184001935716,
+          "max_abs": 0.0008544921875,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.21897886088030644,
+          "max_abs": 0.375,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.21047522206808159,
+          "max_abs": 1.189453125,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0288-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.23296530494442,
+          "max_abs": 1.140625,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00022023562204656887,
+          "max_abs": 0.0029296875,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0005948856500891019,
+          "max_abs": 0.0010986328125,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.21160512184534158,
+          "max_abs": 1.015625,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.23441022458623945,
+          "max_abs": 1.140625,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0304-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.24380933014531347,
+          "max_abs": 1.03125,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.0002165058667047544,
+          "max_abs": 0.00390625,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.000610063595877446,
+          "max_abs": 0.0010986328125,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.21188121615878597,
+          "max_abs": 0.8828125,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.2459736473106093,
+          "max_abs": 1.03125,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0320-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.21767627007075213,
+          "max_abs": 1.0859375,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00022012269984754984,
+          "max_abs": 0.00390625,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006090559810523588,
+          "max_abs": 0.0010986328125,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.2830912254576222,
+          "max_abs": 0.5859375,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.21277460857701108,
+          "max_abs": 1.0859375,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0336-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.20587598880167546,
+          "max_abs": 1.021484375,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.0002882129425170649,
+          "max_abs": 0.0078125,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0007815667835078987,
+          "max_abs": 0.0015869140625,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.2527339315954938,
+          "max_abs": 0.3740234375,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.2042378902943912,
+          "max_abs": 1.021484375,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0352-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.2056323464459703,
+          "max_abs": 1.044921875,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00021177691248690556,
+          "max_abs": 0.00390625,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006063444134400934,
+          "max_abs": 0.0010986328125,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.19537425857530205,
+          "max_abs": 0.919921875,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.20640979312711477,
+          "max_abs": 1.044921875,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0368-n16-v16-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.21088411609917948,
+          "max_abs": 0.892578125,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.0002093796252594335,
+          "max_abs": 0.0029296875,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.000561633691983463,
+          "max_abs": 0.0008544921875,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.17636364216701925,
+          "max_abs": 0.66796875,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.21318873044602948,
+          "max_abs": 0.892578125,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    },
+    {
+      "case": "s128-d256-0",
+      "file": "p0384-n16-v8-output.f32",
+      "output_ports": {
+        "hidden": {
+          "relative_l2": 0.19338226851377605,
+          "max_abs": 0.8505859375,
+          "bitwise": false
+        },
+        "L2_K": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_K": {
+          "relative_l2": 0.00021914620077228303,
+          "max_abs": 0.0029296875,
+          "bitwise": false
+        },
+        "L2_V": {
+          "relative_l2": 0.0,
+          "max_abs": 0.0,
+          "bitwise": true
+        },
+        "L3_V": {
+          "relative_l2": 0.0006422321532362703,
+          "max_abs": 0.0009765625,
+          "bitwise": false
+        },
+        "hidden_row0": {
+          "relative_l2": 0.18998233164388637,
+          "max_abs": 0.80078125,
+          "bitwise": false
+        },
+        "hidden_rows1_15": {
+          "relative_l2": 0.19371911600813546,
+          "max_abs": 0.8505859375,
+          "bitwise": false
+        }
+      },
+      "input_hidden_exact": true,
+      "all_inputs_exact": false
+    }
+  ],
+  "verified_files": [
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0128-n16-v8-output.f32",
+      "sha256": "546d6855f35e3af2e686e8d4c1f3a6d22d8523afb3695dda9766a486afa309e0",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0128-n16-v8-input.f32",
+      "sha256": "7d96d562abfbfeb577829ace1d55e28a59a2b5accce492886d8f8a9f0d008562",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0112-n16-v16-output.f32",
+      "sha256": "59e4e2d17d33e39d2becce5cb2619916dd079affd0552f8951d8aeaed9428d71",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0112-n16-v16-input.f32",
+      "sha256": "fcfc13182cdb838a874ba0c79f2c20d2ed3911b94ff3b6c9df39777e3b08a835",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0096-n16-v16-output.f32",
+      "sha256": "b39bccabfa34319b7c66529aa3c09ec327b08d33879854e7485bd90606725ad7",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0096-n16-v16-input.f32",
+      "sha256": "bd8582e151f49a398ca22cef7e566d626eefdc57cef8a52d1935043031c1f2fc",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0080-n16-v16-output.f32",
+      "sha256": "915dabc4805b99c85c28935982e453690b667f47388bc67661296a7e672dfb53",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0080-n16-v16-input.f32",
+      "sha256": "8834198fb848ef06317c317b9c4a0b5991fae74a8ea24afa13a272db411441eb",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0064-n16-v16-output.f32",
+      "sha256": "11361411b06bdea42c5de2254ab01b5df2200456101c94bec430f999f89011a4",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0064-n16-v16-input.f32",
+      "sha256": "d284e333108b1f1288f37f0f45fa23a8099932eb289f4384c74d743a0710afc0",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0048-n16-v16-output.f32",
+      "sha256": "5be9693d1699514874b36662850f00fdb4f0f65ee14e24b86f1e5507128ff19c",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0048-n16-v16-input.f32",
+      "sha256": "fed125bb528781b8e7c8a5aeb793de4399b5096634cc8022f86f5db97da5b1e8",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0032-n16-v16-output.f32",
+      "sha256": "c43814262ef016ff3b85d2923324287b386d2616ee06cd6c0acd3b8232255980",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0032-n16-v16-input.f32",
+      "sha256": "bdcb32d4dbdc542af396ab3e0f5be0739e6c0c9e4df6bf25a1c9b40bedca5b20",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0016-n16-v16-output.f32",
+      "sha256": "ba0d98ad61a35d6704ae69e27e86231bf82c989bbe68e9b0f827029c8cd6e5b7",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0016-n16-v16-input.f32",
+      "sha256": "42a560043385bfb18866f9d6a938abd5e8c6e3dc1fb26c2be3f84171d2d04c80",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0000-n16-v16-output.f32",
+      "sha256": "efef1eb51ab078af4c858404e24d53afff93c461ca7881593d41a151c089c11f",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s64-d64-0-capture/p0000-n16-v16-input.f32",
+      "sha256": "aa123a8f228234dd51e5252728dcd8bc76e5950fe2dfa6c046ae9caf5d8092e4",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0384-n16-v8-output.f32",
+      "sha256": "319b84ed107bc1a68cef9120bd6876c586df42c97d3be84b484c46795c47ce9d",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0384-n16-v8-input.f32",
+      "sha256": "d04d20fcf703e713fdb386993406eb541604b8516a22e9e528af09f44cd45b4d",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0368-n16-v16-output.f32",
+      "sha256": "9ffd973bc0bf48586f0a4e4ad1732b014949bfe2633b8bdc667d53dc3c0abc20",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0368-n16-v16-input.f32",
+      "sha256": "2f9025261edf256b31754b6ff71aa6851f793c98d1b6afddb842cdf596936ea8",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0352-n16-v16-output.f32",
+      "sha256": "d2a33af551ef4078067d4c0e188c2f4467eb077f16cd91c4ed6a4499901e57f2",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0352-n16-v16-input.f32",
+      "sha256": "360550b15a68dcdfad9f6275063fa4c0ad62134c3e7f67d3dc3b3b362e8b1c39",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0336-n16-v16-output.f32",
+      "sha256": "ae6e6c31f8492c1cf72f1ac76427e315b807e0b0503578a32016236496fb048b",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0336-n16-v16-input.f32",
+      "sha256": "ba5a18bf5044fc4ef5a86515f78c38cd679c5c7316079906904172f9ee097541",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0320-n16-v16-output.f32",
+      "sha256": "1f3166eed898fbe1114fc95b9595093550f818a3388bc88c84718479f4affb5e",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0320-n16-v16-input.f32",
+      "sha256": "948df55b3197ee3013567c9839649d6744948bf8b67d64497b353b4cf785cfde",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0304-n16-v16-output.f32",
+      "sha256": "561e8cb5b082c8e0d7ba997dbc0a759a7a30a7432915437c41e1971c8867dba9",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0304-n16-v16-input.f32",
+      "sha256": "390bc352b32199da66c6de86e077da6c301c503cda706906cb476fd6d52ffe5c",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0288-n16-v16-output.f32",
+      "sha256": "cbc19b70819e7c4dfcb7be854286da3296a2cee8c73b822f4f5bf6bdfc1a8989",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0288-n16-v16-input.f32",
+      "sha256": "4f87f400fab1455e5a1dd4acc3a0d28e0af72a96271f16e9cb206705f7d9571a",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0272-n16-v16-output.f32",
+      "sha256": "cb7b56dd7ff5146733c0a794ade9e2999860ce06a525a3c0f5edb850606bd3a7",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0272-n16-v16-input.f32",
+      "sha256": "e2b3b6d7bbbbea99f0e3d9c010255821434240bcf2acdc301872f8dcc7b8717b",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0256-n16-v16-output.f32",
+      "sha256": "9c77db6792dcc4bd39ae13cdcecac7d942e299c3c0c425a65490685fd824d291",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0256-n16-v16-input.f32",
+      "sha256": "ffac17ea20f708b705ec50fde6002dc0554c10f3ac9304b47820cf3f59f2fd5c",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0240-n16-v16-output.f32",
+      "sha256": "a525593d0078a62ee88aeae11ff92192637b8b4272f1821fde6cdf15b1cb368a",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0240-n16-v16-input.f32",
+      "sha256": "0ffecc7249c8aea82c7ae4db980959ee1939a9e79124e06c22723c98e261f783",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0224-n16-v16-output.f32",
+      "sha256": "34c8f86c76e2d59e50a895e2dfe22e0413c166e85d0527bba2fe83eba993cbed",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0224-n16-v16-input.f32",
+      "sha256": "4caf208928114268a196bd6331f2c55473e4de57e943c9108fbea1a626c11785",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0208-n16-v16-output.f32",
+      "sha256": "267db9284095fee50241c6e4eaa41b22c7cbab30617ac81fcfa5f88c5906eddf",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0208-n16-v16-input.f32",
+      "sha256": "696dd9026c7a491e9a9292cdf69d830088375beb37736913c726b148b0a385a0",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0192-n16-v16-output.f32",
+      "sha256": "efac4d788c6c920d5a447e105d0f0e4d7e91010f547d6b1eca5c8214df3c1b56",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0192-n16-v16-input.f32",
+      "sha256": "215613868b21d6e85c3e1e8bfdec6b0eaa92b8d2d2a1d478c3509fea77c04412",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0176-n16-v16-output.f32",
+      "sha256": "6a0e07a6dfd0a6e9655221790d0a7f20b04524079e3d80356925ddca87dee475",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0176-n16-v16-input.f32",
+      "sha256": "bb327eca427decace84e90584f50259751ff64fa1a9f3a88425f361abf2c3aa8",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0160-n16-v16-output.f32",
+      "sha256": "f5fa5d8dda860b19c04ebdc3288f01ae682d01a3ccc58445f5aad1b8a0bce185",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0160-n16-v16-input.f32",
+      "sha256": "2d56268b640ca59ac14509e89d2df2b3acacf57f5cafbf9595f105c549d3c6e4",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0144-n16-v16-output.f32",
+      "sha256": "4a9a08ac93f185a1339f36f0dffe0c698cfabdd27028ca0adf56bbb8c3847c42",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0144-n16-v16-input.f32",
+      "sha256": "5abb30da7de76ac9abdafb0fef940b559f82da11e123db9445c4f0430077ed11",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0128-n16-v16-output.f32",
+      "sha256": "24e860cd0ec794240116ed0cfe6876164148b060b687732949586aad94f9bcd1",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0128-n16-v16-input.f32",
+      "sha256": "804968db1b429eb05786499a525879857fbfd4de6bc000e8330170db0324b75d",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0112-n16-v16-output.f32",
+      "sha256": "ef041b7a02db9955d1155e0ce291f51b1d0edb19a4fced291b17e0b0ec854a63",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0112-n16-v16-input.f32",
+      "sha256": "7cd8975a51ab4274b4271b065424311a87a7bc7488751c331eee2048a1aed106",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0096-n16-v16-output.f32",
+      "sha256": "c08858772cb4f165092a4b40a1d6d7dfc9f590791af4fc7fa0a9b7a70008844d",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0096-n16-v16-input.f32",
+      "sha256": "430fe13c81e1e2a49ac1e30d6c2ea408e0c4b54699acffd8e4bc9c8b7141cc1e",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0080-n16-v16-output.f32",
+      "sha256": "a1ace8737da2f37cb7a28bd02a115e0e0f978f7ae8de47bf9846a7bbd2da9c19",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0080-n16-v16-input.f32",
+      "sha256": "85f83df169e2b0715a19b5cde2c1c6faa627bd7de15e76565030991929e74e8f",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0064-n16-v16-output.f32",
+      "sha256": "9256923025813ee812400d3ebe4be5c471476da436c71ddb0e8b1f579e37d553",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0064-n16-v16-input.f32",
+      "sha256": "202dccd8b6f109e9ec49340d9437c3981f0e73c5343c5433552d4c28948dbd2f",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0048-n16-v16-output.f32",
+      "sha256": "8cfef1ae1361163b86e0926901baf56586c287e3072b55c5bfdce38ba308afcf",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0048-n16-v16-input.f32",
+      "sha256": "bb9ec9a5110c6898f3c58112736e01d67f38f1ad580c522c9dc3d50439a21f5a",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0032-n16-v16-output.f32",
+      "sha256": "c43814262ef016ff3b85d2923324287b386d2616ee06cd6c0acd3b8232255980",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0032-n16-v16-input.f32",
+      "sha256": "bdcb32d4dbdc542af396ab3e0f5be0739e6c0c9e4df6bf25a1c9b40bedca5b20",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0016-n16-v16-output.f32",
+      "sha256": "ba0d98ad61a35d6704ae69e27e86231bf82c989bbe68e9b0f827029c8cd6e5b7",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0016-n16-v16-input.f32",
+      "sha256": "42a560043385bfb18866f9d6a938abd5e8c6e3dc1fb26c2be3f84171d2d04c80",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0000-n16-v16-output.f32",
+      "sha256": "efef1eb51ab078af4c858404e24d53afff93c461ca7881593d41a151c089c11f",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture/p0000-n16-v16-input.f32",
+      "sha256": "aa123a8f228234dd51e5252728dcd8bc76e5950fe2dfa6c046ae9caf5d8092e4",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0128-n16-v8-output.f32",
+      "sha256": "7006c43c9acbd9682cbf51c5b7248474e5f1c578632581f85dbc55936e0001d9",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0128-n16-v8-input.f32",
+      "sha256": "d232959f2611ff3f3d5c8b277e639f74f5c2602b3c09f5ecbd741807f1f83e2e",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0112-n16-v16-output.f32",
+      "sha256": "47ca9bdf45bd7da41ecd81f647f1273ec967e9e73df5bb887d46800c16a45326",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0112-n16-v16-input.f32",
+      "sha256": "46557873135a17a5c44ff19d774e784e786e5b47c025bb01c509711db08061f5",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0096-n16-v16-output.f32",
+      "sha256": "6370a76f920469e0f44a5d7208f3a83b435df30a23c4ae63cebf1b6c55e03300",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0096-n16-v16-input.f32",
+      "sha256": "a1088da94378924d93504ba1b827c3de50a9c9b81f4303255a9015c740640acf",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0080-n16-v16-output.f32",
+      "sha256": "1436c5f6db42a644d220d56f506b04643e17a674173f370ce505a5368d7a7502",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0080-n16-v16-input.f32",
+      "sha256": "0b1b159ad61420a89c233545118abca116f371ecffd99cb4fa5224e19069af15",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0064-n16-v16-output.f32",
+      "sha256": "7e38e8b9f6b04399390a5f1c06d30afa7c4b1e63c75ef777940bb17e195f70bc",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0064-n16-v16-input.f32",
+      "sha256": "88144a316f3b6ce6ced3e4e4af0c049605c901a90f6d904da10dbeba59171eaf",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0048-n16-v16-output.f32",
+      "sha256": "5b1b9d9c0a989d9c69970f5e13c2d38190e6baa93e22db5e0e16e3d91cb963ec",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0048-n16-v16-input.f32",
+      "sha256": "cbe0aac8c3c1b478a7e4caaa4cde2dabe114b6bfcd1dbb5342e143535f881a26",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0032-n16-v16-output.f32",
+      "sha256": "bc782381943a5335d1c431ce9a69eda56a32c284db1cef122ca1202066ff336c",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0032-n16-v16-input.f32",
+      "sha256": "c89925bff0796e54fab67bc74370f25b370237475d653bbd4f96a14805ae34db",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0016-n16-v16-output.f32",
+      "sha256": "312f78c09661e5246663a9185272ee679bd590e9d6099c0f006bd7e1747451c6",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0016-n16-v16-input.f32",
+      "sha256": "96ce73b59c780f3417c52bc3b8c7782881d3d24a5c6aa41134beb86455346f29",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0000-n16-v16-output.f32",
+      "sha256": "b4dc12ff4e1526b554fa8132da3bf6b483ff92b3b51b7debf5c9d9906187c67f",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture/p0000-n16-v16-input.f32",
+      "sha256": "aa123a8f228234dd51e5252728dcd8bc76e5950fe2dfa6c046ae9caf5d8092e4",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0384-n16-v8-output.f32",
+      "sha256": "6ce13bf652db32fd2a173386ffbbc4e963fcd632841775a0a35495506b017167",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0384-n16-v8-input.f32",
+      "sha256": "1826457b34c6a1465c0bc03931343ec9a197b84f5f319f78f4960fcd7d226138",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0368-n16-v16-output.f32",
+      "sha256": "c8bcac679688fb074c80dac5d0d34e1d8494f21a6dd24dccf569a971b6c8b25e",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0368-n16-v16-input.f32",
+      "sha256": "e64ed41ee13730d821d1cadef7dfa628793636d9bf723966ee221c67442ada9b",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0352-n16-v16-output.f32",
+      "sha256": "4c95c6b1f62d5f433103ea91eb1ea3f76f54917a590cb20c38a19ba5921d76bf",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0352-n16-v16-input.f32",
+      "sha256": "fbe7eec93a00ca692fd2b07a04bd87cd182e295c60204e473dad035b0869bc61",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0336-n16-v16-output.f32",
+      "sha256": "be841fef6029b05214a6467278c92012ec8ad3e87461ea62eb43e62c5d73d782",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0336-n16-v16-input.f32",
+      "sha256": "d9af3059e2c07a5d37183dbe424d167c13e72a54d7c27b034ceae1fb432cb8ef",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0320-n16-v16-output.f32",
+      "sha256": "3008fb64c8c68250681105397cb66b872642dbc006c9f3c4a9bcd6a8465159fc",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0320-n16-v16-input.f32",
+      "sha256": "330d797187c3ec85d0d2a7445e9975b61b37736f8be557cd1dfb208a011cc0f7",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0304-n16-v16-output.f32",
+      "sha256": "acc8349111928f3e9dc7e193158dcf8f2e9373a49b9f159021297615a6d1092b",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0304-n16-v16-input.f32",
+      "sha256": "92a1aa0e7aabed96736294dce25be70c24d224b62a357e6ca811a1d843631925",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0288-n16-v16-output.f32",
+      "sha256": "c28559c448afcf59152333729bba805e99e8944599274beb4e9c2472b08a3352",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0288-n16-v16-input.f32",
+      "sha256": "691e59ca85d9c3f25c795729b330f13563227d82e0315690ba4d7ec6eedcf75e",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0272-n16-v16-output.f32",
+      "sha256": "b0b95cdc2c23d5c9606b0db1f4b568feddd257fd860bb9964542ecf4e05d3710",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0272-n16-v16-input.f32",
+      "sha256": "9a27883e4c95364ebeb12053274e61f505a04b20db2a23f0605a2040d24f23eb",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0256-n16-v16-output.f32",
+      "sha256": "1ac2bd3e97bf922b487e6086674fa9977447de7f17812c71d7d87e1e5095637e",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0256-n16-v16-input.f32",
+      "sha256": "9c1e6ef0dd70e842d726e75e031940190324ea3feefcd10da7bca9abd610e995",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0240-n16-v16-output.f32",
+      "sha256": "5bc034b6d3cb10dbf42a685c8016a46acc842f5d7e8c8e179b7dd6d0d4d01834",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0240-n16-v16-input.f32",
+      "sha256": "09548b2f5d00a39d24a829cb6f8252425b2ad8ec336e4f0c0ef24f444dcc7d8c",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0224-n16-v16-output.f32",
+      "sha256": "99bee3c33e4e0970082a199fc04f2ff64cf8b482dc7658395bda4858219ad4b6",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0224-n16-v16-input.f32",
+      "sha256": "410e41964ef79f61950d8016c138672b63b9dcc5c094728227e0b9864eb7f971",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0208-n16-v16-output.f32",
+      "sha256": "bb91fd9774f76af3221366036a774f79bb4d158d45ce412c23052b3f2168487a",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0208-n16-v16-input.f32",
+      "sha256": "f9049aca08b056fad6dd8839f00c7527d39142a9caac019832990c1b767f9fb5",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0192-n16-v16-output.f32",
+      "sha256": "ca6d45f4e76c3a3cdce10a38c91ae356eab0f228d6662471f9006a4a759b580b",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0192-n16-v16-input.f32",
+      "sha256": "61eaff252c05fc01fa5c6de8d2cb4582842eeb08b5c0bc5e48d2d980dee58d09",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0176-n16-v16-output.f32",
+      "sha256": "39ebc3c8af6453407234b906b28205415c4c246e51781b1372c85f7c0dc9cbd8",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0176-n16-v16-input.f32",
+      "sha256": "deecd22799953775d19901ab58dd82fb166a4f37fa68ff32538c4f192370082d",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0160-n16-v16-output.f32",
+      "sha256": "68998da7dc5f1beee740078dd65fe20de91107231b651d2b10b613d9c18a7f33",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0160-n16-v16-input.f32",
+      "sha256": "1035af8b6dd30cd5b6dbcf394476e6e9cccbb827b344945087bdc0c41950a151",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0144-n16-v16-output.f32",
+      "sha256": "b9351f38b3b4164e241cde1a69a56c142adef3236d25993c905468a4b9fb1dda",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0144-n16-v16-input.f32",
+      "sha256": "87e6eb93b36ea4f003e47ba8bd937fdb79cc73c37818de3a4cf3948b9b9d224a",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0128-n16-v16-output.f32",
+      "sha256": "2a2206c8163dbddba27ad4a24850d72ee636ecffce32124a8a2a5e8e65ec59c4",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0128-n16-v16-input.f32",
+      "sha256": "1969e92766a5a9c67536b086f60252457034cbac98fa8b1065ad14b36f723dbd",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0112-n16-v16-output.f32",
+      "sha256": "087512e70bfca6ceb69d9deca4855c8cbefe60565989663e8ac48e3719319a3f",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0112-n16-v16-input.f32",
+      "sha256": "3082443b50fcec5d4375b28e77def7d9c65a0309f73b1bb54500efb218a9ff74",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0096-n16-v16-output.f32",
+      "sha256": "ceea945177f92335a1df3db9f13a6ba73fbfa2fe020f6e059f8f05fecaa3cb52",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0096-n16-v16-input.f32",
+      "sha256": "a66e3a2a9e00bda50a57b0c1ab27bc2074799fd4aec31cfcf3b092c6b5d64855",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0080-n16-v16-output.f32",
+      "sha256": "af4aae05d52b8fce7fde9cb49b78459e8dd842d3bef05620401fcf89c4d9dc25",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0080-n16-v16-input.f32",
+      "sha256": "472422c28e3c05eb550f91d6d3f880c6b2ddc7f2790000ec07ddfbe8254183c0",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0064-n16-v16-output.f32",
+      "sha256": "5d6ea56238dbee0fa0affbdb1c458fa3075de5075c3c696744b2f5c5f101e777",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0064-n16-v16-input.f32",
+      "sha256": "029e52eb94c287bbb9e33f616a8263458d619fd3a01fb26970a3ff92de69505f",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0048-n16-v16-output.f32",
+      "sha256": "7c0f3a6d76ac59e73b5bf73a97afc07f6dd4cf1ab47c3998e1e2bcb33b37f7b3",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0048-n16-v16-input.f32",
+      "sha256": "d3c0a2b5d1fe97b391a921331c8485b51c27bb3f1dcb901eb919aeb195bab0bc",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0032-n16-v16-output.f32",
+      "sha256": "bc782381943a5335d1c431ce9a69eda56a32c284db1cef122ca1202066ff336c",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0032-n16-v16-input.f32",
+      "sha256": "c89925bff0796e54fab67bc74370f25b370237475d653bbd4f96a14805ae34db",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0016-n16-v16-output.f32",
+      "sha256": "312f78c09661e5246663a9185272ee679bd590e9d6099c0f006bd7e1747451c6",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0016-n16-v16-input.f32",
+      "sha256": "96ce73b59c780f3417c52bc3b8c7782881d3d24a5c6aa41134beb86455346f29",
+      "bytes": 3856384
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0000-n16-v16-output.f32",
+      "sha256": "b4dc12ff4e1526b554fa8132da3bf6b483ff92b3b51b7debf5c9d9906187c67f",
+      "bytes": 90112
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture/p0000-n16-v16-input.f32",
+      "sha256": "aa123a8f228234dd51e5252728dcd8bc76e5950fe2dfa6c046ae9caf5d8092e4",
+      "bytes": 3856384
+    }
+  ],
+  "estimated_ranges_bad": [
+    {
+      "name": "c1280-original-s64-d64-0-capture",
+      "case": "s64-d64-0",
+      "variant": "c1280-original",
+      "file": "p0000-n16-v16-input.f32",
+      "ranges": [
+        {
+          "node": "b0_reshape_115",
+          "fl": 12,
+          "maxabs": 2035.3719482421875,
+          "range_abs": 7.999755859375,
+          "saturated_elements": 5,
+          "elements": 77824,
+          "affected_rows": 1
+        },
+        {
+          "node": "b0_fullconnect_116",
+          "fl": 14,
+          "maxabs": 913.0418090820312,
+          "range_abs": 1.99993896484375,
+          "saturated_elements": 512,
+          "elements": 14336,
+          "affected_rows": 1
+        },
+        {
+          "node": "b1_reshape_115",
+          "fl": 11,
+          "maxabs": 1180.7725830078125,
+          "range_abs": 15.99951171875,
+          "saturated_elements": 2,
+          "elements": 77824,
+          "affected_rows": 1
+        },
+        {
+          "node": "b1_fullconnect_116",
+          "fl": 13,
+          "maxabs": 968.1443481445312,
+          "range_abs": 3.9998779296875,
+          "saturated_elements": 112,
+          "elements": 14336,
+          "affected_rows": 1
+        }
+      ]
+    },
+    {
+      "name": "c1280-original-s128-d256-0-capture",
+      "case": "s128-d256-0",
+      "variant": "c1280-original",
+      "file": "p0000-n16-v16-input.f32",
+      "ranges": [
+        {
+          "node": "b0_reshape_115",
+          "fl": 12,
+          "maxabs": 2035.3719482421875,
+          "range_abs": 7.999755859375,
+          "saturated_elements": 5,
+          "elements": 77824,
+          "affected_rows": 1
+        },
+        {
+          "node": "b0_fullconnect_116",
+          "fl": 14,
+          "maxabs": 913.0418090820312,
+          "range_abs": 1.99993896484375,
+          "saturated_elements": 512,
+          "elements": 14336,
+          "affected_rows": 1
+        },
+        {
+          "node": "b1_reshape_115",
+          "fl": 11,
+          "maxabs": 1180.7725830078125,
+          "range_abs": 15.99951171875,
+          "saturated_elements": 2,
+          "elements": 77824,
+          "affected_rows": 1
+        },
+        {
+          "node": "b1_fullconnect_116",
+          "fl": 13,
+          "maxabs": 968.1443481445312,
+          "range_abs": 3.9998779296875,
+          "saturated_elements": 112,
+          "elements": 14336,
+          "affected_rows": 1
+        }
+      ]
+    },
+    {
+      "name": "c1280-i16-range16-l2-s64-d64-0-capture",
+      "case": "s64-d64-0",
+      "variant": "c1280-i16-range16-l2",
+      "file": "p0000-n16-v16-input.f32",
+      "ranges": [
+        {
+          "node": "b0_reshape_115",
+          "fl": 12,
+          "maxabs": 2035.3719482421875,
+          "range_abs": 7.999755859375,
+          "saturated_elements": 5,
+          "elements": 77824,
+          "affected_rows": 1
+        },
+        {
+          "node": "b0_fullconnect_116",
+          "fl": 14,
+          "maxabs": 913.0418090820312,
+          "range_abs": 1.99993896484375,
+          "saturated_elements": 512,
+          "elements": 14336,
+          "affected_rows": 1
+        },
+        {
+          "node": "b1_reshape_115",
+          "fl": 11,
+          "maxabs": 1180.7725830078125,
+          "range_abs": 15.99951171875,
+          "saturated_elements": 2,
+          "elements": 77824,
+          "affected_rows": 1
+        },
+        {
+          "node": "b1_fullconnect_116",
+          "fl": 13,
+          "maxabs": 968.1443481445312,
+          "range_abs": 3.9998779296875,
+          "saturated_elements": 112,
+          "elements": 14336,
+          "affected_rows": 1
+        }
+      ],
+      "actual_hidden_vs_original": {
+        "relative_l2": 0.9939482359250161,
+        "max_abs": 1893.5625,
+        "exact": false
+      },
+      "actual_input_vs_original": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "exact": true
+      },
+      "actual_kv_vs_original": {
+        "relative_l2": 0.016190620534123634,
+        "max_abs": 2.203125,
+        "exact": false
+      }
+    },
+    {
+      "name": "c1280-i16-range16-l2-s128-d256-0-capture",
+      "case": "s128-d256-0",
+      "variant": "c1280-i16-range16-l2",
+      "file": "p0000-n16-v16-input.f32",
+      "ranges": [
+        {
+          "node": "b0_reshape_115",
+          "fl": 12,
+          "maxabs": 2035.3719482421875,
+          "range_abs": 7.999755859375,
+          "saturated_elements": 5,
+          "elements": 77824,
+          "affected_rows": 1
+        },
+        {
+          "node": "b0_fullconnect_116",
+          "fl": 14,
+          "maxabs": 913.0418090820312,
+          "range_abs": 1.99993896484375,
+          "saturated_elements": 512,
+          "elements": 14336,
+          "affected_rows": 1
+        },
+        {
+          "node": "b1_reshape_115",
+          "fl": 11,
+          "maxabs": 1180.7725830078125,
+          "range_abs": 15.99951171875,
+          "saturated_elements": 2,
+          "elements": 77824,
+          "affected_rows": 1
+        },
+        {
+          "node": "b1_fullconnect_116",
+          "fl": 13,
+          "maxabs": 968.1443481445312,
+          "range_abs": 3.9998779296875,
+          "saturated_elements": 112,
+          "elements": 14336,
+          "affected_rows": 1
+        }
+      ],
+      "actual_hidden_vs_original": {
+        "relative_l2": 0.9939482359250161,
+        "max_abs": 1893.5625,
+        "exact": false
+      },
+      "actual_input_vs_original": {
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "exact": true
+      },
+      "actual_kv_vs_original": {
+        "relative_l2": 0.016190620534123634,
+        "max_abs": 2.203125,
+        "exact": false
+      }
+    }
+  ],
+  "limitations": [
+    "Only 2 cost prompts and 2 system lengths; no natural quality or audio/RAG in this diagnostic.",
+    "68 windows are 4 trajectories (9/25/9/25), not68 independent prompts.",
+    "Internal down activations are FP32 source-interpreter estimates on real NPU captured external inputs, not direct internal NPU reads.",
+    "Integer saturation counts apply a float nearest-even code-range check; hardware rounding internals not measured. Orders-of-magnitude overflow does not depend on half-step rounding here.",
+    "Last valid8 chunk capture contains16 physical rows; headline max/range includespadding. First-row outlier is in fully valid firstsystem chunk, unaffected by this caveat.",
+    "Candidate later windows include altered L3 KV history; they are not same-input local node A/B comparisons.",
+    "Capture/control final4-step logits exactly equal does not establish capture timing is free; all timing is ineligible.",
+    "Firstsystem-chunk original-graph route is a causal experiment, not yet quality-qualified replacement."
+  ],
+  "source_diff_vs_frozen_runtime": [
+    "batch_prefill.h"
+  ],
+  "source_baseline_path": "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-nextopt-20261025/runtime-combined-v2",
+  "internal_estimate_audit": {
+    "algorithm_source_reviewed": true,
+    "all68_fp32_forwards_independently_reexecuted": false,
+    "external_io_actual_hashes_and_errors_independently_recomputed": true
+  }
+}

@@ -1,3 +1,26 @@
+## 2026-10-26：固定suffix分组诊断通过，整模矩阵准备完成
+
+`suffixgroup-firstfix` 已rc0，3driver0；修复suffixgroup与修复nongroup 8份完整logits同字节，4自然同原图，残余固定feedback logits relL2约2.9%。独立审计通过。只证明4条开发样例恢复，不作完整准确率或热延迟声明。
+
+下一实验 `fulli16-suffixfix/controller_fulli16.py suffixfixed-c1280-aba-r1 --execute` 尚需确认独立源审后启动；72perf输出32、144natural(旧24+新24每组)、24diag×4；system64/128＋动态正文64/128/192/256＋动态模板8，同C1280 A-B-A，语音/RAG常驻。额外原L2 SHA明确检查，候选81次首块/固定suffix标记断言。旧 `fulli16-firstfix` 已代码raise禁止，勿混淆目录。
+
+## 2026-10-26：首块修复已因果验证；固定分组验证进行中
+
+- `first-chunk-fp16-diagnostic` rc0，4定位案例固定logits relL2从46–53%降到约2.9%，16/16argmax、4/4自然回复恢复原图；后退方向/距离恢复，但原基线仍省略“缓慢”，不是全面质量合格。见REPORT与独立结果审计。
+- `first-chunk-grouped` detach/rebuild尝试rc1：SDK -9 表示网络销毁group后仍不能独立执行。失败已保留。`fulli16-firstfix/controller_fulli16.py`显式raise，禁止启动准备好的大矩阵。
+- 当前板端唯一控制器 `suffixgroup-firstfix/controller.py` WSL PID20417，run suffixgroup-firstfix-r1。永久分组：block0、block1单独执行，suffix10固定group。只读WSL controller.json/log，确认PID/终态后再行动；未确认前不启动大矩阵、不绕过锁轮询板卡。
+- C512 36图已完成实际端口审计（port-audit.json），权重/量化不变，尚未板端部署；2GiBquery137失败证据保留，8GiB全部通过。
+- 目标静态64/128、动态正文64–256、完整prefill和TTFT<=100ms仍未达成。准备的大矩阵含旧24+新冻结24质量案例，需替换已拒绝runtime并重新预检/源码审计，不能直接运行。
+
+## 2026-10-26：I16整模结果与首chunk异常值定位（进行中）
+
+- `research/intern-prefill100-20261025/fulli16-range16/results/fulli16-range16-c1280-aba-r1/` 已rc0回收，72性能/72自然/24诊断，3次driver0；同C1280首token约降33%，decode仍约14.6tokens/s，尚未达100ms。
+- 输入固定64/128（正文59/123+5）；动态正文64/128/192/256+模板8，新prefill72/136/200/264；性能输出32固定feedback。候选不能晋升：完整logits漂移大，2条取消前进后的后退场景被RAG召回为前进。
+- 已纠正尾处理口径：当前72性能请求全部scalar_prompt_tokens=0，使用padded16处理尾8；true8运行时目前仅支持capacity256。不要按“省8次scalar decode”估计收益。
+- `actual-npu-range-diagnostic` 已完成8worker/136IO捕获，4组control/capture logits字节同，8driver0。首system chunk在相同11输入下hidden差99.39%；真实输入上的FP32解释器估计down首行峰值远超I16范围，其余64窗口无这四项越界。见REPORT及独立审计，内部值不是NPU直接测量。
+- `first-chunk-fp16-diagnostic/controller.py` WSL PID14259正在因果诊断：只在pos0保留原L2，后续I16；不作性能结论，不绕过锁轮询板卡。只读controller.json/log。检查真实PID及结果后继续，不重复启动。
+- `capacity512-range16` 36个图已编译；独立SDK实际端口审计PID14551运行。2GiB容器query退出137保留证据，8GiB重试；无板端部署/质量合格声明。
+
 ## 2026-10-26 正在运行：完整模型I16 range16 A-B-A
 
 `research/intern-prefill100-20261025/fulli16-range16/controller_fulli16.py` WSL PID8417，run `fulli16-range16-c1280-aba-r1`，双锁+3600s deadline。只读WSL controller JSON/log；勿板端并发轮询、勿重启。WSL keeper539。原图→修复I16→原图，72固定反馈32输出性能、72旧集自然输出、24×4全词表诊断。相同静态64/128、动态正文64/128/192/256另8模板。合成语音/RAG常驻，但ASR未触发冻结输入。源审计无阻断。等待rc0回收后用analyze_fulli16.py，并由审计智能体独立复核。未有整模I16速度结论。

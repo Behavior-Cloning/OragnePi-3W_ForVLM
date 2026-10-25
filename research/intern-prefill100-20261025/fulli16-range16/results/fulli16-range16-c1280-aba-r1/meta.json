@@ -1,0 +1,28 @@
+{
+  "status": "complete",
+  "audio": {
+    "frames": 68351,
+    "overruns": 3368,
+    "max_lag_s": 0.6112281649839133,
+    "max_compute_s": 0.6085040630132426,
+    "stage_seconds": {
+      "denoise": 255.28383013693383,
+      "vad": 26.00183879537508,
+      "kws": 78.15518755523954,
+      "stream_asr": 63.20778681902448
+    },
+    "queue": 1,
+    "error": null
+  },
+  "background_errors": [],
+  "scope": "Intern NPU text decoder + resident synthetic speech frontend and RAG; no image encoder, microphone or physical motors",
+  "timing": "C1280 A-B-A; each variant core24 fixed feedback32; natural24 separate; diagnostic8x4 excluded from timing",
+  "input_scope": "body64/128/192/256 +8 template, static64/128; boundary20 frozen but not run",
+  "counts_expected": {
+    "variants": 3,
+    "performance": 72,
+    "quality": 72,
+    "diagnostic": 24
+  },
+  "parity": "exact tokens/logits versus first configured runtime; not an FP32 accuracy oracle"
+}

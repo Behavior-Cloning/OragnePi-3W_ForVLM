@@ -729,3 +729,7 @@ vision-repack-r1/REPORT.md：同binary重排off/on/off，224→64从4.28s降2.26
 ## 常驻视觉＋NPU语言端到端 r2
 
 见research/intern-vlm-quality-20261027/resident-vlm-r2/REPORT.md。r1加载可用内存42.5MiB触发保护，0请求；清理已逐SHA归档的225.9MB临时ViT矩阵副本后r2同阈值完成12热请求，两个模型各只加载一次。JPEG→首token P50 2.615s、完整回答3.071s；视觉2.247s、语言首token0.309s、decode16.57tok/s；最高59.83C，整机CPU P50 25.68%，可用内存最低197MiB，测量期swap增量0。system30+5=35/reuse32；动态图64+文5–9，模板11/new83–87；无图像或动态缓存。无音频/RAG/视觉NPU全塔/长测资格；竹子错误扩写与截断未解决。当前无后台测试。
+
+## ViT完整24块NPU与单层诊断
+
+见research/intern-vlm-quality-20261027/vit-full-r1/REPORT.md。24块1.833s（NPU1.307s，主机转换同步0.526s），最终hidden误差83/88%，质量失败。第14层正确参考输入也有约100%误差，非单纯累积；单层W8A16 API54.4→49.8ms，不能外推全塔。非线性FP16诊断编译unsupported失败。stem/projector已编译未板测；112保留64路线不删除。所有板测关闭driver0；无后台任务，未推广默认。

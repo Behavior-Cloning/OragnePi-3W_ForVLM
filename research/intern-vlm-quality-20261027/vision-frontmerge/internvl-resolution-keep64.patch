@@ -1,0 +1,58 @@
+--- a/tools/mtmd/models/internvl.cpp
++++ b/tools/mtmd/models/internvl.cpp
+@@ -23,10 +23,25 @@
+ 
+     const bool front = opi_merge_mode("front");
+     const bool late = opi_merge_mode("late");
+-    GGML_ASSERT(n_patches_x == 32 && n_patches_y == 32);
++    const bool keep64 = opi_merge_mode("keep64");
++    GGML_ASSERT(n_patches_x == n_patches_y && n_patches_x % 2 == 0);
++    GGML_ASSERT(!(front || late) || n_patches_x == 32);
+     const int used_patches = front ? n_patches / 4 : n_patches;
+     const int n_pos = used_patches + 1;
+     ggml_tensor * pos = model.position_embeddings;
++    const int old_grid = (int)std::sqrt(pos->ne[1] - 1);
++    GGML_ASSERT(old_grid * old_grid + 1 == pos->ne[1]);
++    if (n_patches_x != old_grid) {
++        auto * cls_pos = ggml_view_2d(ctx0, pos, n_embd, 1, pos->nb[1], old_grid * old_grid * pos->nb[1]);
++        auto * grid = ggml_view_2d(ctx0, pos, n_embd, old_grid * old_grid, pos->nb[1], 0);
++        grid = ggml_reshape_3d(ctx0, ggml_cont(ctx0, grid), n_embd, old_grid, old_grid);
++        grid = ggml_permute(ctx0, grid, 2, 0, 1, 3);
++        grid = ggml_interpolate(ctx0, grid, n_patches_x, n_patches_y, n_embd, 1, GGML_SCALE_MODE_BICUBIC);
++        grid = ggml_permute(ctx0, grid, 1, 2, 0, 3);
++        grid = ggml_cont_2d(ctx0, grid, n_embd, n_patches);
++        pos = ggml_concat(ctx0, grid, cls_pos, 1);
++    }
++
+     ggml_tensor * inp = build_inp();
+ 
+     if (front) {
+@@ -61,8 +76,14 @@
+         cur->nb[1], cur->nb[2], 0);
+     cur = ggml_cont(ctx0, cur);
+ 
++    // keep64 is an UNTRAINED weight-reuse adapter: retain all spatial tokens,
++    // repeat each token's channels to match the old projector's 4*D input.
++    // This changes no token count and is NOT the native trained projector path.
++    if (keep64) {
++        cur = ggml_repeat_4d(ctx0, cur, n_embd * 4, used_patches, n_batch, 1);
++        cur = ggml_reshape_3d(ctx0, cur, n_embd * 4, used_patches, n_batch);
++    } else {
+     // pixel shuffle
+-    {
+         const int scale_factor = model.hparams.n_merge;
+         const int bsz    = n_batch;
+         const int height = front ? n_patches_y / 2 : n_patches_y;
+--- a/tools/mtmd/clip.cpp
++++ b/tools/mtmd/clip.cpp
+@@ -4146,6 +4146,10 @@
+     int n_patches = (img->nx() / patch_size) * (img->ny() / patch_size);
+     // Fixed-resolution front/late compression experiments; no change to other models.
+     const char * merge_mode = std::getenv("OPI_VISION_MERGE");
++    if (ctx->proj_type() == PROJECTOR_TYPE_INTERNVL && merge_mode && std::strcmp(merge_mode, "keep64") == 0) {
++        return n_patches; // keep every spatial token; 112x112 => 64
++    }
++
+     if (ctx->proj_type() == PROJECTOR_TYPE_INTERNVL && merge_mode &&
+         (std::strcmp(merge_mode, "front") == 0 || std::strcmp(merge_mode, "late") == 0)) {
+         GGML_ASSERT(img->nx() == 448 && img->ny() == 448);

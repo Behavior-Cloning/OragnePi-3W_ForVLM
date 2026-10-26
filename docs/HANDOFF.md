@@ -686,3 +686,20 @@ C256/C448 full 24-layer board smoke evidence is in `research/intern-prefill100-2
 当前完整模型资源优先性能候选仍为affinity-m64-r6；r7计时诊断和r8两层局部试验均不改变最优指针。baseline、原量化验证、逐格最快观测、质量合格最优（当前未指定）及生产默认分别记录在VERSION_MANIFEST.json。verify_versions.py本次再次通过15份报告提交绑定、195条token记录、93份full-logits、7组矩阵核查。默认未改，500ms长动态输入目标仍未完成。
 
 本收据证明c96d22a代码/报告快照；收据后续提交本身的最终远端校验保存在F:/Files/OPi-Lab/transfers/github-sync-verified.json，避免在同一文件内自引用提交号。Mac仅临时bare relay与报告副本，工程代码始终在Windows编辑。
+
+
+## 2026-10-27 视觉token压缩、112保留64与CPU Q8首轮
+
+权威新任务research/intern-vlm-quality-20261027，读VISION_TOKEN_COMPRESSION.md、vision-frontmerge/SCREEN_REPORT.md、vision-frontmerge/Q8_REPORT.md、VERSION_TRACKING.json、ROOFLINE.md。文本NPU r6和默认未改。
+
+已测CPU6/7两线程、配套F16 mmproj：448原生24.3–24.6s/256token；448前merge4.066s/64但6题1对；224原生4.011s/64且5/6；112保留64经通道重复适配0.915s但0/6；448后pool24.308s且核心事实6/6（一条输出截断）。2图6题只是开发筛选，不能称可靠。112 stride1邻域投影后续host筛选仍0/6，未部署ARM。
+
+视觉Q8仅改144个ViT线性矩阵，其余298张量保持；619.9MB→336.8MB。严格224前后对照FP16热P50 4.002s→Q8 4.294s（慢7.28%）；RSS约612.4→341.5MiB；同6题均5/6。只标内存候选；Q8-448后pool26.712s、6/6。不能声称量化已提速。当前Vision均CPU、语言VQA参考在WSL Q8，尚无端到端板端NPU VQA。system30+5=35，图像64+问题5–9，模板/边界11；总115–119，CPU参考每题清KV所以reuse0。
+
+板端run vision-frontmerge-r4和vision-q8-r1已完成并回收；不重复启动。112/224实际输入尺寸，未放大回448。前序r2输出buffer为空导致embedding回收失败已剔除；r4修复。Q8权重在F:/Files/OPi-Lab/models/internvl3-1b-vision及板/opt/opi-vlm/experiments/vision-q8-r1/encoder-q8.gguf；source SHA89e15ad8...，Q8 SHA65c3352c...，全SHA见manifest。板卡TF可用剩余约200MB，进一步部署先核查空间，保留原基线/已验证源。
+
+源码仍只在Windows编辑；Mac报告镜像目录：/Users/yejunyin/Documents/ChatGPT/小机器人开发/reports/intern-vlm-quality-20261027/（本轮传输并核对MAC_REPORT_FILES.json）。CPU视觉编译依赖在/opt/opi-lab/builds/intern-frontmerge-20261027-r1/source，父repo Git hash不是llama.cpp版本；dependency-source-sha256和patch、snapshots/board-r4冻结测量源。当前build-host/vision-worker已含neighbor候选，不能拿它冒充board-r4 binary；板r4的SHA64050efb...及source snapshot保持。未开启后台测试。
+
+理论估算ROOFLINE.md基于官方3TOPS@INT8/LPDDR5最高19.2GB/s和真实语言维度；理想W8短输入TTFT下界26–33ms、decode带宽上界约39tok/s，而无限带宽算力上界约3000tok/s。这是条件性乐观估算，当前混合NPU真实流量/吞吐待测，不能将其当已实现指标。
+
+下一步：Q4/CPU kernel profiling、NPU vision export和激活校准；修复112/前merge质量；接真实视觉embedding到NPU r6及system-only cache；扩充VQA并测试语音并发。

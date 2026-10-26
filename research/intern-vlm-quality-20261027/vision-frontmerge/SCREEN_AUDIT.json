@@ -1,0 +1,176 @@
+{
+  "phases": [
+    {
+      "phase": "native-before",
+      "vit_patch_tokens": 1024,
+      "image_tokens": 256,
+      "process_load_ms": 1967.626151,
+      "warm_n": 2,
+      "warm_P50_ms": 24619.3533495,
+      "warm_min_ms": 24615.116956,
+      "warm_max_ms": 24623.589743,
+      "max_RSS_MiB": 697.90234375,
+      "max_temp_C": 63.24,
+      "pid": 682540,
+      "correct_core_fact_out_of_6": 6
+    },
+    {
+      "phase": "front",
+      "vit_patch_tokens": 256,
+      "image_tokens": 64,
+      "process_load_ms": 551.070809,
+      "warm_n": 2,
+      "warm_P50_ms": 4065.9104415,
+      "warm_min_ms": 4063.986704,
+      "warm_max_ms": 4067.834179,
+      "max_RSS_MiB": 622.52734375,
+      "max_temp_C": 64.976,
+      "pid": 682601,
+      "correct_core_fact_out_of_6": 1
+    },
+    {
+      "phase": "late",
+      "vit_patch_tokens": 1024,
+      "image_tokens": 64,
+      "process_load_ms": 435.945218,
+      "warm_n": 2,
+      "warm_P50_ms": 24308.497163,
+      "warm_min_ms": 24301.947655,
+      "warm_max_ms": 24315.046671,
+      "max_RSS_MiB": 697.40234375,
+      "max_temp_C": 67.201,
+      "pid": 682611,
+      "correct_core_fact_out_of_6": 6
+    },
+    {
+      "phase": "native224",
+      "vit_patch_tokens": 256,
+      "image_tokens": 64,
+      "process_load_ms": 429.807358,
+      "warm_n": 2,
+      "warm_P50_ms": 4011.2782005,
+      "warm_min_ms": 4009.727881,
+      "warm_max_ms": 4012.82852,
+      "max_RSS_MiB": 612.40234375,
+      "max_temp_C": 69.266,
+      "pid": 682651,
+      "correct_core_fact_out_of_6": 5
+    },
+    {
+      "phase": "keep112",
+      "vit_patch_tokens": 64,
+      "image_tokens": 64,
+      "process_load_ms": 430.39786,
+      "warm_n": 2,
+      "warm_P50_ms": 915.2897310000001,
+      "warm_min_ms": 915.139501,
+      "warm_max_ms": 915.439961,
+      "max_RSS_MiB": 605.65234375,
+      "max_temp_C": 68.735,
+      "pid": 682662,
+      "correct_core_fact_out_of_6": 0
+    },
+    {
+      "phase": "native-after",
+      "vit_patch_tokens": 1024,
+      "image_tokens": 256,
+      "process_load_ms": 431.485198,
+      "warm_n": 2,
+      "warm_P50_ms": 24334.4053405,
+      "warm_min_ms": 24332.032038,
+      "warm_max_ms": 24336.778643,
+      "max_RSS_MiB": 698.02734375,
+      "max_temp_C": 71.331,
+      "pid": 682667
+    }
+  ],
+  "numerical_checks": {
+    "native_repeat_0": true,
+    "native_repeat_1": true,
+    "native_repeat_2": true,
+    "late_pool_max_abs_1": 0.0,
+    "late_pool_max_abs_2": 0.0
+  },
+  "resources": {
+    "samples": 492,
+    "max_temperature_c": 71.331,
+    "max_process_RSS_MiB": 698.02734375,
+    "min_MemAvailable_MiB": 1513.0546875,
+    "system_cpu_8core_percent_median": 25.547445255474454,
+    "system_cpu_8core_percent_max": 30.392156862745097,
+    "swap_used_MiB_min": 2926.578125,
+    "swap_used_MiB_max": 2926.58203125
+  },
+  "quality_scope": "2 real example images / 6 easy development questions; WSL CPU Q8 language reference; no end-to-end board NPU VQA yet; not held-out validation",
+  "manual_scores_in_frozen_case_order": {
+    "native-before": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "front": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "late": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "native224": [
+      1,
+      0,
+      1,
+      1,
+      1,
+      1
+    ],
+    "keep112": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "quality_qualified": false,
+  "default_changed": false,
+  "vision_quantization": "F16 linear weights, F32 metadata/norm/etc; no Q8 vision test yet",
+  "source_binary": {
+    "state": "compiled_unvalidated",
+    "source_tree": "/opt/opi-lab/builds/intern-frontmerge-20261027-r1/source",
+    "worker_source_sha256": "2508524ff92a24bd39fd795d77ec2f0533420e1176325a26e5407006bc76bf09",
+    "variants": [
+      "native448",
+      "front448",
+      "late448",
+      "native224",
+      "keep64-112-untrained-projector-adapter"
+    ],
+    "source_patch_sha256": "7c1da9abf7e8252381d13653f8fedef75b93d8d8d0c433c6312e3a405b56b6c6",
+    "arm": {
+      "binary": "/opt/opi-lab/builds/intern-frontmerge-20261027-r1/build-arm/vision-worker",
+      "bytes": 2663664,
+      "sha256": "64050efbd9b931c3e511e2090ba09cce458dee3491c57ec2e88a4d169b349518"
+    },
+    "host": {
+      "binary": "/opt/opi-lab/builds/intern-frontmerge-20261027-r1/build-host/vision-worker",
+      "bytes": 3262936,
+      "sha256": "67d11f940017da4d2843cb3551329680ee6edb4cbcb41f79cc1aa24251dca927"
+    }
+  },
+  "VQA_all_same_system_tokens": [
+    35
+  ]
+}

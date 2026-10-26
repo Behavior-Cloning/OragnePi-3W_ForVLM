@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.19)
+project(opi_vision_worker LANGUAGES C CXX)
+add_subdirectory(${LLAMA_SOURCE} llama)
+add_executable(vision-worker worker.cpp)
+target_include_directories(vision-worker PRIVATE ${LLAMA_SOURCE}/vendor)
+target_link_libraries(vision-worker PRIVATE mtmd)
+target_compile_features(vision-worker PRIVATE cxx_std_17)
+
+add_executable(vqa-reference vqa_reference.cpp)
+target_include_directories(vqa-reference PRIVATE ${LLAMA_SOURCE}/vendor)
+target_link_libraries(vqa-reference PRIVATE llama)
+target_compile_features(vqa-reference PRIVATE cxx_std_17)

@@ -1,0 +1,117 @@
+{
+  "assumptions": "Ideal all-W8 matrix weights; INT8 peak eligibility assumed; NOT actual mixed-precision r6 performance; 32bit LPDDR5 at max 4800MT/s is SoC spec ceiling, not measured board bandwidth",
+  "decoder_linear_weight_count": 357826560,
+  "output_head_weight_count": 135899904,
+  "input_embedding_not_streamed_each_decode": 135899904,
+  "peak_INT8_ops_s": 3000000000000.0,
+  "theoretical_bus_bytes_s": 19200000000.0,
+  "prefill": [
+    {
+      "system_body": 27,
+      "system_template": 5,
+      "system_total": 32,
+      "dynamic_body": 32,
+      "dynamic_template": 8,
+      "actual_new": 40,
+      "reused": 32,
+      "output_tokens": 1,
+      "ideal_MAC": 14539279104.0,
+      "INT8_3TOPS_compute_only_lower_bound_ms": 9.692852736,
+      "ideal_W8_weights_only_bandwidth_lower_bound_ms": 25.71492,
+      "naive_perquery_KV_read_bytes_not_an_unavoidable_minimum": 25313280
+    },
+    {
+      "system_body": 27,
+      "system_template": 5,
+      "system_total": 32,
+      "dynamic_body": 64,
+      "dynamic_template": 8,
+      "actual_new": 72,
+      "reused": 32,
+      "output_tokens": 1,
+      "ideal_MAC": 26111527680.0,
+      "INT8_3TOPS_compute_only_lower_bound_ms": 17.40768512,
+      "ideal_W8_weights_only_bandwidth_lower_bound_ms": 25.71492,
+      "naive_perquery_KV_read_bytes_not_an_unavoidable_minimum": 59719680
+    },
+    {
+      "system_body": 27,
+      "system_template": 5,
+      "system_total": 32,
+      "dynamic_body": 128,
+      "dynamic_template": 8,
+      "actual_new": 136,
+      "reused": 32,
+      "output_tokens": 1,
+      "ideal_MAC": 49388145408.0,
+      "INT8_3TOPS_compute_only_lower_bound_ms": 32.925430272,
+      "ideal_W8_weights_only_bandwidth_lower_bound_ms": 25.71492,
+      "naive_perquery_KV_read_bytes_not_an_unavoidable_minimum": 166281216
+    },
+    {
+      "system_body": 59,
+      "system_template": 5,
+      "system_total": 64,
+      "dynamic_body": 32,
+      "dynamic_template": 8,
+      "actual_new": 40,
+      "reused": 64,
+      "output_tokens": 1,
+      "ideal_MAC": 14594329344.0,
+      "INT8_3TOPS_compute_only_lower_bound_ms": 9.729552896000001,
+      "ideal_W8_weights_only_bandwidth_lower_bound_ms": 25.71492,
+      "naive_perquery_KV_read_bytes_not_an_unavoidable_minimum": 41041920
+    },
+    {
+      "system_body": 59,
+      "system_template": 5,
+      "system_total": 64,
+      "dynamic_body": 64,
+      "dynamic_template": 8,
+      "actual_new": 72,
+      "reused": 64,
+      "output_tokens": 1,
+      "ideal_MAC": 26210618112.0,
+      "INT8_3TOPS_compute_only_lower_bound_ms": 17.473745408,
+      "ideal_W8_weights_only_bandwidth_lower_bound_ms": 25.71492,
+      "naive_perquery_KV_read_bytes_not_an_unavoidable_minimum": 88031232
+    },
+    {
+      "system_body": 59,
+      "system_template": 5,
+      "system_total": 64,
+      "dynamic_body": 128,
+      "dynamic_template": 8,
+      "actual_new": 136,
+      "reused": 64,
+      "output_tokens": 1,
+      "ideal_MAC": 49575316224.0,
+      "INT8_3TOPS_compute_only_lower_bound_ms": 33.050210816,
+      "ideal_W8_weights_only_bandwidth_lower_bound_ms": 25.71492,
+      "naive_perquery_KV_read_bytes_not_an_unavoidable_minimum": 219758592
+    }
+  ],
+  "decode": [
+    {
+      "context": 64,
+      "operations": 992957952,
+      "INT8_3TOPS_infinite_bandwidth_tok_s": 3021.2759704048376,
+      "ideal_W8_min_weight_plus_KV_bytes": 494525184,
+      "LPDDR5_spec_W8_bandwidth_tok_s": 38.82512078495076
+    },
+    {
+      "context": 128,
+      "operations": 998462976,
+      "INT8_3TOPS_infinite_bandwidth_tok_s": 3004.6181702384924,
+      "ideal_W8_min_weight_plus_KV_bytes": 495311616,
+      "LPDDR5_spec_W8_bandwidth_tok_s": 38.763476122473975
+    },
+    {
+      "context": 256,
+      "operations": 1009473024,
+      "INT8_3TOPS_infinite_bandwidth_tok_s": 2971.8476162073252,
+      "ideal_W8_min_weight_plus_KV_bytes": 496884480,
+      "LPDDR5_spec_W8_bandwidth_tok_s": 38.64077219719159
+    }
+  ]
+}

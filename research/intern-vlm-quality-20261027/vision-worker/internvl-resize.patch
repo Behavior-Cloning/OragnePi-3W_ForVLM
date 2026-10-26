@@ -1,0 +1,33 @@
+--- a/tools/mtmd/models/internvl.cpp
++++ b/tools/mtmd/models/internvl.cpp
+@@ -18,11 +18,29 @@
+         ? NORM_TYPE_RMS // 6B ViT (Used by InternVL 2.5/3 - 26B, 38B, 78B)
+         : NORM_TYPE_NORMAL; // 300M ViT (Used by all smaller InternVL models)
+ 
++    // GGUF stores CLS last. Resize only the patch grid using the official
++    // bicubic/align_corners=false convention; leave the 448 graph unchanged.
++    ggml_tensor * pos = model.position_embeddings;
++    const int old_grid = (int)std::sqrt(pos->ne[1] - 1);
++    GGML_ASSERT(old_grid * old_grid + 1 == pos->ne[1]);
++    GGML_ASSERT(n_patches_x == n_patches_y && n_patches_x % 2 == 0);
++    if (n_patches_x != old_grid) {
++        auto * cls_pos = ggml_view_2d(ctx0, pos, n_embd, 1, pos->nb[1], old_grid * old_grid * pos->nb[1]);
++        auto * grid = ggml_view_2d(ctx0, pos, n_embd, old_grid * old_grid, pos->nb[1], 0);
++        grid = ggml_cont(ctx0, grid);
++        grid = ggml_reshape_3d(ctx0, grid, n_embd, old_grid, old_grid);
++        grid = ggml_permute(ctx0, grid, 2, 0, 1, 3);
++        grid = ggml_interpolate(ctx0, grid, n_patches_x, n_patches_y, n_embd, 1, GGML_SCALE_MODE_BICUBIC);
++        grid = ggml_permute(ctx0, grid, 1, 2, 0, 3);
++        grid = ggml_cont_2d(ctx0, grid, n_embd, n_patches);
++        pos = ggml_concat(ctx0, grid, cls_pos, 1);
++    }
++
+     ggml_tensor * cur = build_vit(
+                             inp, n_pos,
+                             norm_t,
+                             hparams.ffn_op,
+-                            model.position_embeddings,
++                            pos,
+                             nullptr);
+ 
+     // remove CLS token

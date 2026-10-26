@@ -117,7 +117,7 @@ for z in F['diagnostics']:
 assert F['fixed_feedback_equal']['compact']==38 and len(F['closed'])==3 and all(x['metrics']['driver_bytes']==0 for x in F['closed'])
 assert F['resources']['compact']['available_MiB']['min']<128 and F['resources']['all']['npu_frequency_hz']==[1008000000]
 assert not v['default'] and not v['quality_qualified'] and v['kind']=='evaluated-longinput-gains-memory-not-promoted'
-assert M['selections']['latest_evaluated_candidate']['id']=='affinity-m64-r6' and M['selections']['performance_candidate']['id']=='affinity-m64-r6'
+assert M['selections']['latest_evaluated_candidate']['id']=='main-m64-r11' and M['selections']['performance_candidate']['id']=='affinity-m64-r6'
 release=json.loads((d/'BOARD_RELEASE.json').read_text());assert release['files']==12 and release['all_sha_equal'] and release['removed'] and release['driver0_before']
 # CPU affinity is independently versioned, with unchanged model artifacts.
 v=V['affinity-m64-r6'];d=R/'affinity-m64-r6/full-test';H=json.loads((d/'ANALYSIS.json').read_text());Q6=json.loads((d/'QUALITY_REVIEW.json').read_text())
@@ -145,13 +145,44 @@ assert len(H['paired_cases'])==39 and all(x['prefill_saved_ms']>0 and x['ttft_sa
 assert not v['quality_qualified'] and not v['default'] and not v['quantization_changed_relative_to_parent'] and v['parent_quantization_changed_from_original']
 assert M['selections']['performance_candidate']['id']==v['id'] and not M['selections']['latest_evaluated_candidate']['promoted']
 
+# Main-bank64 replacement: partial speed gains, no default or quality promotion.
+v=V['main-m64-r11'];d=R/'main-m64-r11/full-test';N=json.loads((d/'ANALYSIS.json').read_text());QN=json.loads((d/'QUALITY_REVIEW.json').read_text())
+for name,key in [('REPORT.md','report_sha256'),('ANALYSIS.json','analysis_sha256'),('QUALITY_REVIEW.json','quality_review_sha256'),('config.json','config_sha256'),('inputs.json','inputs_sha256'),('deployment-sha.json','deployment_sha256')]:assert hashlib.sha256((d/name).read_bytes()).hexdigest()==v[key],name+' r11 drift'
+assert N['controller']['returncode']==0 and N['controller']['status']=='complete' and N['counts']['measure']==117 and N['counts']['quality']==36
+assert len(N['performance'])==39 and len(N['diagnostics'])==18 and len(N['old_runtime_control'])==6 and all(x['same_bytes'] for x in N['old_runtime_control'])
+for variant in ['main32-before','main64','main32-after']:
+ rows=[x for x in N['performance'] if x['variant']==variant];assert {(x['system_total'],x['dynamic_body']) for x in rows}==expected
+ for x in rows:
+  assert x['system_body']+5==x['system_total']==x['reused'] and x['dynamic_body']+8==x['new_prefill'] and x['output']==32 and x['ttft_seconds']['n']==3
+  z=x['schedule'];assert z['executed_query_rows']-z['padded_query_rows']==x['new_prefill'] and z['scalar_prompt_tokens']==0
+  assert z['padded_query_rows']==(24 if variant=='main64' and x['dynamic_body']==32 else 0)
+ assert N['actual_affinities'][variant]['frontend']==[6] and all(z==[7] for z in N['actual_affinities'][variant]['worker'].values())
+for z in N['diagnostics']:
+ f=d/'results'/z['path'];assert f.stat().st_size==2426784 and hashlib.sha256(f.read_bytes()).hexdigest()==z['sha256'] and z['finite']
+ if z['variant']!='main64':assert z['same_bytes_as_original']
+assert N['quality']['main64']['equal']==10 and N['fixed_feedback_equal']['main64']==33
+assert QN['counts']['main64']==dict(fulfills_requested_action=7,omits_requested_action=4,conflicts_with_explicit_prohibition=1)
+assert QN['analysis_sha256']==v['analysis_sha256'] and QN['inputs_sha256']==v['inputs_sha256'] and not QN['quality_qualified']
+assert len(N['closed'])==3 and all(x['metrics']['driver_bytes']==0 for x in N['closed'])
+assert not v['default'] and not v['quality_qualified'] and not v['performance_selected'] and v['numeric_partition_changed']
+assert hashlib.sha256((d.parent/'GRAPH_AUDIT.json').read_bytes()).hexdigest()==v['graph_audit_sha256']
+build=json.loads((d.parent/'status.json').read_text());assert len(build['cases'])==12
+for x in build['cases']:
+ f=Path(x['graph_dir']);assert x['payload_equal'] and x['quantizers_unchanged'] and x['past']==448 and x['query_rows']==64
+ assert hashlib.sha256((f/'export_nbg_unify/network_binary.nb').read_bytes()).hexdigest()==x['nb_sha256']
+ assert hashlib.sha256((f/'export/decoder.export.data').read_bytes()).hexdigest()==x['source_sha256']['export/decoder.export.data']
+ assert hashlib.sha256((f/'decoder.quantize').read_bytes()).hexdigest()==x['source_sha256']['decoder.quantize']
+cfg=json.loads((d/'config.json').read_text());assert cfg['binary_sha256']==v['binary_sha256']==hashlib.sha256((d.parent/'runtime/resident-main64').read_bytes()).hexdigest()
+assert cfg['inputs_sha256']==V['affinity-m64-r6']['inputs_sha256'] and cfg['graphs_sha256']==v['graphs_sha256']
+c=json.loads((d/'BOARD_DIAGNOSTIC_CLEANUP.json').read_text());assert c['files']==18 and c['bytes']==43682112 and c['all_sha_equal'] and c['removed'] and c['driver0_before']
+
 assert len(M['selections']['fastest_observed_by_cell'])==13
 for record in M['selections']['fastest_observed_by_cell']:
  for key,metric in [('by_ttft','ttft_seconds'),('by_prefill','prefill_seconds')]:
-  z=record[key];source={'compact-m64-r4':D,'compact-m64-p256-r5':F,'affinity-m64-r6':H}[z['id']]
+  z=record[key];source={'compact-m64-r4':D,'compact-m64-p256-r5':F,'affinity-m64-r6':H,'main-m64-r11':N}[z['id']]
   row=next(x for x in source['performance'] if x['variant']==z['variant'] and (x['system_total'],x['dynamic_body'])==(record['system_total'],record['dynamic_body']))
   assert abs(z['prefill_p50_ms']-row['prefill_seconds']['p50']*1000)<1e-6 and abs(z['ttft_p50_ms']-row['ttft_seconds']['p50']*1000)<1e-6
-  alternatives=[x[metric]['p50'] for source,variant in [(D,'compact'),(F,'compact'),(H,'a76')] for x in source['performance'] if x['variant']==variant and (x['system_total'],x['dynamic_body'])==(record['system_total'],record['dynamic_body'])]
+  alternatives=[x[metric]['p50'] for source,variant in [(D,'compact'),(F,'compact'),(H,'a76'),(N,'main64')] for x in source['performance'] if x['variant']==variant and (x['system_total'],x['dynamic_body'])==(record['system_total'],record['dynamic_body'])]
   assert row[metric]['p50']==min(alternatives)
 for id,n in [('softmax-i16-r1',3),('compact-p256-screen-r1',6)]:
  v=V[id];d=R/id;G=json.loads((d/'ANALYSIS.json').read_text());assert hashlib.sha256((d/'ANALYSIS.json').read_bytes()).hexdigest()==v['analysis_sha256'] and len(G['results'])==n
@@ -217,4 +248,4 @@ assert not v['default'] and not v['quality_qualified'] and M['selections']['late
 for v in V.values():
  if 'git_tag' in v:
   tag=subprocess.check_output(['git','rev-parse',v['git_tag']+'^{commit}'],cwd=repo,text=True).strip();assert tag==v['source_commit'],v['id']+' tag moved or mismatch'
-print(json.dumps({'status':'passed','reports_bound_to_commits':checked,'token_rows_checked':len(A['performance'])+len(B['performance'])+len(C['performance'])+len(D['performance'])+len(F['performance'])+len(H['performance'])+len(J['performance']),'full_logit_records':len(A['diagnostics'])+len(B['diagnostics'])+len(C['diagnostics'])+len(D['diagnostics'])+len(F['diagnostics'])+len(H['diagnostics'])+len(J['diagnostics']),'matrices_checked':7,'timing_diagnostic_matrices':1,'new_local_probe_records':26,'default_changed':False,'latest_promoted':False},ensure_ascii=False))
+print(json.dumps({'status':'passed','reports_bound_to_commits':checked,'token_rows_checked':len(A['performance'])+len(B['performance'])+len(C['performance'])+len(D['performance'])+len(F['performance'])+len(H['performance'])+len(J['performance'])+len(N['performance']),'full_logit_records':len(A['diagnostics'])+len(B['diagnostics'])+len(C['diagnostics'])+len(D['diagnostics'])+len(F['diagnostics'])+len(H['diagnostics'])+len(J['diagnostics'])+len(N['diagnostics']),'matrices_checked':8,'timing_diagnostic_matrices':1,'new_local_probe_records':26,'default_changed':False,'latest_promoted':False},ensure_ascii=False))

@@ -1,3 +1,12 @@
+## 2026-10-27：r11完整M64替换评测已完成，未达到500ms
+
+- 当前板端测试已结束，controller rc0；117计时、36自然、18完整logits，3次driver0，post-health alloc/free1077/1077。报告research/intern-prefill100-20261025/main-m64-r11/full-test/REPORT.md；tag exp/intern-main-m64-r11-20261026。此前在测章节为历史快照，勿重跑。
+- 静态32/64/128=正文27/59/123+模板5；动态32/64/128/192/256+模板8=new40/72/136/200/264；只复用system。输出固定32，decode后31；上游语音/摘要/system构建不计入TTFT。覆盖完整13格并集，每格3例。
+- 同轮system64/dynamic256 prefill904.2→863.5ms、TTFT923.5→884.1ms；system128/dynamic256较快原版prefill965.8→902.1ms。短dynamic32约187→216ms退步。主图替换不新增同时驻留主bank，仍增约28.6MiB NPUready；CPU7、前端CPU6。
+- candidate6份logits均与原版有差异，relativeL2约2.72–3.02%（非准确率）。自然10/12同序列；7完成4漏1冲突，后退→向前仍错。r6仍资源/短输入优先；r11只登记长输入最低观测；qualitybest仍空、默认未改。
+- 约7.04min采样，峰温52.452°C，候选CPU8核归一P50约6.31%，最低available419.9MiB，swap近满；累计音频lag1.551s、约5%帧超16ms，不能说全程实时或长稳合格。500ms全范围目标未达成。
+- 18份板端rawf32与Windows逐SHA核对后已删除副本，释放43,682,112B，/opt剩573,566,976B。保留候选模型便于复测；Windows源/大图/rawf32保留，Mac将同步可打开报告；Github状态以F:/Files/OPi-Lab/transfers/github-sync-verified.json独立回执为准。下一轮继续NPU算子/分块同输入比较，不将短输入提速冒充dynamic256达标。
+
 ## 2026-10-26：恢复工作，r10筛查完成，r11主M64替换在测
 
 - r10结果ec78d66，tag exp/intern-joint-attention-r10-20261026：6张图上板、10probe/300API样本，scores慢10–40%，value无一致收益且改变输出张量。不扩整模，不影响r6性能指针、质量最优空及默认。

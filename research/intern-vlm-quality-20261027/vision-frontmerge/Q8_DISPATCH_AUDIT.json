@@ -1,0 +1,15 @@
+{
+  "scope": "source-level candidate explanation, NOT measured profiling or causal attribution",
+  "sources": {
+    "tools/mtmd/clip.cpp": "60643cb930cf0fb5f56797166bffed9c12c64c5822ab1fb43a0f1e8c4a928072",
+    "ggml/src/ggml-cpu/repack.cpp": "5fa9f24cc2631609f40fa47a64078f77dccbe9f327711af91af671cd29b8b87d",
+    "src/llama-model.cpp": "c29d7f29c3e760f90855755748edc56fcdf62f0628b0c572f06ffb4c377db5f5"
+  },
+  "findings": [
+    "CLIP loader allocates default CPU buffer for all vision weights at clip.cpp:3642-3644; host tensors read directly into data at3659-3661.",
+    "CPU_REPACK backend requires a repack buffer and tensor traits; plain Q8 data is not automatically equivalent to repacked buffer.",
+    "repack.cpp:5111-5114 has Q8_0 4x4 ARM NEON+dotprod kernel, compatible shape multiple4; actual board feature dispatch must be checked.",
+    "Language loader explicitly enumerates extra buffers; visual loader does not."
+  ],
+  "next": "Add opt-in per-tensor Q8 CPU_REPACK storage with normal buffers for other tensors; compare same binary flag off/on/off, same model/image/threads. Verify embeddings and VQA. Avoid allocating all mixed tensors in repack buffer: unsupported tensor traits would be null."
+}

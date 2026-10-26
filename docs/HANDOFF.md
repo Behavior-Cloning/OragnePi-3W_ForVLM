@@ -717,3 +717,11 @@ Host ASan/UBSan检查通过：文字回退、图像边界、padding、reset、�
 ## ViT NPU首块实跑（112路线保留）
 
 vit-npu-r1已导出112/224首块ONNX；112 INT16完成编译、板端2预热10热API测试，中位11.029ms；relativeL2 2.353%、cosine0.999733、释放0。只首块、单图测试，非完整视觉塔，不外推24层速度/精度。112保持64patch，末端adapter质量待修；下一步精度消融及全塔。当前没有后台任务运行。
+
+## ViT NPU首块精度矩阵
+
+vit-npu-r1/MATRIX_REPORT.md：112/224×FP16/INT16/INT8已上板，14次进程关闭driver0。112 API FP16约634ms、INT16约11ms、INT8约6ms；224约2598/54/42ms。INT8 relativeL2约40–64%不能用；INT16约1.38–3.81%，需检查全塔累积；FP16约0.13–0.15%但慢。不外推完整塔。CPU Q8速度另在vision-repack-r1进行同binary开关重排buffer实验，查controller.json，勿重复启动。
+
+## CPU视觉Q8重排候选完成
+
+vision-repack-r1/REPORT.md：同binary重排off/on/off，224→64从4.28s降2.26s、约47.3%减少。144 Q8矩阵启用CPU_REPACK，RSS约343MiB。向量relativeL2新旧4.76/7.74%，不是无损；6题核心事实命中，但竹子回答错误扩写并截断，不能称全答对。新向量NPU VQA和换图缓存检查完成，driver0。快候选不覆盖默认；当前无后台测试。112保留64与完整ViT NPU仍待完成。

@@ -1,0 +1,64 @@
+--- a/tools/mtmd/clip.cpp
++++ b/tools/mtmd/clip.cpp
+@@ -5,6 +5,7 @@
+ #include "models/models.h"
+ 
+ #include "ggml.h"
++#include "ggml-cpu.h"
+ #include "ggml-cpp.h"
+ #include "ggml-alloc.h"
+ #include "ggml-backend.h"
+@@ -158,6 +159,7 @@
+     ggml_backend_t backend = nullptr;
+     ggml_backend_t backend_cpu = nullptr;
+     ggml_backend_buffer_ptr buf;
++    std::vector<ggml_backend_buffer_ptr> opi_weight_buffers;
+ 
+ 
+     int max_nodes = 8192;
+@@ -3640,8 +3642,34 @@
+ 
+             // alloc memory and offload data
+             ggml_backend_buffer_type_t buft = ggml_backend_get_default_buffer_type(ctx_clip.backend);
+-            ctx_clip.buf.reset(ggml_backend_alloc_ctx_tensors_from_buft(ctx_clip.ctx_data.get(), buft));
+-            ggml_backend_buffer_set_usage(ctx_clip.buf.get(), GGML_BACKEND_BUFFER_USAGE_WEIGHTS);
++            const bool opi_repack = std::getenv("OPI_VISION_Q8_REPACK") != nullptr;
++            ggml_backend_buffer_type_t repack_buft = nullptr;
++            if (opi_repack) {
++                if (ctx_clip.backend != ctx_clip.backend_cpu || !ggml_cpu_has_neon() || !ggml_cpu_has_dotprod())
++                    throw std::runtime_error("Q8 repack experiment requires CPU ARM NEON dotprod");
++                auto * dev = ggml_backend_dev_by_type(GGML_BACKEND_DEVICE_TYPE_CPU);
++                auto * reg = ggml_backend_dev_backend_reg(dev);
++                auto get_extra = (ggml_backend_dev_get_extra_bufts_t)ggml_backend_reg_get_proc_address(reg, "ggml_backend_dev_get_extra_bufts");
++                if (get_extra) for (auto * types = get_extra(dev); types && *types; ++types)
++                    if (std::strcmp(ggml_backend_buft_name(*types), "CPU_REPACK") == 0) repack_buft = *types;
++                if (!repack_buft) throw std::runtime_error("CPU_REPACK unavailable");
++                int packed = 0;
++                for (auto * cur = ggml_get_first_tensor(ctx_clip.ctx_data.get()); cur; cur = ggml_get_next_tensor(ctx_clip.ctx_data.get(), cur)) {
++                    const bool use = cur->type == GGML_TYPE_Q8_0 && ggml_n_dims(cur) == 2 && cur->ne[0] % 32 == 0 && cur->ne[1] % 4 == 0;
++                    auto selected = use ? repack_buft : buft;
++                    auto buffer = ggml_backend_buft_alloc_buffer(selected, ggml_backend_buft_get_alloc_size(selected, cur));
++                    if (!buffer || ggml_backend_tensor_alloc(buffer, cur, ggml_backend_buffer_get_base(buffer)) != GGML_STATUS_SUCCESS)
++                        throw std::runtime_error("vision tensor allocation failed");
++                    ggml_backend_buffer_set_usage(buffer, GGML_BACKEND_BUFFER_USAGE_WEIGHTS);
++                    ctx_clip.opi_weight_buffers.emplace_back(buffer);
++                    if (use) ++packed;
++                }
++                LOG_INF("OPI Q8 CPU_REPACK tensors=%d\n", packed);
++                if (packed != 144) throw std::runtime_error("unexpected Q8 tensor count");
++            } else {
++                ctx_clip.buf.reset(ggml_backend_alloc_ctx_tensors_from_buft(ctx_clip.ctx_data.get(), buft));
++                ggml_backend_buffer_set_usage(ctx_clip.buf.get(), GGML_BACKEND_BUFFER_USAGE_WEIGHTS);
++            }
+             // read the weight from file
+             if (!ctx_clip.no_alloc) {
+                 size_t data_loaded = 0;
+@@ -3656,7 +3684,7 @@
+                         throw std::runtime_error(string_format("%s: failed to seek for tensor %s\n", __func__, t->name));
+                     }
+                     size_t num_bytes = ggml_nbytes(cur);
+-                    if (ggml_backend_buft_is_host(buft)) {
++                    if (!opi_repack && ggml_backend_buft_is_host(buft)) {
+                         // for the CPU and Metal backend, we can read directly into the tensor
+                         fin.read(reinterpret_cast<char *>(cur->data), num_bytes);
+                     } else {

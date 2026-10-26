@@ -1,6 +1,6 @@
 # r8：query64、完整past448容量的两层NPU筛查
 
-结果：L0/L1和敏感L2/L3的单位query行API吞吐，相对同场M32/past448参考约提高1.10倍和1.29倍。只是局部吞吐筛查，未测完整24层、TTFT、decode或常驻语音竞争；不能把单块时间乘12或把两种query长度当顺序更新KV的等价验证。默认与最佳完整模型指针均不变。
+结果：L0/L1和敏感L2/L3的单位query行API吞吐，相对同场M32/past448参考约为参考的1.10倍和1.29倍（约快10%和29%）。只是局部吞吐筛查，未测完整24层、TTFT、decode或常驻语音竞争；不能把单块时间乘12或把两种query长度当顺序更新KV的等价验证。默认与最佳完整模型指针均不变。
 
 实现提交6415a67，冻结fixture/runner提交731ae404de334f5432d06bf79a1b640ab580143b。复用原probe binary 5b2c9e9a154f4a5563047e2da6624f7d6484e0133e5ae78b4f6b280b75768024，CPU7。候选由M64r4的past128/query64图改为past448/query64，只有KV/mask/split形状参数变化；export权重payload和量化表逐SHA相同。形状改变仍会产生数值变化，不能称无损。
 

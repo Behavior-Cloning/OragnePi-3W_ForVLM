@@ -558,3 +558,12 @@ git -c core.sshCommand='ssh -o ForwardX11=no -o BatchMode=yes -o IdentitiesOnly=
 ## 2026-10-26 C256/C448 board smoke
 
 C256/C448 full 24-layer board smoke evidence is in `research/intern-prefill100-20261025/CAPACITY256_448_BOARD_SMOKE.md`. C256: system64/dynamic64 cold TTFT 0.830s; system KV reuse 0.606s. C448: system64/dynamic256 with system reuse TTFT 1.373s; system128/dynamic256 with reuse 1.346s. Token accounting is system正文59/123 + system模板5, dynamic正文64/256 + dynamic模板8, actual new72/264. Both workers released with driver_bytes=0. This is synthetic text-only Intern NPU and mock worker; no microphone, vision or motors. The 100ms full-model target remains unproven and unmet.
+
+
+## 2026-10-26 C512 matrix32
+
+- 新增对齐矩阵：静态32/64（正文27/59 + 模板5）× 动态32/64/128/256（模板8，实际new 40/72/136/264）。
+- 完整24层 Intern NPU、只复用 system KV；M16/M32/M16-repeat 共72个性能请求和24个诊断请求均完成，driver close=0。
+- 当前 M32 TTFT P50：490.9–3046.5 ms；最佳静态64/动态32为490.9 ms，100 ms目标仍未达到。decode约15.15–15.42 tok/s。
+- 结果报告：research/intern-prefill100-20261025/matrix32/REPORT.md；Mac副本：reports/intern-prefill100-20261025/matrix32/REPORT.md。
+- 静态32是成本fixture，不作语义质量结论；语音为合成前端，无视觉、真实麦克风或电机。

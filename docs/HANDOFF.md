@@ -4,7 +4,7 @@
 - attempt1因节点ID非整数后缀在图加载失败，未产生板端样本；attempt2两图成功，按M32/P448、M64/P128分别A/B/A，180计时/6进程。只融合L3，源权重值及量化编码参数保持，继承outlier8父量化。
 - 局部有效历史128行、query32/64行；system/动态文本/模板/生成token/整模prefill/TTFT/decode不适用。M32 API14.753→14.734ms仅0.13%，小于原版前后漂移；M64 19.471→19.902ms约慢2.21%。两形状完整hidden/KV同字节，不能外推语义正确性或全模型提速。
 - 6次driver0；37份文件对照Windows SHA后释放181870066B。Windows保留图和rawf32，默认未改，完整性能候选仍affinity-m64-r6，质量合格最优仍空。新版本登记/verify_versions更新。
-- 下一步检查注意力past/new分开矩阵计算能否减少重复调度。不能改token数、截历史或复用动态KV来宣布达到500ms。r6长动态输入仍约0.9–0.97秒prefill，目标未完成。
+- 下一步检查注意力past/new分开矩阵计算能否减少重复调度。不能改token数、截历史或复用动态KV来宣布达到500ms。r6 system正文59/123+模板5=64/128，动态正文256+模板8=new264、只复用system，固定反馈输出32；prefill仍约0.90–0.97秒，目标未完成。
 - 本节提交的GitHub同步状态单独以F:/Files/OPi-Lab/transfers/github-sync-verified.json为准；后面旧章节的远端SHA是各自当时快照。
 
 ## 2026-10-26：r7耗时定位与r8完整历史M64局部筛查完成

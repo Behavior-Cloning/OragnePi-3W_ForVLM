@@ -1,0 +1,210 @@
+{
+  "first_layer": 2,
+  "fusion_width": 2,
+  "history": 256,
+  "capacity": 256,
+  "query_tokens": 256,
+  "input_sha256": "3a2c78be6d25d71dce076b719eff28779dedbcf27b9a86225a60e44ad92f9861",
+  "reference_sha256": "376697d408c95617b0a96859eaef5ce2717ff5dd5907391c0e2a21e439c4e817",
+  "same_hidden_and_rope": true,
+  "same_all_active_KV": true,
+  "same_all_active_mask_columns": true,
+  "outputs": [
+    [
+      "b1_attach_hidden_out/out0",
+      229376
+    ],
+    [
+      "b0_attach_new_k/out0",
+      32768
+    ],
+    [
+      "b1_attach_new_k/out0",
+      32768
+    ],
+    [
+      "b0_attach_new_v/out0",
+      32768
+    ],
+    [
+      "b1_attach_new_v/out0",
+      32768
+    ]
+  ],
+  "input_contract": [
+    {
+      "name": "b0_hidden",
+      "old_shape": [
+        1,
+        256,
+        896
+      ],
+      "new_shape": [
+        1,
+        256,
+        896
+      ],
+      "operation": "unchanged"
+    },
+    {
+      "name": "b0_past_k",
+      "old_shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "new_shape": [
+        1,
+        2,
+        256,
+        64
+      ],
+      "operation": "keep first256 active past positions"
+    },
+    {
+      "name": "b1_past_k",
+      "old_shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "new_shape": [
+        1,
+        2,
+        256,
+        64
+      ],
+      "operation": "keep first256 active past positions"
+    },
+    {
+      "name": "b0_past_v",
+      "old_shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "new_shape": [
+        1,
+        2,
+        256,
+        64
+      ],
+      "operation": "keep first256 active past positions"
+    },
+    {
+      "name": "b1_past_v",
+      "old_shape": [
+        1,
+        2,
+        512,
+        64
+      ],
+      "new_shape": [
+        1,
+        2,
+        256,
+        64
+      ],
+      "operation": "keep first256 active past positions"
+    },
+    {
+      "name": "b0_mask",
+      "old_shape": [
+        1,
+        1,
+        1792,
+        768
+      ],
+      "new_shape": [
+        1,
+        1,
+        1792,
+        512
+      ],
+      "operation": "keep active256 past plus query256 columns"
+    },
+    {
+      "name": "b1_mask",
+      "old_shape": [
+        1,
+        1,
+        1792,
+        768
+      ],
+      "new_shape": [
+        1,
+        1,
+        1792,
+        512
+      ],
+      "operation": "keep active256 past plus query256 columns"
+    },
+    {
+      "name": "b0_rope_cos",
+      "old_shape": [
+        1,
+        1,
+        256,
+        64
+      ],
+      "new_shape": [
+        1,
+        1,
+        256,
+        64
+      ],
+      "operation": "unchanged"
+    },
+    {
+      "name": "b1_rope_cos",
+      "old_shape": [
+        1,
+        1,
+        256,
+        64
+      ],
+      "new_shape": [
+        1,
+        1,
+        256,
+        64
+      ],
+      "operation": "unchanged"
+    },
+    {
+      "name": "b0_rope_sin",
+      "old_shape": [
+        1,
+        1,
+        256,
+        64
+      ],
+      "new_shape": [
+        1,
+        1,
+        256,
+        64
+      ],
+      "operation": "unchanged"
+    },
+    {
+      "name": "b1_rope_sin",
+      "old_shape": [
+        1,
+        1,
+        256,
+        64
+      ],
+      "new_shape": [
+        1,
+        1,
+        256,
+        64
+      ],
+      "operation": "unchanged"
+    }
+  ]
+}

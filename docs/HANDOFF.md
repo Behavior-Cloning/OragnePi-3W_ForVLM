@@ -1,6 +1,7 @@
 ## 2026-10-26 尾段优化完整模型结果已回收
 
 - compact-row-down-r1 局部筛查完成：C128/history128，M64 为435.17→20.25ms，M256 为1760.67→102.40ms；A/A输出字节一致，row路径输出均finite，hidden相对L2约0.294%/0.300%，6次driver0，最高45.322°C。该结果只覆盖两层API，不含整模head/TTFT/语音/RAG，不能当整模成绩。
+- 为避免C128对动态256的历史截断，已离线编译C256/M256 plain与row图（`graphs/compact-c256-m256/`），保留past256和query256，导出均rc0；这是图编译证据，不是板端速度或整模结果。下一步需建立C256 compact probe和worker接口审计，再测试板端。
 - 不能直接把该图替换进整模：当前 `board_fulli16.py` 和 `resident_worker_v1.py` 仍强制capacity=512、原始图输入协议；compact图是capacity128的past布局，直接替换会破坏动态256和缓存位置口径。下一步必须建立C256/完整worker接口配对，保留system128与dynamic256的全部有效上下文后再上板。
 - down-row-scale-tail-r1 完成，96性能/192自然/32诊断/8prefix/8cache，四次driver0；Windows结果目录及Mac报告已保存。
 - system64/128含模板5，正文59/123；动态正文64/128/192/256+模板8，new72/136/200/264；仅system KV复用。主批量+尾段TTFT P50在两system下约370–373/653–668/935–979/1218–1290ms，decode约15。相较仅主批量，每格额外省约47–52ms。各格3例，100ms目标未达，不是长期稳定认证。

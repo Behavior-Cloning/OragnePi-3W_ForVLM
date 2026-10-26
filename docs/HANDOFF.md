@@ -6,7 +6,7 @@
 - r8全部10probe×30重复一致/finite/driver0，全部53板端文件SHA对照Windows后释放178789412B。Windows编译图与rawf32保留，可新run复现；默认与r6完整性能指针不变。
 - r7资源采样3.93min，峰50.034°C，最低available465.6MiB，swap满，语音723/14737采样帧超预算、累计lag1.755s，不能称实时/长稳合格。自然12回归仍6完成5漏动作1方向冲突。
 - 下一步优先NPU矩阵算子实现/合并。实际图每层7个FC、Q/K/V及gate/up单独；合并前必须检查是否同源输入及各自量化参数，不能将相同数学式当bitwise相同。R8局部吞吐不足证明full256达到500ms；不要用小输入或截历史替代完整目标。
-- GitHub：Windows原生Git读取成功，远端分支仍5aee7ee；Windows SSH会话wincredman不能保存/读取凭据，显式非交互push返回128。Mac已用现有Windows SSH控制连接建SOCKS127.0.0.1:10847，Git经它读取成功；下一步可用Mac现有Git凭据和bare relay推送Windows提交，不导出凭据到Windows，不关闭Tailscale。使用完成后用ssh -S /tmp/vlm-win-control -O cancel -D 127.0.0.1:10847 pc@100.113.74.31撤销本轮forward。
+- GitHub已通过Mac本机HTTP代理和bare relay完成推送；独立ls-remote核验分支codex/wsl-intern1b-reproduction=c96d22a，8个实验tag及其peeled commit全部匹配。代码仍以Windows为权威；本次不改默认部署。同步收据见research/intern-prefill100-20261025/REMOTE_SYNC_STATUS.json。使用完成后用ssh -S /tmp/vlm-win-control -O cancel -D 127.0.0.1:10847 pc@100.113.74.31撤销本轮forward。
 
 ---
 
@@ -652,3 +652,11 @@ C256/C448 full 24-layer board smoke evidence is in `research/intern-prefill100-2
 最优跟踪：performance_candidate仍outlier8-c448-full-r1；latest_original_quantization_checked仍c448-original-tail8-r4；quality_qualified_best为空；latest_evaluated_candidate为compact-fullquery-r3但不推广。详见research/intern-prefill100-20261025/VERSION_MANIFEST.json、BEST_VALIDATED.md和compact-fullquery-r3/full-test/REPORT.md。
 
 下一步可评估更小query块与避免额外整套图常驻；不要把两层局部API或编译结果算作完整TTFT。GitHub远端本次校验仍超时，未确认同步。不要重启已结束控制器571或复用run ID。
+
+## GitHub同步收据：c96d22a（2026-10-26）
+
+已通过Mac本机系统代理（127.0.0.1:7897）推送Windows权威快照c96d22aaa91592ef1d356cb60c0048304599c1d2，分支codex/wsl-intern1b-reproduction。8个不可变实验标签均已上传，独立ls-remote核对分支、tag对象和peeled commit全部相符。Windows网络SOCKS旧尝试失败，相关转发已撤销；未关闭Tailscale，未复制凭据。
+
+当前完整模型资源优先性能候选仍为affinity-m64-r6；r7计时诊断和r8两层局部试验均不改变最优指针。baseline、原量化验证、逐格最快观测、质量合格最优（当前未指定）及生产默认分别记录在VERSION_MANIFEST.json。verify_versions.py本次再次通过15份报告提交绑定、195条token记录、93份full-logits、7组矩阵核查。默认未改，500ms长动态输入目标仍未完成。
+
+本收据证明c96d22a代码/报告快照；收据后续提交本身的最终远端校验保存在F:/Files/OPi-Lab/transfers/github-sync-verified.json，避免在同一文件内自引用提交号。Mac仅临时bare relay与报告副本，工程代码始终在Windows编辑。

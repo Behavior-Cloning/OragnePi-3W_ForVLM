@@ -1,5 +1,7 @@
 ## 2026-10-26：M64性能候选与版本追踪更新
 
+GitHub同步待确认：代码/报告636534f已在Windows提交；HTTPS推送超时，随后ls-remote也超时。最后成功查询仍为5aee7ee，不能声称远端已更新。完整回执见research/intern-prefill100-20261025/github-sync.json。
+
 - 性能候选compact-m64-r4；源码4a4c57e，结果328918c，tag exp/intern-compact-m64-r4-20261026。不是生产晋升，默认未改，质量合格最优为空。
 - system正文59+模板5=64，动态正文128+模板8=new136，只复用system64：prefill464.5ms/TTFT485.6ms P50，每格3案、输出固定反馈32token。system128同动态TTFT545.9ms；动态256约1.01–1.06s；decode约15.3–15.6，未确认decode提速。
 - 共13格，覆盖static32/64×dynamic32/64/128/256及64/128×64/128/192/256；正文与模板分列见BEST_VALIDATED。32静态截断、128静态重复补齐仅成本用途。

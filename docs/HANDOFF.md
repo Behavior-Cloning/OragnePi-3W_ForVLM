@@ -567,3 +567,15 @@ C256/C448 full 24-layer board smoke evidence is in `research/intern-prefill100-2
 - 当前 M32 TTFT P50：490.9–3046.5 ms；最佳静态64/动态32为490.9 ms，100 ms目标仍未达到。decode约15.15–15.42 tok/s。
 - 结果报告：research/intern-prefill100-20261025/matrix32/REPORT.md；Mac副本：reports/intern-prefill100-20261025/matrix32/REPORT.md。
 - 静态32是成本fixture，不作语义质量结论；语音为合成前端，无视觉、真实麦克风或电机。
+
+
+## 2026-10-26 版本冻结与原量化C448尾段对照
+
+- 权威索引：research/intern-prefill100-20261025/VERSION_MANIFEST.json、BEST_VALIDATED.md。历史性能候选、有限数值验证和生产默认分开；默认未改。
+- 实验提交223654e：C448原量化A/B/A共72计时、36自然输出、6四步logits，3次关闭driver=0。模型/输入SHA在c448-matrix-r4/config.json，报告同目录REPORT.md。
+- system正文59/123 + 模板5 =64/128；动态正文64/128/192/256 +模板8 =实际new72/136/200/264；只复用system，固定反馈输出32。tail8 TTFT P50为s64:810.6/1501.8/2213.0/2935.0ms，s128:824.5/1539.9/2223.0/2955.1ms，decode约15.1tok/s。100ms目标未完成。
+- r4完整logits按输入三组逐字节相同，自然12案/固定反馈24案序列相同；有限一致性不等于正确率。最高50.716°C，进程PSS峰596.7MiB；语音1555/31334帧超16ms、累计最大滞后2.053s，swap发生，未获全链路稳定资格。RAG仅驻留无检索；Intern文本NPU、合成录音，无视觉/电机。
+- 原373/653/935/1218ms是C512 row-scale候选，精度改变；保留最快性能记录，撤回C256 plain/原精度标签。C256/M32与C448/M32 smoke继承range16 L2/L3，撤回已验证最佳。详见BEST_VALIDATED.md；旧数据保留。
+- r2 tail8加载退出的容量白名单缺陷已在r3独立runtime修复，保留端口校验；原量化图诊断与r4计时完成。不要重启r4。
+- static32/64 × dynamic32/64/128/256历史baseline见matrix32/REPORT.md；r4未覆盖static32/dynamic32，不拼接冒充新矩阵。
+- 后续保持独立候选优化FP16 down瓶颈；数值/语义/资源资格分别复核。质量最优指针暂空，不推广速度候选。运行verify_versions.py复核登记；Windows代码权威，Mac仅报告副本。

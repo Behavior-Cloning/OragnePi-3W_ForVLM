@@ -1,7 +1,13 @@
-# 版本管理
+# 版本管理约定
 
-Windows仓库为权威；Mac仅报告副本。baseline、有限验证版本、性能候选、smoke、局部探针分开登记。同名实验不得覆盖，源码/图/量化/tokenizer/fixture绑定SHA。
+Windows仓库是权威版本；Mac仅保存报告副本。每次实验使用新run ID，不覆盖原始输出、baseline或默认部署。
 
-性能与质量分别判定。只在同输入token IDs、system-only缓存、同输出数量、同负载下比较。编译通过不等于部署通过；诊断时长不纳入性能统计。变更精度必须明确，原始导出data相同不能证明量化相同。
+1. VERSION_MANIFEST.json分别维护基线、历史性能候选、最新原量化验证候选、质量合格最优、生产默认。没有完整资格时允许最优指针为空，不用最快值填补。
+2. 每项绑定实验/报告Git提交、报告SHA、runtime/图/量化/tokenizer/fixture哈希。不能根据目录名称或相同data权重推断量化相同；编译成功、局部探针、smoke、完整矩阵分开。
+3. 公平对照需相同token IDs、system-only KV、输出数量/反馈规则、精度与并发负载。每次列system正文/模板/总量、动态正文/模板、实际new/reused、prefill/TTFT/decode。诊断dump耗时不能混入性能。
+4. 性能最快≠质量最优。有限logits/自然序列相同≠正确率，原量化也不保证语义正确。质量推广需自然中文、动作门禁及资源/稳定性证据；本轮未执行推广。
+5. 原始f32、模型binary、编译产物与大资源日志保留Windows磁盘并记SHA，默认不进Git；代码、冻结输入、统计、报告、manifest进Git。纠错另记，不悄悄改写旧实验。
+6. 实验代码提交后以新tag固定；已有tag禁止强制移动。报告修订须新提交并更新注册SHA。
+7. 运行python3 research/intern-prefill100-20261025/verify_versions.py检查引用、哈希、token和资格，再只提交相关文件。GitHub同步核验远端分支和实验tag，不碰无关改动。
 
-以VERSION_MANIFEST.json和各原始结果为准。BEST_VALIDATED.md包含已撤回的错误标签；没有当前证据就不得沿用历史“最优”。100ms全范围目标尚未完成。默认部署未改。
+r4仅覆盖system64/128 × 动态64/128/192/256。用户此前static32/64 × 动态32/64/128/256范围保留在matrix32基线；r4缺口未填充，不跨版本拼表。100ms目标仍未完成。

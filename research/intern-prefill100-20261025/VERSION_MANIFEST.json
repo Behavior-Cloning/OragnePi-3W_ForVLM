@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "updated": "2026-10-26",
   "goal": "system64/128; dynamic64/128/192/256; system-only KV; full prefill and TTFT <=100ms",
   "goal_verified": false,
@@ -10,8 +10,10 @@
       "id": "baseline-c512-m32-matrix32",
       "kind": "reference",
       "scope": "system32/64 x dynamic32/64/128/256",
-      "report": "matrix32/results/matrix32-r9/REPORT.md",
-      "quality_status": "limited validation; no new default promotion"
+      "report": "matrix32/REPORT.md",
+      "quality_status": "limited validation; no new default promotion",
+      "report_commit": "58570675e0726467966350ff151fc03fb10e7b28",
+      "report_sha256": "fb5e4a1c092128e97999e2ac20316308df3b8449bb44639dba10815e8d5e0e30"
     },
     {
       "id": "candidate-c256-tail8-combined-r2",
@@ -19,9 +21,11 @@
       "batch": 16,
       "kind": "short-input-limited-validation",
       "scope": "system64/128 x dynamic32/64",
-      "report": "../intern-nextbench-20261025/results/combined-matrix-r2/REPORT_NEXT.md",
+      "report": "../intern-nextbench-20261025/analysis/combined-matrix-r2/REPORT_NEXT.md",
       "quality_status": "5 full-logit comparisons equal to same-C256 baseline; historical closing defect not fully explained",
-      "default": false
+      "default": false,
+      "report_sha256": "11a07a0b141df78545694c3099ebe0a8f476c0e588ee3d175127245a8a554b54",
+      "report_commit": "8aa6523c19c8a38157afda71874950ffe47afea7"
     },
     {
       "id": "candidate-c256-system-reuse-smoke",
@@ -77,7 +81,11 @@
         1217.7
       ],
       "warning": "Measured faster quantization candidate; NOT C256 plain, NOT original precision; 45/48 natural sequences equal is not accuracy",
-      "default": false
+      "default": false,
+      "report_commit": "125cfa106bb4b8110dc8568b69b50b700497e372",
+      "variant": "protected-main-tail",
+      "quality_qualified": false,
+      "report_sha256": "697fb3631dee2038c2c88343ce6f51513a248aa84b9e416ec207a7f20b70fbd9"
     },
     {
       "id": "c448-qualified-r3",
@@ -94,7 +102,104 @@
         "natural_sequences_equal": 6,
         "closed_driver0": 4,
         "timing_diagnostic_only": true
-      }
+      },
+      "report_sha256": "002890b2305f804b24f4606f8bbda1b27ffc12dd547b8cf08265073d03b71640",
+      "report_commit": "68e67d1ed31a936e9a0f16f64217ce91c3d94357"
+    },
+    {
+      "id": "c448-original-tail8-r4",
+      "kind": "numerically-checked-limited-samples",
+      "source_commit": "223654ebb2858cee6b1040df1b3706b129fa1775",
+      "git_tag": "exp/intern-c448-original-tail8-r4-20261026",
+      "capacity": 448,
+      "main_batch": 32,
+      "tail_batch": 8,
+      "variant": "tail8",
+      "report": "c448-matrix-r4/REPORT.md",
+      "analysis": "c448-matrix-r4/ANALYSIS.json",
+      "binary_sha256": "9bbd4f92a01b81965c9e7949d4e1f6bab18861823e7f37b3c793daeb2e297d3f",
+      "config_sha256": "bda7e61374cddf8848142ee6ef6fb3f7c6ce39d1f9fdf9e8ebd7cb79ed645ecc",
+      "inputs_sha256": "62f932de4ecb1348eee94609e2f367ceea8a99ca4b64691080d4c3ec25ce9e26",
+      "l2_quantizer_sha256": "35ef6de51d90e057f69dfbb87d35c51dee1a85b435f3f6ab5a8d0c10f6afce6d",
+      "quantization_changed": false,
+      "system_body": [
+        59,
+        123
+      ],
+      "system_template": 5,
+      "system_total": [
+        64,
+        128
+      ],
+      "dynamic_body": [
+        64,
+        128,
+        192,
+        256
+      ],
+      "dynamic_template": 8,
+      "new_prefill": [
+        72,
+        136,
+        200,
+        264
+      ],
+      "cache_scope": "system-only",
+      "output_fixed_feedback": 32,
+      "sample_count_per_cell": 3,
+      "default": false,
+      "quality_qualified": false,
+      "quality_note": "12 natural and 24 fixed-feedback sequences equal to same-C448 original; 2 four-step full-logit inputs equal in A/B/A. Limited parity, no semantic accuracy certification.",
+      "closed_driver0": 3,
+      "resource_qualification": "max audio lag2.053s;1555/31334 frame overruns;swap active;not production-qualified",
+      "ttft_p50_ms": {
+        "64": [
+          810.562,
+          1501.811,
+          2213.009,
+          2934.999
+        ],
+        "128": [
+          824.519,
+          1539.868,
+          2222.965,
+          2955.103
+        ]
+      },
+      "report_sha256": "eac47d997c14a0cf9562097050a499080155d9b36eae30e8f738025cb7e032a8"
     }
-  ]
+  ],
+  "selections": {
+    "scope": "Registered full-model evidence; no extrapolation or lossless claim across quantization changes.",
+    "performance_candidate": {
+      "id": "down-row-scale-tail-r1",
+      "variant": "protected-main-tail",
+      "quality_qualified": false,
+      "scope": "system64/128 x dynamic64/128/192/256; historical cross-run observation"
+    },
+    "latest_original_quantization_checked": {
+      "id": "c448-original-tail8-r4",
+      "variant": "tail8",
+      "quality_qualified": false,
+      "scope": "system64/128 x dynamic64/128/192/256; limited numerical parity"
+    },
+    "quality_qualified_best": null,
+    "production_default": "unchanged; no automatic promotion"
+  },
+  "requested_grid_tracking": {
+    "prior_requested_static32_64_dynamic32_64_128_256": {
+      "baseline_report": "matrix32/REPORT.md",
+      "baseline_coverage_complete": true,
+      "new_tail8_matrix_missing": "static32 and dynamic32 unmeasured in r4; do not fill from other variants"
+    },
+    "active_goal_static64_128_dynamic64_256": {
+      "r4_coverage": [
+        64,
+        128,
+        192,
+        256
+      ],
+      "all_cells_prefill_and_ttft_le100ms": false
+    }
+  }
 }

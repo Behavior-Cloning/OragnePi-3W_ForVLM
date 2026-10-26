@@ -1,0 +1,154 @@
+{
+  "scope": "C128 history128 L2/L3, two independent query shapes64/256, 6processes18warm180pure; same effective input only within each shape. No full model/TTFT/audio/RAG claims.",
+  "rows": [
+    {
+      "case": "m64-before",
+      "query_rows": 64,
+      "api_p50_ms": 435.173392,
+      "api_p95_linear_ms": 437.0708902,
+      "api_max_ms": 437.400819,
+      "nonfinite_elements": 0,
+      "output_sha256": "5250600788ce37902ed133b54e139bc31b315b98871b1d73fcfa05eaf7b56532"
+    },
+    {
+      "case": "m64-row",
+      "query_rows": 64,
+      "api_p50_ms": 20.2526335,
+      "api_p95_linear_ms": 20.2871567,
+      "api_max_ms": 20.300466999999998,
+      "nonfinite_elements": 0,
+      "output_sha256": "c8009a821db64b477caa2517be3472538e351986924f522a5173549bec176cd8"
+    },
+    {
+      "case": "m64-after",
+      "query_rows": 64,
+      "api_p50_ms": 435.471893,
+      "api_p95_linear_ms": 437.52648555,
+      "api_max_ms": 438.537824,
+      "nonfinite_elements": 0,
+      "output_sha256": "5250600788ce37902ed133b54e139bc31b315b98871b1d73fcfa05eaf7b56532"
+    },
+    {
+      "case": "m256-before",
+      "query_rows": 256,
+      "api_p50_ms": 1760.671742,
+      "api_p95_linear_ms": 1765.3089608,
+      "api_max_ms": 1765.3862629999999,
+      "nonfinite_elements": 0,
+      "output_sha256": "f227725086d8a4dbae38c062b80e9e955af16969c4310a7c3a14105403f3e9df"
+    },
+    {
+      "case": "m256-row",
+      "query_rows": 256,
+      "api_p50_ms": 102.400694,
+      "api_p95_linear_ms": 103.47132429999999,
+      "api_max_ms": 103.86668,
+      "nonfinite_elements": 0,
+      "output_sha256": "468453d8d011068db0490658ea68a74cc715b61276b451b2581d44ab48f8235d"
+    },
+    {
+      "case": "m256-after",
+      "query_rows": 256,
+      "api_p50_ms": 1760.0198845,
+      "api_p95_linear_ms": 1764.82906345,
+      "api_max_ms": 1765.293971,
+      "nonfinite_elements": 0,
+      "output_sha256": "f227725086d8a4dbae38c062b80e9e955af16969c4310a7c3a14105403f3e9df"
+    }
+  ],
+  "segments": [
+    {
+      "query_rows": 64,
+      "name": "b1_attach_hidden_out/out0",
+      "finite": true,
+      "changed": 52651,
+      "relative_l2": 0.00293605081093995,
+      "max_abs": 0.01171875
+    },
+    {
+      "query_rows": 64,
+      "name": "b0_attach_new_k/out0",
+      "finite": true,
+      "changed": 0,
+      "relative_l2": 0.0,
+      "max_abs": 0.0
+    },
+    {
+      "query_rows": 64,
+      "name": "b1_attach_new_k/out0",
+      "finite": true,
+      "changed": 2084,
+      "relative_l2": 0.00017141931260682822,
+      "max_abs": 0.001953125
+    },
+    {
+      "query_rows": 64,
+      "name": "b0_attach_new_v/out0",
+      "finite": true,
+      "changed": 0,
+      "relative_l2": 0.0,
+      "max_abs": 0.0
+    },
+    {
+      "query_rows": 64,
+      "name": "b1_attach_new_v/out0",
+      "finite": true,
+      "changed": 5830,
+      "relative_l2": 0.00041503239650246673,
+      "max_abs": 0.0008544921875
+    },
+    {
+      "query_rows": 256,
+      "name": "b1_attach_hidden_out/out0",
+      "finite": true,
+      "changed": 211543,
+      "relative_l2": 0.0030042314810490565,
+      "max_abs": 0.013671875
+    },
+    {
+      "query_rows": 256,
+      "name": "b0_attach_new_k/out0",
+      "finite": true,
+      "changed": 0,
+      "relative_l2": 0.0,
+      "max_abs": 0.0
+    },
+    {
+      "query_rows": 256,
+      "name": "b1_attach_new_k/out0",
+      "finite": true,
+      "changed": 8636,
+      "relative_l2": 0.00018369739512036592,
+      "max_abs": 0.0078125
+    },
+    {
+      "query_rows": 256,
+      "name": "b0_attach_new_v/out0",
+      "finite": true,
+      "changed": 0,
+      "relative_l2": 0.0,
+      "max_abs": 0.0
+    },
+    {
+      "query_rows": 256,
+      "name": "b1_attach_new_v/out0",
+      "finite": true,
+      "changed": 23655,
+      "relative_l2": 0.00044862603382091773,
+      "max_abs": 0.001953125
+    }
+  ],
+  "AA_byte_equal_each_shape": true,
+  "port_equality_within_each_shape": true,
+  "driver_releases_zero": 6,
+  "resources": {
+    "sampled_temperature_peak_C": 45.322,
+    "boundary_temperature_peak_C": 44.268,
+    "min_mem_available_B": 3206762496,
+    "swapin_pages": 0,
+    "swapout_pages": 0,
+    "observed_temperature_peak_C": 45.322
+  },
+  "goal_achieved": false,
+  "analysis_source_sha256": "90f9eb27f891e9cbf5fa6149e6f0e593b59fd87db53a6040fff8212aa1a8efcf"
+}

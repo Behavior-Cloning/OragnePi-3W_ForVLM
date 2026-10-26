@@ -749,3 +749,7 @@ r3 SSH恢复后原任务日志已回收，18题完成driver0，TTFT P50 .30965s/
 ## 完整视觉NPU塔与转换加速
 
 vit-full-r1/TOWER_REPORT.md：stem+24修正块+修正projector，224归一化NCHW→64x896已板测，1.799s。实际接口I16→FP16；fastcopy-r2同binary off/on/off 1.820/1.427/1.814s，API1.236不变，host.583→.190；18输出与原塔逐字节一致，全部driver0。projector误差修至.064/.074%，整塔3.32/3.61%非原精度无损。还未全塔新向量VQA、JPEG共驻语言；背景CPU服务临停问题仍待用户答复，勿擅停。下一步NEON转换、全链路集成。无后台任务。
+
+## 常驻NPU视觉已验证，语言高内存测试暂不新增
+
+vit-full-r1/RESIDENT_REPORT.md：JPEG→64token常驻视觉P50 1.5105s，预处理72.9ms、视觉调用1.4371s，driver707.6MB，关闭0。完整塔向量VQA5/6，首次竹子18.172s。llm-prefill-stall-r1分段诊断在180秒ready超时，0请求；内核证据确认多次global OOM杀后台llama-server，包括本轮VQA期间。post-health NPU current0、alloc/free932相等，CPU服务active，未手动停止。等待用户确认临停CPU服务再做独占/共驻；避免继续高内存混跑。仅embedding mmap为待验证线索，未定位具体长尾算子。无本实验后台任务。

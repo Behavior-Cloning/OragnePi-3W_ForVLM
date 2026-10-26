@@ -1,3 +1,14 @@
+## 2026-10-26：M64性能候选与版本追踪更新
+
+- 性能候选compact-m64-r4；源码4a4c57e，结果328918c，tag exp/intern-compact-m64-r4-20261026。不是生产晋升，默认未改，质量合格最优为空。
+- system正文59+模板5=64，动态正文128+模板8=new136，只复用system64：prefill464.5ms/TTFT485.6ms P50，每格3案、输出固定反馈32token。system128同动态TTFT545.9ms；动态256约1.01–1.06s；decode约15.3–15.6，未确认decode提速。
+- 共13格，覆盖static32/64×dynamic32/64/128/256及64/128×64/128/192/256；正文与模板分列见BEST_VALIDATED。32静态截断、128静态重复补齐仅成本用途。
+- 新12自然请求父版/候选各6完成、5遗漏、1方向冲突（取消前进要求后退却向前）。候选一例低头退化、一个弯腰改善；不得执行电机或把10/12输出parity称准确率。
+- 7.58分钟采样，最高51.65°C，最低available456MiB；候选NPU增加305MiB，语音仍有1.57s累计滞后/swap。三次关闭driver0。
+- M64独立图在板卡 /opt/opi-vlm/experiments/compact-m64-r4，当前无worker运行；保留父图，不覆盖默认。Softmax局部形状改写略慢，不推广；M32仅编译。
+- 权威报告 research/intern-prefill100-20261025/compact-m64-r4/full-test/REPORT.md。VERSION_MANIFEST分开baseline、最快候选、原量化数值验证、质量合格最优、默认；verify_versions.py已新增M64和局部否定结果校验。
+- 500ms完整范围与质量目标仍未完成，下一步优化past128之后的prefill并保持同输入A/B/A。此轮只有Intern NPU文本、合成语音、RAG驻留，无视觉/真实麦克风/电机。
+
 ## 2026-10-26 尾段优化完整模型结果已回收
 
 - compact-row-down-r1 局部筛查完成：C128/history128，M64 为435.17→20.25ms，M256 为1760.67→102.40ms；A/A输出字节一致，row路径输出均finite，hidden相对L2约0.294%/0.300%，6次driver0，最高45.322°C。该结果只覆盖两层API，不含整模head/TTFT/语音/RAG，不能当整模成绩。

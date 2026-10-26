@@ -1,7 +1,7 @@
 {
   "parent_binary_sha256": "d82771a43a5293bc041f58d8ad390d3fbfdb8a2b74c4a9367cd101393ca7a021",
   "source_reversal_exact": true,
-  "only_changes": "Permit main64 atcapacity448 in tail/compact setup guards; all dispatch/mask/validrows/KV code unchanged",
+  "only_changes": "Permit main64 atcapacity448; retain logical32 cache boundary for static32 fixture. All dispatch, masks, validrows and KV copying unchanged. M64 graph/padded-prefix partition can change numerical results.",
   "change_pairs": [
     [
       "(batch_tokens==16||batch_tokens==32)))",
@@ -10,10 +10,14 @@
     [
       "s.capacity!=448||batch_tokens!=32||!s.tail8.tokens",
       "s.capacity!=448||(batch_tokens!=32&&batch_tokens!=64)||!s.tail8.tokens"
+    ],
+    [
+      "reused-=reused%s.batch.tokens;",
+      "reused-=reused%((s.capacity==448&&s.batch.tokens==64)?32:s.batch.tokens);"
     ]
   ],
   "parent_source_sha256": "b2aac34d2d5b2bc9f6b2ae97bddbd5dad04562f4f2a6422fe14cb95d0dc4aa49",
-  "candidate_source_sha256": "c7ae234ee4871384fda4679a2de785a720a79f5d98fb1a41fb837dc14d118f8e",
+  "candidate_source_sha256": "c136ff37244e49eb82792099710ee63d3421ddef79522bca8d377bdbf2668c36",
   "unchanged_files": {
     "batch_prefill.h": "a3118ec1fe422ab2d7262fdecece9d2fcafbd870ee2ffbe91fa2774813495604",
     "board_probe.c": "992fc2211d42b1d2410d523931cd18395997160a768bba01b16fa789b7c29b60",

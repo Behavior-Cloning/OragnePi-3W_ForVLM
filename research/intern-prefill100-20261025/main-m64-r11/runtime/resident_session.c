@@ -235,7 +235,7 @@ int main(int argc,char **argv) {
         /* Retain complete prefill batches, so the same prefix is computed with
          * the same scalar/batch partition as a fresh request. Re-evaluate at
          * least the final prompt token: hidden stores the previous request. */
-        if(s.batch.tokens&&!getenv("OPI_EXACT_PREFIX"))reused-=reused%s.batch.tokens;
+        if(s.batch.tokens&&!getenv("OPI_EXACT_PREFIX"))reused-=reused%((s.capacity==448&&s.batch.tokens==64)?32:s.batch.tokens);
         if(!reused)reset_session(&s);
         else truncate_session(&s,reused);
         double setup_seconds=now()-start,prefill_seconds=0,scalar_prompt_seconds=0,first_head_seconds=0;

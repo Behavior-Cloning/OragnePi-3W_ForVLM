@@ -1,0 +1,165 @@
+{
+  "scope": "L2/L3 two-layer API, only L3 gate/up fused;history128;no systemtext/template/head;no full model/speech/RAG",
+  "results": [
+    {
+      "variant": "m32-p448-before",
+      "query": 32,
+      "past": 448,
+      "n": 30,
+      "p50_ms": 14.75269,
+      "p95_ms": 14.793148,
+      "sha256": "97f1c873b17f118f84a82b76d9a4d284569558b85a6873d10edf0e9e4b2fb6eb",
+      "bytes": 180224,
+      "finite": true,
+      "driver0": true
+    },
+    {
+      "variant": "m32-p448-fused",
+      "query": 32,
+      "past": 448,
+      "n": 30,
+      "p50_ms": 14.733773000000001,
+      "p95_ms": 14.83219,
+      "sha256": "97f1c873b17f118f84a82b76d9a4d284569558b85a6873d10edf0e9e4b2fb6eb",
+      "bytes": 180224,
+      "finite": true,
+      "driver0": true
+    },
+    {
+      "variant": "m32-p448-after",
+      "query": 32,
+      "past": 448,
+      "n": 30,
+      "p50_ms": 14.922065,
+      "p95_ms": 14.968815,
+      "sha256": "97f1c873b17f118f84a82b76d9a4d284569558b85a6873d10edf0e9e4b2fb6eb",
+      "bytes": 180224,
+      "finite": true,
+      "driver0": true
+    },
+    {
+      "variant": "m64-p128-before",
+      "query": 64,
+      "past": 128,
+      "n": 30,
+      "p50_ms": 19.692128,
+      "p95_ms": 19.729211,
+      "sha256": "a37141280c2db4ff9c53ef1a1c0886cebd879c68961028ede1a39ea4d03d45e6",
+      "bytes": 360448,
+      "finite": true,
+      "driver0": true
+    },
+    {
+      "variant": "m64-p128-fused",
+      "query": 64,
+      "past": 128,
+      "n": 30,
+      "p50_ms": 19.902254000000003,
+      "p95_ms": 20.006795,
+      "sha256": "a37141280c2db4ff9c53ef1a1c0886cebd879c68961028ede1a39ea4d03d45e6",
+      "bytes": 360448,
+      "finite": true,
+      "driver0": true
+    },
+    {
+      "variant": "m64-p128-after",
+      "query": 64,
+      "past": 128,
+      "n": 30,
+      "p50_ms": 19.471252,
+      "p95_ms": 19.921212,
+      "sha256": "a37141280c2db4ff9c53ef1a1c0886cebd879c68961028ede1a39ea4d03d45e6",
+      "bytes": 360448,
+      "finite": true,
+      "driver0": true
+    }
+  ],
+  "comparisons": [
+    {
+      "shape": "m32-p448",
+      "reference_same_bytes_as_archived_r8": true,
+      "A_before_ms": 14.75269,
+      "B_fused_ms": 14.733773000000001,
+      "A_after_ms": 14.922065,
+      "saved_vs_faster_A_percent": 0.12822746224585685,
+      "same_bytes": true,
+      "mismatched_elements": 0,
+      "relative_l2": 0.0,
+      "segments": [
+        {
+          "tensor": "hidden",
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        {
+          "tensor": "b0_new_k",
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        {
+          "tensor": "b0_new_v",
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        {
+          "tensor": "b1_new_k",
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        {
+          "tensor": "b1_new_v",
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        }
+      ]
+    },
+    {
+      "shape": "m64-p128",
+      "reference_same_bytes_as_archived_r8": true,
+      "A_before_ms": 19.692128,
+      "B_fused_ms": 19.902254000000003,
+      "A_after_ms": 19.471252,
+      "saved_vs_faster_A_percent": -2.2135299774251957,
+      "same_bytes": true,
+      "mismatched_elements": 0,
+      "relative_l2": 0.0,
+      "segments": [
+        {
+          "tensor": "hidden",
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        {
+          "tensor": "b0_new_k",
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        {
+          "tensor": "b0_new_v",
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        {
+          "tensor": "b1_new_k",
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        },
+        {
+          "tensor": "b1_new_v",
+          "max_abs": 0.0,
+          "relative_l2": 0.0
+        }
+      ]
+    }
+  ],
+  "peak_temp_C": 42.842,
+  "minimum_available_MiB": 1978.7734375,
+  "resource_samples": 20,
+  "evidence_sha256": {
+    "config.json": "eaf08c158a0f133104be848cccf97e09b573246c51702da7640f0bee20154b21",
+    "deployment-sha.json": "0bd3fd24447e44b45a7f3a9e1abc3e7bd15db7c5da7ed4bbf2f6c31f956c8904",
+    "results/events.jsonl": "324935293f305870a9968529e7f3e039ed112cd50474f6033ec9a5468590d5cd",
+    "results/resources.jsonl": "d6de1766174cef9ca2591feb1aa7b913f110e2064cf38f01cfc3fa3edb54d7d2",
+    "results/meta.json": "e99272a4839f5d579fbc0d64d660be23062918218ab242832b74f4ab102f1239"
+  }
+}

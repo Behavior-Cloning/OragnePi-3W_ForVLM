@@ -1,0 +1,1186 @@
+{
+  "run": "gateup-fusion-r9-a2",
+  "warmup": 3,
+  "repeats": 30,
+  "binary": "/tmp/opi-gateup-fusion-r9-a2/probe",
+  "binary_sha256": "5b2c9e9a154f4a5563047e2da6624f7d6484e0133e5ae78b4f6b280b75768024",
+  "sequence": [
+    {
+      "run_id": "m32-p448-before",
+      "query_tokens": 32,
+      "first_layer": 2,
+      "capacity": 448,
+      "nb": "/tmp/opi-gateup-fusion-r9-a2/m32-p448-before.nb",
+      "nb_sha256": "618280fde2dfb59925d964de2ce1d89fd93be5d9a087ea261bce8b5787612195",
+      "input": "/tmp/opi-gateup-fusion-r9-a2/m32-p448.f32",
+      "input_sha256": "565224e64da6c7b74b37557cfe255c29b2d1bab603226bac17f264093e814d33",
+      "fixture_meta": {
+        "layer": 2,
+        "history": 128,
+        "query": 32,
+        "past_capacity": 448,
+        "source_meta_sha256": "f3c08cec00dc74acaffc5cd715adc07f602b8fd233d780e03b64a3c800097b16",
+        "input_sha256": "565224e64da6c7b74b37557cfe255c29b2d1bab603226bac17f264093e814d33",
+        "all_active_history_retained": true,
+        "scope": "Canonical FP32 history128;query32 is first32 rows of canonicalquery64, not a two-chunk equivalence test",
+        "inputs": [
+          {
+            "name": "b0_hidden",
+            "old_shape": [
+              1,
+              64,
+              896
+            ],
+            "new_shape": [
+              1,
+              32,
+              896
+            ],
+            "sha256": "1c58b58e8c0afef012a5626bb21601365b112c07dfa9c0a0476ddb93b97731b0"
+          },
+          {
+            "name": "b0_past_k",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              448,
+              64
+            ],
+            "sha256": "8ead55c7f54fea7a5a76ce557092376587c53ae472e055932055f6ad282c3247"
+          },
+          {
+            "name": "b1_past_k",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              448,
+              64
+            ],
+            "sha256": "b26fc127afcae8c3ff543c781481e8c7a294f871dd1f1169f06505b79fcef8b4"
+          },
+          {
+            "name": "b0_past_v",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              448,
+              64
+            ],
+            "sha256": "ecf20a15a0c473a72163a8b6fd4aef2ea30f158ce2610e52fb5674ea3a89bb77"
+          },
+          {
+            "name": "b1_past_v",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              448,
+              64
+            ],
+            "sha256": "96a4ab02c33afb060e8076800456f5ff0802610fd31766ad6b3d15b89feb91c0"
+          },
+          {
+            "name": "b0_mask",
+            "old_shape": [
+              1,
+              1,
+              448,
+              576
+            ],
+            "new_shape": [
+              1,
+              1,
+              224,
+              480
+            ],
+            "sha256": "daea88d3ad1bea6380e6cf7e0243af19ba47c2ae16240d95c7701d5384028a8b"
+          },
+          {
+            "name": "b1_mask",
+            "old_shape": [
+              1,
+              1,
+              448,
+              576
+            ],
+            "new_shape": [
+              1,
+              1,
+              224,
+              480
+            ],
+            "sha256": "daea88d3ad1bea6380e6cf7e0243af19ba47c2ae16240d95c7701d5384028a8b"
+          },
+          {
+            "name": "b0_rope_cos",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "sha256": "07e275f3a139a7c1624096cf35ad99d583d3a23a4c32606842b4dfdcb9537f64"
+          },
+          {
+            "name": "b1_rope_cos",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "sha256": "07e275f3a139a7c1624096cf35ad99d583d3a23a4c32606842b4dfdcb9537f64"
+          },
+          {
+            "name": "b0_rope_sin",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "sha256": "399a1fd6ad781e3ad8d042ad19cb4d47fae310b39d7e5579fd2c985c1b6106d9"
+          },
+          {
+            "name": "b1_rope_sin",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "sha256": "399a1fd6ad781e3ad8d042ad19cb4d47fae310b39d7e5579fd2c985c1b6106d9"
+          }
+        ]
+      }
+    },
+    {
+      "run_id": "m32-p448-fused",
+      "query_tokens": 32,
+      "first_layer": 2,
+      "capacity": 448,
+      "nb": "/tmp/opi-gateup-fusion-r9-a2/m32-p448-fused.nb",
+      "nb_sha256": "3603f9e4bfae3b418b0478b7cfd0d849e10418e3706389aeba84b3d6034dc6f4",
+      "input": "/tmp/opi-gateup-fusion-r9-a2/m32-p448.f32",
+      "input_sha256": "565224e64da6c7b74b37557cfe255c29b2d1bab603226bac17f264093e814d33",
+      "fixture_meta": {
+        "layer": 2,
+        "history": 128,
+        "query": 32,
+        "past_capacity": 448,
+        "source_meta_sha256": "f3c08cec00dc74acaffc5cd715adc07f602b8fd233d780e03b64a3c800097b16",
+        "input_sha256": "565224e64da6c7b74b37557cfe255c29b2d1bab603226bac17f264093e814d33",
+        "all_active_history_retained": true,
+        "scope": "Canonical FP32 history128;query32 is first32 rows of canonicalquery64, not a two-chunk equivalence test",
+        "inputs": [
+          {
+            "name": "b0_hidden",
+            "old_shape": [
+              1,
+              64,
+              896
+            ],
+            "new_shape": [
+              1,
+              32,
+              896
+            ],
+            "sha256": "1c58b58e8c0afef012a5626bb21601365b112c07dfa9c0a0476ddb93b97731b0"
+          },
+          {
+            "name": "b0_past_k",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              448,
+              64
+            ],
+            "sha256": "8ead55c7f54fea7a5a76ce557092376587c53ae472e055932055f6ad282c3247"
+          },
+          {
+            "name": "b1_past_k",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              448,
+              64
+            ],
+            "sha256": "b26fc127afcae8c3ff543c781481e8c7a294f871dd1f1169f06505b79fcef8b4"
+          },
+          {
+            "name": "b0_past_v",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              448,
+              64
+            ],
+            "sha256": "ecf20a15a0c473a72163a8b6fd4aef2ea30f158ce2610e52fb5674ea3a89bb77"
+          },
+          {
+            "name": "b1_past_v",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              448,
+              64
+            ],
+            "sha256": "96a4ab02c33afb060e8076800456f5ff0802610fd31766ad6b3d15b89feb91c0"
+          },
+          {
+            "name": "b0_mask",
+            "old_shape": [
+              1,
+              1,
+              448,
+              576
+            ],
+            "new_shape": [
+              1,
+              1,
+              224,
+              480
+            ],
+            "sha256": "daea88d3ad1bea6380e6cf7e0243af19ba47c2ae16240d95c7701d5384028a8b"
+          },
+          {
+            "name": "b1_mask",
+            "old_shape": [
+              1,
+              1,
+              448,
+              576
+            ],
+            "new_shape": [
+              1,
+              1,
+              224,
+              480
+            ],
+            "sha256": "daea88d3ad1bea6380e6cf7e0243af19ba47c2ae16240d95c7701d5384028a8b"
+          },
+          {
+            "name": "b0_rope_cos",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "sha256": "07e275f3a139a7c1624096cf35ad99d583d3a23a4c32606842b4dfdcb9537f64"
+          },
+          {
+            "name": "b1_rope_cos",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "sha256": "07e275f3a139a7c1624096cf35ad99d583d3a23a4c32606842b4dfdcb9537f64"
+          },
+          {
+            "name": "b0_rope_sin",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "sha256": "399a1fd6ad781e3ad8d042ad19cb4d47fae310b39d7e5579fd2c985c1b6106d9"
+          },
+          {
+            "name": "b1_rope_sin",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "sha256": "399a1fd6ad781e3ad8d042ad19cb4d47fae310b39d7e5579fd2c985c1b6106d9"
+          }
+        ]
+      }
+    },
+    {
+      "run_id": "m32-p448-after",
+      "query_tokens": 32,
+      "first_layer": 2,
+      "capacity": 448,
+      "nb": "/tmp/opi-gateup-fusion-r9-a2/m32-p448-after.nb",
+      "nb_sha256": "618280fde2dfb59925d964de2ce1d89fd93be5d9a087ea261bce8b5787612195",
+      "input": "/tmp/opi-gateup-fusion-r9-a2/m32-p448.f32",
+      "input_sha256": "565224e64da6c7b74b37557cfe255c29b2d1bab603226bac17f264093e814d33",
+      "fixture_meta": {
+        "layer": 2,
+        "history": 128,
+        "query": 32,
+        "past_capacity": 448,
+        "source_meta_sha256": "f3c08cec00dc74acaffc5cd715adc07f602b8fd233d780e03b64a3c800097b16",
+        "input_sha256": "565224e64da6c7b74b37557cfe255c29b2d1bab603226bac17f264093e814d33",
+        "all_active_history_retained": true,
+        "scope": "Canonical FP32 history128;query32 is first32 rows of canonicalquery64, not a two-chunk equivalence test",
+        "inputs": [
+          {
+            "name": "b0_hidden",
+            "old_shape": [
+              1,
+              64,
+              896
+            ],
+            "new_shape": [
+              1,
+              32,
+              896
+            ],
+            "sha256": "1c58b58e8c0afef012a5626bb21601365b112c07dfa9c0a0476ddb93b97731b0"
+          },
+          {
+            "name": "b0_past_k",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              448,
+              64
+            ],
+            "sha256": "8ead55c7f54fea7a5a76ce557092376587c53ae472e055932055f6ad282c3247"
+          },
+          {
+            "name": "b1_past_k",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              448,
+              64
+            ],
+            "sha256": "b26fc127afcae8c3ff543c781481e8c7a294f871dd1f1169f06505b79fcef8b4"
+          },
+          {
+            "name": "b0_past_v",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              448,
+              64
+            ],
+            "sha256": "ecf20a15a0c473a72163a8b6fd4aef2ea30f158ce2610e52fb5674ea3a89bb77"
+          },
+          {
+            "name": "b1_past_v",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              448,
+              64
+            ],
+            "sha256": "96a4ab02c33afb060e8076800456f5ff0802610fd31766ad6b3d15b89feb91c0"
+          },
+          {
+            "name": "b0_mask",
+            "old_shape": [
+              1,
+              1,
+              448,
+              576
+            ],
+            "new_shape": [
+              1,
+              1,
+              224,
+              480
+            ],
+            "sha256": "daea88d3ad1bea6380e6cf7e0243af19ba47c2ae16240d95c7701d5384028a8b"
+          },
+          {
+            "name": "b1_mask",
+            "old_shape": [
+              1,
+              1,
+              448,
+              576
+            ],
+            "new_shape": [
+              1,
+              1,
+              224,
+              480
+            ],
+            "sha256": "daea88d3ad1bea6380e6cf7e0243af19ba47c2ae16240d95c7701d5384028a8b"
+          },
+          {
+            "name": "b0_rope_cos",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "sha256": "07e275f3a139a7c1624096cf35ad99d583d3a23a4c32606842b4dfdcb9537f64"
+          },
+          {
+            "name": "b1_rope_cos",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "sha256": "07e275f3a139a7c1624096cf35ad99d583d3a23a4c32606842b4dfdcb9537f64"
+          },
+          {
+            "name": "b0_rope_sin",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "sha256": "399a1fd6ad781e3ad8d042ad19cb4d47fae310b39d7e5579fd2c985c1b6106d9"
+          },
+          {
+            "name": "b1_rope_sin",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "sha256": "399a1fd6ad781e3ad8d042ad19cb4d47fae310b39d7e5579fd2c985c1b6106d9"
+          }
+        ]
+      }
+    },
+    {
+      "run_id": "m64-p128-before",
+      "query_tokens": 64,
+      "first_layer": 2,
+      "capacity": 128,
+      "nb": "/tmp/opi-gateup-fusion-r9-a2/m64-p128-before.nb",
+      "nb_sha256": "9b6afd43a05ff86fc216aa7e06e768cf86404abbae7be962684cc7e1f771c04b",
+      "input": "/tmp/opi-gateup-fusion-r9-a2/m64-p128.f32",
+      "input_sha256": "4899d29ec99a5de88450becb5d107c9ed613f93f5162fa94b885e7e215c6d383",
+      "fixture_meta": {
+        "layer": 2,
+        "history": 128,
+        "query": 64,
+        "past_capacity": 128,
+        "source_meta_sha256": "f3c08cec00dc74acaffc5cd715adc07f602b8fd233d780e03b64a3c800097b16",
+        "input_sha256": "4899d29ec99a5de88450becb5d107c9ed613f93f5162fa94b885e7e215c6d383",
+        "all_active_history_retained": true,
+        "scope": "Canonical FP32 history128;query32 is first32 rows of canonicalquery64, not a two-chunk equivalence test",
+        "inputs": [
+          {
+            "name": "b0_hidden",
+            "old_shape": [
+              1,
+              64,
+              896
+            ],
+            "new_shape": [
+              1,
+              64,
+              896
+            ],
+            "sha256": "2f65fe80f3e94b38b915e44cb2ebb61a739aaca83a83134e9f6afb4de0c1eaf2"
+          },
+          {
+            "name": "b0_past_k",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "sha256": "6729df55833275e5a893042ccf2887d0c6528de1064ce2a0732aaec015238902"
+          },
+          {
+            "name": "b1_past_k",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "sha256": "c910a7b7071b268397c79215dfdd0fde92acf217bdbee1b7d146d33126ef0767"
+          },
+          {
+            "name": "b0_past_v",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "sha256": "c9a5ce8c175a7234d8cc371dac392c72111a2482863bc5ba16d60dc2a81376a9"
+          },
+          {
+            "name": "b1_past_v",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "sha256": "567abda4393f80fbc80c2981e3eb41898daa03d72003494f330d75281ed07808"
+          },
+          {
+            "name": "b0_mask",
+            "old_shape": [
+              1,
+              1,
+              448,
+              576
+            ],
+            "new_shape": [
+              1,
+              1,
+              448,
+              192
+            ],
+            "sha256": "b0b764332be4f7584128acd3f067dc7215a455c561e2c6d22811a482532480d2"
+          },
+          {
+            "name": "b1_mask",
+            "old_shape": [
+              1,
+              1,
+              448,
+              576
+            ],
+            "new_shape": [
+              1,
+              1,
+              448,
+              192
+            ],
+            "sha256": "b0b764332be4f7584128acd3f067dc7215a455c561e2c6d22811a482532480d2"
+          },
+          {
+            "name": "b0_rope_cos",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "sha256": "5059ad248e73425ced5d1a11c0da159d9492c2a981316def298a45940198267c"
+          },
+          {
+            "name": "b1_rope_cos",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "sha256": "5059ad248e73425ced5d1a11c0da159d9492c2a981316def298a45940198267c"
+          },
+          {
+            "name": "b0_rope_sin",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "sha256": "fabc885df73c8a636edef0fcfc4bb7b3eadde971590a2260723cc3478a35e75a"
+          },
+          {
+            "name": "b1_rope_sin",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "sha256": "fabc885df73c8a636edef0fcfc4bb7b3eadde971590a2260723cc3478a35e75a"
+          }
+        ]
+      }
+    },
+    {
+      "run_id": "m64-p128-fused",
+      "query_tokens": 64,
+      "first_layer": 2,
+      "capacity": 128,
+      "nb": "/tmp/opi-gateup-fusion-r9-a2/m64-p128-fused.nb",
+      "nb_sha256": "dbf7315e3eb48cc34d50de264a55300b16cef2b3b8f8414f3eaa6efa66d5b9a6",
+      "input": "/tmp/opi-gateup-fusion-r9-a2/m64-p128.f32",
+      "input_sha256": "4899d29ec99a5de88450becb5d107c9ed613f93f5162fa94b885e7e215c6d383",
+      "fixture_meta": {
+        "layer": 2,
+        "history": 128,
+        "query": 64,
+        "past_capacity": 128,
+        "source_meta_sha256": "f3c08cec00dc74acaffc5cd715adc07f602b8fd233d780e03b64a3c800097b16",
+        "input_sha256": "4899d29ec99a5de88450becb5d107c9ed613f93f5162fa94b885e7e215c6d383",
+        "all_active_history_retained": true,
+        "scope": "Canonical FP32 history128;query32 is first32 rows of canonicalquery64, not a two-chunk equivalence test",
+        "inputs": [
+          {
+            "name": "b0_hidden",
+            "old_shape": [
+              1,
+              64,
+              896
+            ],
+            "new_shape": [
+              1,
+              64,
+              896
+            ],
+            "sha256": "2f65fe80f3e94b38b915e44cb2ebb61a739aaca83a83134e9f6afb4de0c1eaf2"
+          },
+          {
+            "name": "b0_past_k",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "sha256": "6729df55833275e5a893042ccf2887d0c6528de1064ce2a0732aaec015238902"
+          },
+          {
+            "name": "b1_past_k",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "sha256": "c910a7b7071b268397c79215dfdd0fde92acf217bdbee1b7d146d33126ef0767"
+          },
+          {
+            "name": "b0_past_v",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "sha256": "c9a5ce8c175a7234d8cc371dac392c72111a2482863bc5ba16d60dc2a81376a9"
+          },
+          {
+            "name": "b1_past_v",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "sha256": "567abda4393f80fbc80c2981e3eb41898daa03d72003494f330d75281ed07808"
+          },
+          {
+            "name": "b0_mask",
+            "old_shape": [
+              1,
+              1,
+              448,
+              576
+            ],
+            "new_shape": [
+              1,
+              1,
+              448,
+              192
+            ],
+            "sha256": "b0b764332be4f7584128acd3f067dc7215a455c561e2c6d22811a482532480d2"
+          },
+          {
+            "name": "b1_mask",
+            "old_shape": [
+              1,
+              1,
+              448,
+              576
+            ],
+            "new_shape": [
+              1,
+              1,
+              448,
+              192
+            ],
+            "sha256": "b0b764332be4f7584128acd3f067dc7215a455c561e2c6d22811a482532480d2"
+          },
+          {
+            "name": "b0_rope_cos",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "sha256": "5059ad248e73425ced5d1a11c0da159d9492c2a981316def298a45940198267c"
+          },
+          {
+            "name": "b1_rope_cos",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "sha256": "5059ad248e73425ced5d1a11c0da159d9492c2a981316def298a45940198267c"
+          },
+          {
+            "name": "b0_rope_sin",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "sha256": "fabc885df73c8a636edef0fcfc4bb7b3eadde971590a2260723cc3478a35e75a"
+          },
+          {
+            "name": "b1_rope_sin",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "sha256": "fabc885df73c8a636edef0fcfc4bb7b3eadde971590a2260723cc3478a35e75a"
+          }
+        ]
+      }
+    },
+    {
+      "run_id": "m64-p128-after",
+      "query_tokens": 64,
+      "first_layer": 2,
+      "capacity": 128,
+      "nb": "/tmp/opi-gateup-fusion-r9-a2/m64-p128-after.nb",
+      "nb_sha256": "9b6afd43a05ff86fc216aa7e06e768cf86404abbae7be962684cc7e1f771c04b",
+      "input": "/tmp/opi-gateup-fusion-r9-a2/m64-p128.f32",
+      "input_sha256": "4899d29ec99a5de88450becb5d107c9ed613f93f5162fa94b885e7e215c6d383",
+      "fixture_meta": {
+        "layer": 2,
+        "history": 128,
+        "query": 64,
+        "past_capacity": 128,
+        "source_meta_sha256": "f3c08cec00dc74acaffc5cd715adc07f602b8fd233d780e03b64a3c800097b16",
+        "input_sha256": "4899d29ec99a5de88450becb5d107c9ed613f93f5162fa94b885e7e215c6d383",
+        "all_active_history_retained": true,
+        "scope": "Canonical FP32 history128;query32 is first32 rows of canonicalquery64, not a two-chunk equivalence test",
+        "inputs": [
+          {
+            "name": "b0_hidden",
+            "old_shape": [
+              1,
+              64,
+              896
+            ],
+            "new_shape": [
+              1,
+              64,
+              896
+            ],
+            "sha256": "2f65fe80f3e94b38b915e44cb2ebb61a739aaca83a83134e9f6afb4de0c1eaf2"
+          },
+          {
+            "name": "b0_past_k",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "sha256": "6729df55833275e5a893042ccf2887d0c6528de1064ce2a0732aaec015238902"
+          },
+          {
+            "name": "b1_past_k",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "sha256": "c910a7b7071b268397c79215dfdd0fde92acf217bdbee1b7d146d33126ef0767"
+          },
+          {
+            "name": "b0_past_v",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "sha256": "c9a5ce8c175a7234d8cc371dac392c72111a2482863bc5ba16d60dc2a81376a9"
+          },
+          {
+            "name": "b1_past_v",
+            "old_shape": [
+              1,
+              2,
+              512,
+              64
+            ],
+            "new_shape": [
+              1,
+              2,
+              128,
+              64
+            ],
+            "sha256": "567abda4393f80fbc80c2981e3eb41898daa03d72003494f330d75281ed07808"
+          },
+          {
+            "name": "b0_mask",
+            "old_shape": [
+              1,
+              1,
+              448,
+              576
+            ],
+            "new_shape": [
+              1,
+              1,
+              448,
+              192
+            ],
+            "sha256": "b0b764332be4f7584128acd3f067dc7215a455c561e2c6d22811a482532480d2"
+          },
+          {
+            "name": "b1_mask",
+            "old_shape": [
+              1,
+              1,
+              448,
+              576
+            ],
+            "new_shape": [
+              1,
+              1,
+              448,
+              192
+            ],
+            "sha256": "b0b764332be4f7584128acd3f067dc7215a455c561e2c6d22811a482532480d2"
+          },
+          {
+            "name": "b0_rope_cos",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "sha256": "5059ad248e73425ced5d1a11c0da159d9492c2a981316def298a45940198267c"
+          },
+          {
+            "name": "b1_rope_cos",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "sha256": "5059ad248e73425ced5d1a11c0da159d9492c2a981316def298a45940198267c"
+          },
+          {
+            "name": "b0_rope_sin",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "sha256": "fabc885df73c8a636edef0fcfc4bb7b3eadde971590a2260723cc3478a35e75a"
+          },
+          {
+            "name": "b1_rope_sin",
+            "old_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "new_shape": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "sha256": "fabc885df73c8a636edef0fcfc4bb7b3eadde971590a2260723cc3478a35e75a"
+          }
+        ]
+      }
+    }
+  ],
+  "scope": "L2/L3 block;onlyL3 gate/up fused;M32P448 andM64P128 pairedsameinputs;history128;CPU7;nofullTTFT"
+}

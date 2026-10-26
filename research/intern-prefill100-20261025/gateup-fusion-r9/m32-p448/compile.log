@@ -1,0 +1,26 @@
+[32mI 21:48:26 Namespace(batch_size=None, build_platform='make', customer_lids=None, customer_ops=None, dtype='quantized', export='ovxlib', force_remove_permute=False, model='decoder.json', model_data='decoder.data', model_quantize='decoder.quantize', optimize='VIP9000NANODI_PLUS_PID0X1000003B', output_path='export/decoder', pack_nbg_unify=True, postprocess_file=None, save_fused_graph=False, save_trace_db=False, target_ide_project='linux64', viv_sdk='/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools', which='export', with_input_meta='tensor-inputmeta.yml')[0m
+[32mI 21:48:26 Set vsinn project dir to /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/gateup-fusion-r9/m32-p448[0m
+[32mI 21:48:26 Load model in /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/gateup-fusion-r9/m32-p448/decoder.json[0m
+[33mW 21:48:27 Load file /mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/gateup-fusion-r9/m32-p448/decoder.json failed.[0m
+[31mE 21:48:27 Exception:<class 'ValueError'> invalid literal for int() with base 10: 'r9' File:acuitynet.py Line:218[0m
+[33mW 21:48:27 ----------------Error(1),Warning(1)----------------[0m
+Traceback (most recent call last):
+  File "acuitylib/acuitynet.py", line 218, in acuitylib.acuitynet.AcuityNet.load
+  File "acuitylib/acuitynet.py", line 221, in acuitylib.acuitynet.AcuityNet.load
+  File "acuitylib/acuitynet.py", line 234, in acuitylib.acuitynet.AcuityNet.loads
+  File "acuitylib/core/net.py", line 166, in acuitylib.core.net.BaseNet.new_layer
+  File "acuitylib/core/net.py", line 165, in acuitylib.core.net.BaseNet.new_layer._pick_id
+ValueError: invalid literal for int() with base 10: 'r9'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/acuity-toolkit-whl-6.30.22/bin/pegasus.py", line 131, in <module>
+    main(args)
+  File "/root/acuity-toolkit-whl-6.30.22/bin/pegasus.py", line 116, in main
+    ret = exporter.execute(args)
+  File "acuitylib/app/exporter/commands.py", line 196, in acuitylib.app.exporter.commands.execute
+  File "acuitylib/vsi_nn.py", line 220, in acuitylib.vsi_nn.VSInn.load_model
+  File "acuitylib/acuitynet.py", line 224, in acuitylib.acuitynet.AcuityNet.load
+  File "acuitylib/acuitylog.py", line 260, in acuitylib.acuitylog.AcuityLog.e
+acuitylib.acuityerror.AcuityError: ("Exception:<class 'ValueError'> invalid literal for int() with base 10: 'r9' File:acuitynet.py Line:218", None)

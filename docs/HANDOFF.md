@@ -703,3 +703,17 @@ C256/C448 full 24-layer board smoke evidence is in `research/intern-prefill100-2
 理论估算ROOFLINE.md基于官方3TOPS@INT8/LPDDR5最高19.2GB/s和真实语言维度；理想W8短输入TTFT下界26–33ms、decode带宽上界约39tok/s，而无限带宽算力上界约3000tok/s。这是条件性乐观估算，当前混合NPU真实流量/吞吐待测，不能将其当已实现指标。
 
 下一步：Q4/CPU kernel profiling、NPU vision export和激活校准；修复112/前merge质量；接真实视觉embedding到NPU r6及system-only cache；扩充VQA并测试语音并发。
+
+## 2026-10-27 NPU视觉输入接口候选 r1（未上板）
+
+新增 research/intern-vlm-quality-20261027/npu-vision-input-r1；从r6所用compact-m64-r4 runtime独立复制，ARM编译成功，候选SHA8e5381670c1cd724ac1e08e713d0c2aae83cc4a71b2eeaf9766868e897bc814c。main/compact/tail8/补齐batch及scalar都支持896维真实视觉向量覆盖。协议flags bit1+reserved视觉行数，再附image_start/system_reuse_cap和F32向量；限制最多64行并检查长度/finite。前后请求均限制system cache，避免同占位符换图误用KV。
+
+Host ASan/UBSan检查通过：文字回退、图像边界、padding、reset、越界/截断/NaN/Inf拒绝。仅证明接口单元检查和编译，尚无NPU数值parity、图像A→B缓存实测或端到端VQA；默认及baseline未变。下一步先上板验证旧文本完整logits一致、换图/图转文字与fresh session一致，再接已冻结224视觉输出及真实常驻视觉链路。没有启动后台任务。
+
+## NPU视觉输入 r1 板端首轮完成
+
+见 research/intern-vlm-quality-20261027/npu-vision-input-r1/REPORT.md。9份文字/等价注入完整logits相同，真实图像换图和图→文字cache测试通过；6道开发VQA 5/6（木板→树枝仍错）。真实CPU视觉embedding预计算，语言为板端完整Intern NPU，未测共驻端到端。system30+5=35，image64+text5–9，额外模板11，reuse32/new83–87，语言TTFT0.308–0.325s，不含约4s视觉。四次worker关闭driver0。ViT NPU初步导出工作另见vit-npu-r1，112保留64路线保留，尚未完成部署。
+
+## ViT NPU首块实跑（112路线保留）
+
+vit-npu-r1已导出112/224首块ONNX；112 INT16完成编译、板端2预热10热API测试，中位11.029ms；relativeL2 2.353%、cosine0.999733、释放0。只首块、单图测试，非完整视觉塔，不外推24层速度/精度。112保持64patch，末端adapter质量待修；下一步精度消融及全塔。当前没有后台任务运行。

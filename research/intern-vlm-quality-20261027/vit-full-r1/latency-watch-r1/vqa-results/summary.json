@@ -1,0 +1,10 @@
+{
+  "status": "failed",
+  "error": "Traceback (most recent call last):\n  File \"/tmp/opi-vit-latency-watch-r1/board_vqa.py\", line 41, in <module>\n    req(st,max_new=1,reset=True)\n  File \"/tmp/opi-vit-latency-watch-r1/board_vqa.py\", line 31, in req\n    before=snapshot()\n  File \"/tmp/opi-vit-latency-watch-r1/board_vqa.py\", line 29, in snapshot\n    return {'at':time.monotonic(),'meminfo':Path('/proc/meminfo').read_text(),'vmstat':Path('/proc/vmstat').read_text(),'memory_pressure':Path('/proc/pressure/memory').read_text(),'io_pressure':Path('/proc/pressure/io').read_text(),'stat':Path('/proc',str(w.process.pid),'stat').read_text(),'status':Path('/proc',str(w.process.pid),'status').read_text(),'io':Path('/proc',str(w.process.pid),'io').read_text(),'temps':{str(p):int(p.read_text()) for p in Path('/sys/class/thermal').glob('thermal_zone*/temp')}}\n  File \"/usr/lib/python3.10/pathlib.py\", line 1134, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n  File \"/usr/lib/python3.10/pathlib.py\", line 1119, in open\n    return self._accessor.open(self, mode, buffering, encoding, errors,\nFileNotFoundError: [Errno 2] No such file or directory: '/proc/pressure/memory'\n",
+  "records": [],
+  "closed": {
+    "event": "closed",
+    "driver_bytes": 0,
+    "monotonic": 272817.203137973
+  }
+}

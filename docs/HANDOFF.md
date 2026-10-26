@@ -737,3 +737,7 @@ vision-repack-r1/REPORT.md：同binary重排off/on/off，224→64从4.28s降2.26
 ## ViT选择性精度修复
 
 见vit-full-r1/SELECTIVE_REPORT.md：24块1.744s，误差3.77/3.82%。首次内存保护终止，逐SHA归档清理旧图512MB后r2完成driver0。NPU视觉块+离线stem/projector→NPU语言VQA5/6，木板仍错；一次TTFT17.195s/API0.909s待诊断，不报稳定0.32s。system30+5=35/reuse32，动态图64+文5–9/模板11/new83–87，输出7–11。尚非完整塔共驻，未晋升默认，无后台任务。
+
+## VQA尾延迟监测待恢复
+
+见vit-full-r1/LATENCY_WATCH_STATUS.md。r1/r2缺内核PSI和进程io接口，已兼容缺失；r3控制连接240秒超时，远端状态未知，勿重跑。板卡ping正常，SSH banner超时；Windows正常。先恢复连接、确认进程和锁、回收r3证据。endpoint probe已交叉编译未板测。

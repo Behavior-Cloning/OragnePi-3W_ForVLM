@@ -1,0 +1,43 @@
+{
+  "command": [
+    "aarch64-linux-gnu-gcc",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-DMODEL_DIM=896",
+    "-DMODEL_KV=2",
+    "-DMODEL_HD=64",
+    "-DROPE_BASE=1000000.0",
+    "-DFUSED_LAYERS=2",
+    "-DKEY_CACHE_TRANSPOSED=0",
+    "-DHEAD_SHARDS=4",
+    "-DHEAD_CHUNK=49152",
+    "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/compact-m64-p256-r5/runtime/resident_session.c",
+    "-L/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-Wl,-rpath-link,/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-lNBGlinker",
+    "-lVIPhal",
+    "-lm",
+    "-o",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/compact-m64-p256-r5/runtime/resident-compact"
+  ],
+  "returncode": 0,
+  "sources": {
+    "batch_prefill.h": "a3118ec1fe422ab2d7262fdecece9d2fcafbd870ee2ffbe91fa2774813495604",
+    "board_probe.c": "992fc2211d42b1d2410d523931cd18395997160a768bba01b16fa789b7c29b60",
+    "compact_history.h": "7c813824eef6526e47d55a9d52eb76d14401bbdc8fb38c3c7ffdf0b4ea0154f6",
+    "full_model.c": "669d3dc7dbeeba5d1a1276874aa4a89a04773d5a32dca42038a8437db23d6ed0",
+    "greedy_i16.h": "54b2202b91a2b4b33c372b89fdd4e1d6b106069c7c1414f51a82f0da7e5406f8",
+    "greedy_single_pass.h": "6909b4b67ac0b86b2eb49c107cd03364c0718b6413d214412ecb23726c242e16",
+    "mask_templates.h": "55b8fb3cbb404c11ef3a41ffc1b8c8d9df32d4f95ce9c78dd39b26f141e96fa8",
+    "resident_session.c": "654abdee414c8d689db9a5a96fd068ec08f2117417bf5a691881e507f0014a45",
+    "session_release.h": "e4bc66a773e4cdc031024d1e26bbdd2a7242fb877e91e8c3d6d1576ab656e5e3",
+    "test_compact.c": "69281a4a9fc31689e0e77817c07312bec03449864b17b0020bf40c0bf847dc3f",
+    "test_greedy.c": "207d85d056d7c8fb42eab7a3ad8a6301672f10da4364b61a0fcc7e421954b665",
+    "test_release_ownership.c": "06549fed64e3843b23da356a0a548980e6d6a3acd03bd19fa27ed21781d42701",
+    "test_two_prefill_banks.c": "13ed944f2a82625ed1dc528ba27addad8acb24a286fa0c177808c9e1c0e38b47"
+  },
+  "binary_sha256": "dd97b647045c06c762fee154f49a5794fc63eab785f4644a6c2d34c1a29671b1"
+}

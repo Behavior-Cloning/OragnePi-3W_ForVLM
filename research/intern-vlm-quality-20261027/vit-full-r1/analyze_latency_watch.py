@@ -2,7 +2,7 @@ from pathlib import Path
 import json,re,statistics as st
 P=Path(__file__).resolve().parent;O=P/'latency-watch-r3/vqa-results';a=json.loads((O/'summary.json').read_text());assert a['status']=='complete' and a['closed']['driver_bytes']==0
 events=[json.loads(l) for l in (O/'events.jsonl').read_text().splitlines()]
-resources={x['id']:x for x in events if x['event']=='request_resources'}
+resources={x['id']:x for x in events if x.get('event')=='request_resources'}
 def vm(s):return {l.split()[0]:int(l.split()[1]) for l in s.splitlines()}
 rows=[]
 for i,c in enumerate(a['records']):

@@ -1,15 +1,30 @@
-# VQA尾延迟复测状态
+# VQA尾延迟复测结果
 
-2026-10-27：当前未得到有效18请求复测结果，不能用此次监测解释前次17.195秒TTFT。
+SSH长握手重试恢复，按锁保护独立回收原r3日志；18请求全部完成、换图缓存检查通过，关闭driver0。没有重复启动r3。此前240秒控制器超时不代表板端推理失败。
 
-- r1：内核无/proc/pressure/memory，首次采样失败；正常关闭模型。
-- r2：内核无/proc/PID/io，首次采样失败；正常关闭模型。
-- r3：上述可选字段已允许缺失；控制器240秒超时。远程是否仍运行未知，未重启任务。
-- 回收日志SSH返回255；板卡ping三次0丢包，但SSH banner exchange超时。Windows/WSL正常。尚无证据确认OOM、swap或NPU异常，不能归因。
-- 未降低保护阈值，未重启板卡、未覆盖默认模型。
+监测r1/r2因内核缺少PSI/进程io接口在首请求前退出；修正为null后r3完成。缺失指标不能当零。
+system正文30+模板5=35，reuse32；动态视觉64+文字5–9，模板/边界11，new83–87，输出上限32；同6题重复3轮。视觉为预计算向量，不是全塔共驻。
+TTFT中位0.30965秒、最大14.086388秒。首轮竹子14.086秒，后两轮同题约0.309秒；慢请求进程major faults为6、pswpin/out均0，无法直接归因swap。请求间系统MemAvailable从976964降至93620KiB；进程RSS小不代表系统内存足够。
 
-待恢复后：首先确认原进程和锁状态，再回收r3日志；不要直接重跑。如果仍运行应先查明并收尾。复测记录包括每次请求前后进程stat（minor/major faults）、/proc/vmstat换页计数、MemAvailable、温度；缺失PSI和进程I/O记录为null。
+恢复后发现独立系统服务opi-vlm-model.service自动运行CPU Qwen2.5-1.5B Q4，RSS1914848KiB，systemd MemoryCurrent2163376128bytes，NRestarts=5，Restart=on-failure；ExecMainStartTimestamp=2026-10-26 19:46:45 UTC。它不属于本轮启动进程，尚未停止。不能据此证明每次延迟根因，但本轮不是独占模型环境；应独占/混跑配对后归因。已向用户询问能否临时停服务并恢复，未得到答复前不停止。
 
-已准备endpoint_probe.c和controller_endpoints.py，测试stem与projector的真实板端时间及数值；程序已交叉编译成功，但尚未部署测试。不能算完整视觉塔已完成。
-
-System30+5=35，reuse32；动态视觉64+文字5–9，额外模板11，new83–87；每轮6题，计划3轮18请求。仍是预计算向量NPU语言测试，不是视觉/语言共驻端到端。
+| 轮次 | 问题 | TTFT秒 | 进程major faults | swap in/out页 |
+|---|---|---:|---:|---|
+| 0 | red-species | 0.328 | 12 | 0/0 |
+| 0 | red-support | 0.322 | 8 | 0/0 |
+| 0 | red-face | 0.314 | 5 | 2/0 |
+| 0 | giant-species | 0.318 | 0 | 0/0 |
+| 0 | giant-plant | 14.086 | 6 | 0/0 |
+| 0 | giant-ear | 0.510 | 1 | 0/0 |
+| 1 | red-species | 0.310 | 0 | 0/0 |
+| 1 | red-support | 0.309 | 0 | 0/121 |
+| 1 | red-face | 0.309 | 0 | 0/0 |
+| 1 | giant-species | 0.309 | 0 | 0/0 |
+| 1 | giant-plant | 0.309 | 0 | 0/0 |
+| 1 | giant-ear | 0.309 | 0 | 0/0 |
+| 2 | red-species | 0.308 | 1 | 0/0 |
+| 2 | red-support | 0.664 | 6 | 0/0 |
+| 2 | red-face | 0.366 | 1 | 0/0 |
+| 2 | giant-species | 0.309 | 0 | 0/1 |
+| 2 | giant-plant | 0.309 | 0 | 0/0 |
+| 2 | giant-ear | 0.309 | 0 | 0/0 |

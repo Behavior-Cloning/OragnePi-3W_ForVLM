@@ -741,3 +741,7 @@ vision-repack-r1/REPORT.md：同binary重排off/on/off，224→64从4.28s降2.26
 ## VQA尾延迟监测待恢复
 
 见vit-full-r1/LATENCY_WATCH_STATUS.md。r1/r2缺内核PSI和进程io接口，已兼容缺失；r3控制连接240秒超时，远端状态未知，勿重跑。板卡ping正常，SSH banner超时；Windows正常。先恢复连接、确认进程和锁、回收r3证据。endpoint probe已交叉编译未板测。
+
+## 复测恢复及背景CPU模型
+
+r3 SSH恢复后原任务日志已回收，18题完成driver0，TTFT P50 .30965s/max14.086s，首轮竹子慢但后两轮正常；慢请求swap in/out=0，进程majorfault6。背景opi-vlm-model.service CPU Qwen2.5-1.5B占约2GiB、NRestarts5，已问用户是否可临停，未批准前保持。原“远端未知”状态已解决，不重跑r3。endpoint四进程板测完成：stem API1.8ms/误差.034–.051%，projector7.3ms/误差3.64–5.89%，driver0；全26图串联待做。见LATENCY_WATCH_STATUS.md与ENDPOINT_REPORT.md。

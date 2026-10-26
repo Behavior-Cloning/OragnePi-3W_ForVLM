@@ -1,0 +1,100 @@
+{
+  "schema_version": 2,
+  "updated": "2026-10-26",
+  "goal": "system64/128; dynamic64/128/192/256; system-only KV; full prefill and TTFT <=100ms",
+  "goal_verified": false,
+  "production_default_changed": false,
+  "ranking_rule": "Only compare same input IDs, cache scope, output length, quantization and concurrent load. Smoke is not a qualified winner.",
+  "versions": [
+    {
+      "id": "baseline-c512-m32-matrix32",
+      "kind": "reference",
+      "scope": "system32/64 x dynamic32/64/128/256",
+      "report": "matrix32/results/matrix32-r9/REPORT.md",
+      "quality_status": "limited validation; no new default promotion"
+    },
+    {
+      "id": "candidate-c256-tail8-combined-r2",
+      "capacity": 256,
+      "batch": 16,
+      "kind": "short-input-limited-validation",
+      "scope": "system64/128 x dynamic32/64",
+      "report": "../intern-nextbench-20261025/results/combined-matrix-r2/REPORT_NEXT.md",
+      "quality_status": "5 full-logit comparisons equal to same-C256 baseline; historical closing defect not fully explained",
+      "default": false
+    },
+    {
+      "id": "candidate-c256-system-reuse-smoke",
+      "kind": "smoke-unqualified",
+      "capacity": 256,
+      "batch": 32,
+      "l2_quantizer_sha256": "65e84a1fa8d4941bbc082b274dab1b67d2929ace2089edf354d0f232bf650921",
+      "warning": "L2/L3 changed range16 quantization; not original precision, not qualified best",
+      "default": false
+    },
+    {
+      "id": "candidate-c448-m32",
+      "kind": "smoke-unqualified",
+      "capacity": 448,
+      "batch": 32,
+      "l2_quantizer_sha256": "65e84a1fa8d4941bbc082b274dab1b67d2929ace2089edf354d0f232bf650921",
+      "warning": "Range16 L2/L3 lineage; repeated prediction changes observed in r2. Former best/validated-complete-range labels withdrawn.",
+      "default": false
+    },
+    {
+      "id": "down-row-scale-tail-r1",
+      "kind": "performance-candidate-quality-not-qualified",
+      "capacity": 512,
+      "batch": 32,
+      "report": "down-row-scale-tail/results/down-row-scale-tail-r1/REPORT.md",
+      "system_total": [
+        64,
+        128
+      ],
+      "system_body": [
+        59,
+        123
+      ],
+      "system_template": 5,
+      "dynamic_body": [
+        64,
+        128,
+        192,
+        256
+      ],
+      "dynamic_template": 8,
+      "new_prefill": [
+        72,
+        136,
+        200,
+        264
+      ],
+      "output_fixed_feedback": 32,
+      "ttft_p50_ms_s64": [
+        373.0,
+        652.7,
+        934.7,
+        1217.7
+      ],
+      "warning": "Measured faster quantization candidate; NOT C256 plain, NOT original precision; 45/48 natural sequences equal is not accuracy",
+      "default": false
+    },
+    {
+      "id": "c448-qualified-r3",
+      "kind": "diagnostic-passed-pending-timing",
+      "capacity": 448,
+      "batch": 32,
+      "l2_quantizer_sha256": "35ef6de51d90e057f69dfbb87d35c51dee1a85b435f3f6ab5a8d0c10f6afce6d",
+      "scope": "Original L2/L3 restored, C448 tail8 runtime capacity accepted; existing per-port contract validation retained",
+      "report": "c448-qualified-r3/REPORT.md",
+      "default": false,
+      "validation": {
+        "full_logit_original_original_tail_repeat_equal": 9,
+        "range16_three_repetitions_differ": true,
+        "natural_sequences_equal": 6,
+        "closed_driver0": 4,
+        "timing_diagnostic_only": true
+      }
+    }
+  ]
+}

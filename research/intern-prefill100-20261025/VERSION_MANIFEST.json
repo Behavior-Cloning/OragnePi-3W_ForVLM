@@ -167,15 +167,86 @@
         ]
       },
       "report_sha256": "eac47d997c14a0cf9562097050a499080155d9b36eae30e8f738025cb7e032a8"
+    },
+    {
+      "id": "outlier8-c448-full-r1",
+      "kind": "performance-candidate-quality-not-qualified",
+      "source_commit": "32303f3cc41b13b1065730314ac474adcfffbb0e",
+      "implementation_commit": "48d61ae526edfa1839d755414c98565b44ef5e50",
+      "git_tag": "exp/intern-outlier8-c448-r1-20261026",
+      "capacity": 448,
+      "main_batch": 32,
+      "tail_batch": 8,
+      "report": "down-outlier-split-r2/full-test/REPORT.md",
+      "report_sha256": "d13a2b717437ce9cc2ee1e2bb2af591bf745152207984854bd6481344811e7cd",
+      "analysis": "down-outlier-split-r2/full-test/ANALYSIS.json",
+      "analysis_sha256": "5b46b907e0a334f51de22bd61511dd2d4c8b801320c1bc3b822499bc7515afd5",
+      "config_sha256": "a04aabd7838e4d719e1f61c59b75ef1a14e8ab4e2d9313a3be693f41833152fd",
+      "inputs_sha256": "62f932de4ecb1348eee94609e2f367ceea8a99ca4b64691080d4c3ec25ce9e26",
+      "binary_sha256": "9bbd4f92a01b81965c9e7949d4e1f6bab18861823e7f37b3c793daeb2e297d3f",
+      "main_nb_sha256": "618280fde2dfb59925d964de2ce1d89fd93be5d9a087ea261bce8b5787612195",
+      "tail_nb_sha256": "06e4e54060913dc9882b656609372691273d6c9673357337e729eec01c982ffd",
+      "quantization_changed": true,
+      "prefix_quantization_changed": true,
+      "system_body": [
+        59,
+        123
+      ],
+      "system_template": 5,
+      "system_total": [
+        64,
+        128
+      ],
+      "dynamic_body": [
+        64,
+        128,
+        192,
+        256
+      ],
+      "dynamic_template": 8,
+      "new_prefill": [
+        72,
+        136,
+        200,
+        264
+      ],
+      "cache_scope": "system-only",
+      "output_fixed_feedback": 32,
+      "sample_count_per_cell": 3,
+      "default": false,
+      "quality_qualified": false,
+      "natural_output_parity": "12/12 reused cases; not accuracy",
+      "qualitative_fulfillment": "9/12 fulfill explicit positive action;3 conservative no-ops same as baseline;no forbidden action in12 texts, no motor test",
+      "full_logits_relative_l2": [
+        0.03051317264251903,
+        0.028140972846400214
+      ],
+      "fixed_feedback_sequences_equal": 23,
+      "closed_driver0": 3,
+      "resource_qualification": "max audio lag1.247s;1345/26921 frame overruns;swap active;not long-run qualified",
+      "ttft_p50_ms": {
+        "64": [
+          343.285,
+          601.021,
+          858.865,
+          1115.446
+        ],
+        "128": [
+          345.223,
+          599.907,
+          860.173,
+          1118.637
+        ]
+      }
     }
   ],
   "selections": {
     "scope": "Registered full-model evidence; no extrapolation or lossless claim across quantization changes.",
     "performance_candidate": {
-      "id": "down-row-scale-tail-r1",
-      "variant": "protected-main-tail",
+      "id": "outlier8-c448-full-r1",
+      "variant": "outlier8",
       "quality_qualified": false,
-      "scope": "system64/128 x dynamic64/128/192/256; historical cross-run observation"
+      "scope": "system64/128 x dynamic64/128/192/256;fastest P50 among registered full-model observations, not a lossless default"
     },
     "latest_original_quantization_checked": {
       "id": "c448-original-tail8-r4",
@@ -199,7 +270,20 @@
         192,
         256
       ],
-      "all_cells_prefill_and_ttft_le100ms": false
+      "all_cells_prefill_and_ttft_le100ms": false,
+      "latest_observed_candidate": "outlier8-c448-full-r1"
     }
-  }
+  },
+  "selection_history": [
+    {
+      "replaced": "performance_candidate",
+      "previous": {
+        "id": "down-row-scale-tail-r1",
+        "variant": "protected-main-tail",
+        "quality_qualified": false,
+        "scope": "system64/128 x dynamic64/128/192/256; historical cross-run observation"
+      },
+      "reason": "New complete8-cell observation has lower P50 in all cells; across-run ranking does not isolate algorithm effect and does not qualify quality."
+    }
+  ]
 }

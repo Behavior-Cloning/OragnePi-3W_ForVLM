@@ -579,3 +579,14 @@ C256/C448 full 24-layer board smoke evidence is in `research/intern-prefill100-2
 - r2 tail8加载退出的容量白名单缺陷已在r3独立runtime修复，保留端口校验；原量化图诊断与r4计时完成。不要重启r4。
 - static32/64 × dynamic32/64/128/256历史baseline见matrix32/REPORT.md；r4未覆盖static32/dynamic32，不拼接冒充新矩阵。
 - 后续保持独立候选优化FP16 down瓶颈；数值/语义/资源资格分别复核。质量最优指针暂空，不推广速度候选。运行verify_versions.py复核登记；Windows代码权威，Mac仅报告副本。
+
+## 2026-10-26 outlier8完整模型测试
+
+- 上一轮有实质进展：离群通道拆分完成离线筛查、局部480次NPU API和完整24层A/B/A。局部输入为12个历史捕获窗口、每层8/4864通道保留FP16；其余down走I16，其他12个FC权重字节不变。原双层块120.47→18.42ms，仅局部API。
+- 权威目录research/intern-prefill100-20261025/down-outlier-split-r2。代码/实验提交48d61ae，补充资源报告提交32303f3；full-test/REPORT.md与ANALYSIS.json已核验。所有controller terminal complete，勿重跑。
+- system正文59/123+模板5=64/128；动态正文64/128/192/256+模板8=actual new72/136/200/264；只复用各自system，候选改变量化也影响system构建。速度输出固定反馈32，计时不含冷system/ASR。
+- 新候选TTFT P50：s64=343.3/601.0/858.9/1115.5ms，s128=345.2/599.9/860.2/1118.6ms；prefill约323–1098ms；decode15.15–15.51tok/s。更快观察已登记，100ms全范围目标仍未达成。
+- 12自然序列与原版完全相同；冻结约束复核9条直接完成请求，3条保守不动（wave/bend）与原版相同。不是100%正确率。full logits相对差2.81%/3.05%，固定反馈23/24序列相同；原组前后logits字节相同。质量最优仍空，默认未改。
+- 完整实验语音/RAG常驻，RAG仅加载无检索；纯Intern文本NPU、合成录音、无视觉/电机。最高50.902°C，CPU8核归一化P50 6.78%，PSS峰580.7MiB，候选NPU ready约967MiB（口径分开）。语音1345/26921帧超16ms、最大累计lag1.247s；swap发生，不能称全链路实时/长期稳定。3次关闭driver0。
+- 候选NB主/尾SHA、runtime/82条模型路径哈希与fixture在full-test/config.json。原量化r4与历史row-scale记录保留，跨轮次排名不代表算法单变量因果。
+- 局部板端scratch236727836B已逐SHA回收后删除；完整候选在/tmp/opi-outlier-full-c448-r1，当前无活跃worker，driver释放，Windows原始f32/资源证据仍在。下一步可接紧凑past128/full-query图，但保留完整有效KV/绝对位置，不能外推局部两层到整模100ms；须继续8格与数值/语义/资源对照。

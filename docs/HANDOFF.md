@@ -725,3 +725,7 @@ vit-npu-r1/MATRIX_REPORT.md：112/224×FP16/INT16/INT8已上板，14次进程关
 ## CPU视觉Q8重排候选完成
 
 vision-repack-r1/REPORT.md：同binary重排off/on/off，224→64从4.28s降2.26s、约47.3%减少。144 Q8矩阵启用CPU_REPACK，RSS约343MiB。向量relativeL2新旧4.76/7.74%，不是无损；6题核心事实命中，但竹子回答错误扩写并截断，不能称全答对。新向量NPU VQA和换图缓存检查完成，driver0。快候选不覆盖默认；当前无后台测试。112保留64与完整ViT NPU仍待完成。
+
+## 常驻视觉＋NPU语言端到端 r2
+
+见research/intern-vlm-quality-20261027/resident-vlm-r2/REPORT.md。r1加载可用内存42.5MiB触发保护，0请求；清理已逐SHA归档的225.9MB临时ViT矩阵副本后r2同阈值完成12热请求，两个模型各只加载一次。JPEG→首token P50 2.615s、完整回答3.071s；视觉2.247s、语言首token0.309s、decode16.57tok/s；最高59.83C，整机CPU P50 25.68%，可用内存最低197MiB，测量期swap增量0。system30+5=35/reuse32；动态图64+文5–9，模板11/new83–87；无图像或动态缓存。无音频/RAG/视觉NPU全塔/长测资格；竹子错误扩写与截断未解决。当前无后台测试。

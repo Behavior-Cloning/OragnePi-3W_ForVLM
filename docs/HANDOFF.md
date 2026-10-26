@@ -1,3 +1,17 @@
+## 2026-10-26：r7耗时定位与r8完整历史M64局部筛查完成
+
+- 当前无板端测试运行。r7控制器rc0，源码8843be3，报告a8c100a，tag exp/intern-timing-r7-20261026；同r6图/CPU7只加入计时。6格54性能/36自然/15完整logits，数值同例同字节、三个driver0。
+- system正文123+模板5=128、动态正文256+模板8=new264、固定输出32：r7 trace-on prefill P50 966.9ms，其中NPU API940.8ms（97.3%）、输入准备21.8ms、发布3.9ms。SDK分网络profiling返回0不能使用；API包含驱动等待，不等于纯硬件计算。CPU小修难以达到全范围500ms。
+- r8源码6415a67、冻结runner731ae40、原结果bf4244e、报告措辞修订275d311，tag exp/intern-m64-p448-screen-r8-20261026不移动。仅L0/L1和L2/L3：M64P448 API17.630/23.139ms，M32P448较快参考9.698/14.901ms，单位行吞吐约1.10/1.29倍；不是整模结果。hidden相对L2差0.04147%/0.10712%，不等于准确率下降。
+- r8全部10probe×30重复一致/finite/driver0，全部53板端文件SHA对照Windows后释放178789412B。Windows编译图与rawf32保留，可新run复现；默认与r6完整性能指针不变。
+- r7资源采样3.93min，峰50.034°C，最低available465.6MiB，swap满，语音723/14737采样帧超预算、累计lag1.755s，不能称实时/长稳合格。自然12回归仍6完成5漏动作1方向冲突。
+- 下一步优先NPU矩阵算子实现/合并。实际图每层7个FC、Q/K/V及gate/up单独；合并前必须检查是否同源输入及各自量化参数，不能将相同数学式当bitwise相同。R8局部吞吐不足证明full256达到500ms；不要用小输入或截历史替代完整目标。
+- GitHub：Windows原生Git读取成功，远端分支仍5aee7ee；Windows SSH会话wincredman不能保存/读取凭据，显式非交互push返回128。Mac已用现有Windows SSH控制连接建SOCKS127.0.0.1:10847，Git经它读取成功；下一步可用Mac现有Git凭据和bare relay推送Windows提交，不导出凭据到Windows，不关闭Tailscale。使用完成后用ssh -S /tmp/vlm-win-control -O cancel -D 127.0.0.1:10847 pc@100.113.74.31撤销本轮forward。
+
+---
+
+以下为历史交接快照；任务是否仍运行须以最新控制器及实际进程为准，不按旧记录重启。
+
 ## 2026-10-26：CPU7亲和性r6已完成，更新性能候选（默认未改）
 
 - 无测试在运行。实现ada85e7，报告a530d33，tag exp/intern-affinity-m64-r6-20261026。r6复用M64r4 binary/图，只把worker CPU4,5→CPU7→CPU4,5，语音CPU6；完整13格117性能、36自然、18诊断，rc0/三个driver0。

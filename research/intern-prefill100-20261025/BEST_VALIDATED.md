@@ -56,3 +56,9 @@
 - M128、softmax形状改写、softmax-I16等无明确收益的实验仍登记；编译成功、局部两层结果不当完整模型成绩。
 
 版本选择同时保留baseline、资源优先候选、逐格最快观测、原量化验证、质量合格最优、生产默认；verify_versions.py核对报告commit/SHA、token字段、全logits、tag和资格。Windows仓库权威，Mac是报告副本。
+
+## 后续诊断与局部候选（r6最优指针未变）
+
+- [r7分段报告](timing-profile-r7/full-test/REPORT.md)：system128（123+5）、动态256（256+8=new264）、输出32，prefill约967ms；约941ms在NPU API中、输入准备约22ms、KV/输出发布约4ms。API包括驱动等待，不能全部解释为纯硬件计算。54性能/36自然/15份完整logits同例同字节；它是诊断，不参加新最快排名。
+- [r8局部报告](m64-p448-screen-r8/REPORT.md)：完整past448/query64两层图，相对M32的单位行API吞吐约1.10/1.29倍。有效history128中间张量、无system文本/聊天模板/head输出，未测全模型/语音竞争；数值有差异。10个probe正常释放，板端scratch逐SHA核验后释放178789412B。
+- 目标仍未完成。下一步优先NPU矩阵算子和批量布局；现有图每层有7个独立FC，是否可合并需先核对共同输入、权重布局及量化参数，不能先承诺加速或无损。

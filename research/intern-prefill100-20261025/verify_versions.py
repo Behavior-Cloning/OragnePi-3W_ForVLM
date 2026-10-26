@@ -9,7 +9,7 @@ for v in V.values():
  if 'report' not in v:continue
  p=(R/v['report']).resolve();assert p.is_file(),str(p)
  assert hashlib.sha256(p.read_bytes()).hexdigest()==v['report_sha256'],v['id']+' report hash drift'
- c=v.get('source_commit') or v.get('report_commit');assert c,v['id']+' missing commit'
+ c=v.get('report_commit') or v.get('source_commit');assert c,v['id']+' missing commit'
  z=subprocess.run(['git','show',c+':'+str(p.relative_to(repo))],cwd=repo,capture_output=True)
  assert z.returncode==0 and hashlib.sha256(z.stdout).hexdigest()==v['report_sha256'],v['id']+' committed report differs'
  checked.append(v['id'])
@@ -159,7 +159,34 @@ for id,n in [('softmax-i16-r1',3),('compact-p256-screen-r1',6)]:
   f=d/'results'/(z['variant']+'.f32');assert f.stat().st_size==z['bytes'] and hashlib.sha256(f.read_bytes()).hexdigest()==z['sha256'] and z['finite'] and z['driver0']
  assert not v['default'] and not v['quality_qualified']
 
+# Timing-only full model evidence never changes the performance candidate.
+v=V['timing-profile-r7'];d=R/'timing-profile-r7/full-test';J=json.loads((d/'ANALYSIS.json').read_text())
+for name,key in [('ANALYSIS.json','analysis_sha256'),('config.json','config_sha256'),('inputs.json','inputs_sha256'),('deployment-sha.json','deployment_sha256'),('QUALITY_REVIEW.json','quality_review_sha256')]:
+ assert hashlib.sha256((d/name).read_bytes()).hexdigest()==v[key]
+assert J['controller']['status']=='complete' and J['controller']['returncode']==0 and J['old_runtime_control']['same_bytes']
+assert J['counts']['measure']==54 and J['counts']['quality']==36 and len(J['performance'])==18 and len(J['diagnostics'])==15
+for x in J['performance']:
+ assert x['system_body']+5==x['system_total']==x['reused'] and x['dynamic_body']+8==x['new_prefill'] and x['output']==32 and x['ttft_seconds']['n']==3
+for z in J['diagnostics']:
+ f=d/'results'/z['path'];assert f.stat().st_size==2426784 and hashlib.sha256(f.read_bytes()).hexdigest()==z['sha256'] and z['finite'] and z['same_bytes_as_original']
+ old=next(x for x in H['diagnostics'] if x['variant']=='a76' and x['case']==z['case']);assert z['sha256']==old['sha256']
+assert len(J['closed'])==3 and all(x['metrics']['driver_bytes']==0 for x in J['closed'])
+assert len(J['timing_profiles'])==18 and len(J['profile_cells'])==6 and all(x['prefill_api_fraction']['p50']>.95 for x in J['profile_cells'])
+assert all(q['equal']==12 for q in J['quality'].values()) and not v['default'] and not v['quality_qualified']
+v=V['m64-p448-screen-r8'];d=R/'m64-p448-screen-r8';K=json.loads((d/'ANALYSIS.json').read_text())
+assert hashlib.sha256((d/'ANALYSIS.json').read_bytes()).hexdigest()==v['analysis_sha256'] and len(K['results'])==10 and K['old_probe_control_same_bytes']
+for z in K['results']:
+ f=d/'results'/(z['variant']+'.f32');assert f.stat().st_size==z['bytes'] and hashlib.sha256(f.read_bytes()).hexdigest()==z['sha256'] and z['finite'] and z['driver0'] and z['n']==30
+for name in ['l0','l2']:
+ b=json.loads((d/name/'build.json').read_text());assert b['payload_equal'] and b['quantizers_unchanged'] and b['past']==448 and b['query_rows']==64
+ assert hashlib.sha256((d/name/'export_nbg_unify/network_binary.nb').read_bytes()).hexdigest()==b['nb_sha256']
+ assert hashlib.sha256((d/name/'export/decoder.export.data').read_bytes()).hexdigest()==b['source_sha256']['export/decoder.export.data']
+ assert hashlib.sha256((d/name/'decoder.quantize').read_bytes()).hexdigest()==b['source_sha256']['decoder.quantize']
+release=json.loads((d/'BOARD_CLEANUP.json').read_text());assert release['files']==53 and release['bytes']==178789412 and release['all_sha_equal'] and release['removed'] and release['driver0_before']
+assert v['source_commit']!=v['report_commit'] and not v['default'] and not v['quality_qualified']
+assert M['selections']['performance_candidate']['id']=='affinity-m64-r6' and M['selections']['latest_local_screen']['id']==v['id']
+
 for v in V.values():
  if 'git_tag' in v:
   tag=subprocess.check_output(['git','rev-parse',v['git_tag']+'^{commit}'],cwd=repo,text=True).strip();assert tag==v['source_commit'],v['id']+' tag moved or mismatch'
-print(json.dumps({'status':'passed','reports_bound_to_commits':checked,'token_rows_checked':len(A['performance'])+len(B['performance'])+len(C['performance'])+len(D['performance'])+len(F['performance'])+len(H['performance']),'full_logit_records':len(A['diagnostics'])+len(B['diagnostics'])+len(C['diagnostics'])+len(D['diagnostics'])+len(F['diagnostics'])+len(H['diagnostics']),'matrices_checked':6,'default_changed':False,'latest_promoted':False},ensure_ascii=False))
+print(json.dumps({'status':'passed','reports_bound_to_commits':checked,'token_rows_checked':len(A['performance'])+len(B['performance'])+len(C['performance'])+len(D['performance'])+len(F['performance'])+len(H['performance'])+len(J['performance']),'full_logit_records':len(A['diagnostics'])+len(B['diagnostics'])+len(C['diagnostics'])+len(D['diagnostics'])+len(F['diagnostics'])+len(H['diagnostics'])+len(J['diagnostics']),'matrices_checked':7,'timing_diagnostic_matrices':1,'new_local_probe_records':10,'default_changed':False,'latest_promoted':False},ensure_ascii=False))

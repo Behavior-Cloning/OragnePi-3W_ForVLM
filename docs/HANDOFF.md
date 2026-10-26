@@ -554,3 +554,7 @@ git -c core.sshCommand='ssh -o ForwardX11=no -o BatchMode=yes -o IdentitiesOnly=
 ```
 
 提交前检查 `git diff --check`、文档链接、敏感内容与备份范围；推送后通过同样认证的 `git ls-remote origin refs/heads/main` 核对本地HEAD。保留不属于本任务的用户改动。不要将Git备份描述为完整TF系统备份。
+
+## 2026-10-26 C256/C448 board smoke
+
+C256/C448 full 24-layer board smoke evidence is in `research/intern-prefill100-20261025/CAPACITY256_448_BOARD_SMOKE.md`. C256: system64/dynamic64 cold TTFT 0.830s; system KV reuse 0.606s. C448: system64/dynamic256 with system reuse TTFT 1.373s; system128/dynamic256 with reuse 1.346s. Token accounting is system正文59/123 + system模板5, dynamic正文64/256 + dynamic模板8, actual new72/264. Both workers released with driver_bytes=0. This is synthetic text-only Intern NPU and mock worker; no microphone, vision or motors. The 100ms full-model target remains unproven and unmet.

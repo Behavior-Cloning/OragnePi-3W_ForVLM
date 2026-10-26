@@ -1,3 +1,15 @@
+## 2026-10-26：双past256 r5已完成，未推广；下一步CPU调度
+
+- 无测试在运行。r5实现762dbfc、完整13格报告17e914f、tag exp/intern-compact-m64-p256-r5-20261026。完整500ms目标仍未完成，decode没有确认提速。
+- 相同输入A/B/A：system正文123+模板5=128、动态正文128+模板8=new136，候选prefill500.9ms、TTFT523.8ms，父版重复A525.0/546.0ms。system64动态256 TTFT979.3ms，system128动态2561031.5ms；性能输出固定反馈32token，仅system KV。
+- 代价：额外NPU ready314.5MiB，最低available115.6MiB，swap已满（本轮页换入出0）；语音累计lag1.291s。采样7.73min、峰温53.134°C、NPU始终1008MHz performance。
+- 12条已有自然回归输出一致，仍6完成/5遗漏/1明确方向冲突。18份四步full logits finite，三次关闭driver0；不能视作质量合格或长期稳定。
+- 删除本次新增板端 /opt/opi-vlm/experiments/compact-m64-p256-r5/compact256：12张图SHA与Windows一致、driver0确认后释放297655008B；原始结果、Windows图、父模型保留。三个局部probe tmp目录另释放208346794B，全部逐SHA核验。
+- 版本选择：M64r4保留为资源优先候选，新增逐格最低观测（r5长输入部分更快），质量合格最优为空，默认未改。VERSION_MANIFEST与verify_versions校验5矩阵138行token/60份full logits。
+- 否定结果softmax-i16-r1：API13.79ms无收益、hidden改变，未推广。past256局部probe已完成，不外推为全模型成绩。
+- 下一步建议同一M64r4 binary/图/inputs、CPU4,5→CPU7→CPU4,5的A/B/A，语音固定CPU6，RAG驻留但不查询。先不加载r5额外图，完整记录prefill/TTFT/decode/CPU/温度/内存/audio lag/NPU频率与每个token口径。不要修改既有run IDs。当前控制器已终止，必须继续双锁。
+- GitHub近期推送与复核超时，未宣称新提交已同步。Windows为权威仓库，Mac仅报告副本。
+
 ## 2026-10-26：M64性能候选与版本追踪更新
 
 GitHub同步待确认：代码/报告636534f已在Windows提交；HTTPS推送超时，随后ls-remote也超时。最后成功查询仍为5aee7ee，不能声称远端已更新。完整回执见research/intern-prefill100-20261025/github-sync.json。

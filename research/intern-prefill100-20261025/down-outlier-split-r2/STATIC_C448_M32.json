@@ -1,0 +1,102 @@
+{
+  "status": "static-checked-not-board-qualified",
+  "source_nb_sha256": "1f740dfc74d37aab221e4e0693bc0e7babb90f954d9a741e2d10901461476a29",
+  "candidate_nb_sha256": "618280fde2dfb59925d964de2ce1d89fd93be5d9a087ea261bce8b5787612195",
+  "weights": [
+    {
+      "name": "@b0_fullconnect_122:weight",
+      "unchanged": true
+    },
+    {
+      "name": "@b0_fullconnect_128:weight",
+      "unchanged": true
+    },
+    {
+      "name": "@b0_fullconnect_134:weight",
+      "unchanged": true
+    },
+    {
+      "name": "@b0_fullconnect_119:weight",
+      "unchanged": true
+    },
+    {
+      "name": "@b0_fullconnect_125:weight",
+      "unchanged": true
+    },
+    {
+      "name": "@b0_fullconnect_131:weight",
+      "unchanged": true
+    },
+    {
+      "name": "@b0_fullconnect_116:weight",
+      "integer_quantization_of_split_source_verified": true,
+      "fl": 16
+    },
+    {
+      "name": "@b1_fullconnect_122:weight",
+      "unchanged": true
+    },
+    {
+      "name": "@b1_fullconnect_128:weight",
+      "unchanged": true
+    },
+    {
+      "name": "@b1_fullconnect_134:weight",
+      "unchanged": true
+    },
+    {
+      "name": "@b1_fullconnect_119:weight",
+      "unchanged": true
+    },
+    {
+      "name": "@b1_fullconnect_125:weight",
+      "unchanged": true
+    },
+    {
+      "name": "@b1_fullconnect_131:weight",
+      "unchanged": true
+    },
+    {
+      "name": "@b1_fullconnect_116:weight",
+      "integer_quantization_of_split_source_verified": true,
+      "fl": 15
+    },
+    {
+      "name": "@outlier_slowfc_8100:weight",
+      "fp16_channels": 8,
+      "source_half_exact": true
+    },
+    {
+      "name": "@outlier_slowfc_8101:weight",
+      "fp16_channels": 8,
+      "source_half_exact": true
+    }
+  ],
+  "ports": {
+    "input_order": [
+      "b0_hidden_101",
+      "b0_past_k_102",
+      "b1_past_k_102",
+      "b0_past_v_103",
+      "b1_past_v_103",
+      "b0_mask_104",
+      "b1_mask_104",
+      "b0_rope_cos_105",
+      "b1_rope_cos_105",
+      "b0_rope_sin_106",
+      "b1_rope_sin_106"
+    ],
+    "output_order": [
+      "b1_attach_hidden_out/out0_0",
+      "b0_attach_new_k/out0_1",
+      "b1_attach_new_k/out0_1",
+      "b0_attach_new_v/out0_2",
+      "b1_attach_new_v/out0_2"
+    ],
+    "contract_verified_from_exported_c": true
+  },
+  "ports_source": "generated C; board actual port contract checked by probe",
+  "graph_sha256": "bf75e3537b4ae72f17db4e56673e47d4e390fb35422c7c970d691f1faf1dd1f6",
+  "quantizer_sha256": "cfc372c87aebeb261cf44fc9faf0f070725cc91a291d0a4f4e77451bbd7a2905",
+  "split_data_sha256": "0879e7ff34555496c21f81f2277878d781420db1d819dbe4d66b6b83fe936f8f"
+}

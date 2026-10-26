@@ -1,0 +1,183 @@
+{
+  "source_sha256": {
+    "decoder.json": "7cdd57ffe21d306b9e716c11349b29c1f3fab49167ba7a30bb5232c838adc436",
+    "decoder.data": "1159d14e2134e7d8046926b182d47c8bcc3d8a0a972bd21defd4dc7f3da71877",
+    "decoder.quantize": "35ef6de51d90e057f69dfbb87d35c51dee1a85b435f3f6ab5a8d0c10f6afce6d",
+    "tensor-inputmeta.yml": "2238a91480ed5acda5dab788432cd40b4084c077c7c7bd6b5d464b74675b81a3",
+    "export_nbg_unify/network_binary.nb": "f820fb762678e09d858a514d8d87f06e6b4c36bfb1e20ffab233d4cc707d4ad8"
+  },
+  "selection_sha256": "75c476553bd0aaa03cf6fc56c525eeb2bf2fb1bde2d58f77b6b87348ce20f1a2",
+  "calibration_case": "s64-d64-0",
+  "heldout_case": "s128-d256-0",
+  "splits": [
+    {
+      "layer": 2,
+      "indices": [
+        813,
+        3250,
+        4376,
+        2661,
+        2818,
+        4684,
+        1548,
+        3118
+      ],
+      "source_shape": [
+        4864,
+        896
+      ],
+      "slow_shape": [
+        8,
+        896
+      ],
+      "weight_reconstruction_exact": true
+    },
+    {
+      "layer": 3,
+      "indices": [
+        2247,
+        3016,
+        2706,
+        2589,
+        417,
+        2137,
+        2855,
+        4544
+      ],
+      "source_shape": [
+        4864,
+        896
+      ],
+      "slow_shape": [
+        8,
+        896
+      ],
+      "weight_reconstruction_exact": true
+    }
+  ],
+  "added_nodes": [
+    "outlier_slice_8400",
+    "outlier_slice_8401",
+    "outlier_slice_8402",
+    "outlier_slice_8403",
+    "outlier_slice_8404",
+    "outlier_slice_8405",
+    "outlier_slice_8406",
+    "outlier_slice_8407",
+    "outlier_concat_8200",
+    "outlier_slowfc_8100",
+    "outlier_sum_8300",
+    "down_i16_2000",
+    "outlier_slice_8410",
+    "outlier_slice_8411",
+    "outlier_slice_8412",
+    "outlier_slice_8413",
+    "outlier_slice_8414",
+    "outlier_slice_8415",
+    "outlier_slice_8416",
+    "outlier_slice_8417",
+    "outlier_concat_8201",
+    "outlier_slowfc_8101",
+    "outlier_sum_8301",
+    "down_i16_2001"
+  ],
+  "modified_nodes_before": {
+    "b0_fullconnect_116": {
+      "name": "b0_fullconnect",
+      "op": "fullconnect",
+      "parameters": {
+        "weights": 896,
+        "bias": true,
+        "regularize": false,
+        "axis": 1
+      },
+      "inputs": [
+        "@b0_reshape_115:out0"
+      ],
+      "outputs": [
+        "out0"
+      ]
+    },
+    "b0_reshape_117": {
+      "name": "b0_reshape",
+      "op": "reshape",
+      "parameters": {
+        "shape": [
+          1,
+          8,
+          896
+        ]
+      },
+      "inputs": [
+        "@b0_fullconnect_116:out0"
+      ],
+      "outputs": [
+        "out0"
+      ]
+    },
+    "b1_fullconnect_116": {
+      "name": "b1_fullconnect",
+      "op": "fullconnect",
+      "parameters": {
+        "weights": 896,
+        "bias": true,
+        "regularize": false,
+        "axis": 1
+      },
+      "inputs": [
+        "@b1_reshape_115:out0"
+      ],
+      "outputs": [
+        "out0"
+      ]
+    },
+    "b1_reshape_117": {
+      "name": "b1_reshape",
+      "op": "reshape",
+      "parameters": {
+        "shape": [
+          1,
+          8,
+          896
+        ]
+      },
+      "inputs": [
+        "@b1_fullconnect_116:out0"
+      ],
+      "outputs": [
+        "out0"
+      ]
+    }
+  },
+  "quantizer_changed_keys": [
+    "@outlier_slice_8400:out0",
+    "@outlier_slice_8401:out0",
+    "@outlier_slice_8402:out0",
+    "@outlier_slice_8403:out0",
+    "@outlier_slice_8404:out0",
+    "@outlier_slice_8405:out0",
+    "@outlier_slice_8406:out0",
+    "@outlier_slice_8407:out0",
+    "@outlier_concat_8200:out0",
+    "@outlier_slowfc_8100:out0",
+    "@outlier_sum_8300:out0",
+    "@down_i16_2000:out0",
+    "@outlier_slowfc_8100:weight",
+    "@b0_fullconnect_116:weight",
+    "@outlier_slice_8410:out0",
+    "@outlier_slice_8411:out0",
+    "@outlier_slice_8412:out0",
+    "@outlier_slice_8413:out0",
+    "@outlier_slice_8414:out0",
+    "@outlier_slice_8415:out0",
+    "@outlier_slice_8416:out0",
+    "@outlier_slice_8417:out0",
+    "@outlier_concat_8201:out0",
+    "@outlier_slowfc_8101:out0",
+    "@outlier_sum_8301:out0",
+    "@down_i16_2001:out0",
+    "@outlier_slowfc_8101:weight",
+    "@b1_fullconnect_116:weight"
+  ],
+  "scope": "C448 L2/L3 split down candidate, M8; not full-model validated"
+}

@@ -1,0 +1,129 @@
+{
+  "scope": "Codex qualitative review against previously frozen task constraints;12 reused cases, no human-labelled independent test or motor/RAG execution. Compatibility and fulfillment separate.",
+  "review": [
+    {
+      "case": "s64-tired-greeting",
+      "input": "用户刚回家有些疲惫，希望机器人点头回应，不要移动底盘。",
+      "frozen_constraint": "点头回应；底盘不得移动",
+      "output": "点头回应。",
+      "matches_baseline_tokens": true,
+      "no_prohibited_action_in_text": true,
+      "directly_fulfills_requested_action": true,
+      "note": "Text matches requested action/stop; physical feasibility not tested"
+    },
+    {
+      "case": "s64-reading-cancel",
+      "input": "用户正在阅读，希望保持安静，取消刚才向前移动的要求。",
+      "frozen_constraint": "保持静止；不得继续向前移动",
+      "output": "保持静止。",
+      "matches_baseline_tokens": true,
+      "no_prohibited_action_in_text": true,
+      "directly_fulfills_requested_action": true,
+      "note": "Text matches requested action/stop; physical feasibility not tested"
+    },
+    {
+      "case": "s64-wave",
+      "input": "用户想打个招呼，希望摆臂回应。桌边空间有限，底盘保持静止。",
+      "frozen_constraint": "摆臂招呼；底盘不得移动",
+      "output": "保持静止。",
+      "matches_baseline_tokens": true,
+      "no_prohibited_action_in_text": true,
+      "directly_fulfills_requested_action": false,
+      "note": "Conservative no-op does not fulfill requested positive action"
+    },
+    {
+      "case": "s64-nod",
+      "input": "请点头回应。",
+      "frozen_constraint": "点头回应",
+      "output": "点头回应。",
+      "matches_baseline_tokens": true,
+      "no_prohibited_action_in_text": true,
+      "directly_fulfills_requested_action": true,
+      "note": "Text matches requested action/stop; physical feasibility not tested"
+    },
+    {
+      "case": "s64-bend-not-look-up",
+      "input": "请弯腰，不要抬头。",
+      "frozen_constraint": "腰部弯曲；不得抬头",
+      "output": "保持静止。",
+      "matches_baseline_tokens": true,
+      "no_prohibited_action_in_text": true,
+      "directly_fulfills_requested_action": false,
+      "note": "Conservative no-op does not fulfill requested positive action"
+    },
+    {
+      "case": "s64-cancel-motion",
+      "input": "取消刚才移动，保持静止。",
+      "frozen_constraint": "停止移动并保持静止",
+      "output": "保持静止。",
+      "matches_baseline_tokens": true,
+      "no_prohibited_action_in_text": true,
+      "directly_fulfills_requested_action": true,
+      "note": "Text matches requested action/stop; physical feasibility not tested"
+    },
+    {
+      "case": "s128-tired-greeting",
+      "input": "用户刚回家有些疲惫，希望机器人点头回应，不要移动底盘。",
+      "frozen_constraint": "点头回应；底盘不得移动",
+      "output": "点头回应",
+      "matches_baseline_tokens": true,
+      "no_prohibited_action_in_text": true,
+      "directly_fulfills_requested_action": true,
+      "note": "Text matches requested action/stop; physical feasibility not tested"
+    },
+    {
+      "case": "s128-reading-cancel",
+      "input": "用户正在阅读，希望保持安静，取消刚才向前移动的要求。",
+      "frozen_constraint": "保持静止；不得继续向前移动",
+      "output": "保持静止。",
+      "matches_baseline_tokens": true,
+      "no_prohibited_action_in_text": true,
+      "directly_fulfills_requested_action": true,
+      "note": "Text matches requested action/stop; physical feasibility not tested"
+    },
+    {
+      "case": "s128-wave",
+      "input": "用户想打个招呼，希望摆臂回应。桌边空间有限，底盘保持静止。",
+      "frozen_constraint": "摆臂招呼；底盘不得移动",
+      "output": "摆臂",
+      "matches_baseline_tokens": true,
+      "no_prohibited_action_in_text": true,
+      "directly_fulfills_requested_action": true,
+      "note": "Text matches requested action/stop; physical feasibility not tested"
+    },
+    {
+      "case": "s128-nod",
+      "input": "请点头回应。",
+      "frozen_constraint": "点头回应",
+      "output": "点头回应。",
+      "matches_baseline_tokens": true,
+      "no_prohibited_action_in_text": true,
+      "directly_fulfills_requested_action": true,
+      "note": "Text matches requested action/stop; physical feasibility not tested"
+    },
+    {
+      "case": "s128-bend-not-look-up",
+      "input": "请弯腰，不要抬头。",
+      "frozen_constraint": "腰部弯曲；不得抬头",
+      "output": "保持静止。",
+      "matches_baseline_tokens": true,
+      "no_prohibited_action_in_text": true,
+      "directly_fulfills_requested_action": false,
+      "note": "Conservative no-op does not fulfill requested positive action"
+    },
+    {
+      "case": "s128-cancel-motion",
+      "input": "取消刚才移动，保持静止。",
+      "frozen_constraint": "停止移动并保持静止",
+      "output": "保持静止。",
+      "matches_baseline_tokens": true,
+      "no_prohibited_action_in_text": true,
+      "directly_fulfills_requested_action": true,
+      "note": "Text matches requested action/stop; physical feasibility not tested"
+    }
+  ],
+  "baseline_same_outputs": true,
+  "no_prohibited_action_in_text": 12,
+  "direct_fulfillment": 9,
+  "production_quality_qualified": false
+}

@@ -69,6 +69,13 @@ out['snapshot_audio_caveat']='overruns are frontend processing-frame budget fail
 out['evidence_sha256']={str(p.relative_to(R)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [R/'config.json',R/'inputs.json',R/'deployment-sha.json',R/'board_matrix.py',R/'results/events.jsonl',R/'results/resources.jsonl',R/'results/status.json',R/'results/post-health.txt']}
 assert all(x['same_bytes_as_original'] for x in out['diagnostics'] if x['variant']=='parent-repeat')
 assert out['fixed_feedback_equal']['parent-repeat']==12 and out['quality']['parent-repeat']['equal']==12
+out['driver_ready']={e['variant']:e['metrics']['driver_bytes'] for e in E if e['event']=='ready'}
+prior_root=R.parent.parent/'down-outlier-split-r2/full-test'
+prior=json.loads((prior_root/'ANALYSIS.json').read_text())
+old=next(x for x in prior['diagnostics'] if x['variant']=='outlier8' and x['case']=='s128-d256-0')
+current=next(x for x in out['diagnostics'] if x['variant']=='parent' and x['case']=='s128-d256-0')
+out['old_runtime_control']={'prior_report':'down-outlier-split-r2/full-test/ANALYSIS.json','case':'s128-d256-0','prior_sha256':old['sha256'],'current_sha256':current['sha256'],'same_bytes':old['sha256']==current['sha256']}
+assert out['old_runtime_control']['same_bytes'],'disabled compact runtime changed existing parent result'
 (R/'ANALYSIS.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
 for s in [64,128]:
  for d in [128,256]:

@@ -1,7 +1,7 @@
 {
   "schema_version": 3,
   "updated": "2026-10-26",
-  "goal": "system64/128; dynamic64/128/192/256; system-only KV; full prefill and TTFT <=100ms",
+  "goal": "system64/128; dynamic64/128/192/256; system-only KV; accelerate prefill and decode, target prefill around500ms",
   "goal_verified": false,
   "production_default_changed": false,
   "ranking_rule": "Only compare same input IDs, cache scope, output length, quantization and concurrent load. Smoke is not a qualified winner.",
@@ -238,6 +238,74 @@
           1118.637
         ]
       }
+    },
+    {
+      "id": "compact-fullquery-r3",
+      "kind": "evaluated-no-clear-gain-not-promoted",
+      "source_commit": "27dc3f27f61415f572e6b7dd41101b44f98c96cf",
+      "implementation_commit": "d139d0d7cf13bbfa27502b3e03d7fae676029fce",
+      "git_tag": "exp/intern-compact-m128-r3-20261026",
+      "parent": "outlier8-c448-full-r1",
+      "report": "compact-fullquery-r3/full-test/REPORT.md",
+      "report_sha256": "77538cf4b3386819c52d35f43be9d096cdb256f88193baa7cb935b2ab7a81c47",
+      "analysis": "compact-fullquery-r3/full-test/ANALYSIS.json",
+      "analysis_sha256": "45d381be0cc00b93fdcc812344d4465fc86c3f3c743e53dfc09373ca753e58d2",
+      "config_sha256": "16e25227bcdba45f846a93d91c31fffe6470417e3b31a0009b18368b2909ebb7",
+      "inputs_sha256": "62f932de4ecb1348eee94609e2f367ceea8a99ca4b64691080d4c3ec25ce9e26",
+      "binary_sha256": "89f140a2d1d6f051cb1e98f38bfb560da37f0f517de720fc63299505a7265f78",
+      "storage_capacity": 448,
+      "compact_past_capacity": 128,
+      "compact_query_tokens": 128,
+      "system_body": [
+        59,
+        123
+      ],
+      "system_template": 5,
+      "system_total": [
+        64,
+        128
+      ],
+      "dynamic_body": [
+        128,
+        256
+      ],
+      "dynamic_template": 8,
+      "new_prefill": [
+        136,
+        264
+      ],
+      "cache_scope": "system-only",
+      "output_fixed_feedback": 32,
+      "sample_count_per_cell": 3,
+      "quantization_changed_relative_to_parent": false,
+      "parent_quantization_changed_from_original": true,
+      "default": false,
+      "quality_qualified": false,
+      "natural_parity": "11/12; one synonymous greeting; not independent accuracy",
+      "full_logits_relative_l2": [
+        0.03137825147743542,
+        0.02861231970266905,
+        0.026777070013555865,
+        0.02827149399352878
+      ],
+      "closed_driver0": 3,
+      "promotion_decision": "No consistent gain beyond A/A variation; increased resident allocation and memory pressure; not promoted",
+      "board_additional_graph_bank_released": true,
+      "driver_ready_bytes": {
+        "parent": 1014351896,
+        "compact": 1380487776,
+        "parent-repeat": 1014089752
+      },
+      "ttft_p50_ms": {
+        "64": [
+          631.641,
+          1113.859
+        ],
+        "128": [
+          594.495,
+          1129.307
+        ]
+      }
     }
   ],
   "selections": {
@@ -255,7 +323,12 @@
       "scope": "system64/128 x dynamic64/128/192/256; limited numerical parity"
     },
     "quality_qualified_best": null,
-    "production_default": "unchanged; no automatic promotion"
+    "production_default": "unchanged; no automatic promotion",
+    "latest_evaluated_candidate": {
+      "id": "compact-fullquery-r3",
+      "promoted": false,
+      "reason": "No consistent gain beyond A/A variation; increased resident allocation and memory pressure; not promoted"
+    }
   },
   "requested_grid_tracking": {
     "prior_requested_static32_64_dynamic32_64_128_256": {
@@ -271,7 +344,8 @@
         256
       ],
       "all_cells_prefill_and_ttft_le100ms": false,
-      "latest_observed_candidate": "outlier8-c448-full-r1"
+      "latest_observed_candidate": "outlier8-c448-full-r1",
+      "all_cells_prefill_and_ttft_le500ms": false
     }
   },
   "selection_history": [
@@ -284,6 +358,20 @@
         "scope": "system64/128 x dynamic64/128/192/256; historical cross-run observation"
       },
       "reason": "New complete8-cell observation has lower P50 in all cells; across-run ranking does not isolate algorithm effect and does not qualify quality."
+    }
+  ],
+  "goal_history": [
+    {
+      "superseded_goal": "system64/128; dynamic64/128/192/256; system-only KV; full prefill and TTFT <=100ms",
+      "reason": "User updated active target to around500ms; previous experiment conclusions retained."
+    }
+  ],
+  "promotion_history": [
+    {
+      "candidate": "compact-fullquery-r3",
+      "decision": "not-promoted",
+      "retained_performance_candidate": "outlier8-c448-full-r1",
+      "reason": "No consistent gain beyond A/A variation; increased resident allocation and memory pressure; not promoted"
     }
   ]
 }

@@ -43,4 +43,21 @@ for rows,key in [(32,'main_nb_sha256'),(8,'tail_nb_sha256')]:
  f=R/'down-outlier-split-r2'/('full-c448-m'+str(rows))/'export_nbg_unify/network_binary.nb';assert hashlib.sha256(f.read_bytes()).hexdigest()==v[key]
 assert v['quantization_changed'] and not v['quality_qualified'] and not v['default']
 assert M['selections']['performance_candidate']['id']==v['id']
-print(json.dumps({'status':'passed','reports_bound_to_commits':checked,'token_rows_checked':len(A['performance'])+len(B['performance']),'full_logit_records':len(A['diagnostics'])+len(B['diagnostics']),'matrices_checked':2,'default_changed':False},ensure_ascii=False))
+# A newer experiment is explicitly not a best-version promotion.
+c=V['compact-fullquery-r3'];d=R/'compact-fullquery-r3/full-test';C=json.loads((d/'ANALYSIS.json').read_text())
+for name,field in [('ANALYSIS.json','analysis_sha256'),('config.json','config_sha256'),('inputs.json','inputs_sha256')]:
+ assert hashlib.sha256((d/name).read_bytes()).hexdigest()==c[field]
+assert len(C['performance'])==12 and len(C['diagnostics'])==12 and C['old_runtime_control']['same_bytes']
+for row in C['performance']:
+ assert row['system_body']+5==row['system_total']==row['reused'] and row['dynamic_body']+8==row['new_prefill'] and row['output']==32
+for diag in C['diagnostics']:
+ f=d/'results'/diag['path'];assert f.stat().st_size==2426784 and hashlib.sha256(f.read_bytes()).hexdigest()==diag['sha256'] and diag['finite']
+ if diag['variant']=='parent-repeat':assert diag['same_bytes_as_original']
+assert C['quality']['compact']['equal']==11 and C['fixed_feedback_equal']['compact']==11
+assert len(C['closed'])==3 and all(x['metrics']['driver_bytes']==0 for x in C['closed'])
+assert c['kind']=='evaluated-no-clear-gain-not-promoted' and not c['default'] and not c['quality_qualified']
+assert M['selections']['latest_evaluated_candidate']['id']==c['id'] and not M['selections']['latest_evaluated_candidate']['promoted']
+for v in V.values():
+ if 'git_tag' in v:
+  tag=subprocess.check_output(['git','rev-parse',v['git_tag']+'^{commit}'],cwd=repo,text=True).strip();assert tag==v['source_commit'],v['id']+' tag moved or mismatch'
+print(json.dumps({'status':'passed','reports_bound_to_commits':checked,'token_rows_checked':len(A['performance'])+len(B['performance'])+len(C['performance']),'full_logit_records':len(A['diagnostics'])+len(B['diagnostics'])+len(C['diagnostics']),'matrices_checked':3,'default_changed':False,'latest_promoted':False},ensure_ascii=False))

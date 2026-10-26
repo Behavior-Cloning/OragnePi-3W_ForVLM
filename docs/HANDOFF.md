@@ -590,3 +590,15 @@ C256/C448 full 24-layer board smoke evidence is in `research/intern-prefill100-2
 - 完整实验语音/RAG常驻，RAG仅加载无检索；纯Intern文本NPU、合成录音、无视觉/电机。最高50.902°C，CPU8核归一化P50 6.78%，PSS峰580.7MiB，候选NPU ready约967MiB（口径分开）。语音1345/26921帧超16ms、最大累计lag1.247s；swap发生，不能称全链路实时/长期稳定。3次关闭driver0。
 - 候选NB主/尾SHA、runtime/82条模型路径哈希与fixture在full-test/config.json。原量化r4与历史row-scale记录保留，跨轮次排名不代表算法单变量因果。
 - 局部板端scratch236727836B已逐SHA回收后删除；完整候选在/tmp/opi-outlier-full-c448-r1，当前无活跃worker，driver释放，Windows原始f32/资源证据仍在。下一步可接紧凑past128/full-query图，但保留完整有效KV/绝对位置，不能外推局部两层到整模100ms；须继续8格与数值/语义/资源对照。
+
+## 2026-10-26 compact-fullquery-r3：保持版本选择，未推广
+
+当前目标已更新为prefill约500ms并优化decode。原100ms仅为历史记录。最新源码d139d0d，报告提交27dc3f27f61415f572e6b7dd41101b44f98c96cf，tag exp/intern-compact-m128-r3-20261026。Windows为权威；Mac报告副本已同步至reports/intern-prefill100-20261025，12个文件SHA核对通过。
+
+完整24层NPU A/B/A已完成rc0：system正文59/123+模板5=64/128；动态正文128/256+模板8=new136/264，只复用system；固定反馈输出32。候选TTFT约595～632ms/1114～1129ms，decode约15，无一致净提速。12自然样例11同序列、一例同义措辞变化；完整logits相对父版本2.68%～3.14%，非准确率。关闭新路径时长输入诊断与旧outlier8 runtime字节一致。
+
+额外NPU resident约349MiB，可用内存最低116MiB、swap活跃；3closed driver0，最高49.91°C。语音常驻合成流；RAG仅驻留；无视觉/电机。非长时间认证。追加板端图305411904B已在19份回收文件SHA核对后释放，父版本和默认不动。
+
+最优跟踪：performance_candidate仍outlier8-c448-full-r1；latest_original_quantization_checked仍c448-original-tail8-r4；quality_qualified_best为空；latest_evaluated_candidate为compact-fullquery-r3但不推广。详见research/intern-prefill100-20261025/VERSION_MANIFEST.json、BEST_VALIDATED.md和compact-fullquery-r3/full-test/REPORT.md。
+
+下一步可评估更小query块与避免额外整套图常驻；不要把两层局部API或编译结果算作完整TTFT。GitHub远端本次校验仍超时，未确认同步。不要重启已结束控制器571或复用run ID。

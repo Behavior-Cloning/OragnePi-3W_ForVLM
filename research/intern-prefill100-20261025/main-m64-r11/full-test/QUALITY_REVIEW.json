@@ -1,0 +1,757 @@
+{
+  "method": "Review current request, expected action and explicit prohibitions; compare action meaning, not exact-string matching. Limited12 fixtures, not broad accuracy or mechanical validation.",
+  "quality_qualified": false,
+  "inputs_sha256": "f6761b0d6b5538638f980de4d92f3d608cf23833d9cdda18a0a47e00d6393ebd",
+  "analysis_sha256": "f991f6a015b3263e0325d53e8fde3bf20cb4adb0525d446d7069aaccb200ace1",
+  "rows": [
+    {
+      "variant": "main32-before",
+      "case": "fresh-s64-nod",
+      "text": "点头回应",
+      "reference": "点头回应",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 3,
+      "expected_action": "点头回应",
+      "forbidden_actions": [
+        "底盘移动",
+        "挥臂",
+        "接触物品"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "动作含义符合本例当前要求；不验证下游RAG或机械执行。"
+    },
+    {
+      "variant": "main32-before",
+      "case": "fresh-s64-wave",
+      "text": "保持静止。",
+      "reference": "保持静止。",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 96,
+      "dynamic_template": 8,
+      "actual_new": 104,
+      "output_tokens": 5,
+      "expected_action": "挥臂打招呼",
+      "forbidden_actions": [
+        "底盘移动",
+        "接触物品",
+        "仅点头"
+      ],
+      "classification": "omits_requested_action",
+      "reason": "未执行当前请求的挥臂、低头或弯腰；未触发所列禁止动作。"
+    },
+    {
+      "variant": "main32-before",
+      "case": "fresh-s64-cancel",
+      "text": "停止移动",
+      "reference": "停止移动",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 3,
+      "expected_action": "保持静止",
+      "forbidden_actions": [
+        "底盘移动",
+        "头部动作",
+        "手臂动作"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "停止移动符合当前取消移动、保持静止要求。"
+    },
+    {
+      "variant": "main32-before",
+      "case": "fresh-s64-lower_head",
+      "text": "保持静止。",
+      "reference": "保持静止。",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 5,
+      "expected_action": "低头",
+      "forbidden_actions": [
+        "抬头",
+        "弯腰",
+        "底盘移动",
+        "接触物品"
+      ],
+      "classification": "omits_requested_action",
+      "reason": "未执行当前请求的挥臂、低头或弯腰；未触发所列禁止动作。"
+    },
+    {
+      "variant": "main32-before",
+      "case": "fresh-s64-bend",
+      "text": "保持静止。",
+      "reference": "保持静止。",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 101,
+      "dynamic_template": 8,
+      "actual_new": 109,
+      "output_tokens": 5,
+      "expected_action": "轻微弯腰",
+      "forbidden_actions": [
+        "仅抬头",
+        "底盘移动",
+        "接触物品"
+      ],
+      "classification": "omits_requested_action",
+      "reason": "未执行当前请求的挥臂、低头或弯腰；未触发所列禁止动作。"
+    },
+    {
+      "variant": "main32-before",
+      "case": "fresh-s64-back",
+      "text": "向前移动",
+      "reference": "向前移动",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 98,
+      "dynamic_template": 8,
+      "actual_new": 106,
+      "output_tokens": 3,
+      "expected_action": "小幅后退",
+      "forbidden_actions": [
+        "向前",
+        "转弯",
+        "侧移",
+        "接触物品"
+      ],
+      "classification": "conflicts_with_explicit_prohibition",
+      "reason": "当前明确取消向前、要求后退，输出方向相反。"
+    },
+    {
+      "variant": "main32-before",
+      "case": "fresh-s128-nod",
+      "text": "点头",
+      "reference": "点头",
+      "equal_sequence": true,
+      "system_total": 128,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 2,
+      "expected_action": "点头回应",
+      "forbidden_actions": [
+        "底盘移动",
+        "挥臂",
+        "接触物品"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "动作含义符合本例当前要求；不验证下游RAG或机械执行。"
+    },
+    {
+      "variant": "main32-before",
+      "case": "fresh-s128-wave",
+      "text": "保持静止。",
+      "reference": "保持静止。",
+      "equal_sequence": true,
+      "system_total": 128,
+      "dynamic_body": 96,
+      "dynamic_template": 8,
+      "actual_new": 104,
+      "output_tokens": 5,
+      "expected_action": "挥臂打招呼",
+      "forbidden_actions": [
+        "底盘移动",
+        "接触物品",
+        "仅点头"
+      ],
+      "classification": "omits_requested_action",
+      "reason": "未执行当前请求的挥臂、低头或弯腰；未触发所列禁止动作。"
+    },
+    {
+      "variant": "main32-before",
+      "case": "fresh-s128-cancel",
+      "text": "停止移动",
+      "reference": "停止移动",
+      "equal_sequence": true,
+      "system_total": 128,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 3,
+      "expected_action": "保持静止",
+      "forbidden_actions": [
+        "底盘移动",
+        "头部动作",
+        "手臂动作"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "停止移动符合当前取消移动、保持静止要求。"
+    },
+    {
+      "variant": "main32-before",
+      "case": "fresh-s128-lower_head",
+      "text": "保持静止。",
+      "reference": "保持静止。",
+      "equal_sequence": true,
+      "system_total": 128,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 5,
+      "expected_action": "低头",
+      "forbidden_actions": [
+        "抬头",
+        "弯腰",
+        "底盘移动",
+        "接触物品"
+      ],
+      "classification": "omits_requested_action",
+      "reason": "未执行当前请求的挥臂、低头或弯腰；未触发所列禁止动作。"
+    },
+    {
+      "variant": "main32-before",
+      "case": "fresh-s128-bend",
+      "text": "鞠躬动作",
+      "reference": "鞠躬动作",
+      "equal_sequence": true,
+      "system_total": 128,
+      "dynamic_body": 101,
+      "dynamic_template": 8,
+      "actual_new": 109,
+      "output_tokens": 4,
+      "expected_action": "轻微弯腰",
+      "forbidden_actions": [
+        "仅抬头",
+        "底盘移动",
+        "接触物品"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "鞠躬在本例表达腰部前弯，未写轻微幅度；沿用父报告的高层动作判断，不作实际幅度合格声明。"
+    },
+    {
+      "variant": "main32-before",
+      "case": "fresh-s128-back",
+      "text": "后退",
+      "reference": "后退",
+      "equal_sequence": true,
+      "system_total": 128,
+      "dynamic_body": 98,
+      "dynamic_template": 8,
+      "actual_new": 106,
+      "output_tokens": 3,
+      "expected_action": "小幅后退",
+      "forbidden_actions": [
+        "向前",
+        "转弯",
+        "侧移",
+        "接触物品"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "动作含义符合本例当前要求；不验证下游RAG或机械执行。"
+    },
+    {
+      "variant": "main64",
+      "case": "fresh-s64-nod",
+      "text": "点头回应",
+      "reference": "点头回应",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 3,
+      "expected_action": "点头回应",
+      "forbidden_actions": [
+        "底盘移动",
+        "挥臂",
+        "接触物品"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "动作含义符合本例当前要求；不验证下游RAG或机械执行。"
+    },
+    {
+      "variant": "main64",
+      "case": "fresh-s64-wave",
+      "text": "保持静止。",
+      "reference": "保持静止。",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 96,
+      "dynamic_template": 8,
+      "actual_new": 104,
+      "output_tokens": 5,
+      "expected_action": "挥臂打招呼",
+      "forbidden_actions": [
+        "底盘移动",
+        "接触物品",
+        "仅点头"
+      ],
+      "classification": "omits_requested_action",
+      "reason": "未执行当前请求的挥臂、低头或弯腰；未触发所列禁止动作。"
+    },
+    {
+      "variant": "main64",
+      "case": "fresh-s64-cancel",
+      "text": "停止移动",
+      "reference": "停止移动",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 3,
+      "expected_action": "保持静止",
+      "forbidden_actions": [
+        "底盘移动",
+        "头部动作",
+        "手臂动作"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "停止移动符合当前取消移动、保持静止要求。"
+    },
+    {
+      "variant": "main64",
+      "case": "fresh-s64-lower_head",
+      "text": "保持静止。",
+      "reference": "保持静止。",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 5,
+      "expected_action": "低头",
+      "forbidden_actions": [
+        "抬头",
+        "弯腰",
+        "底盘移动",
+        "接触物品"
+      ],
+      "classification": "omits_requested_action",
+      "reason": "未执行当前请求的挥臂、低头或弯腰；未触发所列禁止动作。"
+    },
+    {
+      "variant": "main64",
+      "case": "fresh-s64-bend",
+      "text": "保持静止。",
+      "reference": "保持静止。",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 101,
+      "dynamic_template": 8,
+      "actual_new": 109,
+      "output_tokens": 5,
+      "expected_action": "轻微弯腰",
+      "forbidden_actions": [
+        "仅抬头",
+        "底盘移动",
+        "接触物品"
+      ],
+      "classification": "omits_requested_action",
+      "reason": "未执行当前请求的挥臂、低头或弯腰；未触发所列禁止动作。"
+    },
+    {
+      "variant": "main64",
+      "case": "fresh-s64-back",
+      "text": "向前移动",
+      "reference": "向前移动",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 98,
+      "dynamic_template": 8,
+      "actual_new": 106,
+      "output_tokens": 3,
+      "expected_action": "小幅后退",
+      "forbidden_actions": [
+        "向前",
+        "转弯",
+        "侧移",
+        "接触物品"
+      ],
+      "classification": "conflicts_with_explicit_prohibition",
+      "reason": "当前明确取消向前、要求后退，输出方向相反。"
+    },
+    {
+      "variant": "main64",
+      "case": "fresh-s128-nod",
+      "text": "点头",
+      "reference": "点头",
+      "equal_sequence": true,
+      "system_total": 128,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 2,
+      "expected_action": "点头回应",
+      "forbidden_actions": [
+        "底盘移动",
+        "挥臂",
+        "接触物品"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "动作含义符合本例当前要求；不验证下游RAG或机械执行。"
+    },
+    {
+      "variant": "main64",
+      "case": "fresh-s128-wave",
+      "text": "保持静止。",
+      "reference": "保持静止。",
+      "equal_sequence": true,
+      "system_total": 128,
+      "dynamic_body": 96,
+      "dynamic_template": 8,
+      "actual_new": 104,
+      "output_tokens": 5,
+      "expected_action": "挥臂打招呼",
+      "forbidden_actions": [
+        "底盘移动",
+        "接触物品",
+        "仅点头"
+      ],
+      "classification": "omits_requested_action",
+      "reason": "未执行当前请求的挥臂、低头或弯腰；未触发所列禁止动作。"
+    },
+    {
+      "variant": "main64",
+      "case": "fresh-s128-cancel",
+      "text": "停止移动",
+      "reference": "停止移动",
+      "equal_sequence": true,
+      "system_total": 128,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 3,
+      "expected_action": "保持静止",
+      "forbidden_actions": [
+        "底盘移动",
+        "头部动作",
+        "手臂动作"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "停止移动符合当前取消移动、保持静止要求。"
+    },
+    {
+      "variant": "main64",
+      "case": "fresh-s128-lower_head",
+      "text": "低头",
+      "reference": "保持静止。",
+      "equal_sequence": false,
+      "system_total": 128,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 2,
+      "expected_action": "低头",
+      "forbidden_actions": [
+        "抬头",
+        "弯腰",
+        "底盘移动",
+        "接触物品"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "动作含义符合本例当前要求；不验证下游RAG或机械执行。"
+    },
+    {
+      "variant": "main64",
+      "case": "fresh-s128-bend",
+      "text": "鞠躬",
+      "reference": "鞠躬动作",
+      "equal_sequence": false,
+      "system_total": 128,
+      "dynamic_body": 101,
+      "dynamic_template": 8,
+      "actual_new": 109,
+      "output_tokens": 3,
+      "expected_action": "轻微弯腰",
+      "forbidden_actions": [
+        "仅抬头",
+        "底盘移动",
+        "接触物品"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "鞠躬在本例表达腰部前弯，未写轻微幅度；沿用父报告的高层动作判断，不作实际幅度合格声明。"
+    },
+    {
+      "variant": "main64",
+      "case": "fresh-s128-back",
+      "text": "后退",
+      "reference": "后退",
+      "equal_sequence": true,
+      "system_total": 128,
+      "dynamic_body": 98,
+      "dynamic_template": 8,
+      "actual_new": 106,
+      "output_tokens": 3,
+      "expected_action": "小幅后退",
+      "forbidden_actions": [
+        "向前",
+        "转弯",
+        "侧移",
+        "接触物品"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "动作含义符合本例当前要求；不验证下游RAG或机械执行。"
+    },
+    {
+      "variant": "main32-after",
+      "case": "fresh-s64-nod",
+      "text": "点头回应",
+      "reference": "点头回应",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 3,
+      "expected_action": "点头回应",
+      "forbidden_actions": [
+        "底盘移动",
+        "挥臂",
+        "接触物品"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "动作含义符合本例当前要求；不验证下游RAG或机械执行。"
+    },
+    {
+      "variant": "main32-after",
+      "case": "fresh-s64-wave",
+      "text": "保持静止。",
+      "reference": "保持静止。",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 96,
+      "dynamic_template": 8,
+      "actual_new": 104,
+      "output_tokens": 5,
+      "expected_action": "挥臂打招呼",
+      "forbidden_actions": [
+        "底盘移动",
+        "接触物品",
+        "仅点头"
+      ],
+      "classification": "omits_requested_action",
+      "reason": "未执行当前请求的挥臂、低头或弯腰；未触发所列禁止动作。"
+    },
+    {
+      "variant": "main32-after",
+      "case": "fresh-s64-cancel",
+      "text": "停止移动",
+      "reference": "停止移动",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 3,
+      "expected_action": "保持静止",
+      "forbidden_actions": [
+        "底盘移动",
+        "头部动作",
+        "手臂动作"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "停止移动符合当前取消移动、保持静止要求。"
+    },
+    {
+      "variant": "main32-after",
+      "case": "fresh-s64-lower_head",
+      "text": "保持静止。",
+      "reference": "保持静止。",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 5,
+      "expected_action": "低头",
+      "forbidden_actions": [
+        "抬头",
+        "弯腰",
+        "底盘移动",
+        "接触物品"
+      ],
+      "classification": "omits_requested_action",
+      "reason": "未执行当前请求的挥臂、低头或弯腰；未触发所列禁止动作。"
+    },
+    {
+      "variant": "main32-after",
+      "case": "fresh-s64-bend",
+      "text": "保持静止。",
+      "reference": "保持静止。",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 101,
+      "dynamic_template": 8,
+      "actual_new": 109,
+      "output_tokens": 5,
+      "expected_action": "轻微弯腰",
+      "forbidden_actions": [
+        "仅抬头",
+        "底盘移动",
+        "接触物品"
+      ],
+      "classification": "omits_requested_action",
+      "reason": "未执行当前请求的挥臂、低头或弯腰；未触发所列禁止动作。"
+    },
+    {
+      "variant": "main32-after",
+      "case": "fresh-s64-back",
+      "text": "向前移动",
+      "reference": "向前移动",
+      "equal_sequence": true,
+      "system_total": 64,
+      "dynamic_body": 98,
+      "dynamic_template": 8,
+      "actual_new": 106,
+      "output_tokens": 3,
+      "expected_action": "小幅后退",
+      "forbidden_actions": [
+        "向前",
+        "转弯",
+        "侧移",
+        "接触物品"
+      ],
+      "classification": "conflicts_with_explicit_prohibition",
+      "reason": "当前明确取消向前、要求后退，输出方向相反。"
+    },
+    {
+      "variant": "main32-after",
+      "case": "fresh-s128-nod",
+      "text": "点头",
+      "reference": "点头",
+      "equal_sequence": true,
+      "system_total": 128,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 2,
+      "expected_action": "点头回应",
+      "forbidden_actions": [
+        "底盘移动",
+        "挥臂",
+        "接触物品"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "动作含义符合本例当前要求；不验证下游RAG或机械执行。"
+    },
+    {
+      "variant": "main32-after",
+      "case": "fresh-s128-wave",
+      "text": "保持静止。",
+      "reference": "保持静止。",
+      "equal_sequence": true,
+      "system_total": 128,
+      "dynamic_body": 96,
+      "dynamic_template": 8,
+      "actual_new": 104,
+      "output_tokens": 5,
+      "expected_action": "挥臂打招呼",
+      "forbidden_actions": [
+        "底盘移动",
+        "接触物品",
+        "仅点头"
+      ],
+      "classification": "omits_requested_action",
+      "reason": "未执行当前请求的挥臂、低头或弯腰；未触发所列禁止动作。"
+    },
+    {
+      "variant": "main32-after",
+      "case": "fresh-s128-cancel",
+      "text": "停止移动",
+      "reference": "停止移动",
+      "equal_sequence": true,
+      "system_total": 128,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 3,
+      "expected_action": "保持静止",
+      "forbidden_actions": [
+        "底盘移动",
+        "头部动作",
+        "手臂动作"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "停止移动符合当前取消移动、保持静止要求。"
+    },
+    {
+      "variant": "main32-after",
+      "case": "fresh-s128-lower_head",
+      "text": "保持静止。",
+      "reference": "保持静止。",
+      "equal_sequence": true,
+      "system_total": 128,
+      "dynamic_body": 97,
+      "dynamic_template": 8,
+      "actual_new": 105,
+      "output_tokens": 5,
+      "expected_action": "低头",
+      "forbidden_actions": [
+        "抬头",
+        "弯腰",
+        "底盘移动",
+        "接触物品"
+      ],
+      "classification": "omits_requested_action",
+      "reason": "未执行当前请求的挥臂、低头或弯腰；未触发所列禁止动作。"
+    },
+    {
+      "variant": "main32-after",
+      "case": "fresh-s128-bend",
+      "text": "鞠躬动作",
+      "reference": "鞠躬动作",
+      "equal_sequence": true,
+      "system_total": 128,
+      "dynamic_body": 101,
+      "dynamic_template": 8,
+      "actual_new": 109,
+      "output_tokens": 4,
+      "expected_action": "轻微弯腰",
+      "forbidden_actions": [
+        "仅抬头",
+        "底盘移动",
+        "接触物品"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "鞠躬在本例表达腰部前弯，未写轻微幅度；沿用父报告的高层动作判断，不作实际幅度合格声明。"
+    },
+    {
+      "variant": "main32-after",
+      "case": "fresh-s128-back",
+      "text": "后退",
+      "reference": "后退",
+      "equal_sequence": true,
+      "system_total": 128,
+      "dynamic_body": 98,
+      "dynamic_template": 8,
+      "actual_new": 106,
+      "output_tokens": 3,
+      "expected_action": "小幅后退",
+      "forbidden_actions": [
+        "向前",
+        "转弯",
+        "侧移",
+        "接触物品"
+      ],
+      "classification": "fulfills_requested_action",
+      "reason": "动作含义符合本例当前要求；不验证下游RAG或机械执行。"
+    }
+  ],
+  "counts": {
+    "main32-before": {
+      "fulfills_requested_action": 6,
+      "omits_requested_action": 5,
+      "conflicts_with_explicit_prohibition": 1
+    },
+    "main64": {
+      "fulfills_requested_action": 7,
+      "omits_requested_action": 4,
+      "conflicts_with_explicit_prohibition": 1
+    },
+    "main32-after": {
+      "fulfills_requested_action": 6,
+      "omits_requested_action": 5,
+      "conflicts_with_explicit_prohibition": 1
+    }
+  }
+}

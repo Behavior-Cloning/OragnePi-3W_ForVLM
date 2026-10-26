@@ -1,3 +1,14 @@
+## 2026-10-26：CPU7亲和性r6已完成，更新性能候选（默认未改）
+
+- 无测试在运行。实现ada85e7，报告a530d33，tag exp/intern-affinity-m64-r6-20261026。r6复用M64r4 binary/图，只把worker CPU4,5→CPU7→CPU4,5，语音CPU6；完整13格117性能、36自然、18诊断，rc0/三个driver0。
+- 仅system KV，system正文59+模板5=64、动态正文128+模板8=new136：prefill421.1ms、TTFT440.3ms；system正文123+5=128同动态prefill484.8ms、TTFT503.4ms。输出固定反馈32token，decode约16.3，较同轮较快A/A逐案提升3.96%以上。动态256 new264的prefill约904.5/968.6ms、TTFT923.4/987.6ms，完整500ms目标仍未完成。
+- 同binary/图/量化/输入，不是NPU算子提速；全部18份full logits同案例同字节，39/39固定反馈和12/12自然回归输出相同。但自然仍6完成5遗漏1方向冲突，质量合格最优为空，生产默认未改。
+- 无新增NPU模型bank；ready约1272.3MiB，CPU7阶段最低available455.3MiB，CPU P50/P956.31/14.88%，峰温51.522°C。swap仍满/有换页、前端约4.9%超帧预算、全程累计lag1.759s；7.27min采样不能称长期实时合格。
+- 当前资源优先性能候选affinity-m64-r6，逐格最低观测也指向本轮CPU7；M64r4作为依赖/历史保留，r5历史不覆盖。已修正manifest中r5“仍运行”的过期描述；r5已完成且extra bank已释放。
+- Mac报告副本需同步本轮REPORT/ANALYSIS/QUALITY_REVIEW以及BEST/manifest/verifier/audit。Windows权威，所有原始结果SHA保留；模型/rawf32不入Git。
+- 继续优化应优先定位长输入prefill的图执行/CPU数据准备分段，或验证CPU7与其他候选组合；新run ID、双锁，不能直接相加历史收益。语音/RAG驻留但RAG未查询、纯NPU文本，无视觉/真实麦克风/电机。
+- GitHub本轮ls-remote在25s超时；远端同步仍未确认，不声明新提交已上传。
+
 ## 2026-10-26：双past256 r5已完成，未推广；下一步CPU调度
 
 - 无测试在运行。r5实现762dbfc、完整13格报告17e914f、tag exp/intern-compact-m64-p256-r5-20261026。完整500ms目标仍未完成，decode没有确认提速。

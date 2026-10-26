@@ -83,7 +83,7 @@ for diag in D['diagnostics']:
  if diag['variant']=='parent-repeat':assert diag['same_bytes_as_original']
 assert D['quality']['compact']['equal']==10 and D['fixed_feedback_equal']['compact']==37
 assert len(D['closed'])==3 and all(x['metrics']['driver_bytes']==0 for x in D['closed'])
-assert M['selections']['performance_candidate']['id']==v['id'] and not v['quality_qualified'] and not v['default']
+assert M['selections']['performance_candidate']['id']=='affinity-m64-r6' and not v['quality_qualified'] and not v['default']
 assert not M['selections']['latest_evaluated_candidate']['promoted']
 assert v['quantization_changed_relative_to_parent'] is False and v['parent_quantization_changed_from_original'] is True
 assert {(x['static_tokens'],x['body_tokens']) for x in I['performance']}==expected and len(I['performance'])==39
@@ -117,15 +117,41 @@ for z in F['diagnostics']:
 assert F['fixed_feedback_equal']['compact']==38 and len(F['closed'])==3 and all(x['metrics']['driver_bytes']==0 for x in F['closed'])
 assert F['resources']['compact']['available_MiB']['min']<128 and F['resources']['all']['npu_frequency_hz']==[1008000000]
 assert not v['default'] and not v['quality_qualified'] and v['kind']=='evaluated-longinput-gains-memory-not-promoted'
-assert M['selections']['latest_evaluated_candidate']['id']==v['id'] and M['selections']['performance_candidate']['id']=='compact-m64-r4'
+assert M['selections']['latest_evaluated_candidate']['id']=='affinity-m64-r6' and M['selections']['performance_candidate']['id']=='affinity-m64-r6'
 release=json.loads((d/'BOARD_RELEASE.json').read_text());assert release['files']==12 and release['all_sha_equal'] and release['removed'] and release['driver0_before']
+# CPU affinity is independently versioned, with unchanged model artifacts.
+v=V['affinity-m64-r6'];d=R/'affinity-m64-r6/full-test';H=json.loads((d/'ANALYSIS.json').read_text());Q6=json.loads((d/'QUALITY_REVIEW.json').read_text())
+for name,key in [('REPORT.md','report_sha256'),('ANALYSIS.json','analysis_sha256'),('QUALITY_REVIEW.json','quality_review_sha256'),('config.json','config_sha256'),('inputs.json','inputs_sha256'),('deployment-sha.json','deployment_sha256')]:
+ assert hashlib.sha256((d/name).read_bytes()).hexdigest()==v[key],name+' affinity drift'
+C6=json.loads((d/'config.json').read_text());C4=json.loads((R/'compact-m64-r4/full-test/config.json').read_text())
+assert C6['binary_sha256']==C4['binary_sha256']==v['binary_sha256'] and C6['graphs_sha256']==C4['graphs_sha256']==v['graphs_sha256']
+assert v['inputs_sha256']==V['compact-m64-r4']['inputs_sha256']==V['compact-m64-p256-r5']['inputs_sha256']
+assert H['controller']['status']=='complete' and H['controller']['returncode']==0 and H['old_runtime_control']['same_bytes']
+assert len(H['performance'])==39 and len(H['diagnostics'])==18 and H['counts']['measure']==117 and H['counts']['quality']==36
+for variant in ['a55-before','a76','a55-after']:
+ rows=[x for x in H['performance'] if x['variant']==variant];assert {(x['system_total'],x['dynamic_body']) for x in rows}==expected
+ for x in rows:
+  assert x['system_body']+5==x['system_total']==x['reused'] and x['dynamic_body']+8==x['new_prefill'] and x['total_prompt']==x['reused']+x['new_prefill']
+  assert x['output']==32 and x['ttft_seconds']['n']==3
+ assert H['quality'][variant]['equal']==12 and H['fixed_feedback_equal'][variant]==39
+ assert H['actual_affinities'][variant]['frontend']==[6]
+ assert all(a==([7] if variant=='a76' else [4,5]) for a in H['actual_affinities'][variant]['worker'].values())
+ assert Q6['counts'][variant]==dict(fulfills_requested_action=6,omits_requested_action=5,conflicts_with_explicit_prohibition=1)
+assert Q6['inputs_sha256']==v['inputs_sha256'] and Q6['analysis_sha256']==v['analysis_sha256'] and not Q6['quality_qualified']
+for z in H['diagnostics']:
+ f=d/'results'/z['path'];assert f.stat().st_size==2426784 and hashlib.sha256(f.read_bytes()).hexdigest()==z['sha256'] and z['finite'] and z['same_bytes_as_original'] and z['relative_l2']==0
+assert len(H['closed'])==3 and all(x['metrics']['driver_bytes']==0 for x in H['closed'])
+assert len(H['paired_cases'])==39 and all(x['prefill_saved_ms']>0 and x['ttft_saved_ms']>0 and x['decode_gain_vs_faster_A_percent']>0 for x in H['paired_cases'])
+assert not v['quality_qualified'] and not v['default'] and not v['quantization_changed_relative_to_parent'] and v['parent_quantization_changed_from_original']
+assert M['selections']['performance_candidate']['id']==v['id'] and not M['selections']['latest_evaluated_candidate']['promoted']
+
 assert len(M['selections']['fastest_observed_by_cell'])==13
 for record in M['selections']['fastest_observed_by_cell']:
  for key,metric in [('by_ttft','ttft_seconds'),('by_prefill','prefill_seconds')]:
-  z=record[key];source=D if z['id']=='compact-m64-r4' else F
-  row=next(x for x in source['performance'] if x['variant']=='compact' and (x['system_total'],x['dynamic_body'])==(record['system_total'],record['dynamic_body']))
+  z=record[key];source={'compact-m64-r4':D,'compact-m64-p256-r5':F,'affinity-m64-r6':H}[z['id']]
+  row=next(x for x in source['performance'] if x['variant']==z['variant'] and (x['system_total'],x['dynamic_body'])==(record['system_total'],record['dynamic_body']))
   assert abs(z['prefill_p50_ms']-row['prefill_seconds']['p50']*1000)<1e-6 and abs(z['ttft_p50_ms']-row['ttft_seconds']['p50']*1000)<1e-6
-  alternatives=[x[metric]['p50'] for source in [D,F] for x in source['performance'] if x['variant']=='compact' and (x['system_total'],x['dynamic_body'])==(record['system_total'],record['dynamic_body'])]
+  alternatives=[x[metric]['p50'] for source,variant in [(D,'compact'),(F,'compact'),(H,'a76')] for x in source['performance'] if x['variant']==variant and (x['system_total'],x['dynamic_body'])==(record['system_total'],record['dynamic_body'])]
   assert row[metric]['p50']==min(alternatives)
 for id,n in [('softmax-i16-r1',3),('compact-p256-screen-r1',6)]:
  v=V[id];d=R/id;G=json.loads((d/'ANALYSIS.json').read_text());assert hashlib.sha256((d/'ANALYSIS.json').read_bytes()).hexdigest()==v['analysis_sha256'] and len(G['results'])==n
@@ -136,4 +162,4 @@ for id,n in [('softmax-i16-r1',3),('compact-p256-screen-r1',6)]:
 for v in V.values():
  if 'git_tag' in v:
   tag=subprocess.check_output(['git','rev-parse',v['git_tag']+'^{commit}'],cwd=repo,text=True).strip();assert tag==v['source_commit'],v['id']+' tag moved or mismatch'
-print(json.dumps({'status':'passed','reports_bound_to_commits':checked,'token_rows_checked':len(A['performance'])+len(B['performance'])+len(C['performance'])+len(D['performance'])+len(F['performance']),'full_logit_records':len(A['diagnostics'])+len(B['diagnostics'])+len(C['diagnostics'])+len(D['diagnostics'])+len(F['diagnostics']),'matrices_checked':5,'default_changed':False,'latest_promoted':False},ensure_ascii=False))
+print(json.dumps({'status':'passed','reports_bound_to_commits':checked,'token_rows_checked':len(A['performance'])+len(B['performance'])+len(C['performance'])+len(D['performance'])+len(F['performance'])+len(H['performance']),'full_logit_records':len(A['diagnostics'])+len(B['diagnostics'])+len(C['diagnostics'])+len(D['diagnostics'])+len(F['diagnostics'])+len(H['diagnostics']),'matrices_checked':6,'default_changed':False,'latest_promoted':False},ensure_ascii=False))

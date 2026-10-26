@@ -1,0 +1,40 @@
+{
+  "run": "softmax-i16-r1-m64",
+  "warmup": 3,
+  "repeats": 30,
+  "binary": "/tmp/opi-softmax-i16-r1/probe",
+  "binary_sha256": "18b29578182bf1067512008ad914897a7639bcdba6d89dff2bc4bee173f4c1e4",
+  "sequence": [
+    {
+      "run_id": "before",
+      "query_tokens": 64,
+      "first_layer": 0,
+      "capacity": 128,
+      "nb": "/tmp/opi-softmax-i16-r1/parent.nb",
+      "nb_sha256": "96fa305b43f264fbc49d70f09b955c7a780d60338e7f2b22698c660b11387ecb",
+      "input": "/tmp/opi-softmax-i16-r1/input.f32",
+      "input_sha256": "bf9fec847d62d5f94687f3e924beac465fe69045a650c9af0cba1ba4bdb86fe9"
+    },
+    {
+      "run_id": "i16",
+      "query_tokens": 64,
+      "first_layer": 0,
+      "capacity": 128,
+      "nb": "/tmp/opi-softmax-i16-r1/i16.nb",
+      "nb_sha256": "2c0393b0a118c7c1a329772d7b1e90215b2d6ce2a8f9406144a1534903bd293c",
+      "input": "/tmp/opi-softmax-i16-r1/input.f32",
+      "input_sha256": "bf9fec847d62d5f94687f3e924beac465fe69045a650c9af0cba1ba4bdb86fe9"
+    },
+    {
+      "run_id": "after",
+      "query_tokens": 64,
+      "first_layer": 0,
+      "capacity": 128,
+      "nb": "/tmp/opi-softmax-i16-r1/parent.nb",
+      "nb_sha256": "96fa305b43f264fbc49d70f09b955c7a780d60338e7f2b22698c660b11387ecb",
+      "input": "/tmp/opi-softmax-i16-r1/input.f32",
+      "input_sha256": "bf9fec847d62d5f94687f3e924beac465fe69045a650c9af0cba1ba4bdb86fe9"
+    }
+  ],
+  "scope": "two layers L0/L1 only; original M64 past128 vsI16 softmax input; canonical input, not TTFT"
+}

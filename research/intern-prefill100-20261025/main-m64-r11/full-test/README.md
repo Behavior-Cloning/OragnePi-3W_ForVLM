@@ -1,0 +1,5 @@
+# M64 main-bank replacement A/B/A
+
+Frozen same token IDs as r6: static32/64/128 includes5 template, body27/59/123. Dynamic32/64/128/192/256 plus8 template; new40/72/136/200/264. Only static KV reused;32 output fixedfeedback,31 decode intervals. Same new binary CPU7, streamed synthetic frontendCPU6 and RAGresident. Main32 before→main64→main32 after. Main64 replaces main32 bank; compact64past128/tail8/decode unchanged. Main64 logical cache quantum32; static32 coldprefix uses padded32 of64 physicalrows, excluded fromtiming. Main64 dynamic32 computes40 valid/64 physicalrows, explicitly reported. Changed graph partition can change logits despite unchanged quantizers.
+
+117 timed requests (13cells×3cases×3phases),36naturaloutputs,18four-step full-logit files. Warm s128-d256-0 exercises every mainbank in allphases, excluded fromtiming. Baseline diagnostics must match archived r6; candidate compared independently. Compilation/hosttests do not qualify production. Resource and audio lag measured. No camera/mic/motors; TTFT excludes upstreamASR and abstraction.

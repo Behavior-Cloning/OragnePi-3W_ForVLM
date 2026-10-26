@@ -757,3 +757,7 @@ vit-full-r1/RESIDENT_REPORT.md：JPEG→64token常驻视觉P50 1.5105s，预处�
 ## 双NPU共驻harness已准备，未启动模型
 
 resident-npu-vlm-r1/README.md：JPEG→NPU视觉→NPU语言常驻脚本、门槛、双锁与finally清理已准备；5个门槛测试通过。板端preflight：CPU服务active、NPU0、可用1322737664B<需2854248896B，未加载模型、未共驻验证。等用户明确CPU服务安排，再run_prepared.py；不自动停服务、不把预检查当推理成功。
+
+## 资源阻塞复核与NEON负结果
+
+NEON对照见vit-full-r1/neoncopy-r1/REPORT.md，无确定增益、不替换1.43s塔候选。resident-npu-vlm-r1/blocked-recheck.json再次显示CPU active、可用1311821824B<2854248896B、NPU0。该条件已连续三次目标轮次存在，独立准备/报告/同步已做，关键共驻和受控长尾诊断待用户决定CPU服务临停并恢复。见BLOCKED_AUDIT.json。没有本实验后台任务，不反复启动混跑。

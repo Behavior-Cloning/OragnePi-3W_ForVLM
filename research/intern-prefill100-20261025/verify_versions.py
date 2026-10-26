@@ -199,9 +199,22 @@ for shape,q in [('m32-p448',32),('m64-p128',64)]:
  b=json.loads((d/'attempt2'/shape/'build.json').read_text());assert b['source_float_weight_values_preserved'] and b['quantizer_type_scale_rounding_preserved'] and b['fused_layer']==3
 p=json.loads((d/'attempt2/PREFLIGHT.json').read_text());assert len(p['layers'])==24 and [x['layer'] for x in p['layers'] if x['eligible_without_rescaling']]==[3,6,9,12,13,14,16,21,23]
 c=json.loads((d/'BOARD_CLEANUP.json').read_text());assert c['files']==37 and c['bytes']==181870066 and c['all_sha_equal'] and c['removed'] and c['driver0_before']
-assert not v['default'] and not v['quality_qualified'] and M['selections']['latest_local_screen']['id']==v['id'] and M['selections']['performance_candidate']['id']=='affinity-m64-r6'
+assert not v['default'] and not v['quality_qualified'] and M['selections']['performance_candidate']['id']=='affinity-m64-r6'
+
+# Joint attention local tensor screening remains independent of full-model ranking.
+v=V['joint-attention-r10'];d=R/'joint-attention-r10';W=json.loads((d/'ANALYSIS.json').read_text());E10=json.loads((d/'EVIDENCE.json').read_text())
+for name,key in [('ANALYSIS.json','analysis_sha256'),('config.json','config_sha256'),('EVIDENCE.json','evidence_sha256')]:assert hashlib.sha256((d/name).read_bytes()).hexdigest()==v[key]
+c=json.loads((d/'controller.json').read_text());assert c['status']=='complete' and c['returncode']==0
+assert len(W['results'])==10 and len(W['comparisons'])==6
+for z in W['results']:
+ f=d/'results'/(z['variant']+'.f32');assert f.stat().st_size==z['bytes']==4*z['query']*(896+4*128) and hashlib.sha256(f.read_bytes()).hexdigest()==z['sha256'] and z['finite'] and z['driver0'] and z['n']==30
+for shape,files in E10['graphs'].items():
+ for name,h in files.items():assert hashlib.sha256((d/shape/name).read_bytes()).hexdigest()==h
+assert all(x['reference_same_bytes_as_archived_r8'] for x in W['comparisons'])
+c=json.loads((d/'BOARD_CLEANUP.json').read_text());assert c['files']==51 and c['bytes']==242216734 and c['all_sha_equal'] and c['removed'] and c['driver0_before']
+assert not v['default'] and not v['quality_qualified'] and M['selections']['latest_local_screen']['id']==v['id']
 
 for v in V.values():
  if 'git_tag' in v:
   tag=subprocess.check_output(['git','rev-parse',v['git_tag']+'^{commit}'],cwd=repo,text=True).strip();assert tag==v['source_commit'],v['id']+' tag moved or mismatch'
-print(json.dumps({'status':'passed','reports_bound_to_commits':checked,'token_rows_checked':len(A['performance'])+len(B['performance'])+len(C['performance'])+len(D['performance'])+len(F['performance'])+len(H['performance'])+len(J['performance']),'full_logit_records':len(A['diagnostics'])+len(B['diagnostics'])+len(C['diagnostics'])+len(D['diagnostics'])+len(F['diagnostics'])+len(H['diagnostics'])+len(J['diagnostics']),'matrices_checked':7,'timing_diagnostic_matrices':1,'new_local_probe_records':16,'default_changed':False,'latest_promoted':False},ensure_ascii=False))
+print(json.dumps({'status':'passed','reports_bound_to_commits':checked,'token_rows_checked':len(A['performance'])+len(B['performance'])+len(C['performance'])+len(D['performance'])+len(F['performance'])+len(H['performance'])+len(J['performance']),'full_logit_records':len(A['diagnostics'])+len(B['diagnostics'])+len(C['diagnostics'])+len(D['diagnostics'])+len(F['diagnostics'])+len(H['diagnostics'])+len(J['diagnostics']),'matrices_checked':7,'timing_diagnostic_matrices':1,'new_local_probe_records':26,'default_changed':False,'latest_promoted':False},ensure_ascii=False))

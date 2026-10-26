@@ -1,3 +1,11 @@
+## 2026-10-26：恢复工作，r10筛查完成，r11主M64替换在测
+
+- r10结果ec78d66，tag exp/intern-joint-attention-r10-20261026：6张图上板、10probe/300API样本，scores慢10–40%，value无一致收益且改变输出张量。不扩整模，不影响r6性能指针、质量最优空及默认。
+- r11已编译12张M64/P448主图，复用r8的L0/L2，其余10张新编译；不新增同时常驻主图组。运行时main32/main64同binary，CPU7，frontendCPU6。logical32 cache边界保证system32确实复用32；dynamic32的main64计算40有效/64物理行，需单列padding。
+- controller：research/intern-prefill100-20261025/main-m64-r11/full-test/controller.json；由controller.py持双锁，独立板目录/opt/opi-vlm/experiments/main-m64-r11。只查WSL状态/进程，不重复启动、不绕锁轮询板卡。上传后顺序main32-before/main64/main32-after。
+- 冻结输入仍r6同SHA；system正文27/59/123+模板5=32/64/128；dynamic正文32/64/128/192/256+模板8=new40/72/136/200/264；只复用system，固定输出32。13格117计时、36自然、18完整logits。须核对原版六诊断与r6同字节，候选独立质量评价，不能先称无损。
+- GitHub最近已核验c4cabe6，本次新增提交尚未同步。使用Mac本机http.proxy=http://127.0.0.1:7897和bare relay；勿恢复旧Windows SOCKS。500ms全范围目标仍未达成。
+
 ## 2026-10-26：r9同量化gate/up合并筛查完成，不推广
 
 - 当前无板端测试运行。源码f3b109f、冻结runner5d7b539、结果4c6e9e0；tag exp/intern-gateup-fusion-r9-20261026。报告research/intern-prefill100-20261025/gateup-fusion-r9/REPORT.md。

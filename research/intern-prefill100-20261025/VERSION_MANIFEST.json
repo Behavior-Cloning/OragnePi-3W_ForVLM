@@ -943,6 +943,25 @@
       "minmax_metadata_union": true,
       "parent_quantization_changed_from_original": true,
       "closed_driver0": 6
+    },
+    {
+      "id": "joint-attention-r10",
+      "kind": "local-screen-no-consistent-gain-not-promoted",
+      "source_commit": "ec78d6650e187dac8d76b59ab6a15380d44a68e1",
+      "implementation_commit": "6838cd5aee5a9dffc0a3e4a0b5df8fb12c6d39de",
+      "runner_commit": "ec81e1d522ca0eb8dab28a0a5a121c2453c9a9e3",
+      "git_tag": "exp/intern-joint-attention-r10-20261026",
+      "report": "joint-attention-r10/REPORT.md",
+      "scope": "L2/L3 tensor probes;query32/64 history128;no text tokens/fullmodel TTFT/decode",
+      "default": false,
+      "quality_qualified": false,
+      "closed_driver0": 10,
+      "performance_decision": "Scores slower;value lacks consistent gain and changes tensor outputs;keep split attention",
+      "parent_quantization_changed_from_original": true,
+      "report_sha256": "ee58a664330be157a3e16cd6f1be1d3ce8c0b51071cc21d2343ea3815d8a1dbd",
+      "analysis_sha256": "9ac23a4fe5dfe2fa1de20456a7b66c6cfa5bf1cbc0ddff2bba1dec30442da947",
+      "config_sha256": "bc7c5f862cf233eeb324239659692df0f722fb735d31e9a5ff6df96f2101012d",
+      "evidence_sha256": "46a52f7856b4fa93de02d94b5a8e2e3b48e11815aae72b7f3658e02794dd2830"
     }
   ],
   "selections": {
@@ -972,9 +991,9 @@
       "immutable_reference": true
     },
     "latest_local_screen": {
-      "id": "gateup-fusion-r9",
+      "id": "joint-attention-r10",
       "promoted": false,
-      "finding": "Same-byte localoutputs;M32 saving0.13%,M64 slowing2.21%;not fullmodel or semantic certification"
+      "finding": "Scores slower10–40percent;value -3.28/+0.30percent time saving and4.2percent tensor relativeL2;not fullmodel/accuracy"
     },
     "fastest_observed_by_cell": [
       {

@@ -733,3 +733,7 @@ vision-repack-r1/REPORT.md：同binary重排off/on/off，224→64从4.28s降2.26
 ## ViT完整24块NPU与单层诊断
 
 见research/intern-vlm-quality-20261027/vit-full-r1/REPORT.md。24块1.833s（NPU1.307s，主机转换同步0.526s），最终hidden误差83/88%，质量失败。第14层正确参考输入也有约100%误差，非单纯累积；单层W8A16 API54.4→49.8ms，不能外推全塔。非线性FP16诊断编译unsupported失败。stem/projector已编译未板测；112保留64路线不删除。所有板测关闭driver0；无后台任务，未推广默认。
+
+## ViT选择性精度修复
+
+见vit-full-r1/SELECTIVE_REPORT.md：24块1.744s，误差3.77/3.82%。首次内存保护终止，逐SHA归档清理旧图512MB后r2完成driver0。NPU视觉块+离线stem/projector→NPU语言VQA5/6，木板仍错；一次TTFT17.195s/API0.909s待诊断，不报稳定0.32s。system30+5=35/reuse32，动态图64+文5–9/模板11/new83–87，输出7–11。尚非完整塔共驻，未晋升默认，无后台任务。

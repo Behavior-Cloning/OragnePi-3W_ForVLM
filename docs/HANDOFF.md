@@ -745,3 +745,7 @@ vision-repack-r1/REPORT.md：同binary重排off/on/off，224→64从4.28s降2.26
 ## 复测恢复及背景CPU模型
 
 r3 SSH恢复后原任务日志已回收，18题完成driver0，TTFT P50 .30965s/max14.086s，首轮竹子慢但后两轮正常；慢请求swap in/out=0，进程majorfault6。背景opi-vlm-model.service CPU Qwen2.5-1.5B占约2GiB、NRestarts5，已问用户是否可临停，未批准前保持。原“远端未知”状态已解决，不重跑r3。endpoint四进程板测完成：stem API1.8ms/误差.034–.051%，projector7.3ms/误差3.64–5.89%，driver0；全26图串联待做。见LATENCY_WATCH_STATUS.md与ENDPOINT_REPORT.md。
+
+## 完整视觉NPU塔与转换加速
+
+vit-full-r1/TOWER_REPORT.md：stem+24修正块+修正projector，224归一化NCHW→64x896已板测，1.799s。实际接口I16→FP16；fastcopy-r2同binary off/on/off 1.820/1.427/1.814s，API1.236不变，host.583→.190；18输出与原塔逐字节一致，全部driver0。projector误差修至.064/.074%，整塔3.32/3.61%非原精度无损。还未全塔新向量VQA、JPEG共驻语言；背景CPU服务临停问题仍待用户答复，勿擅停。下一步NEON转换、全链路集成。无后台任务。

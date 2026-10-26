@@ -1,0 +1,30 @@
+{
+  "command": [
+    "aarch64-linux-gnu-gcc",
+    "-I/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-prefill100-20261025/compact-m64-r4/runtime",
+    "-Wno-unused-function",
+    "-Wno-misleading-indentation",
+    "-O3",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-DMODEL_DIM=896",
+    "-DMODEL_KV=2",
+    "-DMODEL_HD=64",
+    "-DROPE_BASE=1000000.0",
+    "-DFUSED_LAYERS=2",
+    "-DKEY_CACHE_TRANSPOSED=0",
+    "-DHEAD_SHARDS=4",
+    "-DHEAD_CHUNK=49152",
+    "-I/opt/opi-lab/restored-slim3-20261017/board-runtime/usr/include",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-vlm-quality-20261027/vit-full-r1/tower_fast_probe.c",
+    "-L/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-Wl,-rpath-link,/opt/opi-lab/restored-slim3-20261017/board-runtime/lib",
+    "-lNBGlinker",
+    "-lVIPhal",
+    "-lm",
+    "-o",
+    "/mnt/f/Files/OPi-Lab/repos/OragnePi-3W_ForVLM/research/intern-vlm-quality-20261027/vit-full-r1/tower-fast-probe"
+  ],
+  "sha256": "7629673fa482d12882246778482616c92cd41c802c88e27cc683ea8cafd2acc0"
+}

@@ -1,0 +1,42 @@
+# /etc/systemd/system/opi-vlm-model.service
+[Unit]
+Description=SmolVLM 256M CPU inference
+After=network.target
+
+[Service]
+User=opi-vlm
+Group=opi-vlm
+WorkingDirectory=/opt/opi-vlm
+ExecStart=/opt/opi-vlm/bin/llama-server --model /opt/opi-vlm/models/SmolVLM-256M-Instruct-Q8_0.gguf --mmproj /opt/opi-vlm/models/mmproj-SmolVLM-256M-Instruct-f16.gguf --alias smolvlm-256m --host 127.0.0.1 --port 8081 --ctx-size 4096 --parallel 1 --threads 2 --threads-batch 2 --n-gpu-layers 0 --no-mmproj-offload --cache-ram 128 --no-context-shift
+CPUAffinity=6 7
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+MemoryMax=4G
+
+[Install]
+WantedBy=multi-user.target
+
+# /etc/systemd/system/opi-vlm-model.service.d/model.conf
+[Service]
+MemoryMax=4G
+ExecStart=
+ExecStart=/opt/opi-vlm/bin/llama-server --model /opt/opi-vlm/models/qwen25-15b-q4/qwen2.5-1.5b-instruct-q4_k_m.gguf --alias qwen25-15b-q4 --host 127.0.0.1 --port 8081 --ctx-size 4096 --parallel 1 --threads 2 --threads-batch 2 --n-gpu-layers 0 --no-mmproj-offload --cache-ram 128 --no-context-shift
+opi-vlm-model.service
+● ├─opi-vlm-web.service
+● └─multi-user.target
+●   └─graphical.target
+  File: /etc/systemd/system/opi-vlm-model.service.d/model.conf
+  Size: 332       	Blocks: 8          IO Block: 4096   regular file
+Device: b301h/45825d	Inode: 522539      Links: 1
+Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2026-10-10 01:28:28.103206948 +0000
+Modify: 2026-10-10 01:28:28.103206948 +0000
+Change: 2026-10-10 01:28:28.103206948 +0000
+ Birth: 2026-10-10 01:28:28.103206948 +0000
+/etc/systemd/system/opi-vlm-model.service:9:ExecStart=/opt/opi-vlm/bin/llama-server --model /opt/opi-vlm/models/SmolVLM-256M-Instruct-Q8_0.gguf --mmproj /opt/opi-vlm/models/mmproj-SmolVLM-256M-Instruct-f16.gguf --alias smolvlm-256m --host 127.0.0.1 --port 8081 --ctx-size 4096 --parallel 1 --threads 2 --threads-batch 2 --n-gpu-layers 0 --no-mmproj-offload --cache-ram 128 --no-context-shift
+/etc/systemd/system/opi-vlm-model.service.d/model.conf:4:ExecStart=/opt/opi-vlm/bin/llama-server --model /opt/opi-vlm/models/qwen25-15b-q4/qwen2.5-1.5b-instruct-q4_k_m.gguf --alias qwen25-15b-q4 --host 127.0.0.1 --port 8081 --ctx-size 4096 --parallel 1 --threads 2 --threads-batch 2 --n-gpu-layers 0 --no-mmproj-offload --cache-ram 128 --no-context-shift

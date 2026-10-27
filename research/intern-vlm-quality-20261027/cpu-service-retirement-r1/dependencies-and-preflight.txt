@@ -1,0 +1,41 @@
+# /etc/systemd/system/opi-vlm-web.service
+[Unit]
+Description=Orange Pi visual chat web UI
+After=network.target opi-vlm-model.service
+Wants=opi-vlm-model.service
+
+[Service]
+User=opi-vlm
+Group=opi-vlm
+WorkingDirectory=/opt/opi-vlm
+ExecStart=/usr/bin/python3 /opt/opi-vlm/app/server.py --host 0.0.0.0 --port 8080
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+MemoryMax=256M
+
+[Install]
+WantedBy=multi-user.target
+
+# /etc/systemd/system/opi-vlm-web.service.d/model.conf
+[Service]
+ExecStart=
+ExecStart=/usr/bin/python3 /opt/opi-vlm/app/server.py --host 0.0.0.0 --port 8080 --control-port 8083
+Requires=system.slice -.mount sysinit.target
+Wants=tmp.mount opi-vlm-model.service
+ActiveState=active
+LISTEN 0      5            0.0.0.0:8080      0.0.0.0:*    users:(("python3",pid=1019,fd=3))
+{
+  "eligible": false,
+  "reasons": [
+    "insufficient available memory for measured models plus embedding/reserve"
+  ],
+  "available_bytes": 2438074368,
+  "required_bytes": 2854248896,
+  "swap_free_bytes": 316559360,
+  "background_service": "inactive",
+  "driver_bytes": 0
+}

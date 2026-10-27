@@ -1,3 +1,13 @@
+## 2026-10-27：224双NPU并发与120题VQA已完成，500ms仍未达到
+
+- 当前无本轮板端任务运行；r2并发和r4新鲜度均完成，最终driver0。最终ViT+Intern均NPU；CPU仅预处理/搬运/控制，不恢复已退役CPU Qwen。
+- 总报告research/intern-vlm-quality-20261027/NPU_224_SOCIAL120_REPORT.md。224×224→64视觉token 120热样本P50 1.329s；120题严格61/120，人数2/20，互动5/15；非官方VQAv2分数。图集vqa-home120-r1/GALLERY.html；原始输出、参考、评分完整保存。旧112/224的60题报告保留，不伪称120配对。
+- token：system正文30+模板5=35，实际reuse32；动态视觉64+文字4–17，模板/边界11，总114–127、新82–95，输出3–32。120题LLM TTFT P50 .307758s，decode16.5047t/s；分段串行质量评测不冒充真实共驻端到端。
+- r2同工作量两NPU并发：LLM alone TTFT308.2ms/decode16.44；视觉2s周期TTFT433.6ms/decode10.82，视觉2.095s，跳过9tick。最高47.3°C、最低available594MiB，有swap、无OOM；非语音/RAG长稳。
+- r2曾误用32/34秒旧图；r4按采集时间TTL4s，12/12派发通过；等待新图最大2.316s，回答完成帧龄仍可4.689s，动作前再检查未实现。r3预检内存不足无模型加载；r4日志因WSL后台退出而独立回收，终态完整，勿重复启动。
+- 224优化：A8更慢且误差最高33%；W8卷积/affine两次编译不支持；I16容器存原W8码的等价卷积编译和板测通过、两图单层同字节，但46.5→50.8–51.0ms且显存增加，已淘汰。默认/质量best不变。500ms仍未达，继续调查支持的矩阵布局/融合，不能只减输入冒充加速。
+- 所有源代码以Windows为权威，Mac只镜像报告。新版本指针VERSION_TRACKING.json；GitHub同步以本次独立回执为准。原始模型/f32不入Git但保留Windows；板端副本仅SHA一致后删除。
+
 ## 2026-10-27：r11完整M64替换评测已完成，未达到500ms
 
 - 当前板端测试已结束，controller rc0；117计时、36自然、18完整logits，3次driver0，post-health alloc/free1077/1077。报告research/intern-prefill100-20261025/main-m64-r11/full-test/REPORT.md；tag exp/intern-main-m64-r11-20261026。此前在测章节为历史快照，勿重跑。

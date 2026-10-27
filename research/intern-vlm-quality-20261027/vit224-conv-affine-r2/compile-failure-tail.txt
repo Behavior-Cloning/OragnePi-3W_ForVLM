@@ -1,0 +1,151 @@
+18 ...[0m
+[36mD 14:11:29 Acuity output shape(multiply): (1 257 4096)[0m
+[36mD 14:11:29 Tensor @Mul_12_output_0_18:out0 type: float32(fake float16)[0m
+[36mD 14:11:29 Process Mul_13_output_0_13 ...[0m
+[36mD 14:11:29 Acuity output shape(multiply): (1 257 4096)[0m
+[36mD 14:11:29 Tensor @Mul_13_output_0_13:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 14:11:29 Process reshape_94_dtype_converter_112 ...[0m
+[36mD 14:11:29 Acuity output shape(dtype_converter): (1 257 4096)[0m
+[36mD 14:11:29 Tensor @reshape_94_dtype_converter_112:out0 type: float32(fake asymmetric_affine)[0m
+[36mD 14:11:29 Process reshape_94 ...[0m
+[36mD 14:11:29 Acuity output shape(reshape): (1 1 257 4096)[0m
+[36mD 14:11:29 Tensor @reshape_94:out0 type: float32(fake asymmetric_affine)[0m
+[36mD 14:11:29 Process fullconnect_95_acuity_mark_perm_130 ...[0m
+[36mD 14:11:29 Acuity output shape(permute): (1 4096 1 257)[0m
+[36mD 14:11:29 Tensor @fullconnect_95_acuity_mark_perm_130:out0 type: float32(fake asymmetric_affine)[0m
+[36mD 14:11:29 Process fullconnect_95 ...[0m
+[36mD 14:11:29 Acuity output shape(convolution): (1 1024 1 257)[0m
+[36mD 14:11:29 Tensor @fullconnect_95:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 14:11:29 Process reshape_96_acuity_mark_perm_131 ...[0m
+[36mD 14:11:29 Acuity output shape(permute): (1 1 257 1024)[0m
+[36mD 14:11:29 Tensor @reshape_96_acuity_mark_perm_131:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 14:11:29 Process reshape_96 ...[0m
+[36mD 14:11:29 Acuity output shape(reshape): (1 257 1024)[0m
+[36mD 14:11:29 Tensor @reshape_96:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 14:11:29 Process Mul_14_output_0_3 ...[0m
+[36mD 14:11:29 Acuity output shape(multiply): (1 257 1024)[0m
+[36mD 14:11:29 Tensor @Mul_14_output_0_3:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 14:11:29 Process hidden_out_1 ...[0m
+[36mD 14:11:29 Acuity output shape(add): (1 257 1024)[0m
+[36mD 14:11:29 Tensor @hidden_out_1:out0 type: float32(fake dynamic_fixed_point)[0m
+[36mD 14:11:29 Process attach_hidden_out/out0_0 ...[0m
+[36mD 14:11:29 Acuity output shape(output): (1 257 1024)[0m
+[36mD 14:11:29 Tensor @attach_hidden_out/out0_0:out0 type: float32(fake dynamic_fixed_point)[0m
+[32mI 14:11:29 Build main_graph complete.[0m
+[36mD 14:11:29 Optimizing network with merge_mark_permute[0m
+[36mD 14:11:29 Optimizing network with insert_reshape_for_layernorm, c2drv_adjust_extra_io, c2drv_nhwc_resize, conv_1xn_transform, proposal_opt, c2drv_convert_axis, c2drv_convert_shape, c2drv_convert_array, c2drv_cast_dtype, c2drv_trans_data, c2drv_custom_opt[0m
+[32mI 14:11:29 Building data ...[0m
+[32mI 14:11:30 Packing data ...[0m
+[36mD 14:11:30 Packing Constant_10_output_0_36 ...[0m
+[36mD 14:11:30 Quantize @Constant_10_output_0_36:data to dynamic_fixed_point.[0m
+[36mD 14:11:30 Packing Constant_11_output_0_25 ...[0m
+[36mD 14:11:30 Packing Constant_12_output_0_17 ...[0m
+[36mD 14:11:30 Quantize @Constant_12_output_0_17:data to dynamic_fixed_point.[0m
+[36mD 14:11:30 Packing Constant_1_output_0_82 ...[0m
+[36mD 14:11:30 Packing Constant_5_output_0_39 ...[0m
+[36mD 14:11:30 Quantize @Constant_5_output_0_39:data to dynamic_fixed_point.[0m
+[36mD 14:11:30 Packing Constant_7_output_0_61 ...[0m
+[36mD 14:11:30 Packing Constant_8_output_0_50 ...[0m
+[36mD 14:11:30 Packing Constant_9_output_0_52 ...[0m
+[36mD 14:11:30 Quantize @Constant_9_output_0_52:data to dynamic_fixed_point.[0m
+[36mD 14:11:30 Packing Constant_output_0_80 ...[0m
+[36mD 14:11:30 Packing Mul_2_output_0_65_Add_1_output_0_56 ...[0m
+[36mD 14:11:30 Packing Mul_7_output_0_34_Add_8_output_0_29 ...[0m
+[36mD 14:11:30 Packing fullconnect_101 ...[0m
+[36mD 14:11:30 Quantize @fullconnect_101:bias to perchannel_symmetric_affine.[0m
+[36mD 14:11:30 Quantize @fullconnect_101:weight to perchannel_symmetric_affine.[0m
+[36mD 14:11:30 Packing fullconnect_104 ...[0m
+[36mD 14:11:30 Quantize @fullconnect_104:bias to perchannel_symmetric_affine.[0m
+[36mD 14:11:30 Quantize @fullconnect_104:weight to perchannel_symmetric_affine.[0m
+[36mD 14:11:30 Packing fullconnect_107 ...[0m
+[36mD 14:11:30 Quantize @fullconnect_107:bias to perchannel_symmetric_affine.[0m
+[36mD 14:11:30 Quantize @fullconnect_107:weight to perchannel_symmetric_affine.[0m
+[36mD 14:11:30 Packing fullconnect_110 ...[0m
+[36mD 14:11:30 Quantize @fullconnect_110:bias to perchannel_symmetric_affine.[0m
+[36mD 14:11:30 Quantize @fullconnect_110:weight to perchannel_symmetric_affine.[0m
+[36mD 14:11:30 Packing fullconnect_95 ...[0m
+[36mD 14:11:30 Quantize @fullconnect_95:bias to perchannel_symmetric_affine.[0m
+[36mD 14:11:30 Quantize @fullconnect_95:weight to perchannel_symmetric_affine.[0m
+[36mD 14:11:30 Packing fullconnect_98 ...[0m
+[36mD 14:11:30 Quantize @fullconnect_98:bias to perchannel_symmetric_affine.[0m
+[36mD 14:11:30 Quantize @fullconnect_98:weight to perchannel_symmetric_affine.[0m
+[36mD 14:11:30 Packing v_blk_0_ls1_weight_8 ...[0m
+[36mD 14:11:30 Quantize @v_blk_0_ls1_weight_8:data to dynamic_fixed_point.[0m
+[36mD 14:11:30 Packing v_blk_0_ls2_weight_4 ...[0m
+[36mD 14:11:30 Quantize @v_blk_0_ls2_weight_4:data to dynamic_fixed_point.[0m
+[32mI 14:11:30 Saving data to /work/conv-affine-r2-l00/export/decoder.export.data[0m
+[32mI 14:11:30 Export ovxlib case with version 1.1.83[0m
+[32mI 14:11:30 Save vx network source file to /work/conv-affine-r2-l00/export/vnn_decoder.c[0m
+[32mI 14:11:30 Save vx network source file to /work/conv-affine-r2-l00/export/vnn_decoder.h[0m
+[32mI 14:11:30 Save vx network source file to /work/conv-affine-r2-l00/export/vnn_post_process.c[0m
+[32mI 14:11:30 Save vx network source file to /work/conv-affine-r2-l00/export/vnn_post_process.h[0m
+[32mI 14:11:30 Save vx network source file to /work/conv-affine-r2-l00/export/vnn_pre_process.c[0m
+[32mI 14:11:30 Save vx network source file to /work/conv-affine-r2-l00/export/vnn_pre_process.h[0m
+[32mI 14:11:30 Save vx network source file to /work/conv-affine-r2-l00/export/vnn_global.h[0m
+[32mI 14:11:30 Save vx network source file to /work/conv-affine-r2-l00/export/main.c[0m
+[32mI 14:11:30 Save vx network source file to /work/conv-affine-r2-l00/export/BUILD[0m
+[32mI 14:11:30 Save vx network source file to /work/conv-affine-r2-l00/export/decoder.vcxproj[0m
+[32mI 14:11:30 Save vx network source file to /work/conv-affine-r2-l00/export/decoder.2012.vcxproj[0m
+[32mI 14:11:30 Save vx network source file to /work/conv-affine-r2-l00/export/makefile.linux[0m
+[32mI 14:11:30 Save vx network source file to /work/conv-affine-r2-l00/export/.cproject[0m
+[32mI 14:11:30 Save vx network source file to /work/conv-affine-r2-l00/export/.project[0m
+[36mD 14:11:30 Generate fake input /work/conv-affine-r2-l00/export/hidden_85_0.tensor[0m
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_decoder.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+vnn_decoder.c: In function ‘vnn_CreateDecoder’:
+vnn_decoder.c:315:35: warning: pointer targets in assignment from ‘uint32_t *’ {aka ‘unsigned int *’} to ‘const int32_t *’ {aka ‘const int *’} differ in signedness [-Wpointer-sign]
+  315 |     node[0]->nn_param.reduce.axis = axis_list_1;
+      |                                   ^
+vnn_decoder.c:366:35: warning: pointer targets in assignment from ‘uint32_t *’ {aka ‘unsigned int *’} to ‘const int32_t *’ {aka ‘const int *’} differ in signedness [-Wpointer-sign]
+  366 |     node[4]->nn_param.reduce.axis = axis_list_2;
+      |                                   ^
+vnn_decoder.c:969:36: warning: pointer targets in assignment from ‘uint32_t *’ {aka ‘unsigned int *’} to ‘const int32_t *’ {aka ‘const int *’} differ in signedness [-Wpointer-sign]
+  969 |     node[49]->nn_param.reduce.axis = axis_list_3;
+      |                                    ^
+vnn_decoder.c:1020:36: warning: pointer targets in assignment from ‘uint32_t *’ {aka ‘unsigned int *’} to ‘const int32_t *’ {aka ‘const int *’} differ in signedness [-Wpointer-sign]
+ 1020 |     node[53]->nn_param.reduce.axis = axis_list_4;
+      |                                    ^
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_pre_process.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+vnn_pre_process.c: In function ‘_handle_multiple_inputs’:
+vnn_pre_process.c:639:11: warning: variable ‘p1’ set but not used [-Wunused-but-set-variable]
+  639 |     char *p1 = NULL;
+      |           ^~
+At top level:
+vnn_pre_process.c:599:13: warning: ‘_get_image_handle_buffer’ defined but not used [-Wunused-function]
+  599 | static void _get_image_handle_buffer
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c main.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -c vnn_post_process.c
+cc1: warning: command line option ‘-std=c++11’ is valid for C++/ObjC++ but not for C
+gcc -Wall -std=c++0x -I. -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/CL -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/VX -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/ovxlib -I/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/include/jpeg -D__linux__ -DLINUX -O3 -O3  vnn_decoder.o vnn_pre_process.o main.o vnn_post_process.o -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/lib/x64_linux/vsim -lOpenVX -lOpenVXU -lCLC -lVSC -lGAL -lovxlib -lEmulator -lvdtproxy -L/root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/../common/lib/ -lvdtproxy /root/Vivante_IDE/VivanteIDE5.11.0/cmdtools/vsimulator/../common/lib/libjpeg.a -o gen_nbg
+E [vsi_nn_graph.c:setup_node:551]Check node[11] DATACONVERT fail
+E [vnn_decoder.c:vnn_CreateDecoder:2582]CHECK STATUS(-1:A generic error code, used when no other describes the error.)
+E [main.c:vnn_CreateNeuralNetwork:198]CHECK PTR 198
+E [main.c:main:232]CHECK PTR 232
+[31mE 14:11:32 Fatal model generation error: 65280[0m
+[33mW 14:11:32 ----------------Error(1),Warning(0)----------------[0m
+[31mE 14:11:32 ('Fatal model generation error: 65280', 'nbg_generate')[0m
+[33mW 14:11:32 ----------------Error(1),Warning(0)----------------[0m
+Traceback (most recent call last):
+  File "acuitylib/app/exporter/ovxlib_case/casegenerator.py", line 327, in acuitylib.app.exporter.ovxlib_case.casegenerator.CaseGenerator._gen_nb_file
+  File "acuitylib/acuitylog.py", line 264, in acuitylib.acuitylog.AcuityLog.e
+acuitylib.acuityerror.AcuityError: ('Fatal model generation error: 65280', 'nbg_generate')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/acuity-toolkit-whl-6.30.22/bin/pegasus.py", line 131, in <module>
+    main(args)
+  File "/root/acuity-toolkit-whl-6.30.22/bin/pegasus.py", line 116, in main
+    ret = exporter.execute(args)
+  File "acuitylib/app/exporter/commands.py", line 220, in acuitylib.app.exporter.commands.execute
+  File "acuitylib/vsi_nn.py", line 738, in acuitylib.vsi_nn.VSInn.export_ovxlib
+  File "acuitylib/interface/exporter.py", line 84, in acuitylib.interface.exporter.OvxlibExporter.export
+  File "acuitylib/app/exporter/ovxlib_case/export_ovxlib.py", line 113, in acuitylib.app.exporter.ovxlib_case.export_ovxlib.ExportOvxlib.run
+  File "acuitylib/app/exporter/ovxlib_case/casegenerator.py", line 409, in acuitylib.app.exporter.ovxlib_case.casegenerator.CaseGenerator.generate
+  File "acuitylib/app/exporter/ovxlib_case/casegenerator.py", line 359, in acuitylib.app.exporter.ovxlib_case.casegenerator.CaseGenerator._gen_special_case
+  File "acuitylib/app/exporter/ovxlib_case/casegenerator.py", line 338, in acuitylib.app.exporter.ovxlib_case.casegenerator.CaseGenerator._gen_nb_file
+  File "acuitylib/acuitylog.py", line 260, in acuitylib.acuitylog.AcuityLog.e
+acuitylib.acuityerror.AcuityError: (AcuityError('Fatal model generation error: 65280', 'nbg_generate'), None)

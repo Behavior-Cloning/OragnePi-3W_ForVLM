@@ -22,10 +22,12 @@
     "112-neighbor-adapter-host-only"
   ],
   "pending": [
-    "same-fixture INT16 vs W8 quality attribution",
-    "112 quality repair, no default promotion",
-    "224 spatial and expression quality improvement",
-    "true co-resident JPEG end-to-end plus voice/RAG stability"
+    "224 tower target500ms not achieved; next investigate supported graph layout/fusion, keep224 inputs and quality checks",
+    "same-fixture unquantized/INT16 vs W8 quality attribution",
+    "people counting / spatial / interaction quality repair, no default promotion",
+    "112 quality repair, preserve independent version",
+    "co-resident ViT+Intern plus voice/RAG long stability",
+    "revalidate frame freshness at action completion, not only language dispatch"
   ],
   "vision_q8_repack_candidate": {
     "path": "vision-repack-r1",
@@ -100,13 +102,48 @@
     "report": "vit-full-r1/neoncopy-r1/REPORT.md",
     "status": "no_clear_speed_gain_not_promoted"
   },
-  "co_resident_blocker": "Legacy CPU Qwen retired by user authorization; memory preflight remains required; this run used sequential NPU stages.",
+  "co_resident_blocker": "No current blocker for short co-resident test; r2 and r4 completed. Memory headroom remains tight with swap; voice/RAG long stability still untested.",
   "vision_npu_20261027_followup": {
     "112_native16": "vision112-npu16-r1; 297ms, VQA0/6; not default",
     "224_w8": "vision224-w8-npu-r1; 1314ms, same-input baseline1428ms, VQA5/6; candidate not default",
     "resident_end_to_end": false
   },
   "latest_home_vqa": {
+    "id": "vqa-home120-r1",
+    "report": "vqa-home120-r1/REPORT.md",
+    "gallery": "vqa-home120-r1/GALLERY.html",
+    "frozen_cases_sha256": "09095af365926665783467a8750c797fba5d8d60336c689f6660333e689668f2",
+    "cases": 120,
+    "unique_images": 110,
+    "backend": "ViT NPU and Intern NPU, sequential resident stages for quality benchmark",
+    "resolution": 224,
+    "visual_tokens": 64,
+    "system_body": 30,
+    "system_template": 5,
+    "system_total": 35,
+    "reused_system_tokens": 32,
+    "dynamic_text_tokens": [
+      4,
+      17
+    ],
+    "dynamic_template_boundaries": 11,
+    "actual_new_tokens": [
+      82,
+      95
+    ],
+    "output_tokens": [
+      3,
+      32
+    ],
+    "strict_correct": 61,
+    "vision_wall_p50_s": 1.3292096084915102,
+    "language_ttft_p50_s": 0.307758,
+    "decode_p50_tps": 16.5047135,
+    "quality_qualified": false,
+    "default_promoted": false
+  },
+  "deployment_constraint": "Final vision tower and Intern language inference must both run on board NPU; CPU-only model measurements are historical/diagnostic, not final performance.",
+  "previous_home_vqa_60": {
     "id": "vqa-expanded-w8-r1",
     "report": "vqa-expanded-w8-r1/REPORT.md",
     "gallery": "vqa-expanded-w8-r1/GALLERY.html",
@@ -145,6 +182,54 @@
     },
     "all_models_closed_driver0": true,
     "concurrent_residency": false,
+    "default_promoted": false
+  },
+  "vision_npu_co_resident": {
+    "run": "vit224-concurrent-r2",
+    "report": "vit224-concurrent-r2/REPORT.md",
+    "actual_co_resident_inference_verified": true,
+    "vision_period_seconds": [
+      5,
+      2
+    ],
+    "llm_alone_decode_p50": 16.4407,
+    "period2_decode_p50": 10.8175,
+    "period2_ttft_p50_s": 0.4336205,
+    "system_total": 35,
+    "dynamic_image_tokens": 64,
+    "dynamic_text_tokens": [
+      4,
+      15
+    ],
+    "actual_new_tokens": [
+      82,
+      93
+    ],
+    "output_fixed_feedback_tokens": 32,
+    "audio_rag_included": false,
+    "long_term_certified": false,
+    "quality_qualified": false,
+    "default_promoted": false,
+    "stale_cache_issue": "r2 first natural requests used32/34s old completions; dispatch freshness addressed separately in r4"
+  },
+  "freshness_followup": {
+    "run": "vit224-freshness-r4",
+    "report": "vit224-freshness-r4/REPORT.md",
+    "natural_requests": 12,
+    "capture_time_ttl_s": 4,
+    "all_dispatch_ages_passed": true,
+    "max_dispatch_age_s": 3.6103502369951457,
+    "max_response_end_age_s": 4.6890053729875945,
+    "action_end_freshness_gate_implemented": false,
+    "driver_bytes_final": 0
+  },
+  "optimization_screen_224_500ms": {
+    "status": "not_achieved",
+    "baseline_whole_tower_wall_p50_s": 1.3292096084915102,
+    "a8": "vit224-a8-screen-r1: rejected slower and inaccurate",
+    "conv_w8": "vit224-conv-screen-r1: unsupported compilation",
+    "conv_affine": "vit224-conv-affine-r2: unsupported conversion",
+    "conv_widen": "vit224-conv-widen-r3: block00 byte-identical but9percent slower and more memory; rejected",
     "default_promoted": false
   }
 }

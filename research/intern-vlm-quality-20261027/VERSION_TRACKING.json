@@ -22,10 +22,10 @@
     "112-neighbor-adapter-host-only"
   ],
   "pending": [
-    "NPU vision deployment and true NPU VQA",
-    "learned/validated112 or earlymerge adapter",
-    "Q4/kernel profiles",
-    "full context+voice concurrency and longer VQA"
+    "same-fixture INT16 vs W8 quality attribution",
+    "112 quality repair, no default promotion",
+    "224 spatial and expression quality improvement",
+    "true co-resident JPEG end-to-end plus voice/RAG stability"
   ],
   "vision_q8_repack_candidate": {
     "path": "vision-repack-r1",
@@ -100,10 +100,51 @@
     "report": "vit-full-r1/neoncopy-r1/REPORT.md",
     "status": "no_clear_speed_gain_not_promoted"
   },
-  "co_resident_blocker": "CPU service active; awaiting user decision to stop/restore; live gate failed again",
+  "co_resident_blocker": "Legacy CPU Qwen retired by user authorization; memory preflight remains required; this run used sequential NPU stages.",
   "vision_npu_20261027_followup": {
     "112_native16": "vision112-npu16-r1; 297ms, VQA0/6; not default",
     "224_w8": "vision224-w8-npu-r1; 1314ms, same-input baseline1428ms, VQA5/6; candidate not default",
     "resident_end_to_end": false
+  },
+  "latest_home_vqa": {
+    "id": "vqa-expanded-w8-r1",
+    "report": "vqa-expanded-w8-r1/REPORT.md",
+    "gallery": "vqa-expanded-w8-r1/GALLERY.html",
+    "frozen_cases_sha256": "da699afb82011387b898b5d9fc52af1601a8842c10301fb46a858a6e6ad15b56",
+    "system_body": 30,
+    "system_template": 5,
+    "system_total": 35,
+    "dynamic_question_tokens": [
+      4,
+      17
+    ],
+    "dynamic_template_boundaries": 11,
+    "cases": 60,
+    "unique_images": 50,
+    "112": {
+      "visual_tokens": 16,
+      "actual_new": [
+        34,
+        47
+      ],
+      "correct": 18,
+      "vision_p50_s": 0.233651004,
+      "ttft_p50_s": 0.2984005,
+      "status": "quality_failed_experimental"
+    },
+    "224": {
+      "visual_tokens": 64,
+      "actual_new": [
+        82,
+        95
+      ],
+      "correct": 40,
+      "vision_p50_s": 1.3295988625000001,
+      "ttft_p50_s": 0.308598,
+      "status": "preferred_candidate_not_quality_qualified"
+    },
+    "all_models_closed_driver0": true,
+    "concurrent_residency": false,
+    "default_promoted": false
   }
 }

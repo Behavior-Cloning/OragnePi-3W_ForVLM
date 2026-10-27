@@ -1,7 +1,8 @@
 [Unit]
+# Legacy CPU stack retired; never autostart from an Intern deployment.
+ConditionPathExists=/opt/opi-vlm/enable-legacy-cpu-model
 Description=Orange Pi visual chat web UI
-After=network.target opi-vlm-model.service
-Wants=opi-vlm-model.service
+After=network.target
 
 [Service]
 User=opi-vlm

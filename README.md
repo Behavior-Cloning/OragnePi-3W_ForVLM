@@ -1,3 +1,5 @@
+> 当前版本：InternVL3-1B NPU。旧 CPU Qwen/网页部署已退役，见 [当前运行说明](docs/CURRENT_RUNTIME.md)。
+
 # Orange Pi Zero 3W 项目目录
 
 本目录是机器人项目的统一 Git 仓库：硬件调研、设计文档、源码、脚本和测试一起维护。

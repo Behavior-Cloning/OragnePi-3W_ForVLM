@@ -1,6 +1,7 @@
 [Unit]
+# Legacy CPU stack retired; never autostart from an Intern deployment.
+ConditionPathExists=/opt/opi-vlm/enable-legacy-cpu-model
 Description=Local bounded VLM model controller
-After=opi-vlm-model.service
 
 [Service]
 ExecStart=/usr/bin/python3 /opt/opi-vlm/app/control.py

@@ -41,6 +41,8 @@ def main():
     args = parser.parse_args()
     selected = json.loads(args.manifest.read_text())[args.model] if args.manifest else {
         'repository': 'ggml-org/SmolVLM-256M-Instruct-GGUF', 'revision': REVISION, 'files': FILES}
+    if args.model == 'qwen25-15b-q4' or selected.get('status') == 'retired':
+        parser.error('This historical model is retired and no longer downloaded')
     args.directory.mkdir(parents=True, exist_ok=True)
     lock = (args.directory / '.download.lock').open('w')
     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)

@@ -1,0 +1,64 @@
+{
+  "scope": "CPU vision encoder+projector only; no LLM/audio/RAG; preprocessing excluded; not VQA validation",
+  "rows": [
+    {
+      "phase": "fp16-before",
+      "load_ms": 437.188059,
+      "warmup_ms": 910.305468,
+      "hot_n": 10,
+      "p50_ms": 907.1831635000001,
+      "min_ms": 906.933246,
+      "max_ms": 907.747541
+    },
+    {
+      "phase": "q8-stock",
+      "load_ms": 249.54761,
+      "warmup_ms": 984.747345,
+      "hot_n": 10,
+      "p50_ms": 981.51604,
+      "min_ms": 981.358665,
+      "max_ms": 981.759
+    },
+    {
+      "phase": "q8-repack",
+      "load_ms": 893.243234,
+      "warmup_ms": 477.464092,
+      "hot_n": 10,
+      "p50_ms": 475.24847950000003,
+      "min_ms": 474.953583,
+      "max_ms": 475.534794
+    },
+    {
+      "phase": "fp16-after",
+      "load_ms": 451.990159,
+      "warmup_ms": 913.918287,
+      "hot_n": 10,
+      "p50_ms": 910.502373,
+      "min_ms": 910.244664,
+      "max_ms": 910.937292
+    }
+  ],
+  "output_checks": {
+    "image1-fp16-after": {
+      "relative_l2": 0.0
+    },
+    "image1-q8-stock": {
+      "relative_l2": 0.08301416628773545
+    },
+    "image1-q8-repack": {
+      "relative_l2": 0.08224990770325151
+    },
+    "image2-fp16-after": {
+      "relative_l2": 0.0
+    },
+    "image2-q8-stock": {
+      "relative_l2": 0.07204776048391472
+    },
+    "image2-q8-repack": {
+      "relative_l2": 0.08196109185960146
+    }
+  },
+  "max_temperature_c": 59.396,
+  "max_rss_mib": 606.15234375,
+  "quality_note": "112 native shuffle16 original projector; VQA evaluated separately"
+}

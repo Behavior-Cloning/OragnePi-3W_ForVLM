@@ -820,3 +820,7 @@ CPU Qwen2.5-1.5B Q4 与旧 llama.cpp 网页服务不再维护，不作为回退�
 112 keep64沿用未经训练的通道适配投影，先前开发题0/6；本次未重跑VQA、未宣称质量修复、未晋升默认。仅两图短测，不是长期P95/压力稳定性。全测试传感器最高58.9°C，全phase最大进程RSS606.4MiB（包含FP16阶段，不能当作Q8专属内存）。
 
 输入与binary/模型SHA见assets.sha256，逐请求时间/资源见results，汇总见AUDIT.json。历史0.915秒是CPU FP16；NPU首块11ms不能与本次完整CPU Q8作全塔加速比。
+
+
+## 112 native16完成
+CPU Q8优化475ms，FP16约909ms；原生16路径在两图六题FP16/Q8均0/6。同一WSL参考程序224/448对照5/6、6/6。非官方发布准确率，非板端NPU整链路。独立报告research/intern-vlm-quality-20261027/vision112-native16-r1/REPORT.md，保留112研究候选、不晋升默认。
